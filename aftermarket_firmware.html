@@ -293,16 +293,52 @@
       box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
     }
     
-    .hamburger-btn span {
-      width: 20px;
-      height: 2px;
-      background: currentColor;
+    .hamburger-btn .bun-top {
+      width: 24px;
+      height: 6px;
+      background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
+      border-radius: 10px 10px 0 0;
       transition: all 0.3s ease;
     }
     
-    .hamburger-btn.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
-    .hamburger-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .hamburger-btn .lettuce {
+      width: 26px;
+      height: 3px;
+      background: #32CD32;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .patty {
+      width: 24px;
+      height: 4px;
+      background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .cheese {
+      width: 26px;
+      height: 3px;
+      background: #FFD700;
+      border-radius: 1px;
+      transform: skewX(-5deg);
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .bun-bottom {
+      width: 24px;
+      height: 5px;
+      background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
+      border-radius: 0 0 6px 6px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
     
     .nav-drawer {
       position: fixed;
@@ -419,9 +455,11 @@
   <!-- Hamburger Menu -->
   <div class="hamburger-menu">
     <button class="hamburger-btn" id="hamburger-btn" onclick="toggleNav()">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span class="bun-top"></span>
+      <span class="lettuce"></span>
+      <span class="patty"></span>
+      <span class="cheese"></span>
+      <span class="bun-bottom"></span>
     </button>
   </div>
   
