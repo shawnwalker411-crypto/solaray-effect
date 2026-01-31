@@ -369,11 +369,11 @@
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>⚡ NAVIGATION</h3>
-    <a href="index.html">📊 Calculator</a>
+    <a href="index.html">⚡ Calculator</a>
     <a href="aftermarket_firmware.html">🔧 Firmware Guide</a>
+    <a href="electrical_setup.html">🔌 Electrical Setup</a>
     <a href="glossary.html" class="active">📖 Glossary</a>
-    <span class="nav-disabled">🏊 Mining Pools</span>
-    <a href="electrical_setup.html">⚡ Electrical Setup</a>
+    <a href="pools.html">🏊 Mining Pools</a>
   </nav>
   <div class="nav-overlay" id="nav-overlay" onclick="toggleNav()"></div>
 
@@ -389,6 +389,7 @@
       <a href="#basics">Mining Basics</a>
       <a href="#hardware">Hardware</a>
       <a href="#profitability">Profitability</a>
+      <a href="#payout-methods">Payout Methods</a>
       <a href="#electricity">Electricity</a>
       <a href="#scams" class="scam-link">⚠️ Common Scams</a>
     </nav>
@@ -494,6 +495,56 @@
         <div class="term-name">Efficiency (J/TH, W/MH)</div>
         <div class="term-def">Power consumption per unit of hashrate. Lower is better. A 25 J/TH miner uses less electricity than a 35 J/TH miner for the same hashrate — critical for profitability.</div>
         <div class="term-tip">💡 For home miners, efficiency often matters more than raw hashrate due to electricity costs.</div>
+      </div>
+    </section>
+    
+    <!-- Payout Methods -->
+    <section class="category" id="payout-methods">
+      <h2 class="category-title">💳 Payout Methods</h2>
+      
+      <div class="term" id="fpps">
+        <div class="term-name">FPPS (Full Pay Per Share)</div>
+        <div class="term-def">You get paid for every valid share you submit, plus your share of estimated transaction fees — regardless of whether the pool actually finds a block. The pool takes on all the variance risk. Most predictable income but pools charge higher fees to cover their risk.</div>
+        <div class="term-tip">💡 Best for home miners who want steady, predictable income.</div>
+      </div>
+      
+      <div class="term" id="pps">
+        <div class="term-name">PPS (Pay Per Share)</div>
+        <div class="term-def">You get paid for every valid share you submit based on the block reward only (no transaction fees). Consistent payouts but you miss out on transaction fee bonuses that can be significant during high-fee periods.</div>
+      </div>
+      
+      <div class="term" id="pps-plus">
+        <div class="term-name">PPS+ (Pay Per Share Plus)</div>
+        <div class="term-def">A hybrid model: PPS for the block reward (guaranteed per share) plus PPLNS for transaction fees (paid when blocks are found). Balances stability with bonus potential. Common on larger pools.</div>
+      </div>
+      
+      <div class="term" id="pplns">
+        <div class="term-name">PPLNS (Pay Per Last N Shares)</div>
+        <div class="term-def">You get paid based on your shares in the last N shares when the pool finds a block. If you mine consistently, you earn well. If you hop between pools, you may miss payouts. Rewards loyal miners, punishes pool hoppers. Usually lower fees than PPS methods.</div>
+        <div class="term-tip">💡 Good for miners who stay on one pool long-term.</div>
+      </div>
+      
+      <div class="term" id="tides">
+        <div class="term-name">TIDES (Transparent Index of Distinct Extended Shares)</div>
+        <div class="term-def">OCEAN pool's payout system. Non-custodial — you get paid directly from the coinbase transaction when the pool finds a block. More decentralized but higher variance since you only get paid when blocks are actually found.</div>
+      </div>
+      
+      <div class="term" id="solo">
+        <div class="term-name">Solo Mining</div>
+        <div class="term-def">Mining without a pool. You keep the entire block reward (currently ~3.125 BTC) if you find a block. The catch: with a single ASIC, you might wait years between rewards. It's a lottery. Popular with Bitaxe and NerdMiner owners who want to "hit the jackpot" rather than earn steady income.</div>
+        <div class="term-tip">💡 Only practical for coins with low difficulty or if you have significant hashrate.</div>
+      </div>
+      
+      <div class="term" id="merged-mining">
+        <div class="term-name">Merged Mining (AuxPoW)</div>
+        <div class="term-def">Mining two or more coins simultaneously using the same hashpower. For Scrypt miners, this means earning both Litecoin AND Dogecoin with the same work. No extra electricity cost. Most Scrypt pools do this automatically.</div>
+        <div class="term-tip">💡 If your pool supports merged mining, enable it — it's free extra income.</div>
+      </div>
+      
+      <div class="term" id="stale-shares">
+        <div class="term-name">Stale Shares</div>
+        <div class="term-def">Shares submitted after the pool has already moved to a new block. They're valid work but arrive too late to count. High latency (distance to pool server) increases stale shares. Using a North America pool if you're in North America reduces stales.</div>
+        <div class="term-tip">💡 Keep stale rate under 1%. If higher, try a pool with servers closer to you.</div>
       </div>
     </section>
     
