@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>North America Mining Pools | Sola Ray Effect</title>
+  <meta name="description" content="Mining pools with North America stratum servers for Bitcoin, Litecoin, Dogecoin, and Kaspa. Lower latency means fewer stale shares for home miners.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-teal-glow: rgba(0, 206, 209, 0.4);
+      --sola-gold: #D4AF37;
+      --sola-gold-glow: rgba(212, 175, 55, 0.3);
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --profit: #00e676;
+      --warning: #ff5252;
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    
+    .container { max-width: 1000px; margin: 0 auto; padding: 1.5rem; }
+    
+    /* ============================================
+       HAMBURGER MENU
+       ============================================ */
+    .hamburger-menu {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+    }
+    
+    .hamburger-btn {
+      background: var(--bg-card);
+      border: 2px solid var(--sola-teal);
+      color: var(--sola-teal);
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px var(--sola-teal-glow);
+    }
+    
+    .hamburger-btn:hover {
+      background: var(--sola-teal);
+      box-shadow: 0 0 20px var(--sola-teal-glow);
+    }
+    
+    .hamburger-btn .bun-top {
+      width: 24px;
+      height: 6px;
+      background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
+      border-radius: 10px 10px 0 0;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .lettuce {
+      width: 26px;
+      height: 3px;
+      background: #32CD32;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .patty {
+      width: 24px;
+      height: 4px;
+      background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .cheese {
+      width: 26px;
+      height: 3px;
+      background: #FFD700;
+      border-radius: 1px;
+      transform: skewX(-5deg);
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .bun-bottom {
+      width: 24px;
+      height: 5px;
+      background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
+      border-radius: 0 0 6px 6px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+    
+    .nav-drawer {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-right: 2px solid var(--sola-teal);
+      z-index: 999;
+      transition: left 0.3s ease;
+      padding: 80px 1.5rem 2rem;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-drawer.open { left: 0; }
+    
+    .nav-drawer h3 {
+      color: var(--sola-gold);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--sola-gold-glow);
+    }
+    
+    .nav-drawer a {
+      display: block;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    
+    .nav-drawer a:hover {
+      background: var(--bg-card);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    
+    .nav-drawer a.active {
+      background: rgba(0, 206, 209, 0.15);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+    
+    .nav-overlay.show { display: block; }
+    
+    /* ============================================
+       GLOSSARY DRAWER
+       ============================================ */
+    .glossary-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1100;
+    }
+    
+    .glossary-overlay.active { display: block; }
+    
+    .glossary-drawer {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      max-width: 90vw;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 2px solid var(--sola-gold);
+      z-index: 1101;
+      transition: right 0.3s ease;
+      padding: 2rem;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+      overflow-y: auto;
+    }
+    
+    .glossary-drawer.active { right: 0; }
+    
+    .glossary-drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .glossary-drawer-title {
+      color: var(--sola-gold);
+      font-size: 1.3rem;
+      margin: 0;
+    }
+    
+    .glossary-drawer-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    
+    .glossary-drawer-close:hover {
+      color: var(--sola-teal);
+      background: rgba(0, 206, 209, 0.1);
+    }
+    
+    .glossary-drawer-def {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    
+    .glossary-drawer-link {
+      display: inline-block;
+      color: var(--sola-teal);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    
+    .glossary-drawer-link:hover {
+      color: var(--sola-gold);
+    }
+    
+    .glossary-term {
+      color: var(--sola-teal);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .glossary-term:hover {
+      color: var(--sola-gold);
+    }
+    
+    /* ============================================
+       HEADER
+       ============================================ */
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+    
+    .page-title {
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+    
+    /* ============================================
+       INFO BOX
+       ============================================ */
+    .info-box {
+      background: rgba(0, 206, 209, 0.1);
+      border: 1px solid var(--sola-teal);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    
+    .info-box h4 {
+      color: var(--sola-teal);
+      margin-bottom: 0.5rem;
+    }
+    
+    .info-box p {
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    
+    /* ============================================
+       FILTER BAR
+       ============================================ */
+    .filter-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      backdrop-filter: blur(6px);
+    }
+    
+    .filter-bar label {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    
+    .filter-bar select {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .filter-bar select:focus {
+      outline: none;
+      border-color: var(--sola-teal);
+      box-shadow: 0 0 10px var(--sola-teal-glow);
+    }
+    
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(6px);
+    }
+    
+    .section-title {
+      font-size: 1.4rem;
+      color: var(--sola-gold);
+      margin-bottom: 0.5rem;
+    }
+    
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .subsection-title {
+      font-size: 1.1rem;
+      color: var(--sola-teal);
+      margin: 1.5rem 0 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .subsection-title:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+    
+    /* ============================================
+       POOL TABLES
+       ============================================ */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    
+    .pool-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    
+    .pool-table th {
+      text-align: left;
+      padding: 0.75rem;
+      background: var(--bg-secondary);
+      color: var(--sola-teal);
+      border-bottom: 2px solid var(--border-color);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    
+    .pool-table th:hover {
+      color: var(--sola-gold);
+    }
+    
+    .pool-table th::after {
+      content: ' ⇅';
+      opacity: 0.4;
+      font-size: 0.8rem;
+    }
+    
+    .pool-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+    
+    .pool-table tr:hover td {
+      background: rgba(0, 206, 209, 0.05);
+    }
+    
+    .pool-name {
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    
+    .pool-name a {
+      color: var(--sola-teal);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .pool-name a:hover {
+      color: var(--sola-gold);
+    }
+    
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-right: 0.25rem;
+    }
+    
+    .tag-free {
+      background: rgba(0, 230, 118, 0.2);
+      color: var(--profit);
+    }
+    
+    .tag-fee {
+      background: rgba(255, 152, 0, 0.2);
+      color: #ff9800;
+    }
+    
+    .tag-payout {
+      background: rgba(0, 206, 209, 0.2);
+      color: var(--sola-teal);
+    }
+    
+    .tag-recommended {
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--sola-gold);
+      border: 1px solid var(--sola-gold);
+    }
+    
+    .tag-solo {
+      background: rgba(156, 39, 176, 0.2);
+      color: #ce93d8;
+    }
+    
+    .notes {
+      font-size: 0.85rem;
+      max-width: 250px;
+    }
+    
+    /* ============================================
+       PAYOUT CHART
+       ============================================ */
+    .payout-chart {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    
+    .payout-chart th {
+      text-align: left;
+      padding: 0.75rem;
+      background: var(--bg-secondary);
+      color: var(--sola-teal);
+      border-bottom: 2px solid var(--border-color);
+    }
+    
+    .payout-chart td {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+    
+    .payout-chart tr:hover td {
+      background: rgba(0, 206, 209, 0.05);
+    }
+    
+    .payout-method {
+      color: var(--sola-gold);
+      font-weight: 500;
+    }
+    
+    .variance-low { color: var(--profit); }
+    .variance-med { color: #ff9800; }
+    .variance-high { color: var(--warning); }
+    
+    /* ============================================
+       DISCLAIMER
+       ============================================ */
+    .disclaimer {
+      background: rgba(255, 152, 0, 0.1);
+      border: 1px solid #ff9800;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .disclaimer strong {
+      color: #ff9800;
+    }
+    
+    /* ============================================
+       CTA SECTION
+       ============================================ */
+    .cta-section {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-top: 2rem;
+      backdrop-filter: blur(6px);
+    }
+    
+    .cta-section h3 {
+      color: var(--sola-gold);
+      margin-bottom: 0.5rem;
+    }
+    
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-teal-dark));
+      color: #000;
+      font-weight: 600;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--sola-teal-glow);
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--sola-teal-glow);
+    }
+    
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 2rem;
+    }
+    
+    footer a {
+      color: var(--sola-teal);
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      color: var(--sola-gold);
+    }
+    
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .pool-table {
+        font-size: 0.8rem;
+      }
+      .pool-table th, .pool-table td {
+        padding: 0.5rem;
+      }
+      .notes {
+        max-width: 150px;
+      }
+      .page-title {
+        font-size: 1.6rem;
+      }
+      .glossary-drawer {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <button class="hamburger-btn" id="hamburger-btn" onclick="toggleNav()">
+      <span class="bun-top"></span>
+      <span class="lettuce"></span>
+      <span class="patty"></span>
+      <span class="cheese"></span>
+      <span class="bun-bottom"></span>
+    </button>
+  </div>
+  
+  <nav class="nav-drawer" id="nav-drawer">
+    <h3>Navigation</h3>
+    <a href="index.html">⚡ Calculator</a>
+    <a href="aftermarket_firmware.html">🔧 Firmware Guide</a>
+    <a href="electrical_setup.html">🔌 Electrical Setup</a>
+    <a href="glossary.html">📖 Glossary</a>
+    <a href="pools.html" class="active">🏊 Mining Pools</a>
+  </nav>
+  
+  <div class="nav-overlay" id="nav-overlay" onclick="toggleNav()"></div>
+  
+  <!-- Glossary Drawer -->
+  <div class="glossary-overlay" id="glossary-overlay" onclick="closeGlossary()"></div>
+  <div class="glossary-drawer" id="glossary-drawer">
+    <div class="glossary-drawer-header">
+      <h3 class="glossary-drawer-title" id="glossary-term-title">Term</h3>
+      <button class="glossary-drawer-close" onclick="closeGlossary()">✕</button>
+    </div>
+    <p class="glossary-drawer-def" id="glossary-term-def">Definition goes here.</p>
+    <a href="glossary.html" class="glossary-drawer-link">View full glossary →</a>
+  </div>
+  
+  <div class="container">
+    <header>
+      <h1 class="page-title">North America Mining Pools</h1>
+      <p class="page-subtitle">Pools with USA/Canada stratum servers for lower latency</p>
+    </header>
+    
+    <!-- Why NA Pools -->
+    <div class="info-box">
+      <h4>Why Use a North America Pool?</h4>
+      <p><strong>Lower latency = fewer <span class="glossary-term" data-term="stale-shares">stale shares</span>.</strong> When your miner submits work, milliseconds matter. A server in Virginia vs one in China can be the difference between accepted and rejected shares. For home miners on standard internet, aim for pools with servers in the USA or Canada.</p>
+    </div>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <label for="algo-filter">Filter by algorithm:</label>
+      <select id="algo-filter" onchange="filterByAlgo()">
+        <option value="all">All Algorithms</option>
+        <option value="sha256">SHA-256 (Bitcoin)</option>
+        <option value="scrypt">Scrypt (Litecoin/Dogecoin)</option>
+        <option value="kheavyhash">kHeavyHash (Kaspa)</option>
+      </select>
+    </div>
+    
+    <!-- SHA-256 (Bitcoin) -->
+    <section class="section" id="sha256" data-algo="sha256">
+      <h2 class="section-title">₿ SHA-256 (Bitcoin)</h2>
+      <p class="section-subtitle">For S19, S21, Bitaxe, NerdMiner, and other SHA-256 miners</p>
+      
+      <h3 class="subsection-title">North America Pools</h3>
+      <div class="table-wrapper">
+        <table class="pool-table" id="btc-na-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('btc-na-table', 0)">Pool</th>
+              <th onclick="sortTable('btc-na-table', 1)">Fee</th>
+              <th onclick="sortTable('btc-na-table', 2)">Payout</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pool-name"><a href="https://luxor.tech/mining" target="_blank" rel="noopener">Luxor</a> <span class="tag tag-recommended">Recommended</span></td>
+              <td><span class="tag tag-free">0%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="fpps">FPPS</span></td>
+              <td class="notes">Seattle-based. Best for Loki/home miners. Works with LuxOS firmware. SOC 2 certified.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://foundrydigital.com/foundry-usa-pool/" target="_blank" rel="noopener">Foundry USA</a></td>
+              <td><span class="tag tag-fee">~2%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="fpps">FPPS</span></td>
+              <td class="notes">Largest North America pool (~30% network). Institutional focus, requires application.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://braiins.com/pool" target="_blank" rel="noopener">Braiins Pool</a></td>
+              <td><span class="tag tag-fee">2%</span> (0% with Braiins OS+)</td>
+              <td><span class="tag tag-payout glossary-term" data-term="fpps">FPPS</span></td>
+              <td class="notes">Oldest pool (est. 2010). Lightning payouts. Great firmware (Braiins OS+).</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://ocean.xyz" target="_blank" rel="noopener">OCEAN</a></td>
+              <td><span class="tag tag-free">0%</span> (1% TIDES)</td>
+              <td><span class="tag tag-payout glossary-term" data-term="tides">TIDES</span></td>
+              <td class="notes">Decentralized, non-custodial, no KYC. Backed by Jack Dorsey. Good for small miners.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://web.public-pool.io" target="_blank" rel="noopener">Public Pool</a></td>
+              <td><span class="tag tag-free">0%</span></td>
+              <td><span class="tag tag-solo">Solo</span></td>
+              <td class="notes">Zero fee <span class="glossary-term" data-term="solo">solo mining</span>. Open source. Great for Bitaxe/lottery miners.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://solo.ckpool.org" target="_blank" rel="noopener">CK Pool</a></td>
+              <td><span class="tag tag-fee">1-2%</span></td>
+              <td><span class="tag tag-solo">Solo</span></td>
+              <td class="notes">Established since 2014. Multiple Bitaxe block wins in 2024-2025.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 class="subsection-title">Worldwide Pools with North America Servers</h3>
+      <div class="table-wrapper">
+        <table class="pool-table" id="btc-ww-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('btc-ww-table', 0)">Pool</th>
+              <th onclick="sortTable('btc-ww-table', 1)">Fee</th>
+              <th onclick="sortTable('btc-ww-table', 2)">Payout</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pool-name"><a href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool</a></td>
+              <td><span class="tag tag-fee">2.5%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pps-plus">PPS+</span></td>
+              <td class="notes">China-based. Multi-coin (40+ coins). NA stratum: btc-na.f2pool.com</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://www.antpool.com/" target="_blank" rel="noopener">AntPool</a></td>
+              <td><span class="tag tag-free">0%</span> <span class="glossary-term" data-term="pplns">PPLNS</span> / <span class="tag tag-fee">4%</span> <span class="glossary-term" data-term="fpps">FPPS</span></td>
+              <td><span class="tag tag-payout">PPLNS/FPPS</span></td>
+              <td class="notes">Bitmain-owned. Huge hashrate. Has North America stratum.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://www.viabtc.com/" target="_blank" rel="noopener">ViaBTC</a></td>
+              <td><span class="tag tag-fee">2-4%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pps-plus">PPS+</span>/<span class="glossary-term" data-term="pplns">PPLNS</span></td>
+              <td class="notes">China-based. Multi-coin. Auto-convert feature. Has North America stratum.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- Scrypt (Litecoin/Dogecoin) -->
+    <section class="section" id="scrypt" data-algo="scrypt">
+      <h2 class="section-title">Ł Scrypt (Litecoin/Dogecoin)</h2>
+      <p class="section-subtitle">For L3+, L3++, L7, and other Scrypt miners. Most pools <span class="glossary-term" data-term="merged-mining">merge mine</span> LTC+DOGE.</p>
+      
+      <h3 class="subsection-title">North America Pools</h3>
+      <div class="table-wrapper">
+        <table class="pool-table" id="ltc-na-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('ltc-na-table', 0)">Pool</th>
+              <th onclick="sortTable('ltc-na-table', 1)">Fee</th>
+              <th onclick="sortTable('ltc-na-table', 2)">Payout</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pool-name"><a href="https://www.litecoinpool.org/" target="_blank" rel="noopener">LitecoinPool.org</a> <span class="tag tag-recommended">Recommended</span></td>
+              <td><span class="tag tag-fee">2%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pps">PPS</span></td>
+              <td class="notes">Longest-running LTC pool. Auto merge mines DOGE. Run by Litecoin dev (Pooler). US servers.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://litecoinpool.org/solo" target="_blank" rel="noopener">LiteSolo</a></td>
+              <td><span class="tag tag-fee">1%</span></td>
+              <td><span class="tag tag-solo">Solo</span></td>
+              <td class="notes">True solo merged mining (LTC+DOGE). No account needed. Runs on LitecoinPool infrastructure.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://prohashing.com/" target="_blank" rel="noopener">ProHashing</a></td>
+              <td><span class="tag tag-fee">4.99%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pps">PPS</span></td>
+              <td class="notes">USA-based. Pay out in any coin you want. Higher fee but flexible.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 class="subsection-title">Worldwide Pools with North America Servers</h3>
+      <div class="table-wrapper">
+        <table class="pool-table" id="ltc-ww-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('ltc-ww-table', 0)">Pool</th>
+              <th onclick="sortTable('ltc-ww-table', 1)">Fee</th>
+              <th onclick="sortTable('ltc-ww-table', 2)">Payout</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pool-name"><a href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool</a></td>
+              <td><span class="tag tag-fee">4%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pps">PPS</span></td>
+              <td class="notes">Multi-coin. Merged mining support. NA stratum: ltc-na.f2pool.com</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://www.viabtc.com/" target="_blank" rel="noopener">ViaBTC</a></td>
+              <td><span class="tag tag-fee">2%</span> <span class="glossary-term" data-term="pplns">PPLNS</span> / <span class="tag tag-fee">4%</span> <span class="glossary-term" data-term="pps-plus">PPS+</span></td>
+              <td><span class="tag tag-payout">PPLNS/PPS+</span></td>
+              <td class="notes">#1 LTC pool by hashrate. Merged mining (DOGE, BELLS). Has North America stratum.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- kHeavyHash (Kaspa) -->
+    <section class="section" id="kheavyhash" data-algo="kheavyhash">
+      <h2 class="section-title">◈ kHeavyHash (Kaspa)</h2>
+      <p class="section-subtitle">For KS3, KS5, and other Kaspa ASIC miners</p>
+      
+      <h3 class="subsection-title">North America Pools</h3>
+      <div class="table-wrapper">
+        <table class="pool-table" id="kas-na-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('kas-na-table', 0)">Pool</th>
+              <th onclick="sortTable('kas-na-table', 1)">Fee</th>
+              <th onclick="sortTable('kas-na-table', 2)">Payout</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pool-name"><a href="https://k1pool.com/pool/kas" target="_blank" rel="noopener">K1Pool</a> <span class="tag tag-recommended">Recommended</span></td>
+              <td><span class="tag tag-fee">1%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pplns">PPLNS</span></td>
+              <td class="notes">Dedicated USA stratum. Low fee. Good for North America miners.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 class="subsection-title">Worldwide Pools with North America Servers</h3>
+      <div class="table-wrapper">
+        <table class="pool-table" id="kas-ww-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('kas-ww-table', 0)">Pool</th>
+              <th onclick="sortTable('kas-ww-table', 1)">Fee</th>
+              <th onclick="sortTable('kas-ww-table', 2)">Payout</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pool-name"><a href="https://2miners.com/kas-mining-pool" target="_blank" rel="noopener">2Miners</a> <span class="tag tag-recommended">Recommended</span></td>
+              <td><span class="tag tag-fee">1%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pplns">PPLNS</span></td>
+              <td class="notes">Popular, good tutorials, Telegram bot monitoring. US server available.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://kaspa.herominers.com/" target="_blank" rel="noopener">HeroMiners</a></td>
+              <td><span class="tag tag-fee">0.9%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pps-plus">PPS+</span>/<span class="glossary-term" data-term="pplns">PPLNS</span></td>
+              <td class="notes">Lowest fee. Solo option available. Has US server.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool</a></td>
+              <td><span class="tag tag-fee">1%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pplns">PPLNS</span></td>
+              <td class="notes">Large pool, stable. Has North America stratum.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://www.viabtc.com/" target="_blank" rel="noopener">ViaBTC</a></td>
+              <td><span class="tag tag-fee">1%</span> Solo / <span class="tag tag-fee">2%</span> <span class="glossary-term" data-term="pplns">PPLNS</span> / <span class="tag tag-fee">4%</span> <span class="glossary-term" data-term="pps-plus">PPS+</span></td>
+              <td><span class="tag tag-payout">Multiple</span></td>
+              <td class="notes">Flexible payout options. Has North America stratum.</td>
+            </tr>
+            <tr>
+              <td class="pool-name"><a href="https://acc-pool.pw/kas/" target="_blank" rel="noopener">ACC-Pool</a></td>
+              <td><span class="tag tag-fee">1%</span></td>
+              <td><span class="tag tag-payout glossary-term" data-term="pplns">PPLNS</span></td>
+              <td class="notes">Multi-coin pool. Has US server.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- Payout Methods Chart -->
+    <section class="section">
+      <h2 class="section-title">📊 Payout Methods Explained</h2>
+      <p class="section-subtitle">Understanding how pools pay miners</p>
+      
+      <div class="table-wrapper">
+        <table class="payout-chart">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>How It Works</th>
+              <th>Variance</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="payout-method glossary-term" data-term="fpps">FPPS</td>
+              <td>Paid per share + estimated transaction fees, regardless of blocks found</td>
+              <td class="variance-low">Lowest</td>
+              <td>Steady income, predictable cash flow</td>
+            </tr>
+            <tr>
+              <td class="payout-method glossary-term" data-term="pps">PPS</td>
+              <td>Paid per share, block reward only (no transaction fees)</td>
+              <td class="variance-low">Low</td>
+              <td>Consistent payouts</td>
+            </tr>
+            <tr>
+              <td class="payout-method glossary-term" data-term="pps-plus">PPS+</td>
+              <td>PPS for block reward + PPLNS for transaction fees</td>
+              <td class="variance-med">Low-Medium</td>
+              <td>Balance of stability and bonus</td>
+            </tr>
+            <tr>
+              <td class="payout-method glossary-term" data-term="pplns">PPLNS</td>
+              <td>Paid based on shares in last N shares when block is found</td>
+              <td class="variance-med">Medium</td>
+              <td>Long-term miners, typically lower fees</td>
+            </tr>
+            <tr>
+              <td class="payout-method glossary-term" data-term="tides">TIDES</td>
+              <td>OCEAN's system — paid from coinbase when pool finds block</td>
+              <td class="variance-med">Medium-High</td>
+              <td>Decentralization advocates</td>
+            </tr>
+            <tr>
+              <td class="payout-method glossary-term" data-term="solo">Solo</td>
+              <td>Full block reward if YOU find the block, nothing otherwise</td>
+              <td class="variance-high">Highest</td>
+              <td>Lottery miners, large hashrate operations</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+      <strong>⚠️ Disclaimer:</strong> Pool information is provided for educational purposes only. Always do your own research before choosing a pool. Fees, payout methods, and server locations can change. The Sola Ray Effect is not affiliated with any pool listed and is not responsible for any losses. Verify current information on each pool's official website before connecting your miners.
+    </div>
+    
+    <!-- CTA -->
+    <div class="cta-section">
+      <h3>Ready to Calculate Your Profits?</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Now that you know which pools to use, see what you can make.</p>
+      <a href="index.html" class="cta-btn">⚡ Open Calculator</a>
+    </div>
+    
+    <footer>
+      <p>© 2026 The Sola Ray Effect</p>
+      <p style="margin-top: 0.5rem;"><a href="index.html">Calculator</a> · <a href="aftermarket_firmware.html">Firmware Guide</a> · <a href="electrical_setup.html">Electrical Setup</a> · <a href="glossary.html">Glossary</a></p>
+    </footer>
+  </div>
+  
+  <script>
+    // Glossary definitions
+    const GLOSSARY = {
+      'fpps': {
+        title: 'FPPS (Full Pay Per Share)',
+        definition: 'You get paid for every valid share you submit, plus your share of estimated transaction fees — regardless of whether the pool actually finds a block. The pool takes on all the variance risk. Most predictable income but pools charge higher fees to cover their risk.'
+      },
+      'pps': {
+        title: 'PPS (Pay Per Share)',
+        definition: 'You get paid for every valid share you submit based on the block reward only (no transaction fees). Consistent payouts but you miss out on transaction fee bonuses that can be significant during high-fee periods.'
+      },
+      'pps-plus': {
+        title: 'PPS+ (Pay Per Share Plus)',
+        definition: 'A hybrid model: PPS for the block reward (guaranteed per share) plus PPLNS for transaction fees (paid when blocks are found). Balances stability with bonus potential. Common on larger pools.'
+      },
+      'pplns': {
+        title: 'PPLNS (Pay Per Last N Shares)',
+        definition: 'You get paid based on your shares in the last N shares when the pool finds a block. If you mine consistently, you earn well. If you hop between pools, you may miss payouts. Rewards loyal miners, punishes pool hoppers. Usually lower fees than PPS methods.'
+      },
+      'tides': {
+        title: 'TIDES (Transparent Index of Distinct Extended Shares)',
+        definition: 'OCEAN pool\'s payout system. Non-custodial — you get paid directly from the coinbase transaction when the pool finds a block. More decentralized but higher variance since you only get paid when blocks are actually found.'
+      },
+      'solo': {
+        title: 'Solo Mining',
+        definition: 'You mine alone and keep the entire block reward (~3.125 BTC currently) if you find a block. The catch: with a single ASIC, you might never find one. It\'s a lottery. Popular with Bitaxe and NerdMiner owners who want to "hit the jackpot" rather than earn steady income.'
+      },
+      'merged-mining': {
+        title: 'Merged Mining (AuxPoW)',
+        definition: 'Mining two or more coins simultaneously using the same hashpower. For Scrypt miners, this means earning both Litecoin AND Dogecoin with the same work. No extra electricity cost. Most Scrypt pools do this automatically.'
+      },
+      'stale-shares': {
+        title: 'Stale Shares',
+        definition: 'Shares submitted after the pool has already moved to a new block. They\'re valid work but arrive too late to count. High latency (distance to pool server) increases stale shares. Using a North America pool if you\'re in North America reduces stales.'
+      }
+    };
+    
+    // Open glossary drawer
+    function openGlossary(term) {
+      const data = GLOSSARY[term];
+      if (data) {
+        document.getElementById('glossary-term-title').textContent = data.title;
+        document.getElementById('glossary-term-def').textContent = data.definition;
+        document.getElementById('glossary-drawer').classList.add('active');
+        document.getElementById('glossary-overlay').classList.add('active');
+      }
+    }
+    
+    // Close glossary drawer
+    function closeGlossary() {
+      document.getElementById('glossary-drawer').classList.remove('active');
+      document.getElementById('glossary-overlay').classList.remove('active');
+    }
+    
+    // Toggle navigation drawer
+    function toggleNav() {
+      const btn = document.getElementById('hamburger-btn');
+      const drawer = document.getElementById('nav-drawer');
+      const overlay = document.getElementById('nav-overlay');
+      
+      btn.classList.toggle('open');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('show');
+    }
+    
+    // Filter sections by algorithm
+    function filterByAlgo() {
+      const filter = document.getElementById('algo-filter').value;
+      const sections = document.querySelectorAll('[data-algo]');
+      
+      sections.forEach(section => {
+        if (filter === 'all' || section.dataset.algo === filter) {
+          section.style.display = 'block';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    }
+    
+    // Sort table by column
+    let sortDirections = {};
+    
+    function sortTable(tableId, colIndex) {
+      const table = document.getElementById(tableId);
+      const tbody = table.querySelector('tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      
+      // Toggle sort direction
+      if (!sortDirections[tableId]) sortDirections[tableId] = {};
+      sortDirections[tableId][colIndex] = !sortDirections[tableId][colIndex];
+      const ascending = sortDirections[tableId][colIndex];
+      
+      rows.sort((a, b) => {
+        let aVal = a.cells[colIndex].textContent.trim();
+        let bVal = b.cells[colIndex].textContent.trim();
+        
+        // Try to parse as number (for fees)
+        const aNum = parseFloat(aVal.replace(/[^0-9.-]/g, ''));
+        const bNum = parseFloat(bVal.replace(/[^0-9.-]/g, ''));
+        
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+          return ascending ? aNum - bNum : bNum - aNum;
+        }
+        
+        // String comparison
+        return ascending ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+      });
+      
+      rows.forEach(row => tbody.appendChild(row));
+    }
+    
+    // Setup glossary term clicks
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.glossary-term').forEach(el => {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          const term = this.getAttribute('data-term');
+          if (term) openGlossary(term);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
