@@ -191,6 +191,97 @@
     .nav-overlay.show { display: block; }
     
     /* ============================================
+       GLOSSARY DRAWER
+       ============================================ */
+    .glossary-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .glossary-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .glossary-drawer {
+      position: fixed;
+      top: 0; right: -400px;
+      width: 400px;
+      max-width: 90vw;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 2px solid var(--sola-gold);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .glossary-drawer.active {
+      right: 0;
+    }
+    
+    .glossary-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .glossary-header h3 {
+      color: var(--sola-gold);
+      margin: 0;
+    }
+    
+    .glossary-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .glossary-close:hover {
+      color: var(--sola-teal);
+    }
+    
+    .glossary-content {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    
+    .glossary-term-title {
+      color: var(--sola-teal);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .glossary-term-def {
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+    
+    .glossary-term {
+      color: var(--sola-teal);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    
+    .glossary-term:hover {
+      color: var(--sola-gold);
+    }
+    
+    /* ============================================
        PAGE HEADER
        ============================================ */
     .page-title {
@@ -763,10 +854,25 @@
     <a href="electrical_setup.html" class="active">⚡ Electrical Setup</a>
   </nav>
   <div class="nav-overlay" id="nav-overlay" onclick="toggleNav()"></div>
+  
+  <!-- Glossary Overlay -->
+  <div class="glossary-overlay" id="glossary-overlay" onclick="closeGlossary()"></div>
+  
+  <!-- Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer">
+    <div class="glossary-header">
+      <h3>📖 Glossary</h3>
+      <button class="glossary-close" onclick="closeGlossary()">✕</button>
+    </div>
+    <div class="glossary-content">
+      <div class="glossary-term-title" id="glossary-term-title">Term</div>
+      <div class="glossary-term-def" id="glossary-term-def">Definition</div>
+    </div>
+  </div>
 
   <div class="container">
     <h1 class="page-title">⚡ Electrical Setup for Home Mining</h1>
-    <p class="page-subtitle">What you need to know before plugging in your first ASIC</p>
+    <p class="page-subtitle">What you need to know before plugging in your first <span class="glossary-term" data-term="asic">ASIC</span></p>
     
     <!-- The Big Question -->
     <section class="section">
@@ -806,7 +912,7 @@
     <section class="section">
       <h2 class="section-title">🔌 Common Mining Outlets</h2>
       
-      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><a href="glossary.html#nema-5-15" style="color: var(--sola-gold); text-decoration: none;">NEMA 5-15 / 5-20</a></h3>
+      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><span class="glossary-term" data-term="nema515">NEMA 5-15 / 5-20</span></h3>
       <p style="margin-bottom: 0.25rem;">Standard 120V, 15–20A.</p>
       <p style="margin-bottom: 0.25rem;">Suitable only for <strong>Loki Kit–equipped miners</strong> or miners with <strong>maximum 1,500W continuous draw</strong>, meeting the <strong>80% rule</strong>.</p>
       <p>Dedicated circuit required. Not suitable for stock ASICs.</p>
@@ -815,7 +921,7 @@
         <li>20A circuit → 16A continuous → <strong>~1,920W max</strong> (but 1,500W is the safe real-world ceiling)</li>
       </ul>
       
-      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><a href="glossary.html#nema-6-20r" style="color: var(--sola-gold); text-decoration: none;">NEMA 6-20R</a></h3>
+      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><span class="glossary-term" data-term="nema620">NEMA 6-20R</span></h3>
       <p style="margin-bottom: 0.25rem;">240V, 20A.</p>
       <p style="margin-bottom: 0.25rem;"><strong>Minimum 12-gauge wire</strong>. Suitable for <strong>one high-power miner</strong>.</p>
       <p><strong>Maximum 3,840W continuous</strong>, meeting the <strong>80% rule</strong>.</p>
@@ -825,7 +931,7 @@
       </ul>
       <p>Common in garages and workshop installs.</p>
       
-      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem; margin-top: 1.5rem;"><a href="glossary.html#nema-l6-30r" style="color: var(--sola-gold); text-decoration: none;">NEMA L6-30R</a></h3>
+      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem; margin-top: 1.5rem;"><span class="glossary-term" data-term="nemal630">NEMA L6-30R</span></h3>
       <p style="margin-bottom: 0.25rem;">240V, 30A twist-lock receptacle. Prevents accidental disconnection.</p>
       <p style="margin-bottom: 0.25rem;"><strong>Minimum 10-gauge wire</strong>. Ideal for <strong>PDU-based setups</strong> running multiple miners.</p>
       <p><strong>Maximum 5,760W continuous</strong>, meeting the <strong>80% rule</strong>.</p>
@@ -865,7 +971,7 @@
     
     <!-- The 120V Option -->
     <section class="section">
-      <h2 class="section-title">🟣 The 120V Solution: Loki Kit</h2>
+      <h2 class="section-title">🟣 The 120V Solution: <span class="glossary-term" data-term="loki">Loki Kit</span></h2>
       <p>Don't have 240V where you want to mine? There's a workaround.</p>
       
       <div class="loki-highlight">
@@ -993,13 +1099,13 @@
       </div>
       
       <div class="warning-box">
-        <p><strong>⚠️ The <a href="glossary.html#80-percent-rule" style="color: var(--warning);">80% Rule</a>:</strong> Electrical code says continuous loads should use max 80% of circuit capacity. A 20A circuit = 16A continuous max. A 30A circuit = 24A continuous max. Size up if you're close.</p>
+        <p><strong>⚠️ The <span class="glossary-term" data-term="rule80">80% Rule</span>:</strong> Electrical code says continuous loads should use max 80% of circuit capacity. A 20A circuit = 16A continuous max. A 30A circuit = 24A continuous max. Size up if you're close.</p>
       </div>
     </section>
     
     <!-- PSU Section -->
     <section class="section">
-      <h2 class="section-title">🔌 <a href="glossary.html#psu" style="color: inherit; text-decoration: none;">Power Supply Units (PSUs)</a></h2>
+      <h2 class="section-title">🔌 <span class="glossary-term" data-term="psu">Power Supply Units (PSUs)</span></h2>
       <p>A PSU (Power Supply Unit) converts AC power from your wall outlet to DC power that your miner needs. Most ASIC miners come with a PSU, but replacements or upgrades may be needed.</p>
       
       <div class="warning-box">
@@ -1048,7 +1154,7 @@
     
     <!-- PDU Section -->
     <section class="section">
-      <h2 class="section-title">🔋 <a href="glossary.html#pdu" style="color: inherit; text-decoration: none;">Power Distribution Units (PDUs)</a></h2>
+      <h2 class="section-title">🔋 <span class="glossary-term" data-term="pdu">Power Distribution Units (PDUs)</span></h2>
       <p>A PDU (Power Distribution Unit) distributes electrical power from a single source to multiple devices. Think of it as an industrial-grade power strip designed for high-power equipment.</p>
       
       <div class="info-box">
@@ -1091,9 +1197,9 @@
       
       <p style="margin-top: 1rem;"><strong>Wiring Requirements:</strong></p>
       <ul class="checklist">
-        <li>Use correct gauge wire: <a href="glossary.html#awg" style="color: var(--text-secondary);">10 AWG</a> for 30A circuits, <a href="glossary.html#awg" style="color: var(--text-secondary);">12 AWG</a> for 20A circuits</li>
+        <li>Use correct gauge wire: <span class="glossary-term" data-term="awg">10 AWG</span> for 30A circuits, <span class="glossary-term" data-term="awg">12 AWG</span> for 20A circuits</li>
         <li>240V circuits require two hot wires + ground (no neutral)</li>
-        <li>Use <a href="glossary.html#double-pole" style="color: var(--text-secondary);">double-pole breakers</a> for 240V circuits</li>
+        <li>Use <span class="glossary-term" data-term="doublepole">double-pole breakers</span> for 240V circuits</li>
         <li>Obtain local permits for any new electrical work</li>
       </ul>
       
@@ -1113,7 +1219,7 @@
       </div>
       
       <div class="info-box" style="margin-top: 1rem;">
-        <p><strong>📚 <a href="glossary.html#nec" style="color: inherit; text-decoration: none;">National Electrical Code (NEC)</a>:</strong> All electrical work should comply with NFPA 70 (National Electrical Code). View the code at <a href="https://up.codes/code/nfpa-70-national-electrical-code-2020" target="_blank" style="color: var(--sola-teal);">up.codes/code/nfpa-70</a></p>
+        <p><strong>📚 National Electrical Code (NEC):</strong> All electrical work should comply with NFPA 70 (National Electrical Code). View the code at <a href="https://up.codes/code/nfpa-70-national-electrical-code-2020" target="_blank" style="color: var(--sola-teal);">up.codes/code/nfpa-70</a></p>
       </div>
     </section>
     
@@ -1172,6 +1278,79 @@
       });
     })();
     
+    // Glossary data for electrical terms
+    const GLOSSARY = {
+      nema: {
+        title: 'NEMA',
+        definition: 'National Electrical Manufacturers Association. The organization that sets standards for electrical outlets and plugs in North America. When you see "NEMA 6-20" on a miner\'s specs, it refers to a specific outlet type.'
+      },
+      nema515: {
+        title: 'NEMA 5-15 / 5-20',
+        definition: 'Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most Loki-modified miners plug into these. The "5" means 120V grounded, the number after the dash is the amperage rating.'
+      },
+      nema620: {
+        title: 'NEMA 6-20R',
+        definition: 'A 240V/20A outlet. The "6" indicates 240V, "20" is the amperage, "R" means receptacle (outlet). Provides up to 3,840W continuous (at 80%). Common for window AC units and smaller industrial equipment.'
+      },
+      nemal630: {
+        title: 'NEMA L6-30R',
+        definition: 'A 240V/30A locking outlet. The "L" means twist-lock — the plug locks in place to prevent accidental disconnection. Provides up to 5,760W continuous (at 80%). Popular for multiple miners via a PDU. Locking outlets are preferred for mining — vibration from fans won\'t shake the plug loose.'
+      },
+      psu: {
+        title: 'PSU (Power Supply Unit)',
+        definition: 'Converts AC power from your wall outlet to DC power that your miner needs. Must be rated for your miner\'s wattage plus 10-20% headroom. Critical for reliability and safety. Most ASIC miners come with a PSU, but replacements or upgrades may be needed.'
+      },
+      pdu: {
+        title: 'PDU (Power Distribution Unit)',
+        definition: 'An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions. Never daisy-chain PDUs.'
+      },
+      rule80: {
+        title: '80% Rule',
+        definition: 'NEC requirement that continuous loads (running 3+ hours) use no more than 80% of circuit capacity. A 20A circuit = 16A max continuous. A 30A circuit = 24A max continuous. Mining is always a continuous load, so size your circuits with 20% headroom. Violating this is a fire hazard.'
+      },
+      doublepole: {
+        title: 'Double-Pole Breaker',
+        definition: 'A circuit breaker that controls both hot wires in a 240V circuit simultaneously. Required for all 240V circuits. Takes two slots in your breaker panel. Trips both legs if either overloads.'
+      },
+      awg: {
+        title: 'Wire Gauge (AWG)',
+        definition: 'American Wire Gauge — the standard for measuring wire thickness in the US. Lower numbers = thicker wire = more capacity. For mining: 12 AWG handles 20A circuits, 10 AWG handles 30A circuits. Using too-thin wire is a fire hazard. When in doubt, go one size thicker.'
+      },
+      nec: {
+        title: 'NEC (National Electrical Code)',
+        definition: 'The US standard for safe electrical installation (NFPA 70). Covers wiring, outlets, breakers, and everything else electrical. Most jurisdictions require NEC compliance. Electricians follow this code — and so should you for any DIY work.'
+      },
+      loki: {
+        title: 'Loki Kit',
+        definition: 'Hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. Lets home miners use powerful equipment without electrical upgrades. May require a PSU change.'
+      },
+      voltage: {
+        title: '120V vs 240V',
+        definition: 'Standard US outlets are 120V (15-20A). Dryers and ovens use 240V. Most industrial ASICs need 240V but can run on 120V with a Loki Kit or modifications. 240V is more efficient (less heat loss in wiring).'
+      },
+      asic: {
+        title: 'ASIC',
+        definition: 'Application-Specific Integrated Circuit — specialized hardware designed solely for cryptocurrency mining. Unlike general-purpose computers, ASICs are optimized for a specific mining algorithm, making them extremely efficient but limited to mining particular cryptocurrencies.'
+      }
+    };
+    
+    // Open glossary drawer
+    function openGlossary(term) {
+      const data = GLOSSARY[term];
+      if (data) {
+        document.getElementById('glossary-term-title').textContent = data.title;
+        document.getElementById('glossary-term-def').textContent = data.definition;
+        document.getElementById('glossary-drawer').classList.add('active');
+        document.getElementById('glossary-overlay').classList.add('active');
+      }
+    }
+    
+    // Close glossary drawer
+    function closeGlossary() {
+      document.getElementById('glossary-drawer').classList.remove('active');
+      document.getElementById('glossary-overlay').classList.remove('active');
+    }
+    
     function toggleNav() {
       const btn = document.getElementById('hamburger-btn');
       const drawer = document.getElementById('nav-drawer');
@@ -1181,6 +1360,17 @@
       drawer.classList.toggle('open');
       overlay.classList.toggle('show');
     }
+    
+    // Setup glossary term clicks
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.glossary-term').forEach(el => {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          const term = this.getAttribute('data-term');
+          if (term) openGlossary(term);
+        });
+      });
+    });
   </script>
 </body>
 </html>
