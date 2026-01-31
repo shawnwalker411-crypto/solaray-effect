@@ -845,6 +845,38 @@
       margin-top: 0.5rem;
     }
     
+    .price-status {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .price-indicator {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+    
+    .price-indicator.live {
+      background: rgba(0, 230, 118, 0.15);
+      color: #00e676;
+    }
+    
+    .price-indicator.cached {
+      background: rgba(255, 193, 7, 0.15);
+      color: #ffc107;
+    }
+    
+    .price-indicator.default {
+      background: rgba(255, 82, 82, 0.15);
+      color: #ff5252;
+    }
+    
     /* ============================================
        RESPONSIVE
        ============================================ */
@@ -914,6 +946,7 @@
           <select id="algorithm-filter">
             <option value="all">All Algorithms</option>
             <option value="SHA-256">SHA-256 (BTC)</option>
+            <option value="SHA-256-BCH">SHA-256 (BCH)</option>
             <option value="Scrypt">Scrypt (LTC/DOGE)</option>
             <option value="KHeavyHash">KHeavyHash (KAS)</option>
             <option value="Ethash">Ethash (ETC)</option>
@@ -1091,7 +1124,10 @@
         </div>
       </div>
       
-      <p class="price-note" id="price-note">Prices: BTC $104,000 | Using fallback prices</p>
+      <div class="price-status">
+        <p class="price-note" id="price-note">Prices: BTC $89,000 | Mining 24h/day</p>
+        <span class="price-indicator default" id="price-indicator">🔴 Default Prices</span>
+      </div>
     </section>
     
     <!-- Browse All Miners -->
@@ -1300,11 +1336,15 @@
     // Combined for "All" filter and browse table
     const ALL_MINERS = [...MINERS_120V, ...MINERS_240V];
     
-    // Prices & Rates
-    const PRICES = { BTC: 104000, LTC: 128, KAS: 0.15, ETC: 28, KDA: 1.20, DOGE: 0.35 };
+    // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
+    const DEFAULT_PRICES = { BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, KDA: 1.20, DOGE: 0.12 };
+    let PRICES = { ...DEFAULT_PRICES };
+    let priceStatus = 'default'; // 'live', 'cached', 'default'
+    let lastPriceUpdate = null;
     
     const REVENUE_RATES = {
-      'SHA-256': { perUnit: 0.000000442, unit: 'TH/s', coin: 'BTC' },
+      'SHA-256': { perUnit: 0.00000044, unit: 'TH/s', coin: 'BTC' },
+      'SHA-256-BCH': { perUnit: 0.000039, unit: 'TH/s', coin: 'BCH' },
       'Scrypt': { perUnit: 0.0000012, unit: 'MH/s', coin: 'LTC' },
       'KHeavyHash': { perUnit: 0.0015, unit: 'GH/s', coin: 'KAS' },
       'Ethash': { perUnit: 0.0000035, unit: 'MH/s', coin: 'ETC' },
@@ -1328,6 +1368,118 @@
     }
     
     // ============================================
+    // LIVE PRICE FETCHING (CoinGecko API)
+    // ============================================
+    const COINGECKO_IDS = {
+      BTC: 'bitcoin',
+      BCH: 'bitcoin-cash',
+      LTC: 'litecoin',
+      KAS: 'kaspa',
+      ETC: 'ethereum-classic',
+      KDA: 'kadena',
+      DOGE: 'dogecoin'
+    };
+    
+    async function fetchPrices() {
+      const ids = Object.values(COINGECKO_IDS).join(',');
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+      
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('API request failed');
+        
+        const data = await response.json();
+        
+        // Map CoinGecko response to our PRICES object
+        PRICES.BTC = data.bitcoin?.usd || PRICES.BTC;
+        PRICES.BCH = data['bitcoin-cash']?.usd || PRICES.BCH;
+        PRICES.LTC = data.litecoin?.usd || PRICES.LTC;
+        PRICES.KAS = data.kaspa?.usd || PRICES.KAS;
+        PRICES.ETC = data['ethereum-classic']?.usd || PRICES.ETC;
+        PRICES.KDA = data.kadena?.usd || PRICES.KDA;
+        PRICES.DOGE = data.dogecoin?.usd || PRICES.DOGE;
+        
+        // Save to localStorage with timestamp
+        const cacheData = {
+          prices: { ...PRICES },
+          timestamp: Date.now()
+        };
+        localStorage.setItem('solaray_prices', JSON.stringify(cacheData));
+        
+        priceStatus = 'live';
+        lastPriceUpdate = new Date();
+        updatePriceIndicator();
+        
+        console.log('Live prices fetched:', PRICES);
+        return true;
+      } catch (error) {
+        console.warn('Failed to fetch live prices:', error);
+        return false;
+      }
+    }
+    
+    function loadCachedPrices() {
+      try {
+        const cached = localStorage.getItem('solaray_prices');
+        if (cached) {
+          const data = JSON.parse(cached);
+          PRICES = { ...data.prices };
+          lastPriceUpdate = new Date(data.timestamp);
+          priceStatus = 'cached';
+          updatePriceIndicator();
+          console.log('Loaded cached prices from:', lastPriceUpdate);
+          return true;
+        }
+      } catch (error) {
+        console.warn('Failed to load cached prices:', error);
+      }
+      return false;
+    }
+    
+    function updatePriceIndicator() {
+      const indicator = document.getElementById('price-indicator');
+      if (!indicator) return;
+      
+      if (priceStatus === 'live') {
+        indicator.innerHTML = '🟢 Live Prices';
+        indicator.className = 'price-indicator live';
+      } else if (priceStatus === 'cached') {
+        const ago = getTimeAgo(lastPriceUpdate);
+        indicator.innerHTML = `🟡 Cached (${ago})`;
+        indicator.className = 'price-indicator cached';
+      } else {
+        indicator.innerHTML = '🔴 Default Prices';
+        indicator.className = 'price-indicator default';
+      }
+    }
+    
+    function getTimeAgo(date) {
+      const seconds = Math.floor((new Date() - date) / 1000);
+      if (seconds < 60) return 'just now';
+      if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
+      if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
+      return Math.floor(seconds / 86400) + 'd ago';
+    }
+    
+    async function initPrices() {
+      // Try to fetch live prices first
+      const liveSuccess = await fetchPrices();
+      
+      // If live fetch failed, try to load from cache
+      if (!liveSuccess) {
+        const cacheLoaded = loadCachedPrices();
+        if (!cacheLoaded) {
+          // Use defaults (already set)
+          priceStatus = 'default';
+          updatePriceIndicator();
+        }
+      }
+      
+      // Set up auto-refresh every 60 seconds
+      setInterval(fetchPrices, 60000);
+    }
+    
+    // ============================================
     // DROPDOWN LOGIC
     // ============================================
     function getFilteredMiners() {
@@ -1345,7 +1497,9 @@
       let miners = getFilteredMiners();
       
       if (algoFilter !== 'all') {
-        miners = miners.filter(m => m.algorithm === algoFilter);
+        // SHA-256-BCH uses same miners as SHA-256 (BTC)
+        const filterAlgo = algoFilter === 'SHA-256-BCH' ? 'SHA-256' : algoFilter;
+        miners = miners.filter(m => m.algorithm === filterAlgo);
       }
       
       minerSelect.innerHTML = '<option value="">-- Select Miner --</option>';
@@ -1545,8 +1699,10 @@
       const paidKWh = kW * gridHours;
       const dailyElecCost = paidKWh * gridRate;
       
-      // Revenue (reduced by idle time - no mining when off)
-      const rateInfo = REVENUE_RATES[selectedMiner.algorithm];
+      // Revenue - Use algorithm filter to determine coin (for BCH vs BTC)
+      const algoFilter = document.getElementById('algorithm-filter').value;
+      const revenueKey = (algoFilter === 'SHA-256-BCH') ? 'SHA-256-BCH' : selectedMiner.algorithm;
+      const rateInfo = REVENUE_RATES[revenueKey];
       const fullDailyCrypto = hashrate * rateInfo.perUnit;
       const dailyCrypto = fullDailyCrypto * activeFraction;
       const coinPrice = PRICES[rateInfo.coin] || 0;
@@ -1676,6 +1832,7 @@
     updateMinerDropdown();
     updateTimeline();
     renderBrowseTable();
+    initPrices(); // Fetch live prices on page load
   </script>
 </body>
 </html>
