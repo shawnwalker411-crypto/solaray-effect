@@ -464,6 +464,7 @@
     }
     
     .coin-btc { background: rgba(247, 147, 26, 0.2); color: #f7931a; }
+    .coin-bch { background: rgba(139, 195, 74, 0.2); color: #8bc34a; }
     .coin-ltc { background: rgba(52, 93, 157, 0.3); color: #88a8d4; }
     .coin-kas { background: rgba(112, 199, 186, 0.2); color: #70c7ba; }
     
@@ -630,6 +631,7 @@
       <select id="coin-filter" onchange="filterByCoins()">
         <option value="all">All Coins</option>
         <option value="btc">Bitcoin (BTC)</option>
+        <option value="bch">Bitcoin Cash (BCH)</option>
         <option value="ltc">Litecoin/Dogecoin (LTC)</option>
         <option value="kas">Kaspa (KAS)</option>
       </select>
@@ -718,23 +720,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-coins="btc ltc kas">
+            <tr data-coins="btc bch ltc kas">
               <td class="pool-name"><a href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool</a></td>
               <td class="fee-cell">Varies</td>
               <td class="payout-cell"><span class="glossary-term" data-term="pps-plus">PPS+</span></td>
-              <td class="notes-cell"><span class="coin-tag coin-btc">BTC</span> <span class="coin-tag coin-ltc">LTC</span> <span class="coin-tag coin-kas">KAS</span> Major global pool</td>
+              <td class="notes-cell"><span class="coin-tag coin-btc">BTC</span> <span class="coin-tag coin-bch">BCH</span> <span class="coin-tag coin-ltc">LTC</span> <span class="coin-tag coin-kas">KAS</span> Major global pool</td>
             </tr>
-            <tr data-coins="btc ltc">
+            <tr data-coins="btc bch ltc">
               <td class="pool-name"><a href="https://www.antpool.com/" target="_blank" rel="noopener">AntPool</a></td>
               <td class="fee-cell">Varies</td>
               <td class="payout-cell"><span class="glossary-term" data-term="fpps">FPPS</span>/<span class="glossary-term" data-term="pplns">PPLNS</span></td>
-              <td class="notes-cell"><span class="coin-tag coin-btc">BTC</span> <span class="coin-tag coin-ltc">LTC</span> Bitmain-operated</td>
+              <td class="notes-cell"><span class="coin-tag coin-btc">BTC</span> <span class="coin-tag coin-bch">BCH</span> <span class="coin-tag coin-ltc">LTC</span> Bitmain-operated</td>
             </tr>
-            <tr data-coins="btc ltc kas">
+            <tr data-coins="btc bch ltc kas">
               <td class="pool-name"><a href="https://www.viabtc.com/" target="_blank" rel="noopener">ViaBTC</a></td>
               <td class="fee-cell">Varies</td>
               <td class="payout-cell"><span class="glossary-term" data-term="pps-plus">PPS+</span>/<span class="glossary-term" data-term="pplns">PPLNS</span></td>
-              <td class="notes-cell"><span class="coin-tag coin-btc">BTC</span> <span class="coin-tag coin-ltc">LTC</span> <span class="coin-tag coin-kas">KAS</span> Multiple payout options</td>
+              <td class="notes-cell"><span class="coin-tag coin-btc">BTC</span> <span class="coin-tag coin-bch">BCH</span> <span class="coin-tag coin-ltc">LTC</span> <span class="coin-tag coin-kas">KAS</span> Multiple payout options</td>
             </tr>
             <tr data-coins="kas">
               <td class="pool-name"><a href="https://kas.2miners.com/" target="_blank" rel="noopener">2Miners</a></td>
