@@ -277,6 +277,53 @@
       backdrop-filter: blur(6px);
     }
     /* ============================================
+       LIVE PRICE DISPLAY
+       ============================================ */
+    .live-price-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, rgba(0, 206, 209, 0.1), rgba(255, 215, 0, 0.05));
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    
+    .live-price-coin {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--sola-gold);
+    }
+    
+    .live-price-value {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--sola-teal);
+    }
+    
+    .live-price-status {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      background: rgba(0, 230, 118, 0.15);
+      color: #00e676;
+    }
+    
+    .live-price-status.cached {
+      background: rgba(255, 193, 7, 0.15);
+      color: #ffc107;
+    }
+    
+    .live-price-status.default {
+      background: rgba(255, 82, 82, 0.15);
+      color: #ff5252;
+    }
+    
+    /* ============================================
        DROPDOWNS & INPUTS
        ============================================ */
     .dropdown-row {
@@ -932,6 +979,13 @@
     <section class="section">
       <h2 class="section-title">🔧 Select Your Miner</h2>
       
+      <!-- Live Coin Price Display -->
+      <div class="live-price-display" id="live-price-display" style="display: none;">
+        <span class="live-price-coin" id="live-price-coin">BTC</span>
+        <span class="live-price-value" id="live-price-value">$89,000</span>
+        <span class="live-price-status" id="live-price-status">🟢 Live</span>
+      </div>
+      
       <div class="dropdown-row">
         <div class="dropdown-group">
           <label><span class="glossary-term" data-term="voltage">Voltage</span></label>
@@ -1451,6 +1505,11 @@
         indicator.innerHTML = '🔴 Default Prices';
         indicator.className = 'price-indicator default';
       }
+      
+      // Also update the live price display if visible
+      if (typeof updateLivePriceDisplay === 'function') {
+        updateLivePriceDisplay();
+      }
     }
     
     function getTimeAgo(date) {
@@ -1490,6 +1549,50 @@
       return ALL_MINERS;
     }
     
+    function updateLivePriceDisplay() {
+      const algoFilter = document.getElementById('algorithm-filter').value;
+      const display = document.getElementById('live-price-display');
+      const coinEl = document.getElementById('live-price-coin');
+      const valueEl = document.getElementById('live-price-value');
+      const statusEl = document.getElementById('live-price-status');
+      
+      // Map algorithm to coin
+      const algoCoinMap = {
+        'SHA-256': 'BTC',
+        'SHA-256-BCH': 'BCH',
+        'Scrypt': 'LTC',
+        'KHeavyHash': 'KAS',
+        'Ethash': 'ETC',
+        'Blake3': 'KDA'
+      };
+      
+      if (algoFilter === 'all') {
+        display.style.display = 'none';
+        return;
+      }
+      
+      const coin = algoCoinMap[algoFilter];
+      const price = PRICES[coin] || 0;
+      
+      coinEl.textContent = coin;
+      valueEl.textContent = price >= 1 ? `$${price.toLocaleString()}` : `$${price.toFixed(4)}`;
+      
+      // Update status indicator
+      if (priceStatus === 'live') {
+        statusEl.textContent = '🟢 Live';
+        statusEl.className = 'live-price-status';
+      } else if (priceStatus === 'cached') {
+        const ago = getTimeAgo(lastPriceUpdate);
+        statusEl.textContent = `🟡 ${ago}`;
+        statusEl.className = 'live-price-status cached';
+      } else {
+        statusEl.textContent = '🔴 Default';
+        statusEl.className = 'live-price-status default';
+      }
+      
+      display.style.display = 'flex';
+    }
+    
     function updateMinerDropdown() {
       const algoFilter = document.getElementById('algorithm-filter').value;
       const minerSelect = document.getElementById('miner-select');
@@ -1509,6 +1612,9 @@
         opt.textContent = m.name;
         minerSelect.appendChild(opt);
       });
+      
+      // Update live price display
+      updateLivePriceDisplay();
       
       // Clear selection
       document.getElementById('miner-info').classList.remove('active');
