@@ -834,52 +834,80 @@
     <!-- Circuit Requirements -->
     <section class="section">
       <h2 class="section-title">📋 Circuit Requirements by Miner</h2>
-      <p>How much power does your circuit need? Here's a quick reference:</p>
+      <p>How much power does your circuit need? Here's a quick reference for stock miners on 240V:</p>
       
       <table class="circuit-table">
         <tr>
           <th>Miner</th>
+          <th>Algorithm</th>
           <th>Stock Power</th>
           <th>240V Circuit</th>
-          <th>120V (Loki)</th>
+        </tr>
+        <tr>
+          <td>Antminer S21</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,550W</td>
+          <td>20A minimum</td>
+        </tr>
+        <tr>
+          <td>Antminer S21 Pro</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,510W</td>
+          <td>20A minimum</td>
+        </tr>
+        <tr>
+          <td>Antminer S19 XP</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,010W</td>
+          <td>20A minimum</td>
         </tr>
         <tr>
           <td>Antminer S19 Pro</td>
+          <td>SHA-256 (BTC)</td>
           <td>3,250W</td>
           <td>20A minimum</td>
-          <td>~1,500W on 20A</td>
         </tr>
         <tr>
           <td>Antminer S19J Pro</td>
+          <td>SHA-256 (BTC)</td>
           <td>3,050W</td>
           <td>20A minimum</td>
-          <td>~1,400W on 20A</td>
         </tr>
         <tr>
           <td>Antminer S19</td>
+          <td>SHA-256 (BTC)</td>
           <td>3,250W</td>
           <td>20A minimum</td>
-          <td>~1,500W on 20A</td>
-        </tr>
-        <tr>
-          <td>Antminer L3++</td>
-          <td>800W</td>
-          <td>15A is fine</td>
-          <td>Works on 120V stock</td>
         </tr>
         <tr>
           <td>Antminer KS5</td>
+          <td>kHeavyHash (KAS)</td>
           <td>3,000W</td>
           <td>20A minimum</td>
-          <td>Loki not available</td>
         </tr>
         <tr>
-          <td>Whatsminer M30S++</td>
-          <td>3,400W</td>
+          <td>Antminer KS5 Pro</td>
+          <td>kHeavyHash (KAS)</td>
+          <td>3,150W</td>
           <td>20A minimum</td>
-          <td>Check compatibility</td>
+        </tr>
+        <tr>
+          <td>Antminer L7</td>
+          <td>Scrypt (LTC/DOGE)</td>
+          <td>3,425W</td>
+          <td>20A minimum</td>
+        </tr>
+        <tr>
+          <td>Antminer L3++</td>
+          <td>Scrypt (LTC/DOGE)</td>
+          <td>800W</td>
+          <td>15A is fine</td>
         </tr>
       </table>
+      
+      <div class="info-box">
+        <p><strong>Note:</strong> Power consumption varies by firmware, tuning, and ambient temperature. Always check manufacturer specs for your specific model.</p>
+      </div>
       
       <div class="warning-box">
         <p><strong>⚠️ The 80% Rule:</strong> Electrical code says continuous loads should use max 80% of circuit capacity. A 20A circuit = 16A continuous max. A 30A circuit = 24A continuous max. Size up if you're close.</p>
