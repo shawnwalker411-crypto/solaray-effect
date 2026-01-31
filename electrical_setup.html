@@ -781,67 +781,30 @@
       </div>
     </section>
     
-    <!-- What Do You Have? -->
+    <!-- When to Call Electrician - MOVED UP -->
     <section class="section">
-      <h2 class="section-title">🏠 What Do You Have at Home?</h2>
-      <p>Check your breaker panel and look around your house for these outlets:</p>
+      <h2 class="section-title">👷 When to Call an Electrician</h2>
+      <p>Some things are DIY. Some things aren't. Call a pro if you need:</p>
       
-      <div class="outlet-comparison">
-        <div class="outlet-box">
-          <div class="outlet-icon">
-            <svg width="60" height="70" viewBox="0 0 60 70">
-              <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
-              <!-- Left vertical slot -->
-              <rect x="17" y="14" width="4" height="14" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <!-- Right T-slot (vertical + horizontal for 20A) -->
-              <rect x="39" y="14" width="4" height="14" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <rect x="34" y="14" width="9" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <!-- Round ground -->
-              <circle cx="30" cy="46" r="5" fill="none" stroke="#00CED1" stroke-width="2"/>
-            </svg>
-          </div>
-          <h4>NEMA 5-15/20</h4>
-          <p>Standard 120V, 15-20A. Every room has these. For Loki Kit setups only — NOT for stock ASIC miners.</p>
-        </div>
-        
-        <div class="outlet-box" style="border-color: var(--sola-teal);">
-          <div class="outlet-icon">
-            <svg width="60" height="70" viewBox="0 0 60 70">
-              <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
-              <!-- Left horizontal slot -->
-              <rect x="10" y="18" width="14" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <!-- Right T-slot (horizontal + vertical for 20A) -->
-              <rect x="36" y="18" width="14" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <rect x="46" y="18" width="4" height="10" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <!-- Round ground -->
-              <circle cx="30" cy="46" r="5" fill="none" stroke="#00CED1" stroke-width="2"/>
-            </svg>
-          </div>
-          <h4 style="color: var(--sola-teal);">NEMA 6-20R ⭐ PREFERRED</h4>
-          <p>240V, 20A. Two horizontal slots + ground. Common in workshops and garages. Good for single miners.</p>
-        </div>
-        
-        <div class="outlet-box" style="border-color: var(--sola-teal);">
-          <div class="outlet-icon">
-            <svg width="60" height="70" viewBox="0 0 60 70">
-              <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
-              <!-- Circular guide for twist-lock -->
-              <circle cx="30" cy="34" r="18" fill="none" stroke="#444" stroke-width="1"/>
-              <!-- Ground slot (curved, bottom) -->
-              <path d="M 20 46 A 10 10 0 0 1 40 46" fill="none" stroke="#00CED1" stroke-width="3" stroke-linecap="round"/>
-              <!-- Hot slot 1 (curved, upper left) -->
-              <path d="M 15 28 A 10 10 0 0 1 25 19" fill="none" stroke="#00CED1" stroke-width="3" stroke-linecap="round"/>
-              <!-- Hot slot 2 (curved, upper right) -->
-              <path d="M 35 19 A 10 10 0 0 1 45 28" fill="none" stroke="#00CED1" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h4 style="color: var(--sola-teal);">NEMA L6-30R ⭐ PREFERRED</h4>
-          <p>240V, 30A. Twist-lock prevents accidental disconnection. Best for PDU setups with multiple miners.</p>
-        </div>
-      </div>
+      <ul class="checklist">
+        <li>New 240V circuit installed</li>
+        <li>Panel upgrade (if you're out of breaker space)</li>
+        <li>Sub-panel for dedicated mining area</li>
+        <li>Any work inside your breaker panel</li>
+        <li>Permit-required electrical work</li>
+        <li>You're not 100% sure what you're doing</li>
+      </ul>
       
-      <div class="info-box" style="margin-top: 1.5rem;">
-        <p><strong>⚠️ Note:</strong> Power cords are sold separately. Check manufacturer specs.</p>
+      <p style="margin-top: 1rem;"><strong>Typical costs:</strong></p>
+      <ul style="color: var(--text-secondary); margin-left: 1.25rem;">
+        <li>New 240V/30A outlet: $200-400</li>
+        <li>New 240V/50A outlet: $300-500</li>
+        <li>Sub-panel installation: $500-1,500</li>
+        <li>Panel upgrade (100A to 200A): $1,500-3,000</li>
+      </ul>
+      
+      <div class="info-box">
+        <p><strong>Worth it?</strong> A $300 electrician visit is cheap compared to a house fire or fried miner. Plus proper wiring improves efficiency and resale value.</p>
       </div>
     </section>
     
@@ -945,33 +908,6 @@
       
       <div class="info-box">
         <p><strong>Signs of trouble:</strong> Warm outlets, burning smell, discolored plugs, flickering lights, or tripping breakers. Any of these = stop mining and call an electrician.</p>
-      </div>
-    </section>
-    
-    <!-- When to Call Electrician -->
-    <section class="section">
-      <h2 class="section-title">👷 When to Call an Electrician</h2>
-      <p>Some things are DIY. Some things aren't. Call a pro if you need:</p>
-      
-      <ul class="checklist">
-        <li>New 240V circuit installed</li>
-        <li>Panel upgrade (if you're out of breaker space)</li>
-        <li>Sub-panel for dedicated mining area</li>
-        <li>Any work inside your breaker panel</li>
-        <li>Permit-required electrical work</li>
-        <li>You're not 100% sure what you're doing</li>
-      </ul>
-      
-      <p style="margin-top: 1rem;"><strong>Typical costs:</strong></p>
-      <ul style="color: var(--text-secondary); margin-left: 1.25rem;">
-        <li>New 240V/30A outlet: $200-400</li>
-        <li>New 240V/50A outlet: $300-500</li>
-        <li>Sub-panel installation: $500-1,500</li>
-        <li>Panel upgrade (100A to 200A): $1,500-3,000</li>
-      </ul>
-      
-      <div class="info-box">
-        <p><strong>Worth it?</strong> A $300 electrician visit is cheap compared to a house fire or fried miner. Plus proper wiring improves efficiency and resale value.</p>
       </div>
     </section>
     
