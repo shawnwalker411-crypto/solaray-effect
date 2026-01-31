@@ -521,6 +521,56 @@
         <div class="term-name">Time-of-Use (TOU) Rates</div>
         <div class="term-def">Electricity pricing that varies by time of day. Many utilities offer cheap/free nights or off-peak rates. Schedule mining during cheap hours to maximize profit.</div>
       </div>
+      
+      <div class="term" id="nema">
+        <div class="term-name">NEMA</div>
+        <div class="term-def">National Electrical Manufacturers Association. The organization that sets standards for electrical outlets and plugs in North America. When you see "NEMA 6-20" on a miner's specs, it refers to a specific outlet type.</div>
+      </div>
+      
+      <div class="term" id="nema-5-15">
+        <div class="term-name">NEMA 5-15 / 5-20</div>
+        <div class="term-def">Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most Loki-modified miners plug into these.</div>
+        <div class="term-tip">💡 The "5" means 120V grounded. The number after the dash is the amperage rating.</div>
+      </div>
+      
+      <div class="term" id="nema-6-20r">
+        <div class="term-name">NEMA 6-20R</div>
+        <div class="term-def">A 240V/20A outlet. The "6" indicates 240V, "20" is the amperage, "R" means receptacle (outlet). Provides up to 3,840W continuous (at 80%). Common for window AC units and smaller industrial equipment.</div>
+      </div>
+      
+      <div class="term" id="nema-l6-30r">
+        <div class="term-name">NEMA L6-30R</div>
+        <div class="term-def">A 240V/30A locking outlet. The "L" means twist-lock — the plug locks in place to prevent accidental disconnection. Provides up to 5,760W continuous (at 80%). Popular for multiple miners via a PDU.</div>
+        <div class="term-tip">💡 Locking outlets are preferred for mining — vibration from fans won't shake the plug loose.</div>
+      </div>
+      
+      <div class="term" id="pdu">
+        <div class="term-name">PDU (Power Distribution Unit)</div>
+        <div class="term-def">An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions.</div>
+        <div class="term-tip">💡 Never daisy-chain PDUs. One PDU per circuit, properly sized for your total load.</div>
+      </div>
+      
+      <div class="term" id="80-percent-rule">
+        <div class="term-name">80% Rule</div>
+        <div class="term-def">NEC requirement that continuous loads (running 3+ hours) use no more than 80% of circuit capacity. A 20A circuit = 16A max continuous. A 30A circuit = 24A max continuous. Violating this is a fire hazard.</div>
+        <div class="term-tip">💡 Mining is always a continuous load. Size your circuits with 20% headroom.</div>
+      </div>
+      
+      <div class="term" id="double-pole">
+        <div class="term-name">Double-Pole Breaker</div>
+        <div class="term-def">A circuit breaker that controls both hot wires in a 240V circuit simultaneously. Required for all 240V circuits. Takes two slots in your breaker panel. Trips both legs if either overloads.</div>
+      </div>
+      
+      <div class="term" id="awg">
+        <div class="term-name">Wire Gauge (AWG)</div>
+        <div class="term-def">American Wire Gauge — the standard for measuring wire thickness in the US. Lower numbers = thicker wire = more capacity. For mining: 12 AWG handles 20A circuits, 10 AWG handles 30A circuits. Using too-thin wire is a fire hazard.</div>
+        <div class="term-tip">💡 When in doubt, go one size thicker. It's cheap insurance against heat buildup.</div>
+      </div>
+      
+      <div class="term" id="nec">
+        <div class="term-name">NEC (National Electrical Code)</div>
+        <div class="term-def">The US standard for safe electrical installation (NFPA 70). Covers wiring, outlets, breakers, and everything else electrical. Most jurisdictions require NEC compliance. Electricians follow this code — and so should you for any DIY work.</div>
+      </div>
     </section>
     
     <!-- Common Scams -->
