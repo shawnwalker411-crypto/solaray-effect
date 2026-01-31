@@ -845,10 +845,6 @@
       <div class="info-box" style="margin-top: 1.5rem;">
         <p><strong>⚠️ Note:</strong> Power cords and PSUs are usually sold separately from miners. Every machine and setup is different — make sure you get the right cord for YOUR outlet type and voltage.</p>
       </div>
-      
-      <div class="info-box">
-        <p><strong>Pro tip:</strong> If you have an electric dryer, you probably have a 30A 240V circuit you could share or split. Many home miners start here.</p>
-      </div>
     </section>
     
     <!-- The 120V Option -->
@@ -1010,19 +1006,14 @@
   <script>
     // Legal Modal Logic
     (function() {
-      const STORAGE_KEY = 'homeMiningElectricalAck_v1';
       const modal = document.getElementById('legal-modal');
       const mainContent = document.getElementById('main-content');
       const checkbox = document.getElementById('legal-checkbox');
       const agreeBtn = document.getElementById('legal-agree');
       const declineBtn = document.getElementById('legal-decline');
       
-      // Check if already acknowledged
-      if (localStorage.getItem(STORAGE_KEY) === 'agreed') {
-        modal.classList.add('hidden');
-      } else {
-        mainContent.classList.add('content-hidden');
-      }
+      // Always show modal - no localStorage check
+      mainContent.classList.add('content-hidden');
       
       // Enable button when checkbox checked
       checkbox.addEventListener('change', function() {
@@ -1031,7 +1022,6 @@
       
       // Agree button
       agreeBtn.addEventListener('click', function() {
-        localStorage.setItem(STORAGE_KEY, 'agreed');
         modal.classList.add('hidden');
         mainContent.classList.remove('content-hidden');
       });
