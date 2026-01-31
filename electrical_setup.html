@@ -410,6 +410,27 @@
       background: rgba(0, 206, 209, 0.05);
     }
     
+    .circuit-table tr.loki-row td {
+      background: rgba(156, 39, 176, 0.1);
+      border-left: 3px solid #9c27b0;
+    }
+    
+    .circuit-table tr.loki-row:hover td {
+      background: rgba(156, 39, 176, 0.18);
+    }
+    
+    .circuit-table .loki-label {
+      color: #9c27b0;
+      font-weight: 600;
+    }
+    
+    .circuit-table .section-header td {
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--sola-gold);
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+    }
+    
     /* ============================================
        CHECKLIST
        ============================================ */
@@ -819,10 +840,14 @@
         <p style="color: var(--text-secondary); margin: 0;"><strong>Trade-off:</strong> Lower hashrate (~40-60% of stock) but uses regular outlets you already have.</p>
       </div>
       
+      <div class="warning-box">
+        <p><strong>⚠️ PSU Change May Be Required:</strong> Depending on your miner and Loki Kit, you may need to replace the stock PSU with a 120V-compatible power supply. Check your Loki Kit requirements.</p>
+      </div>
+      
       <p><strong>Requirements for Loki mining:</strong></p>
       <ul class="checklist">
         <li>Compatible miner (S19, S19 Pro, S19J Pro, etc.)</li>
-        <li>Loki Kit PSU (120V compatible)</li>
+        <li>Loki Kit PSU (120V compatible) — may replace stock PSU</li>
         <li>Aftermarket firmware (Vnish, Braiins, LuxOS)</li>
         <li>Dedicated 20A circuit (don't share with other devices)</li>
         <li>Good ventilation (still produces heat)</li>
@@ -834,74 +859,98 @@
     <!-- Circuit Requirements -->
     <section class="section">
       <h2 class="section-title">📋 Circuit Requirements by Miner</h2>
-      <p>How much power does your circuit need? Here's a quick reference for stock miners on 240V:</p>
+      <p>How much power does your circuit need? Here's a quick reference:</p>
       
       <table class="circuit-table">
         <tr>
           <th>Miner</th>
           <th>Algorithm</th>
-          <th>Stock Power</th>
-          <th>240V Circuit</th>
+          <th>Power</th>
+          <th>Circuit</th>
+        </tr>
+        <tr class="section-header">
+          <td colspan="4">⚡ Stock Miners (240V Required)</td>
         </tr>
         <tr>
           <td>Antminer S21</td>
           <td>SHA-256 (BTC)</td>
           <td>3,550W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer S21 Pro</td>
           <td>SHA-256 (BTC)</td>
           <td>3,510W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer S19 XP</td>
           <td>SHA-256 (BTC)</td>
           <td>3,010W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer S19 Pro</td>
           <td>SHA-256 (BTC)</td>
           <td>3,250W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer S19J Pro</td>
           <td>SHA-256 (BTC)</td>
           <td>3,050W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer S19</td>
           <td>SHA-256 (BTC)</td>
           <td>3,250W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer KS5</td>
           <td>kHeavyHash (KAS)</td>
           <td>3,000W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer KS5 Pro</td>
           <td>kHeavyHash (KAS)</td>
           <td>3,150W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer L7</td>
           <td>Scrypt (LTC/DOGE)</td>
           <td>3,425W</td>
-          <td>20A minimum</td>
+          <td>240V / 20A</td>
         </tr>
         <tr>
           <td>Antminer L3++</td>
           <td>Scrypt (LTC/DOGE)</td>
           <td>800W</td>
-          <td>15A is fine</td>
+          <td>240V / 15A or 120V</td>
+        </tr>
+        <tr class="section-header">
+          <td colspan="4">🔮 Loki Kit Miners (120V Compatible)</td>
+        </tr>
+        <tr class="loki-row">
+          <td><span class="loki-label">S19 Pro + Loki</span></td>
+          <td>SHA-256 (BTC)</td>
+          <td>~1,500W</td>
+          <td>120V / 20A dedicated</td>
+        </tr>
+        <tr class="loki-row">
+          <td><span class="loki-label">S19J Pro + Loki</span></td>
+          <td>SHA-256 (BTC)</td>
+          <td>~1,400W</td>
+          <td>120V / 20A dedicated</td>
+        </tr>
+        <tr class="loki-row">
+          <td><span class="loki-label">S19 + Loki</span></td>
+          <td>SHA-256 (BTC)</td>
+          <td>~1,500W</td>
+          <td>120V / 20A dedicated</td>
         </tr>
       </table>
       
@@ -999,11 +1048,23 @@
       <p>ASIC miners pull serious power. Take these precautions:</p>
       
       <div class="warning-box">
+        <p><strong>⚠️ ALWAYS turn off the main breaker before doing ANY electrical work.</strong> Electricity can cause fire, serious injury, or death.</p>
+      </div>
+      
+      <div class="warning-box">
         <p><strong>Never use extension cords or power strips</strong> for ASIC miners. They're not rated for continuous high-current loads and can melt or catch fire.</p>
       </div>
       
+      <p style="margin-top: 1rem;"><strong>Wiring Requirements:</strong></p>
       <ul class="checklist">
-        <li>Use the correct gauge wire (10 AWG for 30A, 12 AWG for 20A)</li>
+        <li>Use correct gauge wire: 10 AWG for 30A circuits, 12 AWG for 20A circuits</li>
+        <li>240V circuits require two hot wires + ground (no neutral)</li>
+        <li>Use double-pole breakers for 240V circuits</li>
+        <li>Obtain local permits for any new electrical work</li>
+      </ul>
+      
+      <p style="margin-top: 1rem;"><strong>Operating Safety:</strong></p>
+      <ul class="checklist">
         <li>Plug directly into wall outlets — no extension cords</li>
         <li>Check outlet/plug for heat after 1 hour of mining</li>
         <li>Install a smoke detector near your mining setup</li>
@@ -1015,6 +1076,10 @@
       
       <div class="info-box">
         <p><strong>Signs of trouble:</strong> Warm outlets, burning smell, discolored plugs, flickering lights, or tripping breakers. Any of these = stop mining and call an electrician.</p>
+      </div>
+      
+      <div class="info-box" style="margin-top: 1rem;">
+        <p><strong>📚 National Electrical Code (NEC):</strong> All electrical work should comply with NFPA 70 (National Electrical Code). View the code at <a href="https://up.codes/code/nfpa-70-national-electrical-code-2020" target="_blank" style="color: var(--sola-teal);">up.codes/code/nfpa-70</a></p>
       </div>
     </section>
     
