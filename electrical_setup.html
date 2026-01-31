@@ -791,59 +791,57 @@
           <div class="outlet-icon">
             <svg width="60" height="70" viewBox="0 0 60 70">
               <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
-              <rect x="18" y="15" width="4" height="12" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <rect x="38" y="15" width="4" height="12" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <circle cx="30" cy="45" r="5" fill="none" stroke="#00CED1" stroke-width="2"/>
-            </svg>
-          </div>
-          <h4>NEMA 5-15/20</h4>
-          <p>Standard 120V outlet. Every room has these. NOT for ASIC miners (unless Loki modded).</p>
-        </div>
-        
-        <div class="outlet-box">
-          <div class="outlet-icon">
-            <svg width="60" height="70" viewBox="0 0 60 70">
-              <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
-              <rect x="13" y="18" width="12" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2" transform="rotate(-30 19 20)"/>
-              <rect x="35" y="18" width="12" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2" transform="rotate(30 41 20)"/>
-              <rect x="18" y="38" width="4" height="10" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <circle cx="38" cy="45" r="5" fill="none" stroke="#00CED1" stroke-width="2"/>
-            </svg>
-          </div>
-          <h4>NEMA 14-30</h4>
-          <p>Dryer outlet. 240V, 30A. Great for 1-2 miners. 4-prong, two slots angled.</p>
-        </div>
-        
-        <div class="outlet-box">
-          <div class="outlet-icon">
-            <svg width="60" height="70" viewBox="0 0 60 70">
-              <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
-              <rect x="11" y="16" width="14" height="5" rx="1" fill="none" stroke="#00CED1" stroke-width="2" transform="rotate(-30 18 18)"/>
-              <rect x="35" y="16" width="14" height="5" rx="1" fill="none" stroke="#00CED1" stroke-width="2" transform="rotate(30 42 18)"/>
-              <rect x="16" y="38" width="5" height="12" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <circle cx="40" cy="46" r="6" fill="none" stroke="#00CED1" stroke-width="2"/>
-            </svg>
-          </div>
-          <h4>NEMA 14-50</h4>
-          <p>Range/RV outlet. 240V, 50A. Can run 2-3 big miners. 4-prong, larger slots.</p>
-        </div>
-        
-        <div class="outlet-box">
-          <div class="outlet-icon">
-            <svg width="60" height="70" viewBox="0 0 60 70">
-              <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
-              <rect x="12" y="22" width="14" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
-              <rect x="34" y="22" width="14" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
+              <!-- Left vertical slot -->
+              <rect x="17" y="14" width="4" height="14" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
+              <!-- Right T-slot (vertical + horizontal for 20A) -->
+              <rect x="39" y="14" width="4" height="14" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
+              <rect x="34" y="14" width="9" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
+              <!-- Round ground -->
               <circle cx="30" cy="46" r="5" fill="none" stroke="#00CED1" stroke-width="2"/>
             </svg>
           </div>
-          <h4>NEMA 6-20/30</h4>
-          <p>AC/workshop outlet. 240V. Two horizontal slots + ground. Common in garages.</p>
+          <h4>NEMA 5-15/20</h4>
+          <p>Standard 120V, 15-20A. Every room has these. For Loki Kit setups only — NOT for stock ASIC miners.</p>
+        </div>
+        
+        <div class="outlet-box" style="border-color: var(--sola-teal);">
+          <div class="outlet-icon">
+            <svg width="60" height="70" viewBox="0 0 60 70">
+              <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
+              <!-- Left horizontal slot -->
+              <rect x="10" y="18" width="14" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
+              <!-- Right T-slot (horizontal + vertical for 20A) -->
+              <rect x="36" y="18" width="14" height="4" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
+              <rect x="46" y="18" width="4" height="10" rx="1" fill="none" stroke="#00CED1" stroke-width="2"/>
+              <!-- Round ground -->
+              <circle cx="30" cy="46" r="5" fill="none" stroke="#00CED1" stroke-width="2"/>
+            </svg>
+          </div>
+          <h4 style="color: var(--sola-teal);">NEMA 6-20R ⭐ PREFERRED</h4>
+          <p>240V, 20A. Two horizontal slots + ground. Common in workshops and garages. Good for single miners.</p>
+        </div>
+        
+        <div class="outlet-box" style="border-color: var(--sola-teal);">
+          <div class="outlet-icon">
+            <svg width="60" height="70" viewBox="0 0 60 70">
+              <rect x="5" y="5" width="50" height="60" rx="4" fill="#1a1a1a" stroke="#D4AF37" stroke-width="2"/>
+              <!-- Circular guide for twist-lock -->
+              <circle cx="30" cy="34" r="18" fill="none" stroke="#444" stroke-width="1"/>
+              <!-- Ground slot (curved, bottom) -->
+              <path d="M 20 46 A 10 10 0 0 1 40 46" fill="none" stroke="#00CED1" stroke-width="3" stroke-linecap="round"/>
+              <!-- Hot slot 1 (curved, upper left) -->
+              <path d="M 15 28 A 10 10 0 0 1 25 19" fill="none" stroke="#00CED1" stroke-width="3" stroke-linecap="round"/>
+              <!-- Hot slot 2 (curved, upper right) -->
+              <path d="M 35 19 A 10 10 0 0 1 45 28" fill="none" stroke="#00CED1" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h4 style="color: var(--sola-teal);">NEMA L6-30R ⭐ PREFERRED</h4>
+          <p>240V, 30A. Twist-lock prevents accidental disconnection. Best for PDU setups with multiple miners.</p>
         </div>
       </div>
       
       <div class="info-box" style="margin-top: 1.5rem;">
-        <p><strong>⚠️ Note:</strong> Power cords and PSUs are usually sold separately from miners. Every machine and setup is different — make sure you get the right cord for YOUR outlet type and voltage.</p>
+        <p><strong>⚠️ Note:</strong> Power cords are sold separately. Check manufacturer specs.</p>
       </div>
     </section>
     
