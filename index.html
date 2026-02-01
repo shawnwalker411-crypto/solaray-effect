@@ -328,15 +328,30 @@
        ============================================ */
     .dropdown-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 600px) {
+      .dropdown-row {
+        grid-template-columns: 1fr;
+      }
     }
     
     .dropdown-group {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
+    }
+    
+    .dropdown-group.miner-dropdown-full {
+      width: 100%;
+    }
+    
+    #miner-row {
+      display: grid;
+      grid-template-columns: 1fr;
     }
     
     .dropdown-group label {
@@ -1059,14 +1074,16 @@
             <option value="all">All Algorithms</option>
             <option value="SHA-256">SHA-256 (BTC)</option>
             <option value="SHA-256-BCH">SHA-256 (BCH)</option>
-            <option value="Scrypt">Scrypt (LTC/DOGE)</option>
+            <option value="Scrypt">Scrypt (LTC+DOGE)</option>
             <option value="KHeavyHash">KHeavyHash (KAS)</option>
             <option value="Etchash">Etchash (ETC)</option>
             <option value="Equihash">Equihash (ZEC)</option>
             <option value="X11">X11 (DASH)</option>
           </select>
         </div>
-        <div class="dropdown-group" id="miner-group">
+      </div>
+      <div class="dropdown-row" id="miner-row">
+        <div class="dropdown-group miner-dropdown-full">
           <label>Miner</label>
           <select id="miner-select">
             <option value="">-- Select Miner --</option>
@@ -1490,7 +1507,11 @@
       // ASIC Algorithms
       'SHA-256': { perUnit: 0.00000044, unit: 'TH/s', coin: 'BTC' },
       'SHA-256-BCH': { perUnit: 0.000039, unit: 'TH/s', coin: 'BCH' },
-      'Scrypt': { perUnit: 0.0000012, unit: 'MH/s', coin: 'LTC' },
+      // Scrypt is MERGED MINING - you get BOTH LTC and DOGE simultaneously
+      'Scrypt': { 
+        perUnit: 0.00000136, unit: 'MH/s', coin: 'LTC',
+        merged: { perUnit: 0.00459, coin: 'DOGE' }
+      },
       'KHeavyHash': { perUnit: 0.0015, unit: 'GH/s', coin: 'KAS' },
       'Etchash': { perUnit: 0.0000035, unit: 'MH/s', coin: 'ETC' },
       'Equihash': { perUnit: 0.00011, unit: 'kSol/s', coin: 'ZEC' },
@@ -1510,7 +1531,7 @@
         { value: 'all', label: 'All Algorithms' },
         { value: 'SHA-256', label: 'SHA-256 (BTC)' },
         { value: 'SHA-256-BCH', label: 'SHA-256 (BCH)' },
-        { value: 'Scrypt', label: 'Scrypt (LTC/DOGE)' },
+        { value: 'Scrypt', label: 'Scrypt (LTC+DOGE)' },
         { value: 'KHeavyHash', label: 'KHeavyHash (KAS)' },
         { value: 'Etchash', label: 'Etchash (ETC)' },
         { value: 'Equihash', label: 'Equihash (ZEC)' },
@@ -1752,6 +1773,10 @@
         const opt = document.createElement('option');
         opt.value = m.id;
         opt.textContent = m.name;
+        // Style Loki miners purple
+        if (m.loki) {
+          opt.style.color = '#9c27b0';
+        }
         minerSelect.appendChild(opt);
       });
       
@@ -1774,7 +1799,7 @@
       currentMiningType = miningType;
       
       const voltageGroup = document.getElementById('voltage-group');
-      const minerGroup = document.getElementById('miner-group');
+      const minerRow = document.getElementById('miner-row');
       const minerInfo = document.getElementById('miner-info');
       const manualSection = document.getElementById('manual-input-section');
       const algoSelect = document.getElementById('algorithm-filter');
@@ -1782,7 +1807,7 @@
       if (miningType === 'ASIC') {
         // Show ASIC-specific controls
         voltageGroup.style.display = 'block';
-        minerGroup.style.display = 'block';
+        minerRow.style.display = 'grid';
         manualSection.style.display = 'none';
         
         // Populate algorithm dropdown for ASIC
@@ -1798,7 +1823,7 @@
       } else {
         // GPU or CPU - hide ASIC controls, show manual input
         voltageGroup.style.display = 'none';
-        minerGroup.style.display = 'none';
+        minerRow.style.display = 'none';
         minerInfo.classList.remove('active');
         minerInfo.classList.remove('loki-miner');
         manualSection.style.display = 'block';
@@ -1913,7 +1938,7 @@
       document.getElementById('manual-cost').value = '0';
       document.getElementById('manual-input-section').style.display = 'none';
       document.getElementById('voltage-group').style.display = 'block';
-      document.getElementById('miner-group').style.display = 'block';
+      document.getElementById('miner-row').style.display = 'grid';
       selectedMiner = null;
       currentMiningType = 'ASIC';
       updateMiningType();
@@ -2064,10 +2089,25 @@
         alert('Algorithm not supported. Please select a valid algorithm.');
         return;
       }
+      
+      // Calculate primary coin
       const fullDailyCrypto = hashrate * rateInfo.perUnit;
       const dailyCrypto = fullDailyCrypto * activeFraction;
       const coinPrice = PRICES[rateInfo.coin] || 0;
-      const dailyRevenue = dailyCrypto * coinPrice * (1 - totalFees / 100);
+      let dailyRevenue = dailyCrypto * coinPrice * (1 - totalFees / 100);
+      
+      // Handle merged mining (Scrypt = LTC + DOGE)
+      let dailyMergedCrypto = 0;
+      let mergedCoin = '';
+      let mergedCoinPrice = 0;
+      if (rateInfo.merged) {
+        const fullDailyMerged = hashrate * rateInfo.merged.perUnit;
+        dailyMergedCrypto = fullDailyMerged * activeFraction;
+        mergedCoin = rateInfo.merged.coin;
+        mergedCoinPrice = PRICES[mergedCoin] || 0;
+        dailyRevenue += dailyMergedCrypto * mergedCoinPrice * (1 - totalFees / 100);
+      }
+      
       const dailyProfit = dailyRevenue - dailyElecCost;
       
       // Periods
@@ -2091,19 +2131,27 @@
       document.getElementById('daily-revenue').textContent = `$${dailyRevenue.toFixed(2)}`;
       document.getElementById('daily-elec').textContent = `$${dailyElecCost.toFixed(2)}`;
       document.getElementById('daily-profit').textContent = `$${dailyProfit.toFixed(2)}`;
-      document.getElementById('daily-crypto').textContent = `${dailyCrypto.toFixed(8)} ${rateInfo.coin}`;
+      
+      // Format crypto output - show merged mining if applicable
+      if (rateInfo.merged) {
+        document.getElementById('daily-crypto').textContent = `${dailyCrypto.toFixed(8)} ${rateInfo.coin} + ${dailyMergedCrypto.toFixed(4)} ${mergedCoin}`;
+        document.getElementById('monthly-crypto').textContent = `${monthly(dailyCrypto).toFixed(6)} ${rateInfo.coin} + ${monthly(dailyMergedCrypto).toFixed(1)} ${mergedCoin}`;
+        document.getElementById('yearly-crypto').textContent = `${yearly(dailyCrypto).toFixed(4)} ${rateInfo.coin} + ${Math.round(yearly(dailyMergedCrypto)).toLocaleString()} ${mergedCoin}`;
+        document.getElementById('price-note').textContent = `Prices: ${rateInfo.coin} $${coinPrice.toLocaleString()} | ${mergedCoin} $${mergedCoinPrice.toFixed(4)} | Mining ${activeHours}h/day`;
+      } else {
+        document.getElementById('daily-crypto').textContent = `${dailyCrypto.toFixed(8)} ${rateInfo.coin}`;
+        document.getElementById('monthly-crypto').textContent = `${monthly(dailyCrypto).toFixed(6)} ${rateInfo.coin}`;
+        document.getElementById('yearly-crypto').textContent = `${yearly(dailyCrypto).toFixed(4)} ${rateInfo.coin}`;
+        document.getElementById('price-note').textContent = `Prices: ${rateInfo.coin} $${coinPrice.toLocaleString()} | Mining ${activeHours}h/day`;
+      }
       
       document.getElementById('monthly-revenue').textContent = `$${monthly(dailyRevenue).toFixed(2)}`;
       document.getElementById('monthly-elec').textContent = `$${monthly(dailyElecCost).toFixed(2)}`;
       document.getElementById('monthly-profit-detail').textContent = `$${monthlyProfit.toFixed(2)}`;
-      document.getElementById('monthly-crypto').textContent = `${monthly(dailyCrypto).toFixed(6)} ${rateInfo.coin}`;
       
       document.getElementById('yearly-revenue').textContent = `$${yearly(dailyRevenue).toFixed(2)}`;
       document.getElementById('yearly-elec').textContent = `$${yearly(dailyElecCost).toFixed(2)}`;
       document.getElementById('yearly-profit').textContent = `$${yearly(dailyProfit).toFixed(2)}`;
-      document.getElementById('yearly-crypto').textContent = `${yearly(dailyCrypto).toFixed(4)} ${rateInfo.coin}`;
-      
-      document.getElementById('price-note').textContent = `Prices: ${rateInfo.coin} $${coinPrice.toLocaleString()} | Mining ${activeHours}h/day`;
       
       document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
     }
