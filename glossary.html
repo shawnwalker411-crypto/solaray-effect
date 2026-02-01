@@ -427,7 +427,62 @@
       
       <div class="term" id="algorithm">
         <div class="term-name">Algorithm</div>
-        <div class="term-def">The mathematical puzzle miners solve. Different coins use different algorithms: SHA-256 (Bitcoin), Scrypt (Litecoin), KHeavyHash (Kaspa), Ethash (Ethereum Classic), Blake3 (Kadena).</div>
+        <div class="term-def">The mathematical puzzle miners solve. Different coins use different algorithms: SHA-256 (Bitcoin, Bitcoin Cash), Scrypt (Litecoin, Dogecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin), Autolykos2 (Ergo), Blake3 (Alephium), RandomX (Monero).</div>
+      </div>
+      
+      <div class="term" id="sha256">
+        <div class="term-name">SHA-256</div>
+        <div class="term-def">The algorithm used by Bitcoin and Bitcoin Cash. Stands for Secure Hash Algorithm 256-bit. ASIC-dominated since 2013 — GPU mining is not viable for SHA-256 coins.</div>
+      </div>
+      
+      <div class="term" id="scrypt">
+        <div class="term-name">Scrypt</div>
+        <div class="term-def">The algorithm used by Litecoin and Dogecoin (via merged mining). Originally designed to be ASIC-resistant, but ASICs now dominate. Scrypt pools typically offer merged mining for both LTC and DOGE simultaneously.</div>
+      </div>
+      
+      <div class="term" id="kheavyhash">
+        <div class="term-name">KHeavyHash</div>
+        <div class="term-def">The algorithm used by Kaspa (KAS). Memory-hard algorithm designed for ASIC mining. Kaspa uses BlockDAG technology instead of traditional blockchain.</div>
+      </div>
+      
+      <div class="term" id="equihash">
+        <div class="term-name">Equihash</div>
+        <div class="term-def">The algorithm used by Zcash (ZEC). Memory-intensive algorithm that was originally designed to be ASIC-resistant, but ASIC miners now exist. Zcash offers optional privacy features through shielded transactions.</div>
+      </div>
+      
+      <div class="term" id="x11">
+        <div class="term-name">X11</div>
+        <div class="term-def">The algorithm used by Dash (DASH). Uses 11 different hashing functions chained together. Originally designed for GPU mining, but now dominated by ASICs. Dash focuses on fast, low-cost payments.</div>
+      </div>
+      
+      <div class="term" id="kawpow">
+        <div class="term-name">KAWPOW</div>
+        <div class="term-def">The algorithm used by Ravencoin (RVN). GPU-only algorithm designed to be ASIC-resistant through frequent memory access patterns. Popular among GPU miners for its fair distribution.</div>
+        <div class="term-tip">💡 GPU Only — No ASICs available for KAWPOW.</div>
+      </div>
+      
+      <div class="term" id="autolykos2">
+        <div class="term-name">Autolykos2</div>
+        <div class="term-def">The algorithm used by Ergo (ERG). Memory-hard, GPU-friendly algorithm designed to resist ASIC mining. Ergo focuses on financial contracts and DeFi applications.</div>
+        <div class="term-tip">💡 GPU Only — Designed to remain ASIC-resistant.</div>
+      </div>
+      
+      <div class="term" id="blake3">
+        <div class="term-name">Blake3</div>
+        <div class="term-def">The algorithm used by Alephium (ALPH). Modern, fast hashing algorithm. GPU-mineable with growing ASIC development. Alephium combines sharding with proof-of-work.</div>
+        <div class="term-tip">💡 GPU or ASIC — Check current hardware availability.</div>
+      </div>
+      
+      <div class="term" id="randomx">
+        <div class="term-name">RandomX</div>
+        <div class="term-def">The algorithm used by Monero (XMR). CPU-optimized algorithm that uses random code execution and memory-hard techniques. Specifically designed to be efficient on consumer CPUs while resisting GPU and ASIC mining.</div>
+        <div class="term-tip">💡 CPU Only — Optimized for standard desktop/laptop processors.</div>
+      </div>
+      
+      <div class="term" id="kadena-shutdown">
+        <div class="term-name">Kadena (KDA) - Mining Ended</div>
+        <div class="term-def">Kadena ASIC mining ended in October 2025 when the network transitioned away from proof-of-work. KDA mining hardware (like the Antminer KA3 and Goldshell KD-Box) is no longer usable for mining. If you see KDA miners for sale, they have no mining utility.</div>
+        <div class="term-tip">⚠️ Warning: Do not purchase Kadena mining hardware — it cannot mine any coins.</div>
       </div>
     </section>
     
