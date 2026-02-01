@@ -1807,7 +1807,7 @@
       
       if (miningType === 'ASIC') {
         // Show ASIC-specific controls
-        voltageGroup.style.display = 'block';
+        voltageGroup.style.display = 'flex';
         minerRow.style.display = 'grid';
         manualSection.style.display = 'none';
         
@@ -1938,7 +1938,7 @@
       document.getElementById('manual-power').value = '';
       document.getElementById('manual-cost').value = '0';
       document.getElementById('manual-input-section').style.display = 'none';
-      document.getElementById('voltage-group').style.display = 'block';
+      document.getElementById('voltage-group').style.display = 'flex';
       document.getElementById('miner-row').style.display = 'grid';
       selectedMiner = null;
       currentMiningType = 'ASIC';
