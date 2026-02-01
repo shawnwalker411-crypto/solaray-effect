@@ -318,6 +318,72 @@
       color: #ffc107;
     }
     
+    .live-price-status.custom {
+      background: rgba(138, 43, 226, 0.2);
+      color: #bb86fc;
+    }
+    
+    .price-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .price-currency {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--sola-teal);
+    }
+    
+    .live-price-input {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--sola-teal);
+      background: transparent;
+      border: none;
+      border-bottom: 2px dashed transparent;
+      padding: 0;
+      width: auto;
+      min-width: 60px;
+      max-width: 140px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    
+    .live-price-input:hover {
+      border-bottom-color: var(--sola-teal);
+    }
+    
+    .live-price-input:focus {
+      outline: none;
+      border-bottom-color: var(--sola-gold);
+      background: rgba(255, 215, 0, 0.1);
+      cursor: text;
+    }
+    
+    .live-price-input.custom-price {
+      color: #bb86fc;
+      border-bottom: 2px solid #bb86fc;
+    }
+    
+    .price-reset-btn {
+      background: rgba(138, 43, 226, 0.2);
+      border: none;
+      color: #bb86fc;
+      font-size: 1rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .price-reset-btn:hover {
+      background: rgba(138, 43, 226, 0.4);
+    }
+    
     .live-price-status.default {
       background: rgba(255, 82, 82, 0.15);
       color: #ff5252;
@@ -1048,7 +1114,11 @@
       <!-- Live Coin Price Display -->
       <div class="live-price-display" id="live-price-display" style="display: none;">
         <span class="live-price-coin" id="live-price-coin">BTC</span>
-        <span class="live-price-value" id="live-price-value">$89,000</span>
+        <div class="price-input-wrapper">
+          <span class="price-currency">$</span>
+          <input type="text" class="live-price-input" id="live-price-input" value="89000" title="Click to edit price for what-if scenarios">
+          <button class="price-reset-btn" id="price-reset-btn" title="Reset to live price" style="display: none;">↺</button>
+        </div>
         <span class="live-price-status" id="live-price-status">🟢 Live</span>
       </div>
       
@@ -1737,12 +1807,17 @@
       return ALL_MINERS;
     }
     
+    // Track custom price overrides per coin
+    let customPrices = {};
+    let currentDisplayedCoin = null;
+    
     function updateLivePriceDisplay() {
       const algoFilter = document.getElementById('algorithm-filter').value;
       const display = document.getElementById('live-price-display');
       const coinEl = document.getElementById('live-price-coin');
-      const valueEl = document.getElementById('live-price-value');
+      const inputEl = document.getElementById('live-price-input');
       const statusEl = document.getElementById('live-price-status');
+      const resetBtn = document.getElementById('price-reset-btn');
       
       // Map algorithm to coin
       const algoCoinMap = {
@@ -1770,25 +1845,94 @@
         display.style.display = 'none';
         return;
       }
-      const price = PRICES[coin] || 0;
+      
+      currentDisplayedCoin = coin;
+      const livePrice = PRICES[coin] || 0;
+      const hasCustomPrice = customPrices.hasOwnProperty(coin);
+      const displayPrice = hasCustomPrice ? customPrices[coin] : livePrice;
       
       coinEl.textContent = coin;
-      valueEl.textContent = price >= 1 ? `$${price.toLocaleString()}` : `$${price.toFixed(4)}`;
+      inputEl.value = displayPrice >= 1 ? displayPrice.toLocaleString('en-US', {maximumFractionDigits: 2}) : displayPrice.toFixed(4);
       
-      // Update status indicator
-      if (priceStatus === 'live') {
+      // Update status indicator and styling based on custom vs live
+      if (hasCustomPrice) {
+        statusEl.textContent = '🟣 Custom';
+        statusEl.className = 'live-price-status custom';
+        inputEl.classList.add('custom-price');
+        resetBtn.style.display = 'inline-block';
+      } else if (priceStatus === 'live') {
         statusEl.textContent = '🟢 Live';
         statusEl.className = 'live-price-status';
+        inputEl.classList.remove('custom-price');
+        resetBtn.style.display = 'none';
       } else if (priceStatus === 'cached') {
         const ago = getTimeAgo(lastPriceUpdate);
         statusEl.textContent = `🟡 ${ago}`;
         statusEl.className = 'live-price-status cached';
+        inputEl.classList.remove('custom-price');
+        resetBtn.style.display = 'none';
       } else {
         statusEl.textContent = '🔴 Default';
         statusEl.className = 'live-price-status default';
+        inputEl.classList.remove('custom-price');
+        resetBtn.style.display = 'none';
       }
       
       display.style.display = 'flex';
+    }
+    
+    // Get the effective price for calculations (custom or live)
+    function getEffectivePrice(coin) {
+      if (customPrices.hasOwnProperty(coin)) {
+        return customPrices[coin];
+      }
+      return PRICES[coin] || 0;
+    }
+    
+    // Handle custom price input
+    function initPriceInput() {
+      const inputEl = document.getElementById('live-price-input');
+      const resetBtn = document.getElementById('price-reset-btn');
+      
+      inputEl.addEventListener('change', function() {
+        if (!currentDisplayedCoin) return;
+        
+        // Parse the entered value (remove commas)
+        let newPrice = parseFloat(this.value.replace(/,/g, ''));
+        if (isNaN(newPrice) || newPrice < 0) {
+          // Invalid input - reset to current
+          updateLivePriceDisplay();
+          return;
+        }
+        
+        // Store custom price
+        customPrices[currentDisplayedCoin] = newPrice;
+        updateLivePriceDisplay();
+        
+        // Recalculate if a miner is selected
+        if (selectedMiner) {
+          calculate();
+        }
+      });
+      
+      inputEl.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          this.blur();
+        }
+      });
+      
+      resetBtn.addEventListener('click', function() {
+        if (!currentDisplayedCoin) return;
+        
+        // Remove custom price override
+        delete customPrices[currentDisplayedCoin];
+        updateLivePriceDisplay();
+        
+        // Recalculate if a miner is selected
+        if (selectedMiner) {
+          calculate();
+        }
+      });
     }
     
     function updateMinerDropdown() {
@@ -2128,7 +2272,7 @@
       // Calculate primary coin
       const fullDailyCrypto = hashrate * rateInfo.perUnit;
       const dailyCrypto = fullDailyCrypto * activeFraction;
-      const coinPrice = PRICES[rateInfo.coin] || 0;
+      const coinPrice = getEffectivePrice(rateInfo.coin);
       let dailyRevenue = dailyCrypto * coinPrice * (1 - totalFees / 100);
       
       // Handle merged mining (Scrypt = LTC + DOGE)
@@ -2139,7 +2283,7 @@
         const fullDailyMerged = hashrate * rateInfo.merged.perUnit;
         dailyMergedCrypto = fullDailyMerged * activeFraction;
         mergedCoin = rateInfo.merged.coin;
-        mergedCoinPrice = PRICES[mergedCoin] || 0;
+        mergedCoinPrice = getEffectivePrice(mergedCoin);
         dailyRevenue += dailyMergedCrypto * mergedCoinPrice * (1 - totalFees / 100);
       }
       
@@ -2284,6 +2428,7 @@
     updateTimeline();
     renderBrowseTable();
     initPrices(); // Fetch live prices on page load
+    initPriceInput(); // Enable custom price input for what-if scenarios
   </script>
 </body>
 </html>
