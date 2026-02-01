@@ -1437,12 +1437,17 @@
       // LOKI - Scrypt
       { id: 'l7-9500-loki', name: 'L7 9500M (Loki)', manufacturer: 'Bitmain', hashrate: 3800, unit: 'MH/s', power: 1200, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
       
-      // NATIVE 120V - KHeavyHash
+      // NATIVE 120V - KHeavyHash (IceRiver compact/home miners)
       { id: 'ks0', name: 'KS0', manufacturer: 'IceRiver', hashrate: 100, unit: 'GH/s', power: 65, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       { id: 'ks0-pro', name: 'KS0 Pro', manufacturer: 'IceRiver', hashrate: 200, unit: 'GH/s', power: 100, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       { id: 'ks0-ultra', name: 'KS0 Ultra', manufacturer: 'IceRiver', hashrate: 400, unit: 'GH/s', power: 100, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       { id: 'ks1', name: 'KS1', manufacturer: 'IceRiver', hashrate: 1000, unit: 'GH/s', power: 600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
       { id: 'ks2', name: 'KS2', manufacturer: 'IceRiver', hashrate: 2000, unit: 'GH/s', power: 1200, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'ks2-lite', name: 'KS2 Lite', manufacturer: 'IceRiver', hashrate: 2000, unit: 'GH/s', power: 500, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'ks7-lite', name: 'KS7 Lite', manufacturer: 'IceRiver', hashrate: 4200, unit: 'GH/s', power: 500, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
+      // NATIVE 120V - KHeavyHash (Goldshell compact/home miners)
+      { id: 'ka-box', name: 'KA Box', manufacturer: 'Goldshell', hashrate: 1180, unit: 'GH/s', power: 400, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'ka-box-pro', name: 'KA Box Pro', manufacturer: 'Goldshell', hashrate: 1600, unit: 'GH/s', power: 600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       
       // NATIVE 120V - Etchash (ETC)
       { id: 'ipollo-v1-mini', name: 'iPollo V1 Mini', manufacturer: 'iPollo', hashrate: 130, unit: 'MH/s', power: 240, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
@@ -1475,9 +1480,16 @@
       { id: 'l7-9050', name: 'Antminer L7 9050M', manufacturer: 'Bitmain', hashrate: 9050, unit: 'MH/s', power: 3260, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'l7-9500', name: 'Antminer L7 9500M', manufacturer: 'Bitmain', hashrate: 9500, unit: 'MH/s', power: 3425, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
-      // KHeavyHash
+      // KHeavyHash (IceRiver industrial miners)
       { id: 'ks3', name: 'KS3', manufacturer: 'IceRiver', hashrate: 8000, unit: 'GH/s', power: 3200, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'ks5', name: 'KS5', manufacturer: 'IceRiver', hashrate: 15000, unit: 'GH/s', power: 3000, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'ks3m', name: 'KS3M', manufacturer: 'IceRiver', hashrate: 6000, unit: 'GH/s', power: 3400, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'ks5l', name: 'KS5L', manufacturer: 'IceRiver', hashrate: 12000, unit: 'GH/s', power: 3400, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'ks5m', name: 'KS5M', manufacturer: 'IceRiver', hashrate: 15000, unit: 'GH/s', power: 3400, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      // KHeavyHash (Bitmain Antminer KS series)
+      { id: 'antminer-ks3', name: 'Antminer KS3', manufacturer: 'Bitmain', hashrate: 9400, unit: 'GH/s', power: 3500, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'antminer-ks5', name: 'Antminer KS5', manufacturer: 'Bitmain', hashrate: 20000, unit: 'GH/s', power: 3000, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'antminer-ks5-pro', name: 'Antminer KS5 Pro', manufacturer: 'Bitmain', hashrate: 21000, unit: 'GH/s', power: 3150, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'antminer-ks7', name: 'Antminer KS7', manufacturer: 'Bitmain', hashrate: 40000, unit: 'GH/s', power: 3080, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
       // Etchash (ETC)
       { id: 'e9-pro', name: 'E9 Pro', manufacturer: 'Bitmain', hashrate: 3680, unit: 'MH/s', power: 2200, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
@@ -1517,8 +1529,9 @@
         perUnit: 0.00000122, unit: 'MH/s', coin: 'LTC',
         merged: { perUnit: 0.00459, coin: 'DOGE' }
       },
-      // KAS: Kaspa network active - ~55 KAS/block, 1 block/sec, ~200 PH/s network
-      'KHeavyHash': { perUnit: 0.000024, unit: 'GH/s', coin: 'KAS' },
+      // KAS: Kaspa - verified against CryptoCompare Jan 2026
+      // 21 TH/s = 135.7 KAS/day → 0.00646 KAS/GH/s/day
+      'KHeavyHash': { perUnit: 0.00646, unit: 'GH/s', coin: 'KAS' },
       // ETC: 5,800 MH/s = 0.625 ETC/day → 0.000108 ETC/MH/day
       'Etchash': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       // ZEC: 140 KH/s = 0.0133 ZEC/day → 0.000095 ZEC/KSol/day
