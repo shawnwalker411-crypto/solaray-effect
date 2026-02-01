@@ -614,6 +614,56 @@
     }
     
     /* ============================================
+       MANUAL INPUT SECTION (GPU/CPU)
+       ============================================ */
+    .manual-input-section {
+      background: var(--bg-card);
+      border: 2px solid var(--sola-teal);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+    
+    .manual-input-header {
+      margin-bottom: 1rem;
+    }
+    
+    .manual-input-header h3 {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--sola-teal);
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .manual-input-note {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    
+    .manual-input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    
+    .hashrate-input-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .hashrate-input-row input {
+      flex: 1;
+    }
+    
+    .unit-label {
+      color: var(--sola-gold);
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+    
+    /* ============================================
        CALCULATE BUTTON
        ============================================ */
     .calculate-btn {
@@ -988,6 +1038,14 @@
       
       <div class="dropdown-row">
         <div class="dropdown-group">
+          <label><span class="glossary-term" data-term="mining-type">Mining Type</span></label>
+          <select id="mining-type-filter" onchange="updateMiningType()">
+            <option value="ASIC">ASIC</option>
+            <option value="GPU">GPU</option>
+            <option value="CPU">CPU</option>
+          </select>
+        </div>
+        <div class="dropdown-group" id="voltage-group">
           <label><span class="glossary-term" data-term="voltage">Voltage</span></label>
           <select id="voltage-filter">
             <option value="all">All</option>
@@ -1003,15 +1061,41 @@
             <option value="SHA-256-BCH">SHA-256 (BCH)</option>
             <option value="Scrypt">Scrypt (LTC/DOGE)</option>
             <option value="KHeavyHash">KHeavyHash (KAS)</option>
-            <option value="Ethash">Ethash (ETC)</option>
-            <option value="Blake3">Blake3 (KDA)</option>
+            <option value="Etchash">Etchash (ETC)</option>
+            <option value="Equihash">Equihash (ZEC)</option>
+            <option value="X11">X11 (DASH)</option>
           </select>
         </div>
-        <div class="dropdown-group">
+        <div class="dropdown-group" id="miner-group">
           <label>Miner</label>
           <select id="miner-select">
             <option value="">-- Select Miner --</option>
           </select>
+        </div>
+      </div>
+      
+      <!-- GPU/CPU Manual Input Section (hidden by default) -->
+      <div class="manual-input-section" id="manual-input-section" style="display: none;">
+        <div class="manual-input-header">
+          <h3 id="manual-input-title">⛏️ GPU Mining Setup</h3>
+          <p class="manual-input-note">Enter your hardware specs from your mining software</p>
+        </div>
+        <div class="manual-input-grid">
+          <div class="config-group">
+            <label>Hashrate</label>
+            <div class="hashrate-input-row">
+              <input type="number" id="manual-hashrate" placeholder="0" min="0" step="0.01">
+              <span class="unit-label" id="manual-unit-label">MH/s</span>
+            </div>
+          </div>
+          <div class="config-group">
+            <label>Power (W)</label>
+            <input type="number" id="manual-power" placeholder="0" min="0">
+          </div>
+          <div class="config-group">
+            <label>Purchase Price ($)</label>
+            <input type="number" id="manual-cost" placeholder="0" value="0" min="0">
+          </div>
         </div>
       </div>
       
@@ -1342,11 +1426,8 @@
       { id: 'ks1', name: 'KS1', manufacturer: 'IceRiver', hashrate: 1000, unit: 'GH/s', power: 600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
       { id: 'ks2', name: 'KS2', manufacturer: 'IceRiver', hashrate: 2000, unit: 'GH/s', power: 1200, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: false },
       
-      // NATIVE 120V - Ethash
-      { id: 'ipollo-v1-mini', name: 'iPollo V1 Mini', manufacturer: 'iPollo', hashrate: 130, unit: 'MH/s', power: 240, algorithm: 'Ethash', coins: ['ETC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      
-      // LOKI - Blake3
-      { id: 'ka3-loki', name: 'KA3 (Loki)', manufacturer: 'Bitmain', hashrate: 66, unit: 'TH/s', power: 1200, algorithm: 'Blake3', coins: ['KDA'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
+      // NATIVE 120V - Etchash (ETC)
+      { id: 'ipollo-v1-mini', name: 'iPollo V1 Mini', manufacturer: 'iPollo', hashrate: 130, unit: 'MH/s', power: 240, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
     ];
     
     // ============================================
@@ -1380,29 +1461,70 @@
       { id: 'ks3', name: 'KS3', manufacturer: 'IceRiver', hashrate: 8000, unit: 'GH/s', power: 3200, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'ks5', name: 'KS5', manufacturer: 'IceRiver', hashrate: 15000, unit: 'GH/s', power: 3000, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
-      // Ethash
-      { id: 'e9-pro', name: 'E9 Pro', manufacturer: 'Bitmain', hashrate: 3680, unit: 'MH/s', power: 2200, algorithm: 'Ethash', coins: ['ETC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      // Etchash (ETC)
+      { id: 'e9-pro', name: 'E9 Pro', manufacturer: 'Bitmain', hashrate: 3680, unit: 'MH/s', power: 2200, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
-      // Blake3
-      { id: 'ka3', name: 'KA3', manufacturer: 'Bitmain', hashrate: 166, unit: 'TH/s', power: 3154, algorithm: 'Blake3', coins: ['KDA'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      // Equihash (ZEC)
+      { id: 'z15', name: 'Antminer Z15', manufacturer: 'Bitmain', hashrate: 420, unit: 'kSol/s', power: 1510, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'z15-pro', name: 'Antminer Z15 Pro', manufacturer: 'Bitmain', hashrate: 840, unit: 'kSol/s', power: 2560, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      
+      // X11 (DASH)
+      { id: 'd9', name: 'Antminer D9', manufacturer: 'Bitmain', hashrate: 1770, unit: 'GH/s', power: 2839, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
     ];
     
     // Combined for "All" filter and browse table
     const ALL_MINERS = [...MINERS_120V, ...MINERS_240V];
     
     // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
-    const DEFAULT_PRICES = { BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, KDA: 1.20, DOGE: 0.12 };
+    const DEFAULT_PRICES = { 
+      BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
+      ZEC: 45, DASH: 44, RVN: 0.007, ERG: 0.45, ALPH: 0.11, XMR: 200
+    };
     let PRICES = { ...DEFAULT_PRICES };
     let priceStatus = 'default'; // 'live', 'cached', 'default'
     let lastPriceUpdate = null;
     
+    // Revenue rates per unit per day (coins earned)
+    // Based on current network difficulty - these are estimates
     const REVENUE_RATES = {
+      // ASIC Algorithms
       'SHA-256': { perUnit: 0.00000044, unit: 'TH/s', coin: 'BTC' },
       'SHA-256-BCH': { perUnit: 0.000039, unit: 'TH/s', coin: 'BCH' },
       'Scrypt': { perUnit: 0.0000012, unit: 'MH/s', coin: 'LTC' },
       'KHeavyHash': { perUnit: 0.0015, unit: 'GH/s', coin: 'KAS' },
-      'Ethash': { perUnit: 0.0000035, unit: 'MH/s', coin: 'ETC' },
-      'Blake3': { perUnit: 0.00025, unit: 'TH/s', coin: 'KDA' }
+      'Etchash': { perUnit: 0.0000035, unit: 'MH/s', coin: 'ETC' },
+      'Equihash': { perUnit: 0.00011, unit: 'kSol/s', coin: 'ZEC' },
+      'X11': { perUnit: 0.000026, unit: 'GH/s', coin: 'DASH' },
+      // GPU Algorithms
+      'Etchash-GPU': { perUnit: 0.0000035, unit: 'MH/s', coin: 'ETC' },
+      'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
+      'Autolykos2': { perUnit: 0.0023, unit: 'MH/s', coin: 'ERG' },
+      'Blake3': { perUnit: 0.00035, unit: 'GH/s', coin: 'ALPH' },
+      // CPU Algorithms  
+      'RandomX': { perUnit: 0.000066, unit: 'KH/s', coin: 'XMR' }
+    };
+    
+    // Algorithm configurations by mining type
+    const ALGORITHM_CONFIG = {
+      ASIC: [
+        { value: 'all', label: 'All Algorithms' },
+        { value: 'SHA-256', label: 'SHA-256 (BTC)' },
+        { value: 'SHA-256-BCH', label: 'SHA-256 (BCH)' },
+        { value: 'Scrypt', label: 'Scrypt (LTC/DOGE)' },
+        { value: 'KHeavyHash', label: 'KHeavyHash (KAS)' },
+        { value: 'Etchash', label: 'Etchash (ETC)' },
+        { value: 'Equihash', label: 'Equihash (ZEC)' },
+        { value: 'X11', label: 'X11 (DASH)' }
+      ],
+      GPU: [
+        { value: 'Etchash-GPU', label: 'Etchash (ETC)', unit: 'MH/s' },
+        { value: 'KAWPOW', label: 'KAWPOW (RVN)', unit: 'MH/s' },
+        { value: 'Autolykos2', label: 'Autolykos v2 (ERG)', unit: 'MH/s' },
+        { value: 'Blake3', label: 'Blake3 (ALPH)', unit: 'GH/s' }
+      ],
+      CPU: [
+        { value: 'RandomX', label: 'RandomX (XMR)', unit: 'KH/s' }
+      ]
     };
     
     // State
@@ -1430,8 +1552,13 @@
       LTC: 'litecoin',
       KAS: 'kaspa',
       ETC: 'ethereum-classic',
-      KDA: 'kadena',
-      DOGE: 'dogecoin'
+      DOGE: 'dogecoin',
+      ZEC: 'zcash',
+      DASH: 'dash',
+      RVN: 'ravencoin',
+      ERG: 'ergo',
+      ALPH: 'alephium',
+      XMR: 'monero'
     };
     
     async function fetchPrices() {
@@ -1450,8 +1577,13 @@
         PRICES.LTC = data.litecoin?.usd || PRICES.LTC;
         PRICES.KAS = data.kaspa?.usd || PRICES.KAS;
         PRICES.ETC = data['ethereum-classic']?.usd || PRICES.ETC;
-        PRICES.KDA = data.kadena?.usd || PRICES.KDA;
         PRICES.DOGE = data.dogecoin?.usd || PRICES.DOGE;
+        PRICES.ZEC = data.zcash?.usd || PRICES.ZEC;
+        PRICES.DASH = data.dash?.usd || PRICES.DASH;
+        PRICES.RVN = data.ravencoin?.usd || PRICES.RVN;
+        PRICES.ERG = data.ergo?.usd || PRICES.ERG;
+        PRICES.ALPH = data.alephium?.usd || PRICES.ALPH;
+        PRICES.XMR = data.monero?.usd || PRICES.XMR;
         
         // Save to localStorage with timestamp
         const cacheData = {
@@ -1562,8 +1694,14 @@
         'SHA-256-BCH': 'BCH',
         'Scrypt': 'LTC',
         'KHeavyHash': 'KAS',
-        'Ethash': 'ETC',
-        'Blake3': 'KDA'
+        'Etchash': 'ETC',
+        'Etchash-GPU': 'ETC',
+        'Equihash': 'ZEC',
+        'X11': 'DASH',
+        'KAWPOW': 'RVN',
+        'Autolykos2': 'ERG',
+        'Blake3': 'ALPH',
+        'RandomX': 'XMR'
       };
       
       if (algoFilter === 'all') {
@@ -1572,6 +1710,10 @@
       }
       
       const coin = algoCoinMap[algoFilter];
+      if (!coin) {
+        display.style.display = 'none';
+        return;
+      }
       const price = PRICES[coin] || 0;
       
       coinEl.textContent = coin;
@@ -1620,6 +1762,83 @@
       document.getElementById('miner-info').classList.remove('active');
       document.getElementById('miner-info').classList.remove('loki-miner');
       selectedMiner = null;
+    }
+    
+    // ============================================
+    // MINING TYPE LOGIC (ASIC/GPU/CPU)
+    // ============================================
+    let currentMiningType = 'ASIC';
+    
+    function updateMiningType() {
+      const miningType = document.getElementById('mining-type-filter').value;
+      currentMiningType = miningType;
+      
+      const voltageGroup = document.getElementById('voltage-group');
+      const minerGroup = document.getElementById('miner-group');
+      const minerInfo = document.getElementById('miner-info');
+      const manualSection = document.getElementById('manual-input-section');
+      const algoSelect = document.getElementById('algorithm-filter');
+      
+      if (miningType === 'ASIC') {
+        // Show ASIC-specific controls
+        voltageGroup.style.display = 'block';
+        minerGroup.style.display = 'block';
+        manualSection.style.display = 'none';
+        
+        // Populate algorithm dropdown for ASIC
+        algoSelect.innerHTML = '';
+        ALGORITHM_CONFIG.ASIC.forEach(algo => {
+          const opt = document.createElement('option');
+          opt.value = algo.value;
+          opt.textContent = algo.label;
+          algoSelect.appendChild(opt);
+        });
+        
+        updateMinerDropdown();
+      } else {
+        // GPU or CPU - hide ASIC controls, show manual input
+        voltageGroup.style.display = 'none';
+        minerGroup.style.display = 'none';
+        minerInfo.classList.remove('active');
+        minerInfo.classList.remove('loki-miner');
+        manualSection.style.display = 'block';
+        selectedMiner = null;
+        
+        // Update title
+        const title = document.getElementById('manual-input-title');
+        title.textContent = miningType === 'GPU' ? '🎮 GPU Mining Setup' : '💻 CPU Mining Setup';
+        
+        // Populate algorithm dropdown for GPU/CPU
+        const algos = ALGORITHM_CONFIG[miningType];
+        algoSelect.innerHTML = '';
+        algos.forEach((algo, idx) => {
+          const opt = document.createElement('option');
+          opt.value = algo.value;
+          opt.textContent = algo.label;
+          algoSelect.appendChild(opt);
+        });
+        
+        // Update unit label based on first algorithm
+        if (algos.length > 0) {
+          document.getElementById('manual-unit-label').textContent = algos[0].unit;
+        }
+        
+        updateLivePriceDisplay();
+      }
+    }
+    
+    function updateManualUnit() {
+      const algoFilter = document.getElementById('algorithm-filter').value;
+      const miningType = document.getElementById('mining-type-filter').value;
+      
+      if (miningType === 'GPU' || miningType === 'CPU') {
+        const algos = ALGORITHM_CONFIG[miningType];
+        const selectedAlgo = algos.find(a => a.value === algoFilter);
+        if (selectedAlgo) {
+          document.getElementById('manual-unit-label').textContent = selectedAlgo.unit;
+        }
+        updateLivePriceDisplay();
+      }
     }
     
     function selectMiner() {
@@ -1671,6 +1890,7 @@
     // RESET
     // ============================================
     function resetCalculator() {
+      document.getElementById('mining-type-filter').value = 'ASIC';
       document.getElementById('voltage-filter').value = 'all';
       document.getElementById('algorithm-filter').value = 'all';
       document.getElementById('miner-select').value = '';
@@ -1687,8 +1907,16 @@
       document.getElementById('dev-fee').value = '2';
       document.getElementById('dev-fee-wrapper').style.display = 'none';
       document.getElementById('results-panel').classList.remove('active');
+      // Reset manual input fields
+      document.getElementById('manual-hashrate').value = '';
+      document.getElementById('manual-power').value = '';
+      document.getElementById('manual-cost').value = '0';
+      document.getElementById('manual-input-section').style.display = 'none';
+      document.getElementById('voltage-group').style.display = 'block';
+      document.getElementById('miner-group').style.display = 'block';
       selectedMiner = null;
-      updateMinerDropdown();
+      currentMiningType = 'ASIC';
+      updateMiningType();
       updateTimeline();
     }
     
@@ -1776,14 +2004,39 @@
     // CALCULATE (with idle time affecting revenue)
     // ============================================
     function calculate() {
-      if (!selectedMiner) {
-        alert('Please select a miner first.');
-        return;
-      }
+      const miningType = document.getElementById('mining-type-filter').value;
       
-      const hashrate = parseFloat(document.getElementById('config-hashrate').value) || selectedMiner.hashrate;
-      const power = parseFloat(document.getElementById('config-power').value) || selectedMiner.power;
-      const cost = parseFloat(document.getElementById('miner-cost').value) || 0;
+      let hashrate, power, cost, algorithm;
+      
+      if (miningType === 'ASIC') {
+        // ASIC mode - use selected miner
+        if (!selectedMiner) {
+          alert('Please select a miner first.');
+          return;
+        }
+        hashrate = parseFloat(document.getElementById('config-hashrate').value) || selectedMiner.hashrate;
+        power = parseFloat(document.getElementById('config-power').value) || selectedMiner.power;
+        cost = parseFloat(document.getElementById('miner-cost').value) || 0;
+        
+        // Use algorithm filter to determine coin (for BCH vs BTC)
+        const algoFilter = document.getElementById('algorithm-filter').value;
+        algorithm = (algoFilter === 'SHA-256-BCH') ? 'SHA-256-BCH' : selectedMiner.algorithm;
+      } else {
+        // GPU/CPU mode - use manual input
+        hashrate = parseFloat(document.getElementById('manual-hashrate').value);
+        power = parseFloat(document.getElementById('manual-power').value);
+        cost = parseFloat(document.getElementById('manual-cost').value) || 0;
+        algorithm = document.getElementById('algorithm-filter').value;
+        
+        if (!hashrate || hashrate <= 0) {
+          alert('Please enter your hashrate.');
+          return;
+        }
+        if (!power || power <= 0) {
+          alert('Please enter your power consumption.');
+          return;
+        }
+      }
       
       const solarHours = parseInt(document.getElementById('solar-hours').value) || 0;
       const freeHours = parseInt(document.getElementById('free-hours').value) || 0;
@@ -1805,10 +2058,12 @@
       const paidKWh = kW * gridHours;
       const dailyElecCost = paidKWh * gridRate;
       
-      // Revenue - Use algorithm filter to determine coin (for BCH vs BTC)
-      const algoFilter = document.getElementById('algorithm-filter').value;
-      const revenueKey = (algoFilter === 'SHA-256-BCH') ? 'SHA-256-BCH' : selectedMiner.algorithm;
-      const rateInfo = REVENUE_RATES[revenueKey];
+      // Revenue
+      const rateInfo = REVENUE_RATES[algorithm];
+      if (!rateInfo) {
+        alert('Algorithm not supported. Please select a valid algorithm.');
+        return;
+      }
       const fullDailyCrypto = hashrate * rateInfo.perUnit;
       const dailyCrypto = fullDailyCrypto * activeFraction;
       const coinPrice = PRICES[rateInfo.coin] || 0;
@@ -1923,7 +2178,14 @@
     // EVENT LISTENERS
     // ============================================
     document.getElementById('voltage-filter').addEventListener('change', updateMinerDropdown);
-    document.getElementById('algorithm-filter').addEventListener('change', updateMinerDropdown);
+    document.getElementById('algorithm-filter').addEventListener('change', function() {
+      const miningType = document.getElementById('mining-type-filter').value;
+      if (miningType === 'ASIC') {
+        updateMinerDropdown();
+      } else {
+        updateManualUnit();
+      }
+    });
     document.getElementById('miner-select').addEventListener('change', selectMiner);
     
     document.getElementById('solar-hours').addEventListener('input', updateTimeline);
@@ -1935,7 +2197,7 @@
     // ============================================
     // INIT
     // ============================================
-    updateMinerDropdown();
+    updateMiningType(); // Initialize with ASIC mode
     updateTimeline();
     renderBrowseTable();
     initPrices(); // Fetch live prices on page load
