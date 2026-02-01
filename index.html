@@ -1503,27 +1503,39 @@
     let lastPriceUpdate = null;
     
     // Revenue rates per unit per day (coins earned)
-    // Based on current network difficulty - these are estimates
+    // Updated January 2026 based on current network difficulty
+    // Sources: CoinWarz, MinerStat, WhatToMine
     const REVENUE_RATES = {
       // ASIC Algorithms
-      'SHA-256': { perUnit: 0.00000044, unit: 'TH/s', coin: 'BTC' },
-      'SHA-256-BCH': { perUnit: 0.000039, unit: 'TH/s', coin: 'BCH' },
+      // BTC: 390 TH/s = 5,974 days for 1 BTC → 0.00000043 BTC/TH/day
+      'SHA-256': { perUnit: 0.00000043, unit: 'TH/s', coin: 'BTC' },
+      // BCH: 390 TH/s = 36.4 days for 1 BCH → 0.0000703 BCH/TH/day
+      'SHA-256-BCH': { perUnit: 0.0000703, unit: 'TH/s', coin: 'BCH' },
       // Scrypt is MERGED MINING - you get BOTH LTC and DOGE simultaneously
+      // LTC: 17,000 MH/s = 0.0207 LTC/day → 0.00000122 LTC/MH/day
       'Scrypt': { 
-        perUnit: 0.00000136, unit: 'MH/s', coin: 'LTC',
+        perUnit: 0.00000122, unit: 'MH/s', coin: 'LTC',
         merged: { perUnit: 0.00459, coin: 'DOGE' }
       },
-      'KHeavyHash': { perUnit: 0.0015, unit: 'GH/s', coin: 'KAS' },
-      'Etchash': { perUnit: 0.0000035, unit: 'MH/s', coin: 'ETC' },
-      'Equihash': { perUnit: 0.00011, unit: 'kSol/s', coin: 'ZEC' },
-      'X11': { perUnit: 0.000026, unit: 'GH/s', coin: 'DASH' },
+      // KAS: Network shutdown - Kadena discontinued mining Dec 2024
+      'KHeavyHash': { perUnit: 0, unit: 'GH/s', coin: 'KAS', deprecated: true },
+      // ETC: 5,800 MH/s = 0.625 ETC/day → 0.000108 ETC/MH/day
+      'Etchash': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
+      // ZEC: 140 KH/s = 0.0133 ZEC/day → 0.000095 ZEC/KSol/day
+      'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
+      // DASH: 65 GH/s = 0.0174 DASH/day → 0.000268 DASH/GH/day
+      'X11': { perUnit: 0.000268, unit: 'GH/s', coin: 'DASH' },
       // GPU Algorithms
-      'Etchash-GPU': { perUnit: 0.0000035, unit: 'MH/s', coin: 'ETC' },
+      'Etchash-GPU': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
+      // RVN: 350 MH/s = 228 RVN/day → 0.65 RVN/MH/day (halving Jan 2026 reduces block to 1250)
       'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
-      'Autolykos2': { perUnit: 0.0023, unit: 'MH/s', coin: 'ERG' },
-      'Blake3': { perUnit: 0.00035, unit: 'GH/s', coin: 'ALPH' },
+      // ERG: Autolykos v2, GPU-friendly
+      'Autolykos2': { perUnit: 0.0027, unit: 'MH/s', coin: 'ERG' },
+      // ALPH: ASIC-dominated, ~12 PH/s network
+      'Blake3': { perUnit: 0.00001, unit: 'GH/s', coin: 'ALPH' },
       // CPU Algorithms  
-      'RandomX': { perUnit: 0.000066, unit: 'KH/s', coin: 'XMR' }
+      // XMR: 54 KH/s = 0.00355 XMR/day → 0.0000658 XMR/KH/day
+      'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' }
     };
     
     // Algorithm configurations by mining type
