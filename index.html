@@ -1673,6 +1673,7 @@
     // State
     let selectedMiner = null;
     let sortDirection = 1;
+    let lastCalculatedAlgorithm = null;
     
     // ============================================
     // UTILITIES
@@ -2049,6 +2050,11 @@
           miningStatsStatus = 'default';
           updateMiningStatsIndicator();
         }
+      }
+      
+      // If user already calculated, refresh the network stats display
+      if (lastCalculatedAlgorithm) {
+        displayNetworkStats(lastCalculatedAlgorithm);
       }
     }
     
@@ -2639,6 +2645,7 @@
       document.getElementById('yearly-profit').textContent = `$${yearly(dailyProfit).toFixed(2)}`;
       
       // Display network stats for the calculated coin
+      lastCalculatedAlgorithm = algorithm;
       displayNetworkStats(algorithm);
       
       document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
