@@ -1056,6 +1056,26 @@
       color: #ff5252;
     }
     
+    .network-stats {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(0, 206, 209, 0.08);
+      border: 1px solid rgba(0, 206, 209, 0.2);
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .network-stats-text {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    .network-stats-text strong {
+      color: var(--sola-teal);
+    }
+    
     /* ============================================
        RESPONSIVE
        ============================================ */
@@ -1355,6 +1375,10 @@
         <span class="price-indicator default" id="price-indicator">🔴 Default Prices</span>
         <span class="price-indicator default" id="mining-stats-indicator">🔴 Default Estimates</span>
       </div>
+      
+      <div class="network-stats" id="network-stats" style="display: none;">
+        <p class="network-stats-text" id="network-stats-text"></p>
+      </div>
     </section>
     
     <!-- Browse All Miners -->
@@ -1621,6 +1645,7 @@
     // Mining stats status
     let miningStatsStatus = 'default'; // 'live', 'cached', 'default'
     let lastMiningStatsUpdate = null;
+    let rawMiningStats = {}; // Store raw API data for display
     
     // Algorithm configurations by mining type
     const ALGORITHM_CONFIG = {
@@ -1659,6 +1684,56 @@
     function getNoiseIcon(noise) {
       const icons = { silent: '🔇', fan: '🔈', vacuum: '🔉', lawnmower: '🔊' };
       return icons[noise] || '🔈';
+    }
+    
+    // Format large numbers with appropriate suffix
+    function formatHashrate(value) {
+      if (value === 0 || !value) return '0 H/s';
+      
+      const units = [
+        { threshold: 1e18, suffix: 'EH/s' },
+        { threshold: 1e15, suffix: 'PH/s' },
+        { threshold: 1e12, suffix: 'TH/s' },
+        { threshold: 1e9, suffix: 'GH/s' },
+        { threshold: 1e6, suffix: 'MH/s' },
+        { threshold: 1e3, suffix: 'KH/s' },
+        { threshold: 1, suffix: 'H/s' }
+      ];
+      
+      for (const unit of units) {
+        if (value >= unit.threshold) {
+          const formatted = (value / unit.threshold).toFixed(2);
+          return formatted + ' ' + unit.suffix;
+        }
+      }
+      return value.toFixed(2) + ' H/s';
+    }
+    
+    function formatDifficulty(value) {
+      if (value === 0 || !value) return '0';
+      
+      const units = [
+        { threshold: 1e18, suffix: 'E' },
+        { threshold: 1e15, suffix: 'P' },
+        { threshold: 1e12, suffix: 'T' },
+        { threshold: 1e9, suffix: 'B' },
+        { threshold: 1e6, suffix: 'M' },
+        { threshold: 1e3, suffix: 'K' },
+        { threshold: 1, suffix: '' }
+      ];
+      
+      for (const unit of units) {
+        if (value >= unit.threshold) {
+          const formatted = (value / unit.threshold).toFixed(2);
+          return formatted + unit.suffix;
+        }
+      }
+      return value.toFixed(2);
+    }
+    
+    function formatBlockHeight(value) {
+      if (!value) return '0';
+      return value.toLocaleString();
     }
     
     // ============================================
@@ -1801,6 +1876,9 @@
         
         const data = result.data;
         
+        // Store raw data for display
+        rawMiningStats = data;
+        
         // Update revenue rates based on live difficulty data
         updateRevenueRatesFromStats(data);
         
@@ -1928,6 +2006,7 @@
           // Check if cache is less than 48 hours old
           const cacheAge = Date.now() - data.timestamp;
           if (cacheAge < 48 * 60 * 60 * 1000) {
+            rawMiningStats = data.stats;
             updateRevenueRatesFromStats(data.stats);
             lastMiningStatsUpdate = new Date(data.timestamp);
             miningStatsStatus = 'cached';
@@ -1970,6 +2049,56 @@
           miningStatsStatus = 'default';
           updateMiningStatsIndicator();
         }
+      }
+    }
+    
+    // Display network stats for the calculated coin
+    function displayNetworkStats(algorithm) {
+      const container = document.getElementById('network-stats');
+      const textEl = document.getElementById('network-stats-text');
+      
+      if (!container || !textEl) return;
+      
+      // Map algorithm to coin(s)
+      const algoCoinMap = {
+        'SHA-256': ['BTC'],
+        'SHA-256-BCH': ['BCH'],
+        'Scrypt': ['LTC', 'DOGE'],
+        'KHeavyHash': ['KAS'],
+        'Etchash': ['ETC'],
+        'Etchash-GPU': ['ETC'],
+        'Equihash': ['ZEC'],
+        'X11': ['DASH'],
+        'KAWPOW': ['RVN'],
+        'Autolykos2': ['ERG'],
+        'Blake3': ['ALPH'],
+        'RandomX': ['XMR']
+      };
+      
+      const coins = algoCoinMap[algorithm];
+      if (!coins || miningStatsStatus === 'default') {
+        container.style.display = 'none';
+        return;
+      }
+      
+      let statsLines = [];
+      
+      for (const coin of coins) {
+        const stats = rawMiningStats[coin];
+        if (stats && (stats.difficulty > 0 || stats.network_hashrate > 0)) {
+          const diff = formatDifficulty(stats.difficulty);
+          const hashrate = formatHashrate(stats.network_hashrate);
+          const block = formatBlockHeight(stats.height);
+          
+          statsLines.push(`<strong>Live ${coin} Network:</strong> Difficulty ${diff} | Nethash ${hashrate} | Block ${block}`);
+        }
+      }
+      
+      if (statsLines.length > 0) {
+        textEl.innerHTML = statsLines.join('<br>');
+        container.style.display = 'block';
+      } else {
+        container.style.display = 'none';
       }
     }
     
@@ -2508,6 +2637,9 @@
       document.getElementById('yearly-revenue').textContent = `$${yearly(dailyRevenue).toFixed(2)}`;
       document.getElementById('yearly-elec').textContent = `$${yearly(dailyElecCost).toFixed(2)}`;
       document.getElementById('yearly-profit').textContent = `$${yearly(dailyProfit).toFixed(2)}`;
+      
+      // Display network stats for the calculated coin
+      displayNetworkStats(algorithm);
       
       document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
     }
