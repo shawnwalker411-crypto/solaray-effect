@@ -1902,9 +1902,65 @@
       }
     }
     
+    // ============================================
+    // SANITY VALIDATION FOR MINING RATES
+    // These ranges are wide but will catch unit mismatches (3x-1000x errors)
+    // ============================================
+    const RATE_SANITY_RANGES = {
+      // BTC: ~0.00000035 to ~0.0000006 BTC/TH/day historically (allows for difficulty changes)
+      'SHA-256': { min: 1e-8, max: 2e-6, coin: 'BTC', unit: 'TH' },
+      // BCH: Much higher than BTC due to lower hashrate (~0.00005 to ~0.0002)
+      'SHA-256-BCH': { min: 1e-6, max: 5e-4, coin: 'BCH', unit: 'TH' },
+      // LTC: ~0.000001 to ~0.00001 LTC/MH/day
+      'Scrypt': { min: 1e-8, max: 1e-4, coin: 'LTC', unit: 'MH' },
+      // DOGE: ~0.001 to ~0.1 DOGE/MH/day (merged mining)
+      'DOGE': { min: 1e-4, max: 1, coin: 'DOGE', unit: 'MH' },
+      // KAS: ~0.001 to ~0.1 KAS/GH/day
+      'KHeavyHash': { min: 1e-5, max: 1, coin: 'KAS', unit: 'GH' },
+      // ETC: ~0.00005 to ~0.001 ETC/MH/day
+      'Etchash': { min: 1e-6, max: 0.01, coin: 'ETC', unit: 'MH' },
+      // DASH: ~0.0001 to ~0.01 DASH/GH/day
+      'X11': { min: 1e-6, max: 0.1, coin: 'DASH', unit: 'GH' },
+      // RVN: ~0.1 to ~10 RVN/MH/day
+      'KAWPOW': { min: 0.01, max: 100, coin: 'RVN', unit: 'MH' },
+      // ERG: ~0.0005 to ~0.05 ERG/MH/day
+      'Autolykos2': { min: 1e-5, max: 0.5, coin: 'ERG', unit: 'MH' }
+    };
+    
+    // Track last known good rates for fallback
+    let lastKnownGoodRates = {};
+    let rateSanityWarnings = [];
+    
+    function validateAndUpdateRate(algo, newRate, coinName) {
+      const range = RATE_SANITY_RANGES[algo];
+      if (!range) {
+        // No validation defined, accept the rate
+        return { valid: true, rate: newRate };
+      }
+      
+      if (!Number.isFinite(newRate) || newRate <= 0) {
+        console.warn(`⚠️ ${coinName} rate is invalid (${newRate}), using fallback`);
+        rateSanityWarnings.push(`${coinName}: Invalid rate received`);
+        return { valid: false, rate: lastKnownGoodRates[algo] || REVENUE_RATES[algo]?.perUnit };
+      }
+      
+      if (newRate < range.min || newRate > range.max) {
+        console.warn(`⚠️ ${coinName} rate ${newRate} outside sanity range [${range.min}, ${range.max}], using fallback`);
+        rateSanityWarnings.push(`${coinName}: Rate ${newRate.toExponential(2)} outside expected range`);
+        return { valid: false, rate: lastKnownGoodRates[algo] || REVENUE_RATES[algo]?.perUnit };
+      }
+      
+      // Rate is valid, save as last known good
+      lastKnownGoodRates[algo] = newRate;
+      return { valid: true, rate: newRate };
+    }
+    
     function updateRevenueRatesFromStats(data) {
       // Calculate revenue rate: (block_reward * blocks_per_day) / network_hashrate
       // blocks_per_day = 86400 / block_time
+      
+      // Clear previous warnings
+      rateSanityWarnings = [];
       
       // BTC
       if (data.BTC && data.BTC.network_hashrate > 0) {
@@ -1912,8 +1968,12 @@
         const dailyCoins = (data.BTC.block_reward || 3.125) * blocksPerDay;
         // Network hashrate is in H/s, we need per TH/s
         const perTH = dailyCoins / (data.BTC.network_hashrate / 1e12);
-        REVENUE_RATES['SHA-256'].perUnit = perTH;
-        console.log('BTC rate updated:', perTH, 'BTC/TH/day');
+        
+        const validation = validateAndUpdateRate('SHA-256', perTH, 'BTC');
+        if (validation.rate) {
+          REVENUE_RATES['SHA-256'].perUnit = validation.rate;
+          console.log('BTC rate updated:', validation.rate, 'BTC/TH/day', validation.valid ? '✓' : '(fallback)');
+        }
       }
       
       // LTC
@@ -1922,8 +1982,12 @@
         const dailyCoins = (data.LTC.block_reward || 6.25) * blocksPerDay;
         // Network hashrate is in H/s, we need per MH/s
         const perMH = dailyCoins / (data.LTC.network_hashrate / 1e6);
-        REVENUE_RATES['Scrypt'].perUnit = perMH;
-        console.log('LTC rate updated:', perMH, 'LTC/MH/day');
+        
+        const validation = validateAndUpdateRate('Scrypt', perMH, 'LTC');
+        if (validation.rate) {
+          REVENUE_RATES['Scrypt'].perUnit = validation.rate;
+          console.log('LTC rate updated:', validation.rate, 'LTC/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
       }
       
       // DOGE (merged with LTC)
@@ -1931,9 +1995,11 @@
         const blocksPerDay = 86400 / (data.DOGE.block_time || 60);
         const dailyCoins = (data.DOGE.block_reward || 10000) * blocksPerDay;
         const perMH = dailyCoins / (data.DOGE.network_hashrate / 1e6);
-        if (REVENUE_RATES['Scrypt'].merged) {
-          REVENUE_RATES['Scrypt'].merged.perUnit = perMH;
-          console.log('DOGE rate updated:', perMH, 'DOGE/MH/day');
+        
+        const validation = validateAndUpdateRate('DOGE', perMH, 'DOGE');
+        if (REVENUE_RATES['Scrypt'].merged && validation.rate) {
+          REVENUE_RATES['Scrypt'].merged.perUnit = validation.rate;
+          console.log('DOGE rate updated:', validation.rate, 'DOGE/MH/day', validation.valid ? '✓' : '(fallback)');
         }
       }
       
@@ -1947,8 +2013,12 @@
         // perUnit in GH/s
         if (data.KAS.network_hashrate > 0) {
           const perGH = dailyCoins / (data.KAS.network_hashrate / 1e9);
-          REVENUE_RATES['KHeavyHash'].perUnit = perGH;
-          console.log('KAS rate updated:', perGH, 'KAS/GH/day');
+          
+          const validation = validateAndUpdateRate('KHeavyHash', perGH, 'KAS');
+          if (validation.rate) {
+            REVENUE_RATES['KHeavyHash'].perUnit = validation.rate;
+            console.log('KAS rate updated:', validation.rate, 'KAS/GH/day', validation.valid ? '✓' : '(fallback)');
+          }
         }
       }
       
@@ -1957,9 +2027,13 @@
         const blocksPerDay = 86400 / (data.ETC.block_time || 14);
         const dailyCoins = (data.ETC.block_reward || 2.56) * blocksPerDay;
         const perMH = dailyCoins / (data.ETC.network_hashrate / 1e6);
-        REVENUE_RATES['Etchash'].perUnit = perMH;
-        REVENUE_RATES['Etchash-GPU'].perUnit = perMH;
-        console.log('ETC rate updated:', perMH, 'ETC/MH/day');
+        
+        const validation = validateAndUpdateRate('Etchash', perMH, 'ETC');
+        if (validation.rate) {
+          REVENUE_RATES['Etchash'].perUnit = validation.rate;
+          REVENUE_RATES['Etchash-GPU'].perUnit = validation.rate;
+          console.log('ETC rate updated:', validation.rate, 'ETC/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
       }
       
       // ERG
@@ -1967,8 +2041,12 @@
         const blocksPerDay = 86400 / (data.ERG.block_time || 120);
         const dailyCoins = (data.ERG.block_reward || 27) * blocksPerDay;
         const perMH = dailyCoins / (data.ERG.network_hashrate / 1e6);
-        REVENUE_RATES['Autolykos2'].perUnit = perMH;
-        console.log('ERG rate updated:', perMH, 'ERG/MH/day');
+        
+        const validation = validateAndUpdateRate('Autolykos2', perMH, 'ERG');
+        if (validation.rate) {
+          REVENUE_RATES['Autolykos2'].perUnit = validation.rate;
+          console.log('ERG rate updated:', validation.rate, 'ERG/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
       }
       
       // BCH
@@ -1976,8 +2054,12 @@
         const blocksPerDay = 86400 / (data.BCH.block_time || 600);
         const dailyCoins = (data.BCH.block_reward || 3.125) * blocksPerDay;
         const perTH = dailyCoins / (data.BCH.network_hashrate / 1e12);
-        REVENUE_RATES['SHA-256-BCH'].perUnit = perTH;
-        console.log('BCH rate updated:', perTH, 'BCH/TH/day');
+        
+        const validation = validateAndUpdateRate('SHA-256-BCH', perTH, 'BCH');
+        if (validation.rate) {
+          REVENUE_RATES['SHA-256-BCH'].perUnit = validation.rate;
+          console.log('BCH rate updated:', validation.rate, 'BCH/TH/day', validation.valid ? '✓' : '(fallback)');
+        }
       }
       
       // DASH
@@ -1985,8 +2067,12 @@
         const blocksPerDay = 86400 / (data.DASH.block_time || 150);
         const dailyCoins = (data.DASH.block_reward || 1.55) * blocksPerDay;
         const perGH = dailyCoins / (data.DASH.network_hashrate / 1e9);
-        REVENUE_RATES['X11'].perUnit = perGH;
-        console.log('DASH rate updated:', perGH, 'DASH/GH/day');
+        
+        const validation = validateAndUpdateRate('X11', perGH, 'DASH');
+        if (validation.rate) {
+          REVENUE_RATES['X11'].perUnit = validation.rate;
+          console.log('DASH rate updated:', validation.rate, 'DASH/GH/day', validation.valid ? '✓' : '(fallback)');
+        }
       }
       
       // RVN
@@ -1994,9 +2080,35 @@
         const blocksPerDay = 86400 / (data.RVN.block_time || 60);
         const dailyCoins = (data.RVN.block_reward || 2500) * blocksPerDay;
         const perMH = dailyCoins / (data.RVN.network_hashrate / 1e6);
-        REVENUE_RATES['KAWPOW'].perUnit = perMH;
-        console.log('RVN rate updated:', perMH, 'RVN/MH/day');
+        
+        const validation = validateAndUpdateRate('KAWPOW', perMH, 'RVN');
+        if (validation.rate) {
+          REVENUE_RATES['KAWPOW'].perUnit = validation.rate;
+          console.log('RVN rate updated:', validation.rate, 'RVN/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
       }
+      
+      // Show warning banner if any rates failed validation
+      updateSanityWarningBanner();
+    }
+    
+    function updateSanityWarningBanner() {
+      let banner = document.getElementById('sanity-warning-banner');
+      
+      if (rateSanityWarnings.length === 0) {
+        if (banner) banner.style.display = 'none';
+        return;
+      }
+      
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'sanity-warning-banner';
+        banner.style.cssText = 'background: #ff9800; color: #000; padding: 10px 15px; text-align: center; font-weight: 500; position: fixed; top: 0; left: 0; right: 0; z-index: 9999;';
+        document.body.prepend(banner);
+      }
+      
+      banner.innerHTML = '⚠️ Data Warning: ' + rateSanityWarnings.join(', ') + ' — Using fallback values. <a href="#" onclick="this.parentElement.style.display=\'none\'; return false;" style="color: #000; margin-left: 10px;">[Dismiss]</a>';
+      banner.style.display = 'block';
     }
     
     function loadCachedMiningStats() {
