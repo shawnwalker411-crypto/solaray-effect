@@ -1076,6 +1076,85 @@
       color: var(--sola-teal);
     }
     
+
+    /* ============================================
+       LIVE PRICE TICKER
+       ============================================ */
+    .ticker-container {
+      width: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(244, 180, 26, 0.15) 0%, rgba(11, 47, 38, 0.95) 100%);
+      border-bottom: 2px solid var(--border-gold);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    
+    .ticker-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--sola-gold), transparent);
+    }
+    
+    .ticker-track {
+      display: flex;
+      animation: ticker-scroll 30s linear infinite;
+      width: max-content;
+    }
+    
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+    
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 1.5rem;
+      white-space: nowrap;
+      border-right: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .ticker-coin {
+      font-weight: 600;
+      color: var(--sola-gold);
+      font-size: 0.9rem;
+    }
+    
+    .ticker-price {
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+    
+    .ticker-change {
+      font-size: 0.8rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+    }
+    
+    .ticker-change.up {
+      color: var(--profit);
+      background: rgba(0, 230, 118, 0.15);
+    }
+    
+    .ticker-change.down {
+      color: var(--loss);
+      background: rgba(255, 82, 82, 0.15);
+    }
+    
+    .ticker-change.neutral {
+      color: var(--text-secondary);
+    }
+
+    
     /* ============================================
        RESPONSIVE
        ============================================ */
@@ -1086,10 +1165,21 @@
       .roi-stats { gap: 1rem; }
       .roi-stat-value { font-size: 1.4rem; }
       .electricity-grid { grid-template-columns: repeat(2, 1fr); }
+      .ticker-item { padding: 0.25rem 1rem; }
+      .ticker-coin { font-size: 0.8rem; }
+      .ticker-price { font-size: 0.8rem; }
     }
   </style>
 </head>
 <body>
+  <!-- Live Price Ticker -->
+  <div class="ticker-container">
+    <div class="ticker-track" id="ticker-track">
+      <!-- Ticker items will be populated by JavaScript -->
+      <div class="ticker-item"><span class="ticker-coin">Loading prices...</span></div>
+    </div>
+  </div>
+
   <!-- Hamburger Menu -->
   <div class="hamburger-menu">
     <button class="hamburger-btn" id="hamburger-btn" onclick="toggleNav()">
@@ -2829,6 +2919,65 @@
       rows.forEach(row => tbody.appendChild(row));
     }
     
+
+    // ============================================
+    // LIVE PRICE TICKER
+    // ============================================
+    const tickerCoins = [
+      { id: 'bitcoin', symbol: 'BTC' },
+      { id: 'litecoin', symbol: 'LTC' },
+      { id: 'dogecoin', symbol: 'DOGE' },
+      { id: 'kaspa', symbol: 'KAS' },
+      { id: 'ethereum-classic', symbol: 'ETC' },
+      { id: 'zcash', symbol: 'ZEC' },
+      { id: 'dash', symbol: 'DASH' },
+      { id: 'bitcoin-cash', symbol: 'BCH' },
+      { id: 'monero', symbol: 'XMR' }
+    ];
+    
+    async function updateTicker() {
+      const ids = tickerCoins.map(c => c.id).join(',');
+      try {
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`
+        );
+        const data = await response.json();
+        
+        const tickerTrack = document.getElementById('ticker-track');
+        let html = '';
+        
+        tickerCoins.forEach(coin => {
+          const coinData = data[coin.id];
+          if (coinData) {
+            const price = coinData.usd;
+            const change = coinData.usd_24h_change || 0;
+            const changeClass = change > 0 ? 'up' : change < 0 ? 'down' : 'neutral';
+            const changeSymbol = change > 0 ? '▲' : change < 0 ? '▼' : '';
+            const priceFormatted = price >= 1 ? price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : price.toFixed(6);
+            
+            html += `
+              <div class="ticker-item">
+                <span class="ticker-coin">${coin.symbol}</span>
+                <span class="ticker-price">$${priceFormatted}</span>
+                <span class="ticker-change ${changeClass}">${changeSymbol} ${Math.abs(change).toFixed(2)}%</span>
+              </div>
+            `;
+          }
+        });
+        
+        // Duplicate for seamless loop
+        tickerTrack.innerHTML = html + html;
+        
+      } catch (error) {
+        console.log('Ticker fetch error:', error);
+        // Keep existing content on error
+      }
+    }
+    
+    // Update ticker on load and every 60 seconds
+    updateTicker();
+    setInterval(updateTicker, 60000);
+
     // ============================================
     // EVENT LISTENERS
     // ============================================
