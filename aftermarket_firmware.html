@@ -705,7 +705,7 @@
     
     <footer>
       <p>© 2026 The Sola Ray Effect</p>
-      <p><a href="index.html">Back to Calculator</a></p>
+      <p><a href="solaray_calculator_v3.html">Back to Calculator</a></p>
     </footer>
   </div>
 
@@ -785,7 +785,10 @@
     // ============================================
     // LIVE PRICE TICKER
     // ============================================
-    const TICKER_PRICES = { BTC: null, BCH: null, LTC: null, KAS: null, ETC: null, DOGE: null, ZEC: null, DASH: null, XMR: null };
+    const TICKER_PRICES = { 
+      BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
+      ZEC: 45, DASH: 44, XMR: 200
+    };
     const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR'];
     
     async function fetchTickerPrices() {
@@ -808,7 +811,7 @@
         
         updateTicker();
       } catch (error) {
-        console.log('Ticker price fetch error: prices unavailable');
+        console.log('Ticker price fetch error, using defaults');
         updateTicker();
       }
     }
@@ -820,21 +823,20 @@
       let html = '';
       
       tickerCoins.forEach(symbol => {
-          const price = TICKER_PRICES[symbol];
-          let display = '—';
-          if (typeof price === 'number' && !Number.isNaN(price)) {
-            display = price >= 1
-              ? price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-              : price.toFixed(6);
-            display = '$' + display;
-          }
+        const price = TICKER_PRICES[symbol];
+        if (price) {
+          const priceFormatted = price >= 1 
+            ? price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
+            : price.toFixed(6);
+          
           html += `
             <div class="ticker-item">
               <span class="ticker-coin">${symbol}</span>
-              <span class="ticker-price">${display}</span>
+              <span class="ticker-price">$${priceFormatted}</span>
             </div>
           `;
-        });
+        }
+      });
       
       if (html) {
         tickerTrack.innerHTML = html + html;
@@ -843,34 +845,56 @@
     
     fetchTickerPrices();
     setInterval(fetchTickerPrices, 60000);
-  
+  </script>
 
+  <script>
     // ============================================
-    // INTERACTION BINDINGS (stable: no inline onclick, no eval)
+    // STABLE INTERACTION BINDINGS
+    // (no inline onclick, no eval; works on desktop/tablet/mobile)
     // ============================================
     document.addEventListener('DOMContentLoaded', function () {
-      // Navigation drawer
+      // Nav drawer
       var hamburgerBtn = document.getElementById('hamburger-btn');
       var navOverlay = document.getElementById('nav-overlay');
       if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('pointerup', function (e) { e.preventDefault(); toggleNav(); });
+        hamburgerBtn.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          if (typeof toggleNav === 'function') toggleNav();
+        });
       }
       if (navOverlay) {
-        navOverlay.addEventListener('pointerup', function (e) { e.preventDefault(); toggleNav(); });
-      }
-      
-      // Glossary drawer
-      var glossaryOverlay = document.getElementById('glossary-overlay');
-      var glossaryClose = document.querySelector('.glossary-close');
-      if (glossaryOverlay) {
-        glossaryOverlay.addEventListener('pointerup', function (e) { e.preventDefault(); closeGlossary(); });
-      }
-      if (glossaryClose) {
-        glossaryClose.addEventListener('pointerup', function (e) { e.preventDefault(); closeGlossary(); });
+        navOverlay.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          if (typeof toggleNav === 'function') toggleNav();
+        });
       }
 
+      // Glossary drawer
+      var glossaryOverlay = document.getElementById('glossary-overlay');
+      var glossaryClose = document.querySelector('.glossary-drawer-close');
+      if (glossaryOverlay) {
+        glossaryOverlay.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          if (typeof closeGlossary === 'function') closeGlossary();
+        });
+      }
+      if (glossaryClose) {
+        glossaryClose.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          if (typeof closeGlossary === 'function') closeGlossary();
+        });
+      }
+
+      // Any element with a glossary term id
+      document.querySelectorAll('[data-glossary-term]').forEach(function (el) {
+        el.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          var termId = el.getAttribute('data-glossary-term');
+          if (termId && typeof openGlossary === 'function') openGlossary(termId);
+        });
+      });
     });
-    
-</script>
+  </script>
+
 </body>
 </html>
