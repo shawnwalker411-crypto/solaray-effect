@@ -1177,6 +1177,66 @@
       .ticker-coin { font-size: 0.8rem; }
       .ticker-price { font-size: 0.8rem; }
     }
+
+    /* ============================================
+       SUNRISE PICK
+       ============================================ */
+    .sunrise-pick {
+      background: linear-gradient(135deg, rgba(255, 200, 50, 0.15) 0%, rgba(255, 140, 0, 0.1) 100%);
+      border: 2px solid var(--sola-gold);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: none;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+    
+    .sunrise-pick-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .sunrise-pick-icon {
+      font-size: 1.5rem;
+    }
+    
+    .sunrise-pick-title {
+      color: var(--sola-gold);
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .sunrise-pick-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+    
+    .sunrise-pick-coin {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--sola-gold);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    
+    .sunrise-pick-revenue {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--profit);
+      margin: 0.25rem 0;
+    }
+    
+    .sunrise-pick-miner {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
   </style>
 </head>
 <body>
@@ -1217,6 +1277,21 @@
     <p id="glossary-term-definition">Definition goes here...</p>
   </div>
   <div class="glossary-overlay" id="glossary-overlay" onclick="closeGlossary()"></div>
+
+  
+  <!-- Sunrise Pick -->
+  <div class="container">
+    <div class="sunrise-pick" id="sunrise-pick">
+      <div class="sunrise-pick-header">
+        <span class="sunrise-pick-icon">☀️</span>
+        <h3 class="sunrise-pick-title">SUNRISE PICK</h3>
+      </div>
+      <p class="sunrise-pick-subtitle">If you had solar...</p>
+      <div class="sunrise-pick-coin" id="sunrise-coin">BTC</div>
+      <div class="sunrise-pick-revenue" id="sunrise-revenue">$0.00/day</div>
+      <div class="sunrise-pick-miner" id="sunrise-miner">with Antminer S21 200T</div>
+    </div>
+  </div>
 
   <div class="container">
     <header>
@@ -2966,6 +3041,69 @@
     // Small delay to ensure PRICES is populated first
     setTimeout(updateTicker, 2000);
     setInterval(updateTicker, 60000);
+
+    // ============================================
+    // SUNRISE PICK - Most Profitable Coin (Free Electricity)
+    // ============================================
+    function calculateSunrisePick() {
+      const algorithms = ['SHA-256', 'Scrypt', 'KHeavyHash', 'Etchash', 'Equihash', 'X11'];
+      const results = [];
+      
+      algorithms.forEach(algo => {
+        const rateInfo = REVENUE_RATES[algo];
+        if (!rateInfo) return;
+        
+        const miners = ALL_MINERS.filter(m => m.algorithm === algo && m.category !== 'lottery');
+        if (miners.length === 0) return;
+        
+        const bestMiner = miners.reduce((best, m) => {
+          const mHash = m.hashrate;
+          const bestHash = best ? best.hashrate : 0;
+          return mHash > bestHash ? m : best;
+        }, null);
+        
+        if (!bestMiner) return;
+        
+        const dailyCrypto = bestMiner.hashrate * rateInfo.perUnit;
+        const coinPrice = PRICES[rateInfo.coin] || DEFAULT_PRICES[rateInfo.coin] || 0;
+        let dailyRevenue = dailyCrypto * coinPrice;
+        
+        if (rateInfo.merged) {
+          const dailyMerged = bestMiner.hashrate * rateInfo.merged.perUnit;
+          const mergedPrice = PRICES[rateInfo.merged.coin] || DEFAULT_PRICES[rateInfo.merged.coin] || 0;
+          dailyRevenue += dailyMerged * mergedPrice;
+        }
+        
+        results.push({
+          coin: rateInfo.coin,
+          miner: bestMiner.name,
+          dailyRevenue: dailyRevenue,
+          algorithm: algo
+        });
+      });
+      
+      results.sort((a, b) => b.dailyRevenue - a.dailyRevenue);
+      return results;
+    }
+
+    function updateSunrisePick() {
+      const results = calculateSunrisePick();
+      const container = document.getElementById('sunrise-pick');
+      if (!container || results.length === 0) return;
+      
+      const winner = results[0];
+      
+      document.getElementById('sunrise-coin').textContent = winner.coin;
+      document.getElementById('sunrise-revenue').textContent = '$' + winner.dailyRevenue.toFixed(2) + '/day';
+      document.getElementById('sunrise-miner').textContent = 'with ' + winner.miner;
+      
+      container.style.display = 'block';
+    }
+
+    // Update Sunrise Pick after prices load
+    setTimeout(updateSunrisePick, 2500);
+    setInterval(updateSunrisePick, 60000);
+
     // ============================================
     // EVENT LISTENERS
     // ============================================
