@@ -75,6 +75,70 @@
     // ============================================
     // LIVE PRICE TICKER
     // ============================================
+    
+    // ============================================
+    // TOUCH EVENT HELPERS FOR iPAD
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      // Make hamburger button work on touch
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+      
+      // Make nav overlay work on touch
+      const navOverlay = document.getElementById('nav-overlay');
+      if (navOverlay) {
+        navOverlay.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+      
+      // Make glossary close button work on touch
+      const glossaryClose = document.querySelector('.glossary-drawer-close');
+      if (glossaryClose) {
+        glossaryClose.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          closeGlossary();
+        });
+      }
+      
+      // Make glossary overlay work on touch
+      const glossaryOverlay = document.getElementById('glossary-overlay');
+      if (glossaryOverlay) {
+        glossaryOverlay.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          closeGlossary();
+        });
+      }
+      
+      // Make all legend items work on touch (payout method clicks)
+      document.querySelectorAll('.legend-item').forEach(function(item) {
+        item.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          var onclick = this.getAttribute('onclick');
+          if (onclick) {
+            eval(onclick);
+          }
+        });
+      });
+      
+      // Make all payout tags work on touch
+      document.querySelectorAll('.payout-tag').forEach(function(tag) {
+        tag.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          var onclick = this.getAttribute('onclick');
+          if (onclick) {
+            eval(onclick);
+          }
+        });
+      });
+    });
+    
     const PRICES = {};
     const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR'];
     
