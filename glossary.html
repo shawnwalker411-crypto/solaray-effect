@@ -448,7 +448,7 @@
   </div>
   <!-- Hamburger Menu -->
   <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn" onclick="toggleNav()" aria-label="Open navigation menu">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
       <span class="bun-top"></span>
       <span class="lettuce"></span>
       <span class="patty"></span>
@@ -466,7 +466,7 @@
     <a href="glossary.html" class="active">📖 Glossary</a>
     <a href="pools.html">🏊 Mining Pools</a>
   </nav>
-  <div class="nav-overlay" id="nav-overlay" onclick="toggleNav()"></div>
+  <div class="nav-overlay" id="nav-overlay"></div>
 
   <div class="container">
     <div class="banner-container">
@@ -841,10 +841,7 @@
     // ============================================
     // LIVE PRICE TICKER
     // ============================================
-    const TICKER_PRICES = { 
-      BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
-      ZEC: 45, DASH: 44, XMR: 200
-    };
+    const TICKER_PRICES = { BTC: null, BCH: null, LTC: null, KAS: null, ETC: null, DOGE: null, ZEC: null, DASH: null, XMR: null };
     const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR'];
     
     async function fetchTickerPrices() {
@@ -867,7 +864,7 @@
         
         updateTicker();
       } catch (error) {
-        console.log('Ticker price fetch error, using defaults');
+        console.log('Ticker price fetch error: prices unavailable');
         updateTicker();
       }
     }
@@ -879,20 +876,21 @@
       let html = '';
       
       tickerCoins.forEach(symbol => {
-        const price = TICKER_PRICES[symbol];
-        if (price) {
-          const priceFormatted = price >= 1 
-            ? price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
-            : price.toFixed(6);
-          
+          const price = TICKER_PRICES[symbol];
+          let display = '—';
+          if (typeof price === 'number' && !Number.isNaN(price)) {
+            display = price >= 1
+              ? price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+              : price.toFixed(6);
+            display = '$' + display;
+          }
           html += `
             <div class="ticker-item">
               <span class="ticker-coin">${symbol}</span>
-              <span class="ticker-price">$${priceFormatted}</span>
+              <span class="ticker-price">${display}</span>
             </div>
           `;
-        }
-      });
+        });
       
       if (html) {
         tickerTrack.innerHTML = html + html;
@@ -901,6 +899,24 @@
     
     fetchTickerPrices();
     setInterval(fetchTickerPrices, 60000);
-  </script>
+  
+
+    // ============================================
+    // INTERACTION BINDINGS (stable: no inline onclick, no eval)
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function () {
+      // Navigation drawer
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('pointerup', function (e) { e.preventDefault(); toggleNav(); });
+      }
+      if (navOverlay) {
+        navOverlay.addEventListener('pointerup', function (e) { e.preventDefault(); toggleNav(); });
+      }
+      
+    });
+    
+</script>
 </body>
 </html>

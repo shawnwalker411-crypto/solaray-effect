@@ -546,7 +546,7 @@
   
   <!-- Hamburger Menu -->
   <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn" onclick="toggleNav()" aria-label="Open navigation menu">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
       <span class="bun-top"></span>
       <span class="lettuce"></span>
       <span class="patty"></span>
@@ -564,16 +564,16 @@
     <a href="glossary.html">📖 Glossary</a>
     <a href="pools.html">🏊 Mining Pools</a>
   </nav>
-  <div class="nav-overlay" id="nav-overlay" onclick="toggleNav()"></div>
+  <div class="nav-overlay" id="nav-overlay"></div>
   
   <!-- Glossary Overlay -->
-  <div class="glossary-overlay" id="glossary-overlay" onclick="closeGlossary()"></div>
+  <div class="glossary-overlay" id="glossary-overlay"></div>
   
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer">
     <div class="glossary-header">
       <h3>📖 Glossary</h3>
-      <button class="glossary-close" onclick="closeGlossary()" aria-label="Close glossary">✕</button>
+      <button class="glossary-close" aria-label="Close glossary">✕</button>
     </div>
     <div class="glossary-content">
       <div class="glossary-term-title" id="glossary-term-title">Term</div>
@@ -619,7 +619,7 @@
           <li>Actively maintained</li>
           <li>Good for S19K Pro and S21</li>
         </ul>
-        <p><a href="https://luxor.tech/luxos" target="_blank">luxor.tech/luxos →</a></p>
+        <p><a href="https://luxor.tech/luxos" target="_blank" rel="noopener">luxor.tech/luxos →</a></p>
       </div>
       
       <div class="firmware-card">
@@ -633,7 +633,7 @@
           <li>Works with most S19 variants</li>
           <li>Fixed frequency mode for Loki</li>
         </ul>
-        <p><a href="https://www.vnish.net/" target="_blank">vnish.net →</a></p>
+        <p><a href="https://www.vnish.net/" target="_blank" rel="noopener">vnish.net →</a></p>
       </div>
       
       <div class="firmware-card">
@@ -647,7 +647,7 @@
           <li>0% fee if mining on Braiins Pool</li>
           <li>Strong community support</li>
         </ul>
-        <p><a href="https://braiins.com/os/plus" target="_blank">braiins.com/os/plus →</a></p>
+        <p><a href="https://braiins.com/os/plus" target="_blank" rel="noopener">braiins.com/os/plus →</a></p>
       </div>
     </section>
     
@@ -696,16 +696,16 @@
       <h2 class="section-title">Where to Get a Loki Kit</h2>
       <p>The Loki Kit is made by Pivotal Pleb Tech and sold through several retailers:</p>
       <ul style="margin-left: 1.25rem; color: var(--text-secondary);">
-        <li><a href="https://pivotalpleb.com/products/loki-kit" target="_blank">Pivotal Pleb Tech</a> (original creator)</li>
-        <li><a href="https://altairtech.io/product/loki-kit/" target="_blank">Altair Technology</a></li>
-        <li><a href="https://nakamotomining.com/en-us/products/loki-kit" target="_blank">Nakamoto Mining</a></li>
-        <li><a href="https://d-central.tech/" target="_blank">D-Central Technologies</a> (pre-built Loki rigs)</li>
+        <li><a href="https://pivotalpleb.com/products/loki-kit" target="_blank" rel="noopener">Pivotal Pleb Tech</a> (original creator)</li>
+        <li><a href="https://altairtech.io/product/loki-kit/" target="_blank" rel="noopener">Altair Technology</a></li>
+        <li><a href="https://nakamotomining.com/en-us/products/loki-kit" target="_blank" rel="noopener">Nakamoto Mining</a></li>
+        <li><a href="https://d-central.tech/" target="_blank" rel="noopener">D-Central Technologies</a> (pre-built Loki rigs)</li>
       </ul>
     </section>
     
     <footer>
       <p>© 2026 The Sola Ray Effect</p>
-      <p><a href="solaray_calculator_v3.html">Back to Calculator</a></p>
+      <p><a href="index.html">Back to Calculator</a></p>
     </footer>
   </div>
 
@@ -785,10 +785,7 @@
     // ============================================
     // LIVE PRICE TICKER
     // ============================================
-    const TICKER_PRICES = { 
-      BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
-      ZEC: 45, DASH: 44, XMR: 200
-    };
+    const TICKER_PRICES = { BTC: null, BCH: null, LTC: null, KAS: null, ETC: null, DOGE: null, ZEC: null, DASH: null, XMR: null };
     const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR'];
     
     async function fetchTickerPrices() {
@@ -811,7 +808,7 @@
         
         updateTicker();
       } catch (error) {
-        console.log('Ticker price fetch error, using defaults');
+        console.log('Ticker price fetch error: prices unavailable');
         updateTicker();
       }
     }
@@ -823,20 +820,21 @@
       let html = '';
       
       tickerCoins.forEach(symbol => {
-        const price = TICKER_PRICES[symbol];
-        if (price) {
-          const priceFormatted = price >= 1 
-            ? price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
-            : price.toFixed(6);
-          
+          const price = TICKER_PRICES[symbol];
+          let display = '—';
+          if (typeof price === 'number' && !Number.isNaN(price)) {
+            display = price >= 1
+              ? price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+              : price.toFixed(6);
+            display = '$' + display;
+          }
           html += `
             <div class="ticker-item">
               <span class="ticker-coin">${symbol}</span>
-              <span class="ticker-price">$${priceFormatted}</span>
+              <span class="ticker-price">${display}</span>
             </div>
           `;
-        }
-      });
+        });
       
       if (html) {
         tickerTrack.innerHTML = html + html;
@@ -845,6 +843,34 @@
     
     fetchTickerPrices();
     setInterval(fetchTickerPrices, 60000);
-  </script>
+  
+
+    // ============================================
+    // INTERACTION BINDINGS (stable: no inline onclick, no eval)
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function () {
+      // Navigation drawer
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('pointerup', function (e) { e.preventDefault(); toggleNav(); });
+      }
+      if (navOverlay) {
+        navOverlay.addEventListener('pointerup', function (e) { e.preventDefault(); toggleNav(); });
+      }
+      
+      // Glossary drawer
+      var glossaryOverlay = document.getElementById('glossary-overlay');
+      var glossaryClose = document.querySelector('.glossary-close');
+      if (glossaryOverlay) {
+        glossaryOverlay.addEventListener('pointerup', function (e) { e.preventDefault(); closeGlossary(); });
+      }
+      if (glossaryClose) {
+        glossaryClose.addEventListener('pointerup', function (e) { e.preventDefault(); closeGlossary(); });
+      }
+
+    });
+    
+</script>
 </body>
 </html>
