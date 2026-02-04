@@ -1303,10 +1303,13 @@
   padding: 12px 16px;
 }
 
-.ember-columns {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
+.ember-picks-panel{
+  flex: 0 0 auto;      /* do not stretch in the flex row */
+  display: inline-block;
+  width: 480px;        /* hard width so it truly narrows */
+  max-width: 480px;
+  padding: 12px 16px;
+  box-sizing: border-box;
 }
 
 .coins-col {
