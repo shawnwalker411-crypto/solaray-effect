@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6"></script>
   <script>
@@ -12,20 +11,441 @@
     gtag('js', new Date());
     gtag('config', 'G-M6F5T8Y2P6');
   </script>
-
   <title>Mining Glossary | Sola Ray Effect</title>
   <meta name="description" content="Complete cryptocurrency mining glossary for home miners. Learn about hashrate, ASICs, profitability, and how to avoid common mining scams.">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-gold: #D4AF37;
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --warning: #ff5252;
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    
+    .container { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+    
+    .banner-container {
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .banner-container img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+    
+    .page-title {
+      text-align: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 1rem 0;
+    }
+    
+    .page-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--sola-teal);
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    
+    .back-link:hover {
+      color: var(--sola-gold);
+    }
+    
+    .category-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .category-nav a {
+      color: var(--sola-teal);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    
+    .category-nav a:hover {
+      background: rgba(0, 206, 209, 0.1);
+      color: var(--sola-gold);
+    }
+    
+    .category-nav a.scam-link {
+      color: var(--warning);
+    }
+    
+    .category-nav a.scam-link:hover {
+      background: rgba(255, 82, 82, 0.1);
+    }
+    
+    .category {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(6px);
+    }
+    
+    .category-title {
+      color: var(--sola-gold);
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .category-title.scam-title {
+      color: var(--warning);
+    }
+    
+    .term {
+      margin-bottom: 1.5rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--sola-teal);
+    }
+    
+    .term.scam-term {
+      border-left-color: var(--warning);
+    }
+    
+    .term-name {
+      color: var(--sola-teal);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .term.scam-term .term-name {
+      color: var(--warning);
+    }
+    
+    .term-def {
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+    
+    .term-tip {
+      color: var(--sola-gold);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    
+    .cta-section {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-top: 2rem;
+    }
+    
+    .cta-section h3 {
+      color: var(--sola-gold);
+      margin-bottom: 1rem;
+    }
+    
+    .cta-btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-teal-dark));
+      color: #000;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-family: 'Noto Sans JP', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    /* ============================================
+       HAMBURGER MENU
+       ============================================ */
+    .hamburger-menu {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+    }
+    
+    .hamburger-btn {
+      background: var(--bg-card);
+      border: 2px solid var(--sola-teal);
+      color: var(--sola-teal);
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+    }
+    
+    .hamburger-btn:hover {
+      background: var(--sola-teal);
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+    }
+    
+    .hamburger-btn .bun-top {
+      width: 24px;
+      height: 6px;
+      background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
+      border-radius: 10px 10px 0 0;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .lettuce {
+      width: 26px;
+      height: 3px;
+      background: #32CD32;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .patty {
+      width: 24px;
+      height: 4px;
+      background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .cheese {
+      width: 26px;
+      height: 3px;
+      background: #FFD700;
+      border-radius: 1px;
+      transform: skewX(-5deg);
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .bun-bottom {
+      width: 24px;
+      height: 5px;
+      background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
+      border-radius: 0 0 6px 6px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+    
+    .nav-drawer {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-right: 2px solid var(--sola-teal);
+      z-index: 999;
+      transition: left 0.3s ease;
+      padding: 80px 1.5rem 2rem;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-drawer.open { left: 0; }
+    
+    .nav-drawer h3 {
+      color: var(--sola-gold);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .nav-drawer a, .nav-drawer .nav-disabled {
+      display: block;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    
+    .nav-drawer a:hover {
+      background: var(--bg-card);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    
+    .nav-drawer a.active {
+      background: rgba(0, 206, 209, 0.15);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    
+    .nav-drawer .nav-disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+    
+    .nav-overlay.show { display: block; }
+    
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 206, 209, 0.4);
+    }
+    
+    @media (max-width: 600px) {
+      .page-title { font-size: 1.5rem; }
+      .category { padding: 1rem; }
+      .term { padding-left: 0.75rem; }
+    }
 
-  <!-- FIXED: absolute asset path -->
-  <link rel="stylesheet" href="/assets/site.css?v=20260203v1">
+    /* ============================================
+       LIVE PRICE TICKER
+       ============================================ */
+    .ticker-container {
+      width: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(244, 180, 26, 0.15) 0%, rgba(11, 47, 38, 0.95) 100%);
+      border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    
+    .ticker-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    }
+    
+    .ticker-track {
+      display: flex;
+      animation: ticker-scroll 30s linear infinite;
+      width: max-content;
+    }
+    
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+    
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 1.5rem;
+      white-space: nowrap;
+      border-right: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .ticker-coin {
+      font-weight: 600;
+      color: #D4AF37;
+      font-size: 0.9rem;
+    }
+    
+    .ticker-price {
+      color: #e8f0f7;
+      font-size: 0.9rem;
+    }
+    
+    .ticker-change {
+      font-size: 0.8rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+    }
+    
+    .ticker-change.up {
+      color: #00e676;
+      background: rgba(0, 230, 118, 0.15);
+    }
+    
+    .ticker-change.down {
+      color: #ff5252;
+      background: rgba(255, 82, 82, 0.15);
+    }
+    
+    .ticker-change.neutral {
+      color: #8899a8;
+    }
+  </style>
 </head>
-
 <body>
-
+  <!-- Live Price Ticker -->
+  <div class="ticker-container">
+    <div class="ticker-track" id="ticker-track">
+      <div class="ticker-item"><span class="ticker-coin">Loading prices...</span></div>
+    </div>
+  </div>
   <!-- Hamburger Menu -->
   <div class="hamburger-menu">
     <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
@@ -36,7 +456,7 @@
       <span class="bun-bottom"></span>
     </button>
   </div>
-
+  
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>⚡ NAVIGATION</h3>
@@ -49,28 +469,488 @@
   <div class="nav-overlay" id="nav-overlay"></div>
 
   <div class="container">
-
     <div class="banner-container">
-      <!-- FIXED: absolute asset path -->
-      <img src="/assets/img-e688b707c7.jpg" alt="The Sola Ray Effect">
+      <img src="assets/img-e688b707c7.jpg" alt="The Sola Ray Effect">
     </div>
-
+    
     <h1 class="page-title">📖 Mining Glossary</h1>
     <p class="page-subtitle">Everything a home miner needs to know — plus how to stay safe.</p>
-
-    <!-- CONTENT BELOW IS UNCHANGED -->
-    <!-- (rest of your glossary content continues exactly as before) -->
-
+    
+    <nav class="category-nav">
+      <a href="#basics">Mining Basics</a>
+      <a href="#hardware">Hardware</a>
+      <a href="#profitability">Profitability</a>
+      <a href="#payout-methods">Payout Methods</a>
+      <a href="#electricity">Electricity</a>
+      <a href="#scams" class="scam-link">⚠️ Common Scams</a>
+    </nav>
+    
+    <!-- Mining Basics -->
+    <section class="category" id="basics">
+      <h2 class="category-title">⛏️ Mining Basics</h2>
+      
+      <div class="term" id="hashrate">
+        <div class="term-name">Hashrate</div>
+        <div class="term-def">How many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. Measured in H/s, KH/s, MH/s, GH/s, TH/s, or PH/s depending on the algorithm.</div>
+        <div class="term-tip">💡 Don't chase highest hashrate — efficiency (hashrate per watt) matters more for home miners.</div>
+      </div>
+      
+      <div class="term" id="block-reward">
+        <div class="term-name">Block Reward</div>
+        <div class="term-def">The cryptocurrency paid to miners who successfully add a new block to the blockchain. For Bitcoin, this halves every 4 years (currently 3.125 BTC per block).</div>
+      </div>
+      
+      <div class="term" id="difficulty">
+        <div class="term-name">Difficulty</div>
+        <div class="term-def">A measure of how hard it is to mine a block. Adjusts automatically based on total network hashrate. Higher difficulty = less frequent rewards for the same hashrate.</div>
+      </div>
+      
+      <div class="term" id="pool">
+        <div class="term-name">Mining Pool</div>
+        <div class="term-def">A group of miners who combine their hashrate and share rewards proportionally. Provides steady, smaller payouts instead of rare, large payouts from solo mining.</div>
+        <div class="term-tip">💡 Home miners should almost always use pools — solo mining is like playing the lottery.</div>
+      </div>
+      
+      <div class="term" id="solo-mining">
+        <div class="term-name">Solo Mining</div>
+        <div class="term-def">Mining without a pool. You keep 100% of any block you find, but for Bitcoin you might wait years between rewards. Only practical for coins with low difficulty.</div>
+      </div>
+      
+      <div class="term" id="algorithm">
+        <div class="term-name">Algorithm</div>
+        <div class="term-def">The mathematical puzzle miners solve. Different coins use different algorithms: SHA-256 (Bitcoin, Bitcoin Cash), Scrypt (Litecoin, Dogecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin), Autolykos2 (Ergo), Blake3 (Alephium), RandomX (Monero).</div>
+      </div>
+      
+      <div class="term" id="sha256">
+        <div class="term-name">SHA-256</div>
+        <div class="term-def">The algorithm used by Bitcoin and Bitcoin Cash. Stands for Secure Hash Algorithm 256-bit. ASIC-dominated since 2013 — GPU mining is not viable for SHA-256 coins.</div>
+      </div>
+      
+      <div class="term" id="scrypt">
+        <div class="term-name">Scrypt</div>
+        <div class="term-def">The algorithm used by Litecoin and Dogecoin (via merged mining). Originally designed to be ASIC-resistant, but ASICs now dominate. Scrypt pools typically offer merged mining for both LTC and DOGE simultaneously.</div>
+      </div>
+      
+      <div class="term" id="kheavyhash">
+        <div class="term-name">KHeavyHash</div>
+        <div class="term-def">The algorithm used by Kaspa (KAS). Memory-hard algorithm designed for ASIC mining. Kaspa uses BlockDAG technology instead of traditional blockchain.</div>
+      </div>
+      
+      <div class="term" id="equihash">
+        <div class="term-name">Equihash</div>
+        <div class="term-def">The algorithm used by Zcash (ZEC). Memory-intensive algorithm that was originally designed to be ASIC-resistant, but ASIC miners now exist. Zcash offers optional privacy features through shielded transactions.</div>
+      </div>
+      
+      <div class="term" id="x11">
+        <div class="term-name">X11</div>
+        <div class="term-def">The algorithm used by Dash (DASH). Uses 11 different hashing functions chained together. Originally designed for GPU mining, but now dominated by ASICs. Dash focuses on fast, low-cost payments.</div>
+      </div>
+      
+      <div class="term" id="kawpow">
+        <div class="term-name">KAWPOW</div>
+        <div class="term-def">The algorithm used by Ravencoin (RVN). GPU-only algorithm designed to be ASIC-resistant through frequent memory access patterns. Popular among GPU miners for its fair distribution.</div>
+        <div class="term-tip">💡 GPU Only — No ASICs available for KAWPOW.</div>
+      </div>
+      
+      <div class="term" id="autolykos2">
+        <div class="term-name">Autolykos2</div>
+        <div class="term-def">The algorithm used by Ergo (ERG). Memory-hard, GPU-friendly algorithm designed to resist ASIC mining. Ergo focuses on financial contracts and DeFi applications.</div>
+        <div class="term-tip">💡 GPU Only — Designed to remain ASIC-resistant.</div>
+      </div>
+      
+      <div class="term" id="blake3">
+        <div class="term-name">Blake3</div>
+        <div class="term-def">The algorithm used by Alephium (ALPH). Modern, fast hashing algorithm. GPU-mineable with growing ASIC development. Alephium combines sharding with proof-of-work.</div>
+        <div class="term-tip">💡 GPU or ASIC — Check current hardware availability.</div>
+      </div>
+      
+      <div class="term" id="randomx">
+        <div class="term-name">RandomX</div>
+        <div class="term-def">The algorithm used by Monero (XMR). CPU-optimized algorithm that uses random code execution and memory-hard techniques. Specifically designed to be efficient on consumer CPUs while resisting GPU and ASIC mining.</div>
+        <div class="term-tip">💡 CPU Only — Optimized for standard desktop/laptop processors.</div>
+      </div>
+      
+      <div class="term" id="kadena-shutdown">
+        <div class="term-name">Kadena (KDA) - Mining Ended</div>
+        <div class="term-def">Kadena ASIC mining ended in October 2025 when the network transitioned away from proof-of-work. KDA mining hardware (like the Antminer KA3 and Goldshell KD-Box) is no longer usable for mining. If you see KDA miners for sale, they have no mining utility.</div>
+        <div class="term-tip">⚠️ Warning: Do not purchase Kadena mining hardware — it cannot mine any coins.</div>
+      </div>
+    </section>
+    
+    <!-- Hardware -->
+    <section class="category" id="hardware">
+      <h2 class="category-title">🔧 Hardware</h2>
+      
+      <div class="term" id="asic">
+        <div class="term-name">ASIC</div>
+        <div class="term-def">Application-Specific Integrated Circuit. Specialized hardware built solely for mining one algorithm. Extremely efficient but expensive and can't be repurposed.</div>
+      </div>
+      
+      <div class="term" id="gpu">
+        <div class="term-name">GPU Mining</div>
+        <div class="term-def">Using graphics cards to mine. More flexible than ASICs (can mine multiple algorithms), but less efficient for most coins. Still viable for some altcoins.</div>
+      </div>
+      
+      <div class="term" id="lottery-miner">
+        <div class="term-name">Lottery Miner</div>
+        <div class="term-def">Low-power USB mining devices (like Bitaxe, NerdMiner, Lucky Miner). Very low chance of finding a block, but fun, educational, and use minimal electricity. Great entry point for beginners.</div>
+        <div class="term-tip">💡 Think of it as a bitcoin lottery ticket that runs 24/7 for pennies.</div>
+      </div>
+      
+      <div class="term" id="loki-kit">
+        <div class="term-name">Loki Kit</div>
+        <div class="term-def">Hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. Lets home miners use powerful equipment without electrical upgrades.</div>
+      </div>
+      
+      <div class="term" id="psu">
+        <div class="term-name">PSU (Power Supply Unit)</div>
+        <div class="term-def">Converts AC power from your wall to DC power for the miner. Must be rated for your miner's wattage plus 10-20% headroom. Critical for reliability and safety.</div>
+      </div>
+      
+      <div class="term" id="firmware">
+        <div class="term-name">Firmware</div>
+        <div class="term-def">Software embedded in your miner that controls its operation. Stock firmware comes from the manufacturer; aftermarket firmware (Braiins, VNish, LuxOS) can unlock better performance and features.</div>
+      </div>
+    </section>
+    
+    <!-- Profitability -->
+    <section class="category" id="profitability">
+      <h2 class="category-title">💰 Profitability</h2>
+      
+      <div class="term" id="roi">
+        <div class="term-name">ROI (Return on Investment)</div>
+        <div class="term-def">How long until your mining profits pay back your hardware costs. Calculated as: Equipment Cost ÷ Monthly Profit = Months to ROI.</div>
+      </div>
+      
+      <div class="term" id="break-even">
+        <div class="term-name">Break Even</div>
+        <div class="term-def">The point where your total mining revenue equals your total costs (equipment + electricity). After break even, you're in pure profit.</div>
+      </div>
+      
+      <div class="term" id="pool-fee">
+        <div class="term-name">Pool Fee</div>
+        <div class="term-def">Percentage taken by mining pools for their service. Typically 1-2%. Lower isn't always better — reliable pools with good support are worth paying for.</div>
+      </div>
+      
+      <div class="term" id="dev-fee">
+        <div class="term-name">Dev Fee</div>
+        <div class="term-def">Percentage taken by aftermarket firmware developers. Usually 2-3%. Pays for ongoing development, tuning profiles, and support. Worth it for the efficiency gains.</div>
+      </div>
+      
+      <div class="term" id="efficiency">
+        <div class="term-name">Efficiency (J/TH, W/MH)</div>
+        <div class="term-def">Power consumption per unit of hashrate. Lower is better. A 25 J/TH miner uses less electricity than a 35 J/TH miner for the same hashrate — critical for profitability.</div>
+        <div class="term-tip">💡 For home miners, efficiency often matters more than raw hashrate due to electricity costs.</div>
+      </div>
+    </section>
+    
+    <!-- Payout Methods -->
+    <section class="category" id="payout-methods">
+      <h2 class="category-title">💳 Payout Methods</h2>
+      
+      <div class="term" id="fpps">
+        <div class="term-name">FPPS (Full Pay Per Share)</div>
+        <div class="term-def">You get paid for every valid share you submit, plus your share of estimated transaction fees — regardless of whether the pool actually finds a block. The pool takes on all the variance risk. Most predictable income but pools charge higher fees to cover their risk.</div>
+        <div class="term-tip">💡 Best for home miners who want steady, predictable income.</div>
+      </div>
+      
+      <div class="term" id="pps">
+        <div class="term-name">PPS (Pay Per Share)</div>
+        <div class="term-def">You get paid for every valid share you submit based on the block reward only (no transaction fees). Consistent payouts but you miss out on transaction fee bonuses that can be significant during high-fee periods.</div>
+      </div>
+      
+      <div class="term" id="pps-plus">
+        <div class="term-name">PPS+ (Pay Per Share Plus)</div>
+        <div class="term-def">A hybrid model: PPS for the block reward (guaranteed per share) plus PPLNS for transaction fees (paid when blocks are found). Balances stability with bonus potential. Common on larger pools.</div>
+      </div>
+      
+      <div class="term" id="pplns">
+        <div class="term-name">PPLNS (Pay Per Last N Shares)</div>
+        <div class="term-def">You get paid based on your shares in the last N shares when the pool finds a block. If you mine consistently, you earn well. If you hop between pools, you may miss payouts. Rewards loyal miners, punishes pool hoppers. Usually lower fees than PPS methods.</div>
+        <div class="term-tip">💡 Good for miners who stay on one pool long-term.</div>
+      </div>
+      
+      <div class="term" id="tides">
+        <div class="term-name">TIDES (Transparent Index of Distinct Extended Shares)</div>
+        <div class="term-def">OCEAN pool's payout system. Non-custodial — you get paid directly from the coinbase transaction when the pool finds a block. More decentralized but higher variance since you only get paid when blocks are actually found.</div>
+      </div>
+      
+      <div class="term" id="solo">
+        <div class="term-name">Solo Mining</div>
+        <div class="term-def">Mining without a pool. You keep the entire block reward (currently ~3.125 BTC) if you find a block. The catch: with a single ASIC, you might wait years between rewards. It's a lottery. Popular with Bitaxe and NerdMiner owners who want to "hit the jackpot" rather than earn steady income.</div>
+        <div class="term-tip">💡 Only practical for coins with low difficulty or if you have significant hashrate.</div>
+      </div>
+      
+      <div class="term" id="merged-mining">
+        <div class="term-name">Merged Mining (AuxPoW)</div>
+        <div class="term-def">Mining two or more coins simultaneously using the same hashpower. For Scrypt miners, this means earning both Litecoin AND Dogecoin with the same work. No extra electricity cost. Most Scrypt pools do this automatically.</div>
+        <div class="term-tip">💡 If your pool supports merged mining, enable it — it's free extra income.</div>
+      </div>
+      
+      <div class="term" id="stale-shares">
+        <div class="term-name">Stale Shares</div>
+        <div class="term-def">Shares submitted after the pool has already moved to a new block. They're valid work but arrive too late to count. High latency (distance to pool server) increases stale shares. Using a North America pool if you're in North America reduces stales.</div>
+        <div class="term-tip">💡 Keep stale rate under 1%. If higher, try a pool with servers closer to you.</div>
+      </div>
+    </section>
+    
+    <!-- Electricity -->
+    <section class="category" id="electricity">
+      <h2 class="category-title">⚡ Electricity</h2>
+      
+      <div class="term" id="kwh">
+        <div class="term-name">kWh (Kilowatt-Hour)</div>
+        <div class="term-def">How electricity is billed. A 1000W miner running for 1 hour = 1 kWh. At $0.12/kWh, that's $0.12. Running 24/7 = 24 kWh/day = $2.88/day.</div>
+      </div>
+      
+      <div class="term" id="voltage">
+        <div class="term-name">120V vs 240V</div>
+        <div class="term-def">Standard US outlets are 120V (15-20A). Dryers and ovens use 240V. Most industrial ASICs need 240V but can run on 120V with a Loki Kit or modifications. 240V is more efficient (less heat loss in wiring).</div>
+      </div>
+      
+      <div class="term" id="circuit-capacity">
+        <div class="term-name">Circuit Capacity</div>
+        <div class="term-def">How much power a circuit can safely deliver. A standard 15A/120V circuit provides ~1,440W safely (80% rule). Never exceed this — fire hazard. Use dedicated circuits for miners.</div>
+        <div class="term-tip">💡 The 80% rule: Only use 80% of a circuit's rated capacity for continuous loads like mining.</div>
+      </div>
+      
+      <div class="term" id="time-of-use">
+        <div class="term-name">Time-of-Use (TOU) Rates</div>
+        <div class="term-def">Electricity pricing that varies by time of day. Many utilities offer cheap/free nights or off-peak rates. Schedule mining during cheap hours to maximize profit.</div>
+      </div>
+      
+      <div class="term" id="nema">
+        <div class="term-name">NEMA</div>
+        <div class="term-def">National Electrical Manufacturers Association. The organization that sets standards for electrical outlets and plugs in North America. When you see "NEMA 6-20" on a miner's specs, it refers to a specific outlet type.</div>
+        <div class="term-tip">💡 The first number indicates voltage (5=120V, 6=240V), the second indicates amperage.</div>
+      </div>
+      
+      <div class="term" id="nema-5-15">
+        <div class="term-name">NEMA 5-15 / 5-20</div>
+        <div class="term-def">Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most Loki-modified miners plug into these.</div>
+        <div class="term-tip">💡 The "5" means 120V grounded, the number after the dash is the amperage rating.</div>
+      </div>
+      
+      <div class="term" id="nema-6-20r">
+        <div class="term-name">NEMA 6-20R</div>
+        <div class="term-def">A 240V/20A outlet. The "6" indicates 240V, "20" is the amperage, "R" means receptacle (outlet). Provides up to 3,840W continuous (at 80%). Common for window AC units and smaller industrial equipment.</div>
+      </div>
+      
+      <div class="term" id="nema-l6-30r">
+        <div class="term-name">NEMA L6-30R</div>
+        <div class="term-def">A 240V/30A locking outlet. The "L" means twist-lock — the plug locks in place to prevent accidental disconnection. Provides up to 5,760W continuous (at 80%). Popular for multiple miners via a PDU.</div>
+        <div class="term-tip">💡 Locking outlets are preferred for mining — vibration from fans won't shake the plug loose.</div>
+      </div>
+      
+      <div class="term" id="pdu">
+        <div class="term-name">PDU (Power Distribution Unit)</div>
+        <div class="term-def">An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions.</div>
+        <div class="term-tip">⚠️ Never daisy-chain PDUs or use residential power strips for mining.</div>
+      </div>
+      
+      <div class="term" id="80-percent-rule">
+        <div class="term-name">80% Rule</div>
+        <div class="term-def">NEC requirement that continuous loads (running 3+ hours) use no more than 80% of circuit capacity. A 20A circuit = 16A max continuous. A 30A circuit = 24A max continuous. Mining is always a continuous load, so size your circuits with 20% headroom.</div>
+        <div class="term-tip">⚠️ Violating the 80% rule is a fire hazard. Always size up if you're close to the limit.</div>
+      </div>
+      
+      <div class="term" id="double-pole">
+        <div class="term-name">Double-Pole Breaker</div>
+        <div class="term-def">A circuit breaker that controls both hot wires in a 240V circuit simultaneously. Required for all 240V circuits. Takes two slots in your breaker panel. Trips both legs if either overloads.</div>
+      </div>
+      
+      <div class="term" id="awg">
+        <div class="term-name">Wire Gauge (AWG)</div>
+        <div class="term-def">American Wire Gauge — the standard for measuring wire thickness in the US. Lower numbers = thicker wire = more capacity. For mining: 12 AWG handles 20A circuits, 10 AWG handles 30A circuits.</div>
+        <div class="term-tip">⚠️ Using too-thin wire is a fire hazard. When in doubt, go one size thicker.</div>
+      </div>
+      
+      <div class="term" id="nec">
+        <div class="term-name">NEC (National Electrical Code)</div>
+        <div class="term-def">The US standard for safe electrical installation (NFPA 70). Covers wiring, outlets, breakers, and everything else electrical. Most jurisdictions require NEC compliance. Electricians follow this code — and so should you for any DIY work.</div>
+      </div>
+    </section>
+    
+    <!-- Common Scams -->
+    <section class="category" id="scams">
+      <h2 class="category-title scam-title">⚠️ Common Scams</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Mining attracts scammers. Know these red flags to protect yourself.</p>
+      
+      <div class="term scam-term" id="cloud-mining">
+        <div class="term-name">Cloud Mining Scams</div>
+        <div class="term-def">Services claiming you can "rent" hashrate remotely. Most are Ponzi schemes — they pay early investors with new investors' money until it collapses. If you don't control the hardware, you don't control anything.</div>
+        <div class="term-tip">🚩 Red flag: Guaranteed returns, referral bonuses, "limited time" contracts.</div>
+      </div>
+      
+      <div class="term scam-term" id="fake-pools">
+        <div class="term-name">Fake Mining Pools</div>
+        <div class="term-def">Pools that steal your hashrate and never pay out, or take excessive hidden fees. They may show fake dashboards with fake earnings. Stick to established pools with public reputations.</div>
+        <div class="term-tip">🚩 Red flag: No reviews, anonymous operators, too-good fees, pressure to deposit.</div>
+      </div>
+      
+      <div class="term scam-term" id="fake-hardware">
+        <div class="term-name">Fake/Defective Hardware</div>
+        <div class="term-def">eBay and Alibaba listings showing impossible specs at low prices. Often relabeled old miners, broken units, or completely fake. Only buy from verified sellers with return policies.</div>
+        <div class="term-tip">🚩 Red flag: Price way below market, shipping from China with no returns, new seller accounts.</div>
+      </div>
+      
+      <div class="term scam-term" id="phishing">
+        <div class="term-name">Phishing Sites</div>
+        <div class="term-def">Fake pool login pages, wallet sites, or exchanges designed to steal your credentials. URL looks almost right (f2p00l.com instead of f2pool.com). Always bookmark the real sites.</div>
+        <div class="term-tip">🚩 Red flag: Links from DMs or emails, slightly misspelled URLs, urgent "verify your account" messages.</div>
+      </div>
+      
+      <div class="term scam-term" id="giveaway-scams">
+        <div class="term-name">Social Media Giveaways</div>
+        <div class="term-def">"Send 0.1 BTC and receive 1 BTC back!" — Always fake. No one gives away free crypto. Often impersonate celebrities or companies. YouTube live streams are especially common for this scam.</div>
+        <div class="term-tip">🚩 Red flag: Any "send crypto to receive more" offer. It's always a scam. Always.</div>
+      </div>
+      
+      <div class="term scam-term" id="malware-firmware">
+        <div class="term-name">Malware Firmware</div>
+        <div class="term-def">Firmware downloads from unofficial sources that contain backdoors. Can redirect a percentage of your mining to the attacker's wallet or steal your pool credentials. Only download from official sources.</div>
+        <div class="term-tip">🚩 Red flag: Firmware from random forums, Discord links, or "cracked" versions without dev fees.</div>
+      </div>
+      
+      <div class="term scam-term" id="impersonator-support">
+        <div class="term-name">Impersonator Support</div>
+        <div class="term-def">Scammers posing as Bitmain support, pool admins, or firmware devs in Discord/Telegram. They'll ask for remote access, wallet info, or "verification fees." Real support never DMs you first.</div>
+        <div class="term-tip">🚩 Red flag: Unsolicited DMs, requests for private keys or remote access, "urgent" problems with your account.</div>
+      </div>
+    </section>
+    
+    <div class="cta-section">
+      <h3>Ready to Calculate Your Profits?</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Use The Sola Ray Effect calculator — built for home miners.</p>
+      <a href="index.html" class="cta-btn">⚡ Open Calculator</a>
+    </div>
   </div>
+  
+  <script>
+    function toggleNav() {
+      const btn = document.getElementById('hamburger-btn');
+      const drawer = document.getElementById('nav-drawer');
+      const overlay = document.getElementById('nav-overlay');
+      
+      btn.classList.toggle('open');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('show');
+    }
 
-  <footer class="container">
-    <p class="page-subtitle" id="buildStamp">Build: 2026-02-03 v1</p>
-  </footer>
+    // ============================================
+    // ============================================
+    // LIVE PRICE TICKER
+    // ============================================
+    const TICKER_PRICES = { 
+      BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
+      ZEC: 45, DASH: 44, XMR: 200
+    };
+    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR'];
+    
+    async function fetchTickerPrices() {
+      try {
+        const ids = 'bitcoin,litecoin,dogecoin,kaspa,ethereum-classic,zcash,dash,bitcoin-cash,monero';
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`
+        );
+        const data = await response.json();
+        
+        if (data.bitcoin) TICKER_PRICES.BTC = data.bitcoin.usd;
+        if (data.litecoin) TICKER_PRICES.LTC = data.litecoin.usd;
+        if (data.dogecoin) TICKER_PRICES.DOGE = data.dogecoin.usd;
+        if (data.kaspa) TICKER_PRICES.KAS = data.kaspa.usd;
+        if (data['ethereum-classic']) TICKER_PRICES.ETC = data['ethereum-classic'].usd;
+        if (data.zcash) TICKER_PRICES.ZEC = data.zcash.usd;
+        if (data.dash) TICKER_PRICES.DASH = data.dash.usd;
+        if (data['bitcoin-cash']) TICKER_PRICES.BCH = data['bitcoin-cash'].usd;
+        if (data.monero) TICKER_PRICES.XMR = data.monero.usd;
+        
+        updateTicker();
+      } catch (error) {
+        console.log('Ticker price fetch error, using defaults');
+        updateTicker();
+      }
+    }
+    
+    function updateTicker() {
+      const tickerTrack = document.getElementById('ticker-track');
+      if (!tickerTrack) return;
+      
+      let html = '';
+      
+      tickerCoins.forEach(symbol => {
+        const price = TICKER_PRICES[symbol];
+        if (price) {
+          const priceFormatted = price >= 1 
+            ? price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
+            : price.toFixed(6);
+          
+          html += `
+            <div class="ticker-item">
+              <span class="ticker-coin">${symbol}</span>
+              <span class="ticker-price">$${priceFormatted}</span>
+            </div>
+          `;
+        }
+      });
+      
+      if (html) {
+        tickerTrack.innerHTML = html + html;
+      }
+    }
+    
+    fetchTickerPrices();
+    setInterval(fetchTickerPrices, 60000);
+  </script>
 
-  <!-- solarayeffect build: 2026-02-03 v1 -->
+  <script>
+    // ============================================
+    // STABLE INTERACTION BINDINGS
+    // (no inline onclick, no eval; works on desktop/tablet/mobile)
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function () {
+      // Nav drawer
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          if (typeof toggleNav === 'function') toggleNav();
+        });
+      }
+      if (navOverlay) {
+        navOverlay.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          if (typeof toggleNav === 'function') toggleNav();
+        });
+      }
 
-  <!-- FIXED: absolute asset path -->
-  <script src="/assets/site.js?v=20260203v1" defer></script>
+      // Glossary drawer
+      var glossaryOverlay = document.getElementById('glossary-overlay');
+      var glossaryClose = document.querySelector('.glossary-drawer-close');
+      if (glossaryOverlay) {
+        glossaryOverlay.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          if (typeof closeGlossary === 'function') closeGlossary();
+        });
+      }
+      if (glossaryClose) {
+        glossaryClose.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          if (typeof closeGlossary === 'function') closeGlossary();
+        });
+      }
+
+      // Any element with a glossary term id
+      document.querySelectorAll('[data-glossary-term]').forEach(function (el) {
+        el.addEventListener('pointerup', function (e) {
+          e.preventDefault();
+          var termId = el.getAttribute('data-glossary-term');
+          if (termId && typeof openGlossary === 'function') openGlossary(termId);
+        });
+      });
+    });
+  </script>
 
 </body>
 </html>
