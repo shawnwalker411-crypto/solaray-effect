@@ -3259,7 +3259,9 @@
         const rateInfo = REVENUE_RATES[algo];
         if (!rateInfo) return;
         
-        const miners = ALL_MINERS.filter(m => m.algorithm === algo && m.category !== 'lottery');
+        const minerAlgo = (algo === 'SHA-256-BCH') ? 'SHA-256' : algo;
+const miners = ALL_MINERS.filter(m => m.algorithm === minerAlgo && m.category !== 'lottery');
+
         if (miners.length === 0) return;
         
         const bestMiner = miners.reduce((best, m) => {
