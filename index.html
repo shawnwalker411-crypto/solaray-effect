@@ -1263,10 +1263,11 @@
   <nav class="nav-drawer" id="nav-drawer">
     <h3>Navigation</h3>
     <a href="index.html" class="active">⚡ Calculator</a>
-    <a href="aftermarket_firmware.html">🔧 Firmware Guide</a>
+    <a href="miners.html">🔧 Miners</a>
+    <a href="pools.html">🏊 Mining Pools</a>
+    <a href="aftermarket_firmware.html">⚙️ Firmware Guide</a>
     <a href="electrical_setup.html">🔌 Electrical Setup</a>
     <a href="glossary.html">📖 Glossary</a>
-    <a href="pools.html">🏊 Mining Pools</a>
   </nav>
   <div class="nav-overlay" id="nav-overlay"></div>
   
@@ -3125,6 +3126,32 @@
     document.getElementById('grid-rate').addEventListener('input', updateTimeline);
     
     // ============================================
+    // URL PARAMETER HANDLER (for miners.html links)
+    // ============================================
+    function handleUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      const minerId = params.get('miner');
+      if (minerId) {
+        const miner = ALL_MINERS.find(m => m.id === minerId);
+        if (miner) {
+          // Set voltage filter
+          document.getElementById('voltage-filter').value = miner.voltage;
+          // Set algorithm filter
+          document.getElementById('algorithm-filter').value = miner.algorithm;
+          // Update miner dropdown
+          updateMinerDropdown();
+          // Select the miner
+          document.getElementById('miner-select').value = minerId;
+          selectMiner();
+          // Scroll to miner section after short delay
+          setTimeout(() => {
+            document.getElementById('miner-info').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 300);
+        }
+      }
+    }
+    
+    // ============================================
     // INIT
     // ============================================
     updateMiningType(); // Initialize with ASIC mode
@@ -3133,6 +3160,7 @@
     initPrices(); // Fetch live prices on page load
     initMiningStats(); // Fetch live difficulty data on page load
     initPriceInput(); // Enable custom price input for what-if scenarios
+    handleUrlParams(); // Check for miner pre-selection from URL
   </script>
 
   <script>
