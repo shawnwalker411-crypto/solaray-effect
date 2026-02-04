@@ -1236,12 +1236,12 @@
   background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.9), transparent);
 }
 
-/* Two boxes, centered as a group, with MAX sun gap between */
+/* Two boxes, pushed to edges with MAX sun gap between */
 .panels-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: clamp(64px, 12vw, 170px); /* show the sun */
+  padding: 0 20px;
   flex: 1;
 }
 
@@ -1298,21 +1298,22 @@
 
 /* Right - Ember Picks (CENTERED, TWO COLUMNS) */
 .ember-picks-panel {
-  min-width: 260px;
+  min-width: 200px;
+  max-width: 320px;
   text-align: center;
 }
 
 .ember-columns {
   display: flex;
   justify-content: center;
-  gap: 18px;
+  gap: 10px;
 }
 
 .coins-col {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 150px;
+  min-width: 110px;
 }
 
 .coin-row {
@@ -1333,20 +1334,20 @@
 .coin-name {
   color: rgba(232, 240, 247, 0.95);
   font-weight: 700;
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   line-height: 1.1;
 }
 
 .coin-miner {
   color: rgba(232, 240, 247, 0.65);
-  font-size: 0.70rem;
+  font-size: 0.62rem;
   line-height: 1.1;
   margin-top: 2px;
 }
 
 .coin-revenue {
   color: rgba(255, 215, 0, 0.95);
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   font-weight: 700;
   white-space: nowrap;
 }
