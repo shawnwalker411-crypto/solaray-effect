@@ -1297,19 +1297,15 @@
 }
 
 /* Right - Ember Picks (CENTERED, TWO COLUMNS) */
-.ember-picks-panel{
-  width: inline-block;
-  max-width: 480px;
-  padding: 12px 16px;
+.ember-picks-panel {
+  min-width: 260px;
+  text-align: center;
 }
 
-.ember-picks-panel{
-  flex: 0 0 auto;      /* do not stretch in the flex row */
-  display: inline-block;
-  width: 480px;        /* hard width so it truly narrows */
-  max-width: 480px;
-  padding: 12px 16px;
-  box-sizing: border-box;
+.ember-columns {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
 }
 
 .coins-col {
@@ -1437,71 +1433,24 @@
           <div class="header-line"></div>
         </div>
 
-        <div class="panels-container" style="display:flex; justify-content:center; align-items:flex-start; gap:140px; flex-wrap:wrap;">
+        <div class="panels-container">
+          <!-- LEFT: Hot Pick (CENTERED) -->
+          <div class="sola-banner-panel hot-pick-winner">
+            <div class="sola-banner-kicker">🔥 Hot Pick</div>
+            <p class="winner-coin" id="sunrise-coin">BTC</p>
+            <p class="winner-miner" id="sunrise-miner">with Antminer S21 200T</p>
+            <p class="winner-revenue" id="sunrise-revenue">$0.00/day</p>
+          </div>
 
-  <!-- LEFT: Hot Pick (CENTERED) -->
-  <div class="sola-banner-panel hot-pick-winner" style="text-align:center;">
-    <div class="sola-banner-kicker" style="justify-content:center;">🔥 Hot Pick</div>
-    <p class="winner-coin" id="sunrise-coin">BTC</p>
-    <p class="winner-miner" id="sunrise-miner">with Antminer S21 200T</p>
-    <p class="winner-revenue" id="sunrise-revenue">$0.00/day</p>
-  </div>
+          <!-- RIGHT: Ember Picks (CENTERED) -->
+          <div class="sola-banner-panel ember-picks-panel">
+            <div class="sola-banner-kicker">🔥 Ember Picks</div>
 
-  <!-- RIGHT: Ember Picks (CENTERED) -->
- <div class="sola-banner-panel ember-picks-panel">
-    <div class="sola-banner-kicker" style="justify-content:center;">🔥 Ember Picks</div>
-
-    <div class="ember-columns" id="ember-columns" style="display:grid; grid-template-columns:1fr 1fr; gap:14px 28px; justify-content:center; margin-top:6px;">
-
-      <div class="coins-col" style="display:flex; flex-direction:column; gap:12px;">
-
-        <div class="coin-row" style="display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto; column-gap:14px; row-gap:2px;">
-          <div class="coin-name" style="font-weight:700;">DASH</div>
-          <div class="coin-revenue" style="white-space:nowrap; font-weight:700;">$17.99/day</div>
-          <div class="coin-miner" style="grid-column:1 / -1; opacity:0.75; font-size:0.75rem;">Antminer D9</div>
+            <div class="ember-columns" id="ember-columns">
+              <!-- populated by JS -->
+            </div>
+          </div>
         </div>
-
-        <div class="coin-row" style="display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto; column-gap:14px; row-gap:2px;">
-          <div class="coin-name" style="font-weight:700;">BTC</div>
-          <div class="coin-revenue" style="white-space:nowrap; font-weight:700;">$8.79/day</div>
-          <div class="coin-miner" style="grid-column:1 / -1; opacity:0.75; font-size:0.75rem;">Antminer S21 XP 270T</div>
-        </div>
-
-        <div class="coin-row" style="display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto; column-gap:14px; row-gap:2px;">
-          <div class="coin-name" style="font-weight:700;">KAS</div>
-          <div class="coin-revenue" style="white-space:nowrap; font-weight:700;">$8.07/day</div>
-          <div class="coin-miner" style="grid-column:1 / -1; opacity:0.75; font-size:0.75rem;">Antminer KS7</div>
-        </div>
-
-      </div>
-
-      <div class="coins-col" style="display:flex; flex-direction:column; gap:12px;">
-
-        <div class="coin-row" style="display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto; column-gap:14px; row-gap:2px;">
-          <div class="coin-name" style="font-weight:700;">LTC</div>
-          <div class="coin-revenue" style="white-space:nowrap; font-weight:700;">$4.03/day</div>
-          <div class="coin-miner" style="grid-column:1 / -1; opacity:0.75; font-size:0.75rem;">Antminer L7 9500M</div>
-        </div>
-
-        <div class="coin-row" style="display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto; column-gap:14px; row-gap:2px;">
-          <div class="coin-name" style="font-weight:700;">BCH</div>
-          <div class="coin-revenue" style="white-space:nowrap; font-weight:700;">$X.XX/day</div>
-          <div class="coin-miner" style="grid-column:1 / -1; opacity:0.75; font-size:0.75rem;">Antminer S19</div>
-        </div>
-
-        <div class="coin-row" style="display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto; column-gap:14px; row-gap:2px;">
-          <div class="coin-name" style="font-weight:700;">ETC</div>
-          <div class="coin-revenue" style="white-space:nowrap; font-weight:700;">$2.85/day</div>
-          <div class="coin-miner" style="grid-column:1 / -1; opacity:0.75; font-size:0.75rem;">E9 Pro</div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
 
         <div class="bottom-tagline">
           <span>w/ Solar &amp; Free Weekends</span>
@@ -3256,16 +3205,14 @@
     // SUNRISE PICK - Most Profitable Coin (Free Electricity)
     // ============================================
     function calculateSunrisePick() {
-      const algorithms = ['SHA-256', 'SHA-256-BCH', 'Scrypt', 'KHeavyHash', 'Etchash', 'Equihash', 'X11'];
+      const algorithms = ['SHA-256', 'Scrypt', 'KHeavyHash', 'Etchash', 'Equihash', 'X11'];
       const results = [];
       
       algorithms.forEach(algo => {
         const rateInfo = REVENUE_RATES[algo];
         if (!rateInfo) return;
         
-        const minerAlgo = (algo === 'SHA-256-BCH') ? 'SHA-256' : algo;
-const miners = ALL_MINERS.filter(m => m.algorithm === minerAlgo && m.category !== 'lottery');
-
+        const miners = ALL_MINERS.filter(m => m.algorithm === algo && m.category !== 'lottery');
         if (miners.length === 0) return;
         
         const bestMiner = miners.reduce((best, m) => {
