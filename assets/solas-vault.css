@@ -379,6 +379,22 @@ body::after {
 .stat-change.down { color: var(--terminal-red); }
 
 /* ============================================
+   PANEL EXPLANATIONS
+   ============================================ */
+.panel-explain {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  padding: 12px 18px;
+  margin: 0;
+  border-top: 1px solid var(--vault-border);
+  border-left: 3px solid var(--terminal-cyan);
+  background: rgba(0, 212, 255, 0.03);
+  opacity: 0.75;
+}
+
+/* ============================================
    LOADING STATE
    ============================================ */
 .loading-overlay {

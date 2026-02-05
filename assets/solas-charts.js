@@ -548,6 +548,7 @@ function updateChartRange(chartType, days) {
   if (chartType === 'hashrate')  filtered = smoothData(filtered, 7);
   if (chartType === 'price')     filtered = smoothData(filtered, 3);
   if (chartType === 'mempool')   filtered = smoothData(filtered, 3);
+  if (chartType === 'blocktime') filtered = smoothData(filtered, 3);
   if (chartType === 'fees')      filtered = smoothData(filtered, 3);
   if (chartType === 'revenue')   filtered = smoothData(filtered, 3);
   if (chartType === 'hashprice') filtered = smoothData(filtered, 7);
@@ -1054,6 +1055,8 @@ async function loadAllData() {
     const pSmoothed = smoothData(priceData, 3);
     chartData.overlay.chart = createOverlayChart('overlay-chart', hSmoothed, pSmoothed);
     updateStats('overlay', null);
+    const overlayLoading = document.getElementById('overlay-loading');
+    if (overlayLoading) overlayLoading.style.display = 'none';
   }
 
   // 5. Difficulty Adjustments
@@ -1063,6 +1066,8 @@ async function loadAllData() {
     chartData.adjustments.full = adjustments;
     chartData.adjustments.chart = createAdjustmentsChart('adjustments-chart', adjustments);
     updateStats('adjustments', adjustments);
+    const adjLoading = document.getElementById('adjustments-loading');
+    if (adjLoading) adjLoading.style.display = 'none';
   }
 
   // 6. Mempool
@@ -1076,7 +1081,8 @@ async function loadAllData() {
   // 7. Block Time
   if (blocktimeData) {
     destroyChart('blocktime');
-    chartData.blocktime.chart = createChart('blocktime-chart', blocktimeData, 'Block Time', COLORS.cyan, formatMinutes, {
+    const smoothed = smoothData(blocktimeData, 3);
+    chartData.blocktime.chart = createChart('blocktime-chart', smoothed, 'Block Time', COLORS.cyan, formatMinutes, {
       yMin: 0
     });
     updateStats('blocktime', blocktimeData);
@@ -1129,6 +1135,8 @@ async function loadAllData() {
     const smoothed = smoothData(hashpriceValues, 7);
     chartData.hashprice.chart = createChart('hashprice-chart', smoothed, 'Hashprice', COLORS.red, formatHashprice);
     updateStats('hashprice', hashpriceValues);
+    const hpLoading = document.getElementById('hashprice-loading');
+    if (hpLoading) hpLoading.style.display = 'none';
   }
 
   // 11. Halving Countdown (non-chart panel)
