@@ -247,6 +247,7 @@
           <span class="stat-value amber" id="hashrate-ath">--</span>
         </div>
       </div>
+      <div class="panel-explain">Total computing power securing the Bitcoin network. When hashrate rises, more miners are competing — which usually means difficulty is about to increase. For home miners, rising hashrate means your slice of the pie gets smaller.</div>
     </div>
 
     <!-- Panel 2: Mining Difficulty -->
@@ -285,6 +286,7 @@
           <span class="stat-value" id="difficulty-est">--</span>
         </div>
       </div>
+      <div class="panel-explain">How hard it is to mine a Bitcoin block. Adjusts every ~2,016 blocks (roughly 2 weeks) based on hashrate. When difficulty goes up, your miner earns less BTC for the same electricity. This is the single most important number for your profitability.</div>
     </div>
 
     <!-- Panel 3: BTC Market Price -->
@@ -323,6 +325,7 @@
           <span class="stat-value amber" id="price-ath">--</span>
         </div>
       </div>
+      <div class="panel-explain">What one Bitcoin is worth in USD. Price rising can offset difficulty increases — even if you're mining less BTC, each coin is worth more. Price dropping while difficulty stays high is the worst-case scenario for miners.</div>
     </div>
 
     <!-- ═══════════════════════════════════════════
@@ -380,6 +383,7 @@
           <span class="stat-value" id="overlay-correlation">--</span>
         </div>
       </div>
+      <div class="panel-explain">Shows whether hashrate and price are moving together or apart. When they're aligned (both rising), mining economics are stable. When they diverge — especially price dropping while hashrate climbs — profitability is getting squeezed.</div>
     </div>
 
     <!-- Panel 5: Difficulty Adjustments (bar chart) -->
@@ -428,6 +432,7 @@
           <span class="stat-value" id="adj-avg">--</span>
         </div>
       </div>
+      <div class="panel-explain">Each bar is one difficulty adjustment (every ~2 weeks). Green bars mean difficulty went up — more competition. Red bars mean it dropped — miners leaving the network. A string of green bars means the network is growing and your earnings per machine are shrinking.</div>
     </div>
 
     <!-- ═══════════════════════════════════════════
@@ -478,6 +483,7 @@
             <span class="stat-value" id="mempool-peak">--</span>
           </div>
         </div>
+        <div class="panel-explain">The waiting room for unconfirmed Bitcoin transactions. A large mempool means the network is congested and transaction fees are high — which is actually good for miners since fees are part of your revenue. A small mempool means low fees.</div>
       </div>
 
       <!-- Panel 7: Median Block Time -->
@@ -516,6 +522,7 @@
             <span class="stat-value" id="blocktime-deviation">--</span>
           </div>
         </div>
+        <div class="panel-explain">How long it takes to mine one block, targeting 10 minutes. Blocks coming faster than 10 minutes means miners are outpacing difficulty — next adjustment will likely go up. Slower than 10 minutes means hashrate has dropped and difficulty should come down.</div>
       </div>
 
     </div><!-- /panel-grid (mempool + blocktime) -->
@@ -556,6 +563,7 @@
           <span class="stat-value" id="fees-peak">--</span>
         </div>
       </div>
+      <div class="panel-explain">Total fees paid by Bitcoin users per day in USD. Fees spike during network congestion — NFT mints, market panic, heavy trading. For home miners, high-fee periods can meaningfully boost your daily earnings on top of the block reward.</div>
     </div>
 
     <!-- ═══════════════════════════════════════════
@@ -606,6 +614,7 @@
             <span class="stat-value" id="revenue-avg">--</span>
           </div>
         </div>
+        <div class="panel-explain">Total USD earned by all Bitcoin miners per day — block rewards plus transaction fees combined. This is the whole pie. Your share depends on what percentage of total network hashrate your machines represent.</div>
       </div>
 
       <!-- Panel 10: Hashprice -->
@@ -644,6 +653,7 @@
             <span class="stat-value" id="hashprice-low">--</span>
           </div>
         </div>
+        <div class="panel-explain">What one terahash of mining power earns per day in USD. This is the bottom line — it accounts for difficulty, price, and fees all in one number. Compare this against your electricity cost per TH to know if you're profitable.</div>
       </div>
 
     </div><!-- /panel-grid (revenue + hashprice) -->
@@ -721,6 +731,7 @@
           <span class="stat-value green" id="halving-estimate">--</span>
         </div>
       </div>
+      <div class="panel-explain">Bitcoin cuts the block reward in half roughly every 4 years. The last halving (April 2024) dropped the reward from 6.25 to 3.125 BTC per block. The next one will cut it to 1.5625 BTC. Halvings historically squeeze miners short-term but have preceded major price increases.</div>
     </div>
 
   </main>
