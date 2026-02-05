@@ -3241,7 +3241,9 @@
         const rateInfo = REVENUE_RATES[algo];
         if (!rateInfo) return;
         
-        const miners = ALL_MINERS.filter(m => m.algorithm === algo && m.category !== 'lottery');
+        // SHA-256-BCH uses same miners as SHA-256 (BTC)
+        const filterAlgo = algo === 'SHA-256-BCH' ? 'SHA-256' : algo;
+        const miners = ALL_MINERS.filter(m => m.algorithm === filterAlgo && m.category !== 'lottery');
         if (miners.length === 0) return;
         
         const bestMiner = miners.reduce((best, m) => {
