@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-M6F5T8Y2P6');
+  </script>
+  <title>Sola's Array | Imperial Data Vault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/solas-vault.css">
+  <!-- Hamburger nav overrides for vault theme -->
+  <style>
+    .hamburger-menu {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10001;
+    }
+    .hamburger-btn {
+      background: var(--vault-panel);
+      border: 2px solid var(--terminal-cyan);
+      color: var(--terminal-cyan);
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+    .hamburger-btn:hover {
+      background: var(--terminal-cyan);
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    }
+    .hamburger-btn .bun-top {
+      width: 24px; height: 6px;
+      background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
+      border-radius: 10px 10px 0 0;
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn .lettuce {
+      width: 26px; height: 3px;
+      background: #32CD32;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn .patty {
+      width: 24px; height: 4px;
+      background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn .cheese {
+      width: 26px; height: 3px;
+      background: #FFD700;
+      border-radius: 1px;
+      transform: skewX(-5deg);
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn .bun-bottom {
+      width: 24px; height: 5px;
+      background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
+      border-radius: 0 0 6px 6px;
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+
+    .nav-drawer {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: var(--vault-dark);
+      border-right: 2px solid var(--terminal-cyan);
+      z-index: 10000;
+      transition: left 0.3s ease;
+      padding: 80px 1.5rem 2rem;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    .nav-drawer.open { left: 0; }
+    .nav-drawer h3 {
+      color: var(--terminal-amber);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 184, 0, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .nav-drawer a {
+      display: block;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .nav-drawer a:hover {
+      background: var(--vault-panel);
+      border-color: var(--terminal-cyan);
+      color: var(--terminal-cyan);
+    }
+    .nav-drawer a.active {
+      background: rgba(0, 212, 255, 0.1);
+      border-color: var(--terminal-cyan);
+      color: var(--terminal-cyan);
+    }
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9998;
+    }
+    .nav-overlay.show { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Boot Overlay -->
+  <div class="boot-overlay" id="boot-overlay">
+    <div class="boot-content">
+      <div class="boot-logo">SA</div>
+      <div class="boot-progress">
+        <div class="boot-progress-fill" id="boot-progress-fill"></div>
+      </div>
+      <div class="boot-text" id="boot-text">IMPERIAL DATA VAULT v4.7.7</div>
+    </div>
+  </div>
+
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <button class="hamburger-btn" id="hamburger-btn">
+      <span class="bun-top"></span>
+      <span class="lettuce"></span>
+      <span class="patty"></span>
+      <span class="cheese"></span>
+      <span class="bun-bottom"></span>
+    </button>
+  </div>
+
+  <!-- Navigation Drawer -->
+  <nav class="nav-drawer" id="nav-drawer">
+    <h3>Navigation</h3>
+    <a href="index.html">⚡ Calculator</a>
+    <a href="aftermarket_firmware.html">🔧 Firmware Guide</a>
+    <a href="electrical_setup.html">🔌 Electrical Setup</a>
+    <a href="glossary.html">📖 Glossary</a>
+    <a href="pools.html">🏊 Mining Pools</a>
+    <a href="miners.html">⛏️ Miners</a>
+    <a href="datavault.html" class="active">📡 Data Vault</a>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- Header -->
+  <header class="vault-header">
+    <div class="header-content">
+      <div class="vault-title">
+        <div class="vault-logo">SA</div>
+        <div>
+          <h1>Sola's Array</h1>
+          <div class="subtitle">Imperial Data Vault • Sector 7</div>
+        </div>
+      </div>
+      <div class="vault-status">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span>LIVE FEED</span>
+        </div>
+        <div class="classified-badge">Restricted Access</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="vault-container">
+
+    <!-- Refresh Bar -->
+    <div class="refresh-bar">
+      <span class="refresh-timestamp">Last sync: --:--:--</span>
+      <button class="refresh-btn">REFRESH DATA</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION: CORE METRICS
+         Hashrate • Difficulty • Price
+         ═══════════════════════════════════════════ -->
+
+    <!-- Panel 1: Network Hashrate -->
+    <div class="terminal-panel" id="hashrate-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Network Hashrate</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="hashrate">30D</button>
+          <button class="time-btn" data-range="90" data-chart="hashrate">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="hashrate">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="hashrate-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Accessing mainframe...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="hashrate-chart"></canvas>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Current Hashrate</span>
+          <span class="stat-value" id="hashrate-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">30D Change</span>
+          <span class="stat-value" id="hashrate-change">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">All-Time High</span>
+          <span class="stat-value amber" id="hashrate-ath">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 2: Mining Difficulty -->
+    <div class="terminal-panel" id="difficulty-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Mining Difficulty</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="difficulty">30D</button>
+          <button class="time-btn" data-range="90" data-chart="difficulty">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="difficulty">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="difficulty-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Decrypting data...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="difficulty-chart"></canvas>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Current Difficulty</span>
+          <span class="stat-value" id="difficulty-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Next Adjustment</span>
+          <span class="stat-value green" id="difficulty-next">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Est. Change</span>
+          <span class="stat-value" id="difficulty-est">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: BTC Market Price -->
+    <div class="terminal-panel" id="price-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>BTC Market Price</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="price">30D</button>
+          <button class="time-btn" data-range="90" data-chart="price">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="price">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="price-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Syncing market data...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="price-chart"></canvas>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Current Price</span>
+          <span class="stat-value green" id="price-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">30D Change</span>
+          <span class="stat-value" id="price-change">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">All-Time High</span>
+          <span class="stat-value amber" id="price-ath">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION: CORRELATION ANALYSIS
+         ═══════════════════════════════════════════ -->
+    <div class="section-divider">
+      <div class="divider-icon"></div>
+      CORRELATION ANALYSIS
+      <div class="divider-icon"></div>
+    </div>
+
+    <!-- Panel 4: Hashrate vs Price Overlay (dual-axis) -->
+    <div class="terminal-panel" id="overlay-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Hashrate vs Price</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="overlay">30D</button>
+          <button class="time-btn" data-range="90" data-chart="overlay">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="overlay">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="overlay-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Correlating signals...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="overlay-chart"></canvas>
+        </div>
+      </div>
+      <div class="overlay-legend">
+        <div class="overlay-legend-item">
+          <div class="overlay-legend-line hashrate-line"></div>
+          <span>Hashrate</span>
+        </div>
+        <div class="overlay-legend-item">
+          <div class="overlay-legend-line price-line"></div>
+          <span>Price</span>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Hashrate</span>
+          <span class="stat-value" id="overlay-hashrate">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Price</span>
+          <span class="stat-value" id="overlay-price">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">30D Trend</span>
+          <span class="stat-value" id="overlay-correlation">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 5: Difficulty Adjustments (bar chart) -->
+    <div class="terminal-panel" id="adjustments-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Difficulty Adjustments</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="90" data-chart="adjustments">90D</button>
+          <button class="time-btn" data-range="180" data-chart="adjustments">180D</button>
+          <button class="time-btn active" data-range="365" data-chart="adjustments">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="adjustments-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Analyzing adjustments...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="adjustments-chart"></canvas>
+        </div>
+      </div>
+      <div class="diff-adjust-legend">
+        <div class="legend-item">
+          <div class="legend-dot positive"></div>
+          <span>Positive (difficulty up)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot negative"></div>
+          <span>Negative (difficulty down)</span>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Last Adjustment</span>
+          <span class="stat-value" id="adj-last">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Positive/Total</span>
+          <span class="stat-value" id="adj-positive">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Avg Change</span>
+          <span class="stat-value" id="adj-avg">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION: NETWORK HEALTH
+         Mempool • Block Time • Fees
+         ═══════════════════════════════════════════ -->
+    <div class="section-divider">
+      <div class="divider-icon"></div>
+      NETWORK HEALTH
+      <div class="divider-icon"></div>
+    </div>
+
+    <div class="panel-grid">
+
+      <!-- Panel 6: Mempool Size -->
+      <div class="terminal-panel" id="mempool-panel">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="terminal-icon"></div>
+            <h2>Mempool Size</h2>
+          </div>
+          <div class="terminal-controls">
+            <button class="time-btn" data-range="30" data-chart="mempool">30D</button>
+            <button class="time-btn" data-range="90" data-chart="mempool">90D</button>
+            <button class="time-btn active" data-range="365" data-chart="mempool">1Y</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <div class="loading-overlay" id="mempool-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Scanning mempool...</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="mempool-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">Current Size</span>
+            <span class="stat-value" id="mempool-current">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">30D Change</span>
+            <span class="stat-value" id="mempool-change">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Peak Size</span>
+            <span class="stat-value" id="mempool-peak">--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 7: Median Block Time -->
+      <div class="terminal-panel" id="blocktime-panel">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="terminal-icon"></div>
+            <h2>Median Block Time</h2>
+          </div>
+          <div class="terminal-controls">
+            <button class="time-btn" data-range="30" data-chart="blocktime">30D</button>
+            <button class="time-btn" data-range="90" data-chart="blocktime">90D</button>
+            <button class="time-btn active" data-range="365" data-chart="blocktime">1Y</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <div class="loading-overlay" id="blocktime-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Timing block intervals...</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="blocktime-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">Current</span>
+            <span class="stat-value" id="blocktime-current">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Target</span>
+            <span class="stat-value" id="blocktime-target">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Deviation</span>
+            <span class="stat-value" id="blocktime-deviation">--</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /panel-grid (mempool + blocktime) -->
+
+    <!-- Panel 8: Transaction Fees — full-width between grids -->
+    <div class="terminal-panel" id="fees-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Transaction Fees (USD)</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="fees">30D</button>
+          <button class="time-btn" data-range="90" data-chart="fees">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="fees">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="fees-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Tallying fees...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="fees-chart"></canvas>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Daily Fees</span>
+          <span class="stat-value" id="fees-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">30D Change</span>
+          <span class="stat-value" id="fees-change">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Peak Fees</span>
+          <span class="stat-value" id="fees-peak">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION: MINING ECONOMICS
+         Revenue • Hashprice
+         ═══════════════════════════════════════════ -->
+    <div class="section-divider">
+      <div class="divider-icon"></div>
+      MINING ECONOMICS
+      <div class="divider-icon"></div>
+    </div>
+
+    <div class="panel-grid">
+
+      <!-- Panel 9: Miner Revenue -->
+      <div class="terminal-panel" id="revenue-panel">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="terminal-icon"></div>
+            <h2>Miner Revenue (USD)</h2>
+          </div>
+          <div class="terminal-controls">
+            <button class="time-btn" data-range="30" data-chart="revenue">30D</button>
+            <button class="time-btn" data-range="90" data-chart="revenue">90D</button>
+            <button class="time-btn active" data-range="365" data-chart="revenue">1Y</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <div class="loading-overlay" id="revenue-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Compiling revenue data...</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="revenue-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">Daily Revenue</span>
+            <span class="stat-value" id="revenue-current">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">30D Change</span>
+            <span class="stat-value" id="revenue-change">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Avg Revenue</span>
+            <span class="stat-value" id="revenue-avg">--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 10: Hashprice -->
+      <div class="terminal-panel" id="hashprice-panel">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="terminal-icon"></div>
+            <h2>Hashprice ($/TH/day)</h2>
+          </div>
+          <div class="terminal-controls">
+            <button class="time-btn" data-range="30" data-chart="hashprice">30D</button>
+            <button class="time-btn" data-range="90" data-chart="hashprice">90D</button>
+            <button class="time-btn active" data-range="365" data-chart="hashprice">1Y</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <div class="loading-overlay" id="hashprice-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Calculating hashprice...</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="hashprice-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">Current</span>
+            <span class="stat-value" id="hashprice-current">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">30D Change</span>
+            <span class="stat-value" id="hashprice-change">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Period Low</span>
+            <span class="stat-value" id="hashprice-low">--</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /panel-grid (revenue + hashprice) -->
+
+    <!-- ═══════════════════════════════════════════
+         SECTION: HALVING EPOCH
+         ═══════════════════════════════════════════ -->
+    <div class="section-divider">
+      <div class="divider-icon"></div>
+      HALVING EPOCH
+      <div class="divider-icon"></div>
+    </div>
+
+    <!-- Panel 11: Halving Countdown (no chart — custom layout) -->
+    <div class="terminal-panel halving-panel" id="halving-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Halving Countdown</h2>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="halving-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Calculating epoch...</div>
+        </div>
+
+        <div class="halving-epoch">EPOCH 5 — BLOCK REWARD REDUCTION</div>
+
+        <div class="halving-countdown">
+          <div class="countdown-block">
+            <span class="countdown-value" id="countdown-days">---</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-value" id="countdown-hours">--</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-value" id="countdown-minutes">--</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+        </div>
+
+        <div class="halving-progress">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="halving-progress-fill"></div>
+          </div>
+          <div class="progress-label">
+            <span id="halving-progress-text">--% through current epoch</span>
+          </div>
+        </div>
+
+        <div class="halving-info">
+          Current Reward: <span class="highlight" id="halving-reward-current">3.125 BTC</span>
+          &nbsp;→&nbsp;
+          Post-Halving: <span class="highlight" id="halving-reward-next">1.5625 BTC</span>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Target Block</span>
+          <span class="stat-value amber" id="halving-block">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Current Block</span>
+          <span class="stat-value" id="halving-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Blocks Remaining</span>
+          <span class="stat-value" id="halving-remaining">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Est. Date</span>
+          <span class="stat-value green" id="halving-estimate">--</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="vault-footer">
+    <p>SOLA'S ARRAY • IMPERIAL DATA VAULT • <a href="index.html">← Return to Calculator</a></p>
+    <p style="margin-top: 10px; opacity: 0.6;">Data sourced from Blockchain.com & CoinGecko APIs • Charts update on load</p>
+  </footer>
+
+  <!-- Chart.js + Date Adapter (must load before solas-charts.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+  <script src="assets/solas-charts.js"></script>
+
+  <!-- Navigation Toggle -->
+  <script>
+    function toggleNav() {
+      const btn = document.getElementById('hamburger-btn');
+      const drawer = document.getElementById('nav-drawer');
+      const overlay = document.getElementById('nav-overlay');
+      btn.classList.toggle('open');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('show');
+    }
+
+    document.getElementById('hamburger-btn').addEventListener('click', toggleNav);
+    document.getElementById('nav-overlay').addEventListener('click', toggleNav);
+  </script>
+
+</body>
+</html>
