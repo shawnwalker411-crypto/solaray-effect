@@ -383,7 +383,7 @@ body::after {
    ============================================ */
 .panel-explain {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   line-height: 1.6;
   color: var(--text-muted);
   padding: 12px 18px;

@@ -303,7 +303,7 @@ function createChart(canvasId, data, label, color, formatFn, options = {}) {
           displayColors: false,
           callbacks: {
             title: function(context) {
-              return new Date(context[0].label).toLocaleDateString('en-US', {
+              return new Date(context[0].parsed.x).toLocaleDateString('en-US', {
                 month: 'short', day: 'numeric', year: 'numeric'
               });
             },
@@ -415,7 +415,7 @@ function createOverlayChart(canvasId, hashrateData, priceData) {
           padding: 12,
           callbacks: {
             title: function(context) {
-              return new Date(context[0].label).toLocaleDateString('en-US', {
+              return new Date(context[0].parsed.x).toLocaleDateString('en-US', {
                 month: 'short', day: 'numeric', year: 'numeric'
               });
             },
@@ -501,7 +501,7 @@ function createAdjustmentsChart(canvasId, data) {
           displayColors: false,
           callbacks: {
             title: function(context) {
-              return new Date(context[0].label).toLocaleDateString('en-US', {
+              return new Date(context[0].parsed.x).toLocaleDateString('en-US', {
                 month: 'short', day: 'numeric', year: 'numeric'
               });
             },
