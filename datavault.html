@@ -151,6 +151,94 @@
       z-index: 9998;
     }
     .nav-overlay.show { display: block; }
+
+    /* ============================================
+       GLOSSARY DRAWER (vault-themed)
+       ============================================ */
+    .glossary-drawer {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      max-width: 90vw;
+      height: 100vh;
+      background: var(--vault-dark, #0a0e1a);
+      border-left: 2px solid var(--terminal-cyan, #00d4ff);
+      z-index: 10002;
+      transition: right 0.3s ease;
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+      box-shadow: -5px 0 30px rgba(0, 212, 255, 0.3);
+    }
+    
+    .glossary-drawer.open { right: 0; }
+    
+    .glossary-drawer-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: 1px solid var(--terminal-cyan, #00d4ff);
+      color: var(--terminal-cyan, #00d4ff);
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.2s ease;
+    }
+    
+    .glossary-drawer-close:hover {
+      background: var(--terminal-cyan, #00d4ff);
+      color: #000;
+    }
+    
+    .glossary-drawer h3 {
+      font-family: 'Orbitron', monospace;
+      color: var(--terminal-amber, #ffb800);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 184, 0, 0.3);
+      letter-spacing: 1px;
+    }
+    
+    .glossary-drawer p {
+      font-family: 'Rajdhani', sans-serif;
+      color: var(--text-secondary, #8899a8);
+      line-height: 1.7;
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .glossary-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10001;
+    }
+    
+    .glossary-overlay.show { display: block; }
+    
+    .glossary-term {
+      color: var(--terminal-cyan, #00d4ff);
+      border-bottom: 1px dotted var(--terminal-cyan, #00d4ff);
+      cursor: help;
+      transition: all 0.2s ease;
+    }
+    
+    .glossary-term:hover {
+      color: var(--terminal-amber, #ffb800);
+      border-color: var(--terminal-amber, #ffb800);
+    }
+
+    @media (max-width: 600px) {
+      .glossary-drawer { width: 100%; right: -100%; }
+    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"Solas Array - Live Mining Data Vault","description":"Real-time cryptocurrency mining network statistics including difficulty, hashrate, and block data.","url":"https://www.solarayeffect.com/datavault.html","license":"https://www.solarayeffect.com/","creator":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
 </head>
@@ -191,6 +279,14 @@
   </nav>
   <div class="nav-overlay" id="nav-overlay"></div>
 
+  <!-- Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer">
+    <button class="glossary-drawer-close" id="glossary-close">×</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here...</p>
+  </div>
+  <div class="glossary-overlay" id="glossary-overlay"></div>
+
   <!-- Header -->
   <header class="vault-header">
     <div class="header-content">
@@ -229,7 +325,7 @@
       <div class="terminal-header">
         <div class="terminal-title">
           <div class="terminal-icon"></div>
-          <h2>Network Hashrate</h2>
+          <h2>Network <span class="glossary-term" data-term="hashrate">Hashrate</span></h2>
         </div>
         <div class="terminal-controls">
           <button class="time-btn" data-range="30" data-chart="hashrate">30D</button>
@@ -260,7 +356,7 @@
           <span class="stat-value amber" id="hashrate-ath">--</span>
         </div>
       </div>
-      <div class="panel-explain">Total computing power securing the Bitcoin network. When hashrate rises, more miners are competing — which usually means difficulty is about to increase. For home miners, rising hashrate means your slice of the pie gets smaller.</div>
+      <div class="panel-explain">Total computing power securing the Bitcoin network. When <span class="glossary-term" data-term="hashrate">hashrate</span> rises, more miners are competing — which usually means <span class="glossary-term" data-term="difficulty">difficulty</span> is about to increase. For home miners, rising hashrate means your slice of the pie gets smaller.</div>
     </div>
 
     <!-- Panel 2: Mining Difficulty -->
@@ -268,7 +364,7 @@
       <div class="terminal-header">
         <div class="terminal-title">
           <div class="terminal-icon"></div>
-          <h2>Mining Difficulty</h2>
+          <h2>Mining <span class="glossary-term" data-term="difficulty">Difficulty</span></h2>
         </div>
         <div class="terminal-controls">
           <button class="time-btn" data-range="30" data-chart="difficulty">30D</button>
@@ -299,7 +395,7 @@
           <span class="stat-value" id="difficulty-est">--</span>
         </div>
       </div>
-      <div class="panel-explain">How hard it is to mine a Bitcoin block. Adjusts every ~2,016 blocks (roughly 2 weeks) based on hashrate. When difficulty goes up, your miner earns less BTC for the same electricity. This is the single most important number for your profitability.</div>
+      <div class="panel-explain">How hard it is to mine a Bitcoin block. Adjusts every ~2,016 blocks (roughly 2 weeks) based on <span class="glossary-term" data-term="hashrate">hashrate</span>. When <span class="glossary-term" data-term="difficulty">difficulty</span> goes up, your miner earns less BTC for the same electricity. This is the single most important number for your profitability.</div>
     </div>
 
     <!-- Panel 3: BTC Market Price -->
@@ -635,7 +731,7 @@
         <div class="terminal-header">
           <div class="terminal-title">
             <div class="terminal-icon"></div>
-            <h2>Hashprice ($/TH/day)</h2>
+            <h2><span class="glossary-term" data-term="hashprice">Hashprice</span> ($/TH/day)</h2>
           </div>
           <div class="terminal-controls">
             <button class="time-btn" data-range="30" data-chart="hashprice">30D</button>
@@ -744,7 +840,7 @@
           <span class="stat-value green" id="halving-estimate">--</span>
         </div>
       </div>
-      <div class="panel-explain">Bitcoin cuts the block reward in half roughly every 4 years. The last halving (April 2024) dropped the reward from 6.25 to 3.125 BTC per block. The next one will cut it to 1.5625 BTC. Halvings historically squeeze miners short-term but have preceded major price increases.</div>
+      <div class="panel-explain">Bitcoin cuts the <span class="glossary-term" data-term="block-reward">block reward</span> in half roughly every 4 years. The last halving (April 2024) dropped the reward from 6.25 to 3.125 BTC per block. The next one will cut it to 1.5625 BTC. Halvings historically squeeze miners short-term but have preceded major price increases.</div>
     </div>
 
   </main>
@@ -772,6 +868,61 @@
 
     document.getElementById('hamburger-btn').addEventListener('click', toggleNav);
     document.getElementById('nav-overlay').addEventListener('click', toggleNav);
+
+    // ============================================
+    // GLOSSARY DEFINITIONS
+    // ============================================
+    const GLOSSARY = {
+      'hashrate': {
+        title: 'Hashrate',
+        definition: 'How many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. The network hashrate is the combined power of all miners worldwide. When it rises, difficulty follows — and your share of rewards shrinks.'
+      },
+      'difficulty': {
+        title: 'Difficulty',
+        definition: 'A measure of how hard it is to mine a block. Adjusts automatically every ~2,016 blocks based on total network hashrate. Higher difficulty = less frequent rewards for the same hashrate. This is the single most important number for your profitability.'
+      },
+      'block-reward': {
+        title: 'Block Reward',
+        definition: 'The cryptocurrency paid to miners who successfully add a new block to the blockchain. For Bitcoin, this halves every ~4 years. Currently 3.125 BTC per block (since April 2024). Next halving will reduce it to 1.5625 BTC.'
+      },
+      'hashprice': {
+        title: 'Hashprice',
+        definition: 'What one terahash of mining power earns per day in USD. This is the bottom-line number — it accounts for difficulty, price, and fees all in one. Compare this against your electricity cost per TH to know if you\'re profitable.'
+      }
+    };
+
+    function openGlossary(term) {
+      var data = GLOSSARY[term];
+      if (!data) return;
+      document.getElementById('glossary-term-title').textContent = data.title;
+      document.getElementById('glossary-term-definition').textContent = data.definition;
+      document.getElementById('glossary-drawer').classList.add('open');
+      document.getElementById('glossary-overlay').classList.add('show');
+    }
+
+    function closeGlossary() {
+      document.getElementById('glossary-drawer').classList.remove('open');
+      document.getElementById('glossary-overlay').classList.remove('show');
+    }
+
+    document.querySelectorAll('.glossary-term').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var term = el.getAttribute('data-term');
+        if (term) openGlossary(term);
+      });
+    });
+
+    document.getElementById('glossary-close').addEventListener('click', function(e) {
+      e.preventDefault();
+      closeGlossary();
+    });
+
+    document.getElementById('glossary-overlay').addEventListener('click', function(e) {
+      e.preventDefault();
+      closeGlossary();
+    });
   </script>
 
 </body>

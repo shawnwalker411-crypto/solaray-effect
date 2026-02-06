@@ -543,6 +543,87 @@
     }
 
     /* ============================================
+       GLOSSARY DRAWER
+       ============================================ */
+    .glossary-drawer {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      max-width: 90vw;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 2px solid var(--sola-teal);
+      z-index: 1001;
+      transition: right 0.3s ease;
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+      box-shadow: -5px 0 30px rgba(0, 206, 209, 0.3);
+    }
+    
+    .glossary-drawer.open { right: 0; }
+    
+    .glossary-drawer-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: 1px solid var(--sola-teal);
+      color: var(--sola-teal);
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.2s ease;
+    }
+    
+    .glossary-drawer-close:hover {
+      background: var(--sola-teal);
+      color: #000;
+    }
+    
+    .glossary-drawer h3 {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--sola-gold);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .glossary-drawer p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    
+    .glossary-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+    
+    .glossary-overlay.show { display: block; }
+    
+    .glossary-term {
+      color: var(--sola-teal);
+      border-bottom: 1px dotted var(--sola-teal);
+      cursor: help;
+      transition: all 0.2s ease;
+    }
+    
+    .glossary-term:hover {
+      color: var(--sola-gold);
+      border-color: var(--sola-gold);
+    }
+
+    /* ============================================
        RESPONSIVE
        ============================================ */
     @media (max-width: 600px) {
@@ -550,6 +631,7 @@
       .filter-bar { flex-direction: column; align-items: stretch; }
       .filter-bar input[type="text"] { width: 100%; }
       .miners-grid { grid-template-columns: 1fr; }
+      .glossary-drawer { width: 100%; right: -100%; }
     }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Home Miner Catalog","description":"ASIC cryptocurrency miners suitable for home mining operations.","url":"https://www.solarayeffect.com/miners.html","numberOfItems":42,"itemListElement":[{"@type":"ListItem","position":1,"name":"ASIC Miners for Home Mining"}]}</script>
@@ -582,6 +664,14 @@
   <!-- Nav Overlay -->
   <div class="nav-overlay" id="nav-overlay"></div>
 
+  <!-- Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer">
+    <button class="glossary-drawer-close" id="glossary-close">×</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here...</p>
+  </div>
+  <div class="glossary-overlay" id="glossary-overlay"></div>
+
   <div class="container">
     <header>
       <h1 class="page-title">🔧 Home Miner Catalog</h1>
@@ -591,7 +681,7 @@
     <!-- Info Box -->
     <div class="info-box">
       <h4>💡 How to Use This Page</h4>
-      <p>All miners listed run on <strong>single-phase power</strong> (no 3-phase required). 120V miners plug into standard US outlets. 240V miners need a dryer-style outlet but still single-phase. <strong>Click any miner card</strong> to jump straight to the calculator with that miner pre-selected.</p>
+      <p>All miners listed run on <strong>single-phase power</strong> (no 3-phase required). <span class="glossary-term" data-term="voltage">120V</span> miners plug into standard US outlets. <span class="glossary-term" data-term="voltage">240V</span> miners need a dryer-style outlet but still single-phase. <strong>Click any miner card</strong> to jump straight to the calculator with that miner pre-selected.</p>
     </div>
     
     <!-- Voltage Legend -->
@@ -606,17 +696,17 @@
       </div>
       <div class="legend-item">
         <div class="legend-dot loki"></div>
-        <span class="legend-text">Loki Kit — 240V miner on 120V (reduced power)</span>
+        <span class="legend-text"><span class="glossary-term" data-term="loki-kit">Loki Kit</span> — 240V miner on 120V (reduced power)</span>
       </div>
       <div class="legend-item">
         <div class="legend-dot lottery"></div>
-        <span class="legend-text">Lottery — Fun/educational, unlikely to profit</span>
+        <span class="legend-text"><span class="glossary-term" data-term="lottery">Lottery</span> — Fun/educational, unlikely to profit</span>
       </div>
     </div>
     
     <!-- Filter Bar -->
     <div class="filter-bar">
-      <label>Voltage:</label>
+      <label><span class="glossary-term" data-term="voltage">Voltage</span>:</label>
       <select id="voltage-filter">
         <option value="all">All Voltages</option>
         <option value="120V">120V Only</option>
@@ -624,7 +714,7 @@
         <option value="loki">Loki Kit</option>
       </select>
       
-      <label>Algorithm:</label>
+      <label><span class="glossary-term" data-term="algorithm">Algorithm</span>:</label>
       <select id="algo-filter">
         <option value="all">All Algorithms</option>
         <option value="SHA-256">SHA-256 (BTC)</option>
@@ -645,7 +735,7 @@
     <!-- Disclaimer -->
     <div class="disclaimer">
       <h4>⚠️ Important Notes</h4>
-      <p>Miners listed are compatible with home setups (single-phase 120V or 240V). Specs are manufacturer defaults — actual performance varies with firmware, ambient temperature, and configuration. <strong>Loki Kit</strong> miners require aftermarket firmware (LuxOS, VNish) and run at ~40% of rated hashrate. <strong>Lottery miners</strong> are for fun — extremely unlikely to find blocks solo. Always verify current specs before purchasing.</p>
+      <p>Miners listed are compatible with home setups (single-phase 120V or 240V). Specs are manufacturer defaults — actual performance varies with <span class="glossary-term" data-term="firmware">firmware</span>, ambient temperature, and configuration. <strong><span class="glossary-term" data-term="loki-kit">Loki Kit</span></strong> miners require aftermarket firmware (LuxOS, VNish) and run at ~40% of rated <span class="glossary-term" data-term="hashrate">hashrate</span>. <strong><span class="glossary-term" data-term="lottery">Lottery miners</span></strong> are for fun — extremely unlikely to find blocks solo. Always verify current specs before purchasing.</p>
     </div>
   </div>
   
@@ -930,6 +1020,89 @@
       
       // Initial render
       renderMiners();
+    });
+
+    // ============================================
+    // GLOSSARY DEFINITIONS
+    // ============================================
+    const GLOSSARY = {
+      'hashrate': {
+        title: 'Hashrate',
+        definition: 'How many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. Measured in H/s, KH/s, MH/s, GH/s, TH/s, or PH/s depending on the algorithm. Don\'t chase highest hashrate — efficiency (hashrate per watt) matters more for home miners.'
+      },
+      'algorithm': {
+        title: 'Algorithm',
+        definition: 'The mathematical puzzle miners solve. Different coins use different algorithms: SHA-256 (Bitcoin), Scrypt (Litecoin/Dogecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash). Your ASIC can only mine its specific algorithm.'
+      },
+      'voltage': {
+        title: 'Voltage (120V vs 240V)',
+        definition: '120V is standard US household outlet power. 240V requires special installation (like a dryer outlet) but allows running high-power industrial miners at full capacity. The Loki Kit enables running 240V miners on 120V at reduced power.'
+      },
+      'loki-kit': {
+        title: 'Loki Kit',
+        definition: 'A hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. The kit runs only one hash board at reduced power (~1200W), providing roughly 40% of full hashrate. Requires aftermarket firmware like LuxOS or VNish.'
+      },
+      'lottery': {
+        title: 'Lottery Miner',
+        definition: 'Low-power USB or small ASIC miners (like Bitaxe, NerdMiner) that have very low hashrate but give you a chance to solo mine a full block reward. Called "lottery" because winning is rare but the payout is huge if you do. Great entry point for beginners.'
+      },
+      'firmware': {
+        title: 'Firmware',
+        definition: 'Software embedded in your miner that controls its operation. Stock firmware comes from the manufacturer; aftermarket firmware (Braiins, VNish, LuxOS) can unlock better performance, efficiency tuning, and features like Loki Kit compatibility.'
+      },
+      'asic': {
+        title: 'ASIC',
+        definition: 'Application-Specific Integrated Circuit. Specialized hardware built solely for mining one algorithm. Extremely efficient but expensive and can\'t be repurposed for other algorithms.'
+      },
+      'efficiency': {
+        title: 'Efficiency (J/TH)',
+        definition: 'Power consumption per unit of hashrate. Lower is better. A 25 J/TH miner uses less electricity than a 35 J/TH miner for the same hashrate — critical for profitability. For home miners, efficiency often matters more than raw hashrate due to electricity costs.'
+      }
+    };
+
+    // ============================================
+    // GLOSSARY DRAWER FUNCTIONS
+    // ============================================
+    function openGlossary(term) {
+      const data = GLOSSARY[term];
+      if (!data) return;
+      document.getElementById('glossary-term-title').textContent = data.title;
+      document.getElementById('glossary-term-definition').textContent = data.definition;
+      document.getElementById('glossary-drawer').classList.add('open');
+      document.getElementById('glossary-overlay').classList.add('show');
+    }
+
+    function closeGlossary() {
+      document.getElementById('glossary-drawer').classList.remove('open');
+      document.getElementById('glossary-overlay').classList.remove('show');
+    }
+
+    // Initialize glossary clicks
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.glossary-term').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var term = el.getAttribute('data-term');
+          if (term) openGlossary(term);
+        });
+      });
+
+      var glossaryClose = document.getElementById('glossary-close');
+      if (glossaryClose) {
+        glossaryClose.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeGlossary();
+        });
+      }
+
+      var glossaryOverlay = document.getElementById('glossary-overlay');
+      if (glossaryOverlay) {
+        glossaryOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeGlossary();
+        });
+      }
     });
   </script>
 

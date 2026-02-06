@@ -554,6 +554,39 @@
         <div class="term-name">Firmware</div>
         <div class="term-def">Software embedded in your miner that controls its operation. Stock firmware comes from the manufacturer; aftermarket firmware (Braiins, VNish, LuxOS) can unlock better performance and features.</div>
       </div>
+      
+      <div class="term" id="hash-board">
+        <div class="term-name">Hash Board</div>
+        <div class="term-def">The circuit board inside an ASIC miner that contains the mining chips. Most full-size ASICs have 3 hash boards. When running a Loki Kit on 120V, only one hash board operates to stay within the power limit.</div>
+      </div>
+      
+      <div class="term" id="overclocking">
+        <div class="term-name">Overclocking</div>
+        <div class="term-def">Pushing your miner beyond factory settings for higher hashrate. Increases heat and power consumption but can boost earnings. Requires careful tuning, adequate cooling, and aftermarket firmware. Not recommended without monitoring tools.</div>
+        <div class="term-tip">⚠️ Overclocking increases heat and power — make sure your circuit and cooling can handle it.</div>
+      </div>
+      
+      <div class="term" id="undervolting">
+        <div class="term-name">Undervolting</div>
+        <div class="term-def">Reducing the voltage supplied to mining chips. Lowers power consumption and heat while maintaining most of the hashrate, improving efficiency (J/TH) and profitability. One of the most impactful tuning options for home miners.</div>
+        <div class="term-tip">💡 Undervolting is often the best first optimization — less heat, less noise, lower electric bill.</div>
+      </div>
+      
+      <div class="term" id="underclocking">
+        <div class="term-name">Underclocking</div>
+        <div class="term-def">Running your miner below factory clock speed to reduce power consumption, heat, and noise. Trades some hashrate for significantly better efficiency. Ideal for home miners paying for electricity or dealing with noise constraints.</div>
+      </div>
+      
+      <div class="term" id="auto-tuning">
+        <div class="term-name">Auto-Tuning</div>
+        <div class="term-def">A feature in aftermarket firmware that automatically adjusts chip frequencies and voltages to find the best balance of hashrate and efficiency for your specific hardware. Each chip is tuned individually, since no two chips perform identically.</div>
+        <div class="term-tip">💡 Auto-tuning does the hard work for you — set a power target and let the firmware optimize.</div>
+      </div>
+      
+      <div class="term" id="power-target">
+        <div class="term-name">Power Target Mode</div>
+        <div class="term-def">A firmware feature that lets you set a maximum wattage and the miner automatically adjusts hashrate to stay within that limit. Essential for home miners who need to stay under circuit capacity or manage electricity costs.</div>
+      </div>
     </section>
     
     <!-- Profitability -->
@@ -584,6 +617,12 @@
         <div class="term-name">Efficiency (J/TH, W/MH)</div>
         <div class="term-def">Power consumption per unit of hashrate. Lower is better. A 25 J/TH miner uses less electricity than a 35 J/TH miner for the same hashrate — critical for profitability.</div>
         <div class="term-tip">💡 For home miners, efficiency often matters more than raw hashrate due to electricity costs.</div>
+      </div>
+      
+      <div class="term" id="hashprice">
+        <div class="term-name">Hashprice</div>
+        <div class="term-def">What one terahash of mining power earns per day in USD. This single number accounts for difficulty, coin price, and transaction fees. Compare your hashprice against your electricity cost per TH to know if you're profitable. Track it on the Data Vault.</div>
+        <div class="term-tip">💡 Hashprice is your bottom-line indicator — if it drops below your cost per TH, you're mining at a loss.</div>
       </div>
     </section>
     
@@ -711,6 +750,28 @@
       <div class="term" id="nec">
         <div class="term-name">NEC (National Electrical Code)</div>
         <div class="term-def">The US standard for safe electrical installation (NFPA 70). Covers wiring, outlets, breakers, and everything else electrical. Most jurisdictions require NEC compliance. Electricians follow this code — and so should you for any DIY work.</div>
+      </div>
+      
+      <div class="term" id="dedicated-circuit">
+        <div class="term-name">Dedicated Circuit</div>
+        <div class="term-def">A circuit that serves only one appliance or device — nothing else shares it. Mining ASICs should always run on dedicated circuits because they draw continuous high power. Sharing a circuit with other devices risks tripping breakers or overheating wiring.</div>
+        <div class="term-tip">💡 If your miner keeps tripping the breaker, it's probably sharing a circuit with other loads.</div>
+      </div>
+      
+      <div class="term" id="continuous-load">
+        <div class="term-name">Continuous Load</div>
+        <div class="term-def">Any electrical load that runs for 3 or more hours continuously. Mining is always a continuous load — your miner runs 24/7. The NEC 80% rule applies to all continuous loads, meaning you can only use 80% of a circuit's rated capacity.</div>
+      </div>
+      
+      <div class="term" id="amperage">
+        <div class="term-name">Amperage (Amps)</div>
+        <div class="term-def">The amount of electrical current flowing through a circuit. Amps = Watts ÷ Volts. A 1200W miner on 120V draws 10 amps. A 3000W miner on 240V draws 12.5 amps. Always check that your miner's amp draw doesn't exceed 80% of your circuit's rating.</div>
+        <div class="term-tip">💡 Quick math: Watts ÷ Volts = Amps. Stay under 80% of your breaker's rating.</div>
+      </div>
+      
+      <div class="term" id="wattage">
+        <div class="term-name">Wattage (Watts)</div>
+        <div class="term-def">The rate of energy consumption. A miner's wattage tells you how much power it draws continuously. Higher wattage = higher electricity cost. To find daily kWh cost: (Watts ÷ 1000) × 24 × your rate per kWh.</div>
       </div>
     </section>
     
