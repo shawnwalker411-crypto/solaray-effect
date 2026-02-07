@@ -2374,7 +2374,9 @@
       // RVN: ~0.1 to ~10 RVN/MH/day
       'KAWPOW': { min: 0.01, max: 100, coin: 'RVN', unit: 'MH' },
       // ERG: ~0.0005 to ~0.05 ERG/MH/day
-      'Autolykos2': { min: 1e-5, max: 0.5, coin: 'ERG', unit: 'MH' }
+      'Autolykos2': { min: 1e-5, max: 0.5, coin: 'ERG', unit: 'MH' },
+      // XMR: ~0.00001 to ~0.001 XMR/KH/day
+      'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' }
     };
     
     // Track last known good rates for fallback
@@ -2535,6 +2537,20 @@
         if (validation.rate) {
           REVENUE_RATES['KAWPOW'].perUnit = validation.rate;
           console.log('RVN rate updated:', validation.rate, 'RVN/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // XMR (RandomX - CPU mining)
+      if (data.XMR && data.XMR.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.XMR.block_time || 120);
+        const dailyCoins = (data.XMR.block_reward || 0.6) * blocksPerDay;
+        // Network hashrate is in H/s, we need per KH/s
+        const perKH = dailyCoins / (data.XMR.network_hashrate / 1e3);
+        
+        const validation = validateAndUpdateRate('RandomX', perKH, 'XMR');
+        if (validation.rate) {
+          REVENUE_RATES['RandomX'].perUnit = validation.rate;
+          console.log('XMR rate updated:', validation.rate, 'XMR/KH/day', validation.valid ? '✓' : '(fallback)');
         }
       }
       
