@@ -1,7 +1,4 @@
-# robots.txt for solarayeffect.com
-
 User-agent: *
 Allow: /
 
-# Sitemap location
 Sitemap: https://www.solarayeffect.com/sitemap.xml
