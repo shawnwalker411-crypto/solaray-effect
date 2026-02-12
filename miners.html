@@ -57,6 +57,7 @@
       --v240: #ff9800;
       --loki: #9c27b0;
       --lottery: #ff5252;
+      --legacy: #ff9100;
     }
     
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -293,6 +294,7 @@
     .legend-dot.v240 { background: var(--v240); }
     .legend-dot.loki { background: var(--loki); }
     .legend-dot.lottery { background: var(--lottery); }
+    .legend-dot.legacy { background: var(--legacy); }
     
     .legend-text {
       color: var(--text-secondary);
@@ -416,6 +418,12 @@
       background: rgba(255, 82, 82, 0.15);
       color: var(--lottery);
       border: 1px solid var(--lottery);
+    }
+    
+    .voltage-badge.legacy {
+      background: rgba(255, 145, 0, 0.15);
+      color: var(--legacy);
+      border: 1px solid var(--legacy);
     }
     
     .miner-manufacturer {
@@ -672,7 +680,7 @@
       .glossary-drawer { width: 100%; right: -100%; }
     }
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Home Miner Catalog - ASIC Mining Hardware for Residential Setups","description":"Complete catalog of 69 ASIC cryptocurrency miners for home mining, including SHA-256 Bitcoin miners, Scrypt Litecoin/Dogecoin miners, KHeavyHash Kaspa miners, and more. Filtered by voltage (120V, 240V, Loki Kit) and algorithm.","url":"https://www.solarayeffect.com/miners.html","numberOfItems":69,"itemListElement":[{"@type":"ListItem","position":1,"name":"Antminer S21 200T - 200 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":2,"name":"Antminer S21 Pro 234T - 234 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":3,"name":"Antminer S19 Pro 110T - 110 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":4,"name":"Antminer L7 9500M - 9500 MH/s Scrypt Litecoin/Dogecoin Miner (240V)"},{"@type":"ListItem","position":5,"name":"Antminer KS5 - 20000 GH/s KHeavyHash Kaspa Miner (240V)"},{"@type":"ListItem","position":6,"name":"Bitaxe Ultra - 0.5 TH/s Solo Lottery Bitcoin Miner (120V)"},{"@type":"ListItem","position":7,"name":"IceRiver KS0 Ultra - 400 GH/s Kaspa Miner (120V)"},{"@type":"ListItem","position":8,"name":"Goldshell Mini-DOGE III - 760 MH/s Scrypt Miner (120V)"},{"@type":"ListItem","position":9,"name":"Antminer L3++ - 596 MH/s Scrypt Litecoin/Dogecoin Miner (120V)"},{"@type":"ListItem","position":10,"name":"S19 Pro 110T Loki Kit - 44 TH/s on 120V household power"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Home Miner Catalog - ASIC Mining Hardware for Residential Setups","description":"Complete catalog of 84 ASIC cryptocurrency miners for home mining, including SHA-256 Bitcoin miners, Scrypt Litecoin/Dogecoin miners, KHeavyHash Kaspa miners, and more. Filtered by voltage (120V, 240V, Loki Kit) and algorithm.","url":"https://www.solarayeffect.com/miners.html","numberOfItems":84,"itemListElement":[{"@type":"ListItem","position":1,"name":"Antminer S21 200T - 200 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":2,"name":"Antminer S21 Pro 234T - 234 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":3,"name":"Antminer S19 Pro 110T - 110 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":4,"name":"Antminer L7 9500M - 9500 MH/s Scrypt Litecoin/Dogecoin Miner (240V)"},{"@type":"ListItem","position":5,"name":"Antminer KS5 - 20000 GH/s KHeavyHash Kaspa Miner (240V)"},{"@type":"ListItem","position":6,"name":"Bitaxe Ultra - 0.5 TH/s Solo Lottery Bitcoin Miner (120V)"},{"@type":"ListItem","position":7,"name":"IceRiver KS0 Ultra - 400 GH/s Kaspa Miner (120V)"},{"@type":"ListItem","position":8,"name":"Goldshell Mini-DOGE III - 760 MH/s Scrypt Miner (120V)"},{"@type":"ListItem","position":9,"name":"Antminer L3++ - 596 MH/s Scrypt Litecoin/Dogecoin Miner (120V)"},{"@type":"ListItem","position":10,"name":"S19 Pro 110T Loki Kit - 44 TH/s on 120V household power"}]}</script>
 </head>
 <body>
 
@@ -690,13 +698,13 @@
   <!-- Nav Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>Navigation</h3>
-    <a href="index.html">⚡ Calculator</a>
-    <a href="miners.html" class="active">🔧 Miners</a>
-    <a href="pools.html">🏊 Mining Pools</a>
-    <a href="aftermarket_firmware.html">⚙️ Firmware Guide</a>
-    <a href="electrical_setup.html">🔌 Electrical Setup</a>
-    <a href="glossary.html">📖 Glossary</a>
-    <a href="datavault.html">📡 Data Vault</a>
+    <a href="index.html">âš¡ Calculator</a>
+    <a href="miners.html" class="active">ðŸ”§ Miners</a>
+    <a href="pools.html">ðŸŠ Mining Pools</a>
+    <a href="aftermarket_firmware.html">âš™ï¸ Firmware Guide</a>
+    <a href="electrical_setup.html">ðŸ”Œ Electrical Setup</a>
+    <a href="glossary.html">ðŸ“– Glossary</a>
+    <a href="datavault.html">ðŸ“¡ Data Vault</a>
   </nav>
   
   <!-- Nav Overlay -->
@@ -704,7 +712,7 @@
 
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer">
-    <button class="glossary-drawer-close" id="glossary-close">×</button>
+    <button class="glossary-drawer-close" id="glossary-close">Ã—</button>
     <h3 id="glossary-term-title">Term</h3>
     <p id="glossary-term-definition">Definition goes here...</p>
   </div>
@@ -712,13 +720,13 @@
 
   <div class="container">
     <header>
-      <h1 class="page-title">🔧 Home Miner Catalog</h1>
-      <p class="page-subtitle">Browse miners for residential setups • Click any card to calculate profitability</p>
+      <h1 class="page-title">ðŸ”§ Home Miner Catalog</h1>
+      <p class="page-subtitle">Browse miners for residential setups â€¢ Click any card to calculate profitability</p>
     </header>
     
     <!-- Info Box -->
     <div class="info-box">
-      <h4>💡 How to Use This Page</h4>
+      <h4>ðŸ’¡ How to Use This Page</h4>
       <p>All miners listed run on <strong>single-phase power</strong> (no 3-phase required). <span class="glossary-term" data-term="voltage">120V</span> miners plug into standard US outlets. <span class="glossary-term" data-term="voltage">240V</span> miners need a dryer-style outlet but still single-phase. <strong>Click any miner card</strong> to jump straight to the calculator with that miner pre-selected.</p>
     </div>
     
@@ -726,19 +734,23 @@
     <div class="voltage-legend">
       <div class="legend-item">
         <div class="legend-dot v120"></div>
-        <span class="legend-text">120V Native — Standard outlet</span>
+        <span class="legend-text">120V Native â€” Standard outlet</span>
       </div>
       <div class="legend-item">
         <div class="legend-dot v240"></div>
-        <span class="legend-text">240V — Dryer outlet required</span>
+        <span class="legend-text">240V â€” Dryer outlet required</span>
       </div>
       <div class="legend-item">
         <div class="legend-dot loki"></div>
-        <span class="legend-text"><span class="glossary-term" data-term="loki-kit">Loki Kit</span> — 240V miner on 120V (reduced power)</span>
+        <span class="legend-text"><span class="glossary-term" data-term="loki-kit">Loki Kit</span> â€” 240V miner on 120V (reduced power)</span>
       </div>
       <div class="legend-item">
         <div class="legend-dot lottery"></div>
-        <span class="legend-text"><span class="glossary-term" data-term="lottery">Lottery</span> — Fun/educational, unlikely to profit</span>
+        <span class="legend-text"><span class="glossary-term" data-term="lottery">Lottery</span> â€” Fun/educational, unlikely to profit</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot legacy"></div>
+        <span class="legend-text">Legacy &mdash; Old gen, unprofitable at most electricity rates</span>
       </div>
     </div>
     
@@ -761,6 +773,9 @@
         <option value="Etchash">Etchash (ETC)</option>
         <option value="Equihash">Equihash (ZEC)</option>
         <option value="X11">X11 (DASH)</option>
+        <option value="Eaglesong">Eaglesong (CKB)</option>
+        <option value="Blake2bSia">Blake2b-Sia (SC)</option>
+        <option value="Blake2sKDA">Blake2s (KDA)</option>
       </select>
       
       <label>Search:</label>
@@ -772,16 +787,16 @@
     <!-- SEO Content Section -->
     <article class="seo-content">
       <h2>ASIC Miners for Home Mining: Complete Hardware Guide</h2>
-      <p>Choosing the right ASIC miner for a home setup is different from picking hardware for a warehouse operation. Home miners need to consider voltage compatibility (120V standard outlets vs 240V dedicated circuits), noise levels for residential environments, power consumption relative to your electricity rate, and physical size constraints. This catalog covers 69 miners across six algorithms — SHA-256 for Bitcoin, Scrypt for Litecoin and Dogecoin, KHeavyHash for Kaspa, Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash.</p>
+      <p>Choosing the right ASIC miner for a home setup is different from picking hardware for a warehouse operation. Home miners need to consider voltage compatibility (120V standard outlets vs 240V dedicated circuits), noise levels for residential environments, power consumption relative to your electricity rate, and physical size constraints. This catalog covers 84 miners across nine algorithms â€” SHA-256 for Bitcoin, Scrypt for Litecoin and Dogecoin, KHeavyHash for Kaspa, Etchash for Ethereum Classic, Equihash for Zcash, X11 for Dash, Eaglesong for Nervos (CKB), Blake2b-Sia for Siacoin, and Blake2s for Kadena.</p>
       <h3>Understanding Voltage Categories</h3>
-      <p><strong>120V Native miners</strong> plug into any standard US household outlet and are the simplest path to home mining. Models like the Goldshell Mini-DOGE series, IceRiver KS0 lineup, and iPollo V1 Mini run on normal circuits without any electrical modifications. <strong>240V miners</strong> are industrial-grade ASIC machines like the Antminer S19 Pro, S21, L7, and KS5 series — they deliver maximum hashrate but require a dedicated 240V circuit similar to a dryer outlet. <strong>Loki Kit miners</strong> bridge this gap by allowing 240V machines to run on 120V power at reduced hashrate (~40% of rated capacity), using aftermarket firmware like LuxOS, VNish, or Braiins OS+. <strong>Lottery miners</strong> like the Bitaxe Ultra and NerdMiner are low-power devices for solo mining — extremely unlikely to find a block, but the payout is a full block reward if you do.</p>
+      <p><strong>120V Native miners</strong> plug into any standard US household outlet and are the simplest path to home mining. Models like the Goldshell Mini-DOGE series, IceRiver KS0 lineup, and iPollo V1 Mini run on normal circuits without any electrical modifications. <strong>240V miners</strong> are industrial-grade ASIC machines like the Antminer S19 Pro, S21, L7, and KS5 series â€” they deliver maximum hashrate but require a dedicated 240V circuit similar to a dryer outlet. <strong>Loki Kit miners</strong> bridge this gap by allowing 240V machines to run on 120V power at reduced hashrate (~40% of rated capacity), using aftermarket firmware like LuxOS, VNish, or Braiins OS+. <strong>Lottery miners</strong> like the Bitaxe Ultra and NerdMiner are low-power devices for solo mining â€” extremely unlikely to find a block, but the payout is a full block reward if you do.</p>
       <h3>How to Use This Catalog</h3>
-      <p>Use the filters above to narrow by voltage type or mining algorithm. Click any miner card to load it directly into our <a href="index.html">profitability calculator</a> with dual electricity rates and solar power support. Every spec listed is the manufacturer's stock rating — actual performance varies with firmware, ambient temperature, and tuning. Miners marked with "Loki" show estimated hashrate and power when running on a Loki Kit configuration at 120V.</p>
+      <p>Use the filters above to narrow by voltage type or mining algorithm. Click any miner card to load it directly into our <a href="index.html">profitability calculator</a> with dual electricity rates and solar power support. Every spec listed is the manufacturer's stock rating â€” actual performance varies with firmware, ambient temperature, and tuning. Miners marked with "Loki" show estimated hashrate and power when running on a Loki Kit configuration at 120V.</p>
     </article>
 
     <section class="algo-section" data-algo="SHA-256">
       <div class="algo-header">
-        <span class="algo-icon">₿</span>
+        <span class="algo-icon">â‚¿</span>
         <h2 class="algo-title">SHA-256</h2>
         <span class="algo-coins">Bitcoin (BTC)</span>
       </div>
@@ -799,8 +814,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 2.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 2.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="bitaxe-ultra" data-voltage="120V" data-algo="SHA-256" data-loki="false" data-category="lottery" data-search="bitaxe ultra open source btc" onclick="goToCalculator('bitaxe-ultra')">
@@ -816,8 +831,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 0.4 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 0.4 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="compac-f" data-voltage="120V" data-algo="SHA-256" data-loki="false" data-category="lottery" data-search="compac f skot btc" onclick="goToCalculator('compac-f')">
@@ -833,8 +848,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 0.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 0.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="nerdminer" data-voltage="120V" data-algo="SHA-256" data-loki="false" data-category="lottery" data-search="nerdminer open source btc" onclick="goToCalculator('nerdminer')">
@@ -850,8 +865,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 0.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 0.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s21-200t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s21 200t (loki) bitmain btc" onclick="goToCalculator('s21-200t-loki')">
@@ -867,8 +882,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19k-pro-136t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19k pro 136t (loki) bitmain btc" onclick="goToCalculator('s19k-pro-136t-loki')">
@@ -884,8 +899,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19k-pro-120t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19k pro 120t (loki) bitmain btc" onclick="goToCalculator('s19k-pro-120t-loki')">
@@ -901,8 +916,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-pro-110t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 pro 110t (loki) bitmain btc" onclick="goToCalculator('s19-pro-110t-loki')">
@@ -918,8 +933,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-pro-104t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j pro 104t (loki) bitmain btc" onclick="goToCalculator('s19j-pro-104t-loki')">
@@ -935,8 +950,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-pro-100t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 pro 100t (loki) bitmain btc" onclick="goToCalculator('s19-pro-100t-loki')">
@@ -952,8 +967,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-pro-96t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j pro 96t (loki) bitmain btc" onclick="goToCalculator('s19j-pro-96t-loki')">
@@ -969,8 +984,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-90t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 90t (loki) bitmain btc" onclick="goToCalculator('s19-90t-loki')">
@@ -986,8 +1001,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-82t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 82t (loki) bitmain btc" onclick="goToCalculator('s19-82t-loki')">
@@ -1003,8 +1018,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s21-xp-270t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s21 xp 270t bitmain btc" onclick="goToCalculator('s21-xp-270t')">
@@ -1020,8 +1035,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 87.5 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 87.5 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s21-pro-234t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s21 pro 234t bitmain btc" onclick="goToCalculator('s21-pro-234t')">
@@ -1037,8 +1052,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 84.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 84.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s21-200t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s21 200t bitmain btc" onclick="goToCalculator('s21-200t')">
@@ -1054,8 +1069,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 84.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 84.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="m60s-186t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="whatsminer m60s 186t microbt btc" onclick="goToCalculator('m60s-186t')">
@@ -1071,8 +1086,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 82.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 82.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="m60-170t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="whatsminer m60 170t microbt btc" onclick="goToCalculator('m60-170t')">
@@ -1088,8 +1103,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 81.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 81.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-xp-151t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19j xp 151t bitmain btc" onclick="goToCalculator('s19j-xp-151t')">
@@ -1105,8 +1120,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 77.9 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 77.9 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-xp-140t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19 xp 140t bitmain btc" onclick="goToCalculator('s19-xp-140t')">
@@ -1122,8 +1137,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 72.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 72.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="m50s-pp-140t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="whatsminer m50s++ 140t microbt btc" onclick="goToCalculator('m50s-pp-140t')">
@@ -1139,8 +1154,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 73.9 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 73.9 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19k-pro-136t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19k pro 136t bitmain btc" onclick="goToCalculator('s19k-pro-136t')">
@@ -1156,8 +1171,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 78.3 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 78.3 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="m50s-126t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="whatsminer m50s 126t microbt btc" onclick="goToCalculator('m50s-126t')">
@@ -1173,8 +1188,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 78.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 78.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19k-pro-120t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19k pro 120t bitmain btc" onclick="goToCalculator('s19k-pro-120t')">
@@ -1190,8 +1205,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 66.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 66.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="m50-118t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="whatsminer m50 118t microbt btc" onclick="goToCalculator('m50-118t')">
@@ -1207,8 +1222,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 79.3 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 79.3 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="m30s-pp-112t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="whatsminer m30s++ 112t microbt btc" onclick="goToCalculator('m30s-pp-112t')">
@@ -1224,8 +1239,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 83.3 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 83.3 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-pro-110t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19 pro 110t bitmain btc" onclick="goToCalculator('s19-pro-110t')">
@@ -1241,8 +1256,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 78.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 78.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-104t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19j 104t bitmain btc" onclick="goToCalculator('s19j-104t')">
@@ -1258,8 +1273,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 73.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 73.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-pro-104t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19j pro 104t bitmain btc" onclick="goToCalculator('s19j-pro-104t')">
@@ -1275,8 +1290,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 73.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 73.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-pro-100t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19 pro 100t bitmain btc" onclick="goToCalculator('s19-pro-100t')">
@@ -1292,8 +1307,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 73.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 73.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-100t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19j 100t bitmain btc" onclick="goToCalculator('s19j-100t')">
@@ -1309,8 +1324,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 74.4 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 74.4 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-pro-100t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19j pro 100t bitmain btc" onclick="goToCalculator('s19j-pro-100t')">
@@ -1326,8 +1341,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 70.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 70.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-pro-96t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19j pro 96t bitmain btc" onclick="goToCalculator('s19j-pro-96t')">
@@ -1343,8 +1358,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 68.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 68.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-95t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19 95t bitmain btc" onclick="goToCalculator('s19-95t')">
@@ -1360,8 +1375,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 78.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 78.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-90t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19 90t bitmain btc" onclick="goToCalculator('s19-90t')">
@@ -1377,8 +1392,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 74.4 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 74.4 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19j-90t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19j 90t bitmain btc" onclick="goToCalculator('s19j-90t')">
@@ -1394,8 +1409,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 78.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 78.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-86t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19 86t bitmain btc" onclick="goToCalculator('s19-86t')">
@@ -1411,8 +1426,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 71.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 71.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="s19-82t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="null" data-search="antminer s19 82t bitmain btc" onclick="goToCalculator('s19-82t')">
@@ -1428,15 +1443,83 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 67.9 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 67.9 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="t19-84t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="legacy" data-search="antminer t19 bitmain btc legacy" onclick="goToCalculator('t19-84t')">
+          <div class="miner-card-header">
+            <span class="miner-name">Antminer T19</span>
+            <span class="voltage-badge legacy">Legacy</span>
+          </div>
+          <div class="miner-manufacturer">Bitmain</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">84 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">3150W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">BTC</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 75.6 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="m31s-74t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="legacy" data-search="whatsminer m31s microbt btc legacy" onclick="goToCalculator('m31s-74t')">
+          <div class="miner-card-header">
+            <span class="miner-name">Whatsminer M31S</span>
+            <span class="voltage-badge legacy">Legacy</span>
+          </div>
+          <div class="miner-manufacturer">MicroBT</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">74 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">3220W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">BTC</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 77.3 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="s17-56t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="legacy" data-search="antminer s17 bitmain btc legacy" onclick="goToCalculator('s17-56t')">
+          <div class="miner-card-header">
+            <span class="miner-name">Antminer S17</span>
+            <span class="voltage-badge legacy">Legacy</span>
+          </div>
+          <div class="miner-manufacturer">Bitmain</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">56 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">2520W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">BTC</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 60.5 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="s9-13t" data-voltage="240V" data-algo="SHA-256" data-loki="false" data-category="legacy" data-search="antminer s9 bitmain btc legacy" onclick="goToCalculator('s9-13t')">
+          <div class="miner-card-header">
+            <span class="miner-name">Antminer S9</span>
+            <span class="voltage-badge legacy">Legacy</span>
+          </div>
+          <div class="miner-manufacturer">Bitmain</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">13.5 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">1323W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">BTC</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 31.8 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
           </div>
         </div>
       </div>
     </section>
     <section class="algo-section" data-algo="Scrypt">
       <div class="algo-header">
-        <span class="algo-icon">🐕</span>
+        <span class="algo-icon">ðŸ•</span>
         <h2 class="algo-title">Scrypt</h2>
         <span class="algo-coins">Litecoin (LTC) + Dogecoin (DOGE)</span>
       </div>
@@ -1454,8 +1537,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="l7-9500" data-voltage="240V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="antminer l7 9500m bitmain ltc / doge" onclick="goToCalculator('l7-9500')">
@@ -1471,8 +1554,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 82.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 82.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="l7-9050" data-voltage="240V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="antminer l7 9050m bitmain ltc / doge" onclick="goToCalculator('l7-9050')">
@@ -1488,8 +1571,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 78.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 78.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="mini-doge-iii" data-voltage="120V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="mini-doge iii goldshell ltc / doge" onclick="goToCalculator('mini-doge-iii')">
@@ -1505,8 +1588,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 12.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 12.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="l3-plusplus" data-voltage="120V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="antminer l3++ bitmain ltc / doge" onclick="goToCalculator('l3-plusplus')">
@@ -1522,8 +1605,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 22.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 22.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="l3-plus" data-voltage="120V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="antminer l3+ bitmain ltc / doge" onclick="goToCalculator('l3-plus')">
@@ -1539,8 +1622,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 19.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 19.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="l3" data-voltage="120V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="antminer l3 bitmain ltc / doge" onclick="goToCalculator('l3')">
@@ -1556,8 +1639,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 9.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 9.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="mini-doge-pro" data-voltage="120V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="mini-doge pro goldshell ltc / doge" onclick="goToCalculator('mini-doge-pro')">
@@ -1573,8 +1656,25 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 5.3 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 5.3 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="mini-doge-ii" data-voltage="120V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="mini-doge ii goldshell ltc doge scrypt" onclick="goToCalculator('mini-doge-ii')">
+          <div class="miner-card-header">
+            <span class="miner-name">Mini-DOGE II</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">GoldShell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">420 MH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">400W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">LTC / DOGE</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 9.6 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
           </div>
         </div>
         <div class="miner-card" data-id="mini-doge" data-voltage="120V" data-algo="Scrypt" data-loki="false" data-category="null" data-search="mini-doge goldshell ltc / doge" onclick="goToCalculator('mini-doge')">
@@ -1590,15 +1690,15 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 5.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 5.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
       </div>
     </section>
     <section class="algo-section" data-algo="KHeavyHash">
       <div class="algo-header">
-        <span class="algo-icon">💎</span>
+        <span class="algo-icon">ðŸ’Ž</span>
         <h2 class="algo-title">KHeavyHash</h2>
         <span class="algo-coins">Kaspa (KAS)</span>
       </div>
@@ -1616,8 +1716,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 73.9 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 73.9 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="antminer-ks5-pro" data-voltage="240V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="antminer ks5 pro bitmain kas" onclick="goToCalculator('antminer-ks5-pro')">
@@ -1633,8 +1733,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 75.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 75.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="antminer-ks5" data-voltage="240V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="antminer ks5 bitmain kas" onclick="goToCalculator('antminer-ks5')">
@@ -1650,8 +1750,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 72.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 72.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks5m" data-voltage="240V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks5m iceriver kas" onclick="goToCalculator('ks5m')">
@@ -1667,8 +1767,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 81.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 81.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks5l" data-voltage="240V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks5l iceriver kas" onclick="goToCalculator('ks5l')">
@@ -1684,8 +1784,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 81.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 81.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="antminer-ks3" data-voltage="240V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="antminer ks3 bitmain kas" onclick="goToCalculator('antminer-ks3')">
@@ -1701,8 +1801,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 84.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 84.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks3" data-voltage="240V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks3 iceriver kas" onclick="goToCalculator('ks3')">
@@ -1718,8 +1818,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 76.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 76.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks3m" data-voltage="240V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks3m iceriver kas" onclick="goToCalculator('ks3m')">
@@ -1735,8 +1835,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 81.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 81.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks7-lite" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks7 lite iceriver kas" onclick="goToCalculator('ks7-lite')">
@@ -1752,8 +1852,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 12.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 12.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks2" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks2 iceriver kas" onclick="goToCalculator('ks2')">
@@ -1769,8 +1869,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 28.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 28.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks2-lite" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks2 lite iceriver kas" onclick="goToCalculator('ks2-lite')">
@@ -1786,8 +1886,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 12.0 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 12.0 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ka-box-pro" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ka box pro goldshell kas" onclick="goToCalculator('ka-box-pro')">
@@ -1803,8 +1903,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 14.4 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 14.4 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ka-box" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ka box goldshell kas" onclick="goToCalculator('ka-box')">
@@ -1820,8 +1920,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 9.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 9.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks1" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks1 iceriver kas" onclick="goToCalculator('ks1')">
@@ -1837,8 +1937,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 14.4 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 14.4 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks0-ultra" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks0 ultra iceriver kas" onclick="goToCalculator('ks0-ultra')">
@@ -1854,8 +1954,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 2.4 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 2.4 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks0-pro" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks0 pro iceriver kas" onclick="goToCalculator('ks0-pro')">
@@ -1871,8 +1971,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 2.4 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 2.4 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ks0" data-voltage="120V" data-algo="KHeavyHash" data-loki="false" data-category="null" data-search="ks0 iceriver kas" onclick="goToCalculator('ks0')">
@@ -1888,15 +1988,15 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 1.6 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 1.6 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
       </div>
     </section>
     <section class="algo-section" data-algo="Etchash">
       <div class="algo-header">
-        <span class="algo-icon">⟠</span>
+        <span class="algo-icon">âŸ </span>
         <h2 class="algo-title">Etchash</h2>
         <span class="algo-coins">Ethereum Classic (ETC)</span>
       </div>
@@ -1914,8 +2014,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 52.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 52.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="ipollo-v1-mini" data-voltage="120V" data-algo="Etchash" data-loki="false" data-category="null" data-search="ipollo v1 mini ipollo etc" onclick="goToCalculator('ipollo-v1-mini')">
@@ -1931,15 +2031,15 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Fan</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 5.8 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 5.8 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
       </div>
     </section>
     <section class="algo-section" data-algo="Equihash">
       <div class="algo-header">
-        <span class="algo-icon">🛡️</span>
+        <span class="algo-icon">ðŸ›¡ï¸</span>
         <h2 class="algo-title">Equihash</h2>
         <span class="algo-coins">Zcash (ZEC)</span>
       </div>
@@ -1957,8 +2057,8 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 61.4 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 61.4 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
         <div class="miner-card" data-id="z15" data-voltage="240V" data-algo="Equihash" data-loki="false" data-category="null" data-search="antminer z15 bitmain zec" onclick="goToCalculator('z15')">
@@ -1974,15 +2074,15 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 36.2 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 36.2 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
           </div>
         </div>
       </div>
     </section>
     <section class="algo-section" data-algo="X11">
       <div class="algo-header">
-        <span class="algo-icon">⚡</span>
+        <span class="algo-icon">âš¡</span>
         <h2 class="algo-title">X11</h2>
         <span class="algo-coins">Dash (DASH)</span>
       </div>
@@ -2000,18 +2100,213 @@
             <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
           </div>
           <div class="miner-card-footer">
-            <span class="noise-tag">📊 68.1 kWh/day</span>
-            <span class="calc-link">Calculate →</span>
+            <span class="noise-tag">ðŸ“Š 68.1 kWh/day</span>
+            <span class="calc-link">Calculate â†’</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="algo-section" data-algo="Eaglesong">
+      <div class="algo-header">
+        <span class="algo-icon">&#9889;</span>
+        <h2 class="algo-title">Eaglesong</h2>
+        <span class="algo-coins">Nervos (CKB)</span>
+      </div>
+      <div class="miners-grid">
+        <div class="miner-card" data-id="ck6" data-voltage="240V" data-algo="Eaglesong" data-loki="false" data-category="null" data-search="goldshell ck6 ckb nervos eaglesong" onclick="goToCalculator('ck6')">
+          <div class="miner-card-header">
+            <span class="miner-name">Goldshell CK6</span>
+            <span class="voltage-badge v240">240V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">19.3 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">3300W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">CKB</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 79.2 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="ck5" data-voltage="240V" data-algo="Eaglesong" data-loki="false" data-category="null" data-search="goldshell ck5 ckb nervos eaglesong" onclick="goToCalculator('ck5')">
+          <div class="miner-card-header">
+            <span class="miner-name">Goldshell CK5</span>
+            <span class="voltage-badge v240">240V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">12 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">2400W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">CKB</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Very Loud</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 57.6 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="ck-box-ii" data-voltage="120V" data-algo="Eaglesong" data-loki="false" data-category="null" data-search="goldshell ck-box ii ckb nervos eaglesong" onclick="goToCalculator('ck-box-ii')">
+          <div class="miner-card-header">
+            <span class="miner-name">CK-BOX II</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">2.1 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">400W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">CKB</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 9.6 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="ck-box" data-voltage="120V" data-algo="Eaglesong" data-loki="false" data-category="null" data-search="goldshell ck-box ckb nervos eaglesong" onclick="goToCalculator('ck-box')">
+          <div class="miner-card-header">
+            <span class="miner-name">CK-BOX</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">1.05 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">215W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">CKB</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 5.2 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="algo-section" data-algo="Blake2bSia">
+      <div class="algo-header">
+        <span class="algo-icon">&#9889;</span>
+        <h2 class="algo-title">Blake2b-Sia</h2>
+        <span class="algo-coins">Siacoin (SC)</span>
+      </div>
+      <div class="miners-grid">
+        <div class="miner-card" data-id="sc-box-ii" data-voltage="120V" data-algo="Blake2bSia" data-loki="false" data-category="null" data-search="goldshell sc-box ii sc siacoin blake2b" onclick="goToCalculator('sc-box-ii')">
+          <div class="miner-card-header">
+            <span class="miner-name">SC-BOX II</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">1.9 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">400W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">SC</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 9.6 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="hs-box-ii" data-voltage="120V" data-algo="Blake2bSia" data-loki="false" data-category="null" data-search="goldshell hs-box ii sc siacoin blake2b" onclick="goToCalculator('hs-box-ii')">
+          <div class="miner-card-header">
+            <span class="miner-name">HS-BOX II</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">1.2 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">325W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">SC</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 7.8 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="sc-box" data-voltage="120V" data-algo="Blake2bSia" data-loki="false" data-category="null" data-search="goldshell sc-box sc siacoin blake2b" onclick="goToCalculator('sc-box')">
+          <div class="miner-card-header">
+            <span class="miner-name">SC-BOX</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">0.9 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">200W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">SC</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 4.8 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="algo-section" data-algo="Blake2sKDA">
+      <div class="algo-header">
+        <span class="algo-icon">&#9889;</span>
+        <h2 class="algo-title">Blake2s (Kadena)</h2>
+        <span class="algo-coins">Kadena (KDA)</span>
+      </div>
+      <div class="miners-grid">
+        <div class="miner-card" data-id="kd-box-ii" data-voltage="120V" data-algo="Blake2sKDA" data-loki="false" data-category="null" data-search="goldshell kd-box ii kda kadena blake2s" onclick="goToCalculator('kd-box-ii')">
+          <div class="miner-card-header">
+            <span class="miner-name">KD-BOX II</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">5 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">400W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">KDA</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 9.6 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="kd-box-pro" data-voltage="120V" data-algo="Blake2sKDA" data-loki="false" data-category="null" data-search="goldshell kd-box pro kda kadena blake2s" onclick="goToCalculator('kd-box-pro')">
+          <div class="miner-card-header">
+            <span class="miner-name">KD-BOX Pro</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">2.6 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">230W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">KDA</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 5.5 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
+          </div>
+        </div>
+        <div class="miner-card" data-id="kd-box" data-voltage="120V" data-algo="Blake2sKDA" data-loki="false" data-category="null" data-search="goldshell kd-box kda kadena blake2s" onclick="goToCalculator('kd-box')">
+          <div class="miner-card-header">
+            <span class="miner-name">KD-BOX</span>
+            <span class="voltage-badge v120">120V</span>
+          </div>
+          <div class="miner-manufacturer">Goldshell</div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value">1.6 TH/s</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">205W</span></div>
+            <div class="spec-item"><span class="spec-label">Coins</span><span class="spec-value coins">KDA</span></div>
+            <div class="spec-item"><span class="spec-label">Noise</span><span class="spec-value">Silent</span></div>
+          </div>
+          <div class="miner-card-footer">
+            <span class="noise-tag">&#128202; 4.9 kWh/day</span>
+            <span class="calc-link">Calculate &rarr;</span>
           </div>
         </div>
       </div>
     </section>
     </div>
-    
-    <!-- Disclaimer -->
     <div class="disclaimer">
-      <h4>⚠️ Important Notes</h4>
-      <p>Miners listed are compatible with home setups (single-phase 120V or 240V). Specs are manufacturer defaults — actual performance varies with <span class="glossary-term" data-term="firmware">firmware</span>, ambient temperature, and configuration. <strong><span class="glossary-term" data-term="loki-kit">Loki Kit</span></strong> miners require aftermarket firmware (LuxOS, VNish) and run at ~40% of rated <span class="glossary-term" data-term="hashrate">hashrate</span>. <strong><span class="glossary-term" data-term="lottery">Lottery miners</span></strong> are for fun — extremely unlikely to find blocks solo. Always verify current specs before purchasing.</p>
+      <h4>âš ï¸ Important Notes</h4>
+      <p>Miners listed are compatible with home setups (single-phase 120V or 240V). Specs are manufacturer defaults â€” actual performance varies with <span class="glossary-term" data-term="firmware">firmware</span>, ambient temperature, and configuration. <strong><span class="glossary-term" data-term="loki-kit">Loki Kit</span></strong> miners require aftermarket firmware (LuxOS, VNish) and run at ~40% of rated <span class="glossary-term" data-term="hashrate">hashrate</span>. <strong><span class="glossary-term" data-term="lottery">Lottery miners</span></strong> are for fun â€” extremely unlikely to find blocks solo. Always verify current specs before purchasing. <strong>Legacy</strong> miners have high W/TH ratios and are generally unprofitable unless you have free or near-free electricity.</p>
     </div>
   </div>
   
@@ -2129,7 +2424,7 @@
     const GLOSSARY = {
       'hashrate': {
         title: 'Hashrate',
-        definition: 'How many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. Measured in H/s, KH/s, MH/s, GH/s, TH/s, or PH/s depending on the algorithm. Don\'t chase highest hashrate — efficiency (hashrate per watt) matters more for home miners.'
+        definition: 'How many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. Measured in H/s, KH/s, MH/s, GH/s, TH/s, or PH/s depending on the algorithm. Don\'t chase highest hashrate â€” efficiency (hashrate per watt) matters more for home miners.'
       },
       'algorithm': {
         title: 'Algorithm',
@@ -2157,7 +2452,7 @@
       },
       'efficiency': {
         title: 'Efficiency (J/TH)',
-        definition: 'Power consumption per unit of hashrate. Lower is better. A 25 J/TH miner uses less electricity than a 35 J/TH miner for the same hashrate — critical for profitability. For home miners, efficiency often matters more than raw hashrate due to electricity costs.'
+        definition: 'Power consumption per unit of hashrate. Lower is better. A 25 J/TH miner uses less electricity than a 35 J/TH miner for the same hashrate â€” critical for profitability. For home miners, efficiency often matters more than raw hashrate due to electricity costs.'
       }
     };
 
@@ -2206,266 +2501,6 @@
       }
     });
   </script>
-
-<!-- ============================================ -->
-<!-- SOLA FEEDBACK POPUP WIDGET — Temporary feature -->
-<!-- Remove this entire block when feedback window closes -->
-<!-- ============================================ -->
-<div id="sola-feedback-widget" style="display:none;">
-  <!-- Small trigger bubble (bottom-right) -->
-  <div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
-    <p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
-    <video id="sola-fb-video" width="200" height="113" muted playsinline loop style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);"
-      src="assets/sola_feedback.mp4"></video>
-    <div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
-      <button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
-      <button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
-    </div>
-  </div>
-
-  <!-- Wizard overlay -->
-  <div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
-    <!-- Header -->
-    <div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
-      <span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray — Feedback</span>
-      <button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">&times;</button>
-    </div>
-    <!-- Privacy note -->
-    <div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
-      Your email is used only for direct communication with Sola Ray Effect. It will never be sold, shared, or added to any mailing list.
-    </div>
-    <!-- Steps container -->
-    <div id="sola-fb-steps" style="padding:16px;">
-      <!-- Step 1: How did you find us -->
-      <div class="sola-fb-step" data-step="1">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
-        <select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
-          <option value="">Select one...</option>
-          <option value="Google Search">Google Search</option>
-          <option value="YouTube">YouTube</option>
-          <option value="Reddit">Reddit</option>
-          <option value="Twitter/X">Twitter / X</option>
-          <option value="Facebook">Facebook</option>
-          <option value="A Friend">A Friend</option>
-          <option value="Mining Forum">Mining Forum</option>
-          <option value="Other">Other</option>
-        </select>
-        <button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-      </div>
-      <!-- Step 2: What brought you here -->
-      <div class="sola-fb-step" data-step="2" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
-        <textarea id="sola-fb-reason" rows="3" placeholder="What were you looking for?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 3: Feedback -->
-      <div class="sola-fb-step" data-step="3" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
-        <textarea id="sola-fb-message" rows="4" placeholder="What do you like most about the site?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 4: Coin/miner request -->
-      <div class="sola-fb-step" data-step="4" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
-        <textarea id="sola-fb-request" rows="3" placeholder="Optional — skip if you want" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 5: Email + Name -->
-      <div class="sola-fb-step" data-step="5" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
-        <input id="sola-fb-name" type="text" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;">
-        <input id="sola-fb-email" type="email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
-        </div>
-      </div>
-      <!-- Step 6: Thank you -->
-      <div class="sola-fb-step" data-step="6" style="display:none;">
-        <p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
-        <p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
-      </div>
-      <!-- Error state -->
-      <div id="sola-fb-error" style="display:none;">
-        <p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
-      </div>
-    </div>
-    <!-- Step indicator dots -->
-    <div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-    </div>
-  </div>
-</div>
-
-<script>
-(function() {
-  // Don't show if user already dismissed or submitted THIS SESSION
-  if (sessionStorage.getItem('sola-fb-done')) return;
-
-  var widget = document.getElementById('sola-feedback-widget');
-  var bubble = document.getElementById('sola-fb-bubble');
-  var wizard = document.getElementById('sola-fb-wizard');
-  var video = document.getElementById('sola-fb-video');
-  var dots = document.querySelectorAll('.sola-fb-dot');
-
-  // Show bubble after 2 minutes
-  setTimeout(function() {
-    widget.style.display = 'block';
-    video.play().catch(function() {});
-  }, 120000);
-
-  // Click video to unmute and replay
-  video.addEventListener('click', function() {
-    video.muted = false;
-    video.currentTime = 0;
-    video.play().catch(function() {});
-  });
-
-  // "Sure!" — open wizard
-  document.getElementById('sola-fb-yes').addEventListener('click', function() {
-    bubble.style.display = 'none';
-    video.pause();
-    video.muted = true;
-    wizard.style.display = 'block';
-  });
-
-  // "Not now" — dismiss for this session
-  document.getElementById('sola-fb-no').addEventListener('click', function() {
-    widget.style.display = 'none';
-    video.pause();
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
-
-  // Close wizard
-  document.getElementById('sola-fb-close').addEventListener('click', function() {
-    widget.style.display = 'none';
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
-
-  // Step navigation
-  function showStep(n) {
-    var steps = document.querySelectorAll('.sola-fb-step');
-    for (var i = 0; i < steps.length; i++) {
-      steps[i].style.display = steps[i].getAttribute('data-step') == n ? 'block' : 'none';
-    }
-    // Update dots
-    for (var j = 0; j < dots.length; j++) {
-      dots[j].style.background = (j < n && n <= 5) ? 'var(--sola-gold, #D4AF37)' : 'var(--text-muted, #5a6a7a)';
-    }
-    // Hide dots on thank you
-    document.getElementById('sola-fb-dots').style.display = n == 6 ? 'none' : 'flex';
-  }
-
-  // Next buttons
-  document.querySelectorAll('.sola-fb-next').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var next = parseInt(this.getAttribute('data-next'));
-      // Validate step 1: source required
-      if (next == 2 && !document.getElementById('sola-fb-source').value) {
-        document.getElementById('sola-fb-source').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      // Validate step 2: reason required
-      if (next == 3 && !document.getElementById('sola-fb-reason').value.trim()) {
-        document.getElementById('sola-fb-reason').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      // Validate step 3: feedback required
-      if (next == 4 && !document.getElementById('sola-fb-message').value.trim()) {
-        document.getElementById('sola-fb-message').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      showStep(next);
-    });
-  });
-
-  // Back buttons
-  document.querySelectorAll('.sola-fb-back').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      showStep(parseInt(this.getAttribute('data-back')));
-    });
-  });
-
-  // Reset border on input
-  document.getElementById('sola-fb-source').addEventListener('change', function() {
-    this.style.borderColor = '';
-  });
-  document.getElementById('sola-fb-reason').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-  document.getElementById('sola-fb-message').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-
-  // Submit
-  document.getElementById('sola-fb-submit').addEventListener('click', function() {
-    var email = document.getElementById('sola-fb-email').value.trim();
-    if (!email) {
-      document.getElementById('sola-fb-email').style.borderColor = 'var(--loss, #ff5252)';
-      return;
-    }
-    document.getElementById('sola-fb-email').style.borderColor = '';
-    var btn = this;
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    var data = {
-      access_key: 'f66dbe16-41bf-4d02-ac67-aab832222384',
-      subject: 'Sola Ray Feedback — via ' + document.getElementById('sola-fb-source').value,
-      from_name: 'Sola Ray Feedback Widget',
-      name: document.getElementById('sola-fb-name').value.trim() || 'Anonymous',
-      email: email,
-      found_us_via: document.getElementById('sola-fb-source').value,
-      what_brought_you: document.getElementById('sola-fb-reason').value.trim(),
-      feedback: document.getElementById('sola-fb-message').value.trim(),
-      feature_request: document.getElementById('sola-fb-request').value.trim() || 'None'
-    };
-
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(function(res) { return res.json(); })
-    .then(function(result) {
-      if (result.success) {
-        showStep(6);
-        sessionStorage.setItem('sola-fb-done', 'submitted');
-        // Auto-close after 3 seconds
-        setTimeout(function() { widget.style.display = 'none'; }, 3000);
-      } else {
-        document.getElementById('sola-fb-error').style.display = 'block';
-        btn.textContent = 'Send Feedback';
-        btn.disabled = false;
-      }
-    })
-    .catch(function() {
-      document.getElementById('sola-fb-error').style.display = 'block';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
-    });
-  });
-
-  // Email border reset
-  document.getElementById('sola-fb-email').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-})();
-</script>
-<!-- END SOLA FEEDBACK POPUP WIDGET -->
 
 </body>
 </html>
