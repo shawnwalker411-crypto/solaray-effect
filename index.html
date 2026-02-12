@@ -2255,9 +2255,14 @@
 
         // --- Update REVENUE_RATES from Minerstat reward field ---
         // reward = coins earned per 1 H/s per 1 hour
+        // KAS is handled separately via api.kaspa.org (Minerstat KAS data is unreliable)
+        
         for (const [ticker, map] of Object.entries(MINERSTAT_ALGO_MAP)) {
           const coin = byTicker[ticker];
           if (!coin || coin.reward <= 0) continue;
+          
+          // Skip KAS — handled separately via api.kaspa.org
+          if (ticker === 'KAS') continue;
 
           // DOGE is merged-mined with LTC/Scrypt
           if (map.merged) {
@@ -2289,6 +2294,8 @@
 
         // --- Update rawMiningStats for network stats display ---
         for (const [ticker, coin] of Object.entries(byTicker)) {
+          // Skip KAS — handled by api.kaspa.org
+          if (ticker === 'KAS') continue;
           if (coin.network_hashrate > 0 || coin.difficulty > 0) {
             rawMiningStats[ticker] = {
               difficulty: coin.difficulty > 0 ? coin.difficulty : 0,
@@ -2399,6 +2406,46 @@
       return Math.floor(seconds / 86400) + 'd ago';
     }
     
+    // KAS via Kaspa's own API (free, no key needed, reliable)
+    // Minerstat's KAS data is broken (hashrate inflated ~400M times)
+    async function fetchKaspaDirect() {
+      try {
+        const res = await fetch('https://api.kaspa.org/info/network');
+        if (!res.ok) throw new Error('Kaspa API request failed: ' + res.status);
+        const data = await res.json();
+        
+        if (!data.hashrate || data.hashrate <= 0) throw new Error('Kaspa API returned no hashrate');
+        
+        const networkHash = data.hashrate; // H/s
+        const difficulty = data.difficulty || 0;
+        const blockReward = 3.27; // Current KAS block reward (decreases over time)
+        const kasBPS = 10; // 10 blocks per second
+        const blocksPerDay = kasBPS * 86400;
+        const dailyCoins = blockReward * blocksPerDay;
+        const kasPerGH = dailyCoins / (networkHash / 1e9);
+        
+        const validation = validateAndUpdateRate('KHeavyHash', kasPerGH, 'KAS');
+        if (validation.rate) {
+          REVENUE_RATES['KHeavyHash'].perUnit = validation.rate;
+          console.log('KAS rate (api.kaspa.org):', validation.rate, 'KAS/GH/day',
+            '| nethash:', (networkHash/1e15).toFixed(2), 'PH/s',
+            validation.valid ? '✓' : '(fallback)');
+        }
+        
+        rawMiningStats['KAS'] = {
+          difficulty: difficulty,
+          network_hashrate: networkHash,
+          block_reward: blockReward,
+          height: data.blockCount || 0
+        };
+        
+        return true;
+      } catch (error) {
+        console.warn('Kaspa direct API failed:', error);
+        return false;
+      }
+    }
+    
     async function initMinerstat() {
       // Clean up orphaned localStorage from CoinGecko/NOWNodes era
       localStorage.removeItem('solaray_prices');
@@ -2406,6 +2453,9 @@
       
       // Try to fetch live data from Minerstat (prices + mining stats in one call)
       const liveSuccess = await fetchMinerstat();
+      
+      // Fetch KAS separately from Kaspa's own API (Minerstat KAS data is unreliable)
+      await fetchKaspaDirect();
       
       // If live fetch failed, try to load from unified cache
       if (!liveSuccess) {
@@ -2427,6 +2477,7 @@
       // Minerstat allows ~12 req/min, data refreshes every ~60s
       // Refresh every 2 minutes to stay well within limits
       setInterval(fetchMinerstat, 120000);
+      setInterval(fetchKaspaDirect, 120000);
     }
     
     // ============================================
@@ -2489,22 +2540,9 @@
     }
     
     function updateSanityWarningBanner() {
-      let banner = document.getElementById('sanity-warning-banner');
-      
-      if (rateSanityWarnings.length === 0) {
-        if (banner) banner.style.display = 'none';
-        return;
-      }
-      
-      if (!banner) {
-        banner = document.createElement('div');
-        banner.id = 'sanity-warning-banner';
-        banner.style.cssText = 'background: #ff9800; color: #000; padding: 10px 15px; text-align: center; font-weight: 400; position: fixed; top: 0; left: 0; right: 0; z-index: 9999;';
-        document.body.prepend(banner);
-      }
-      
-      banner.innerHTML = '\u26A0\uFE0F Data Warning: ' + rateSanityWarnings.join(', ') + ' \u2014 Using fallback values. <a href="#" onclick="this.parentElement.style.display=\'none\'; return false;" style="color: #000; margin-left: 10px;">[Dismiss]</a>';
-      banner.style.display = 'block';
+      // Log warnings to console only — visitors don't need to see API internals
+      if (rateSanityWarnings.length === 0) return;
+      console.warn('⚠️ Data sanity warnings:', rateSanityWarnings.join(', '), '— Using fallback values.');
     }
     
     function updateMiningStatsIndicator() {
