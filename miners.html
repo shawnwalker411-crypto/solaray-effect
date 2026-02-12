@@ -733,7 +733,7 @@
     <!-- Info Box -->
     <div class="info-box">
       <h4>&#x1F4A1; How to Use This Page</h4>
-      <p>All miners listed run on <strong>single-phase power</strong> (no 3-phase required). <span class="glossary-term" data-term="voltage">120V</span> miners plug into standard US outlets. <span class="glossary-term" data-term="voltage">240V</span> miners need a dryer-style outlet but still single-phase. <strong>Click any miner card</strong> to jump straight to the calculator with that miner pre-selected.</p>
+      <p>All miners listed run on <strong>single-phase power</strong> (no 3-phase required). <span class="glossary-term" data-term="voltage">120V</span> miners plug into standard US outlets. <span class="glossary-term" data-term="voltage">240V</span> miners need a dedicated 240V circuit (see our <a href="electrical_setup.html">Electrical Setup Guide</a>). <strong>Click any miner card</strong> to jump straight to the calculator with that miner pre-selected.</p>
     </div>
     
     <!-- Voltage Legend -->
@@ -744,7 +744,7 @@
       </div>
       <div class="legend-item">
         <div class="legend-dot v240"></div>
-        <span class="legend-text">240V  &#x2014;  Dryer outlet required</span>
+        <span class="legend-text">240V  &#x2014;  Dedicated circuit required</span>
       </div>
       <div class="legend-item">
         <div class="legend-dot loki"></div>
@@ -799,7 +799,7 @@
       <h2>ASIC Miners for Home Mining: Complete Hardware Guide</h2>
       <p>Choosing the right ASIC miner for a home setup is different from picking hardware for a warehouse operation. Home miners need to consider voltage compatibility (120V standard outlets vs 240V dedicated circuits), noise levels for residential environments, power consumption relative to your electricity rate, and physical size constraints. This catalog covers 89 miners across nine algorithms  &#x2014;  SHA-256 for Bitcoin, Scrypt for Litecoin and Dogecoin, KHeavyHash for Kaspa, Etchash for Ethereum Classic, Equihash for Zcash, X11 for Dash, Eaglesong for Nervos (CKB), Blake2b-Sia for Siacoin, and Blake2s for Kadena.</p>
       <h3>Understanding Voltage Categories</h3>
-      <p><strong>120V Native miners</strong> plug into any standard US household outlet and are the simplest path to home mining. Models like the Goldshell Mini-DOGE series, IceRiver KS0 lineup, and iPollo V1 Mini run on normal circuits without any electrical modifications. <strong>240V miners</strong> are industrial-grade ASIC machines like the Antminer S19 Pro, S21, L7, and KS5 series  &#x2014;  they deliver maximum hashrate but require a dedicated 240V circuit similar to a dryer outlet. <strong>Loki Kit miners</strong> bridge this gap by allowing 240V machines to run on 120V power at reduced hashrate (~40% of rated capacity), using aftermarket firmware like LuxOS, VNish, or Braiins OS+. <strong>Lottery miners</strong> like the Bitaxe Ultra and NerdMiner are low-power devices for solo mining  &#x2014;  extremely unlikely to find a block, but the payout is a full block reward if you do.</p>
+      <p><strong>120V Native miners</strong> plug into any standard US household outlet and are the simplest path to home mining. Models like the Goldshell Mini-DOGE series, IceRiver KS0 lineup, and iPollo V1 Mini run on normal circuits without any electrical modifications. <strong>240V miners</strong> are industrial-grade ASIC machines like the Antminer S19 Pro, S21, L7, and KS5 series  &#x2014;  they deliver maximum hashrate but require a dedicated 240V circuit installed by a licensed electrician. <strong>Loki Kit miners</strong> bridge this gap by allowing 240V machines to run on 120V power at reduced hashrate (~40% of rated capacity), using aftermarket firmware like LuxOS, VNish, or Braiins OS+. <strong>Lottery miners</strong> like the Bitaxe Ultra and NerdMiner are low-power devices for solo mining  &#x2014;  extremely unlikely to find a block, but the payout is a full block reward if you do.</p>
       <h3>How to Use This Catalog</h3>
       <p>Use the filters above to narrow by voltage type or mining algorithm. Click any miner card to load it directly into our <a href="index.html">profitability calculator</a> with dual electricity rates and solar power support. Every spec listed is the manufacturer's stock rating  &#x2014;  actual performance varies with firmware, ambient temperature, and tuning. Miners marked with "Loki" show estimated hashrate and power when running on a Loki Kit configuration at 120V.</p>
     </article>
@@ -2527,7 +2527,7 @@
       },
       'voltage': {
         title: 'Voltage (120V vs 240V)',
-        definition: '120V is standard US household outlet power. 240V requires special installation (like a dryer outlet) but allows running high-power industrial miners at full capacity. The Loki Kit enables running 240V miners on 120V at reduced power.'
+        definition: '120V is standard US household outlet power. 240V requires a dedicated circuit installed by a licensed electrician, allowing high-power industrial miners to run at full capacity. Never tap into existing appliance circuits. The Loki Kit enables running 240V miners on 120V at reduced power.'
       },
       'loki-kit': {
         title: 'Loki Kit',
