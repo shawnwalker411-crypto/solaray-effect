@@ -967,8 +967,8 @@
 
 <script>
 (function() {
-  // Don't show if user already dismissed or submitted
-  if (localStorage.getItem('sola-fb-done')) return;
+  // Don't show if user already dismissed or submitted THIS SESSION
+  if (sessionStorage.getItem('sola-fb-done')) return;
 
   var widget = document.getElementById('sola-feedback-widget');
   var bubble = document.getElementById('sola-fb-bubble');
@@ -982,22 +982,32 @@
     video.play().catch(function() {});
   }, 120000);
 
+  // Click video to unmute and replay
+  video.addEventListener('click', function() {
+    video.muted = false;
+    video.currentTime = 0;
+    video.play().catch(function() {});
+  });
+
   // "Sure!" — open wizard
   document.getElementById('sola-fb-yes').addEventListener('click', function() {
     bubble.style.display = 'none';
+    video.pause();
+    video.muted = true;
     wizard.style.display = 'block';
   });
 
-  // "Not now" — dismiss and remember
+  // "Not now" — dismiss for this session
   document.getElementById('sola-fb-no').addEventListener('click', function() {
     widget.style.display = 'none';
-    localStorage.setItem('sola-fb-done', 'dismissed');
+    video.pause();
+    sessionStorage.setItem('sola-fb-done', 'dismissed');
   });
 
   // Close wizard
   document.getElementById('sola-fb-close').addEventListener('click', function() {
     widget.style.display = 'none';
-    localStorage.setItem('sola-fb-done', 'dismissed');
+    sessionStorage.setItem('sola-fb-done', 'dismissed');
   });
 
   // Step navigation
@@ -1088,7 +1098,7 @@
     .then(function(result) {
       if (result.success) {
         showStep(6);
-        localStorage.setItem('sola-fb-done', 'submitted');
+        sessionStorage.setItem('sola-fb-done', 'submitted');
         // Auto-close after 3 seconds
         setTimeout(function() { widget.style.display = 'none'; }, 3000);
       } else {
