@@ -1474,7 +1474,7 @@
 
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sola Ray Effect Home Mining Calculator","url":"https://www.solarayeffect.com/","description":"Free cryptocurrency mining profitability calculator for home miners with dual electricity rates, solar power support, and 40+ ASIC miners.","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"The Sola Ray Effect","url":"https://www.solarayeffect.com/","logo":{"@type":"ImageObject","url":"https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg"}}}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bitcoin mining still profitable at home in 2026?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use our calculator with your actual rates to find out."}},{"@type":"Question","name":"Can I run an Antminer S19 on a regular outlet?","acceptedAnswer":{"@type":"Answer","text":"Not at full power â€” S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw."}},{"@type":"Question","name":"What is a solar buyback program?","acceptedAnswer":{"@type":"Answer","text":"Some utility companies in states like Texas credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bitcoin mining still profitable at home in 2026?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use our calculator with your actual rates to find out."}},{"@type":"Question","name":"Can I run an Antminer S19 on a regular outlet?","acceptedAnswer":{"@type":"Answer","text":"Not at full power — S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw."}},{"@type":"Question","name":"What is a solar buyback program?","acceptedAnswer":{"@type":"Answer","text":"Some utility companies in states like Texas credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs."}}]}</script>
 </head>
 <body>
   <!-- Live Price Ticker -->
@@ -1499,19 +1499,19 @@
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>Navigation</h3>
-    <a href="index.html" class="active">âš¡ Calculator</a>
-    <a href="miners.html">ðŸ”§ Miners</a>
-    <a href="pools.html">ðŸŠ Mining Pools</a>
-    <a href="aftermarket_firmware.html">âš™ï¸ Firmware Guide</a>
-    <a href="electrical_setup.html">ðŸ”Œ Electrical Setup</a>
-    <a href="glossary.html">ðŸ“– Glossary</a>
-    <a href="datavault.html">ðŸ“¡ Data Vault</a>
+    <a href="index.html" class="active">⚡ Calculator</a>
+    <a href="miners.html">🔧 Miners</a>
+    <a href="pools.html">🏊 Mining Pools</a>
+    <a href="aftermarket_firmware.html">⚙️ Firmware Guide</a>
+    <a href="electrical_setup.html">🔌 Electrical Setup</a>
+    <a href="glossary.html">📖 Glossary</a>
+    <a href="datavault.html">📡 Data Vault</a>
   </nav>
   <div class="nav-overlay" id="nav-overlay"></div>
   
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer">
-    <button class="glossary-drawer-close">Ã—</button>
+    <button class="glossary-drawer-close">×</button>
     <h3 id="glossary-term-title">Term</h3>
     <p id="glossary-term-definition">Definition goes here...</p>
   </div>
@@ -1550,7 +1550,7 @@
         <div class="panels-container">
           <!-- LEFT: Hot Pick (CENTERED) -->
           <div class="sola-banner-panel hot-pick-winner">
-            <div class="sola-banner-kicker">ðŸ”¥ Hot Pick</div>
+            <div class="sola-banner-kicker">🔥 Hot Pick</div>
             <p class="winner-coin" id="sunrise-coin">BTC</p>
             <p class="winner-miner" id="sunrise-miner">with Antminer S21 200T</p>
             <p class="winner-revenue" id="sunrise-revenue">$0.00/day</p>
@@ -1558,7 +1558,7 @@
 
           <!-- RIGHT: Ember Picks (CENTERED) -->
           <div class="sola-banner-panel ember-picks-panel">
-            <div class="sola-banner-kicker">ðŸ”¥ Ember Picks</div>
+            <div class="sola-banner-kicker">🔥 Ember Picks</div>
 
             <div class="ember-columns" id="ember-columns">
               <!-- populated by JS -->
@@ -1575,7 +1575,7 @@
     
     <!-- Miner Selection -->
     <section class="section" >
-      <h2 class="section-title">ðŸ”§ Select Your Miner</h2>
+      <h2 class="section-title">🔧 Select Your Miner</h2>
       
       <!-- Live Coin Price Display -->
       <div class="live-price-display" id="live-price-display" style="visibility: hidden; position: absolute;">
@@ -1583,9 +1583,9 @@
         <div class="price-input-wrapper">
           <span class="price-currency">$</span>
           <input type="text" class="live-price-input" id="live-price-input" value="89000" title="Click to edit price for what-if scenarios">
-          <button class="price-reset-btn" id="price-reset-btn" title="Reset to live price" style="display: none;">â†º</button>
+          <button class="price-reset-btn" id="price-reset-btn" title="Reset to live price" style="display: none;">↺</button>
         </div>
-        <span class="live-price-status" id="live-price-status">ðŸŸ¢ Live</span>
+        <span class="live-price-status" id="live-price-status">🟢 Live</span>
       </div>
       
       <div class="dropdown-row">
@@ -1631,7 +1631,7 @@
       <!-- GPU/CPU Manual Input Section (hidden by default) -->
       <div class="manual-input-section" id="manual-input-section" style="display: none;">
         <div class="manual-input-header">
-          <h3 id="manual-input-title">â›ï¸ GPU Mining Setup</h3>
+          <h3 id="manual-input-title">⛏️ GPU Mining Setup</h3>
           <p class="manual-input-note">Enter your hardware specs from your mining software</p>
         </div>
         <div class="manual-input-grid">
@@ -1680,7 +1680,7 @@
           </div>
           <div class="spec-item">
             <span class="spec-label">Noise</span>
-            <span class="spec-value" id="info-noise">ðŸ”‡ Silent</span>
+            <span class="spec-value" id="info-noise">🔇 Silent</span>
           </div>
           <div class="spec-item">
             <span class="spec-label">Cooling</span>
@@ -1691,11 +1691,11 @@
             <span class="spec-value" id="info-coins">BTC</span>
           </div>
           <div class="run-cost">
-            <span id="info-runcost">âš¡ $0.00/day to run</span>
+            <span id="info-runcost">⚡ $0.00/day to run</span>
             <div class="run-cost-note">*at $0.15/kWh</div>
           </div>
           <div class="loki-notice" id="loki-notice" style="display: none;">
-            âš¡ Requires <strong><span class="glossary-term" data-term="loki-kit">Loki Kit</span></strong> + <a href="aftermarket_firmware.html" rel="noopener"><span class="glossary-term" data-term="aftermarket-firmware">aftermarket firmware</span></a> (LuxOS, VNish, or BraiinsOS)
+            ⚡ Requires <strong><span class="glossary-term" data-term="loki-kit">Loki Kit</span></strong> + <a href="aftermarket_firmware.html" rel="noopener"><span class="glossary-term" data-term="aftermarket-firmware">aftermarket firmware</span></a> (LuxOS, VNish, or BraiinsOS)
           </div>
         </div>
         
@@ -1718,31 +1718,31 @@
     
     <!-- Electricity -->
     <section class="section">
-      <h2 class="section-title">âš¡ Electricity Setup</h2>
+      <h2 class="section-title">⚡ Electricity Setup</h2>
       
       <div class="electricity-grid">
         <div class="config-group">
-          <label for="solar-hours">â˜€ï¸ Solar Hours/Day</label>
+          <label for="solar-hours">☀️ Solar Hours/Day</label>
           <input type="number" id="solar-hours" value="6" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="free-hours">ðŸŒ™ Free Night Hours</label>
+          <label for="free-hours">🌙 Free Night Hours</label>
           <input type="number" id="free-hours" value="6" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="battery-hours">ðŸ”‹ Battery Hours</label>
+          <label for="battery-hours">🔋 Battery Hours</label>
           <input type="number" id="battery-hours" value="0" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="idle-hours">â¸ï¸ Idle/Off Hours</label>
+          <label for="idle-hours">⏸️ Idle/Off Hours</label>
           <input type="number" id="idle-hours" value="0" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="grid-rate">ðŸ’µ Grid Rate ($/kWh)</label>
+          <label for="grid-rate">💵 Grid Rate ($/kWh)</label>
           <input type="number" id="grid-rate" value="0.15" min="0" step="0.01">
         </div>
         <div class="config-group">
-          <label for="pool-fee">ðŸŠ <span class="glossary-term" data-term="pool">Pool</span> Fee (%)</label>
+          <label for="pool-fee">🏊 <span class="glossary-term" data-term="pool">Pool</span> Fee (%)</label>
           <input type="number" id="pool-fee" value="1" min="0" max="10" step="1">
         </div>
         <div class="config-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
@@ -1768,14 +1768,14 @@
       </div>
     </section>
     
-    <button class="calculate-btn" onclick="calculate()">âš¡ CALCULATE PROFITABILITY âš¡</button>
+    <button class="calculate-btn" onclick="calculate()">⚡ CALCULATE PROFITABILITY ⚡</button>
     
     <!-- Results -->
     <section class="section results-panel" id="results-panel">
-      <h2 class="section-title">ðŸ“Š Results</h2>
+      <h2 class="section-title">📊 Results</h2>
       
       <div class="roi-box">
-        <h3 class="roi-title">ðŸ’° <span class="glossary-term" data-term="roi">Return on Investment</span></h3>
+        <h3 class="roi-title">💰 <span class="glossary-term" data-term="roi">Return on Investment</span></h3>
         <div class="roi-stats">
           <div class="roi-stat">
             <div class="roi-stat-value" id="breakeven-days" style="color: var(--sola-teal);">0</div>
@@ -1818,8 +1818,8 @@
       
       <div class="price-status">
         <p class="price-note" id="price-note">Prices: BTC $89,000 | Mining 24h/day</p>
-        <span class="price-indicator default" id="price-indicator">ðŸ”´ Default Prices</span>
-        <span class="price-indicator default" id="mining-stats-indicator">ðŸ”´ Default Estimates</span>
+        <span class="price-indicator default" id="price-indicator">🔴 Default Prices</span>
+        <span class="price-indicator default" id="mining-stats-indicator">🔴 Default Estimates</span>
       </div>
       
       <div class="network-stats" id="network-stats" style="display: none;">
@@ -1830,19 +1830,19 @@
     <!-- Browse All Miners -->
     <section class="section browse-section">
       <button class="browse-toggle" id="browse-toggle" onclick="toggleBrowse()">
-        <span class="arrow">â–¶</span> Browse All Miners
+        <span class="arrow">▶</span> Browse All Miners
       </button>
       
       <div class="browse-table-container" id="browse-table-container">
         <table class="browse-table" id="browse-table">
           <thead>
             <tr>
-              <th onclick="sortTable(0)">Name â†•</th>
-              <th onclick="sortTable(1)"><span class="glossary-term" data-term="algorithm">Algorithm</span> â†•</th>
-              <th onclick="sortTable(2)"><span class="glossary-term" data-term="hashrate">Hashrate</span> â†•</th>
-              <th onclick="sortTable(3)">Power â†•</th>
-              <th onclick="sortTable(4)"><span class="glossary-term" data-term="voltage">Voltage</span> â†•</th>
-              <th onclick="sortTable(5)">âš¡/day â†•</th>
+              <th onclick="sortTable(0)">Name ↕</th>
+              <th onclick="sortTable(1)"><span class="glossary-term" data-term="algorithm">Algorithm</span> ↕</th>
+              <th onclick="sortTable(2)"><span class="glossary-term" data-term="hashrate">Hashrate</span> ↕</th>
+              <th onclick="sortTable(3)">Power ↕</th>
+              <th onclick="sortTable(4)"><span class="glossary-term" data-term="voltage">Voltage</span> ↕</th>
+              <th onclick="sortTable(5)">⚡/day ↕</th>
             </tr>
           </thead>
           <tbody id="browse-tbody"></tbody>
@@ -1852,20 +1852,20 @@
 
     <!-- SEO Content Section -->
     <section class="seo-content" style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem; margin-top: 2rem;">
-      <h2 style="color: #00CED1; font-size: 1.3rem; margin-bottom: 1rem;">Home Mining Profitability Calculator â€” Built for Residential Setups</h2>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Most Bitcoin mining calculators are designed for warehouse-scale operations running on industrial power contracts. This calculator is different â€” it's built specifically for home miners running ASIC hardware on residential electricity in North America. It accounts for real-world factors that generic calculators ignore: dual electricity rates with separate peak and off-peak pricing, solar power generation hours, free overnight electricity from utility buyback programs, and battery storage windows.</p>
+      <h2 style="color: #00CED1; font-size: 1.3rem; margin-bottom: 1rem;">Home Mining Profitability Calculator — Built for Residential Setups</h2>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Most Bitcoin mining calculators are designed for warehouse-scale operations running on industrial power contracts. This calculator is different — it's built specifically for home miners running ASIC hardware on residential electricity in North America. It accounts for real-world factors that generic calculators ignore: dual electricity rates with separate peak and off-peak pricing, solar power generation hours, free overnight electricity from utility buyback programs, and battery storage windows.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">What Makes This Calculator Different</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>Dual electricity rates</strong> let you model setups where power costs change by time of day â€” common with solar buyback programs in Texas, California, and other states where you get free or credited electricity during solar production hours and pay grid rates at night. <strong>Solar hours, free night hours, and battery hours</strong> are separate inputs so you can precisely model your actual power situation rather than using a single blended rate. <strong>Loki Kit support</strong> calculates profitability for running 240V industrial miners like the Antminer S19 Pro or S21 on standard 120V household outlets at reduced power using aftermarket firmware.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>Dual electricity rates</strong> let you model setups where power costs change by time of day — common with solar buyback programs in Texas, California, and other states where you get free or credited electricity during solar production hours and pay grid rates at night. <strong>Solar hours, free night hours, and battery hours</strong> are separate inputs so you can precisely model your actual power situation rather than using a single blended rate. <strong>Loki Kit support</strong> calculates profitability for running 240V industrial miners like the Antminer S19 Pro or S21 on standard 120V household outlets at reduced power using aftermarket firmware.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Supported Hardware</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Each miner's stock specifications are pre-loaded â€” select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices and mining difficulty update automatically via Minerstat API.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Each miner's stock specifications are pre-loaded — select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices update automatically via CoinGecko API.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Frequently Asked Questions</h3>
       <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Is Bitcoin mining still profitable at home in 2026?</strong> It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use this calculator with your actual rates to find out.</p>
-      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power â€” S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw.</p>
+      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power — S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw.</p>
       <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>What is a solar buyback program?</strong> Some utility companies in states like Texas credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs.</p>
     </section>
     
     <footer>
-      <p>Â© 2026 The Sola Ray Effect. Built for home miners.</p>
+      <p>© 2026 The Sola Ray Effect. Built for home miners.</p>
       <p>Estimates only. Results vary with <span class="glossary-term" data-term="difficulty">difficulty</span>, <span class="glossary-term" data-term="pool">pool</span> fees, and market conditions.</p>
     </footer>
   </div>
@@ -1914,11 +1914,11 @@
       },
       'roi': {
         title: 'ROI (Return on Investment)',
-        definition: 'A measure of how profitable your mining investment is. Calculated as (annual profit / purchase cost) Ã— 100%. Higher ROI = better investment. "Days to break even" shows when you\'ve recovered your initial cost.'
+        definition: 'A measure of how profitable your mining investment is. Calculated as (annual profit / purchase cost) × 100%. Higher ROI = better investment. "Days to break even" shows when you\'ve recovered your initial cost.'
       },
       'mining-type': {
         title: 'Mining Type',
-        definition: 'The category of mining hardware. ASIC miners are specialized chips built for one algorithm â€” extremely efficient but single-purpose. Lottery miners are low-power USB or small devices with very low hashrate, used mainly for fun or education with a tiny chance of hitting a full block reward.'
+        definition: 'The category of mining hardware. ASIC miners are specialized chips built for one algorithm — extremely efficient but single-purpose. Lottery miners are low-power USB or small devices with very low hashrate, used mainly for fun or education with a tiny chance of hitting a full block reward.'
       }
     };
     
@@ -2074,7 +2074,7 @@
     // Combined for "All" filter and browse table
     const ALL_MINERS = [...MINERS_120V, ...MINERS_240V];
     
-    // Prices & Rates - Updated via Minerstat API, these are fallback defaults
+    // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
     const DEFAULT_PRICES = { 
       BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
       ZEC: 45, DASH: 44, RVN: 0.007, ERG: 0.45, ALPH: 0.11, XMR: 200
@@ -2148,8 +2148,8 @@
     }
     
     function getNoiseIcon(noise) {
-      const icons = { silent: 'ðŸ”‡', fan: 'ðŸ”ˆ', vacuum: 'ðŸ”‰', lawnmower: 'ðŸ”Š' };
-      return icons[noise] || 'ðŸ”ˆ';
+      const icons = { silent: '🔇', fan: '🔈', vacuum: '🔉', lawnmower: '🔊' };
+      return icons[noise] || '🔈';
     }
     
     // Format large numbers with appropriate suffix
@@ -2203,175 +2203,80 @@
     }
     
     // ============================================
-    // LIVE DATA FETCHING (Minerstat Coins API)
-    // One call → prices + difficulty + hashrate + reward rates
+    // LIVE PRICE FETCHING (CoinGecko API)
     // ============================================
-    const MINERSTAT_KEY = 'ms_55A7916B_f3eb114cf7af383847884a916444d69c3ebc2a983988874b';
-    const MINERSTAT_COINS = 'BTC,BCH,LTC,KAS,ETC,DOGE,ZEC,DASH,RVN,ERG,ALPH,XMR';
-
-    // Map Minerstat coin tickers to our algorithm keys + unit scale
-    // Minerstat reward = coins per 1 H/s per 1 hour
-    // We need: coins per [unit] per day
-    // Scale = H/s-per-unit × 24
-    const MINERSTAT_ALGO_MAP = {
-      BTC:  { algo: 'SHA-256',     unitScale: 1e12, unit: 'TH/s' },  // reward × 1e12 × 24 = per TH/day
-      BCH:  { algo: 'SHA-256-BCH', unitScale: 1e12, unit: 'TH/s' },
-      LTC:  { algo: 'Scrypt',      unitScale: 1e6,  unit: 'MH/s' },
-      DOGE: { algo: null, merged: true },  // merged with Scrypt, handled separately
-      KAS:  { algo: 'KHeavyHash',  unitScale: 1e9,  unit: 'GH/s' },
-      ETC:  { algo: 'Etchash',     unitScale: 1e6,  unit: 'MH/s' },
-      ZEC:  { algo: 'Equihash',    unitScale: 1e3,  unit: 'kSol/s' },
-      DASH: { algo: 'X11',         unitScale: 1e9,  unit: 'GH/s' },
-      RVN:  { algo: 'KAWPOW',      unitScale: 1e6,  unit: 'MH/s' },
-      ERG:  { algo: 'Autolykos2',  unitScale: 1e6,  unit: 'MH/s' },
-      ALPH: { algo: 'Blake3',      unitScale: 1e9,  unit: 'GH/s' },
-      XMR:  { algo: 'RandomX',     unitScale: 1e3,  unit: 'KH/s' }
+    const COINGECKO_IDS = {
+      BTC: 'bitcoin',
+      BCH: 'bitcoin-cash',
+      LTC: 'litecoin',
+      KAS: 'kaspa',
+      ETC: 'ethereum-classic',
+      DOGE: 'dogecoin',
+      ZEC: 'zcash',
+      DASH: 'dash',
+      RVN: 'ravencoin',
+      ERG: 'ergo',
+      ALPH: 'alephium',
+      XMR: 'monero'
     };
-
-    async function fetchMinerstat() {
-      const url = `https://api.minerstat.com/v2/coins?list=${MINERSTAT_COINS}&key=${MINERSTAT_KEY}`;
+    
+    async function fetchPrices() {
+      const ids = Object.values(COINGECKO_IDS).join(',');
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
       
       try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error('Minerstat API request failed: ' + response.status);
+        if (!response.ok) throw new Error('API request failed');
         
-        const coins = await response.json();
-        if (!Array.isArray(coins) || coins.length === 0) throw new Error('Minerstat returned empty data');
+        const data = await response.json();
         
-        // Clear previous warnings
-        rateSanityWarnings = [];
-
-        // Build a lookup by ticker
-        const byTicker = {};
-        coins.forEach(c => { byTicker[c.coin] = c; });
-
-        // --- Update PRICES ---
-        for (const ticker of Object.keys(MINERSTAT_ALGO_MAP)) {
-          const coin = byTicker[ticker];
-          if (coin && coin.price > 0) {
-            PRICES[ticker] = coin.price;
-          }
-        }
-
-        // --- Update REVENUE_RATES from Minerstat reward field ---
-        // reward = coins earned per 1 H/s per 1 hour
-        // KAS is handled separately via api.kaspa.org (Minerstat KAS data is unreliable)
+        // Map CoinGecko response to our PRICES object
+        PRICES.BTC = data.bitcoin?.usd || PRICES.BTC;
+        PRICES.BCH = data['bitcoin-cash']?.usd || PRICES.BCH;
+        PRICES.LTC = data.litecoin?.usd || PRICES.LTC;
+        PRICES.KAS = data.kaspa?.usd || PRICES.KAS;
+        PRICES.ETC = data['ethereum-classic']?.usd || PRICES.ETC;
+        PRICES.DOGE = data.dogecoin?.usd || PRICES.DOGE;
+        PRICES.ZEC = data.zcash?.usd || PRICES.ZEC;
+        PRICES.DASH = data.dash?.usd || PRICES.DASH;
+        PRICES.RVN = data.ravencoin?.usd || PRICES.RVN;
+        PRICES.ERG = data.ergo?.usd || PRICES.ERG;
+        PRICES.ALPH = data.alephium?.usd || PRICES.ALPH;
+        PRICES.XMR = data.monero?.usd || PRICES.XMR;
         
-        for (const [ticker, map] of Object.entries(MINERSTAT_ALGO_MAP)) {
-          const coin = byTicker[ticker];
-          if (!coin || coin.reward <= 0) continue;
-          
-          // Skip KAS — handled separately via api.kaspa.org
-          if (ticker === 'KAS') continue;
-
-          // DOGE is merged-mined with LTC/Scrypt
-          if (map.merged) {
-            const dogePerHPerHour = coin.reward;
-            // DOGE network reports hashrate in H/s just like LTC Scrypt
-            // Scale to MH/s per day (same unit as Scrypt)
-            const perMHDay = dogePerHPerHour * 1e6 * 24;
-            const validation = validateAndUpdateRate('DOGE', perMHDay, 'DOGE');
-            if (REVENUE_RATES['Scrypt'].merged && validation.rate) {
-              REVENUE_RATES['Scrypt'].merged.perUnit = validation.rate;
-              console.log('DOGE rate (Minerstat):', validation.rate, 'DOGE/MH/day', validation.valid ? '✓' : '(fallback)');
-            }
-            continue;
-          }
-
-          if (!map.algo) continue;
-
-          const perUnitDay = coin.reward * map.unitScale * 24;
-          const validation = validateAndUpdateRate(map.algo, perUnitDay, ticker);
-          if (validation.rate) {
-            REVENUE_RATES[map.algo].perUnit = validation.rate;
-            // ETC also feeds GPU algorithm
-            if (map.algo === 'Etchash') {
-              REVENUE_RATES['Etchash-GPU'].perUnit = validation.rate;
-            }
-            console.log(`${ticker} rate (Minerstat):`, validation.rate, `${ticker}/${map.unit}/day`, validation.valid ? '✓' : '(fallback)');
-          }
-        }
-
-        // --- Update rawMiningStats for network stats display ---
-        for (const [ticker, coin] of Object.entries(byTicker)) {
-          // Skip KAS — handled by api.kaspa.org
-          if (ticker === 'KAS') continue;
-          if (coin.network_hashrate > 0 || coin.difficulty > 0) {
-            rawMiningStats[ticker] = {
-              difficulty: coin.difficulty > 0 ? coin.difficulty : 0,
-              network_hashrate: coin.network_hashrate > 0 ? coin.network_hashrate : 0,
-              block_reward: coin.reward_block > 0 ? coin.reward_block : 0,
-              height: 0  // Minerstat doesn't provide block height
-            };
-          }
-        }
-        
-        // Show warning banner if any rates failed validation
-        updateSanityWarningBanner();
-
-        // --- Cache everything ---
+        // Save to localStorage with timestamp
         const cacheData = {
           prices: { ...PRICES },
-          rates: JSON.parse(JSON.stringify(REVENUE_RATES)),
-          miningStats: { ...rawMiningStats },
           timestamp: Date.now()
         };
-        localStorage.setItem('solaray_minerstat', JSON.stringify(cacheData));
+        localStorage.setItem('solaray_prices', JSON.stringify(cacheData));
         
         priceStatus = 'live';
-        miningStatsStatus = 'live';
         lastPriceUpdate = new Date();
-        lastMiningStatsUpdate = new Date();
         updatePriceIndicator();
-        updateMiningStatsIndicator();
         
-        console.log('Minerstat data loaded — prices + mining stats in one call');
+        console.log('Live prices fetched:', PRICES);
         return true;
       } catch (error) {
-        console.warn('Minerstat fetch failed:', error);
+        console.warn('Failed to fetch live prices:', error);
         return false;
       }
     }
     
-    function loadCachedMinerstatData() {
+    function loadCachedPrices() {
       try {
-        const cached = localStorage.getItem('solaray_minerstat');
+        const cached = localStorage.getItem('solaray_prices');
         if (cached) {
           const data = JSON.parse(cached);
-          const cacheAge = Date.now() - data.timestamp;
-          
-          // Load prices (accept any age as fallback)
-          if (data.prices) {
-            PRICES = { ...data.prices };
-            lastPriceUpdate = new Date(data.timestamp);
-            priceStatus = 'cached';
-            updatePriceIndicator();
-          }
-          
-          // Load mining stats (accept if < 48 hours)
-          if (data.miningStats && cacheAge < 48 * 60 * 60 * 1000) {
-            rawMiningStats = data.miningStats;
-            if (data.rates) {
-              // Restore revenue rates from cache
-              for (const [algo, rateData] of Object.entries(data.rates)) {
-                if (REVENUE_RATES[algo]) {
-                  REVENUE_RATES[algo].perUnit = rateData.perUnit;
-                  if (rateData.merged && REVENUE_RATES[algo].merged) {
-                    REVENUE_RATES[algo].merged.perUnit = rateData.merged.perUnit;
-                  }
-                }
-              }
-            }
-            lastMiningStatsUpdate = new Date(data.timestamp);
-            miningStatsStatus = 'cached';
-            updateMiningStatsIndicator();
-          }
-          
-          console.log('Loaded cached Minerstat data from:', new Date(data.timestamp));
+          PRICES = { ...data.prices };
+          lastPriceUpdate = new Date(data.timestamp);
+          priceStatus = 'cached';
+          updatePriceIndicator();
+          console.log('Loaded cached prices from:', lastPriceUpdate);
           return true;
         }
       } catch (error) {
-        console.warn('Failed to load cached Minerstat data:', error);
+        console.warn('Failed to load cached prices:', error);
       }
       return false;
     }
@@ -2381,14 +2286,14 @@
       if (!indicator) return;
       
       if (priceStatus === 'live') {
-        indicator.innerHTML = 'ðŸŸ¢ Live Prices';
+        indicator.innerHTML = '🟢 Live Prices';
         indicator.className = 'price-indicator live';
       } else if (priceStatus === 'cached') {
         const ago = getTimeAgo(lastPriceUpdate);
-        indicator.innerHTML = `ðŸŸ¡ Cached (${ago})`;
+        indicator.innerHTML = `🟡 Cached (${ago})`;
         indicator.className = 'price-indicator cached';
       } else {
-        indicator.innerHTML = 'ðŸ”´ Default Prices';
+        indicator.innerHTML = '🔴 Default Prices';
         indicator.className = 'price-indicator default';
       }
       
@@ -2406,78 +2311,60 @@
       return Math.floor(seconds / 86400) + 'd ago';
     }
     
-    // KAS via Kaspa's own API (free, no key needed, reliable)
-    // Minerstat's KAS data is broken (hashrate inflated ~400M times)
-    async function fetchKaspaDirect() {
-      try {
-        const res = await fetch('https://api.kaspa.org/info/network');
-        if (!res.ok) throw new Error('Kaspa API request failed: ' + res.status);
-        const data = await res.json();
-        
-        if (!data.hashrate || data.hashrate <= 0) throw new Error('Kaspa API returned no hashrate');
-        
-        const networkHash = data.hashrate; // H/s
-        const difficulty = data.difficulty || 0;
-        const blockReward = 3.27; // Current KAS block reward (decreases over time)
-        const kasBPS = 10; // 10 blocks per second
-        const blocksPerDay = kasBPS * 86400;
-        const dailyCoins = blockReward * blocksPerDay;
-        const kasPerGH = dailyCoins / (networkHash / 1e9);
-        
-        const validation = validateAndUpdateRate('KHeavyHash', kasPerGH, 'KAS');
-        if (validation.rate) {
-          REVENUE_RATES['KHeavyHash'].perUnit = validation.rate;
-          console.log('KAS rate (api.kaspa.org):', validation.rate, 'KAS/GH/day',
-            '| nethash:', (networkHash/1e15).toFixed(2), 'PH/s',
-            validation.valid ? '✓' : '(fallback)');
-        }
-        
-        rawMiningStats['KAS'] = {
-          difficulty: difficulty,
-          network_hashrate: networkHash,
-          block_reward: blockReward,
-          height: data.blockCount || 0
-        };
-        
-        return true;
-      } catch (error) {
-        console.warn('Kaspa direct API failed:', error);
-        return false;
-      }
-    }
-    
-    async function initMinerstat() {
-      // Clean up orphaned localStorage from CoinGecko/NOWNodes era
-      localStorage.removeItem('solaray_prices');
-      localStorage.removeItem('solaray_mining_stats');
+    async function initPrices() {
+      // Try to fetch live prices first
+      const liveSuccess = await fetchPrices();
       
-      // Try to fetch live data from Minerstat (prices + mining stats in one call)
-      const liveSuccess = await fetchMinerstat();
-      
-      // Fetch KAS separately from Kaspa's own API (Minerstat KAS data is unreliable)
-      await fetchKaspaDirect();
-      
-      // If live fetch failed, try to load from unified cache
+      // If live fetch failed, try to load from cache
       if (!liveSuccess) {
-        const cacheLoaded = loadCachedMinerstatData();
+        const cacheLoaded = loadCachedPrices();
         if (!cacheLoaded) {
           // Use defaults (already set)
           priceStatus = 'default';
-          miningStatsStatus = 'default';
           updatePriceIndicator();
-          updateMiningStatsIndicator();
         }
       }
       
-      // If user already calculated, refresh the network stats display
-      if (lastCalculatedAlgorithm) {
-        displayNetworkStats(lastCalculatedAlgorithm);
+      // Set up auto-refresh every 60 seconds
+      setInterval(fetchPrices, 60000);
+    }
+    
+    // ============================================
+    // LIVE MINING STATS FETCHING (SolaRay API)
+    // ============================================
+    async function fetchMiningStats() {
+      try {
+        const response = await fetch('/api/mining-stats');
+        if (!response.ok) throw new Error('Mining stats API request failed');
+        
+        const result = await response.json();
+        if (!result.success) throw new Error('Mining stats API returned error');
+        
+        const data = result.data;
+        
+        // Store raw data for display
+        rawMiningStats = data;
+        
+        // Update revenue rates based on live difficulty data
+        updateRevenueRatesFromStats(data);
+        
+        // Save to localStorage with timestamp
+        const cacheData = {
+          stats: data,
+          timestamp: Date.now()
+        };
+        localStorage.setItem('solaray_mining_stats', JSON.stringify(cacheData));
+        
+        miningStatsStatus = 'live';
+        lastMiningStatsUpdate = new Date();
+        updateMiningStatsIndicator();
+        
+        console.log('Live mining stats fetched:', data);
+        return true;
+      } catch (error) {
+        console.warn('Failed to fetch live mining stats:', error);
+        return false;
       }
-      
-      // Minerstat allows ~12 req/min, data refreshes every ~60s
-      // Refresh every 2 minutes to stay well within limits
-      setInterval(fetchMinerstat, 120000);
-      setInterval(fetchKaspaDirect, 120000);
     }
     
     // ============================================
@@ -2503,10 +2390,6 @@
       'KAWPOW': { min: 0.01, max: 100, coin: 'RVN', unit: 'MH' },
       // ERG: ~0.0005 to ~0.05 ERG/MH/day
       'Autolykos2': { min: 1e-5, max: 0.5, coin: 'ERG', unit: 'MH' },
-      // ZEC: ~0.000029 to ~0.0029 ZEC/kSol/day
-      'Equihash': { min: 2.9e-5, max: 2.9e-3, coin: 'ZEC', unit: 'kSol' },
-      // ALPH: ~0.0004 to ~0.04 ALPH/GH/day
-      'Blake3': { min: 4.0e-4, max: 4.0e-2, coin: 'ALPH', unit: 'GH' },
       // XMR: ~0.00001 to ~0.001 XMR/KH/day
       'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' }
     };
@@ -2523,13 +2406,13 @@
       }
       
       if (!Number.isFinite(newRate) || newRate <= 0) {
-        console.warn(`âš ï¸ ${coinName} rate is invalid (${newRate}), using fallback`);
+        console.warn(`⚠️ ${coinName} rate is invalid (${newRate}), using fallback`);
         rateSanityWarnings.push(`${coinName}: Invalid rate received`);
         return { valid: false, rate: lastKnownGoodRates[algo] || REVENUE_RATES[algo]?.perUnit };
       }
       
       if (newRate < range.min || newRate > range.max) {
-        console.warn(`âš ï¸ ${coinName} rate ${newRate} outside sanity range [${range.min}, ${range.max}], using fallback`);
+        console.warn(`⚠️ ${coinName} rate ${newRate} outside sanity range [${range.min}, ${range.max}], using fallback`);
         rateSanityWarnings.push(`${coinName}: Rate ${newRate.toExponential(2)} outside expected range`);
         return { valid: false, rate: lastKnownGoodRates[algo] || REVENUE_RATES[algo]?.perUnit };
       }
@@ -2539,10 +2422,197 @@
       return { valid: true, rate: newRate };
     }
     
+    function updateRevenueRatesFromStats(data) {
+      // Calculate revenue rate: (block_reward * blocks_per_day) / network_hashrate
+      // blocks_per_day = 86400 / block_time
+      
+      // Clear previous warnings
+      rateSanityWarnings = [];
+      
+      // BTC
+      if (data.BTC && data.BTC.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.BTC.block_time || 600);
+        const dailyCoins = (data.BTC.block_reward || 3.125) * blocksPerDay;
+        // Network hashrate is in H/s, we need per TH/s
+        const perTH = dailyCoins / (data.BTC.network_hashrate / 1e12);
+        
+        const validation = validateAndUpdateRate('SHA-256', perTH, 'BTC');
+        if (validation.rate) {
+          REVENUE_RATES['SHA-256'].perUnit = validation.rate;
+          console.log('BTC rate updated:', validation.rate, 'BTC/TH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // LTC
+      if (data.LTC && data.LTC.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.LTC.block_time || 150);
+        const dailyCoins = (data.LTC.block_reward || 6.25) * blocksPerDay;
+        // Network hashrate is in H/s, we need per MH/s
+        const perMH = dailyCoins / (data.LTC.network_hashrate / 1e6);
+        
+        const validation = validateAndUpdateRate('Scrypt', perMH, 'LTC');
+        if (validation.rate) {
+          REVENUE_RATES['Scrypt'].perUnit = validation.rate;
+          console.log('LTC rate updated:', validation.rate, 'LTC/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // DOGE (merged with LTC)
+      if (data.DOGE && data.DOGE.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.DOGE.block_time || 60);
+        const dailyCoins = (data.DOGE.block_reward || 10000) * blocksPerDay;
+        const perMH = dailyCoins / (data.DOGE.network_hashrate / 1e6);
+        
+        const validation = validateAndUpdateRate('DOGE', perMH, 'DOGE');
+        if (REVENUE_RATES['Scrypt'].merged && validation.rate) {
+          REVENUE_RATES['Scrypt'].merged.perUnit = validation.rate;
+          console.log('DOGE rate updated:', validation.rate, 'DOGE/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // KAS
+      if (data.KAS && data.KAS.difficulty > 0) {
+        // KAS uses different calculation due to DAG
+        // Approximate: daily coins = hashrate_share * daily_emission
+        const blocksPerDay = 86400 / (data.KAS.block_time || 1);
+        const dailyCoins = (data.KAS.block_reward || 50) * blocksPerDay;
+        // For KAS, difficulty is more relevant than hashrate
+        // perUnit in GH/s
+        if (data.KAS.network_hashrate > 0) {
+          const perGH = dailyCoins / (data.KAS.network_hashrate / 1e9);
+          
+          const validation = validateAndUpdateRate('KHeavyHash', perGH, 'KAS');
+          if (validation.rate) {
+            REVENUE_RATES['KHeavyHash'].perUnit = validation.rate;
+            console.log('KAS rate updated:', validation.rate, 'KAS/GH/day', validation.valid ? '✓' : '(fallback)');
+          }
+        }
+      }
+      
+      // ETC
+      if (data.ETC && data.ETC.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.ETC.block_time || 14);
+        const dailyCoins = (data.ETC.block_reward || 2.56) * blocksPerDay;
+        const perMH = dailyCoins / (data.ETC.network_hashrate / 1e6);
+        
+        const validation = validateAndUpdateRate('Etchash', perMH, 'ETC');
+        if (validation.rate) {
+          REVENUE_RATES['Etchash'].perUnit = validation.rate;
+          REVENUE_RATES['Etchash-GPU'].perUnit = validation.rate;
+          console.log('ETC rate updated:', validation.rate, 'ETC/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // ERG
+      if (data.ERG && data.ERG.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.ERG.block_time || 120);
+        const dailyCoins = (data.ERG.block_reward || 27) * blocksPerDay;
+        const perMH = dailyCoins / (data.ERG.network_hashrate / 1e6);
+        
+        const validation = validateAndUpdateRate('Autolykos2', perMH, 'ERG');
+        if (validation.rate) {
+          REVENUE_RATES['Autolykos2'].perUnit = validation.rate;
+          console.log('ERG rate updated:', validation.rate, 'ERG/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // BCH
+      if (data.BCH && data.BCH.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.BCH.block_time || 600);
+        const dailyCoins = (data.BCH.block_reward || 3.125) * blocksPerDay;
+        const perTH = dailyCoins / (data.BCH.network_hashrate / 1e12);
+        
+        const validation = validateAndUpdateRate('SHA-256-BCH', perTH, 'BCH');
+        if (validation.rate) {
+          REVENUE_RATES['SHA-256-BCH'].perUnit = validation.rate;
+          console.log('BCH rate updated:', validation.rate, 'BCH/TH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // DASH
+      if (data.DASH && data.DASH.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.DASH.block_time || 150);
+        const dailyCoins = (data.DASH.block_reward || 1.55) * blocksPerDay;
+        const perGH = dailyCoins / (data.DASH.network_hashrate / 1e9);
+        
+        const validation = validateAndUpdateRate('X11', perGH, 'DASH');
+        if (validation.rate) {
+          REVENUE_RATES['X11'].perUnit = validation.rate;
+          console.log('DASH rate updated:', validation.rate, 'DASH/GH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // RVN
+      if (data.RVN && data.RVN.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.RVN.block_time || 60);
+        const dailyCoins = (data.RVN.block_reward || 2500) * blocksPerDay;
+        const perMH = dailyCoins / (data.RVN.network_hashrate / 1e6);
+        
+        const validation = validateAndUpdateRate('KAWPOW', perMH, 'RVN');
+        if (validation.rate) {
+          REVENUE_RATES['KAWPOW'].perUnit = validation.rate;
+          console.log('RVN rate updated:', validation.rate, 'RVN/MH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // XMR (RandomX - CPU mining)
+      if (data.XMR && data.XMR.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.XMR.block_time || 120);
+        const dailyCoins = (data.XMR.block_reward || 0.6) * blocksPerDay;
+        // Network hashrate is in H/s, we need per KH/s
+        const perKH = dailyCoins / (data.XMR.network_hashrate / 1e3);
+        
+        const validation = validateAndUpdateRate('RandomX', perKH, 'XMR');
+        if (validation.rate) {
+          REVENUE_RATES['RandomX'].perUnit = validation.rate;
+          console.log('XMR rate updated:', validation.rate, 'XMR/KH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // Show warning banner if any rates failed validation
+      updateSanityWarningBanner();
+    }
+    
     function updateSanityWarningBanner() {
-      // Log warnings to console only — visitors don't need to see API internals
-      if (rateSanityWarnings.length === 0) return;
-      console.warn('⚠️ Data sanity warnings:', rateSanityWarnings.join(', '), '— Using fallback values.');
+      let banner = document.getElementById('sanity-warning-banner');
+      
+      if (rateSanityWarnings.length === 0) {
+        if (banner) banner.style.display = 'none';
+        return;
+      }
+      
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'sanity-warning-banner';
+        banner.style.cssText = 'background: #ff9800; color: #000; padding: 10px 15px; text-align: center; font-weight: 400; position: fixed; top: 0; left: 0; right: 0; z-index: 9999;';
+        document.body.prepend(banner);
+      }
+      
+      banner.innerHTML = '⚠️ Data Warning: ' + rateSanityWarnings.join(', ') + ' — Using fallback values. <a href="#" onclick="this.parentElement.style.display=\'none\'; return false;" style="color: #000; margin-left: 10px;">[Dismiss]</a>';
+      banner.style.display = 'block';
+    }
+    
+    function loadCachedMiningStats() {
+      try {
+        const cached = localStorage.getItem('solaray_mining_stats');
+        if (cached) {
+          const data = JSON.parse(cached);
+          // Check if cache is less than 48 hours old
+          const cacheAge = Date.now() - data.timestamp;
+          if (cacheAge < 48 * 60 * 60 * 1000) {
+            rawMiningStats = data.stats;
+            updateRevenueRatesFromStats(data.stats);
+            lastMiningStatsUpdate = new Date(data.timestamp);
+            miningStatsStatus = 'cached';
+            updateMiningStatsIndicator();
+            console.log('Loaded cached mining stats from:', lastMiningStatsUpdate);
+            return true;
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to load cached mining stats:', error);
+      }
+      return false;
     }
     
     function updateMiningStatsIndicator() {
@@ -2550,18 +2620,36 @@
       if (!indicator) return;
       
       if (miningStatsStatus === 'live') {
-        indicator.innerHTML = 'ðŸŸ¢ Live Difficulty';
+        indicator.innerHTML = '🟢 Live Difficulty';
         indicator.className = 'price-indicator live';
       } else if (miningStatsStatus === 'cached') {
         const ago = getTimeAgo(lastMiningStatsUpdate);
-        indicator.innerHTML = `ðŸŸ¡ Cached Difficulty (${ago})`;
+        indicator.innerHTML = `🟡 Cached Difficulty (${ago})`;
         indicator.className = 'price-indicator cached';
       } else {
-        indicator.innerHTML = 'ðŸ”´ Default Estimates';
+        indicator.innerHTML = '🔴 Default Estimates';
         indicator.className = 'price-indicator default';
       }
     }
     
+    async function initMiningStats() {
+      // Try to fetch live mining stats first
+      const liveSuccess = await fetchMiningStats();
+      
+      // If live fetch failed, try to load from cache
+      if (!liveSuccess) {
+        const cacheLoaded = loadCachedMiningStats();
+        if (!cacheLoaded) {
+          miningStatsStatus = 'default';
+          updateMiningStatsIndicator();
+        }
+      }
+      
+      // If user already calculated, refresh the network stats display
+      if (lastCalculatedAlgorithm) {
+        displayNetworkStats(lastCalculatedAlgorithm);
+      }
+    }
     
     // Display network stats for the calculated coin
     function displayNetworkStats(algorithm) {
@@ -2673,23 +2761,23 @@
       
       // Update status indicator and styling based on custom vs live
       if (hasCustomPrice) {
-        statusEl.textContent = 'ðŸŸ£ Custom';
+        statusEl.textContent = '🟣 Custom';
         statusEl.className = 'live-price-status custom';
         inputEl.classList.add('custom-price');
         resetBtn.style.display = 'inline-block';
       } else if (priceStatus === 'live') {
-        statusEl.textContent = 'ðŸŸ¢ Live';
+        statusEl.textContent = '🟢 Live';
         statusEl.className = 'live-price-status';
         inputEl.classList.remove('custom-price');
         resetBtn.style.display = 'none';
       } else if (priceStatus === 'cached') {
         const ago = getTimeAgo(lastPriceUpdate);
-        statusEl.textContent = `ðŸŸ¡ ${ago}`;
+        statusEl.textContent = `🟡 ${ago}`;
         statusEl.className = 'live-price-status cached';
         inputEl.classList.remove('custom-price');
         resetBtn.style.display = 'none';
       } else {
-        statusEl.textContent = 'ðŸ”´ Default';
+        statusEl.textContent = '🔴 Default';
         statusEl.className = 'live-price-status default';
         inputEl.classList.remove('custom-price');
         resetBtn.style.display = 'none';
@@ -2827,7 +2915,7 @@
         
         // Update title
         const title = document.getElementById('manual-input-title');
-        title.textContent = miningType === 'GPU' ? 'ðŸŽ® GPU Mining Setup' : 'ðŸ’» CPU Mining Setup';
+        title.textContent = miningType === 'GPU' ? '🎮 GPU Mining Setup' : '💻 CPU Mining Setup';
         
         // Populate algorithm dropdown for GPU/CPU
         const algos = ALGORITHM_CONFIG[miningType];
@@ -2893,7 +2981,7 @@
       document.getElementById('info-noise').textContent = getNoiseIcon(selectedMiner.noise) + ' ' + selectedMiner.noiseLabel;
       document.getElementById('info-cooling').textContent = selectedMiner.cooling;
       document.getElementById('info-coins').textContent = selectedMiner.coins.join(', ');
-      document.getElementById('info-runcost').textContent = `âš¡ $${getDailyCost(selectedMiner.power).toFixed(2)}/day to run`;
+      document.getElementById('info-runcost').textContent = `⚡ $${getDailyCost(selectedMiner.power).toFixed(2)}/day to run`;
       
       // Badges
       document.getElementById('info-lottery').style.display = selectedMiner.category === 'lottery' ? 'inline' : 'none';
@@ -3006,35 +3094,35 @@
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-solar';
         seg.style.flex = solar;
-        seg.textContent = `â˜€ï¸ ${solar}h`;
+        seg.textContent = `☀️ ${solar}h`;
         timeline.appendChild(seg);
       }
       if (free > 0) {
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-free';
         seg.style.flex = free;
-        seg.textContent = `ðŸŒ™ ${free}h`;
+        seg.textContent = `🌙 ${free}h`;
         timeline.appendChild(seg);
       }
       if (battery > 0) {
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-battery';
         seg.style.flex = battery;
-        seg.textContent = `ðŸ”‹ ${battery}h`;
+        seg.textContent = `🔋 ${battery}h`;
         timeline.appendChild(seg);
       }
       if (grid > 0) {
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-grid';
         seg.style.flex = grid;
-        seg.textContent = `âš¡ ${grid}h`;
+        seg.textContent = `⚡ ${grid}h`;
         timeline.appendChild(seg);
       }
       if (idle > 0) {
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-idle';
         seg.style.flex = idle;
-        seg.textContent = `â¸ï¸ ${idle}h`;
+        seg.textContent = `⏸️ ${idle}h`;
         timeline.appendChild(seg);
       }
     }
@@ -3138,7 +3226,7 @@
       // Update DOM
       document.getElementById('results-panel').classList.add('active');
       
-      document.getElementById('breakeven-days').textContent = breakevenDays === Infinity ? 'âˆž' : (breakevenDays === 0 ? 'N/A' : breakevenDays);
+      document.getElementById('breakeven-days').textContent = breakevenDays === Infinity ? '∞' : (breakevenDays === 0 ? 'N/A' : breakevenDays);
       document.getElementById('annual-elec-cost').textContent = `$${annualElecCost.toFixed(0)}`;
       document.getElementById('annual-elec-savings').textContent = `$${annualElecSavings.toFixed(0)}`;
       
@@ -3405,7 +3493,8 @@
     updateMiningType(); // Initialize with ASIC mode
     updateTimeline();
     renderBrowseTable();
-    initMinerstat(); // Fetch live prices + mining stats from Minerstat
+    initPrices(); // Fetch live prices on page load
+    initMiningStats(); // Fetch live difficulty data on page load
     initPriceInput(); // Enable custom price input for what-if scenarios
   </script>
 
