@@ -6,7 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Mining pools directory for home miners. Bitcoin, Litecoin, Dogecoin, Kaspa, Ethereum Classic pools with fee comparisons, payout methods (FPPS, PPLNS), and minimum thresholds.">
+  <meta name="description" content="Mining pools directory for home miners. Bitcoin, Litecoin, Dogecoin, Kaspa, Ethereum Classic, DigiByte, Nervos, Siacoin, and Kadena pools with fee comparisons, payout methods (FPPS, PPLNS), and minimum thresholds.">
   <meta name="keywords" content="bitcoin mining pools, best mining pool, pool fees comparison, FPPS vs PPLNS, Foundry pool, F2Pool, ViaBTC, Litecoin pool, Kaspa pool">
   <meta name="author" content="Sola Ray Effect">
   <meta name="robots" content="index, follow">
@@ -969,6 +969,10 @@
     .coin-tag-zec { background: #f4b72822; color: #f4b728; }
     .coin-tag-dash { background: #008de422; color: #008de4; }
     .coin-tag-xmr { background: #ff680022; color: #ff6800; }
+    .coin-tag-dgb { background: #006ad222; color: #006ad2; }
+    .coin-tag-ckb { background: #3cc68a22; color: #3cc68a; }
+    .coin-tag-sc { background: #20ee8222; color: #20ee82; }
+    .coin-tag-kda { background: #ed098f22; color: #ed098f; }
     
     .coin-note {
       color: var(--text-secondary);
@@ -1197,6 +1201,10 @@
         <option value="zec">Zcash (ZEC)</option>
         <option value="dash">Dash (DASH)</option>
         <option value="xmr">Monero (XMR)</option>
+        <option value="dgb">DigiByte (DGB)</option>
+        <option value="ckb">Nervos (CKB)</option>
+        <option value="sc">Siacoin (SC)</option>
+        <option value="kda">Kadena (KDA)</option>
       </select>
       
       <label for="payout-filter">Payout:</label>
@@ -1411,6 +1419,14 @@
               <td><span class="region-tag">🌐</span></td>
               <td>Open source. Zero fees.</td>
             </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/btc" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>0.001 BTC</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Hourly payouts. Auto-exchange available.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1476,6 +1492,14 @@
               <td>0.001 BCH</td>
               <td><span class="region-tag">🌐</span></td>
               <td>Exchange integration.</td>
+            </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/bch" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>0.01 BCH</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>PPS+ with auto-exchange option.</td>
             </tr>
           </tbody>
         </table>
@@ -1567,6 +1591,22 @@
               <td><span class="region-tag">🌐</span></td>
               <td>Merged solo mining. Lottery style.</td>
             </tr>
+            <tr data-payouts="solo">
+              <td><a class="pool-link" href="https://www.dxpool.com/" target="_blank" rel="noopener">DxPool ↗</a></td>
+              <td>0.5%</td>
+              <td><span class="payout-tag payout-solo" data-glossary-term="solo">Solo</span></td>
+              <td><span class="merged-badge">✔ Multi</span></td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Solo LTC mining. Merged DOGE + BEL + more.</td>
+            </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/ltc" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>0.01 LTC</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Scrypt pool. Merged DOGE mining. Hourly payouts.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1649,6 +1689,30 @@
               <td><span class="region-tag">🌐</span></td>
               <td>Solo/lottery mining.</td>
             </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.dxpool.com/" target="_blank" rel="noopener">DxPool ↗</a></td>
+              <td>Varies</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>Varies</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Registration required. Daily auto-withdrawal.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool ↗</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
+              <td>100 KAS</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Daily payouts. KAS+CAU cross-chain mining available.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/kas" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>10 KAS</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Hourly payouts. Auto-exchange available.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1714,6 +1778,14 @@
               <td>0.1 ETC</td>
               <td><span class="region-tag">🌐</span></td>
               <td>Multi-coin veteran.</td>
+            </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/etc" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>0.01 ETC</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Hourly payouts. Auto-exchange available.</td>
             </tr>
           </tbody>
         </table>
@@ -1781,6 +1853,14 @@
               <td><span class="region-tag">🇪🇺</span></td>
               <td>European pool.</td>
             </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/zec" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>0.025 ZEC</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>PPS+ with auto-exchange option.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1847,6 +1927,14 @@
               <td><span class="region-tag">🇺🇸</span></td>
               <td>US-based. Payout in any coin.</td>
             </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/dash" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>0.01 DASH</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Hourly payouts. Auto-exchange available.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1912,6 +2000,295 @@
               <td>0.1 XMR</td>
               <td><span class="region-tag">🌐</span></td>
               <td>Legacy pool.</td>
+            </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.dxpool.com/" target="_blank" rel="noopener">DxPool ↗</a></td>
+              <td>Varies</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>Varies</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>XMR + XTM merged mining.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool ↗</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>0.01 XMR</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Daily payouts. Registration required.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/xmr" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>0.01 XMR</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Hourly payouts. Auto-exchange available.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    
+    <!-- DIGIBYTE SECTION -->
+    <section class="coin-section" data-coin="dgb">
+      <div class="coin-header">
+        <span class="coin-icon">Ð</span>
+        <h2 class="coin-name">DigiByte (DGB)</h2>
+        <span class="coin-tag coin-tag-dgb">SHA-256 / Scrypt</span>
+      </div>
+      <p class="coin-note">Multi-algorithm coin (5 algos). SHA-256 and Scrypt ASIC miners can mine DGB. 15-second block times.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/dgb" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>Hourly</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>SHA-256 only. Hourly payouts. Solo mode available.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool ↗</a></td>
+              <td>5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>500 DGB</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Supports SHA-256 and Scrypt DGB. High fee.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.mining-dutch.nl/" target="_blank" rel="noopener">Mining-Dutch ↗</a></td>
+              <td>~1.9%</td>
+              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>European pool. Scrypt and other DGB algos.</td>
+            </tr>
+            <tr data-payouts="solo">
+              <td><a class="pool-link" href="https://dgb.solomining.io/sha256/" target="_blank" rel="noopener">SoloMining.io ↗</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-solo">Solo</span></td>
+              <td>Instant</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>No registration. SHA-256, Scrypt, Qubit, Odocrypt.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://prohashing.com/" target="_blank" rel="noopener">ProHashing ↗</a></td>
+              <td>Varies</td>
+              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
+              <td>Varies</td>
+              <td><span class="region-tag">🇺🇸</span></td>
+              <td>US-based. Payout in any coin.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- NERVOS (CKB) SECTION -->
+    <section class="coin-section" data-coin="ckb">
+      <div class="coin-header">
+        <span class="coin-icon">N</span>
+        <h2 class="coin-name">Nervos Network (CKB)</h2>
+        <span class="coin-tag coin-tag-ckb">Eaglesong</span>
+      </div>
+      <p class="coin-note">Layer 1 blockchain. Eaglesong ASIC miners required (CK5, CK6, CK-Lite). ASIC-only &mdash; no GPU mining.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool ↗</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>100 CKB</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Daily payouts. Low minimum.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://ckb.2miners.com/" target="_blank" rel="noopener">2Miners ↗</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
+              <td>500 CKB</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Anonymous mining. Solo mode at 1.5%.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.dxpool.com/" target="_blank" rel="noopener">DxPool ↗</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>100 CKB</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Registration required. Daily auto-withdrawal.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.antpool.com/" target="_blank" rel="noopener">AntPool ↗</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>100 CKB</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Bitmain-operated.</td>
+            </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/ckb" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>100 CKB</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Hourly payouts. Auto-exchange available.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- SIACOIN SECTION -->
+    <section class="coin-section" data-coin="sc">
+      <div class="coin-header">
+        <span class="coin-icon">S</span>
+        <h2 class="coin-name">Siacoin (SC)</h2>
+        <span class="coin-tag coin-tag-sc">Blake2b-Sia</span>
+      </div>
+      <p class="coin-note">Decentralized cloud storage coin. Blake2b-Sia ASIC miners required (SC6 SE). ASIC-only network.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool ↗</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>100 SC</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Largest SC pool. Daily payouts.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://mining.luxor.tech/" target="_blank" rel="noopener">Luxor ↗</a></td>
+              <td>0%</td>
+              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
+              <td>Varies</td>
+              <td><span class="region-tag">🇺🇸</span></td>
+              <td>US-based. Donates to Sia community. Zero fee.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.antpool.com/" target="_blank" rel="noopener">AntPool ↗</a></td>
+              <td>2%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>100 SC</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Bitmain-operated. Daily payouts.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.dxpool.com/" target="_blank" rel="noopener">DxPool ↗</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>100 SC</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Registration required.</td>
+            </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/sc" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>100 SC</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Hourly payouts. Auto-exchange available.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- KADENA SECTION -->
+    <section class="coin-section" data-coin="kda">
+      <div class="coin-header">
+        <span class="coin-icon">K</span>
+        <h2 class="coin-name">Kadena (KDA)</h2>
+        <span class="coin-tag coin-tag-kda">Blake2s-KDA</span>
+      </div>
+      <p class="coin-note">Multi-chain PoW blockchain. Blake2s ASICs required. &#x26A0; KDA mining hardware (KD-BOX, KD6, KA3) is largely deprecated &mdash; verify profitability before mining.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool ↗</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>2 KDA</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Daily payouts. Registration required.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://www.dxpool.com/" target="_blank" rel="noopener">DxPool ↗</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
+              <td>0.0001 KDA</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Very low minimum. Daily auto-withdrawal.</td>
+            </tr>
+            <tr data-payouts="pps pplns solo">
+              <td><a class="pool-link" href="https://poolflare.net/" target="_blank" rel="noopener">Poolflare ↗</a></td>
+              <td>2%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span><span class="payout-tag payout-solo">Solo</span></td>
+              <td>2 KDA</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Multiple payout modes. Anonymous mining.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://hashpool.com/" target="_blank" rel="noopener">HashPool ↗</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
+              <td>2 KDA</td>
+              <td><span class="region-tag">🌐</span></td>
+              <td>Low fee option.</td>
+            </tr>
+                      <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/kda" target="_blank" rel="noopener">Kryptex ↗</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
+              <td>2 KDA</td>
+              <td><span class="region-tag">🇪🇺</span></td>
+              <td>Hourly payouts. Auto-exchange available.</td>
             </tr>
           </tbody>
         </table>
