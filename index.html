@@ -3754,6 +3754,50 @@
     initPrices(); // Fetch live prices on page load
     initMiningStats(); // Fetch live difficulty data on page load
     initPriceInput(); // Enable custom price input for what-if scenarios
+
+    // ============================================
+    // AUTO-SELECT MINER FROM URL PARAMETER
+    // Handles ?miner=xxx links from miners.html
+    // ============================================
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const minerId = params.get('miner');
+      if (!minerId) return;
+      
+      // Find the miner in ALL_MINERS to get its algorithm
+      const miner = ALL_MINERS.find(m => m.id === minerId);
+      if (!miner) return;
+      
+      // Ensure ASIC mode is active (updateMiningType already ran above)
+      const miningTypeEl = document.getElementById('mining-type-filter');
+      if (miningTypeEl && miningTypeEl.value !== 'ASIC') {
+        miningTypeEl.value = 'ASIC';
+        updateMiningType();
+      }
+      
+      // Set algorithm filter to match this miner's algorithm
+      const algoFilter = document.getElementById('algorithm-filter');
+      if (algoFilter) {
+        algoFilter.value = miner.algorithm;
+        updateMinerDropdown();
+      }
+      
+      // Select the miner in the dropdown and trigger info card
+      const minerSelect = document.getElementById('miner-select');
+      if (minerSelect) {
+        minerSelect.value = minerId;
+        selectMiner();
+        
+        // Auto-calculate with default electricity rate
+        calculateProfit();
+      }
+      
+      // Scroll to calculator section
+      setTimeout(function() {
+        var target = document.getElementById('miner-row') || document.getElementById('calculator-section');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    })();
   </script>
 
   <script>
