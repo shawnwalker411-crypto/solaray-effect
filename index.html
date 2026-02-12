@@ -1474,7 +1474,7 @@
 
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sola Ray Effect Home Mining Calculator","url":"https://www.solarayeffect.com/","description":"Free cryptocurrency mining profitability calculator for home miners with dual electricity rates, solar power support, and 40+ ASIC miners.","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"The Sola Ray Effect","url":"https://www.solarayeffect.com/","logo":{"@type":"ImageObject","url":"https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg"}}}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bitcoin mining still profitable at home in 2026?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use our calculator with your actual rates to find out."}},{"@type":"Question","name":"Can I run an Antminer S19 on a regular outlet?","acceptedAnswer":{"@type":"Answer","text":"Not at full power — S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw."}},{"@type":"Question","name":"What is a solar buyback program?","acceptedAnswer":{"@type":"Answer","text":"Some utility companies in states like Texas credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bitcoin mining still profitable at home in 2026?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use our calculator with your actual rates to find out."}},{"@type":"Question","name":"Can I run an Antminer S19 on a regular outlet?","acceptedAnswer":{"@type":"Answer","text":"Not at full power â€” S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw."}},{"@type":"Question","name":"What is a solar buyback program?","acceptedAnswer":{"@type":"Answer","text":"Some utility companies in states like Texas credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs."}}]}</script>
 </head>
 <body>
   <!-- Live Price Ticker -->
@@ -1499,19 +1499,19 @@
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>Navigation</h3>
-    <a href="index.html" class="active">⚡ Calculator</a>
-    <a href="miners.html">🔧 Miners</a>
-    <a href="pools.html">🏊 Mining Pools</a>
-    <a href="aftermarket_firmware.html">⚙️ Firmware Guide</a>
-    <a href="electrical_setup.html">🔌 Electrical Setup</a>
-    <a href="glossary.html">📖 Glossary</a>
-    <a href="datavault.html">📡 Data Vault</a>
+    <a href="index.html" class="active">âš¡ Calculator</a>
+    <a href="miners.html">ðŸ”§ Miners</a>
+    <a href="pools.html">ðŸŠ Mining Pools</a>
+    <a href="aftermarket_firmware.html">âš™ï¸ Firmware Guide</a>
+    <a href="electrical_setup.html">ðŸ”Œ Electrical Setup</a>
+    <a href="glossary.html">ðŸ“– Glossary</a>
+    <a href="datavault.html">ðŸ“¡ Data Vault</a>
   </nav>
   <div class="nav-overlay" id="nav-overlay"></div>
   
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer">
-    <button class="glossary-drawer-close">×</button>
+    <button class="glossary-drawer-close">Ã—</button>
     <h3 id="glossary-term-title">Term</h3>
     <p id="glossary-term-definition">Definition goes here...</p>
   </div>
@@ -1550,7 +1550,7 @@
         <div class="panels-container">
           <!-- LEFT: Hot Pick (CENTERED) -->
           <div class="sola-banner-panel hot-pick-winner">
-            <div class="sola-banner-kicker">🔥 Hot Pick</div>
+            <div class="sola-banner-kicker">ðŸ”¥ Hot Pick</div>
             <p class="winner-coin" id="sunrise-coin">BTC</p>
             <p class="winner-miner" id="sunrise-miner">with Antminer S21 200T</p>
             <p class="winner-revenue" id="sunrise-revenue">$0.00/day</p>
@@ -1558,7 +1558,7 @@
 
           <!-- RIGHT: Ember Picks (CENTERED) -->
           <div class="sola-banner-panel ember-picks-panel">
-            <div class="sola-banner-kicker">🔥 Ember Picks</div>
+            <div class="sola-banner-kicker">ðŸ”¥ Ember Picks</div>
 
             <div class="ember-columns" id="ember-columns">
               <!-- populated by JS -->
@@ -1575,7 +1575,7 @@
     
     <!-- Miner Selection -->
     <section class="section" >
-      <h2 class="section-title">🔧 Select Your Miner</h2>
+      <h2 class="section-title">ðŸ”§ Select Your Miner</h2>
       
       <!-- Live Coin Price Display -->
       <div class="live-price-display" id="live-price-display" style="visibility: hidden; position: absolute;">
@@ -1583,9 +1583,9 @@
         <div class="price-input-wrapper">
           <span class="price-currency">$</span>
           <input type="text" class="live-price-input" id="live-price-input" value="89000" title="Click to edit price for what-if scenarios">
-          <button class="price-reset-btn" id="price-reset-btn" title="Reset to live price" style="display: none;">↺</button>
+          <button class="price-reset-btn" id="price-reset-btn" title="Reset to live price" style="display: none;">â†º</button>
         </div>
-        <span class="live-price-status" id="live-price-status">🟢 Live</span>
+        <span class="live-price-status" id="live-price-status">ðŸŸ¢ Live</span>
       </div>
       
       <div class="dropdown-row">
@@ -1631,7 +1631,7 @@
       <!-- GPU/CPU Manual Input Section (hidden by default) -->
       <div class="manual-input-section" id="manual-input-section" style="display: none;">
         <div class="manual-input-header">
-          <h3 id="manual-input-title">⛏️ GPU Mining Setup</h3>
+          <h3 id="manual-input-title">â›ï¸ GPU Mining Setup</h3>
           <p class="manual-input-note">Enter your hardware specs from your mining software</p>
         </div>
         <div class="manual-input-grid">
@@ -1680,7 +1680,7 @@
           </div>
           <div class="spec-item">
             <span class="spec-label">Noise</span>
-            <span class="spec-value" id="info-noise">🔇 Silent</span>
+            <span class="spec-value" id="info-noise">ðŸ”‡ Silent</span>
           </div>
           <div class="spec-item">
             <span class="spec-label">Cooling</span>
@@ -1691,11 +1691,11 @@
             <span class="spec-value" id="info-coins">BTC</span>
           </div>
           <div class="run-cost">
-            <span id="info-runcost">⚡ $0.00/day to run</span>
+            <span id="info-runcost">âš¡ $0.00/day to run</span>
             <div class="run-cost-note">*at $0.15/kWh</div>
           </div>
           <div class="loki-notice" id="loki-notice" style="display: none;">
-            ⚡ Requires <strong><span class="glossary-term" data-term="loki-kit">Loki Kit</span></strong> + <a href="aftermarket_firmware.html" rel="noopener"><span class="glossary-term" data-term="aftermarket-firmware">aftermarket firmware</span></a> (LuxOS, VNish, or BraiinsOS)
+            âš¡ Requires <strong><span class="glossary-term" data-term="loki-kit">Loki Kit</span></strong> + <a href="aftermarket_firmware.html" rel="noopener"><span class="glossary-term" data-term="aftermarket-firmware">aftermarket firmware</span></a> (LuxOS, VNish, or BraiinsOS)
           </div>
         </div>
         
@@ -1718,31 +1718,31 @@
     
     <!-- Electricity -->
     <section class="section">
-      <h2 class="section-title">⚡ Electricity Setup</h2>
+      <h2 class="section-title">âš¡ Electricity Setup</h2>
       
       <div class="electricity-grid">
         <div class="config-group">
-          <label for="solar-hours">☀️ Solar Hours/Day</label>
+          <label for="solar-hours">â˜€ï¸ Solar Hours/Day</label>
           <input type="number" id="solar-hours" value="6" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="free-hours">🌙 Free Night Hours</label>
+          <label for="free-hours">ðŸŒ™ Free Night Hours</label>
           <input type="number" id="free-hours" value="6" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="battery-hours">🔋 Battery Hours</label>
+          <label for="battery-hours">ðŸ”‹ Battery Hours</label>
           <input type="number" id="battery-hours" value="0" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="idle-hours">⏸️ Idle/Off Hours</label>
+          <label for="idle-hours">â¸ï¸ Idle/Off Hours</label>
           <input type="number" id="idle-hours" value="0" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="grid-rate">💵 Grid Rate ($/kWh)</label>
+          <label for="grid-rate">ðŸ’µ Grid Rate ($/kWh)</label>
           <input type="number" id="grid-rate" value="0.15" min="0" step="0.01">
         </div>
         <div class="config-group">
-          <label for="pool-fee">🏊 <span class="glossary-term" data-term="pool">Pool</span> Fee (%)</label>
+          <label for="pool-fee">ðŸŠ <span class="glossary-term" data-term="pool">Pool</span> Fee (%)</label>
           <input type="number" id="pool-fee" value="1" min="0" max="10" step="1">
         </div>
         <div class="config-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
@@ -1768,14 +1768,14 @@
       </div>
     </section>
     
-    <button class="calculate-btn" onclick="calculate()">⚡ CALCULATE PROFITABILITY ⚡</button>
+    <button class="calculate-btn" onclick="calculate()">âš¡ CALCULATE PROFITABILITY âš¡</button>
     
     <!-- Results -->
     <section class="section results-panel" id="results-panel">
-      <h2 class="section-title">📊 Results</h2>
+      <h2 class="section-title">ðŸ“Š Results</h2>
       
       <div class="roi-box">
-        <h3 class="roi-title">💰 <span class="glossary-term" data-term="roi">Return on Investment</span></h3>
+        <h3 class="roi-title">ðŸ’° <span class="glossary-term" data-term="roi">Return on Investment</span></h3>
         <div class="roi-stats">
           <div class="roi-stat">
             <div class="roi-stat-value" id="breakeven-days" style="color: var(--sola-teal);">0</div>
@@ -1818,8 +1818,8 @@
       
       <div class="price-status">
         <p class="price-note" id="price-note">Prices: BTC $89,000 | Mining 24h/day</p>
-        <span class="price-indicator default" id="price-indicator">🔴 Default Prices</span>
-        <span class="price-indicator default" id="mining-stats-indicator">🔴 Default Estimates</span>
+        <span class="price-indicator default" id="price-indicator">ðŸ”´ Default Prices</span>
+        <span class="price-indicator default" id="mining-stats-indicator">ðŸ”´ Default Estimates</span>
       </div>
       
       <div class="network-stats" id="network-stats" style="display: none;">
@@ -1830,19 +1830,19 @@
     <!-- Browse All Miners -->
     <section class="section browse-section">
       <button class="browse-toggle" id="browse-toggle" onclick="toggleBrowse()">
-        <span class="arrow">▶</span> Browse All Miners
+        <span class="arrow">â–¶</span> Browse All Miners
       </button>
       
       <div class="browse-table-container" id="browse-table-container">
         <table class="browse-table" id="browse-table">
           <thead>
             <tr>
-              <th onclick="sortTable(0)">Name ↕</th>
-              <th onclick="sortTable(1)"><span class="glossary-term" data-term="algorithm">Algorithm</span> ↕</th>
-              <th onclick="sortTable(2)"><span class="glossary-term" data-term="hashrate">Hashrate</span> ↕</th>
-              <th onclick="sortTable(3)">Power ↕</th>
-              <th onclick="sortTable(4)"><span class="glossary-term" data-term="voltage">Voltage</span> ↕</th>
-              <th onclick="sortTable(5)">⚡/day ↕</th>
+              <th onclick="sortTable(0)">Name â†•</th>
+              <th onclick="sortTable(1)"><span class="glossary-term" data-term="algorithm">Algorithm</span> â†•</th>
+              <th onclick="sortTable(2)"><span class="glossary-term" data-term="hashrate">Hashrate</span> â†•</th>
+              <th onclick="sortTable(3)">Power â†•</th>
+              <th onclick="sortTable(4)"><span class="glossary-term" data-term="voltage">Voltage</span> â†•</th>
+              <th onclick="sortTable(5)">âš¡/day â†•</th>
             </tr>
           </thead>
           <tbody id="browse-tbody"></tbody>
@@ -1852,20 +1852,20 @@
 
     <!-- SEO Content Section -->
     <section class="seo-content" style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem; margin-top: 2rem;">
-      <h2 style="color: #00CED1; font-size: 1.3rem; margin-bottom: 1rem;">Home Mining Profitability Calculator — Built for Residential Setups</h2>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Most Bitcoin mining calculators are designed for warehouse-scale operations running on industrial power contracts. This calculator is different — it's built specifically for home miners running ASIC hardware on residential electricity in North America. It accounts for real-world factors that generic calculators ignore: dual electricity rates with separate peak and off-peak pricing, solar power generation hours, free overnight electricity from utility buyback programs, and battery storage windows.</p>
+      <h2 style="color: #00CED1; font-size: 1.3rem; margin-bottom: 1rem;">Home Mining Profitability Calculator â€” Built for Residential Setups</h2>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Most Bitcoin mining calculators are designed for warehouse-scale operations running on industrial power contracts. This calculator is different â€” it's built specifically for home miners running ASIC hardware on residential electricity in North America. It accounts for real-world factors that generic calculators ignore: dual electricity rates with separate peak and off-peak pricing, solar power generation hours, free overnight electricity from utility buyback programs, and battery storage windows.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">What Makes This Calculator Different</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>Dual electricity rates</strong> let you model setups where power costs change by time of day — common with solar buyback programs in Texas, California, and other states where you get free or credited electricity during solar production hours and pay grid rates at night. <strong>Solar hours, free night hours, and battery hours</strong> are separate inputs so you can precisely model your actual power situation rather than using a single blended rate. <strong>Loki Kit support</strong> calculates profitability for running 240V industrial miners like the Antminer S19 Pro or S21 on standard 120V household outlets at reduced power using aftermarket firmware.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>Dual electricity rates</strong> let you model setups where power costs change by time of day â€” common with solar buyback programs in Texas, California, and other states where you get free or credited electricity during solar production hours and pay grid rates at night. <strong>Solar hours, free night hours, and battery hours</strong> are separate inputs so you can precisely model your actual power situation rather than using a single blended rate. <strong>Loki Kit support</strong> calculates profitability for running 240V industrial miners like the Antminer S19 Pro or S21 on standard 120V household outlets at reduced power using aftermarket firmware.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Supported Hardware</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Each miner's stock specifications are pre-loaded — select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices update automatically via CoinGecko API.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Each miner's stock specifications are pre-loaded â€” select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices update automatically via CoinGecko API.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Frequently Asked Questions</h3>
       <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Is Bitcoin mining still profitable at home in 2026?</strong> It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use this calculator with your actual rates to find out.</p>
-      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power — S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw.</p>
+      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power â€” S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw.</p>
       <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>What is a solar buyback program?</strong> Some utility companies in states like Texas credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs.</p>
     </section>
     
     <footer>
-      <p>© 2026 The Sola Ray Effect. Built for home miners.</p>
+      <p>Â© 2026 The Sola Ray Effect. Built for home miners.</p>
       <p>Estimates only. Results vary with <span class="glossary-term" data-term="difficulty">difficulty</span>, <span class="glossary-term" data-term="pool">pool</span> fees, and market conditions.</p>
     </footer>
   </div>
@@ -1914,11 +1914,11 @@
       },
       'roi': {
         title: 'ROI (Return on Investment)',
-        definition: 'A measure of how profitable your mining investment is. Calculated as (annual profit / purchase cost) × 100%. Higher ROI = better investment. "Days to break even" shows when you\'ve recovered your initial cost.'
+        definition: 'A measure of how profitable your mining investment is. Calculated as (annual profit / purchase cost) Ã— 100%. Higher ROI = better investment. "Days to break even" shows when you\'ve recovered your initial cost.'
       },
       'mining-type': {
         title: 'Mining Type',
-        definition: 'The category of mining hardware. ASIC miners are specialized chips built for one algorithm — extremely efficient but single-purpose. Lottery miners are low-power USB or small devices with very low hashrate, used mainly for fun or education with a tiny chance of hitting a full block reward.'
+        definition: 'The category of mining hardware. ASIC miners are specialized chips built for one algorithm â€” extremely efficient but single-purpose. Lottery miners are low-power USB or small devices with very low hashrate, used mainly for fun or education with a tiny chance of hitting a full block reward.'
       }
     };
     
@@ -2148,8 +2148,8 @@
     }
     
     function getNoiseIcon(noise) {
-      const icons = { silent: '🔇', fan: '🔈', vacuum: '🔉', lawnmower: '🔊' };
-      return icons[noise] || '🔈';
+      const icons = { silent: 'ðŸ”‡', fan: 'ðŸ”ˆ', vacuum: 'ðŸ”‰', lawnmower: 'ðŸ”Š' };
+      return icons[noise] || 'ðŸ”ˆ';
     }
     
     // Format large numbers with appropriate suffix
@@ -2286,14 +2286,14 @@
       if (!indicator) return;
       
       if (priceStatus === 'live') {
-        indicator.innerHTML = '🟢 Live Prices';
+        indicator.innerHTML = 'ðŸŸ¢ Live Prices';
         indicator.className = 'price-indicator live';
       } else if (priceStatus === 'cached') {
         const ago = getTimeAgo(lastPriceUpdate);
-        indicator.innerHTML = `🟡 Cached (${ago})`;
+        indicator.innerHTML = `ðŸŸ¡ Cached (${ago})`;
         indicator.className = 'price-indicator cached';
       } else {
-        indicator.innerHTML = '🔴 Default Prices';
+        indicator.innerHTML = 'ðŸ”´ Default Prices';
         indicator.className = 'price-indicator default';
       }
       
@@ -2312,16 +2312,22 @@
     }
     
     async function initPrices() {
-      // Try to fetch live prices first
+      // Try to fetch live prices first (CoinGecko — primary)
       const liveSuccess = await fetchPrices();
       
-      // If live fetch failed, try to load from cache
+      // If live fetch failed, try to load from localStorage cache
       if (!liveSuccess) {
         const cacheLoaded = loadCachedPrices();
         if (!cacheLoaded) {
-          // Use defaults (already set)
-          priceStatus = 'default';
-          updatePriceIndicator();
+          // Try MinerStat cached data as last resort before defaults
+          const msData = await fetchMinerstatCached();
+          if (msData) {
+            updatePricesFromMinerstat(msData);
+          } else {
+            // Use defaults (already set)
+            priceStatus = 'default';
+            updatePriceIndicator();
+          }
         }
       }
       
@@ -2406,13 +2412,13 @@
       }
       
       if (!Number.isFinite(newRate) || newRate <= 0) {
-        console.warn(`⚠️ ${coinName} rate is invalid (${newRate}), using fallback`);
+        console.warn(`âš ï¸ ${coinName} rate is invalid (${newRate}), using fallback`);
         rateSanityWarnings.push(`${coinName}: Invalid rate received`);
         return { valid: false, rate: lastKnownGoodRates[algo] || REVENUE_RATES[algo]?.perUnit };
       }
       
       if (newRate < range.min || newRate > range.max) {
-        console.warn(`⚠️ ${coinName} rate ${newRate} outside sanity range [${range.min}, ${range.max}], using fallback`);
+        console.warn(`âš ï¸ ${coinName} rate ${newRate} outside sanity range [${range.min}, ${range.max}], using fallback`);
         rateSanityWarnings.push(`${coinName}: Rate ${newRate.toExponential(2)} outside expected range`);
         return { valid: false, rate: lastKnownGoodRates[algo] || REVENUE_RATES[algo]?.perUnit };
       }
@@ -2439,7 +2445,7 @@
         const validation = validateAndUpdateRate('SHA-256', perTH, 'BTC');
         if (validation.rate) {
           REVENUE_RATES['SHA-256'].perUnit = validation.rate;
-          console.log('BTC rate updated:', validation.rate, 'BTC/TH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('BTC rate updated:', validation.rate, 'BTC/TH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2453,7 +2459,7 @@
         const validation = validateAndUpdateRate('Scrypt', perMH, 'LTC');
         if (validation.rate) {
           REVENUE_RATES['Scrypt'].perUnit = validation.rate;
-          console.log('LTC rate updated:', validation.rate, 'LTC/MH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('LTC rate updated:', validation.rate, 'LTC/MH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2466,7 +2472,7 @@
         const validation = validateAndUpdateRate('DOGE', perMH, 'DOGE');
         if (REVENUE_RATES['Scrypt'].merged && validation.rate) {
           REVENUE_RATES['Scrypt'].merged.perUnit = validation.rate;
-          console.log('DOGE rate updated:', validation.rate, 'DOGE/MH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('DOGE rate updated:', validation.rate, 'DOGE/MH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2484,7 +2490,7 @@
           const validation = validateAndUpdateRate('KHeavyHash', perGH, 'KAS');
           if (validation.rate) {
             REVENUE_RATES['KHeavyHash'].perUnit = validation.rate;
-            console.log('KAS rate updated:', validation.rate, 'KAS/GH/day', validation.valid ? '✓' : '(fallback)');
+            console.log('KAS rate updated:', validation.rate, 'KAS/GH/day', validation.valid ? 'âœ“' : '(fallback)');
           }
         }
       }
@@ -2499,7 +2505,7 @@
         if (validation.rate) {
           REVENUE_RATES['Etchash'].perUnit = validation.rate;
           REVENUE_RATES['Etchash-GPU'].perUnit = validation.rate;
-          console.log('ETC rate updated:', validation.rate, 'ETC/MH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('ETC rate updated:', validation.rate, 'ETC/MH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2512,7 +2518,7 @@
         const validation = validateAndUpdateRate('Autolykos2', perMH, 'ERG');
         if (validation.rate) {
           REVENUE_RATES['Autolykos2'].perUnit = validation.rate;
-          console.log('ERG rate updated:', validation.rate, 'ERG/MH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('ERG rate updated:', validation.rate, 'ERG/MH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2525,7 +2531,7 @@
         const validation = validateAndUpdateRate('SHA-256-BCH', perTH, 'BCH');
         if (validation.rate) {
           REVENUE_RATES['SHA-256-BCH'].perUnit = validation.rate;
-          console.log('BCH rate updated:', validation.rate, 'BCH/TH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('BCH rate updated:', validation.rate, 'BCH/TH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2538,7 +2544,7 @@
         const validation = validateAndUpdateRate('X11', perGH, 'DASH');
         if (validation.rate) {
           REVENUE_RATES['X11'].perUnit = validation.rate;
-          console.log('DASH rate updated:', validation.rate, 'DASH/GH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('DASH rate updated:', validation.rate, 'DASH/GH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2551,7 +2557,7 @@
         const validation = validateAndUpdateRate('KAWPOW', perMH, 'RVN');
         if (validation.rate) {
           REVENUE_RATES['KAWPOW'].perUnit = validation.rate;
-          console.log('RVN rate updated:', validation.rate, 'RVN/MH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('RVN rate updated:', validation.rate, 'RVN/MH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2565,7 +2571,7 @@
         const validation = validateAndUpdateRate('RandomX', perKH, 'XMR');
         if (validation.rate) {
           REVENUE_RATES['RandomX'].perUnit = validation.rate;
-          console.log('XMR rate updated:', validation.rate, 'XMR/KH/day', validation.valid ? '✓' : '(fallback)');
+          console.log('XMR rate updated:', validation.rate, 'XMR/KH/day', validation.valid ? 'âœ“' : '(fallback)');
         }
       }
       
@@ -2588,8 +2594,125 @@
         document.body.prepend(banner);
       }
       
-      banner.innerHTML = '⚠️ Data Warning: ' + rateSanityWarnings.join(', ') + ' — Using fallback values. <a href="#" onclick="this.parentElement.style.display=\'none\'; return false;" style="color: #000; margin-left: 10px;">[Dismiss]</a>';
+      banner.innerHTML = 'âš ï¸ Data Warning: ' + rateSanityWarnings.join(', ') + ' â€” Using fallback values. <a href="#" onclick="this.parentElement.style.display=\'none\'; return false;" style="color: #000; margin-left: 10px;">[Dismiss]</a>';
       banner.style.display = 'block';
+    }
+    
+    // ============================================
+    // MINERSTAT CACHED DATA (Phase 2 — Fallback)
+    // Fetches from /api/get-coins (server-side cache, never hits MinerStat directly)
+    // Used as FALLBACK when primary sources (CoinGecko, mining-stats) fail
+    // KAS is EXCLUDED — MinerStat KAS data is broken (see Landmine 1)
+    // ============================================
+    
+    // Unit scales for converting MinerStat reward (per 1 H/s per 1 hour) to perUnit (per [unit] per day)
+    const MINERSTAT_UNIT_SCALES = {
+      'SHA-256': { scale: 1e12, unit: 'TH', minerstatCoin: 'BTC' },
+      'SHA-256-BCH': { scale: 1e12, unit: 'TH', minerstatCoin: 'BCH' },
+      'Scrypt': { scale: 1e6, unit: 'MH', minerstatCoin: 'LTC' },
+      'Etchash': { scale: 1e6, unit: 'MH', minerstatCoin: 'ETC' },
+      'Equihash': { scale: 1e3, unit: 'kSol', minerstatCoin: 'ZEC' },
+      'X11': { scale: 1e9, unit: 'GH', minerstatCoin: 'DASH' },
+      'KAWPOW': { scale: 1e6, unit: 'MH', minerstatCoin: 'RVN' },
+      'Autolykos2': { scale: 1e6, unit: 'MH', minerstatCoin: 'ERG' },
+      'Blake3': { scale: 1e9, unit: 'GH', minerstatCoin: 'ALPH' },
+      'RandomX': { scale: 1e3, unit: 'KH', minerstatCoin: 'XMR' }
+      // KAS (KHeavyHash) intentionally EXCLUDED — MinerStat data is broken
+    };
+
+    // Coin symbol mapping for MinerStat → DOGE (merged mining with LTC)
+    const MINERSTAT_MERGED_COINS = {
+      'DOGE': { scale: 1e6, algo: 'Scrypt' }
+    };
+    
+    async function fetchMinerstatCached() {
+      try {
+        const response = await fetch('/api/get-coins');
+        if (!response.ok) throw new Error('MinerStat cache endpoint failed');
+        
+        const result = await response.json();
+        if (!result.success || !result.data) {
+          console.warn('MinerStat cache not available:', result.error || 'no data');
+          return null;
+        }
+        
+        console.log('MinerStat cached data loaded:', result.meta?.coin_count, 'coins, age:', result.meta?.age_minutes, 'min');
+        return result.data;
+      } catch (error) {
+        console.warn('Failed to fetch MinerStat cached data:', error);
+        return null;
+      }
+    }
+    
+    function updatePricesFromMinerstat(msData) {
+      // Use MinerStat prices as fallback — only update coins where price > 0
+      // Does NOT override CoinGecko prices if they already loaded
+      let updated = 0;
+      const coinSymbols = ['BTC', 'BCH', 'LTC', 'KAS', 'ETC', 'DOGE', 'ZEC', 'DASH', 'RVN', 'ERG', 'ALPH', 'XMR'];
+      
+      for (const sym of coinSymbols) {
+        if (msData[sym] && msData[sym][0] && msData[sym][0].price > 0) {
+          PRICES[sym] = msData[sym][0].price;
+          updated++;
+        }
+      }
+      
+      if (updated > 0) {
+        console.log('MinerStat fallback prices applied for', updated, 'coins');
+        priceStatus = 'cached';
+        lastPriceUpdate = new Date();
+        updatePriceIndicator();
+      }
+      return updated;
+    }
+    
+    function updateRatesFromMinerstat(msData) {
+      // Convert MinerStat reward field to REVENUE_RATES.perUnit format
+      // Formula: perUnit = reward × unitScale × 24
+      // Only updates if the converted rate passes sanity validation
+      let updated = 0;
+      
+      for (const [algo, config] of Object.entries(MINERSTAT_UNIT_SCALES)) {
+        const coinData = msData[config.minerstatCoin];
+        if (!coinData || !coinData[0]) continue;
+        
+        const reward = coinData[0].reward;
+        if (!reward || reward <= 0) continue;
+        
+        const perUnit = reward * config.scale * 24;
+        const validation = validateAndUpdateRate(algo, perUnit, config.minerstatCoin);
+        
+        if (validation.valid && validation.rate) {
+          REVENUE_RATES[algo].perUnit = validation.rate;
+          updated++;
+          console.log(`MinerStat fallback ${config.minerstatCoin} (${algo}):`, validation.rate, `${config.minerstatCoin}/${config.unit}/day ✓`);
+        }
+        
+        // Handle Etchash-GPU mirror
+        if (algo === 'Etchash' && validation.valid && validation.rate) {
+          REVENUE_RATES['Etchash-GPU'].perUnit = validation.rate;
+        }
+      }
+      
+      // DOGE merged mining rate
+      if (msData['DOGE'] && msData['DOGE'][0]) {
+        const dogeReward = msData['DOGE'][0].reward;
+        if (dogeReward && dogeReward > 0) {
+          const dogePerUnit = dogeReward * 1e6 * 24;
+          const validation = validateAndUpdateRate('DOGE', dogePerUnit, 'DOGE');
+          if (validation.valid && validation.rate && REVENUE_RATES['Scrypt'].merged) {
+            REVENUE_RATES['Scrypt'].merged.perUnit = validation.rate;
+            updated++;
+            console.log('MinerStat fallback DOGE (merged):', validation.rate, 'DOGE/MH/day ✓');
+          }
+        }
+      }
+      
+      if (updated > 0) {
+        console.log('MinerStat fallback rates applied for', updated, 'algorithms');
+        updateSanityWarningBanner();
+      }
+      return updated;
     }
     
     function loadCachedMiningStats() {
@@ -2620,28 +2743,37 @@
       if (!indicator) return;
       
       if (miningStatsStatus === 'live') {
-        indicator.innerHTML = '🟢 Live Difficulty';
+        indicator.innerHTML = 'ðŸŸ¢ Live Difficulty';
         indicator.className = 'price-indicator live';
       } else if (miningStatsStatus === 'cached') {
         const ago = getTimeAgo(lastMiningStatsUpdate);
-        indicator.innerHTML = `🟡 Cached Difficulty (${ago})`;
+        indicator.innerHTML = `ðŸŸ¡ Cached Difficulty (${ago})`;
         indicator.className = 'price-indicator cached';
       } else {
-        indicator.innerHTML = '🔴 Default Estimates';
+        indicator.innerHTML = 'ðŸ”´ Default Estimates';
         indicator.className = 'price-indicator default';
       }
     }
     
     async function initMiningStats() {
-      // Try to fetch live mining stats first
+      // Try to fetch live mining stats first (mining-stats API — primary)
       const liveSuccess = await fetchMiningStats();
       
-      // If live fetch failed, try to load from cache
+      // If live fetch failed, try to load from localStorage cache
       if (!liveSuccess) {
         const cacheLoaded = loadCachedMiningStats();
         if (!cacheLoaded) {
-          miningStatsStatus = 'default';
-          updateMiningStatsIndicator();
+          // Try MinerStat cached data as last resort before defaults
+          const msData = await fetchMinerstatCached();
+          if (msData) {
+            updateRatesFromMinerstat(msData);
+            miningStatsStatus = 'cached';
+            lastMiningStatsUpdate = new Date();
+            updateMiningStatsIndicator();
+          } else {
+            miningStatsStatus = 'default';
+            updateMiningStatsIndicator();
+          }
         }
       }
       
@@ -2761,23 +2893,23 @@
       
       // Update status indicator and styling based on custom vs live
       if (hasCustomPrice) {
-        statusEl.textContent = '🟣 Custom';
+        statusEl.textContent = 'ðŸŸ£ Custom';
         statusEl.className = 'live-price-status custom';
         inputEl.classList.add('custom-price');
         resetBtn.style.display = 'inline-block';
       } else if (priceStatus === 'live') {
-        statusEl.textContent = '🟢 Live';
+        statusEl.textContent = 'ðŸŸ¢ Live';
         statusEl.className = 'live-price-status';
         inputEl.classList.remove('custom-price');
         resetBtn.style.display = 'none';
       } else if (priceStatus === 'cached') {
         const ago = getTimeAgo(lastPriceUpdate);
-        statusEl.textContent = `🟡 ${ago}`;
+        statusEl.textContent = `ðŸŸ¡ ${ago}`;
         statusEl.className = 'live-price-status cached';
         inputEl.classList.remove('custom-price');
         resetBtn.style.display = 'none';
       } else {
-        statusEl.textContent = '🔴 Default';
+        statusEl.textContent = 'ðŸ”´ Default';
         statusEl.className = 'live-price-status default';
         inputEl.classList.remove('custom-price');
         resetBtn.style.display = 'none';
@@ -2915,7 +3047,7 @@
         
         // Update title
         const title = document.getElementById('manual-input-title');
-        title.textContent = miningType === 'GPU' ? '🎮 GPU Mining Setup' : '💻 CPU Mining Setup';
+        title.textContent = miningType === 'GPU' ? 'ðŸŽ® GPU Mining Setup' : 'ðŸ’» CPU Mining Setup';
         
         // Populate algorithm dropdown for GPU/CPU
         const algos = ALGORITHM_CONFIG[miningType];
@@ -2981,7 +3113,7 @@
       document.getElementById('info-noise').textContent = getNoiseIcon(selectedMiner.noise) + ' ' + selectedMiner.noiseLabel;
       document.getElementById('info-cooling').textContent = selectedMiner.cooling;
       document.getElementById('info-coins').textContent = selectedMiner.coins.join(', ');
-      document.getElementById('info-runcost').textContent = `⚡ $${getDailyCost(selectedMiner.power).toFixed(2)}/day to run`;
+      document.getElementById('info-runcost').textContent = `âš¡ $${getDailyCost(selectedMiner.power).toFixed(2)}/day to run`;
       
       // Badges
       document.getElementById('info-lottery').style.display = selectedMiner.category === 'lottery' ? 'inline' : 'none';
@@ -3094,35 +3226,35 @@
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-solar';
         seg.style.flex = solar;
-        seg.textContent = `☀️ ${solar}h`;
+        seg.textContent = `â˜€ï¸ ${solar}h`;
         timeline.appendChild(seg);
       }
       if (free > 0) {
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-free';
         seg.style.flex = free;
-        seg.textContent = `🌙 ${free}h`;
+        seg.textContent = `ðŸŒ™ ${free}h`;
         timeline.appendChild(seg);
       }
       if (battery > 0) {
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-battery';
         seg.style.flex = battery;
-        seg.textContent = `🔋 ${battery}h`;
+        seg.textContent = `ðŸ”‹ ${battery}h`;
         timeline.appendChild(seg);
       }
       if (grid > 0) {
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-grid';
         seg.style.flex = grid;
-        seg.textContent = `⚡ ${grid}h`;
+        seg.textContent = `âš¡ ${grid}h`;
         timeline.appendChild(seg);
       }
       if (idle > 0) {
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-idle';
         seg.style.flex = idle;
-        seg.textContent = `⏸️ ${idle}h`;
+        seg.textContent = `â¸ï¸ ${idle}h`;
         timeline.appendChild(seg);
       }
     }
@@ -3226,7 +3358,7 @@
       // Update DOM
       document.getElementById('results-panel').classList.add('active');
       
-      document.getElementById('breakeven-days').textContent = breakevenDays === Infinity ? '∞' : (breakevenDays === 0 ? 'N/A' : breakevenDays);
+      document.getElementById('breakeven-days').textContent = breakevenDays === Infinity ? 'âˆž' : (breakevenDays === 0 ? 'N/A' : breakevenDays);
       document.getElementById('annual-elec-cost').textContent = `$${annualElecCost.toFixed(0)}`;
       document.getElementById('annual-elec-savings').textContent = `$${annualElecSavings.toFixed(0)}`;
       
@@ -3546,266 +3678,6 @@
       });
     });
   </script>
-
-<!-- ============================================ -->
-<!-- SOLA FEEDBACK POPUP WIDGET — Temporary feature -->
-<!-- Remove this entire block when feedback window closes -->
-<!-- ============================================ -->
-<div id="sola-feedback-widget" style="display:none;">
-  <!-- Small trigger bubble (bottom-right) -->
-  <div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
-    <p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
-    <video id="sola-fb-video" width="200" height="113" muted playsinline loop style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);"
-      src="assets/sola_feedback.mp4"></video>
-    <div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
-      <button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
-      <button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
-    </div>
-  </div>
-
-  <!-- Wizard overlay -->
-  <div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
-    <!-- Header -->
-    <div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
-      <span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray — Feedback</span>
-      <button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">&times;</button>
-    </div>
-    <!-- Privacy note -->
-    <div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
-      Your email is used only for direct communication with Sola Ray Effect. It will never be sold, shared, or added to any mailing list.
-    </div>
-    <!-- Steps container -->
-    <div id="sola-fb-steps" style="padding:16px;">
-      <!-- Step 1: How did you find us -->
-      <div class="sola-fb-step" data-step="1">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
-        <select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
-          <option value="">Select one...</option>
-          <option value="Google Search">Google Search</option>
-          <option value="YouTube">YouTube</option>
-          <option value="Reddit">Reddit</option>
-          <option value="Twitter/X">Twitter / X</option>
-          <option value="Facebook">Facebook</option>
-          <option value="A Friend">A Friend</option>
-          <option value="Mining Forum">Mining Forum</option>
-          <option value="Other">Other</option>
-        </select>
-        <button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-      </div>
-      <!-- Step 2: What brought you here -->
-      <div class="sola-fb-step" data-step="2" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
-        <textarea id="sola-fb-reason" rows="3" placeholder="What were you looking for?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 3: Feedback -->
-      <div class="sola-fb-step" data-step="3" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
-        <textarea id="sola-fb-message" rows="4" placeholder="What do you like most about the site?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 4: Coin/miner request -->
-      <div class="sola-fb-step" data-step="4" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
-        <textarea id="sola-fb-request" rows="3" placeholder="Optional — skip if you want" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 5: Email + Name -->
-      <div class="sola-fb-step" data-step="5" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
-        <input id="sola-fb-name" type="text" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;">
-        <input id="sola-fb-email" type="email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
-        </div>
-      </div>
-      <!-- Step 6: Thank you -->
-      <div class="sola-fb-step" data-step="6" style="display:none;">
-        <p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
-        <p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
-      </div>
-      <!-- Error state -->
-      <div id="sola-fb-error" style="display:none;">
-        <p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
-      </div>
-    </div>
-    <!-- Step indicator dots -->
-    <div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-    </div>
-  </div>
-</div>
-
-<script>
-(function() {
-  // Don't show if user already dismissed or submitted THIS SESSION
-  if (sessionStorage.getItem('sola-fb-done')) return;
-
-  var widget = document.getElementById('sola-feedback-widget');
-  var bubble = document.getElementById('sola-fb-bubble');
-  var wizard = document.getElementById('sola-fb-wizard');
-  var video = document.getElementById('sola-fb-video');
-  var dots = document.querySelectorAll('.sola-fb-dot');
-
-  // Show bubble after 2 minutes
-  setTimeout(function() {
-    widget.style.display = 'block';
-    video.play().catch(function() {});
-  }, 120000);
-
-  // Click video to unmute and replay
-  video.addEventListener('click', function() {
-    video.muted = false;
-    video.currentTime = 0;
-    video.play().catch(function() {});
-  });
-
-  // "Sure!" — open wizard
-  document.getElementById('sola-fb-yes').addEventListener('click', function() {
-    bubble.style.display = 'none';
-    video.pause();
-    video.muted = true;
-    wizard.style.display = 'block';
-  });
-
-  // "Not now" — dismiss for this session
-  document.getElementById('sola-fb-no').addEventListener('click', function() {
-    widget.style.display = 'none';
-    video.pause();
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
-
-  // Close wizard
-  document.getElementById('sola-fb-close').addEventListener('click', function() {
-    widget.style.display = 'none';
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
-
-  // Step navigation
-  function showStep(n) {
-    var steps = document.querySelectorAll('.sola-fb-step');
-    for (var i = 0; i < steps.length; i++) {
-      steps[i].style.display = steps[i].getAttribute('data-step') == n ? 'block' : 'none';
-    }
-    // Update dots
-    for (var j = 0; j < dots.length; j++) {
-      dots[j].style.background = (j < n && n <= 5) ? 'var(--sola-gold, #D4AF37)' : 'var(--text-muted, #5a6a7a)';
-    }
-    // Hide dots on thank you
-    document.getElementById('sola-fb-dots').style.display = n == 6 ? 'none' : 'flex';
-  }
-
-  // Next buttons
-  document.querySelectorAll('.sola-fb-next').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var next = parseInt(this.getAttribute('data-next'));
-      // Validate step 1: source required
-      if (next == 2 && !document.getElementById('sola-fb-source').value) {
-        document.getElementById('sola-fb-source').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      // Validate step 2: reason required
-      if (next == 3 && !document.getElementById('sola-fb-reason').value.trim()) {
-        document.getElementById('sola-fb-reason').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      // Validate step 3: feedback required
-      if (next == 4 && !document.getElementById('sola-fb-message').value.trim()) {
-        document.getElementById('sola-fb-message').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      showStep(next);
-    });
-  });
-
-  // Back buttons
-  document.querySelectorAll('.sola-fb-back').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      showStep(parseInt(this.getAttribute('data-back')));
-    });
-  });
-
-  // Reset border on input
-  document.getElementById('sola-fb-source').addEventListener('change', function() {
-    this.style.borderColor = '';
-  });
-  document.getElementById('sola-fb-reason').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-  document.getElementById('sola-fb-message').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-
-  // Submit
-  document.getElementById('sola-fb-submit').addEventListener('click', function() {
-    var email = document.getElementById('sola-fb-email').value.trim();
-    if (!email) {
-      document.getElementById('sola-fb-email').style.borderColor = 'var(--loss, #ff5252)';
-      return;
-    }
-    document.getElementById('sola-fb-email').style.borderColor = '';
-    var btn = this;
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    var data = {
-      access_key: 'f66dbe16-41bf-4d02-ac67-aab832222384',
-      subject: 'Sola Ray Feedback — via ' + document.getElementById('sola-fb-source').value,
-      from_name: 'Sola Ray Feedback Widget',
-      name: document.getElementById('sola-fb-name').value.trim() || 'Anonymous',
-      email: email,
-      found_us_via: document.getElementById('sola-fb-source').value,
-      what_brought_you: document.getElementById('sola-fb-reason').value.trim(),
-      feedback: document.getElementById('sola-fb-message').value.trim(),
-      feature_request: document.getElementById('sola-fb-request').value.trim() || 'None'
-    };
-
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(function(res) { return res.json(); })
-    .then(function(result) {
-      if (result.success) {
-        showStep(6);
-        sessionStorage.setItem('sola-fb-done', 'submitted');
-        // Auto-close after 3 seconds
-        setTimeout(function() { widget.style.display = 'none'; }, 3000);
-      } else {
-        document.getElementById('sola-fb-error').style.display = 'block';
-        btn.textContent = 'Send Feedback';
-        btn.disabled = false;
-      }
-    })
-    .catch(function() {
-      document.getElementById('sola-fb-error').style.display = 'block';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
-    });
-  });
-
-  // Email border reset
-  document.getElementById('sola-fb-email').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-})();
-</script>
-<!-- END SOLA FEEDBACK POPUP WIDGET -->
 
 </body>
 </html>
