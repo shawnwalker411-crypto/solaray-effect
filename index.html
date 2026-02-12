@@ -2077,7 +2077,8 @@
     // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
     const DEFAULT_PRICES = { 
       BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
-      ZEC: 45, DASH: 44, RVN: 0.007, ERG: 0.45, ALPH: 0.11, XMR: 200
+      ZEC: 45, DASH: 44, RVN: 0.007, ERG: 0.45, ALPH: 0.11, XMR: 200,
+      DGB: 0.005, CKB: 0.003, SC: 0.002, KDA: 0.05
     };
     let PRICES = { ...DEFAULT_PRICES };
     let priceStatus = 'default'; // 'live', 'cached', 'default'
@@ -2098,6 +2099,10 @@
       'Etchash': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
       'X11': { perUnit: 0.000268, unit: 'GH/s', coin: 'DASH' },
+      'SHA-256-DGB': { perUnit: 5.9, unit: 'TH/s', coin: 'DGB' },
+      'Eaglesong': { perUnit: 45.0, unit: 'TH/s', coin: 'CKB' },
+      'Blake2bSia': { perUnit: 240.0, unit: 'TH/s', coin: 'SC' },
+      'Blake2sKDA': { perUnit: 1.5, unit: 'TH/s', coin: 'KDA' },
       // GPU Algorithms
       'Etchash-GPU': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
@@ -2122,7 +2127,11 @@
         { value: 'KHeavyHash', label: 'KHeavyHash (KAS)' },
         { value: 'Etchash', label: 'Etchash (ETC)' },
         { value: 'Equihash', label: 'Equihash (ZEC)' },
-        { value: 'X11', label: 'X11 (DASH)' }
+        { value: 'X11', label: 'X11 (DASH)' },
+        { value: 'SHA-256-DGB', label: 'SHA-256 (DGB)' },
+        { value: 'Eaglesong', label: 'Eaglesong (CKB)' },
+        { value: 'Blake2bSia', label: 'Blake2b-Sia (SC)' },
+        { value: 'Blake2sKDA', label: 'Blake2s (KDA)' }
       ],
       GPU: [
         { value: 'Etchash-GPU', label: 'Etchash (ETC)', unit: 'MH/s' },
@@ -2217,7 +2226,11 @@
       RVN: 'ravencoin',
       ERG: 'ergo',
       ALPH: 'alephium',
-      XMR: 'monero'
+      XMR: 'monero',
+      DGB: 'digibyte',
+      CKB: 'nervos-network',
+      SC: 'siacoin',
+      KDA: 'kadena'
     };
     
     async function fetchPrices() {
@@ -2243,6 +2256,10 @@
         PRICES.ERG = data.ergo?.usd || PRICES.ERG;
         PRICES.ALPH = data.alephium?.usd || PRICES.ALPH;
         PRICES.XMR = data.monero?.usd || PRICES.XMR;
+        PRICES.DGB = data.digibyte?.usd || PRICES.DGB;
+        PRICES.CKB = data['nervos-network']?.usd || PRICES.CKB;
+        PRICES.SC = data.siacoin?.usd || PRICES.SC;
+        PRICES.KDA = data.kadena?.usd || PRICES.KDA;
         
         // Save to localStorage with timestamp
         const cacheData = {
@@ -2312,16 +2329,22 @@
     }
     
     async function initPrices() {
-      // Try to fetch live prices first
+      // Try to fetch live prices first (CoinGecko — primary)
       const liveSuccess = await fetchPrices();
       
-      // If live fetch failed, try to load from cache
+      // If live fetch failed, try to load from localStorage cache
       if (!liveSuccess) {
         const cacheLoaded = loadCachedPrices();
         if (!cacheLoaded) {
-          // Use defaults (already set)
-          priceStatus = 'default';
-          updatePriceIndicator();
+          // Try MinerStat cached data as last resort before defaults
+          const msData = await fetchMinerstatCached();
+          if (msData) {
+            updatePricesFromMinerstat(msData);
+          } else {
+            // Use defaults (already set)
+            priceStatus = 'default';
+            updatePriceIndicator();
+          }
         }
       }
       
@@ -2391,7 +2414,15 @@
       // ERG: ~0.0005 to ~0.05 ERG/MH/day
       'Autolykos2': { min: 1e-5, max: 0.5, coin: 'ERG', unit: 'MH' },
       // XMR: ~0.00001 to ~0.001 XMR/KH/day
-      'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' }
+      'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
+      // DGB: ~1 to ~50 DGB/TH/day (SHA-256 algo, much higher reward count than BTC)
+      'SHA-256-DGB': { min: 0.1, max: 500, coin: 'DGB', unit: 'TH' },
+      // CKB: ~10 to ~500 CKB/TH/day
+      'Eaglesong': { min: 1, max: 5000, coin: 'CKB', unit: 'TH' },
+      // SC: ~50 to ~5000 SC/TH/day
+      'Blake2bSia': { min: 5, max: 50000, coin: 'SC', unit: 'TH' },
+      // KDA: ~0.1 to ~20 KDA/TH/day
+      'Blake2sKDA': { min: 0.01, max: 200, coin: 'KDA', unit: 'TH' }
     };
     
     // Track last known good rates for fallback
@@ -2592,6 +2623,126 @@
       banner.style.display = 'block';
     }
     
+    // ============================================
+    // MINERSTAT CACHED DATA (Phase 2 — Fallback)
+    // Fetches from /api/get-coins (server-side cache, never hits MinerStat directly)
+    // Used as FALLBACK when primary sources (CoinGecko, mining-stats) fail
+    // KAS is EXCLUDED — MinerStat KAS data is broken (see Landmine 1)
+    // ============================================
+    
+    // Unit scales for converting MinerStat reward (per 1 H/s per 1 hour) to perUnit (per [unit] per day)
+    const MINERSTAT_UNIT_SCALES = {
+      'SHA-256': { scale: 1e12, unit: 'TH', minerstatCoin: 'BTC' },
+      'SHA-256-BCH': { scale: 1e12, unit: 'TH', minerstatCoin: 'BCH' },
+      'Scrypt': { scale: 1e6, unit: 'MH', minerstatCoin: 'LTC' },
+      'Etchash': { scale: 1e6, unit: 'MH', minerstatCoin: 'ETC' },
+      'Equihash': { scale: 1e3, unit: 'kSol', minerstatCoin: 'ZEC' },
+      'X11': { scale: 1e9, unit: 'GH', minerstatCoin: 'DASH' },
+      'KAWPOW': { scale: 1e6, unit: 'MH', minerstatCoin: 'RVN' },
+      'Autolykos2': { scale: 1e6, unit: 'MH', minerstatCoin: 'ERG' },
+      'Blake3': { scale: 1e9, unit: 'GH', minerstatCoin: 'ALPH' },
+      'RandomX': { scale: 1e3, unit: 'KH', minerstatCoin: 'XMR' },
+      'SHA-256-DGB': { scale: 1e12, unit: 'TH', minerstatCoin: 'DGB' },
+      'Eaglesong': { scale: 1e12, unit: 'TH', minerstatCoin: 'CKB' }
+      // SC and KDA may not be in MinerStat free tier coins endpoint
+      // KAS (KHeavyHash) intentionally EXCLUDED — MinerStat data is broken
+    };
+
+    // Coin symbol mapping for MinerStat → DOGE (merged mining with LTC)
+    const MINERSTAT_MERGED_COINS = {
+      'DOGE': { scale: 1e6, algo: 'Scrypt' }
+    };
+    
+    async function fetchMinerstatCached() {
+      try {
+        const response = await fetch('/api/get-coins');
+        if (!response.ok) throw new Error('MinerStat cache endpoint failed');
+        
+        const result = await response.json();
+        if (!result.success || !result.data) {
+          console.warn('MinerStat cache not available:', result.error || 'no data');
+          return null;
+        }
+        
+        console.log('MinerStat cached data loaded:', result.meta?.coin_count, 'coins, age:', result.meta?.age_minutes, 'min');
+        return result.data;
+      } catch (error) {
+        console.warn('Failed to fetch MinerStat cached data:', error);
+        return null;
+      }
+    }
+    
+    function updatePricesFromMinerstat(msData) {
+      // Use MinerStat prices as fallback — only update coins where price > 0
+      // Does NOT override CoinGecko prices if they already loaded
+      let updated = 0;
+      const coinSymbols = ['BTC', 'BCH', 'LTC', 'KAS', 'ETC', 'DOGE', 'ZEC', 'DASH', 'RVN', 'ERG', 'ALPH', 'XMR', 'DGB', 'CKB', 'SC', 'KDA'];
+      
+      for (const sym of coinSymbols) {
+        if (msData[sym] && msData[sym][0] && msData[sym][0].price > 0) {
+          PRICES[sym] = msData[sym][0].price;
+          updated++;
+        }
+      }
+      
+      if (updated > 0) {
+        console.log('MinerStat fallback prices applied for', updated, 'coins');
+        priceStatus = 'cached';
+        lastPriceUpdate = new Date();
+        updatePriceIndicator();
+      }
+      return updated;
+    }
+    
+    function updateRatesFromMinerstat(msData) {
+      // Convert MinerStat reward field to REVENUE_RATES.perUnit format
+      // Formula: perUnit = reward × unitScale × 24
+      // Only updates if the converted rate passes sanity validation
+      let updated = 0;
+      
+      for (const [algo, config] of Object.entries(MINERSTAT_UNIT_SCALES)) {
+        const coinData = msData[config.minerstatCoin];
+        if (!coinData || !coinData[0]) continue;
+        
+        const reward = coinData[0].reward;
+        if (!reward || reward <= 0) continue;
+        
+        const perUnit = reward * config.scale * 24;
+        const validation = validateAndUpdateRate(algo, perUnit, config.minerstatCoin);
+        
+        if (validation.valid && validation.rate) {
+          REVENUE_RATES[algo].perUnit = validation.rate;
+          updated++;
+          console.log(`MinerStat fallback ${config.minerstatCoin} (${algo}):`, validation.rate, `${config.minerstatCoin}/${config.unit}/day ✓`);
+        }
+        
+        // Handle Etchash-GPU mirror
+        if (algo === 'Etchash' && validation.valid && validation.rate) {
+          REVENUE_RATES['Etchash-GPU'].perUnit = validation.rate;
+        }
+      }
+      
+      // DOGE merged mining rate
+      if (msData['DOGE'] && msData['DOGE'][0]) {
+        const dogeReward = msData['DOGE'][0].reward;
+        if (dogeReward && dogeReward > 0) {
+          const dogePerUnit = dogeReward * 1e6 * 24;
+          const validation = validateAndUpdateRate('DOGE', dogePerUnit, 'DOGE');
+          if (validation.valid && validation.rate && REVENUE_RATES['Scrypt'].merged) {
+            REVENUE_RATES['Scrypt'].merged.perUnit = validation.rate;
+            updated++;
+            console.log('MinerStat fallback DOGE (merged):', validation.rate, 'DOGE/MH/day ✓');
+          }
+        }
+      }
+      
+      if (updated > 0) {
+        console.log('MinerStat fallback rates applied for', updated, 'algorithms');
+        updateSanityWarningBanner();
+      }
+      return updated;
+    }
+    
     function loadCachedMiningStats() {
       try {
         const cached = localStorage.getItem('solaray_mining_stats');
@@ -2633,15 +2784,24 @@
     }
     
     async function initMiningStats() {
-      // Try to fetch live mining stats first
+      // Try to fetch live mining stats first (mining-stats API — primary)
       const liveSuccess = await fetchMiningStats();
       
-      // If live fetch failed, try to load from cache
+      // If live fetch failed, try to load from localStorage cache
       if (!liveSuccess) {
         const cacheLoaded = loadCachedMiningStats();
         if (!cacheLoaded) {
-          miningStatsStatus = 'default';
-          updateMiningStatsIndicator();
+          // Try MinerStat cached data as last resort before defaults
+          const msData = await fetchMinerstatCached();
+          if (msData) {
+            updateRatesFromMinerstat(msData);
+            miningStatsStatus = 'cached';
+            lastMiningStatsUpdate = new Date();
+            updateMiningStatsIndicator();
+          } else {
+            miningStatsStatus = 'default';
+            updateMiningStatsIndicator();
+          }
         }
       }
       
@@ -2671,7 +2831,11 @@
         'KAWPOW': ['RVN'],
         'Autolykos2': ['ERG'],
         'Blake3': ['ALPH'],
-        'RandomX': ['XMR']
+        'RandomX': ['XMR'],
+        'SHA-256-DGB': ['DGB'],
+        'Eaglesong': ['CKB'],
+        'Blake2bSia': ['SC'],
+        'Blake2sKDA': ['KDA']
       };
       
       const coins = algoCoinMap[algorithm];
@@ -2737,7 +2901,11 @@
         'KAWPOW': 'RVN',
         'Autolykos2': 'ERG',
         'Blake3': 'ALPH',
-        'RandomX': 'XMR'
+        'RandomX': 'XMR',
+        'SHA-256-DGB': 'DGB',
+        'Eaglesong': 'CKB',
+        'Blake2bSia': 'SC',
+        'Blake2sKDA': 'KDA'
       };
       
       if (algoFilter === 'all') {
@@ -3333,7 +3501,7 @@
     // ============================================
     // LIVE PRICE TICKER (uses calculator price data)
     // ============================================
-    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR'];
+    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR', 'DGB', 'CKB', 'SC', 'KDA'];
     
     function updateTicker() {
       const tickerTrack = document.getElementById('ticker-track');
@@ -3372,7 +3540,7 @@
     // SUNRISE PICK - Most Profitable Coin (Free Electricity)
     // ============================================
     function calculateSunrisePick() {
-      const algorithms = ['SHA-256', 'SHA-256-BCH', 'Scrypt', 'KHeavyHash', 'Etchash', 'Equihash', 'X11'];
+      const algorithms = ['SHA-256', 'SHA-256-BCH', 'Scrypt', 'KHeavyHash', 'Etchash', 'Equihash', 'X11', 'SHA-256-DGB', 'Eaglesong', 'Blake2bSia', 'Blake2sKDA'];
       const results = [];
       
       algorithms.forEach(algo => {
