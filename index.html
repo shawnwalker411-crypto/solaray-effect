@@ -1629,6 +1629,7 @@
             <option value="Equihash">Equihash (ZEC)</option>
             <option value="X11">X11 (DASH)</option>
             <option value="SHA-256-DGB">SHA-256 (DGB)</option>
+            <option value="Scrypt-DGB">Scrypt (DGB)</option>
             <option value="Eaglesong">Eaglesong (CKB)</option>
             <option value="Blake2bSia">Blake2b-Sia (SC)</option>
             <option value="Blake2sKDA">Blake2s (KDA)</option>
@@ -2007,6 +2008,7 @@
       // NATIVE 120V - Scrypt
       { id: 'mini-doge', name: 'Mini-DOGE', manufacturer: 'GoldShell', hashrate: 185, unit: 'MH/s', power: 233, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       { id: 'mini-doge-pro', name: 'Mini-DOGE Pro', manufacturer: 'GoldShell', hashrate: 205, unit: 'MH/s', power: 220, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'mini-doge-ii', name: 'Mini-DOGE II', manufacturer: 'GoldShell', hashrate: 420, unit: 'MH/s', power: 400, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       { id: 'mini-doge-iii', name: 'Mini-DOGE III', manufacturer: 'GoldShell', hashrate: 760, unit: 'MH/s', power: 500, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       { id: 'l3', name: 'Antminer L3', manufacturer: 'Bitmain', hashrate: 250, unit: 'MH/s', power: 400, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       { id: 'l3-plus', name: 'Antminer L3+', manufacturer: 'Bitmain', hashrate: 504, unit: 'MH/s', power: 800, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: false },
@@ -2042,6 +2044,7 @@
       // NATIVE 120V - Blake2sKDA (KDA) — ⚠️ MINING ENDED OCT 2025
       { id: 'kd-box', name: 'KD-BOX', manufacturer: 'Goldshell', hashrate: 1.6, unit: 'TH/s', power: 205, algorithm: 'Blake2sKDA', coins: ['KDA'], category: 'deprecated', voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
       { id: 'kd-box-pro', name: 'KD-BOX Pro', manufacturer: 'Goldshell', hashrate: 2.6, unit: 'TH/s', power: 230, algorithm: 'Blake2sKDA', coins: ['KDA'], category: 'deprecated', voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'kd-box-ii', name: 'KD-BOX II', manufacturer: 'Goldshell', hashrate: 5, unit: 'TH/s', power: 400, algorithm: 'Blake2sKDA', coins: ['KDA'], category: 'deprecated', voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
     ];
     
     // ============================================
@@ -2103,6 +2106,7 @@
       
       // Eaglesong (CKB)
       { id: 'ck-lite', name: 'CK Lite', manufacturer: 'Goldshell', hashrate: 6.3, unit: 'TH/s', power: 1200, algorithm: 'Eaglesong', coins: ['CKB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'ck5', name: 'CK5', manufacturer: 'Goldshell', hashrate: 12, unit: 'TH/s', power: 2400, algorithm: 'Eaglesong', coins: ['CKB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'ck6', name: 'CK6', manufacturer: 'Goldshell', hashrate: 19.3, unit: 'TH/s', power: 3300, algorithm: 'Eaglesong', coins: ['CKB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
       // Blake2bSia (SC)
@@ -2149,6 +2153,7 @@
       'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
       'X11': { perUnit: 0.000268, unit: 'GH/s', coin: 'DASH' },
       'SHA-256-DGB': { perUnit: 5.9, unit: 'TH/s', coin: 'DGB' },
+      'Scrypt-DGB': { perUnit: 0.344, unit: 'MH/s', coin: 'DGB' },
       'Eaglesong': { perUnit: 45.0, unit: 'TH/s', coin: 'CKB' },
       'Blake2bSia': { perUnit: 240.0, unit: 'TH/s', coin: 'SC' },
       'Blake2sKDA': { perUnit: 1.5, unit: 'TH/s', coin: 'KDA' },
@@ -2178,6 +2183,7 @@
         { value: 'Equihash', label: 'Equihash (ZEC)' },
         { value: 'X11', label: 'X11 (DASH)' },
         { value: 'SHA-256-DGB', label: 'SHA-256 (DGB)' },
+        { value: 'Scrypt-DGB', label: 'Scrypt (DGB)' },
         { value: 'Eaglesong', label: 'Eaglesong (CKB)' },
         { value: 'Blake2bSia', label: 'Blake2b-Sia (SC)' },
         { value: 'Blake2sKDA', label: 'Blake2s (KDA)' }
@@ -2466,6 +2472,8 @@
       'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
       // DGB: ~1 to ~50 DGB/TH/day (SHA-256 algo, much higher reward count than BTC)
       'SHA-256-DGB': { min: 0.1, max: 500, coin: 'DGB', unit: 'TH' },
+      // DGB Scrypt: ~0.01 to ~10 DGB/MH/day
+      'Scrypt-DGB': { min: 0.01, max: 50, coin: 'DGB', unit: 'MH' },
       // CKB: ~10 to ~500 CKB/TH/day
       'Eaglesong': { min: 1, max: 5000, coin: 'CKB', unit: 'TH' },
       // SC: ~50 to ~5000 SC/TH/day
@@ -2692,6 +2700,7 @@
       'Blake3': { scale: 1e9, unit: 'GH', minerstatCoin: 'ALPH' },
       'RandomX': { scale: 1e3, unit: 'KH', minerstatCoin: 'XMR' },
       'SHA-256-DGB': { scale: 1e12, unit: 'TH', minerstatCoin: 'DGB' },
+      'Scrypt-DGB': { scale: 1e6, unit: 'MH', minerstatCoin: 'DGB' },
       'Eaglesong': { scale: 1e12, unit: 'TH', minerstatCoin: 'CKB' }
       // SC and KDA may not be in MinerStat free tier coins endpoint
       // KAS (KHeavyHash) intentionally EXCLUDED — MinerStat data is broken
@@ -2882,6 +2891,7 @@
         'Blake3': ['ALPH'],
         'RandomX': ['XMR'],
         'SHA-256-DGB': ['DGB'],
+        'Scrypt-DGB': ['DGB'],
         'Eaglesong': ['CKB'],
         'Blake2bSia': ['SC'],
         'Blake2sKDA': ['KDA']
@@ -2952,6 +2962,7 @@
         'Blake3': 'ALPH',
         'RandomX': 'XMR',
         'SHA-256-DGB': 'DGB',
+        'Scrypt-DGB': 'DGB',
         'Eaglesong': 'CKB',
         'Blake2bSia': 'SC',
         'Blake2sKDA': 'KDA'
@@ -3065,7 +3076,7 @@
       
       if (algoFilter !== 'all') {
         // SHA-256-BCH and SHA-256-DGB use same miners as SHA-256 (BTC)
-        const filterAlgo = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? 'SHA-256' : algoFilter;
+        const filterAlgo = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? 'SHA-256' : algoFilter === 'Scrypt-DGB' ? 'Scrypt' : algoFilter;
         miners = miners.filter(m => m.algorithm === filterAlgo);
       }
       
@@ -3394,7 +3405,7 @@
         
         // Use algorithm filter to determine coin (for BCH vs BTC vs DGB with same SHA-256 miners)
         const algoFilter = document.getElementById('algorithm-filter').value;
-        algorithm = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? algoFilter : selectedMiner.algorithm;
+        algorithm = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? algoFilter : algoFilter === 'Scrypt-DGB' ? 'Scrypt-DGB' : selectedMiner.algorithm;
       } else {
         // GPU/CPU mode - use manual input
         hashrate = parseFloat(document.getElementById('manual-hashrate').value);
@@ -3619,7 +3630,7 @@
     // SUNRISE PICK - Most Profitable Coin (Free Electricity)
     // ============================================
     function calculateSunrisePick() {
-      const algorithms = ['SHA-256', 'SHA-256-BCH', 'Scrypt', 'KHeavyHash', 'Etchash', 'Equihash', 'X11', 'SHA-256-DGB', 'Eaglesong', 'Blake2bSia', 'Blake2sKDA'];
+      const algorithms = ['SHA-256', 'SHA-256-BCH', 'Scrypt', 'KHeavyHash', 'Etchash', 'Equihash', 'X11', 'SHA-256-DGB', 'Scrypt-DGB', 'Eaglesong', 'Blake2bSia', 'Blake2sKDA'];
       const results = [];
       
       algorithms.forEach(algo => {
@@ -3627,7 +3638,7 @@
         if (!rateInfo) return;
         
         // SHA-256-BCH and SHA-256-DGB use same miners as SHA-256 (BTC)
-        const filterAlgo = (algo === 'SHA-256-BCH' || algo === 'SHA-256-DGB') ? 'SHA-256' : algo;
+        const filterAlgo = (algo === 'SHA-256-BCH' || algo === 'SHA-256-DGB') ? 'SHA-256' : algo === 'Scrypt-DGB' ? 'Scrypt' : algo;
         const miners = ALL_MINERS.filter(m => m.algorithm === filterAlgo && m.category !== 'lottery' && m.category !== 'deprecated' && m.category !== 'legacy');
         if (miners.length === 0) return;
         
