@@ -613,6 +613,18 @@
       border: 1px solid var(--loki);
     }
     
+    .badge-legacy {
+      background: rgba(255, 165, 0, 0.2);
+      color: #FFA500;
+      border: 1px solid #FFA500;
+    }
+    
+    .badge-deprecated {
+      background: rgba(255, 60, 60, 0.2);
+      color: #FF4444;
+      border: 1px solid #FF4444;
+    }
+    
     .miner-info-specs {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1663,6 +1675,8 @@
           <div>
             <span class="badge badge-lottery" id="info-lottery" style="display: none;"><span class="glossary-term" data-term="lottery">LOTTERY</span></span>
             <span class="badge badge-loki" id="info-loki-badge" style="display: none;"><span class="glossary-term" data-term="loki-kit">LOKI</span></span>
+            <span class="badge badge-legacy" id="info-legacy-badge" style="display: none;">LEGACY</span>
+            <span class="badge badge-deprecated" id="info-deprecated-badge" style="display: none;">⚠️ MINING ENDED</span>
           </div>
         </div>
         <div class="miner-info-specs">
@@ -2011,6 +2025,19 @@
       
       // NATIVE 120V - Etchash (ETC)
       { id: 'ipollo-v1-mini', name: 'iPollo V1 Mini', manufacturer: 'iPollo', hashrate: 130, unit: 'MH/s', power: 240, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      
+      // NATIVE 120V - Eaglesong (CKB)
+      { id: 'ck-box', name: 'CK-BOX', manufacturer: 'Goldshell', hashrate: 1.05, unit: 'TH/s', power: 215, algorithm: 'Eaglesong', coins: ['CKB'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'ck-box-ii', name: 'CK-BOX II', manufacturer: 'Goldshell', hashrate: 2.1, unit: 'TH/s', power: 400, algorithm: 'Eaglesong', coins: ['CKB'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      
+      // NATIVE 120V - Blake2bSia (SC)
+      { id: 'sc-box', name: 'SC-BOX', manufacturer: 'Goldshell', hashrate: 0.9, unit: 'TH/s', power: 200, algorithm: 'Blake2bSia', coins: ['SC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'sc-box-ii', name: 'SC-BOX II', manufacturer: 'Goldshell', hashrate: 1.9, unit: 'TH/s', power: 400, algorithm: 'Blake2bSia', coins: ['SC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'hs-box-ii', name: 'HS-BOX II', manufacturer: 'Goldshell', hashrate: 1.2, unit: 'TH/s', power: 325, algorithm: 'Blake2bSia', coins: ['SC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      
+      // NATIVE 120V - Blake2sKDA (KDA) — ⚠️ MINING ENDED OCT 2025
+      { id: 'kd-box', name: 'KD-BOX', manufacturer: 'Goldshell', hashrate: 1.6, unit: 'TH/s', power: 205, algorithm: 'Blake2sKDA', coins: ['KDA'], category: 'deprecated', voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'kd-box-pro', name: 'KD-BOX Pro', manufacturer: 'Goldshell', hashrate: 2.6, unit: 'TH/s', power: 230, algorithm: 'Blake2sKDA', coins: ['KDA'], category: 'deprecated', voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
     ];
     
     // ============================================
@@ -2069,6 +2096,24 @@
       
       // X11 (DASH)
       { id: 'd9', name: 'Antminer D9', manufacturer: 'Bitmain', hashrate: 1770, unit: 'GH/s', power: 2839, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      
+      // Eaglesong (CKB)
+      { id: 'ck-lite', name: 'CK Lite', manufacturer: 'Goldshell', hashrate: 6.3, unit: 'TH/s', power: 1200, algorithm: 'Eaglesong', coins: ['CKB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'ck6', name: 'CK6', manufacturer: 'Goldshell', hashrate: 19.3, unit: 'TH/s', power: 3300, algorithm: 'Eaglesong', coins: ['CKB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      
+      // Blake2bSia (SC)
+      { id: 'sc6-se', name: 'SC6 SE', manufacturer: 'Goldshell', hashrate: 17, unit: 'TH/s', power: 3300, algorithm: 'Blake2bSia', coins: ['SC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      
+      // Blake2sKDA (KDA) — ⚠️ MINING ENDED OCT 2025
+      { id: 'kd6', name: 'KD6', manufacturer: 'Goldshell', hashrate: 29.2, unit: 'TH/s', power: 2630, algorithm: 'Blake2sKDA', coins: ['KDA'], category: 'deprecated', voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'ka3', name: 'Antminer KA3', manufacturer: 'Bitmain', hashrate: 166, unit: 'TH/s', power: 3154, algorithm: 'Blake2sKDA', coins: ['KDA'], category: 'deprecated', voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      
+      // LEGACY — SHA-256 (older gen, unprofitable at most rates)
+      { id: 's9-13t', name: 'Antminer S9', manufacturer: 'Bitmain', hashrate: 13.5, unit: 'TH/s', power: 1323, algorithm: 'SHA-256', coins: ['BTC'], category: 'legacy', voltage: '240V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 's17-56t', name: 'Antminer S17', manufacturer: 'Bitmain', hashrate: 56, unit: 'TH/s', power: 2520, algorithm: 'SHA-256', coins: ['BTC'], category: 'legacy', voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 's17-pro-53t', name: 'Antminer S17 Pro', manufacturer: 'Bitmain', hashrate: 53, unit: 'TH/s', power: 2094, algorithm: 'SHA-256', coins: ['BTC'], category: 'legacy', voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 't19-84t', name: 'Antminer T19', manufacturer: 'Bitmain', hashrate: 84, unit: 'TH/s', power: 3150, algorithm: 'SHA-256', coins: ['BTC'], category: 'legacy', voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'm31s-74t', name: 'Whatsminer M31S', manufacturer: 'MicroBT', hashrate: 74, unit: 'TH/s', power: 3220, algorithm: 'SHA-256', coins: ['BTC'], category: 'legacy', voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
     ];
     
     // Combined for "All" filter and browse table
@@ -3015,8 +3060,8 @@
       let miners = getFilteredMiners();
       
       if (algoFilter !== 'all') {
-        // SHA-256-BCH uses same miners as SHA-256 (BTC)
-        const filterAlgo = algoFilter === 'SHA-256-BCH' ? 'SHA-256' : algoFilter;
+        // SHA-256-BCH and SHA-256-DGB use same miners as SHA-256 (BTC)
+        const filterAlgo = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? 'SHA-256' : algoFilter;
         miners = miners.filter(m => m.algorithm === filterAlgo);
       }
       
@@ -3154,6 +3199,8 @@
       // Badges
       document.getElementById('info-lottery').style.display = selectedMiner.category === 'lottery' ? 'inline' : 'none';
       document.getElementById('info-loki-badge').style.display = selectedMiner.loki ? 'inline' : 'none';
+      document.getElementById('info-legacy-badge').style.display = selectedMiner.category === 'legacy' ? 'inline' : 'none';
+      document.getElementById('info-deprecated-badge').style.display = selectedMiner.category === 'deprecated' ? 'inline' : 'none';
       
       // Loki notice
       document.getElementById('loki-notice').style.display = selectedMiner.loki ? 'block' : 'none';
@@ -3191,6 +3238,10 @@
       document.getElementById('miner-select').value = '';
       document.getElementById('miner-info').classList.remove('active');
       document.getElementById('miner-info').classList.remove('loki-miner');
+      document.getElementById('info-lottery').style.display = 'none';
+      document.getElementById('info-loki-badge').style.display = 'none';
+      document.getElementById('info-legacy-badge').style.display = 'none';
+      document.getElementById('info-deprecated-badge').style.display = 'none';
       document.getElementById('miner-cost').value = '0';
       document.getElementById('solar-hours').value = '6';
       document.getElementById('free-hours').value = '6';
@@ -3313,9 +3364,9 @@
         power = parseFloat(document.getElementById('config-power').value) || selectedMiner.power;
         cost = parseFloat(document.getElementById('miner-cost').value) || 0;
         
-        // Use algorithm filter to determine coin (for BCH vs BTC)
+        // Use algorithm filter to determine coin (for BCH vs BTC vs DGB with same SHA-256 miners)
         const algoFilter = document.getElementById('algorithm-filter').value;
-        algorithm = (algoFilter === 'SHA-256-BCH') ? 'SHA-256-BCH' : selectedMiner.algorithm;
+        algorithm = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? algoFilter : selectedMiner.algorithm;
       } else {
         // GPU/CPU mode - use manual input
         hashrate = parseFloat(document.getElementById('manual-hashrate').value);
@@ -3547,9 +3598,9 @@
         const rateInfo = REVENUE_RATES[algo];
         if (!rateInfo) return;
         
-        // SHA-256-BCH uses same miners as SHA-256 (BTC)
-        const filterAlgo = algo === 'SHA-256-BCH' ? 'SHA-256' : algo;
-        const miners = ALL_MINERS.filter(m => m.algorithm === filterAlgo && m.category !== 'lottery');
+        // SHA-256-BCH and SHA-256-DGB use same miners as SHA-256 (BTC)
+        const filterAlgo = (algo === 'SHA-256-BCH' || algo === 'SHA-256-DGB') ? 'SHA-256' : algo;
+        const miners = ALL_MINERS.filter(m => m.algorithm === filterAlgo && m.category !== 'lottery' && m.category !== 'deprecated' && m.category !== 'legacy');
         if (miners.length === 0) return;
         
         const bestMiner = miners.reduce((best, m) => {
