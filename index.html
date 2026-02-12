@@ -3070,16 +3070,40 @@
       }
       
       minerSelect.innerHTML = '<option value="">-- Select Miner --</option>';
+      
+      // Group miners by manufacturer
+      const groups = {};
       miners.forEach(m => {
-        const opt = document.createElement('option');
-        opt.value = m.id;
-        opt.textContent = m.name;
-        // Style Loki miners purple
-        if (m.loki) {
-          opt.style.color = '#9c27b0';
-        }
-        minerSelect.appendChild(opt);
+        const mfr = m.manufacturer || 'Other';
+        if (!groups[mfr]) groups[mfr] = [];
+        groups[mfr].push(m);
       });
+      
+      // Define manufacturer display order (most common first)
+      const mfrOrder = ['Bitmain', 'MicroBT', 'IceRiver', 'Goldshell', 'iPollo', 'Open Source', 'Skot'];
+      const sortedMfrs = Object.keys(groups).sort((a, b) => {
+        const ai = mfrOrder.indexOf(a);
+        const bi = mfrOrder.indexOf(b);
+        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+      });
+      
+      for (const mfr of sortedMfrs) {
+        const group = document.createElement('optgroup');
+        group.label = mfr;
+        groups[mfr].forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m.id;
+          let label = m.name;
+          if (m.category === 'legacy') label += ' ⚠️ Legacy';
+          if (m.category === 'deprecated') label += ' ⛔ Ended';
+          opt.textContent = label;
+          if (m.loki) opt.style.color = '#9c27b0';
+          if (m.category === 'legacy') opt.style.color = '#FFA500';
+          if (m.category === 'deprecated') opt.style.color = '#FF4444';
+          group.appendChild(opt);
+        });
+        minerSelect.appendChild(group);
+      }
       
       // Update live price display
       updateLivePriceDisplay();
