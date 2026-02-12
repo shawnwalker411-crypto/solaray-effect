@@ -1037,7 +1037,7 @@
     
     .glossary-drawer.open { right: 0; }
     
-    .glossary-drawer-close {
+    <button class="glossary-drawer-close" id="glossary-close">&#215;</button>
       position: absolute;
       top: 1rem;
       right: 1rem;
@@ -1052,7 +1052,7 @@
       transition: all 0.2s ease;
     }
     
-    .glossary-drawer-close:hover {
+    <button class="glossary-drawer-close" id="glossary-close">&#215;</button>
       background: var(--sola-teal);
       color: #000;
     }
@@ -1499,19 +1499,19 @@
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>Navigation</h3>
-    <a href="index.html" class="active">Ã¢Å¡Â¡ Calculator</a>
-    <a href="miners.html">Ã°Å¸â€Â§ Miners</a>
-    <a href="pools.html">Ã°Å¸ÂÅ  Mining Pools</a>
-    <a href="aftermarket_firmware.html">Ã¢Å¡â„¢Ã¯Â¸Â Firmware Guide</a>
-    <a href="electrical_setup.html">Ã°Å¸â€Å’ Electrical Setup</a>
-    <a href="glossary.html">Ã°Å¸â€œâ€“ Glossary</a>
-    <a href="datavault.html">Ã°Å¸â€œÂ¡ Data Vault</a>
+    <a href="index.html" class="active">&#9889; Calculator</a>
+    <a href="miners.html">&#128295; Miners</a>
+    <a href="pools.html">&#x1F3CA; Mining Pools</a>
+    <a href="aftermarket_firmware.html">&#9881;&#65039; Firmware Guide</a>
+    <a href="electrical_setup.html">&#128268; Electrical Setup</a>
+    <a href="glossary.html">&#128214; Glossary</a>
+    <a href="datavault.html">&#128225; Data Vault</a>
   </nav>
   <div class="nav-overlay" id="nav-overlay"></div>
   
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer">
-    <button class="glossary-drawer-close">Ãƒâ€”</button>
+    <button class="glossary-drawer-close" id="glossary-close">&#215;</button>
     <h3 id="glossary-term-title">Term</h3>
     <p id="glossary-term-definition">Definition goes here...</p>
   </div>
@@ -1616,6 +1616,9 @@
             <option value="Etchash">Etchash (ETC)</option>
             <option value="Equihash">Equihash (ZEC)</option>
             <option value="X11">X11 (DASH)</option>
+            <option value="Eaglesong">Eaglesong (CKB)</option>
+            <option value="Blake2bSia">Blake2b-Sia (SC)</option>
+            <option value="Blake2sKDA">Blake2s (KDA)</option>
           </select>
         </div>
       </div>
@@ -1631,7 +1634,7 @@
       <!-- GPU/CPU Manual Input Section (hidden by default) -->
       <div class="manual-input-section" id="manual-input-section" style="display: none;">
         <div class="manual-input-header">
-          <h3 id="manual-input-title">Ã¢â€ºÂÃ¯Â¸Â GPU Mining Setup</h3>
+          <h3 id="manual-input-title">&#9889; GPU Mining Setup</h3>
           <p class="manual-input-note">Enter your hardware specs from your mining software</p>
         </div>
         <div class="manual-input-grid">
@@ -2926,7 +2929,10 @@
         'KAWPOW': 'RVN',
         'Autolykos2': 'ERG',
         'Blake3': 'ALPH',
-        'RandomX': 'XMR'
+        'RandomX': 'XMR',
+        'Eaglesong': 'CKB',
+        'Blake2bSia': 'SC',
+        'Blake2sKDA': 'KDA'
       };
       
       if (algoFilter === 'all') {
@@ -3711,7 +3717,7 @@
 
       // Glossary drawer
       var glossaryOverlay = document.getElementById('glossary-overlay');
-      var glossaryClose = document.querySelector('.glossary-drawer-close');
+    <button class="glossary-drawer-close" id="glossary-close">&#215;</button>
       if (glossaryOverlay) {
         glossaryOverlay.addEventListener('pointerup', function (e) {
           e.preventDefault();
