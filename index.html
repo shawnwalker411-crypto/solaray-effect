@@ -1876,7 +1876,7 @@
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">What Makes This Calculator Different</h3>
       <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>Dual electricity rates</strong> let you model setups where power costs change by time of day — common with solar buyback programs in Texas, California, and other states where you get free or credited electricity during solar production hours and pay grid rates at night. <strong>Solar hours, free night hours, and battery hours</strong> are separate inputs so you can precisely model your actual power situation rather than using a single blended rate. <strong>Loki Kit support</strong> calculates profitability for running 240V industrial miners like the Antminer S19 Pro or S21 on standard 120V household outlets at reduced power using aftermarket firmware.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Supported Hardware</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Each miner's stock specifications are pre-loaded — select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices update automatically via CoinGecko API.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Each miner's stock specifications are pre-loaded — select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices update automatically via MinerStat API.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Frequently Asked Questions</h3>
       <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Is Bitcoin mining still profitable at home in 2026?</strong> It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use this calculator with your actual rates to find out.</p>
       <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power — S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw.</p>
@@ -2127,7 +2127,7 @@
     // Combined for "All" filter and browse table
     const ALL_MINERS = [...MINERS_120V, ...MINERS_240V];
     
-    // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
+    // Prices & Rates - Updated via MinerStat API, these are fallback defaults
     const DEFAULT_PRICES = { 
       BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
       ZEC: 45, DASH: 44, RVN: 0.007, ERG: 0.45, ALPH: 0.11, XMR: 200,
@@ -2139,7 +2139,7 @@
     
     // Revenue rates per unit per day (coins earned)
     // These are DEFAULT values - will be updated with live data from API
-    // Sources: CoinWarz, MinerStat, WhatToMine (fallback defaults)
+    // Sources: MinerStat (primary), hardcoded defaults (fallback)
     let REVENUE_RATES = {
       // ASIC Algorithms
       'SHA-256': { perUnit: 0.00000043, unit: 'TH/s', coin: 'BTC' },
@@ -2267,72 +2267,28 @@
     }
     
     // ============================================
-    // LIVE PRICE FETCHING (CoinGecko API)
+    // LIVE PRICE FETCHING (MinerStat API — Primary)
+    // Phase 6A: CoinGecko removed. MinerStat is now the primary price source.
+    // Fetches from /api/get-coins (server-side cache, never hits MinerStat directly)
     // ============================================
-    const COINGECKO_IDS = {
-      BTC: 'bitcoin',
-      BCH: 'bitcoin-cash',
-      LTC: 'litecoin',
-      KAS: 'kaspa',
-      ETC: 'ethereum-classic',
-      DOGE: 'dogecoin',
-      ZEC: 'zcash',
-      DASH: 'dash',
-      RVN: 'ravencoin',
-      ERG: 'ergo',
-      ALPH: 'alephium',
-      XMR: 'monero',
-      DGB: 'digibyte',
-      CKB: 'nervos-network',
-      SC: 'siacoin',
-      KDA: 'kadena'
-    };
     
     async function fetchPrices() {
-      const ids = Object.values(COINGECKO_IDS).join(',');
-      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
-      
       try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('API request failed');
-        
-        const data = await response.json();
-        
-        // Map CoinGecko response to our PRICES object
-        PRICES.BTC = data.bitcoin?.usd || PRICES.BTC;
-        PRICES.BCH = data['bitcoin-cash']?.usd || PRICES.BCH;
-        PRICES.LTC = data.litecoin?.usd || PRICES.LTC;
-        PRICES.KAS = data.kaspa?.usd || PRICES.KAS;
-        PRICES.ETC = data['ethereum-classic']?.usd || PRICES.ETC;
-        PRICES.DOGE = data.dogecoin?.usd || PRICES.DOGE;
-        PRICES.ZEC = data.zcash?.usd || PRICES.ZEC;
-        PRICES.DASH = data.dash?.usd || PRICES.DASH;
-        PRICES.RVN = data.ravencoin?.usd || PRICES.RVN;
-        PRICES.ERG = data.ergo?.usd || PRICES.ERG;
-        PRICES.ALPH = data.alephium?.usd || PRICES.ALPH;
-        PRICES.XMR = data.monero?.usd || PRICES.XMR;
-        PRICES.DGB = data.digibyte?.usd || PRICES.DGB;
-        PRICES.CKB = data['nervos-network']?.usd || PRICES.CKB;
-        PRICES.SC = data.siacoin?.usd || PRICES.SC;
-        PRICES.KDA = data.kadena?.usd || PRICES.KDA;
-        
-        // Save to localStorage with timestamp
-        const cacheData = {
-          prices: { ...PRICES },
-          timestamp: Date.now()
-        };
-        localStorage.setItem('solaray_prices', JSON.stringify(cacheData));
-        
-        priceStatus = 'live';
-        lastPriceUpdate = new Date();
-        updatePriceIndicator();
-        
-        console.log('Live prices fetched:', PRICES);
-        return true;
+        const msData = await fetchMinerstatCached();
+        if (msData) {
+          const updated = updatePricesFromMinerstat(msData);
+          if (updated > 0) {
+            priceStatus = 'live';
+            lastPriceUpdate = new Date();
+            updatePriceIndicator();
+            console.log('MinerStat prices loaded:', updated, 'coins');
+            return true;
+          }
+        }
       } catch (error) {
-        console.warn('Failed to fetch live prices:', error);
-        return false;
+        console.warn('Failed to fetch MinerStat prices:', error);
       }
+      return false;
     }
     
     function loadCachedPrices() {
@@ -2340,12 +2296,16 @@
         const cached = localStorage.getItem('solaray_prices');
         if (cached) {
           const data = JSON.parse(cached);
-          PRICES = { ...data.prices };
-          lastPriceUpdate = new Date(data.timestamp);
-          priceStatus = 'cached';
-          updatePriceIndicator();
-          console.log('Loaded cached prices from:', lastPriceUpdate);
-          return true;
+          // Check if cache is less than 24 hours old
+          const cacheAge = Date.now() - data.timestamp;
+          if (cacheAge < 24 * 60 * 60 * 1000) {
+            PRICES = { ...data.prices };
+            lastPriceUpdate = new Date(data.timestamp);
+            priceStatus = 'cached';
+            updatePriceIndicator();
+            console.log('Loaded cached prices from:', lastPriceUpdate);
+            return true;
+          }
         }
       } catch (error) {
         console.warn('Failed to load cached prices:', error);
@@ -2384,27 +2344,41 @@
     }
     
     async function initPrices() {
-      // Try to fetch live prices first (CoinGecko — primary)
+      // Try MinerStat first (primary source)
       const liveSuccess = await fetchPrices();
       
-      // If live fetch failed, try to load from localStorage cache
-      if (!liveSuccess) {
+      if (liveSuccess) {
+        // Save to localStorage for offline fallback
+        const cacheData = {
+          prices: { ...PRICES },
+          timestamp: Date.now()
+        };
+        localStorage.setItem('solaray_prices', JSON.stringify(cacheData));
+      } else {
+        // MinerStat failed — try localStorage cache
         const cacheLoaded = loadCachedPrices();
         if (!cacheLoaded) {
-          // Try MinerStat cached data as last resort before defaults
-          const msData = await fetchMinerstatCached();
-          if (msData) {
-            updatePricesFromMinerstat(msData);
-          } else {
-            // Use defaults (already set)
-            priceStatus = 'default';
-            updatePriceIndicator();
-          }
+          // Use defaults (already set)
+          priceStatus = 'default';
+          updatePriceIndicator();
         }
       }
       
-      // Set up auto-refresh every 60 seconds
-      setInterval(fetchPrices, 60000);
+      // Refresh prices every 5 minutes (MinerStat cache updates 3x daily, but check periodically)
+      setInterval(async () => {
+        const success = await fetchPrices();
+        if (success) {
+          const cacheData = {
+            prices: { ...PRICES },
+            timestamp: Date.now()
+          };
+          localStorage.setItem('solaray_prices', JSON.stringify(cacheData));
+          // Recalculate if user has already run the calculator
+          if (typeof calculate === 'function' && document.querySelector('.results-container')?.style.display !== 'none') {
+            calculate();
+          }
+        }
+      }, 300000); // 5 minutes
     }
     
     // ============================================
@@ -2681,9 +2655,8 @@
     }
     
     // ============================================
-    // MINERSTAT CACHED DATA (Phase 2 — Fallback)
+    // MINERSTAT DATA FUNCTIONS (Phase 6A — Primary Source)
     // Fetches from /api/get-coins (server-side cache, never hits MinerStat directly)
-    // Used as FALLBACK when primary sources (CoinGecko, mining-stats) fail
     // KAS is EXCLUDED — MinerStat KAS data is broken (see Landmine 1)
     // ============================================
     
@@ -2731,8 +2704,7 @@
     }
     
     function updatePricesFromMinerstat(msData) {
-      // Use MinerStat prices as fallback — only update coins where price > 0
-      // Does NOT override CoinGecko prices if they already loaded
+      // Use MinerStat prices — update coins where price > 0
       let updated = 0;
       const coinSymbols = ['BTC', 'BCH', 'LTC', 'KAS', 'ETC', 'DOGE', 'ZEC', 'DASH', 'RVN', 'ERG', 'ALPH', 'XMR', 'DGB', 'CKB', 'SC', 'KDA'];
       
