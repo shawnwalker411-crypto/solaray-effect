@@ -6,7 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Mining pools directory for home miners. Bitcoin, Litecoin, Dogecoin, Kaspa, Ethereum Classic, DigiByte, Nervos, Siacoin, and Kadena pools with fee comparisons, payout methods (FPPS, PPLNS), and minimum thresholds.">
+  <meta name="description" content="Mining pools directory for home miners. Bitcoin, Litecoin, Dogecoin, Kaspa, Ethereum Classic, DigiByte, Zcash, Dash, Monero, and Ravencoin pools with fee comparisons, payout methods (FPPS, PPLNS), and minimum thresholds.">
   <meta name="keywords" content="bitcoin mining pools, best mining pool, pool fees comparison, FPPS vs PPLNS, Foundry pool, F2Pool, ViaBTC, Litecoin pool, Kaspa pool">
   <meta name="author" content="Sola Ray Effect">
   <meta name="robots" content="index, follow">
@@ -1205,11 +1205,9 @@
         <option value="dash">Dash (DASH)</option>
         <option value="xmr">Monero (XMR)</option>
         <option value="dgb">DigiByte (DGB)</option>
-        <option value="ckb">Nervos (CKB)</option>
         <option value="sc">Siacoin (SC)</option>
         <option value="kda">Kadena (KDA)</option>
         <option value="rvn">Ravencoin (RVN)</option>
-        <option value="erg">Ergo (ERG)</option>
         <option value="alph">Alephium (ALPH)</option>
       </select>
       
@@ -2159,80 +2157,6 @@
       </div>
     </section>
     
-    <!-- NERVOS (CKB) SECTION -->
-    <section class="coin-section" data-coin="ckb">
-      <div class="coin-header">
-        <span class="coin-icon">N</span>
-        <h2 class="coin-name">Nervos Network (CKB)</h2>
-        <span class="coin-tag coin-tag-ckb">Eaglesong</span>
-      </div>
-      <p class="coin-note">Layer 1 blockchain. Eaglesong ASIC miners required (CK5, CK6, CK-Lite). ASIC-only &mdash; no GPU mining.</p>
-      <div class="table-wrapper">
-        <table class="pool-table">
-          <thead>
-            <tr>
-              <th>Pool</th>
-              <th>Fee</th>
-              <th>Payout</th>
-              <th>Min. Payout</th>
-              <th>Regions</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool ↗</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
-              <td>100 CKB</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Daily payouts. Low minimum.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://ckb.2miners.com/" target="_blank" rel="noopener">2Miners ↗</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
-              <td>500 CKB</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Anonymous mining. Solo mode at 1.5%.</td>
-            </tr>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://www.dxpool.com/" target="_blank" rel="noopener">DxPool ↗</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
-              <td>100 CKB</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Registration required. Daily auto-withdrawal.</td>
-            </tr>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://www.antpool.com/" target="_blank" rel="noopener">AntPool ↗</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
-              <td>100 CKB</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Bitmain-operated.</td>
-            </tr>
-                      <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://pool.kryptex.com/ckb" target="_blank" rel="noopener">Kryptex ↗</a></td>
-              <td>1.5%</td>
-              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
-              <td>100 CKB</td>
-              <td><span class="region-tag">🇪🇺</span></td>
-              <td>Hourly payouts. Auto-exchange available.</td>
-            </tr>
-                      <tr data-payouts="solo">
-              <td><a class="pool-link" href="https://ckb.2miners.com/" target="_blank" rel="noopener">2Miners Solo ↗</a></td>
-              <td>1.5%</td>
-              <td><span class="payout-tag payout-solo" data-glossary-term="solo">Solo</span></td>
-              <td>500 CKB</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Anonymous solo mining mode.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    
     <!-- SIACOIN SECTION -->
     <section class="coin-section" data-coin="sc">
       <div class="coin-header">
@@ -2450,88 +2374,6 @@
               <td>0.01 RVN</td>
               <td><span class="region-tag">🌐</span></td>
               <td>Solo mining pool. Keep full block reward (2,500 RVN) if you hit.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- ERGO SECTION -->
-    <section class="coin-section" data-coin="erg">
-      <div class="coin-header">
-        <span class="coin-icon">Σ</span>
-        <h2 class="coin-name">Ergo (ERG)</h2>
-        <span class="coin-tag coin-tag-erg">Autolykos2</span>
-      </div>
-      <p class="coin-note">GPU-mineable. Autolykos v2 algorithm. Privacy-focused smart contract platform. Can dual-mine ERG+KAS on some setups.</p>
-      <div class="table-wrapper">
-        <table class="pool-table">
-          <thead>
-            <tr>
-              <th>Pool</th>
-              <th>Fee</th>
-              <th>Payout</th>
-              <th>Min. Payout</th>
-              <th>Regions</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://erg.2miners.com/" target="_blank" rel="noopener">2Miners ↗</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
-              <td>0.5 ERG</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Largest ERG pool. Reliable, low minimum.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://ergo.nanopool.org/" target="_blank" rel="noopener">Nanopool ↗</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
-              <td>1 ERG</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>No registration. Anonymous mining.</td>
-            </tr>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool ↗</a></td>
-              <td>3%</td>
-              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS</span></td>
-              <td>1 ERG</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Daily payouts. Registration required.</td>
-            </tr>
-            <tr data-payouts="pplns solo">
-              <td><a class="pool-link" href="https://ergo.herominers.com/" target="_blank" rel="noopener">HeroMiners ↗</a></td>
-              <td>0.9%</td>
-              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PROP</span><span class="payout-tag payout-solo">Solo</span></td>
-              <td>0.5 ERG</td>
-              <td><span class="region-tag">🇪🇺</span><span class="region-tag">🇺🇸</span><span class="region-tag">🌐</span></td>
-              <td>Low fee. Pool and solo modes. Global servers.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://woolypooly.com/en/coin/erg" target="_blank" rel="noopener">WoolyPooly ↗</a></td>
-              <td>0.9%</td>
-              <td><span class="payout-tag payout-pplns" data-glossary-term="pplns">PPLNS</span></td>
-              <td>0.5 ERG</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Low fee. Telegram notifications.</td>
-            </tr>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://pool.kryptex.com/erg" target="_blank" rel="noopener">Kryptex ↗</a></td>
-              <td>1.5%</td>
-              <td><span class="payout-tag payout-pps" data-glossary-term="pps">PPS+</span></td>
-              <td>0.5 ERG</td>
-              <td><span class="region-tag">🇪🇺</span></td>
-              <td>Auto-exchange available. Hourly payouts.</td>
-            </tr>
-            <tr data-payouts="solo">
-              <td><a class="pool-link" href="https://erg.solopool.org/" target="_blank" rel="noopener">SoloPool.org ↗</a></td>
-              <td>2%</td>
-              <td><span class="payout-tag payout-solo">Solo</span></td>
-              <td>0.01 ERG</td>
-              <td><span class="region-tag">🌐</span></td>
-              <td>Solo mining pool. Keep full block reward if you hit.</td>
             </tr>
           </tbody>
         </table>

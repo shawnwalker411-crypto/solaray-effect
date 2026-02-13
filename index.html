@@ -1889,7 +1889,7 @@
       },
       'algorithm': {
         title: 'Algorithm',
-        definition: 'The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin), Scrypt (Litecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), Eaglesong (Nervos CKB).'
+        definition: 'The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin), Scrypt (Litecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin).'
       },
       'difficulty': {
         title: 'Difficulty',
@@ -2084,7 +2084,7 @@
     // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
     const DEFAULT_PRICES = { 
       BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
-      ZEC: 45, DASH: 44, RVN: 0.007, ERG: 0.45, XMR: 200, CKB: 0.008, DGB: 0.008
+      ZEC: 45, DASH: 44, RVN: 0.007, XMR: 200, DGB: 0.008
     };
     let PRICES = { ...DEFAULT_PRICES };
     let priceStatus = 'default'; // 'live', 'cached', 'default'
@@ -2108,11 +2108,9 @@
       // GPU Algorithms
       'Etchash-GPU': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
-      'Autolykos2': { perUnit: 0.0027, unit: 'MH/s', coin: 'ERG' },
       // CPU Algorithms  
       'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
-      // New direct-API coins
-      'Eaglesong': { perUnit: 0.0001, unit: 'GH/s', coin: 'CKB' },
+      // DGB
       'Scrypt-DGB': { perUnit: 0.01, unit: 'GH/s', coin: 'DGB' }
     };
     
@@ -2132,13 +2130,11 @@
         { value: 'Etchash', label: 'Etchash (ETC)' },
         { value: 'Equihash', label: 'Equihash (ZEC)' },
         { value: 'X11', label: 'X11 (DASH)' },
-        { value: 'Eaglesong', label: 'Eaglesong (CKB)' },
         { value: 'Scrypt-DGB', label: 'Scrypt (DGB)' }
       ],
       GPU: [
         { value: 'Etchash-GPU', label: 'Etchash (ETC)', unit: 'MH/s' },
-        { value: 'KAWPOW', label: 'KAWPOW (RVN)', unit: 'MH/s' },
-        { value: 'Autolykos2', label: 'Autolykos v2 (ERG)', unit: 'MH/s' }
+        { value: 'KAWPOW', label: 'KAWPOW (RVN)', unit: 'MH/s' }
       ],
       CPU: [
         { value: 'RandomX', label: 'RandomX (XMR)', unit: 'KH/s' }
@@ -2225,9 +2221,7 @@
       ZEC: 'zcash',
       DASH: 'dash',
       RVN: 'ravencoin',
-      ERG: 'ergo',
       XMR: 'monero',
-      CKB: 'nervos-network',
       DGB: 'digibyte'
     };
     
@@ -2251,9 +2245,7 @@
         PRICES.ZEC = data.zcash?.usd || PRICES.ZEC;
         PRICES.DASH = data.dash?.usd || PRICES.DASH;
         PRICES.RVN = data.ravencoin?.usd || PRICES.RVN;
-        PRICES.ERG = data.ergo?.usd || PRICES.ERG;
         PRICES.XMR = data.monero?.usd || PRICES.XMR;
-        PRICES.CKB = data['nervos-network']?.usd || PRICES.CKB;
         PRICES.DGB = data.digibyte?.usd || PRICES.DGB;
         
         // Save to localStorage with timestamp
@@ -2403,14 +2395,10 @@
       'X11': { min: 1e-6, max: 0.1, coin: 'DASH', unit: 'GH' },
       // RVN: ~0.1 to ~10 RVN/MH/day
       'KAWPOW': { min: 0.01, max: 100, coin: 'RVN', unit: 'MH' },
-      // ERG: ~0.0005 to ~0.05 ERG/MH/day
-      'Autolykos2': { min: 1e-5, max: 0.5, coin: 'ERG', unit: 'MH' },
       // XMR: ~0.00001 to ~0.001 XMR/KH/day
       'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
       // ZEC: ~0.00005 to ~0.005 ZEC/kSol/day
       'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
-      // CKB: ~10 to ~200 CKB/GH/day (large block reward, high hashrate)
-      'Eaglesong': { min: 1, max: 500, coin: 'CKB', unit: 'GH' },
       // DGB: ~50 to ~1000 DGB/GH/day (large block reward, moderate hashrate)
       'Scrypt-DGB': { min: 10, max: 5000, coin: 'DGB', unit: 'GH' }
     };
@@ -2524,19 +2512,6 @@
         }
       }
       
-      // ERG
-      if (data.ERG && data.ERG.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.ERG.block_time || 120);
-        const dailyCoins = (data.ERG.block_reward || 27) * blocksPerDay;
-        const perMH = dailyCoins / (data.ERG.network_hashrate / 1e6);
-        
-        const validation = validateAndUpdateRate('Autolykos2', perMH, 'ERG');
-        if (validation.rate) {
-          REVENUE_RATES['Autolykos2'].perUnit = validation.rate;
-          console.log('ERG rate updated:', validation.rate, 'ERG/MH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
       // BCH
       if (data.BCH && data.BCH.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.BCH.block_time || 600);
@@ -2604,20 +2579,6 @@
         if (validation.rate) {
           REVENUE_RATES['Equihash'].perUnit = validation.rate;
           console.log('ZEC rate updated:', validation.rate, 'ZEC/kSol/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // CKB (Eaglesong) via Nervos Explorer
-      if (data.CKB && data.CKB.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.CKB.block_time || 8);
-        const dailyCoins = (data.CKB.block_reward || 500) * blocksPerDay;
-        // network_hashrate is expected to be in H/s, we need per GH/s
-        const perGH = dailyCoins / (data.CKB.network_hashrate / 1e9);
-        
-        const validation = validateAndUpdateRate('Eaglesong', perGH, 'CKB');
-        if (validation.rate) {
-          REVENUE_RATES['Eaglesong'].perUnit = validation.rate;
-          console.log('CKB rate updated:', validation.rate, 'CKB/GH/day', validation.valid ? '✓' : '(fallback)');
         }
       }
       
@@ -2743,9 +2704,7 @@
         'Equihash': ['ZEC'],
         'X11': ['DASH'],
         'KAWPOW': ['RVN'],
-        'Autolykos2': ['ERG'],
         'RandomX': ['XMR'],
-        'Eaglesong': ['CKB'],
         'Scrypt-DGB': ['DGB']
       };
       
@@ -2810,9 +2769,7 @@
         'Equihash': 'ZEC',
         'X11': 'DASH',
         'KAWPOW': 'RVN',
-        'Autolykos2': 'ERG',
         'RandomX': 'XMR',
-        'Eaglesong': 'CKB',
         'Scrypt-DGB': 'DGB'
       };
       
@@ -3409,7 +3366,7 @@
     // ============================================
     // LIVE PRICE TICKER (uses calculator price data)
     // ============================================
-    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR'];
+    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR', 'RVN', 'DGB'];
     
     function updateTicker() {
       const tickerTrack = document.getElementById('ticker-track');
