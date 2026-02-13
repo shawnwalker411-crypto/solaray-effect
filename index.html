@@ -2590,8 +2590,9 @@
         }
       }
       
-      // ZEC (Equihash) via Blockchair
-      if (data.ZEC && data.ZEC.hashrate_24h > 0) {
+      // ZEC (Equihash)
+      // network_hashrate is expected to be in Sol/s
+      if (data.ZEC && data.ZEC.network_hashrate > 0) {
         // Blockchair provides hashrate_24h directly
         // ZEC: block_time ~75s, block_reward ~2.5 (post-halving varies)
         const blocksPerDay = 86400 / (data.ZEC.block_time || 75);
@@ -2607,11 +2608,11 @@
       }
       
       // CKB (Eaglesong) via Nervos Explorer
-      if (data.CKB && data.CKB.hash_rate > 0) {
+      if (data.CKB && data.CKB.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.CKB.block_time || 8);
         const dailyCoins = (data.CKB.block_reward || 500) * blocksPerDay;
-        // hash_rate from Nervos is in H/s, we need per GH/s
-        const perGH = dailyCoins / (data.CKB.hash_rate / 1e9);
+        // network_hashrate is expected to be in H/s, we need per GH/s
+        const perGH = dailyCoins / (data.CKB.network_hashrate / 1e9);
         
         const validation = validateAndUpdateRate('Eaglesong', perGH, 'CKB');
         if (validation.rate) {
