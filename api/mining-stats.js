@@ -179,9 +179,13 @@ async function fetchViaNowNodes(coin) {
 
   // Estimate hashrate from difficulty for coins that support it
   // RVN and ETC use different difficulty schemes — skip estimation
+  // ZEC uses Equihash which needs 2^13 factor instead of 2^32
   let networkHashrate = 0;
   let hashEstimated = false;
-  if (coin !== 'RVN' && coin !== 'ETC') {
+  if (coin === 'ZEC') {
+    networkHashrate = (difficulty * Math.pow(2, 13)) / blockTimes[coin];
+    hashEstimated = true;
+  } else if (coin !== 'RVN' && coin !== 'ETC') {
     networkHashrate = btcHashrate(difficulty, blockTimes[coin]);
     hashEstimated = true;
   }
