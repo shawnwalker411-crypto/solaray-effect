@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const CACHE_DURATION = 48 * 60 * 60 * 1000; // 48 hours in ms
   
   // If no coin specified, return all cached data or fetch all
-  const coinsToFetch = coin ? [coin.toUpperCase()] : ['BTC', 'LTC', 'DOGE', 'KAS', 'BCH', 'DASH', 'ETC', 'RVN', 'ERG'];
+  const coinsToFetch = coin ? [coin.toUpperCase()] : ['BTC', 'LTC', 'DOGE', 'KAS', 'BCH', 'DASH', 'ETC', 'RVN', 'ERG', 'ZEC', 'XMR', 'CKB', 'DGB'];
   
   const results = {};
   
@@ -57,6 +57,14 @@ async function fetchCoinData(coin) {
       return await fetchKAS();
     case 'ERG':
       return await fetchERG();
+    case 'ZEC':
+      return await fetchZEC();
+    case 'XMR':
+      return await fetchXMR();
+    case 'CKB':
+      return await fetchCKB();
+    case 'DGB':
+      return await fetchDGB();
     case 'LTC':
     case 'DOGE':
     case 'BCH':
@@ -127,6 +135,99 @@ async function fetchERG() {
     block_time: 120, // 2 minutes
     timestamp: Date.now(),
     source: 'ergoplatform.com'
+  };
+}
+
+// ZEC via Blockchair (no API key needed)
+async function fetchZEC() {
+  const res = await fetch('https://api.blockchair.com/zcash/stats');
+  const json = await res.json();
+  const data = json.data;
+  
+  return {
+    coin: 'ZEC',
+    difficulty: data.difficulty || 0,
+    network_hashrate: parseFloat(data.hashrate_24h) || 0,
+    hashrate_24h: parseFloat(data.hashrate_24h) || 0,
+    height: data.best_block_height || 0,
+    block_reward: 2.5, // Post-halving
+    block_time: 75, // ~75 seconds
+    timestamp: Date.now(),
+    source: 'blockchair.com'
+  };
+}
+
+// XMR via Blockchair (no API key needed)
+// Note: XMR uses RandomX, hashrate = difficulty / block_time (NOT * 2^32)
+async function fetchXMR() {
+  const res = await fetch('https://api.blockchair.com/monero/stats');
+  const json = await res.json();
+  const data = json.data;
+  
+  return {
+    coin: 'XMR',
+    difficulty: parseFloat(data.difficulty) || 0,
+    network_hashrate: parseFloat(data.hashrate_24h) || 0,
+    hashrate_24h: parseFloat(data.hashrate_24h) || 0,
+    height: data.best_block_height || 0,
+    block_reward: 0.6, // Tail emission ~0.6 XMR
+    block_time: 120, // 2 minutes
+    timestamp: Date.now(),
+    source: 'blockchair.com'
+  };
+}
+
+// CKB via Nervos Explorer API (no API key needed, requires vnd.api+json header)
+async function fetchCKB() {
+  const res = await fetch('https://mainnet-api.explorer.nervos.org/api/v1/statistics', {
+    headers: {
+      'Accept': 'application/vnd.api+json',
+      'Content-Type': 'application/vnd.api+json'
+    }
+  });
+  const json = await res.json();
+  const attrs = json.data?.attributes || {};
+  
+  const hashRate = parseFloat(attrs.hash_rate) || 0;
+  const difficulty = parseFloat(attrs.current_epoch_difficulty) || 0;
+  const height = parseInt(attrs.tip_block_number) || 0;
+  const avgBlockTime = parseFloat(attrs.average_block_time) || 8000; // in milliseconds
+  
+  return {
+    coin: 'CKB',
+    difficulty,
+    network_hashrate: hashRate, // Already in H/s
+    hash_rate: hashRate,
+    height,
+    block_reward: 500, // Base issuance per block (approximate)
+    block_time: avgBlockTime / 1000, // Convert ms to seconds
+    timestamp: Date.now(),
+    source: 'explorer.nervos.org'
+  };
+}
+
+// DGB via chainz.cryptoid.info (no API key needed for basic queries)
+// Makes 3 separate calls for difficulty, hashrate, and block height
+async function fetchDGB() {
+  const [diffRes, hashRes, heightRes] = await Promise.all([
+    fetch('https://chainz.cryptoid.info/dgb/api.dws?q=getdifficulty'),
+    fetch('https://chainz.cryptoid.info/dgb/api.dws?q=nethashps'),
+    fetch('https://chainz.cryptoid.info/dgb/api.dws?q=getblockcount')
+  ]);
+  
+  const difficulty = parseFloat(await diffRes.text()) || 0;
+  const networkHashrate = parseFloat(await hashRes.text()) || 0;
+  const height = parseInt(await heightRes.text()) || 0;
+  
+  return {
+    coin: 'DGB',
+    difficulty,
+    network_hashrate: networkHashrate, // In H/s
+    height,
+    block_reward: 665, // Approximate current reward
+    block_time: 15, // 15 seconds
+    timestamp: Date.now(),
+    source: 'chainz.cryptoid.info'
   };
 }
 
