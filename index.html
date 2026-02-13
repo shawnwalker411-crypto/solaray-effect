@@ -1187,7 +1187,14 @@
       background: linear-gradient(180deg, rgba(244, 180, 26, 0.15) 0%, rgba(11, 47, 38, 0.95) 100%);
       border-bottom: 2px solid var(--border-gold);
       padding: 0.5rem 0;
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+    }
+    
+    /* Push ticker down when warning banner is visible */
+    .ticker-container.banner-offset {
+      top: 46px;
     }
     
     .ticker-container::before {
@@ -2388,7 +2395,7 @@
       // KAS: ~0.001 to ~0.1 KAS/GH/day
       'KHeavyHash': { min: 1e-5, max: 1, coin: 'KAS', unit: 'GH' },
       // ETC: ~0.00005 to ~0.001 ETC/MH/day
-      'Etchash': { min: 1e-6, max: 0.01, coin: 'ETC', unit: 'MH' },
+      'Etchash': { min: 1e-6, max: 50, coin: 'ETC', unit: 'MH' },
       // DASH: ~0.0001 to ~0.01 DASH/GH/day
       'X11': { min: 1e-6, max: 0.1, coin: 'DASH', unit: 'GH' },
       // RVN: ~0.1 to ~10 RVN/MH/day
@@ -2399,10 +2406,10 @@
       'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
       // ZEC: ~0.00005 to ~0.005 ZEC/kSol/day
       'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
-      // CKB: ~0.00001 to ~0.01 CKB/GH/day
-      'Eaglesong': { min: 1e-6, max: 1, coin: 'CKB', unit: 'GH' },
-      // DGB: ~0.001 to ~1 DGB/GH/day
-      'Scrypt-DGB': { min: 1e-4, max: 10, coin: 'DGB', unit: 'GH' }
+      // CKB: ~10 to ~200 CKB/GH/day (large block reward, high hashrate)
+      'Eaglesong': { min: 1, max: 500, coin: 'CKB', unit: 'GH' },
+      // DGB: ~50 to ~1000 DGB/GH/day (large block reward, moderate hashrate)
+      'Scrypt-DGB': { min: 10, max: 5000, coin: 'DGB', unit: 'GH' }
     };
     
     // Track last known good rates for fallback
@@ -2633,6 +2640,8 @@
       
       if (rateSanityWarnings.length === 0) {
         if (banner) banner.style.display = 'none';
+        const ticker = document.querySelector('.ticker-container');
+        if (ticker) ticker.classList.remove('banner-offset');
         return;
       }
       
@@ -2643,8 +2652,10 @@
         document.body.prepend(banner);
       }
       
-      banner.innerHTML = '⚠️ Data Warning: ' + rateSanityWarnings.join(', ') + ' — Using fallback values. <a href="#" onclick="this.parentElement.style.display=\'none\'; return false;" style="color: #000; margin-left: 10px;">[Dismiss]</a>';
+      banner.innerHTML = '⚠️ Data Warning: ' + rateSanityWarnings.join(', ') + ' — Using fallback values. <a href="#" onclick="this.parentElement.style.display=\'none\'; document.querySelector(\'.ticker-container\')?.classList.remove(\'banner-offset\'); return false;" style="color: #000; margin-left: 10px;">[Dismiss]</a>';
       banner.style.display = 'block';
+      const tickerEl = document.querySelector('.ticker-container');
+      if (tickerEl) tickerEl.classList.add('banner-offset');
     }
     
     function loadCachedMiningStats() {
