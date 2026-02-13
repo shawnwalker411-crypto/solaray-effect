@@ -7,10 +7,12 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,9 +25,11 @@ jobs:
           MINERSTAT_API_KEY: ${{ secrets.MINERSTAT_API_KEY }}
         run: node scripts/update-catalogs.mjs
 
-      - name: Commit & push updated data
-        uses: EndBug/add-and-commit@v9
+      - name: Create Pull Request with changes
+        uses: peter-evans/create-pull-request@v6
         with:
-          add: "data/*.json"
-          message: "Monthly catalog update"
-          default_author: github_actions
+          commit-message: Monthly catalog update
+          title: Monthly catalog update
+          body: Automated update of miner and pool data.
+          branch: monthly-catalog-update
+          delete-branch: true
