@@ -1,5 +1,5 @@
-// Temporary test endpoint v2: /api/test-apis
-// Tests alternative endpoints for all coins
+// Temporary test endpoint v3: /api/test-apis
+// Round 3 - new alternative endpoints
 // DELETE THIS FILE after testing
 
 export default async function handler(req, res) {
@@ -7,112 +7,101 @@ export default async function handler(req, res) {
   
   const results = {};
   
-  // === WORKING FROM V1 ===
-  
-  // ZEC - Blockchair (CONFIRMED WORKING)
+  // === ALPH - Try Blockchair (works for ZEC/XMR) ===
   try {
-    const r = await fetch('https://api.blockchair.com/zcash/stats');
-    results.ZEC_blockchair = { status: r.status, data: await r.json() };
-  } catch (e) { results.ZEC_blockchair = { error: e.message }; }
-  
-  // XMR - Blockchair (CONFIRMED WORKING)
-  try {
-    const r = await fetch('https://api.blockchair.com/monero/stats');
-    results.XMR_blockchair = { status: r.status, data: await r.json() };
-  } catch (e) { results.XMR_blockchair = { error: e.message }; }
-  
-  // === ALPH ALTERNATIVES ===
-  
-  // ALPH - Alephium backend API (official mainnet backend)
-  try {
-    const r = await fetch('https://backend.mainnet.alephium.org/infos');
-    results.ALPH_backend = { status: r.status, data: await r.json() };
-  } catch (e) { results.ALPH_backend = { error: e.message }; }
-  
-  // ALPH - Alephium node API (node info)
-  try {
-    const r = await fetch('https://node.mainnet.alephium.org/infos/node');
-    results.ALPH_node_info = { status: r.status, data: await r.json() };
-  } catch (e) { results.ALPH_node_info = { error: e.message }; }
-  
-  // ALPH - Node chain params
-  try {
-    const r = await fetch('https://node.mainnet.alephium.org/infos/chain-params');
-    results.ALPH_chain_params = { status: r.status, data: await r.json() };
-  } catch (e) { results.ALPH_chain_params = { error: e.message }; }
+    const r = await fetch('https://api.blockchair.com/alephium/stats');
+    results.ALPH_blockchair = { status: r.status, data: await r.json() };
+  } catch (e) { results.ALPH_blockchair = { error: e.message }; }
 
-  // ALPH - Backend hashrates
+  // === ALPH - Backend supply endpoint (might have hashrate) ===
   try {
-    const r = await fetch('https://backend.mainnet.alephium.org/infos/hashrates?interval-type=daily');
-    results.ALPH_hashrates = { status: r.status, data: await r.json() };
-  } catch (e) { results.ALPH_hashrates = { error: e.message }; }
-  
-  // === CKB ALTERNATIVES ===
-  
-  // CKB - Nervos explorer with vnd.api+json header
+    const r = await fetch('https://backend.mainnet.alephium.org/infos/supply/total-alph');
+    results.ALPH_supply = { status: r.status, data: await r.text() };
+  } catch (e) { results.ALPH_supply = { error: e.message }; }
+
+  // === ALPH - Backend heights (might contain difficulty) ===
   try {
-    const r = await fetch('https://mainnet-api.explorer.nervos.org/api/v1/statistics', {
-      headers: { 'Accept': 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' }
+    const r = await fetch('https://backend.mainnet.alephium.org/infos/heights');
+    results.ALPH_heights = { status: r.status, data: await r.json() };
+  } catch (e) { results.ALPH_heights = { error: e.message }; }
+
+  // === ALPH - Node hashrate endpoint ===
+  try {
+    const r = await fetch('https://node.mainnet.alephium.org/infos/current-hashrate');
+    results.ALPH_node_hashrate = { status: r.status, data: await r.text() };
+  } catch (e) { results.ALPH_node_hashrate = { error: e.message }; }
+
+  // === ALPH - Node self-clique ===
+  try {
+    const r = await fetch('https://node.mainnet.alephium.org/infos/self-clique');
+    results.ALPH_selfclique = { status: r.status, data: await r.json() };
+  } catch (e) { results.ALPH_selfclique = { error: e.message }; }
+
+  // === DGB - chainz.cryptoid.info (free, no key needed for basic) ===
+  try {
+    const r = await fetch('https://chainz.cryptoid.info/dgb/api.dws?q=getdifficulty');
+    const text = await r.text();
+    results.DGB_cryptoid_diff = { status: r.status, data: text };
+  } catch (e) { results.DGB_cryptoid_diff = { error: e.message }; }
+
+  // DGB - cryptoid nethashps
+  try {
+    const r = await fetch('https://chainz.cryptoid.info/dgb/api.dws?q=nethashps');
+    const text = await r.text();
+    results.DGB_cryptoid_hashrate = { status: r.status, data: text };
+  } catch (e) { results.DGB_cryptoid_hashrate = { error: e.message }; }
+
+  // DGB - cryptoid getblockcount
+  try {
+    const r = await fetch('https://chainz.cryptoid.info/dgb/api.dws?q=getblockcount');
+    const text = await r.text();
+    results.DGB_cryptoid_height = { status: r.status, data: text };
+  } catch (e) { results.DGB_cryptoid_height = { error: e.message }; }
+
+  // === SC - Blockchair with "sia" not "siacoin" ===
+  try {
+    const r = await fetch('https://api.blockchair.com/sia/stats');
+    results.SC_blockchair_sia = { status: r.status, data: await r.json() };
+  } catch (e) { results.SC_blockchair_sia = { error: e.message }; }
+
+  // SC - cryptoid siacoin
+  try {
+    const r = await fetch('https://chainz.cryptoid.info/sc/api.dws?q=getdifficulty');
+    const text = await r.text();
+    results.SC_cryptoid_diff = { status: r.status, data: text };
+  } catch (e) { results.SC_cryptoid_diff = { error: e.message }; }
+
+  // SC - explore.sia.tech v2 (new Sia Foundation explorer)
+  try {
+    const r = await fetch('https://explore.sia.tech/api/consensus/state');
+    results.SC_explore_state = { status: r.status, data: await r.json() };
+  } catch (e) { results.SC_explore_state = { error: e.message }; }
+
+  // SC - explore.sia.tech network metrics
+  try {
+    const r = await fetch('https://explore.sia.tech/api/consensus/network');
+    results.SC_explore_network = { status: r.status, data: await r.json() };
+  } catch (e) { results.SC_explore_network = { error: e.message }; }
+
+  // === KDA - Try different Kadena explorer/stats endpoints ===
+  try {
+    const r = await fetch('https://api.chainweb.com/chainweb/0.0/mainnet01/chain/0/header?limit=1', {
+      headers: { 'Accept': 'application/json;blockheader-encoding=object' }
     });
-    results.CKB_nervos_v1 = { status: r.status, data: await r.json() };
-  } catch (e) { results.CKB_nervos_v1 = { error: e.message }; }
-  
-  // CKB - Try plain header
-  try {
-    const r = await fetch('https://mainnet-api.explorer.nervos.org/api/v1/statistics');
-    results.CKB_nervos_plain = { status: r.status, data: await r.json() };
-  } catch (e) { results.CKB_nervos_plain = { error: e.message }; }
+    results.KDA_header_chain0 = { status: r.status, data: await r.json() };
+  } catch (e) { results.KDA_header_chain0 = { error: e.message }; }
 
-  // === SC ALTERNATIVES ===
-  
-  // SC - SiaScan API
+  // KDA - Kadena graph/stats
   try {
-    const r = await fetch('https://siascan.com/api/mining');
-    results.SC_siascan = { status: r.status, data: await r.json() };
-  } catch (e) { results.SC_siascan = { error: e.message }; }
+    const r = await fetch('https://graph.kadena.network/stats');
+    results.KDA_graph_stats = { status: r.status, data: await r.json() };
+  } catch (e) { results.KDA_graph_stats = { error: e.message }; }
 
-  // SC - SiaStats network status
+  // KDA - Blockchair kadena
   try {
-    const r = await fetch('https://siastats.info/dbs/network_status.json');
-    results.SC_siastats = { status: r.status, data: await r.json() };
-  } catch (e) { results.SC_siastats = { error: e.message }; }
-  
-  // SC - Blockchair siacoin
-  try {
-    const r = await fetch('https://api.blockchair.com/siacoin/stats');
-    results.SC_blockchair = { status: r.status, data: await r.json() };
-  } catch (e) { results.SC_blockchair = { error: e.message }; }
-
-  // === DGB ALTERNATIVES ===
-  
-  // DGB - NOWNodes (you already have a key)
-  try {
-    const NOWNODES_KEY = process.env.NOWNODES_API_KEY;
-    const r = await fetch('https://dgbbook.nownodes.io/api/v2', {
-      headers: { 'api-key': NOWNODES_KEY || '' }
-    });
-    results.DGB_nownodes = { status: r.status, data: await r.json() };
-  } catch (e) { results.DGB_nownodes = { error: e.message }; }
-  
-  // DGB - DigiExplorer
-  try {
-    const r = await fetch('https://digiexplorer.info/api/getdifficulty');
-    results.DGB_digiexplorer = { status: r.status, data: await r.json() };
-  } catch (e) { results.DGB_digiexplorer = { error: e.message }; }
-  
-  // === KDA ALTERNATIVES ===
-  
-  // KDA - Chainweb cut (network-wide snapshot)
-  try {
-    const r = await fetch('https://api.chainweb.com/chainweb/0.0/mainnet01/cut');
-    results.KDA_cut = { status: r.status, data: await r.json() };
-  } catch (e) { results.KDA_cut = { error: e.message }; }
-
-  // KDA - Kadena estats
-  try {
-    const r = await fetch('https://estats.chainweb.com/txs/recent?limit=1');
-    results.KDA_estats = { status: r.status, data: await r.json() };
-  } catch (e) { results.KDA_estats = { error: e.message }; }
+    const r = await fetch('https://api.blockchair.com/kadena/stats');
+    results.KDA_blockchair = { status: r.status, data: await r.json() };
+  } catch (e) { results.KDA_blockchair = { error: e.message }; }
 
   return res.status(200).json(results);
 }
