@@ -2153,7 +2153,7 @@
       'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
       'X11': { perUnit: 0.000268, unit: 'GH/s', coin: 'DASH' },
       'SHA-256-DGB': { perUnit: 5.9, unit: 'TH/s', coin: 'DGB' },
-      'Scrypt-DGB': { perUnit: 0.344, unit: 'MH/s', coin: 'DGB' },
+      'Scrypt-DGB': { perUnit: 0.037, unit: 'MH/s', coin: 'DGB' },
       'Eaglesong': { perUnit: 45.0, unit: 'TH/s', coin: 'CKB' },
       'Blake2bSia': { perUnit: 240.0, unit: 'TH/s', coin: 'SC' },
       'Blake2sKDA': { perUnit: 1.5, unit: 'TH/s', coin: 'KDA' },
@@ -2485,8 +2485,8 @@
       'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
       // DGB: ~1 to ~50 DGB/TH/day (SHA-256 algo, much higher reward count than BTC)
       'SHA-256-DGB': { min: 0.1, max: 500, coin: 'DGB', unit: 'TH' },
-      // DGB Scrypt: ~0.01 to ~10 DGB/MH/day
-      'Scrypt-DGB': { min: 0.01, max: 50, coin: 'DGB', unit: 'MH' },
+      // DGB Scrypt: ~0.01 to ~0.5 DGB/MH/day (much lower than SHA-256 DGB due to separate difficulty)
+      'Scrypt-DGB': { min: 0.005, max: 0.5, coin: 'DGB', unit: 'MH' },
       // CKB: ~10 to ~500 CKB/TH/day
       'Eaglesong': { min: 1, max: 5000, coin: 'CKB', unit: 'TH' },
       // SC: ~50 to ~5000 SC/TH/day
@@ -2561,7 +2561,9 @@
       'Blake3': { scale: 1e9, unit: 'GH', minerstatCoin: 'ALPH' },
       'RandomX': { scale: 1e3, unit: 'KH', minerstatCoin: 'XMR' },
       'SHA-256-DGB': { scale: 1e12, unit: 'TH', minerstatCoin: 'DGB' },
-      'Scrypt-DGB': { scale: 1e6, unit: 'MH', minerstatCoin: 'DGB' },
+      // Scrypt-DGB intentionally EXCLUDED — MinerStat only reports SHA-256 DGB data
+      // Applying SHA-256 reward to Scrypt gives 12x inflated results
+      // Falls back to hardcoded default (0.344 DGB/MH/day) which matches CoinWarz
       'Eaglesong': { scale: 1e12, unit: 'TH', minerstatCoin: 'CKB' }
       // SC and KDA may not be in MinerStat free tier coins endpoint
       // KAS (KHeavyHash) intentionally EXCLUDED — MinerStat data is broken
