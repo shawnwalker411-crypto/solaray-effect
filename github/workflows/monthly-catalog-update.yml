@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -23,10 +26,14 @@ jobs:
         run: node scripts/update-catalogs.mjs
 
       - name: Commit & push data changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "catalog-bot"
           git config user.email "catalog-bot@users.noreply.github.com"
+
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+
           git add data/
           git diff --cached --quiet || git commit -m "Monthly catalog update"
-          git push
-
+          git push origin HEAD:main
