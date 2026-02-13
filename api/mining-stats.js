@@ -177,7 +177,7 @@ async function fetchViaNowNodes(coin, apiKey) {
     LTC: 6.25,
     DOGE: 10000,
     BCH: 3.125,
-    DASH: 1.55,
+    DASH: 0.44,
     RVN: 2500
   };
   
