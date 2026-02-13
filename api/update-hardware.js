@@ -1,5 +1,5 @@
 // /api/update-hardware.js
-// Phase 1: Fetches MinerStat /v2/hardware and caches to /tmp/
+// Fetches MinerStat /v2/hardware and caches to /tmp/
 // Called by cron-job.org monthly (1st of each month)
 // Protected by CRON_SECRET header — never called by visitors
 // NOTE: Free tier returns truncated/incomplete data (missing S19 Pro, KS5, etc.)
