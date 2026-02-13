@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Aftermarket firmware guide for ASIC miners: Braiins OS+, LuxOS features, risks, fees, and when it makes sense for home mining setups.">
+  <meta name="keywords" content="ASIC firmware, Braiins OS, LuxOS, miner firmware, autotuning, underclocking, overclocking, bitcoin miner firmware">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/aftermarket_firmware.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.solarayeffect.com/aftermarket_firmware.html">
+  <meta property="og:title" content="Aftermarket Firmware Guide | Sola Ray Effect">
+  <meta property="og:description" content="Aftermarket firmware guide for ASIC miners: Braiins OS+, LuxOS features, risks, fees, and when it makes sense for home mining.">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/aftermarket_firmware.html">
+  <meta name="twitter:title" content="Aftermarket Firmware Guide | Sola Ray Effect">
+  <meta name="twitter:description" content="Aftermarket firmware guide for ASIC miners: Braiins OS+, LuxOS features, risks, fees, and when it makes sense for home mining.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-M6F5T8Y2P6');
+  </script>
+  <title>Aftermarket Firmware Guide | Sola Ray Effect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-gold: #D4AF37;
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem; }
+    
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+    
+    header h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--sola-teal);
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    
+    .back-link:hover {
+      color: var(--sola-gold);
+    }
+    
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .section-title {
+      font-size: 1.2rem;
+      color: var(--sola-teal);
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+    
+    .firmware-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    .firmware-card:last-child {
+      margin-bottom: 0;
+    }
+    
+    .firmware-name {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.1rem;
+      color: var(--sola-gold);
+      margin-bottom: 0.5rem;
+    }
+    
+    .firmware-card p {
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+    
+    .firmware-card ul {
+      margin-left: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+    }
+    
+    .firmware-card li {
+      margin-bottom: 0.25rem;
+    }
+    
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .tag-fee {
+      background: rgba(255, 82, 82, 0.2);
+      color: #ff5252;
+    }
+    
+    .tag-free {
+      background: rgba(0, 230, 118, 0.2);
+      color: #00e676;
+    }
+    
+    .tag-feature {
+      background: rgba(0, 206, 209, 0.2);
+      color: var(--sola-teal);
+    }
+    
+    a {
+      color: var(--sola-teal);
+    }
+    
+    a:hover {
+      color: var(--sola-gold);
+    }
+    
+    .warning-box {
+      background: rgba(255, 152, 0, 0.1);
+      border: 1px solid #ff9800;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .warning-box p {
+      color: #ff9800;
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+    
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .comparison-table th {
+      text-align: left;
+      padding: 0.6rem;
+      background: var(--bg-card);
+      color: var(--sola-teal);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .comparison-table td {
+      padding: 0.6rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 2rem;
+    }
+
+    /* ============================================
+       GLOSSARY DRAWER
+       ============================================ */
+    .glossary-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .glossary-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .glossary-drawer {
+      position: fixed;
+      top: 0; right: -400px;
+      width: 400px;
+      max-width: 90vw;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 2px solid var(--sola-gold);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .glossary-drawer.active {
+      right: 0;
+    }
+    
+    .glossary-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .glossary-header h3 {
+      color: var(--sola-gold);
+      margin: 0;
+    }
+    
+    .glossary-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .glossary-close:hover {
+      color: var(--sola-teal);
+    }
+    
+    /* ============================================
+       HAMBURGER MENU
+       ============================================ */
+    .hamburger-menu {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+    }
+    
+    .hamburger-btn {
+      background: var(--bg-card);
+      border: 2px solid var(--sola-teal);
+      color: var(--sola-teal);
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+    }
+    
+    .hamburger-btn:hover {
+      background: var(--sola-teal);
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+    }
+    
+    .hamburger-btn .bun-top {
+      width: 24px;
+      height: 6px;
+      background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
+      border-radius: 10px 10px 0 0;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .lettuce {
+      width: 26px;
+      height: 3px;
+      background: #32CD32;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .patty {
+      width: 24px;
+      height: 4px;
+      background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .cheese {
+      width: 26px;
+      height: 3px;
+      background: #FFD700;
+      border-radius: 1px;
+      transform: skewX(-5deg);
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .bun-bottom {
+      width: 24px;
+      height: 5px;
+      background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
+      border-radius: 0 0 6px 6px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+    
+    .nav-drawer {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-right: 2px solid var(--sola-teal);
+      z-index: 999;
+      transition: left 0.3s ease;
+      padding: 80px 1.5rem 2rem;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-drawer.open { left: 0; }
+    
+    .nav-drawer h3 {
+      color: var(--sola-gold);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .nav-drawer a, .nav-drawer .nav-disabled {
+      display: block;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    
+    .nav-drawer a:hover {
+      background: var(--bg-card);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    
+    .nav-drawer a.active {
+      background: rgba(0, 206, 209, 0.15);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    
+    .nav-drawer .nav-disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+    
+    .nav-overlay.show { display: block; }
+    
+    .glossary-content {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    
+    .glossary-term-title {
+      color: var(--sola-teal);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .glossary-term-def {
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+    
+    .glossary-term {
+      color: var(--sola-teal);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    
+    .glossary-term:hover {
+      color: var(--sola-gold);
+    }
+    
+    /* Banner */
+    .banner-container {
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .banner-container img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Aftermarket Firmware Guide for ASIC Miners","description":"Compare LuxOS, VNish, and Braiins firmware options for optimizing your mining hardware.","url":"https://www.solarayeffect.com/aftermarket_firmware.html","publisher":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
+</head>
+<body>
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
+      <span class="bun-top"></span>
+      <span class="lettuce"></span>
+      <span class="patty"></span>
+      <span class="cheese"></span>
+      <span class="bun-bottom"></span>
+    </button>
+  </div>
+  
+  <!-- Navigation Drawer -->
+  <nav class="nav-drawer" id="nav-drawer">
+    <h3>Navigation</h3>
+    <a href="index.html">⚡ Calculator</a>
+    <a href="miners.html">🔧 Miners</a>
+    <a href="pools.html">🏊 Mining Pools</a>
+    <a href="aftermarket_firmware.html" class="active">⚙️ Firmware Guide</a>
+    <a href="electrical_setup.html">🔌 Electrical Setup</a>
+    <a href="glossary.html">📖 Glossary</a>
+    <a href="datavault.html">📡 Data Vault</a>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  
+  <!-- Glossary Overlay -->
+  <div class="glossary-overlay" id="glossary-overlay"></div>
+  
+  <!-- Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer">
+    <div class="glossary-header">
+      <h3>📖 Glossary</h3>
+      <button class="glossary-close" aria-label="Close glossary">✕</button>
+    </div>
+    <div class="glossary-content">
+      <div class="glossary-term-title" id="glossary-term-title">Term</div>
+      <div class="glossary-term-def" id="glossary-term-def">Definition</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="banner-container">
+      <img src="assets/img-e688b707c7.jpg" alt="The Sola Ray Effect" class="header-image">
+    </div>
+    
+    <header>
+      <h1>Aftermarket Firmware</h1>
+      <p style="color: var(--text-secondary);">Required for Loki Kit 120V Mining</p>
+    </header>
+    
+    <section class="section">
+      <h2 class="section-title">Why Aftermarket Firmware?</h2>
+      <p>Stock Bitmain firmware doesn't allow you to underclock miners enough to run on 120V power. Aftermarket firmware unlocks this ability, letting you:</p>
+      <ul style="margin-left: 1.25rem; color: var(--text-secondary);">
+        <li>Lower frequency/voltage to reduce power draw</li>
+        <li>Run industrial <span class="glossary-term" data-term="asic">ASIC</span>s on standard 120V/15A outlets</li>
+        <li>Fine-tune performance vs power consumption</li>
+        <li>Often improve <span class="glossary-term" data-term="efficiency">efficiency</span> (J/TH)</li>
+      </ul>
+      <div class="warning-box">
+        <p>⚠️ Aftermarket firmware may void your warranty. Always research compatibility with your specific miner model and control board before flashing.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2 class="section-title">Popular Options</h2>
+      
+      <div class="firmware-card">
+        <div class="firmware-name">LuxOS</div>
+        <span class="tag tag-fee">2.8% <span class="glossary-term" data-term="devfee">Dev Fee</span></span>
+        <span class="tag tag-feature">Pool Fee Waived on Luxor</span>
+        <p>Developed by Luxor Technology. Popular choice for Loki rigs and "Urlacher" builds. The dev fee is waived if you mine on Luxor Pool.</p>
+        <ul>
+          <li>Excellent underclocking support</li>
+          <li>Clean web interface</li>
+          <li>Actively maintained</li>
+          <li>Good for S19K Pro and S21</li>
+        </ul>
+        <p><a href="https://luxor.tech/luxos" target="_blank" rel="noopener">luxor.tech/luxos →</a></p>
+      </div>
+      
+      <div class="firmware-card">
+        <div class="firmware-name">VNish</div>
+        <span class="tag tag-fee">2% Dev Fee</span>
+        <span class="tag tag-feature">Auto-tuning</span>
+        <p>Russian-developed firmware with powerful auto-tuning features. Popular in the home mining community for its efficiency gains.</p>
+        <ul>
+          <li>Automatic chip tuning</li>
+          <li>Immersion cooling support</li>
+          <li>Works with most S19 variants</li>
+          <li>Fixed frequency mode for Loki</li>
+        </ul>
+        <p><a href="https://www.vnish.net/" target="_blank" rel="noopener">vnish.net →</a></p>
+      </div>
+      
+      <div class="firmware-card">
+        <div class="firmware-name">Braiins OS+</div>
+        <span class="tag tag-fee">2% Dev Fee (or 0% on Braiins Pool)</span>
+        <span class="tag tag-feature">Auto-tuning</span>
+        <p>From the creators of Slush Pool (now Braiins Pool). Open-source base with premium features in OS+ version.</p>
+        <ul>
+          <li>Excellent auto-tuning</li>
+          <li>Power target mode (set watts, auto-adjust <span class="glossary-term" data-term="hashrate">hashrate</span>)</li>
+          <li>0% fee if mining on Braiins Pool</li>
+          <li>Strong community support</li>
+        </ul>
+        <p><a href="https://braiins.com/os/plus" target="_blank" rel="noopener">braiins.com/os/plus →</a></p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2 class="section-title">Quick Comparison</h2>
+      <table class="comparison-table">
+        <tr>
+          <th>Firmware</th>
+          <th>Dev Fee</th>
+          <th>Best For</th>
+          <th>Fee Waived</th>
+        </tr>
+        <tr>
+          <td>LuxOS</td>
+          <td>2.8%</td>
+          <td>Loki/Urlacher builds</td>
+          <td>Luxor Pool</td>
+        </tr>
+        <tr>
+          <td>VNish</td>
+          <td>2%</td>
+          <td>Auto-tuning, efficiency</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Braiins OS+</td>
+          <td>2% (or 0%)</td>
+          <td>Power target mode</td>
+          <td>Braiins Pool</td>
+        </tr>
+      </table>
+    </section>
+    
+    <section class="section">
+      <h2 class="section-title">For Loki Kit Users</h2>
+      <p>If you're running a Loki Kit setup on 120V, you'll need firmware that supports:</p>
+      <ul style="margin-left: 1.25rem; color: var(--text-secondary);">
+        <li><strong>Fixed frequency mode</strong> - Set a specific frequency to keep power under 1200W</li>
+        <li><strong>Power limit</strong> - Some firmware lets you set a wattage cap</li>
+        <li><strong>Hash board spoofing</strong> - The Loki Kit tricks the miner into thinking all boards are present</li>
+      </ul>
+      <p style="margin-top: 1rem;">Most Loki builds use <strong>LuxOS</strong> or <strong>VNish</strong>. Start at the lowest frequency setting, then slowly increase until you hit ~1200W at the wall.</p>
+    </section>
+    
+    <section class="section">
+      <h2 class="section-title">Where to Get a Loki Kit</h2>
+      <p>The Loki Kit is made by Pivotal Pleb Tech and sold through several retailers:</p>
+      <ul style="margin-left: 1.25rem; color: var(--text-secondary);">
+        <li><a href="https://pivotalpleb.com/products/loki-kit" target="_blank" rel="noopener">Pivotal Pleb Tech</a> (original creator)</li>
+        <li><a href="https://altairtech.io/product/loki-kit/" target="_blank" rel="noopener">Altair Technology</a></li>
+        <li><a href="https://nakamotomining.com/en-us/products/loki-kit" target="_blank" rel="noopener">Nakamoto Mining</a></li>
+        <li><a href="https://d-central.tech/" target="_blank" rel="noopener">D-Central Technologies</a> (pre-built Loki rigs)</li>
+      </ul>
+    </section>
+    
+    <footer>
+      <p>© 2026 The Sola Ray Effect</p>
+      <p><a href="index.html">Back to Calculator</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Glossary data
+    const GLOSSARY = {
+      asic: {
+        title: 'ASIC',
+        definition: 'ASIC (Application-Specific Integrated Circuit) is specialized hardware designed solely for cryptocurrency mining. Unlike general-purpose computers, ASICs are optimized for a specific mining algorithm, making them extremely efficient but limited to mining particular cryptocurrencies.'
+      },
+      hashrate: {
+        title: 'Hashrate',
+        definition: 'Hashrate measures computational power - how many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. Measured in H/s, KH/s, MH/s, GH/s, TH/s, or PH/s.'
+      },
+      firmware: {
+        title: 'Firmware',
+        definition: 'Firmware is the software embedded in your mining hardware that controls its operation. Aftermarket firmware replaces manufacturer software to unlock features like overclocking, undervolting, and efficiency improvements.'
+      },
+      overclocking: {
+        title: 'Overclocking',
+        definition: 'Overclocking pushes your miner beyond factory settings for higher hashrate. This increases heat and power consumption but can boost earnings. Requires careful tuning and adequate cooling.'
+      },
+      undervolting: {
+        title: 'Undervolting',
+        definition: 'Undervolting reduces the voltage supplied to mining chips. This lowers power consumption and heat while maintaining hashrate, improving efficiency and profitability.'
+      },
+      efficiency: {
+        title: 'Efficiency',
+        definition: 'Mining efficiency is measured in watts per unit of hashrate (e.g., J/TH for Bitcoin). Lower numbers mean less electricity to produce the same mining output - critical for profitability.'
+      },
+      devfee: {
+        title: 'Dev Fee',
+        definition: 'Dev fee is a percentage of your mining time/rewards that goes to the firmware developers. Typically 2-3% for aftermarket firmware. This compensates developers for creating and maintaining the software.'
+      }
+    };
+    
+    // Open glossary drawer
+    function openGlossary(term) {
+      const data = GLOSSARY[term];
+      if (data) {
+        document.getElementById('glossary-term-title').textContent = data.title;
+        document.getElementById('glossary-term-def').textContent = data.definition;
+        document.getElementById('glossary-drawer').classList.add('active');
+        document.getElementById('glossary-overlay').classList.add('active');
+      }
+    }
+    
+    // Close glossary drawer
+    function closeGlossary() {
+      document.getElementById('glossary-drawer').classList.remove('active');
+      document.getElementById('glossary-overlay').classList.remove('active');
+    }
+    
+    // Toggle navigation drawer
+    function toggleNav() {
+      document.getElementById('hamburger-btn').classList.toggle('open');
+      document.getElementById('nav-drawer').classList.toggle('open');
+      document.getElementById('nav-overlay').classList.toggle('show');
+    }
+    
+    // Setup all interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Glossary term clicks
+      document.querySelectorAll('.glossary-term').forEach(el => {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          const term = this.getAttribute('data-term');
+          if (term) openGlossary(term);
+        });
+      });
+      
+      // Hamburger menu
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleNav();
+        });
+      }
+      
+      if (navOverlay) {
+        navOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+      
+      // Glossary drawer close
+      var glossaryOverlay = document.getElementById('glossary-overlay');
+      var glossaryClose = document.querySelector('.glossary-drawer-close');
+      
+      if (glossaryOverlay) {
+        glossaryOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeGlossary();
+        });
+      }
+      
+      if (glossaryClose) {
+        glossaryClose.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeGlossary();
+        });
+      }
+    });
+  </script>
+
+<!-- ============================================ -->
+<!-- SOLA FEEDBACK POPUP WIDGET — Temporary feature -->
+<!-- Remove this entire block when feedback window closes -->
+<!-- ============================================ -->
+<div id="sola-feedback-widget" style="display:none;">
+  <!-- Small trigger bubble (bottom-right) -->
+  <div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
+    <p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
+    <video id="sola-fb-video" width="200" height="113" muted playsinline loop style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);"
+      src="assets/sola_feedback.mp4"></video>
+    <div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
+      <button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
+      <button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
+    </div>
+  </div>
+
+  <!-- Wizard overlay -->
+  <div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
+    <!-- Header -->
+    <div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
+      <span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray — Feedback</span>
+      <button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">&times;</button>
+    </div>
+    <!-- Privacy note -->
+    <div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
+      Your email is used only for direct communication with Sola Ray Effect. It will never be sold, shared, or added to any mailing list.
+    </div>
+    <!-- Steps container -->
+    <div id="sola-fb-steps" style="padding:16px;">
+      <!-- Step 1: How did you find us -->
+      <div class="sola-fb-step" data-step="1">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
+        <select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
+          <option value="">Select one...</option>
+          <option value="Google Search">Google Search</option>
+          <option value="YouTube">YouTube</option>
+          <option value="Reddit">Reddit</option>
+          <option value="Twitter/X">Twitter / X</option>
+          <option value="Facebook">Facebook</option>
+          <option value="A Friend">A Friend</option>
+          <option value="Mining Forum">Mining Forum</option>
+          <option value="Other">Other</option>
+        </select>
+        <button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+      </div>
+      <!-- Step 2: What brought you here -->
+      <div class="sola-fb-step" data-step="2" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
+        <textarea id="sola-fb-reason" rows="3" placeholder="What were you looking for?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 3: Feedback -->
+      <div class="sola-fb-step" data-step="3" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
+        <textarea id="sola-fb-message" rows="4" placeholder="What do you like most about the site?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 4: Coin/miner request -->
+      <div class="sola-fb-step" data-step="4" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
+        <textarea id="sola-fb-request" rows="3" placeholder="Optional — skip if you want" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 5: Email + Name -->
+      <div class="sola-fb-step" data-step="5" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
+        <input id="sola-fb-name" type="text" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;">
+        <input id="sola-fb-email" type="email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
+        </div>
+      </div>
+      <!-- Step 6: Thank you -->
+      <div class="sola-fb-step" data-step="6" style="display:none;">
+        <p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
+        <p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
+      </div>
+      <!-- Error state -->
+      <div id="sola-fb-error" style="display:none;">
+        <p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
+      </div>
+    </div>
+    <!-- Step indicator dots -->
+    <div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // Don't show if user already dismissed or submitted THIS SESSION
+  if (sessionStorage.getItem('sola-fb-done')) return;
+
+  var widget = document.getElementById('sola-feedback-widget');
+  var bubble = document.getElementById('sola-fb-bubble');
+  var wizard = document.getElementById('sola-fb-wizard');
+  var video = document.getElementById('sola-fb-video');
+  var dots = document.querySelectorAll('.sola-fb-dot');
+
+  // Show bubble after 2 minutes
+  setTimeout(function() {
+    widget.style.display = 'block';
+    video.play().catch(function() {});
+  }, 120000);
+
+  // Click video to unmute and replay
+  video.addEventListener('click', function() {
+    video.muted = false;
+    video.currentTime = 0;
+    video.play().catch(function() {});
+  });
+
+  // "Sure!" — open wizard
+  document.getElementById('sola-fb-yes').addEventListener('click', function() {
+    bubble.style.display = 'none';
+    video.pause();
+    video.muted = true;
+    wizard.style.display = 'block';
+  });
+
+  // "Not now" — dismiss for this session
+  document.getElementById('sola-fb-no').addEventListener('click', function() {
+    widget.style.display = 'none';
+    video.pause();
+    sessionStorage.setItem('sola-fb-done', 'dismissed');
+  });
+
+  // Close wizard
+  document.getElementById('sola-fb-close').addEventListener('click', function() {
+    widget.style.display = 'none';
+    sessionStorage.setItem('sola-fb-done', 'dismissed');
+  });
+
+  // Step navigation
+  function showStep(n) {
+    var steps = document.querySelectorAll('.sola-fb-step');
+    for (var i = 0; i < steps.length; i++) {
+      steps[i].style.display = steps[i].getAttribute('data-step') == n ? 'block' : 'none';
+    }
+    // Update dots
+    for (var j = 0; j < dots.length; j++) {
+      dots[j].style.background = (j < n && n <= 5) ? 'var(--sola-gold, #D4AF37)' : 'var(--text-muted, #5a6a7a)';
+    }
+    // Hide dots on thank you
+    document.getElementById('sola-fb-dots').style.display = n == 6 ? 'none' : 'flex';
+  }
+
+  // Next buttons
+  document.querySelectorAll('.sola-fb-next').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var next = parseInt(this.getAttribute('data-next'));
+      // Validate step 1: source required
+      if (next == 2 && !document.getElementById('sola-fb-source').value) {
+        document.getElementById('sola-fb-source').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      // Validate step 2: reason required
+      if (next == 3 && !document.getElementById('sola-fb-reason').value.trim()) {
+        document.getElementById('sola-fb-reason').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      // Validate step 3: feedback required
+      if (next == 4 && !document.getElementById('sola-fb-message').value.trim()) {
+        document.getElementById('sola-fb-message').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      showStep(next);
+    });
+  });
+
+  // Back buttons
+  document.querySelectorAll('.sola-fb-back').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      showStep(parseInt(this.getAttribute('data-back')));
+    });
+  });
+
+  // Reset border on input
+  document.getElementById('sola-fb-source').addEventListener('change', function() {
+    this.style.borderColor = '';
+  });
+  document.getElementById('sola-fb-reason').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+  document.getElementById('sola-fb-message').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+
+  // Submit
+  document.getElementById('sola-fb-submit').addEventListener('click', function() {
+    var email = document.getElementById('sola-fb-email').value.trim();
+    if (!email) {
+      document.getElementById('sola-fb-email').style.borderColor = 'var(--loss, #ff5252)';
+      return;
+    }
+    document.getElementById('sola-fb-email').style.borderColor = '';
+    var btn = this;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    var data = {
+      access_key: 'f66dbe16-41bf-4d02-ac67-aab832222384',
+      subject: 'Sola Ray Feedback — via ' + document.getElementById('sola-fb-source').value,
+      from_name: 'Sola Ray Feedback Widget',
+      name: document.getElementById('sola-fb-name').value.trim() || 'Anonymous',
+      email: email,
+      found_us_via: document.getElementById('sola-fb-source').value,
+      what_brought_you: document.getElementById('sola-fb-reason').value.trim(),
+      feedback: document.getElementById('sola-fb-message').value.trim(),
+      feature_request: document.getElementById('sola-fb-request').value.trim() || 'None'
+    };
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(result) {
+      if (result.success) {
+        showStep(6);
+        sessionStorage.setItem('sola-fb-done', 'submitted');
+        // Auto-close after 3 seconds
+        setTimeout(function() { widget.style.display = 'none'; }, 3000);
+      } else {
+        document.getElementById('sola-fb-error').style.display = 'block';
+        btn.textContent = 'Send Feedback';
+        btn.disabled = false;
+      }
+    })
+    .catch(function() {
+      document.getElementById('sola-fb-error').style.display = 'block';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
+    });
+  });
+
+  // Email border reset
+  document.getElementById('sola-fb-email').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+})();
+</script>
+<!-- END SOLA FEEDBACK POPUP WIDGET -->
+
+</body>
+</html>

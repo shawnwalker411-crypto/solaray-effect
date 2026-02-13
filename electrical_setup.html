@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Home mining electrical guide: 120V vs 240V circuits, breaker requirements, PDU setups, Loki Kit configurations, and safety basics for ASIC miners.">
+  <meta name="keywords" content="bitcoin miner electrical, 240V mining, ASIC power requirements, mining PDU, Loki Kit, home mining electrical, miner circuit breaker">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/electrical_setup.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.solarayeffect.com/electrical_setup.html">
+  <meta property="og:title" content="Electrical Setup for Home Mining | Sola Ray Effect">
+  <meta property="og:description" content="Home mining electrical guide: 120V vs 240V circuits, breaker requirements, PDU setups, and safety basics for ASIC miners.">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/electrical_setup.html">
+  <meta name="twitter:title" content="Electrical Setup for Home Mining | Sola Ray Effect">
+  <meta name="twitter:description" content="Home mining electrical guide: 120V vs 240V circuits, breaker requirements, PDU setups, and safety basics for ASIC miners.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-M6F5T8Y2P6');
+  </script>
+  <title>Electrical Setup for Home Mining | Sola Ray Effect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-gold: #D4AF37;
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --v120: #00e676;
+      --v240: #ff9800;
+      --warning: #ff5252;
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    
+    .container { max-width: 850px; margin: 0 auto; padding: 1.5rem; }
+    
+    /* ============================================
+       HAMBURGER MENU
+       ============================================ */
+    .hamburger-menu {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+    }
+    
+    .hamburger-btn {
+      background: var(--bg-card);
+      border: 2px solid var(--sola-teal);
+      color: var(--sola-teal);
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+    }
+    
+    .hamburger-btn:hover {
+      background: var(--sola-teal);
+      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+    }
+    
+    .hamburger-btn .bun-top {
+      width: 24px;
+      height: 6px;
+      background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
+      border-radius: 10px 10px 0 0;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .lettuce {
+      width: 26px;
+      height: 3px;
+      background: #32CD32;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .patty {
+      width: 24px;
+      height: 4px;
+      background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .cheese {
+      width: 26px;
+      height: 3px;
+      background: #FFD700;
+      border-radius: 1px;
+      transform: skewX(-5deg);
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn .bun-bottom {
+      width: 24px;
+      height: 5px;
+      background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
+      border-radius: 0 0 6px 6px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+    
+    .nav-drawer {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-right: 2px solid var(--sola-teal);
+      z-index: 999;
+      transition: left 0.3s ease;
+      padding: 80px 1.5rem 2rem;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-drawer.open { left: 0; }
+    
+    .nav-drawer h3 {
+      color: var(--sola-gold);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .nav-drawer a, .nav-drawer .nav-disabled {
+      display: block;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    
+    .nav-drawer a:hover {
+      background: var(--bg-card);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    
+    .nav-drawer a.active {
+      background: rgba(0, 206, 209, 0.15);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    
+    .nav-drawer .nav-disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+    
+    .nav-overlay.show { display: block; }
+    
+    /* ============================================
+       GLOSSARY DRAWER
+       ============================================ */
+    .glossary-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .glossary-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .glossary-drawer {
+      position: fixed;
+      top: 0; right: -400px;
+      width: 400px;
+      max-width: 90vw;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 2px solid var(--sola-gold);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .glossary-drawer.active {
+      right: 0;
+    }
+    
+    .glossary-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .glossary-header h3 {
+      color: var(--sola-gold);
+      margin: 0;
+    }
+    
+    .glossary-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .glossary-close:hover {
+      color: var(--sola-teal);
+    }
+    
+    .glossary-content {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    
+    .glossary-term-title {
+      color: var(--sola-teal);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .glossary-term-def {
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+    
+    .glossary-term {
+      color: var(--sola-teal);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    
+    .glossary-term:hover {
+      color: var(--sola-gold);
+    }
+    
+    /* ============================================
+       PAGE HEADER
+       ============================================ */
+    .page-title {
+      text-align: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 1rem 0;
+    }
+    
+    .page-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--sola-teal);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* ============================================
+       VOLTAGE COMPARISON
+       ============================================ */
+    .voltage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .voltage-card {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 1.25rem;
+      border: 2px solid transparent;
+    }
+    
+    .voltage-card.v120 {
+      border-color: var(--v120);
+    }
+    
+    .voltage-card.v240 {
+      border-color: var(--v240);
+    }
+    
+    .voltage-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .voltage-card.v120 h3 { color: var(--v120); }
+    .voltage-card.v240 h3 { color: var(--v240); }
+    
+    .voltage-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .voltage-card li {
+      color: var(--text-secondary);
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    .voltage-card li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+    
+    /* ============================================
+       OUTLET IMAGES
+       ============================================ */
+    .outlet-comparison {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .outlet-box {
+      text-align: center;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    
+    .outlet-icon {
+      font-size: 3rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .outlet-box h4 {
+      color: var(--sola-gold);
+      margin-bottom: 0.5rem;
+    }
+    
+    .outlet-box p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    
+    /* ============================================
+       INFO BOXES
+       ============================================ */
+    .info-box {
+      background: rgba(0, 206, 209, 0.1);
+      border-left: 4px solid var(--sola-teal);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    
+    .info-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    
+    .warning-box {
+      background: rgba(255, 82, 82, 0.1);
+      border-left: 4px solid var(--warning);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    
+    .warning-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    
+    .warning-box strong {
+      color: var(--warning);
+    }
+    
+    /* ============================================
+       LOKI SECTION
+       ============================================ */
+    .loki-highlight {
+      background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(0, 206, 209, 0.1));
+      border: 1px solid rgba(156, 39, 176, 0.3);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    
+    .loki-highlight h4 {
+      color: #9c27b0;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* ============================================
+       CIRCUIT REQUIREMENTS TABLE
+       ============================================ */
+    .circuit-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+    
+    .circuit-table th,
+    .circuit-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .circuit-table th {
+      color: var(--sola-gold);
+      font-weight: 600;
+      background: rgba(212, 175, 55, 0.1);
+    }
+    
+    .circuit-table td {
+      color: var(--text-secondary);
+    }
+    
+    .circuit-table tr:hover td {
+      background: rgba(0, 206, 209, 0.05);
+    }
+    
+    .circuit-table tr.loki-row td {
+      background: rgba(156, 39, 176, 0.1);
+      border-left: 3px solid #9c27b0;
+    }
+    
+    .circuit-table tr.loki-row:hover td {
+      background: rgba(156, 39, 176, 0.18);
+    }
+    
+    .circuit-table .loki-label {
+      color: #9c27b0;
+      font-weight: 600;
+    }
+    
+    .circuit-table .section-header td {
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--sola-gold);
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+    }
+    
+    /* ============================================
+       CHECKLIST
+       ============================================ */
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .checklist li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .checklist li:last-child {
+      border-bottom: none;
+    }
+    
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--sola-teal);
+      font-size: 1.1rem;
+    }
+    
+    /* ============================================
+       CTA SECTION
+       ============================================ */
+    .cta-section {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-top: 2rem;
+    }
+    
+    .cta-section h3 {
+      color: var(--sola-gold);
+      margin-bottom: 1rem;
+    }
+    
+    .cta-btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-teal-dark));
+      color: #000;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-family: 'Noto Sans JP', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 206, 209, 0.4);
+    }
+    
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 600px) {
+      .page-title { font-size: 1.6rem; }
+      .section { padding: 1.25rem; }
+      .circuit-table { font-size: 0.85rem; }
+      .circuit-table th,
+      .circuit-table td { padding: 0.5rem; }
+    }
+    
+    /* ============================================
+       LEGAL DISCLAIMER MODAL
+       ============================================ */
+    .legal-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    .legal-modal-overlay.hidden { display: none; }
+    
+    .legal-modal {
+      background: var(--bg-primary);
+      border: 2px solid var(--sola-gold);
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+    }
+    
+    .legal-modal-header {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(0, 206, 209, 0.1));
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      text-align: center;
+    }
+    
+    .legal-modal-header h2 {
+      color: var(--sola-gold);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .legal-modal-header p {
+      color: var(--warning);
+      font-weight: 600;
+    }
+    
+    .legal-modal-body {
+      padding: 1.5rem;
+    }
+    
+    .legal-modal-body h3 {
+      color: var(--sola-teal);
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.75rem 0;
+    }
+    
+    .legal-modal-body h3:first-child { margin-top: 0; }
+    
+    .legal-modal-body p,
+    .legal-modal-body li {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    
+    .legal-modal-body ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .legal-modal-body li::before {
+      content: "⚠️ ";
+    }
+    
+    .legal-warning-box {
+      background: rgba(255, 82, 82, 0.15);
+      border: 1px solid var(--warning);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .legal-warning-box p {
+      color: var(--warning);
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    .legal-modal-footer {
+      padding: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .legal-checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .legal-checkbox-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--sola-teal);
+      cursor: pointer;
+    }
+    
+    .legal-checkbox-row label {
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    
+    .legal-btn-row {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .legal-btn {
+      flex: 1;
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .legal-btn-agree {
+      background: var(--sola-teal);
+      color: var(--bg-primary);
+      border-color: var(--sola-teal);
+    }
+    
+    .legal-btn-agree:hover:not(:disabled) {
+      background: var(--sola-teal-dark);
+      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+    }
+    
+    .legal-btn-agree:disabled {
+      background: var(--text-muted);
+      border-color: var(--text-muted);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    
+    .legal-btn-decline {
+      background: transparent;
+      color: var(--text-secondary);
+      border-color: var(--text-muted);
+    }
+    
+    .legal-btn-decline:hover {
+      border-color: var(--warning);
+      color: var(--warning);
+    }
+    
+    .page-blocked {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .page-blocked h2 {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .page-blocked p {
+      color: var(--text-muted);
+    }
+    
+    .page-blocked a {
+      color: var(--sola-teal);
+    }
+    
+    .content-hidden { display: none !important; }
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Electrical Setup for Home Mining","description":"Complete guide to 120V and 240V electrical requirements, safety, and circuit planning for cryptocurrency mining at home.","url":"https://www.solarayeffect.com/electrical_setup.html","publisher":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
+</head>
+<body>
+  <!-- Legal Disclaimer Modal -->
+  <div class="legal-modal-overlay" id="legal-modal">
+    <div class="legal-modal">
+      <div class="legal-modal-header">
+        <h2>⚠️ Important Safety Disclaimer</h2>
+        <p>Read carefully before proceeding</p>
+      </div>
+      <div class="legal-modal-body">
+        <h3>⚡ Nature of This Content</h3>
+        <p>This page provides <strong>educational information only</strong> about electrical concepts related to cryptocurrency mining. The Sola Ray Effect does not sell, install, service, or inspect electrical equipment of any kind.</p>
+        
+        <div class="legal-warning-box">
+          <p>⚠️ ELECTRICITY CAN CAUSE FIRE, PROPERTY DAMAGE, SERIOUS INJURY, OR DEATH</p>
+        </div>
+        
+        <h3>📋 By Proceeding, You Acknowledge</h3>
+        <ul>
+          <li>I am at least 18 years of age</li>
+          <li>I take full responsibility for any electrical decisions I make</li>
+          <li>I will follow all applicable local, state, and federal electrical codes</li>
+          <li>I will obtain required permits for any electrical work</li>
+          <li>I understand that only a licensed electrician should perform electrical work</li>
+          <li>This information is general in nature and may not apply to my specific situation</li>
+        </ul>
+        
+        <h3>🛡️ Limitation of Liability</h3>
+        <p>To the maximum extent permitted by law, The Sola Ray Effect, its owners, operators, and contributors shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of this information, including but not limited to property damage, personal injury, or death.</p>
+        
+        <h3>⚖️ Indemnification</h3>
+        <p>You agree to indemnify and hold harmless The Sola Ray Effect from any claims, damages, or expenses arising from your use of this information or any electrical work you perform or commission.</p>
+        
+        <h3>🎯 Assumption of Risk</h3>
+        <p>You expressly assume all risks associated with using this educational content to inform electrical decisions. You acknowledge that electrical work is inherently dangerous and that professional consultation is strongly recommended.</p>
+      </div>
+      <div class="legal-modal-footer">
+        <div class="legal-checkbox-row">
+          <input type="checkbox" id="legal-checkbox">
+          <label for="legal-checkbox">I have read, understand, and agree to the above terms. I am at least 18 years old and accept full responsibility for my electrical decisions.</label>
+        </div>
+        <div class="legal-btn-row">
+          <button class="legal-btn legal-btn-decline" id="legal-decline">I Do Not Agree</button>
+          <button class="legal-btn legal-btn-agree" id="legal-agree" disabled>I Agree & Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <div id="main-content">
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
+      <span class="bun-top"></span>
+      <span class="lettuce"></span>
+      <span class="patty"></span>
+      <span class="cheese"></span>
+      <span class="bun-bottom"></span>
+    </button>
+  </div>
+  
+  <!-- Navigation Drawer -->
+  <nav class="nav-drawer" id="nav-drawer">
+    <h3>Navigation</h3>
+    <a href="index.html">⚡ Calculator</a>
+    <a href="miners.html">🔧 Miners</a>
+    <a href="pools.html">🏊 Mining Pools</a>
+    <a href="aftermarket_firmware.html">⚙️ Firmware Guide</a>
+    <a href="electrical_setup.html" class="active">🔌 Electrical Setup</a>
+    <a href="glossary.html">📖 Glossary</a>
+    <a href="datavault.html">📡 Data Vault</a>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  
+  <!-- Glossary Overlay -->
+  <div class="glossary-overlay" id="glossary-overlay"></div>
+  
+  <!-- Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer">
+    <div class="glossary-header">
+      <h3>📖 Glossary</h3>
+      <button class="glossary-close" aria-label="Close glossary">✕</button>
+    </div>
+    <div class="glossary-content">
+      <div class="glossary-term-title" id="glossary-term-title">Term</div>
+      <div class="glossary-term-def" id="glossary-term-def">Definition</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">⚡ Electrical Setup for Home Mining</h1>
+    <p class="page-subtitle">What you need to know before plugging in your first <span class="glossary-term" data-term="asic">ASIC</span></p>
+    
+    <!-- The Big Question -->
+    <section class="section">
+      <h2 class="section-title">🔌 120V vs 240V: What's the Difference?</h2>
+      <p>Every home in the USA has both 120V and 240V available. The question is whether you have a 240V outlet where you want to mine.</p>
+      
+      <div class="voltage-grid">
+        <div class="voltage-card v120">
+          <h3>🟢 120V (Standard Outlets)</h3>
+          <ul>
+            <li>Every outlet in your house</li>
+            <li>Max ~1,800 watts safely</li>
+            <li>15-20 amp circuits</li>
+            <li>Regular 3-prong plug</li>
+            <li>Most miners WON'T run on this</li>
+          </ul>
+        </div>
+        
+        <div class="voltage-card v240">
+          <h3>🟠 240V (High Power)</h3>
+          <ul>
+            <li>Dryer, oven, AC, water heater</li>
+            <li>Max ~3,600-7,200 watts</li>
+            <li>30-50 amp circuits</li>
+            <li>Special large plugs</li>
+            <li>What most ASICs need</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <p><strong>Why does voltage matter?</strong> Higher voltage = same power with less current = less heat in wires = safer and more efficient. A 3,000W miner on 240V draws only 12.5 amps. On 120V it would need 25 amps — more than most circuits can handle.</p>
+      </div>
+    </section>
+    
+    <!-- Common Mining Outlets -->
+    <section class="section">
+      <h2 class="section-title">🔌 Common Mining Outlets</h2>
+      
+      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><span class="glossary-term" data-term="nema515">NEMA 5-15 / 5-20</span></h3>
+      <p style="margin-bottom: 0.25rem;">Standard 120V, 15–20A.</p>
+      <p style="margin-bottom: 0.25rem;">Suitable only for <strong>Loki Kit–equipped miners</strong> or miners with <strong>maximum 1,500W continuous draw</strong>, meeting the <strong>80% rule</strong>.</p>
+      <p>Dedicated circuit required. Not suitable for stock ASICs.</p>
+      <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 1.5rem;">
+        <li>15A circuit → 12A continuous → <strong>~1,440W max</strong></li>
+        <li>20A circuit → 16A continuous → <strong>~1,920W max</strong> (but 1,500W is the safe real-world ceiling)</li>
+      </ul>
+      
+      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><span class="glossary-term" data-term="nema620">NEMA 6-20R</span></h3>
+      <p style="margin-bottom: 0.25rem;">240V, 20A.</p>
+      <p style="margin-bottom: 0.25rem;"><strong>Minimum 12-gauge wire</strong>. Suitable for <strong>one high-power miner</strong>.</p>
+      <p><strong>Maximum 3,840W continuous</strong>, meeting the <strong>80% rule</strong>.</p>
+      <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 0.5rem;">
+        <li>20A × 80% = 16A</li>
+        <li>16A × 240V = 3,840W</li>
+      </ul>
+      <p>Common in garages and workshop installs.</p>
+      
+      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem; margin-top: 1.5rem;"><span class="glossary-term" data-term="nemal630">NEMA L6-30R</span></h3>
+      <p style="margin-bottom: 0.25rem;">240V, 30A twist-lock receptacle. Prevents accidental disconnection.</p>
+      <p style="margin-bottom: 0.25rem;"><strong>Minimum 10-gauge wire</strong>. Ideal for <strong>PDU-based setups</strong> running multiple miners.</p>
+      <p><strong>Maximum 5,760W continuous</strong>, meeting the <strong>80% rule</strong>.</p>
+      <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 0.5rem;">
+        <li>30A × 80% = 24A</li>
+        <li>24A × 240V = 5,760W</li>
+      </ul>
+      <p>Common in commercial, industrial, and dedicated mining installs.</p>
+    </section>
+    
+    <!-- When to Call Electrician - MOVED UP -->
+    <section class="section">
+      <h2 class="section-title">👷 When to Call an Electrician</h2>
+      <p>Some things are DIY. Some things aren't. Call a pro if you need:</p>
+      
+      <ul class="checklist">
+        <li>New 240V circuit installed</li>
+        <li>Panel upgrade (if you're out of breaker space)</li>
+        <li>Sub-panel for dedicated mining area</li>
+        <li>Any work inside your breaker panel</li>
+        <li>Permit-required electrical work</li>
+        <li>You're not 100% sure what you're doing</li>
+      </ul>
+      
+      <p style="margin-top: 1rem;"><strong>Typical costs:</strong></p>
+      <ul style="color: var(--text-secondary); margin-left: 1.25rem;">
+        <li>New 240V/30A outlet: $200-400</li>
+        <li>New 240V/50A outlet: $300-500</li>
+        <li>Sub-panel installation: $500-1,500</li>
+        <li>Panel upgrade (100A to 200A): $1,500-3,000</li>
+      </ul>
+      
+      <div class="info-box">
+        <p><strong>Worth it?</strong> A $300 electrician visit is cheap compared to a house fire or fried miner. Plus proper wiring improves efficiency and resale value.</p>
+      </div>
+    </section>
+    
+    <!-- The 120V Option -->
+    <section class="section">
+      <h2 class="section-title">🟣 The 120V Solution: <span class="glossary-term" data-term="loki">Loki Kit</span></h2>
+      <p>Don't have 240V where you want to mine? There's a workaround.</p>
+      
+      <div class="loki-highlight">
+        <h4>🔮 What is a Loki Kit?</h4>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">A Loki Kit replaces your miner's power supply with one that runs on 120V. Combined with aftermarket firmware to underclock/undervolt, you can run industrial miners on regular household outlets.</p>
+        <p style="color: var(--text-secondary); margin: 0;"><strong>Trade-off:</strong> Lower hashrate (~40-60% of stock) but uses regular outlets you already have.</p>
+      </div>
+      
+      <div class="warning-box">
+        <p><strong>⚠️ PSU Change May Be Required:</strong> Depending on your miner and Loki Kit, you may need to replace the stock PSU with a 120V-compatible power supply. Check your Loki Kit requirements.</p>
+      </div>
+      
+      <p><strong>Requirements for Loki mining:</strong></p>
+      <ul class="checklist">
+        <li>Compatible miner (S19, S19 Pro, S19J Pro, etc.)</li>
+        <li>Loki Kit PSU (120V compatible) — may replace stock PSU</li>
+        <li>Aftermarket firmware (Vnish, Braiins, LuxOS)</li>
+        <li>Dedicated 20A circuit (don't share with other devices)</li>
+        <li>Good ventilation (still produces heat)</li>
+      </ul>
+      
+      <p style="margin-top: 1rem;"><a href="aftermarket_firmware.html" style="color: var(--sola-teal);">See our Firmware Guide →</a> for details on underclocking.</p>
+    </section>
+    
+    <!-- Circuit Requirements -->
+    <section class="section">
+      <h2 class="section-title">📋 Circuit Requirements by Miner</h2>
+      <p>How much power does your circuit need? Here's a quick reference:</p>
+      
+      <table class="circuit-table">
+        <tr>
+          <th>Miner</th>
+          <th>Algorithm</th>
+          <th>Power</th>
+          <th>Circuit</th>
+        </tr>
+        <tr class="section-header">
+          <td colspan="4">⚡ Stock Miners (240V Required)</td>
+        </tr>
+        <tr>
+          <td>Antminer S21</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,550W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer S21 Pro</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,510W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer S19 XP</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,010W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer S19 Pro</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,250W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer S19J Pro</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,050W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer S19</td>
+          <td>SHA-256 (BTC)</td>
+          <td>3,250W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer KS5</td>
+          <td>kHeavyHash (KAS)</td>
+          <td>3,000W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer KS5 Pro</td>
+          <td>kHeavyHash (KAS)</td>
+          <td>3,150W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer L7</td>
+          <td>Scrypt (LTC/DOGE)</td>
+          <td>3,425W</td>
+          <td>240V / 20A</td>
+        </tr>
+        <tr>
+          <td>Antminer L3++</td>
+          <td>Scrypt (LTC/DOGE)</td>
+          <td>800W</td>
+          <td>240V / 15A or 120V</td>
+        </tr>
+        <tr class="section-header">
+          <td colspan="4">🔮 Loki Kit Miners (120V Compatible)</td>
+        </tr>
+        <tr class="loki-row">
+          <td><span class="loki-label">S19 Pro + Loki</span></td>
+          <td>SHA-256 (BTC)</td>
+          <td>~1,500W</td>
+          <td>120V / 20A dedicated</td>
+        </tr>
+        <tr class="loki-row">
+          <td><span class="loki-label">S19J Pro + Loki</span></td>
+          <td>SHA-256 (BTC)</td>
+          <td>~1,400W</td>
+          <td>120V / 20A dedicated</td>
+        </tr>
+        <tr class="loki-row">
+          <td><span class="loki-label">S19 + Loki</span></td>
+          <td>SHA-256 (BTC)</td>
+          <td>~1,500W</td>
+          <td>120V / 20A dedicated</td>
+        </tr>
+      </table>
+      
+      <div class="info-box">
+        <p><strong>Note:</strong> Power consumption varies by firmware, tuning, and ambient temperature. Always check manufacturer specs for your specific model.</p>
+      </div>
+      
+      <div class="warning-box">
+        <p><strong>⚠️ The <span class="glossary-term" data-term="rule80">80% Rule</span>:</strong> Electrical code says continuous loads should use max 80% of circuit capacity. A 20A circuit = 16A continuous max. A 30A circuit = 24A continuous max. Size up if you're close.</p>
+      </div>
+    </section>
+    
+    <!-- PSU Section -->
+    <section class="section">
+      <h2 class="section-title">🔌 <span class="glossary-term" data-term="psu">Power Supply Units (PSUs)</span></h2>
+      <p>A PSU (Power Supply Unit) converts AC power from your wall outlet to DC power that your miner needs. Most ASIC miners come with a PSU, but replacements or upgrades may be needed.</p>
+      
+      <div class="warning-box">
+        <p><strong>⚠️ Important:</strong> Power cords are sold separately. Always check manufacturer specs for your specific miner and PSU combination.</p>
+      </div>
+      
+      <p style="margin-top: 1rem;"><strong>Common Bitmain PSU Models:</strong></p>
+      
+      <table class="circuit-table">
+        <tr>
+          <th>PSU Model</th>
+          <th>Input Voltage</th>
+          <th>Output</th>
+          <th>Max Power</th>
+        </tr>
+        <tr>
+          <td>APW3++</td>
+          <td>100-240V AC</td>
+          <td>12V DC</td>
+          <td>1200W @110V / 1600W @220V</td>
+        </tr>
+        <tr>
+          <td>APW7</td>
+          <td>100-240V AC</td>
+          <td>12V DC</td>
+          <td>1000W @110V / 1800W @220V</td>
+        </tr>
+        <tr>
+          <td>APW12</td>
+          <td>200-240V AC only</td>
+          <td>12-15V DC</td>
+          <td>~3600W @220V</td>
+        </tr>
+        <tr>
+          <td>APW17</td>
+          <td>220-277V AC only</td>
+          <td>12-15V DC</td>
+          <td>~3600W @220V</td>
+        </tr>
+      </table>
+      
+      <div class="info-box">
+        <p><strong>Note:</strong> PSU versions matter. APW12 and APW17 have multiple versions (a, b, c, etc.) that are NOT interchangeable. Always verify the exact version required for your miner before purchasing a replacement.</p>
+      </div>
+    </section>
+    
+    <!-- PDU Section -->
+    <section class="section">
+      <h2 class="section-title">🔋 <span class="glossary-term" data-term="pdu">Power Distribution Units (PDUs)</span></h2>
+      <p>A PDU (Power Distribution Unit) distributes electrical power from a single source to multiple devices. Think of it as an industrial-grade power strip designed for high-power equipment.</p>
+      
+      <div class="info-box">
+        <p><strong>Single miner?</strong> A 20A circuit is sufficient. <strong>Multiple miners?</strong> A 30A or larger circuit with a PDU may be required.</p>
+      </div>
+      
+      <p style="margin-top: 1rem;"><strong>When do you need a PDU?</strong></p>
+      <ul class="checklist">
+        <li>Running 2 or more miners from one circuit</li>
+        <li>Want centralized power management</li>
+        <li>Need remote monitoring or power cycling</li>
+        <li>Planning to scale your mining operation</li>
+      </ul>
+      
+      <p style="margin-top: 1rem;"><strong>Types of PDUs:</strong></p>
+      <ul style="color: var(--text-secondary); margin-left: 1.25rem;">
+        <li><strong>Basic PDU:</strong> Simple power distribution, no monitoring. Just outlets.</li>
+        <li><strong>Metered PDU:</strong> Shows real-time power consumption data.</li>
+        <li><strong>Switched PDU:</strong> Allows remote on/off control of individual outlets.</li>
+        <li><strong>Intelligent PDU:</strong> Full monitoring, remote control, alerts, and environmental sensing.</li>
+      </ul>
+      
+      <div class="info-box" style="margin-top: 1rem;">
+        <p><strong>Common setup:</strong> PDUs with L6-30P plugs are popular for 30A circuits. They connect to a NEMA L6-30R outlet and distribute power to multiple miners.</p>
+      </div>
+    </section>
+    
+    <!-- Safety Section -->
+    <section class="section">
+      <h2 class="section-title">🔥 Safety: Don't Burn Your House Down</h2>
+      <p>ASIC miners pull serious power. Take these precautions:</p>
+      
+      <div class="warning-box">
+        <p><strong>⚠️ ALWAYS turn off the main breaker before doing ANY electrical work.</strong> Electricity can cause fire, serious injury, or death.</p>
+      </div>
+      
+      <div class="warning-box">
+        <p><strong>Never use extension cords or power strips</strong> for ASIC miners. They're not rated for continuous high-current loads and can melt or catch fire.</p>
+      </div>
+      
+      <p style="margin-top: 1rem;"><strong>Wiring Requirements:</strong></p>
+      <ul class="checklist">
+        <li>Use correct gauge wire: <span class="glossary-term" data-term="awg">10 AWG</span> for 30A circuits, <span class="glossary-term" data-term="awg">12 AWG</span> for 20A circuits</li>
+        <li>240V circuits require two hot wires + ground (no neutral)</li>
+        <li>Use <span class="glossary-term" data-term="doublepole">double-pole breakers</span> for 240V circuits</li>
+        <li>Obtain local permits for any new electrical work</li>
+      </ul>
+      
+      <p style="margin-top: 1rem;"><strong>Operating Safety:</strong></p>
+      <ul class="checklist">
+        <li>Plug directly into wall outlets — no extension cords</li>
+        <li>Check outlet/plug for heat after 1 hour of mining</li>
+        <li>Install a smoke detector near your mining setup</li>
+        <li>Keep miners away from flammable materials</li>
+        <li>Don't daisy-chain PDUs (power distribution units)</li>
+        <li>Consider a kill switch or smart plug with power monitoring</li>
+        <li>If breakers trip repeatedly, STOP and investigate</li>
+      </ul>
+      
+      <div class="info-box">
+        <p><strong>Signs of trouble:</strong> Warm outlets, burning smell, discolored plugs, flickering lights, or tripping breakers. Any of these = stop mining and call an electrician.</p>
+      </div>
+      
+      <div class="info-box" style="margin-top: 1rem;">
+        <p><strong>📚 National Electrical Code (NEC):</strong> All electrical work should comply with NFPA 70 (National Electrical Code). View the code at <a href="https://up.codes/code/nfpa-70-national-electrical-code-2020" target="_blank" style="color: var(--sola-teal);" rel="noopener">up.codes/code/nfpa-70</a></p>
+      </div>
+    </section>
+    
+    <!-- Quick Start -->
+    <section class="section">
+      <h2 class="section-title">🚀 Quick Start Checklist</h2>
+      <p>Before you plug in your first miner:</p>
+      
+      <ul class="checklist">
+        <li>Know your miner's power requirements (watts and voltage)</li>
+        <li>Identify available circuits and their amperage</li>
+        <li>Match miner to circuit (with 20% headroom)</li>
+        <li>Get correct plug/adapter for your outlet type</li>
+        <li>Plan ventilation (miners are loud and hot)</li>
+        <li>Set up remote monitoring before starting</li>
+        <li>Test for 1 hour and check for heat at outlet</li>
+        <li>Calculate your electricity costs in the calculator</li>
+      </ul>
+    </section>
+    
+    <!-- CTA -->
+    <div class="cta-section">
+      <h3>Ready to Calculate Your Profits?</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Now that you know your electrical setup, see what you can make.</p>
+      <a href="index.html" class="cta-btn">⚡ Open Calculator</a>
+    </div>
+  </div>
+  </div><!-- End main-content -->
+  
+  <script>
+    // Legal Modal Logic
+    (function() {
+      const modal = document.getElementById('legal-modal');
+      const mainContent = document.getElementById('main-content');
+      const checkbox = document.getElementById('legal-checkbox');
+      const agreeBtn = document.getElementById('legal-agree');
+      const declineBtn = document.getElementById('legal-decline');
+      
+      // Always show modal - no localStorage check
+      mainContent.classList.add('content-hidden');
+      
+      // Enable button when checkbox checked
+      checkbox.addEventListener('change', function() {
+        agreeBtn.disabled = !this.checked;
+      });
+      
+      // Agree button
+      agreeBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+        mainContent.classList.remove('content-hidden');
+      });
+      
+      // Decline button
+      declineBtn.addEventListener('click', function() {
+        document.body.innerHTML = '<div class="page-blocked"><div><h2>Access Declined</h2><p>You chose not to accept the safety disclaimer.</p><p style="margin-top: 1rem;"><a href="index.html">← Return to Calculator</a></p></div></div>';
+      });
+    })();
+    
+    // Glossary data for electrical terms
+    const GLOSSARY = {
+      nema: {
+        title: 'NEMA',
+        definition: 'National Electrical Manufacturers Association. The organization that sets standards for electrical outlets and plugs in North America. When you see "NEMA 6-20" on a miner\'s specs, it refers to a specific outlet type.'
+      },
+      nema515: {
+        title: 'NEMA 5-15 / 5-20',
+        definition: 'Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most Loki-modified miners plug into these. The "5" means 120V grounded, the number after the dash is the amperage rating.'
+      },
+      nema620: {
+        title: 'NEMA 6-20R',
+        definition: 'A 240V/20A outlet. The "6" indicates 240V, "20" is the amperage, "R" means receptacle (outlet). Provides up to 3,840W continuous (at 80%). Common for window AC units and smaller industrial equipment.'
+      },
+      nemal630: {
+        title: 'NEMA L6-30R',
+        definition: 'A 240V/30A locking outlet. The "L" means twist-lock — the plug locks in place to prevent accidental disconnection. Provides up to 5,760W continuous (at 80%). Popular for multiple miners via a PDU. Locking outlets are preferred for mining — vibration from fans won\'t shake the plug loose.'
+      },
+      psu: {
+        title: 'PSU (Power Supply Unit)',
+        definition: 'Converts AC power from your wall outlet to DC power that your miner needs. Must be rated for your miner\'s wattage plus 10-20% headroom. Critical for reliability and safety. Most ASIC miners come with a PSU, but replacements or upgrades may be needed.'
+      },
+      pdu: {
+        title: 'PDU (Power Distribution Unit)',
+        definition: 'An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions. Never daisy-chain PDUs.'
+      },
+      rule80: {
+        title: '80% Rule',
+        definition: 'NEC requirement that continuous loads (running 3+ hours) use no more than 80% of circuit capacity. A 20A circuit = 16A max continuous. A 30A circuit = 24A max continuous. Mining is always a continuous load, so size your circuits with 20% headroom. Violating this is a fire hazard.'
+      },
+      doublepole: {
+        title: 'Double-Pole Breaker',
+        definition: 'A circuit breaker that controls both hot wires in a 240V circuit simultaneously. Required for all 240V circuits. Takes two slots in your breaker panel. Trips both legs if either overloads.'
+      },
+      awg: {
+        title: 'Wire Gauge (AWG)',
+        definition: 'American Wire Gauge — the standard for measuring wire thickness in the US. Lower numbers = thicker wire = more capacity. For mining: 12 AWG handles 20A circuits, 10 AWG handles 30A circuits. Using too-thin wire is a fire hazard. When in doubt, go one size thicker.'
+      },
+      nec: {
+        title: 'NEC (National Electrical Code)',
+        definition: 'The US standard for safe electrical installation (NFPA 70). Covers wiring, outlets, breakers, and everything else electrical. Most jurisdictions require NEC compliance. Electricians follow this code — and so should you for any DIY work.'
+      },
+      loki: {
+        title: 'Loki Kit',
+        definition: 'Hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. Lets home miners use powerful equipment without electrical upgrades. May require a PSU change.'
+      },
+      voltage: {
+        title: '120V vs 240V',
+        definition: 'Standard US outlets are 120V (15-20A). Dryers and ovens use 240V. Most industrial ASICs need 240V but can run on 120V with a Loki Kit or modifications. 240V is more efficient (less heat loss in wiring).'
+      },
+      asic: {
+        title: 'ASIC',
+        definition: 'Application-Specific Integrated Circuit — specialized hardware designed solely for cryptocurrency mining. Unlike general-purpose computers, ASICs are optimized for a specific mining algorithm, making them extremely efficient but limited to mining particular cryptocurrencies.'
+      }
+    };
+    
+    // Open glossary drawer
+    function openGlossary(term) {
+      const data = GLOSSARY[term];
+      if (data) {
+        document.getElementById('glossary-term-title').textContent = data.title;
+        document.getElementById('glossary-term-def').textContent = data.definition;
+        document.getElementById('glossary-drawer').classList.add('active');
+        document.getElementById('glossary-overlay').classList.add('active');
+      }
+    }
+    
+    // Close glossary drawer
+    function closeGlossary() {
+      document.getElementById('glossary-drawer').classList.remove('active');
+      document.getElementById('glossary-overlay').classList.remove('active');
+    }
+    
+    function toggleNav() {
+      const btn = document.getElementById('hamburger-btn');
+      const drawer = document.getElementById('nav-drawer');
+      const overlay = document.getElementById('nav-overlay');
+      
+      btn.classList.toggle('open');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('show');
+    }
+    
+    // Setup all interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Glossary term clicks
+      document.querySelectorAll('.glossary-term').forEach(el => {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          const term = this.getAttribute('data-term');
+          if (term) openGlossary(term);
+        });
+      });
+      
+      // Hamburger menu
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleNav();
+        });
+      }
+      
+      if (navOverlay) {
+        navOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+      
+      // Glossary drawer close
+      var glossaryOverlay = document.getElementById('glossary-overlay');
+      var glossaryClose = document.querySelector('.glossary-drawer-close');
+      
+      if (glossaryOverlay) {
+        glossaryOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeGlossary();
+        });
+      }
+      
+      if (glossaryClose) {
+        glossaryClose.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeGlossary();
+        });
+      }
+    });
+  </script>
+
+<!-- ============================================ -->
+<!-- SOLA FEEDBACK POPUP WIDGET — Temporary feature -->
+<!-- Remove this entire block when feedback window closes -->
+<!-- ============================================ -->
+<div id="sola-feedback-widget" style="display:none;">
+  <!-- Small trigger bubble (bottom-right) -->
+  <div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
+    <p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
+    <video id="sola-fb-video" width="200" height="113" muted playsinline loop style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);"
+      src="assets/sola_feedback.mp4"></video>
+    <div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
+      <button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
+      <button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
+    </div>
+  </div>
+
+  <!-- Wizard overlay -->
+  <div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
+    <!-- Header -->
+    <div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
+      <span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray — Feedback</span>
+      <button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">&times;</button>
+    </div>
+    <!-- Privacy note -->
+    <div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
+      Your email is used only for direct communication with Sola Ray Effect. It will never be sold, shared, or added to any mailing list.
+    </div>
+    <!-- Steps container -->
+    <div id="sola-fb-steps" style="padding:16px;">
+      <!-- Step 1: How did you find us -->
+      <div class="sola-fb-step" data-step="1">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
+        <select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
+          <option value="">Select one...</option>
+          <option value="Google Search">Google Search</option>
+          <option value="YouTube">YouTube</option>
+          <option value="Reddit">Reddit</option>
+          <option value="Twitter/X">Twitter / X</option>
+          <option value="Facebook">Facebook</option>
+          <option value="A Friend">A Friend</option>
+          <option value="Mining Forum">Mining Forum</option>
+          <option value="Other">Other</option>
+        </select>
+        <button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+      </div>
+      <!-- Step 2: What brought you here -->
+      <div class="sola-fb-step" data-step="2" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
+        <textarea id="sola-fb-reason" rows="3" placeholder="What were you looking for?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 3: Feedback -->
+      <div class="sola-fb-step" data-step="3" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
+        <textarea id="sola-fb-message" rows="4" placeholder="What do you like most about the site?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 4: Coin/miner request -->
+      <div class="sola-fb-step" data-step="4" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
+        <textarea id="sola-fb-request" rows="3" placeholder="Optional — skip if you want" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 5: Email + Name -->
+      <div class="sola-fb-step" data-step="5" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
+        <input id="sola-fb-name" type="text" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;">
+        <input id="sola-fb-email" type="email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
+        </div>
+      </div>
+      <!-- Step 6: Thank you -->
+      <div class="sola-fb-step" data-step="6" style="display:none;">
+        <p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
+        <p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
+      </div>
+      <!-- Error state -->
+      <div id="sola-fb-error" style="display:none;">
+        <p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
+      </div>
+    </div>
+    <!-- Step indicator dots -->
+    <div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // Don't show if user already dismissed or submitted THIS SESSION
+  if (sessionStorage.getItem('sola-fb-done')) return;
+
+  var widget = document.getElementById('sola-feedback-widget');
+  var bubble = document.getElementById('sola-fb-bubble');
+  var wizard = document.getElementById('sola-fb-wizard');
+  var video = document.getElementById('sola-fb-video');
+  var dots = document.querySelectorAll('.sola-fb-dot');
+
+  // Show bubble after 2 minutes
+  setTimeout(function() {
+    widget.style.display = 'block';
+    video.play().catch(function() {});
+  }, 120000);
+
+  // Click video to unmute and replay
+  video.addEventListener('click', function() {
+    video.muted = false;
+    video.currentTime = 0;
+    video.play().catch(function() {});
+  });
+
+  // "Sure!" — open wizard
+  document.getElementById('sola-fb-yes').addEventListener('click', function() {
+    bubble.style.display = 'none';
+    video.pause();
+    video.muted = true;
+    wizard.style.display = 'block';
+  });
+
+  // "Not now" — dismiss for this session
+  document.getElementById('sola-fb-no').addEventListener('click', function() {
+    widget.style.display = 'none';
+    video.pause();
+    sessionStorage.setItem('sola-fb-done', 'dismissed');
+  });
+
+  // Close wizard
+  document.getElementById('sola-fb-close').addEventListener('click', function() {
+    widget.style.display = 'none';
+    sessionStorage.setItem('sola-fb-done', 'dismissed');
+  });
+
+  // Step navigation
+  function showStep(n) {
+    var steps = document.querySelectorAll('.sola-fb-step');
+    for (var i = 0; i < steps.length; i++) {
+      steps[i].style.display = steps[i].getAttribute('data-step') == n ? 'block' : 'none';
+    }
+    // Update dots
+    for (var j = 0; j < dots.length; j++) {
+      dots[j].style.background = (j < n && n <= 5) ? 'var(--sola-gold, #D4AF37)' : 'var(--text-muted, #5a6a7a)';
+    }
+    // Hide dots on thank you
+    document.getElementById('sola-fb-dots').style.display = n == 6 ? 'none' : 'flex';
+  }
+
+  // Next buttons
+  document.querySelectorAll('.sola-fb-next').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var next = parseInt(this.getAttribute('data-next'));
+      // Validate step 1: source required
+      if (next == 2 && !document.getElementById('sola-fb-source').value) {
+        document.getElementById('sola-fb-source').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      // Validate step 2: reason required
+      if (next == 3 && !document.getElementById('sola-fb-reason').value.trim()) {
+        document.getElementById('sola-fb-reason').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      // Validate step 3: feedback required
+      if (next == 4 && !document.getElementById('sola-fb-message').value.trim()) {
+        document.getElementById('sola-fb-message').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      showStep(next);
+    });
+  });
+
+  // Back buttons
+  document.querySelectorAll('.sola-fb-back').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      showStep(parseInt(this.getAttribute('data-back')));
+    });
+  });
+
+  // Reset border on input
+  document.getElementById('sola-fb-source').addEventListener('change', function() {
+    this.style.borderColor = '';
+  });
+  document.getElementById('sola-fb-reason').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+  document.getElementById('sola-fb-message').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+
+  // Submit
+  document.getElementById('sola-fb-submit').addEventListener('click', function() {
+    var email = document.getElementById('sola-fb-email').value.trim();
+    if (!email) {
+      document.getElementById('sola-fb-email').style.borderColor = 'var(--loss, #ff5252)';
+      return;
+    }
+    document.getElementById('sola-fb-email').style.borderColor = '';
+    var btn = this;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    var data = {
+      access_key: 'f66dbe16-41bf-4d02-ac67-aab832222384',
+      subject: 'Sola Ray Feedback — via ' + document.getElementById('sola-fb-source').value,
+      from_name: 'Sola Ray Feedback Widget',
+      name: document.getElementById('sola-fb-name').value.trim() || 'Anonymous',
+      email: email,
+      found_us_via: document.getElementById('sola-fb-source').value,
+      what_brought_you: document.getElementById('sola-fb-reason').value.trim(),
+      feedback: document.getElementById('sola-fb-message').value.trim(),
+      feature_request: document.getElementById('sola-fb-request').value.trim() || 'None'
+    };
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(result) {
+      if (result.success) {
+        showStep(6);
+        sessionStorage.setItem('sola-fb-done', 'submitted');
+        // Auto-close after 3 seconds
+        setTimeout(function() { widget.style.display = 'none'; }, 3000);
+      } else {
+        document.getElementById('sola-fb-error').style.display = 'block';
+        btn.textContent = 'Send Feedback';
+        btn.disabled = false;
+      }
+    })
+    .catch(function() {
+      document.getElementById('sola-fb-error').style.display = 'block';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
+    });
+  });
+
+  // Email border reset
+  document.getElementById('sola-fb-email').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+})();
+</script>
+<!-- END SOLA FEEDBACK POPUP WIDGET -->
+
+</body>
+</html>
