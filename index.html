@@ -1741,7 +1741,7 @@
           <input type="number" id="battery-hours" value="0" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
-          <label for="idle-hours">â¸️ Idle/Off Hours</label>
+          <label for="idle-hours">☸️ Idle/Off Hours</label>
           <input type="number" id="idle-hours" value="0" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
@@ -3198,7 +3198,7 @@
         const seg = document.createElement('div');
         seg.className = 'timeline-segment timeline-idle';
         seg.style.flex = idle;
-        seg.textContent = `â¸️ ${idle}h`;
+        seg.textContent = `☸️ ${idle}h`;
         timeline.appendChild(seg);
       }
     }
