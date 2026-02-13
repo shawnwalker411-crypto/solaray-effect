@@ -2382,41 +2382,80 @@
     }
     
     // ============================================
-    // LIVE MINING STATS FETCHING (SolaRay API)
+    // MINING RATES (MinerStat API — Primary)
+    // Phase 6B: mining-stats.js (NOWNodes) removed.
+    // MinerStat is now the primary source for revenue rates.
+    // Rates come from /api/get-coins via updateRatesFromMinerstat()
     // ============================================
-    async function fetchMiningStats() {
+    
+    async function fetchMiningRates() {
       try {
-        const response = await fetch('/api/mining-stats');
-        if (!response.ok) throw new Error('Mining stats API request failed');
+        const msData = await fetchMinerstatCached();
+        if (!msData) return false;
         
-        const result = await response.json();
-        if (!result.success) throw new Error('Mining stats API returned error');
+        // Update revenue rates from MinerStat reward field
+        const ratesUpdated = updateRatesFromMinerstat(msData);
         
-        const data = result.data;
+        // Populate rawMiningStats for the network stats display
+        populateRawMiningStats(msData);
         
-        // Store raw data for display
-        rawMiningStats = data;
-        
-        // Update revenue rates based on live difficulty data
-        updateRevenueRatesFromStats(data);
-        
-        // Save to localStorage with timestamp
-        const cacheData = {
-          stats: data,
-          timestamp: Date.now()
-        };
-        localStorage.setItem('solaray_mining_stats', JSON.stringify(cacheData));
-        
-        miningStatsStatus = 'live';
-        lastMiningStatsUpdate = new Date();
-        updateMiningStatsIndicator();
-        
-        console.log('Live mining stats fetched:', data);
-        return true;
+        if (ratesUpdated > 0) {
+          // Save to localStorage for offline fallback
+          const cacheData = {
+            stats: rawMiningStats,
+            timestamp: Date.now()
+          };
+          localStorage.setItem('solaray_mining_stats', JSON.stringify(cacheData));
+          
+          miningStatsStatus = 'live';
+          lastMiningStatsUpdate = new Date();
+          updateMiningStatsIndicator();
+          console.log('MinerStat rates loaded:', ratesUpdated, 'algorithms');
+          return true;
+        }
       } catch (error) {
-        console.warn('Failed to fetch live mining stats:', error);
-        return false;
+        console.warn('Failed to fetch MinerStat rates:', error);
       }
+      return false;
+    }
+    
+    // Convert MinerStat coin data into the rawMiningStats format
+    // that displayNetworkStats() expects: { BTC: { difficulty, network_hashrate, height }, ... }
+    function populateRawMiningStats(msData) {
+      const coins = ['BTC', 'BCH', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'RVN', 'ERG', 'ALPH', 'XMR', 'DGB', 'CKB', 'SC', 'KDA'];
+      
+      for (const sym of coins) {
+        if (msData[sym] && msData[sym][0]) {
+          const d = msData[sym][0];
+          rawMiningStats[sym] = {
+            difficulty: d.difficulty || 0,
+            network_hashrate: d.network_hashrate || 0,
+            height: 0  // MinerStat doesn't provide block height
+          };
+        }
+      }
+    }
+    
+    function loadCachedMiningStats() {
+      try {
+        const cached = localStorage.getItem('solaray_mining_stats');
+        if (cached) {
+          const data = JSON.parse(cached);
+          // Check if cache is less than 48 hours old
+          const cacheAge = Date.now() - data.timestamp;
+          if (cacheAge < 48 * 60 * 60 * 1000) {
+            rawMiningStats = data.stats;
+            lastMiningStatsUpdate = new Date(data.timestamp);
+            miningStatsStatus = 'cached';
+            updateMiningStatsIndicator();
+            console.log('Loaded cached mining stats from:', lastMiningStatsUpdate);
+            return true;
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to load cached mining stats:', error);
+      }
+      return false;
     }
     
     // ============================================
@@ -2482,157 +2521,6 @@
       // Rate is valid, save as last known good
       lastKnownGoodRates[algo] = newRate;
       return { valid: true, rate: newRate };
-    }
-    
-    function updateRevenueRatesFromStats(data) {
-      // Calculate revenue rate: (block_reward * blocks_per_day) / network_hashrate
-      // blocks_per_day = 86400 / block_time
-      
-      // Clear previous warnings
-      rateSanityWarnings = [];
-      
-      // BTC
-      if (data.BTC && data.BTC.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.BTC.block_time || 600);
-        const dailyCoins = (data.BTC.block_reward || 3.125) * blocksPerDay;
-        // Network hashrate is in H/s, we need per TH/s
-        const perTH = dailyCoins / (data.BTC.network_hashrate / 1e12);
-        
-        const validation = validateAndUpdateRate('SHA-256', perTH, 'BTC');
-        if (validation.rate) {
-          REVENUE_RATES['SHA-256'].perUnit = validation.rate;
-          console.log('BTC rate updated:', validation.rate, 'BTC/TH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // LTC
-      if (data.LTC && data.LTC.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.LTC.block_time || 150);
-        const dailyCoins = (data.LTC.block_reward || 6.25) * blocksPerDay;
-        // Network hashrate is in H/s, we need per MH/s
-        const perMH = dailyCoins / (data.LTC.network_hashrate / 1e6);
-        
-        const validation = validateAndUpdateRate('Scrypt', perMH, 'LTC');
-        if (validation.rate) {
-          REVENUE_RATES['Scrypt'].perUnit = validation.rate;
-          console.log('LTC rate updated:', validation.rate, 'LTC/MH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // DOGE (merged with LTC)
-      if (data.DOGE && data.DOGE.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.DOGE.block_time || 60);
-        const dailyCoins = (data.DOGE.block_reward || 10000) * blocksPerDay;
-        const perMH = dailyCoins / (data.DOGE.network_hashrate / 1e6);
-        
-        const validation = validateAndUpdateRate('DOGE', perMH, 'DOGE');
-        if (REVENUE_RATES['Scrypt'].merged && validation.rate) {
-          REVENUE_RATES['Scrypt'].merged.perUnit = validation.rate;
-          console.log('DOGE rate updated:', validation.rate, 'DOGE/MH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // KAS
-      if (data.KAS && data.KAS.difficulty > 0) {
-        // KAS uses different calculation due to DAG
-        // Approximate: daily coins = hashrate_share * daily_emission
-        const blocksPerDay = 86400 / (data.KAS.block_time || 1);
-        const dailyCoins = (data.KAS.block_reward || 50) * blocksPerDay;
-        // For KAS, difficulty is more relevant than hashrate
-        // perUnit in GH/s
-        if (data.KAS.network_hashrate > 0) {
-          const perGH = dailyCoins / (data.KAS.network_hashrate / 1e9);
-          
-          const validation = validateAndUpdateRate('KHeavyHash', perGH, 'KAS');
-          if (validation.rate) {
-            REVENUE_RATES['KHeavyHash'].perUnit = validation.rate;
-            console.log('KAS rate updated:', validation.rate, 'KAS/GH/day', validation.valid ? '✓' : '(fallback)');
-          }
-        }
-      }
-      
-      // ETC
-      if (data.ETC && data.ETC.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.ETC.block_time || 14);
-        const dailyCoins = (data.ETC.block_reward || 2.56) * blocksPerDay;
-        const perMH = dailyCoins / (data.ETC.network_hashrate / 1e6);
-        
-        const validation = validateAndUpdateRate('Etchash', perMH, 'ETC');
-        if (validation.rate) {
-          REVENUE_RATES['Etchash'].perUnit = validation.rate;
-          REVENUE_RATES['Etchash-GPU'].perUnit = validation.rate;
-          console.log('ETC rate updated:', validation.rate, 'ETC/MH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // ERG
-      if (data.ERG && data.ERG.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.ERG.block_time || 120);
-        const dailyCoins = (data.ERG.block_reward || 27) * blocksPerDay;
-        const perMH = dailyCoins / (data.ERG.network_hashrate / 1e6);
-        
-        const validation = validateAndUpdateRate('Autolykos2', perMH, 'ERG');
-        if (validation.rate) {
-          REVENUE_RATES['Autolykos2'].perUnit = validation.rate;
-          console.log('ERG rate updated:', validation.rate, 'ERG/MH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // BCH
-      if (data.BCH && data.BCH.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.BCH.block_time || 600);
-        const dailyCoins = (data.BCH.block_reward || 3.125) * blocksPerDay;
-        const perTH = dailyCoins / (data.BCH.network_hashrate / 1e12);
-        
-        const validation = validateAndUpdateRate('SHA-256-BCH', perTH, 'BCH');
-        if (validation.rate) {
-          REVENUE_RATES['SHA-256-BCH'].perUnit = validation.rate;
-          console.log('BCH rate updated:', validation.rate, 'BCH/TH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // DASH
-      if (data.DASH && data.DASH.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.DASH.block_time || 150);
-        const dailyCoins = (data.DASH.block_reward || 1.55) * blocksPerDay;
-        const perGH = dailyCoins / (data.DASH.network_hashrate / 1e9);
-        
-        const validation = validateAndUpdateRate('X11', perGH, 'DASH');
-        if (validation.rate) {
-          REVENUE_RATES['X11'].perUnit = validation.rate;
-          console.log('DASH rate updated:', validation.rate, 'DASH/GH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // RVN
-      if (data.RVN && data.RVN.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.RVN.block_time || 60);
-        const dailyCoins = (data.RVN.block_reward || 2500) * blocksPerDay;
-        const perMH = dailyCoins / (data.RVN.network_hashrate / 1e6);
-        
-        const validation = validateAndUpdateRate('KAWPOW', perMH, 'RVN');
-        if (validation.rate) {
-          REVENUE_RATES['KAWPOW'].perUnit = validation.rate;
-          console.log('RVN rate updated:', validation.rate, 'RVN/MH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // XMR (RandomX - CPU mining)
-      if (data.XMR && data.XMR.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.XMR.block_time || 120);
-        const dailyCoins = (data.XMR.block_reward || 0.6) * blocksPerDay;
-        // Network hashrate is in H/s, we need per KH/s
-        const perKH = dailyCoins / (data.XMR.network_hashrate / 1e3);
-        
-        const validation = validateAndUpdateRate('RandomX', perKH, 'XMR');
-        if (validation.rate) {
-          REVENUE_RATES['RandomX'].perUnit = validation.rate;
-          console.log('XMR rate updated:', validation.rate, 'XMR/KH/day', validation.valid ? '✓' : '(fallback)');
-        }
-      }
-      
-      // Show warning banner if any rates failed validation
-      updateSanityWarningBanner();
     }
     
     function updateSanityWarningBanner() {
@@ -2773,29 +2661,6 @@
       return updated;
     }
     
-    function loadCachedMiningStats() {
-      try {
-        const cached = localStorage.getItem('solaray_mining_stats');
-        if (cached) {
-          const data = JSON.parse(cached);
-          // Check if cache is less than 48 hours old
-          const cacheAge = Date.now() - data.timestamp;
-          if (cacheAge < 48 * 60 * 60 * 1000) {
-            rawMiningStats = data.stats;
-            updateRevenueRatesFromStats(data.stats);
-            lastMiningStatsUpdate = new Date(data.timestamp);
-            miningStatsStatus = 'cached';
-            updateMiningStatsIndicator();
-            console.log('Loaded cached mining stats from:', lastMiningStatsUpdate);
-            return true;
-          }
-        }
-      } catch (error) {
-        console.warn('Failed to load cached mining stats:', error);
-      }
-      return false;
-    }
-    
     function updateMiningStatsIndicator() {
       const indicator = document.getElementById('mining-stats-indicator');
       if (!indicator) return;
@@ -2814,24 +2679,15 @@
     }
     
     async function initMiningStats() {
-      // Try to fetch live mining stats first (mining-stats API — primary)
-      const liveSuccess = await fetchMiningStats();
+      // Try MinerStat first (primary source — Phase 6B)
+      const liveSuccess = await fetchMiningRates();
       
-      // If live fetch failed, try to load from localStorage cache
+      // If MinerStat failed, try localStorage cache
       if (!liveSuccess) {
         const cacheLoaded = loadCachedMiningStats();
         if (!cacheLoaded) {
-          // Try MinerStat cached data as last resort before defaults
-          const msData = await fetchMinerstatCached();
-          if (msData) {
-            updateRatesFromMinerstat(msData);
-            miningStatsStatus = 'cached';
-            lastMiningStatsUpdate = new Date();
-            updateMiningStatsIndicator();
-          } else {
-            miningStatsStatus = 'default';
-            updateMiningStatsIndicator();
-          }
+          miningStatsStatus = 'default';
+          updateMiningStatsIndicator();
         }
       }
       
@@ -3724,7 +3580,7 @@
     updateTimeline();
     renderBrowseTable();
     initPrices(); // Fetch live prices on page load
-    initMiningStats(); // Fetch live difficulty data on page load
+    initMiningStats(); // Fetch live difficulty/rate data on page load
     initPriceInput(); // Enable custom price input for what-if scenarios
 
     // ============================================
