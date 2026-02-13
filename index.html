@@ -2104,7 +2104,7 @@
       'KHeavyHash': { perUnit: 0.00646, unit: 'GH/s', coin: 'KAS' },
       'Etchash': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
-      'X11': { perUnit: 0.000268, unit: 'GH/s', coin: 'DASH' },
+      'X11': { perUnit: 0.0000853, unit: 'GH/s', coin: 'DASH' },
       // GPU Algorithms
       'Etchash-GPU': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
@@ -2370,6 +2370,9 @@
         miningStatsStatus = 'live';
         lastMiningStatsUpdate = new Date();
         updateMiningStatsIndicator();
+        
+        // Refresh Ember Picks with live rates
+        if (typeof updateSunrisePick === 'function') updateSunrisePick();
         
         console.log('Live mining stats fetched:', data);
         return true;
