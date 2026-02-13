@@ -1882,7 +1882,7 @@
       },
       'algorithm': {
         title: 'Algorithm',
-        definition: 'The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin), Scrypt (Litecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Blake3 (Alephium).'
+        definition: 'The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin), Scrypt (Litecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), Eaglesong (Nervos CKB).'
       },
       'difficulty': {
         title: 'Difficulty',
@@ -2077,7 +2077,7 @@
     // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
     const DEFAULT_PRICES = { 
       BTC: 89000, BCH: 590, LTC: 69, KAS: 0.10, ETC: 28, DOGE: 0.12,
-      ZEC: 45, DASH: 44, RVN: 0.007, ERG: 0.45, ALPH: 0.11, XMR: 200
+      ZEC: 45, DASH: 44, RVN: 0.007, ERG: 0.45, XMR: 200, CKB: 0.008, DGB: 0.008
     };
     let PRICES = { ...DEFAULT_PRICES };
     let priceStatus = 'default'; // 'live', 'cached', 'default'
@@ -2102,9 +2102,11 @@
       'Etchash-GPU': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
       'Autolykos2': { perUnit: 0.0027, unit: 'MH/s', coin: 'ERG' },
-      'Blake3': { perUnit: 0.00001, unit: 'GH/s', coin: 'ALPH' },
       // CPU Algorithms  
-      'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' }
+      'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
+      // New direct-API coins
+      'Eaglesong': { perUnit: 0.0001, unit: 'GH/s', coin: 'CKB' },
+      'Scrypt-DGB': { perUnit: 0.01, unit: 'GH/s', coin: 'DGB' }
     };
     
     // Mining stats status
@@ -2122,13 +2124,14 @@
         { value: 'KHeavyHash', label: 'KHeavyHash (KAS)' },
         { value: 'Etchash', label: 'Etchash (ETC)' },
         { value: 'Equihash', label: 'Equihash (ZEC)' },
-        { value: 'X11', label: 'X11 (DASH)' }
+        { value: 'X11', label: 'X11 (DASH)' },
+        { value: 'Eaglesong', label: 'Eaglesong (CKB)' },
+        { value: 'Scrypt-DGB', label: 'Scrypt (DGB)' }
       ],
       GPU: [
         { value: 'Etchash-GPU', label: 'Etchash (ETC)', unit: 'MH/s' },
         { value: 'KAWPOW', label: 'KAWPOW (RVN)', unit: 'MH/s' },
-        { value: 'Autolykos2', label: 'Autolykos v2 (ERG)', unit: 'MH/s' },
-        { value: 'Blake3', label: 'Blake3 (ALPH)', unit: 'GH/s' }
+        { value: 'Autolykos2', label: 'Autolykos v2 (ERG)', unit: 'MH/s' }
       ],
       CPU: [
         { value: 'RandomX', label: 'RandomX (XMR)', unit: 'KH/s' }
@@ -2216,8 +2219,9 @@
       DASH: 'dash',
       RVN: 'ravencoin',
       ERG: 'ergo',
-      ALPH: 'alephium',
-      XMR: 'monero'
+      XMR: 'monero',
+      CKB: 'nervos-network',
+      DGB: 'digibyte'
     };
     
     async function fetchPrices() {
@@ -2241,8 +2245,9 @@
         PRICES.DASH = data.dash?.usd || PRICES.DASH;
         PRICES.RVN = data.ravencoin?.usd || PRICES.RVN;
         PRICES.ERG = data.ergo?.usd || PRICES.ERG;
-        PRICES.ALPH = data.alephium?.usd || PRICES.ALPH;
         PRICES.XMR = data.monero?.usd || PRICES.XMR;
+        PRICES.CKB = data['nervos-network']?.usd || PRICES.CKB;
+        PRICES.DGB = data.digibyte?.usd || PRICES.DGB;
         
         // Save to localStorage with timestamp
         const cacheData = {
@@ -2391,7 +2396,13 @@
       // ERG: ~0.0005 to ~0.05 ERG/MH/day
       'Autolykos2': { min: 1e-5, max: 0.5, coin: 'ERG', unit: 'MH' },
       // XMR: ~0.00001 to ~0.001 XMR/KH/day
-      'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' }
+      'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
+      // ZEC: ~0.00005 to ~0.005 ZEC/kSol/day
+      'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
+      // CKB: ~0.00001 to ~0.01 CKB/GH/day
+      'Eaglesong': { min: 1e-6, max: 1, coin: 'CKB', unit: 'GH' },
+      // DGB: ~0.001 to ~1 DGB/GH/day
+      'Scrypt-DGB': { min: 1e-4, max: 10, coin: 'DGB', unit: 'GH' }
     };
     
     // Track last known good rates for fallback
@@ -2569,6 +2580,50 @@
         }
       }
       
+      // ZEC (Equihash) via Blockchair
+      if (data.ZEC && data.ZEC.hashrate_24h > 0) {
+        // Blockchair provides hashrate_24h directly
+        // ZEC: block_time ~75s, block_reward ~2.5 (post-halving varies)
+        const blocksPerDay = 86400 / (data.ZEC.block_time || 75);
+        const dailyCoins = (data.ZEC.block_reward || 2.5) * blocksPerDay;
+        // Hashrate in Sol/s, we need per kSol/s
+        const perKSol = dailyCoins / (data.ZEC.network_hashrate / 1e3);
+        
+        const validation = validateAndUpdateRate('Equihash', perKSol, 'ZEC');
+        if (validation.rate) {
+          REVENUE_RATES['Equihash'].perUnit = validation.rate;
+          console.log('ZEC rate updated:', validation.rate, 'ZEC/kSol/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // CKB (Eaglesong) via Nervos Explorer
+      if (data.CKB && data.CKB.hash_rate > 0) {
+        const blocksPerDay = 86400 / (data.CKB.block_time || 8);
+        const dailyCoins = (data.CKB.block_reward || 500) * blocksPerDay;
+        // hash_rate from Nervos is in H/s, we need per GH/s
+        const perGH = dailyCoins / (data.CKB.hash_rate / 1e9);
+        
+        const validation = validateAndUpdateRate('Eaglesong', perGH, 'CKB');
+        if (validation.rate) {
+          REVENUE_RATES['Eaglesong'].perUnit = validation.rate;
+          console.log('CKB rate updated:', validation.rate, 'CKB/GH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
+      // DGB (Scrypt) via chainz.cryptoid.info
+      if (data.DGB && data.DGB.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.DGB.block_time || 15);
+        const dailyCoins = (data.DGB.block_reward || 665) * blocksPerDay;
+        // Network hashrate is in H/s, we need per GH/s
+        const perGH = dailyCoins / (data.DGB.network_hashrate / 1e9);
+        
+        const validation = validateAndUpdateRate('Scrypt-DGB', perGH, 'DGB');
+        if (validation.rate) {
+          REVENUE_RATES['Scrypt-DGB'].perUnit = validation.rate;
+          console.log('DGB rate updated:', validation.rate, 'DGB/GH/day', validation.valid ? '✓' : '(fallback)');
+        }
+      }
+      
       // Show warning banner if any rates failed validation
       updateSanityWarningBanner();
     }
@@ -2652,117 +2707,8 @@
     }
     
     // ============================================
-    // MINERSTAT CACHED COINS (ZEC, XMR, ALPH)
-    // These coins have NO live source in /api/mining-stats
-    // Data comes from /api/get-coins (cron-cached, updated 3x daily)
-    // Label: "Recent" instead of "Live"
-    // ============================================
-    let minerstatCoinStatus = 'default'; // 'recent', 'stale', 'default'
-    let minerstatFetchedAt = null;
-    
-    // Map Minerstat coin data to our REVENUE_RATES algorithm keys
-    const MINERSTAT_ALGO_MAP = {
-      ZEC:  'Equihash',
-      XMR:  'RandomX',
-      ALPH: 'Blake3'
-    };
-    
-    // Sanity ranges for Minerstat coins (same pattern as RATE_SANITY_RANGES)
-    const MINERSTAT_SANITY = {
-      Equihash: { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
-      RandomX:  { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
-      Blake3:   { min: 1e-8, max: 0.001, coin: 'ALPH', unit: 'GH' }
-    };
-    
-    async function fetchMinerstatCoins() {
-      try {
-        const response = await fetch('/api/get-coins');
-        if (!response.ok) throw new Error('get-coins API request failed');
-        
-        const result = await response.json();
-        if (!result.success || !result.data) throw new Error('get-coins returned no data');
-        
-        const data = result.data;
-        let updated = 0;
-        
-        for (const [sym, algo] of Object.entries(MINERSTAT_ALGO_MAP)) {
-          const coinData = data[sym];
-          if (!coinData || !coinData.perUnit || coinData.perUnit <= 0) continue;
-          
-          const perUnit = coinData.perUnit;
-          
-          // Sanity check
-          const range = MINERSTAT_SANITY[algo];
-          if (range && (perUnit < range.min || perUnit > range.max)) {
-            console.warn(`⚠️ Minerstat ${sym} rate ${perUnit} outside sanity range [${range.min}, ${range.max}], keeping default`);
-            rateSanityWarnings.push(`${sym}: Minerstat rate ${perUnit.toExponential(2)} outside expected range`);
-            continue;
-          }
-          
-          // Update the revenue rate
-          if (REVENUE_RATES[algo]) {
-            REVENUE_RATES[algo].perUnit = perUnit;
-            console.log(`${sym} rate updated from Minerstat:`, perUnit, `${sym}/${REVENUE_RATES[algo].unit}/day`);
-            updated++;
-          }
-        }
-        
-        if (updated > 0) {
-          minerstatFetchedAt = result.meta?.fetched_at ? new Date(result.meta.fetched_at) : new Date();
-          minerstatCoinStatus = result.meta?.stale ? 'stale' : 'recent';
-        }
-        
-        // Update warning banner if any sanity failures
-        updateSanityWarningBanner();
-        
-        return updated > 0;
-      } catch (error) {
-        console.warn('Failed to fetch Minerstat coins:', error.message);
-        return false;
-      }
-    }
-    
-    function loadCachedMinerstatCoins() {
-      try {
-        const cached = localStorage.getItem('solaray_minerstat_coins');
-        if (cached) {
-          const data = JSON.parse(cached);
-          const cacheAge = Date.now() - data.timestamp;
-          if (cacheAge < 48 * 60 * 60 * 1000) {
-            for (const [sym, algo] of Object.entries(MINERSTAT_ALGO_MAP)) {
-              if (data.rates[algo]) {
-                REVENUE_RATES[algo].perUnit = data.rates[algo];
-              }
-            }
-            minerstatCoinStatus = 'stale';
-            minerstatFetchedAt = new Date(data.timestamp);
-            console.log('Loaded cached Minerstat coins from:', minerstatFetchedAt);
-            return true;
-          }
-        }
-      } catch (error) {
-        console.warn('Failed to load cached Minerstat coins:', error);
-      }
-      return false;
-    }
-    
-    async function initMinerstatCoins() {
-      const liveSuccess = await fetchMinerstatCoins();
-      
-      if (liveSuccess) {
-        // Cache the rates for offline fallback
-        const rates = {};
-        for (const [sym, algo] of Object.entries(MINERSTAT_ALGO_MAP)) {
-          rates[algo] = REVENUE_RATES[algo].perUnit;
-        }
-        localStorage.setItem('solaray_minerstat_coins', JSON.stringify({
-          rates: rates,
-          timestamp: Date.now()
-        }));
-      } else {
-        loadCachedMinerstatCoins();
-      }
-    }
+    // All coins now use direct APIs via /api/mining-stats
+    // Minerstat integration removed — ZEC/XMR moved to Blockchair, ALPH/SC/KDA removed
     
     // Display network stats for the calculated coin
     function displayNetworkStats(algorithm) {
@@ -2783,8 +2729,9 @@
         'X11': ['DASH'],
         'KAWPOW': ['RVN'],
         'Autolykos2': ['ERG'],
-        'Blake3': ['ALPH'],
-        'RandomX': ['XMR']
+        'RandomX': ['XMR'],
+        'Eaglesong': ['CKB'],
+        'Scrypt-DGB': ['DGB']
       };
       
       const coins = algoCoinMap[algorithm];
@@ -2849,8 +2796,9 @@
         'X11': 'DASH',
         'KAWPOW': 'RVN',
         'Autolykos2': 'ERG',
-        'Blake3': 'ALPH',
-        'RandomX': 'XMR'
+        'RandomX': 'XMR',
+        'Eaglesong': 'CKB',
+        'Scrypt-DGB': 'DGB'
       };
       
       if (algoFilter === 'all') {
@@ -3608,7 +3556,7 @@
     renderBrowseTable();
     initPrices(); // Fetch live prices on page load
     initMiningStats(); // Fetch live difficulty data on page load
-    initMinerstatCoins(); // Fetch cached Minerstat data for ZEC, XMR, ALPH
+    // All coins now fetched via /api/mining-stats direct APIs
     initPriceInput(); // Enable custom price input for what-if scenarios
   </script>
 
