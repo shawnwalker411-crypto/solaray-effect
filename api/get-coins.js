@@ -1,14 +1,31 @@
 // /api/get-coins.js
-// Phase 1: Serves cached MinerStat coin data to the frontend
-// Self-healing: if cache is cold (Vercel recycled container), fetches once and caches
-// Rate-limited by cache age — will NOT fetch more than once per 4 hours even under load
+// Serves cached MinerStat coin data to the frontend calculator
+// Self-healing: if cache is cold (Vercel recycled /tmp), fetches once and caches
+// Rate-limited by cache age — will NOT re-fetch more than once per 4 hours
 // Visitors call THIS endpoint only — cron keeps it warm via update-coins.js
+//
+// Returns pre-calculated perUnit values (coins per [unit] per day)
+// for: ZEC, XMR, ALPH, DGB, CKB, SC, KDA
+// The 9 "live" coins are NOT included — they use /api/mining-stats
 
 const fs = require('fs');
 const path = require('path');
 
 const CACHE_FILE = path.join('/tmp', 'minerstat-coins.json');
-const MIN_CACHE_AGE_MS = 4 * 60 * 60 * 1000; // 4 hours — won't re-fetch before this
+const MIN_CACHE_AGE_MS = 4 * 60 * 60 * 1000; // 4 hours
+
+// Same config as update-coins.js for self-healing fetch
+const MINERSTAT_COINS = {
+  ZEC:  { algorithm: 'Equihash',    unit: 'kSol/s', multiplier: 1e3 * 24 },
+  XMR:  { algorithm: 'RandomX',     unit: 'KH/s',   multiplier: 1e3 * 24 },
+  ALPH: { algorithm: 'Blake3',      unit: 'GH/s',   multiplier: 1e9 * 24 },
+  DGB:  { algorithm: 'Scrypt',      unit: 'MH/s',   multiplier: 1e6 * 24 },
+  CKB:  { algorithm: 'Eaglesong',   unit: 'GH/s',   multiplier: 1e9 * 24 },
+  SC:   { algorithm: 'Blake2b-Sia', unit: 'GH/s',   multiplier: 1e9 * 24 },
+  KDA:  { algorithm: 'Blake2s',     unit: 'GH/s',   multiplier: 1e9 * 24 }
+};
+
+const WANTED_SYMBOLS = Object.keys(MINERSTAT_COINS);
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -36,9 +53,8 @@ module.exports = async function handler(req, res) {
         });
       }
 
-      // Cache exists but is old — still serve it, but try to refresh in background
-      // For now, serve stale and let cron fix it (don't block the response)
-      if (ageMs < 24 * 60 * 60 * 1000) {
+      // Cache exists but is old — still serve it (stale), let cron fix it
+      if (ageMs < 48 * 60 * 60 * 1000) {
         return res.status(200).json({
           success: true,
           source: 'cache_stale',
@@ -54,23 +70,23 @@ module.exports = async function handler(req, res) {
     }
   } catch (readError) {
     console.error('Cache read error:', readError.message);
-    // Fall through to fetch
   }
 
-  // Cache is missing or very old (>24h) — fetch fresh data
-  // This should only happen on cold starts or if cron hasn't run
+  // Cache is missing or very old (>48h) — self-heal with a fresh fetch
+  // This costs 1 API call but only happens on cold starts
   const apiKey = process.env.MINERSTAT_API_KEY;
   if (!apiKey) {
     return res.status(200).json({
       success: false,
-      error: 'no_api_key',
-      message: 'MINERSTAT_API_KEY not configured and no cache available',
+      error: 'no_cache',
+      message: 'No cache available and no API key configured',
       data: null
     });
   }
 
   try {
-    const url = `https://api.minerstat.com/v2/coins?key=${apiKey}`;
+    const coinList = WANTED_SYMBOLS.join(',');
+    const url = `https://api.minerstat.com/v2/coins?key=${apiKey}&list=${coinList}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -79,33 +95,38 @@ module.exports = async function handler(req, res) {
 
     const rawData = await response.json();
 
-    // Index by coin symbol
-    const coinMap = {};
+    // Process into our format (same logic as update-coins.js)
+    const processed = {};
+    let matchCount = 0;
+
     if (Array.isArray(rawData)) {
       for (const coin of rawData) {
-        if (coin.coin) {
-          if (!coinMap[coin.coin]) {
-            coinMap[coin.coin] = [];
-          }
-          coinMap[coin.coin].push({
-            coin: coin.coin,
-            name: coin.name,
-            algorithm: coin.algorithm,
-            price: coin.price,
-            volume: coin.volume,
-            network_hashrate: coin.network_hashrate,
-            difficulty: coin.difficulty,
-            reward: coin.reward,
-            reward_block: coin.reward_block
-          });
-        }
+        const sym = coin.coin;
+        const config = MINERSTAT_COINS[sym];
+        if (!config) continue;
+        if (coin.algorithm !== config.algorithm) continue;
+
+        const perUnit = (coin.reward || 0) * config.multiplier;
+
+        processed[sym] = {
+          coin: sym,
+          algorithm: coin.algorithm,
+          unit: config.unit,
+          perUnit: perUnit,
+          price: coin.price || 0,
+          network_hashrate: coin.network_hashrate || 0,
+          difficulty: coin.difficulty || 0,
+          reward_block: coin.reward_block || 0,
+          raw_reward: coin.reward
+        };
+        matchCount++;
       }
     }
 
     const cachePayload = {
-      data: coinMap,
+      data: processed,
       fetched_at: new Date().toISOString(),
-      coin_count: Object.keys(coinMap).length,
+      coin_count: matchCount,
       raw_entries: Array.isArray(rawData) ? rawData.length : 0
     };
 
@@ -118,18 +139,18 @@ module.exports = async function handler(req, res) {
       data: cachePayload.data,
       meta: {
         fetched_at: cachePayload.fetched_at,
-        coin_count: cachePayload.coin_count,
+        coin_count: matchCount,
         age_minutes: 0,
         stale: false
       }
     });
 
   } catch (fetchError) {
-    console.error('MinerStat fetch error:', fetchError.message);
+    console.error('MinerStat self-heal fetch error:', fetchError.message);
     return res.status(200).json({
       success: false,
       error: 'fetch_failed',
-      message: 'No cache available and MinerStat fetch failed: ' + fetchError.message,
+      message: 'No cache and fetch failed: ' + fetchError.message,
       data: null
     });
   }
