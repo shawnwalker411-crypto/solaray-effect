@@ -154,7 +154,7 @@ async function fetchViaNowNodes(coin) {
     DASH: 0.44,
     RVN: 1250,
     ETC: 2.56,
-    ZEC: 2.5,
+    ZEC: 1.25,
     DGB: 665
   };
 
