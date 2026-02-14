@@ -2619,9 +2619,9 @@
       // network_hashrate is expected to be in Sol/s
       if (data.ZEC && data.ZEC.network_hashrate > 0) {
         // Blockchair provides hashrate_24h directly
-        // ZEC: block_time ~75s, block_reward ~2.5 (post-halving varies)
+        // ZEC: block_time ~75s, block_reward 1.25 (post-Nov 2024 halving, miner portion)
         const blocksPerDay = 86400 / (data.ZEC.block_time || 75);
-        const dailyCoins = (data.ZEC.block_reward || 2.5) * blocksPerDay;
+        const dailyCoins = (data.ZEC.block_reward || 1.25) * blocksPerDay;
         // Hashrate in Sol/s, we need per kSol/s
         const perKSol = dailyCoins / (data.ZEC.network_hashrate / 1e3);
         
