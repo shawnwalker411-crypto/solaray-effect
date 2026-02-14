@@ -26,13 +26,21 @@
   <meta name="twitter:description" content="Free Bitcoin mining profitability calculator. Calculate ASIC miner profits with solar power, free electricity hours, and real-time crypto prices.">
   <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6"></script>
+  <!-- Google tag (gtag.js) - Production only -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-M6F5T8Y2P6');
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
   </script>
   <title>Sola Ray Effect | Home Mining Calculator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1832,8 +1840,47 @@
       <div class="network-stats" id="network-stats" style="display: none;">
         <p class="network-stats-text" id="network-stats-text"></p>
       </div>
+      
+      <!-- Dynamic contextual links (populated by calculate()) -->
+      <div class="context-links" id="context-links" style="display: none; margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(0, 206, 209, 0.06); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px;">
+        <p style="color: var(--sola-gold); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">&#x1F517; Dig Deeper</p>
+        <div id="context-links-inner" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+      </div>
     </section>
     
+    <!-- Next Steps for New Miners -->
+    <section class="section" style="margin-top: 1.5rem;">
+      <div style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 10px; padding: 1.25rem 1.5rem;">
+        <h3 style="color: var(--sola-gold); font-size: 1.1rem; margin-bottom: 1rem;">&#x1F6E0;&#xFE0F; Next Steps</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+          <a href="miners.html" style="display: block; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; text-decoration: none; transition: all 0.2s ease;">
+            <span style="color: var(--sola-teal); font-weight: 600; font-size: 0.95rem;">&#x1F527; Compare All Miners</span>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">Full specs, voltage, noise, and Loki Kit compatibility for 100+ ASIC miners.</p>
+          </a>
+          <a href="pools.html" style="display: block; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; text-decoration: none; transition: all 0.2s ease;">
+            <span style="color: var(--sola-teal); font-weight: 600; font-size: 0.95rem;">&#x1F3CA; Find a Mining Pool</span>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">Compare pool fees, payout methods, and minimum thresholds by algorithm.</p>
+          </a>
+          <a href="electrical_setup.html" style="display: block; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; text-decoration: none; transition: all 0.2s ease;">
+            <span style="color: var(--sola-teal); font-weight: 600; font-size: 0.95rem;">&#x1F50C; Electrical Setup Guide</span>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">120V vs 240V wiring, breaker sizing, and safe home mining installation.</p>
+          </a>
+          <a href="aftermarket_firmware.html" style="display: block; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; text-decoration: none; transition: all 0.2s ease;">
+            <span style="color: var(--sola-teal); font-weight: 600; font-size: 0.95rem;">&#x26A1;&#xFE0F; Aftermarket Firmware</span>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">LuxOS, VNish, and Braiins OS+ &#x2014; underclock, boost efficiency, and cut power costs.</p>
+          </a>
+          <a href="glossary.html" style="display: block; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; text-decoration: none; transition: all 0.2s ease;">
+            <span style="color: var(--sola-teal); font-weight: 600; font-size: 0.95rem;">&#x1F516; Mining Glossary</span>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">Hashrate, difficulty, pool fees, ROI &#x2014; every term explained in plain English.</p>
+          </a>
+          <a href="datavault.html" style="display: block; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; text-decoration: none; transition: all 0.2s ease;">
+            <span style="color: var(--sola-teal); font-weight: 600; font-size: 0.95rem;">&#x1F521; Data Vault</span>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">Live blockchain stats, network hashrates, and market data across all supported coins.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- Browse All Miners -->
     <section class="section browse-section">
       <button class="browse-toggle" id="browse-toggle" onclick="toggleBrowse()">
@@ -1862,12 +1909,12 @@
       <h2 style="color: #00CED1; font-size: 1.3rem; margin-bottom: 1rem;">Home Mining Profitability Calculator &#x2014; Built for Residential Setups</h2>
       <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Most Bitcoin mining calculators are designed for warehouse-scale operations running on industrial power contracts. This calculator is different &#x2014; it's built specifically for home miners running ASIC hardware on residential electricity in North America. It accounts for real-world factors that generic calculators ignore: dual electricity rates with separate peak and off-peak pricing, solar power generation hours, free overnight electricity from utility buyback programs, and battery storage windows.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">What Makes This Calculator Different</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>Dual electricity rates</strong> let you model setups where power costs change by time of day &#x2014; common with solar buyback programs in Texas, California, and other states where you get free or credited electricity during solar production hours and pay grid rates at night. <strong>Solar hours, free night/weekend hours, and battery hours</strong> are separate inputs so you can precisely model your actual power situation rather than using a single blended rate. <strong>Loki Kit support</strong> calculates profitability for running 240V industrial miners like the Antminer S19 Pro or S21 on standard 120V household outlets at reduced power using aftermarket firmware.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>Dual electricity rates</strong> let you model setups where power costs change by time of day &#x2014; common with solar buyback programs in Texas, California, and other states where you get free or credited electricity during solar production hours and pay grid rates at night. <strong>Solar hours, free night/weekend hours, and battery hours</strong> are separate inputs so you can precisely model your actual power situation rather than using a single blended rate. <strong><a href="glossary.html" style="color: var(--sola-teal);">Loki Kit</a> support</strong> calculates profitability for running 240V industrial miners like the Antminer S19 Pro or S21 on standard 120V household outlets at reduced power using <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a>.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Supported Hardware</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Each miner's stock specifications are pre-loaded &#x2014; select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices update automatically via CoinGecko API.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Browse the full list in our <a href="miners.html" style="color: var(--sola-teal);">Miner Catalog</a>. Each miner's stock specifications are pre-loaded &#x2014; select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices update automatically via CoinGecko API. Track network stats in the <a href="datavault.html" style="color: var(--sola-teal);">Data Vault</a>.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Frequently Asked Questions</h3>
       <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Is Bitcoin mining still profitable at home in 2026?</strong> It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use this calculator with your actual rates to find out.</p>
-      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power &#x2014; S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw.</p>
+      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power &#x2014; S19 models require 240V. But with a <a href="glossary.html" style="color: var(--sola-teal);">Loki Kit</a> and <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a> (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw. See our <a href="electrical_setup.html" style="color: var(--sola-teal);">Electrical Setup Guide</a> for wiring details.</p>
       <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>What is a solar buyback program?</strong> Some utility companies in states like Texas credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs.</p>
     </section>
     
@@ -3291,6 +3338,26 @@
       // Display network stats for the calculated coin
       lastCalculatedAlgorithm = algorithm;
       displayNetworkStats(algorithm);
+      
+      // Populate contextual links based on selected miner/algorithm
+      const ctxLinks = document.getElementById('context-links');
+      const ctxInner = document.getElementById('context-links-inner');
+      const linkStyle = 'display:inline-block;padding:0.4rem 0.85rem;background:var(--bg-card);border:1px solid rgba(0,206,209,0.25);border-radius:6px;color:var(--sola-teal);text-decoration:none;font-size:0.85rem;transition:all 0.2s ease;';
+      let links = [];
+      const minerName = selectedMiner ? selectedMiner.name : 'this miner';
+      const algoName = algorithm.replace('-BCH', '');
+      const coinName = rateInfo.coin;
+      links.push(`<a href="miners.html" style="${linkStyle}">&#x1F527; View ${minerName} full specs</a>`);
+      links.push(`<a href="pools.html" style="${linkStyle}">&#x1F3CA; ${coinName} mining pools</a>`);
+      if (selectedMiner && selectedMiner.voltage === '240V') {
+        links.push(`<a href="electrical_setup.html" style="${linkStyle}">&#x1F50C; 240V wiring guide</a>`);
+      }
+      if (selectedMiner && selectedMiner.loki) {
+        links.push(`<a href="aftermarket_firmware.html" style="${linkStyle}">&#x26A1; Loki Kit firmware options</a>`);
+      }
+      links.push(`<a href="glossary.html" style="${linkStyle}">&#x1F516; Mining terms explained</a>`);
+      ctxInner.innerHTML = links.join('');
+      ctxLinks.style.display = 'block';
       
       document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
     }
