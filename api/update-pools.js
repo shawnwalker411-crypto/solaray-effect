@@ -1,7 +1,7 @@
 // /api/update-pools.js
 // Phase 1: Fetches MinerStat /v2/pools and caches to /tmp/
 // Called by cron-job.org weekly (Sunday midnight CST)
-// Protected by CRON_SECRET header — never called by visitors
+// Protected by CRON_SECRET header \u2014 never called by visitors
 
 const fs = require('fs');
 const path = require('path');

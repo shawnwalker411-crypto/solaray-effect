@@ -1,9 +1,9 @@
 // /api/update-hardware.js
 // Fetches MinerStat /v2/hardware and caches to /tmp/
 // Called by cron-job.org monthly (1st of each month)
-// Protected by CRON_SECRET header — never called by visitors
+// Protected by CRON_SECRET header \u2014 never called by visitors
 // NOTE: Free tier returns truncated/incomplete data (missing S19 Pro, KS5, etc.)
-// This is supplemental data only — the manually curated catalog is primary.
+// This is supplemental data only \u2014 the manually curated catalog is primary.
 
 const fs = require('fs');
 const path = require('path');
@@ -35,7 +35,7 @@ module.exports = async function handler(req, res) {
       data: rawData,
       fetched_at: new Date().toISOString(),
       entry_count: Array.isArray(rawData) ? rawData.length : Object.keys(rawData).length,
-      note: 'Free tier — incomplete data. Supplemental use only.'
+      note: 'Free tier \u2014 incomplete data. Supplemental use only.'
     };
 
     fs.writeFileSync(CACHE_FILE, JSON.stringify(cachePayload));

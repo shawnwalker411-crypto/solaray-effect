@@ -1,5 +1,5 @@
 // /api/mining-stats.js
-// Live mining network stats API — NOWNodes unified
+// Live mining network stats API \u2014 NOWNodes unified
 // All 11 coins via NOWNodes paid tier
 // 1-hour cache
 
@@ -178,7 +178,7 @@ async function fetchViaNowNodes(coin) {
   const difficulty = Number(data.backend?.difficulty) || 0;
 
   // Estimate hashrate from difficulty for coins that support it
-  // RVN and ETC use different difficulty schemes — skip estimation
+  // RVN and ETC use different difficulty schemes \u2014 skip estimation
   // ZEC uses Equihash which needs 2^13 factor instead of 2^32
   let networkHashrate = 0;
   let hashEstimated = false;
