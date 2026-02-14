@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Click always works for mouse/trackpad
     el.addEventListener('click', function (e) {
-      // Don’t block normal behavior except for our toggle targets
+      // Don\u2019t block normal behavior except for our toggle targets
       e.preventDefault();
       handler();
     });

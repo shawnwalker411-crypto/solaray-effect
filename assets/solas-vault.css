@@ -1,5 +1,5 @@
 /* ============================================
-   SOLA'S ARRAY — DATA VAULT
+   SOLA'S ARRAY &#x2014; DATA VAULT
    Imperial Scarif Aesthetic
    solarayeffect.com/datavault.html
    ============================================ */
@@ -223,7 +223,7 @@ body::after {
 }
 
 /* ============================================
-   TERMINAL PANEL — Base Component
+   TERMINAL PANEL &#x2014; Base Component
    ============================================ */
 .terminal-panel {
   background: var(--vault-panel);
@@ -334,7 +334,7 @@ body::after {
 }
 
 /* ============================================
-   STATS BAR — Below Charts
+   STATS BAR &#x2014; Below Charts
    ============================================ */
 .stats-bar {
   display: flex;
@@ -458,7 +458,7 @@ body::after {
 }
 
 /* ============================================
-   TWO-COLUMN GRID — Side-by-Side Panels
+   TWO-COLUMN GRID &#x2014; Side-by-Side Panels
    Used for smaller charts like mempool/block time,
    fees/revenue, hashprice/halving
    ============================================ */
@@ -481,7 +481,7 @@ body::after {
 }
 
 /* ============================================
-   HALVING COUNTDOWN — Special Panel
+   HALVING COUNTDOWN &#x2014; Special Panel
    ============================================ */
 .halving-panel .terminal-body {
   display: flex;
@@ -581,7 +581,7 @@ body::after {
 
 /* ============================================
    DIFFICULTY ADJUSTMENT MARKERS
-   For Chart 5 — % change annotations
+   For Chart 5 &#x2014; % change annotations
    ============================================ */
 .diff-adjust-legend {
   display: flex;
@@ -610,7 +610,7 @@ body::after {
 .legend-dot.negative { background: var(--terminal-red); }
 
 /* ============================================
-   OVERLAY CHART — Dual-Axis (Chart 4)
+   OVERLAY CHART &#x2014; Dual-Axis (Chart 4)
    Hashrate vs Price
    ============================================ */
 .overlay-legend {
@@ -679,7 +679,7 @@ body::after {
 }
 
 /* ============================================
-   TOOLTIP — Chart.js Custom Tooltip
+   TOOLTIP &#x2014; Chart.js Custom Tooltip
    ============================================ */
 .vault-tooltip {
   background: var(--vault-dark) !important;
@@ -848,7 +848,7 @@ body::after {
 }
 
 /* ============================================
-   RESPONSIVE — Tablet
+   RESPONSIVE &#x2014; Tablet
    ============================================ */
 @media (max-width: 1024px) {
   .panel-grid {
@@ -866,7 +866,7 @@ body::after {
 }
 
 /* ============================================
-   RESPONSIVE — Mobile
+   RESPONSIVE &#x2014; Mobile
    ============================================ */
 @media (max-width: 768px) {
   .vault-header {
@@ -930,7 +930,7 @@ body::after {
 }
 
 /* ============================================
-   RESPONSIVE — Small Mobile
+   RESPONSIVE &#x2014; Small Mobile
    ============================================ */
 @media (max-width: 480px) {
   .vault-title h1 {

@@ -1,18 +1,18 @@
-/* ═══════════════════════════════════════════════════════════════
-   SOLA'S ARRAY — DATA VAULT CHART ENGINE
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   SOLA'S ARRAY \u2014 DATA VAULT CHART ENGINE
    solas-charts.js
    All chart logic, API calls, and data rendering for datavault.html
    Charts: 11 panels covering BTC network, market, and mining data
    APIs: Blockchain.com (free), CoinGecko (free tier)
    Charts: Chart.js with chartjs-adapter-date-fns
-   ═══════════════════════════════════════════════════════════════ */
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
 
-// ─── CHART.JS GLOBAL CONFIG ────────────────────────────────────
+// \u2500\u2500\u2500 CHART.JS GLOBAL CONFIG \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 Chart.defaults.color = '#6b7d8f';
 Chart.defaults.borderColor = '#1e2a38';
 Chart.defaults.font.family = "'Share Tech Mono', monospace";
 
-// ─── TERMINAL COLORS ───────────────────────────────────────────
+// \u2500\u2500\u2500 TERMINAL COLORS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 const COLORS = {
   cyan:   '#00d4ff',
   green:  '#00ff88',
@@ -25,7 +25,7 @@ const COLORS = {
   dark:   '#0d1117'
 };
 
-// ─── DATA STORAGE ──────────────────────────────────────────────
+// \u2500\u2500\u2500 DATA STORAGE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 const chartData = {
   hashrate:     { full: [], chart: null },
   difficulty:   { full: [], chart: null },
@@ -39,7 +39,7 @@ const chartData = {
   hashprice:    { full: [], chart: null }
 };
 
-// ─── LOADING MESSAGES (Imperial flavor) ────────────────────────
+// \u2500\u2500\u2500 LOADING MESSAGES (Imperial flavor) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 const LOADING_MESSAGES = [
   'Accessing mainframe...',
   'Decrypting data...',
@@ -54,7 +54,7 @@ const LOADING_MESSAGES = [
   'Linking to relay station...'
 ];
 
-// ─── BOOT SEQUENCE MESSAGES ────────────────────────────────────
+// \u2500\u2500\u2500 BOOT SEQUENCE MESSAGES \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 const BOOT_MESSAGES = [
   'IMPERIAL DATA VAULT v4.7.7',
   'Initializing secure connection...',
@@ -225,7 +225,7 @@ function calcHashprice(revenueData, priceData, hashrateData) {
     if (price && hashrate && hashrate > 0) {
       // Revenue is in BTC, hashrate is in GH/s from Blockchain.com
       // Convert hashrate from GH/s to TH/s: divide by 1000
-      const hashrateTH = hashrate * 1000; // GH/s * 1000 = TH/s — wait, no
+      const hashrateTH = hashrate * 1000; // GH/s * 1000 = TH/s \u2014 wait, no
       // Actually: 1 TH/s = 1000 GH/s, so TH/s = GH/s / 1000
       const hashrateTHs = hashrate / 1000;
       // But network hashrate is enormous, we need per-TH share
@@ -1007,7 +1007,7 @@ function updateRefreshTimestamp() {
  * Load all data from APIs and build/update all charts
  */
 async function loadAllData() {
-  // ── Wave 1: Core data (hashrate, difficulty, price) ──────────
+  // \u2500\u2500 Wave 1: Core data (hashrate, difficulty, price) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
   // These are needed by other charts (overlay, hashprice)
   const [hashrateData, difficultyData, priceData] = await Promise.all([
     fetchBlockchainData('hashrate', 'hash-rate'),
@@ -1015,7 +1015,7 @@ async function loadAllData() {
     fetchPriceData()
   ]);
 
-  // ── Wave 2: Secondary data (mempool, blocktime, fees, revenue) ──
+  // \u2500\u2500 Wave 2: Secondary data (mempool, blocktime, fees, revenue) \u2500\u2500
   const [mempoolData, blocktimeData, feesData, revenueData] = await Promise.all([
     fetchBlockchainData('mempool', 'mempool-size'),
     fetchBlockchainData('blocktime', 'median-confirmation-time'),
@@ -1023,7 +1023,7 @@ async function loadAllData() {
     fetchBlockchainData('revenue', 'miners-revenue')
   ]);
 
-  // ── Build Charts ─────────────────────────────────────────────
+  // \u2500\u2500 Build Charts \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
   // 1. Hashrate
   if (hashrateData) {
@@ -1202,7 +1202,7 @@ function initRefreshButton() {
    ================================================================ */
 
 /**
- * Master init — runs on page load
+ * Master init \u2014 runs on page load
  * 1. Boot sequence animation
  * 2. Load all data
  * 3. Set up event listeners
@@ -1219,5 +1219,5 @@ async function init() {
   initRefreshButton();
 }
 
-// ─── START ─────────────────────────────────────────────────────
+// \u2500\u2500\u2500 START \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 document.addEventListener('DOMContentLoaded', init);
