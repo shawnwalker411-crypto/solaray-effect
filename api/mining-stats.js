@@ -4,7 +4,9 @@
 // 1-hour cache
 
 let cache = {};
+let priceCache = { prices: null, timestamp: 0 };
 const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
@@ -15,6 +17,39 @@ const COINS = [
 function btcHashrate(difficulty, blockTime) {
   if (!difficulty || !blockTime) return 0;
   return (difficulty * Math.pow(2, 32)) / blockTime;
+}
+
+// CoinGecko IDs for price lookups
+const COINGECKO_IDS = {
+  BTC: 'bitcoin', BCH: 'bitcoin-cash', LTC: 'litecoin',
+  KAS: 'kaspa', ETC: 'ethereum-classic', DOGE: 'dogecoin',
+  ZEC: 'zcash', DASH: 'dash', RVN: 'ravencoin',
+  XMR: 'monero', DGB: 'digibyte'
+};
+
+async function fetchPricesFromCoinGecko() {
+  // Return cached prices if still fresh
+  if (priceCache.prices && Date.now() - priceCache.timestamp < PRICE_CACHE_DURATION) {
+    return priceCache.prices;
+  }
+  try {
+    const ids = Object.values(COINGECKO_IDS).join(',');
+    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('CoinGecko request failed');
+    const data = await res.json();
+    const prices = {};
+    for (const [symbol, geckoId] of Object.entries(COINGECKO_IDS)) {
+      if (data[geckoId]?.usd) prices[symbol] = data[geckoId].usd;
+    }
+    if (Object.keys(prices).length > 0) {
+      priceCache = { prices, timestamp: Date.now() };
+    }
+    return prices;
+  } catch (e) {
+    // Return last known prices if fetch fails
+    return priceCache.prices || {};
+  }
 }
 
 export default async function handler(req, res) {
@@ -46,9 +81,13 @@ export default async function handler(req, res) {
     }
   }
 
+  // Fetch cached prices (runs alongside blockchain data)
+  const prices = await fetchPricesFromCoinGecko();
+
   res.status(200).json({
     success: true,
     cache_hours: 1,
+    prices: prices,
     data: coin ? results[coin.toUpperCase()] : results
   });
 }
