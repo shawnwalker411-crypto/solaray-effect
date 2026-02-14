@@ -26,15 +26,23 @@
   <meta name="twitter:description" content="Aftermarket firmware guide for ASIC miners: Braiins OS+, LuxOS features, risks, fees, and when it makes sense for home mining.">
   <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6"></script>
+  <!-- Google tag (gtag.js) - Production only -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-M6F5T8Y2P6');
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
   </script>
-  <title>Aftermarket Firmware Guide | Sola Ray Effect</title>
+  <title>Braiins OS+ vs LuxOS vs VNish — Best ASIC Miner Firmware Compared 2026 | Sola Ray Effect</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -529,7 +537,7 @@
     </div>
     
     <header>
-      <h1>Aftermarket Firmware</h1>
+      <h1>ASIC Firmware Guide — Braiins OS+, LuxOS & VNish Compared for Home Miners</h1>
       <p style="color: var(--text-secondary);">Required for Loki Kit 120V Mining</p>
     </header>
     
@@ -644,6 +652,12 @@
         <li><a href="https://d-central.tech/" target="_blank" rel="noopener">D-Central Technologies</a> (pre-built Loki rigs)</li>
       </ul>
     </section>
+
+    <!-- Cross-links -->
+    <div style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem; margin-top: 2rem;">
+      <h3 style="color: #00CED1; font-size: 1.1rem; margin-bottom: 0.75rem;">Related Guides</h3>
+      <p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">See which miners support aftermarket firmware in the <a href="miners.html" style="color: var(--sola-teal, #00CED1);">ASIC miner catalog</a> — Loki Kit compatible models are marked. Running a 240V miner on 120V with a Loki Kit? Check the <a href="electrical_setup.html" style="color: var(--sola-teal, #00CED1);">electrical setup guide</a> for safe wiring. Compare how firmware tuning affects your bottom line in the <a href="index.html" style="color: var(--sola-teal, #00CED1);">profitability calculator</a> — try stock power vs underclocked settings. Find the right <a href="pools.html" style="color: var(--sola-teal, #00CED1);">mining pool</a> for your setup, and track live difficulty in the <a href="datavault.html" style="color: var(--sola-teal, #00CED1);">Data Vault</a>.</p>
+    </div>
     
     <footer>
       <p>&#xA9; 2026 The Sola Ray Effect</p>
@@ -710,6 +724,14 @@
     
     // Setup all interactions
     document.addEventListener('DOMContentLoaded', function() {
+      // Track outbound firmware & vendor link clicks
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[target="_blank"]');
+        if (link && typeof gtag === 'function') {
+          gtag('event', 'firmware_link_click', { link_url: link.href, link_text: link.textContent.trim() });
+        }
+      });
+
       // Glossary term clicks
       document.querySelectorAll('.glossary-term').forEach(el => {
         el.addEventListener('click', function(e) {

@@ -26,15 +26,23 @@
   <meta name="twitter:description" content="Home mining electrical guide: 120V vs 240V circuits, breaker requirements, PDU setups, and safety basics for ASIC miners.">
   <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6"></script>
+  <!-- Google tag (gtag.js) - Production only -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-M6F5T8Y2P6');
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
   </script>
-  <title>Electrical Setup for Home Mining | Sola Ray Effect</title>
+  <title>How to Wire an ASIC Miner at Home — 120V vs 240V Circuits, Breakers & Safety | Sola Ray Effect</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -904,7 +912,7 @@
   </div>
 
   <div class="container">
-    <h1 class="page-title">&#x26A1; Electrical Setup for Home Mining</h1>
+    <h1 class="page-title">&#x26A1; Home Mining Electrical Guide — 120V vs 240V Wiring, Breakers & Safe Setup</h1>
     <p class="page-subtitle">What you need to know before plugging in your first <span class="glossary-term" data-term="asic">ASIC</span></p>
     
     <!-- The Big Question -->
@@ -1274,6 +1282,12 @@
     </section>
     
     <!-- CTA -->
+    <!-- Cross-links -->
+    <div style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem; margin-top: 2rem;">
+      <h3 style="color: #00CED1; font-size: 1.1rem; margin-bottom: 0.75rem;">Related Guides</h3>
+      <p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">Browse the <a href="miners.html" style="color: var(--sola-teal, #00CED1);">ASIC miner catalog</a> to see power draw and voltage requirements for 100+ miners. Running a 240V miner on 120V? Learn about <a href="aftermarket_firmware.html" style="color: var(--sola-teal, #00CED1);">aftermarket firmware</a> and the Loki Kit. Find a <a href="pools.html" style="color: var(--sola-teal, #00CED1);">mining pool</a> that matches your hardware, and check live network stats in the <a href="datavault.html" style="color: var(--sola-teal, #00CED1);">Data Vault</a>. New to mining terms? The <a href="glossary.html" style="color: var(--sola-teal, #00CED1);">glossary</a> covers everything from hashrate to PPLNS.</p>
+    </div>
+
     <div class="cta-section">
       <h3>Ready to Calculate Your Profits?</h3>
       <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Now that you know your electrical setup, see what you can make.</p>

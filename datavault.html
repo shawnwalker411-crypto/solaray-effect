@@ -4,15 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6"></script>
+  <!-- Google tag (gtag.js) - Production only -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-M6F5T8Y2P6');
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
   </script>
-  <title>Sola's Array | Data Vault</title>
+  <title>Live Mining Stats — BTC, LTC, KAS Network Difficulty, Hashrate & Prices | Sola Ray Effect</title>
   <meta name="description" content="Live cryptocurrency mining data vault. Real-time network difficulty, hashrate charts, and mining statistics for Bitcoin, Litecoin, Kaspa, and more.">
   <meta name="keywords" content="bitcoin network difficulty, mining hashrate chart, crypto mining statistics, bitcoin difficulty history, mining data dashboard, litecoin hashrate, kaspa network stats">
   <meta name="author" content="Sola Ray Effect">
@@ -1262,7 +1270,7 @@ body::after {
       <div class="vault-title">
         <div class="vault-logo">SA</div>
         <div>
-          <h1>Sola's Array</h1>
+          <h1>Live Mining Stats — Network Difficulty, Hashrate & Market Data</h1>
           <div class="subtitle">Data Vault &#x2022; Sector 7</div>
         </div>
       </div>
@@ -1813,6 +1821,14 @@ body::after {
     </div>
 
   </main>
+
+  <!-- Cross-links -->
+  <div style="max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem;">
+    <div style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem;">
+      <h3 style="color: #00CED1; font-size: 1.1rem; margin-bottom: 0.75rem;">Use This Data</h3>
+      <p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">Run the numbers with live difficulty and prices in the <a href="index.html" style="color: #00CED1;">profitability calculator</a>. Browse 100+ miners by algorithm in the <a href="miners.html" style="color: #00CED1;">ASIC miner catalog</a>, or find the right <a href="pools.html" style="color: #00CED1;">mining pool</a> for your coin. Setting up your first miner? Start with the <a href="electrical_setup.html" style="color: #00CED1;">electrical setup guide</a> and explore <a href="aftermarket_firmware.html" style="color: #00CED1;">aftermarket firmware</a> for better efficiency. Mining terms explained in the <a href="glossary.html" style="color: #00CED1;">glossary</a>.</p>
+    </div>
+  </div>
 
   <footer class="vault-footer">
     <p>SOLA'S ARRAY &#x2022; DATA VAULT &#x2022; <a href="index.html">&#x2190; Return to Calculator</a></p>
