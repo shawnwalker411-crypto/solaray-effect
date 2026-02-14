@@ -3216,9 +3216,9 @@
     function calculate() {
       // Track calculator usage
       if (typeof gtag === 'function') {
-        var sel = document.getElementById('miner-select');
-        var minerName = sel ? sel.options[sel.selectedIndex].text : 'unknown';
-        gtag('event', 'calculate_profitability', { miner: minerName });
+        var trackName = document.getElementById('miner-select');
+        var trackLabel = trackName ? trackName.options[trackName.selectedIndex].text : 'unknown';
+        gtag('event', 'calculate_profitability', { miner: trackLabel });
       }
       const miningType = document.getElementById('mining-type-filter').value;
       
@@ -3618,13 +3618,13 @@
       var hamburgerBtn = document.getElementById('hamburger-btn');
       var navOverlay = document.getElementById('nav-overlay');
       if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('pointerup', function (e) {
+        hamburgerBtn.addEventListener('click', function (e) {
           e.preventDefault();
           if (typeof toggleNav === 'function') toggleNav();
         });
       }
       if (navOverlay) {
-        navOverlay.addEventListener('pointerup', function (e) {
+        navOverlay.addEventListener('click', function (e) {
           e.preventDefault();
           if (typeof toggleNav === 'function') toggleNav();
         });
@@ -3634,13 +3634,13 @@
       var glossaryOverlay = document.getElementById('glossary-overlay');
       var glossaryClose = document.querySelector('.glossary-drawer-close');
       if (glossaryOverlay) {
-        glossaryOverlay.addEventListener('pointerup', function (e) {
+        glossaryOverlay.addEventListener('click', function (e) {
           e.preventDefault();
           if (typeof closeGlossary === 'function') closeGlossary();
         });
       }
       if (glossaryClose) {
-        glossaryClose.addEventListener('pointerup', function (e) {
+        glossaryClose.addEventListener('click', function (e) {
           e.preventDefault();
           if (typeof closeGlossary === 'function') closeGlossary();
         });
@@ -3648,7 +3648,7 @@
 
       // Any element with a glossary term id
       document.querySelectorAll('[data-glossary-term]').forEach(function (el) {
-        el.addEventListener('pointerup', function (e) {
+        el.addEventListener('click', function (e) {
           e.preventDefault();
           var termId = el.getAttribute('data-glossary-term');
           if (termId && typeof openGlossary === 'function') openGlossary(termId);
