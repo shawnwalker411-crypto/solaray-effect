@@ -684,6 +684,28 @@
       .miners-grid { grid-template-columns: 1fr; }
       .glossary-drawer { width: 100%; right: -100%; }
     }
+    .sola-video-float {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      border: 2px solid var(--sola-teal);
+      overflow: hidden;
+      z-index: 998;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .sola-video-float img { width: 100%; height: 100%; object-fit: cover; }
+    .sola-video-float .svf-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(8,26,21,0.85);
+      color: var(--sola-teal);
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0;
+    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Home Miner Catalog - ASIC Mining Hardware for Residential Setups","description":"Complete catalog of 69 ASIC cryptocurrency miners for home mining, including SHA-256 Bitcoin miners, Scrypt Litecoin/Dogecoin miners, KHeavyHash Kaspa miners, and more. Filtered by voltage (120V, 240V, Loki Kit) and algorithm.","url":"https://www.solarayeffect.com/miners.html","numberOfItems":69,"itemListElement":[{"@type":"ListItem","position":1,"name":"Antminer S21 200T - 200 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":2,"name":"Antminer S21 Pro 234T - 234 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":3,"name":"Antminer S19 Pro 110T - 110 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":4,"name":"Antminer L7 9500M - 9500 MH/s Scrypt Litecoin/Dogecoin Miner (240V)"},{"@type":"ListItem","position":5,"name":"Antminer KS5 - 20000 GH/s KHeavyHash Kaspa Miner (240V)"},{"@type":"ListItem","position":6,"name":"Bitaxe Ultra - 0.5 TH/s Solo Lottery Bitcoin Miner (120V)"},{"@type":"ListItem","position":7,"name":"IceRiver KS0 Ultra - 400 GH/s Kaspa Miner (120V)"},{"@type":"ListItem","position":8,"name":"Goldshell Mini-DOGE III - 760 MH/s Scrypt Miner (120V)"},{"@type":"ListItem","position":9,"name":"Antminer L3++ - 596 MH/s Scrypt Litecoin/Dogecoin Miner (120V)"},{"@type":"ListItem","position":10,"name":"S19 Pro 110T Loki Kit - 44 TH/s on 120V household power"}]}</script>
 </head>
@@ -708,6 +730,7 @@
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
     <a href="glossary.html">&#x1F9E0; Glossary</a>
     <a href="datavault.html">&#x1F4CA; Data Vault</a>
   </nav>
@@ -789,7 +812,7 @@
       <h3>Understanding Voltage Categories</h3>
       <p><strong>120V Native miners</strong> plug into any standard US household outlet and are the simplest path to home mining. Models like the Goldshell Mini-DOGE series, IceRiver KS0 lineup, and iPollo V1 Mini run on normal circuits without any electrical modifications. <strong>240V miners</strong> are industrial-grade ASIC machines like the Antminer S19 Pro, S21, L7, and KS5 series &#x2014; they deliver maximum hashrate but require a dedicated 240V circuit similar to a dryer outlet. See our <a href="electrical_setup.html">electrical setup guide</a> for wiring requirements and safety. <strong>Loki Kit miners</strong> bridge this gap by allowing 240V machines to run on 120V power at reduced hashrate (~40% of rated capacity), using <a href="aftermarket_firmware.html">aftermarket firmware</a> like LuxOS, VNish, or Braiins OS+. <strong>Lottery miners</strong> like the Bitaxe Ultra and NerdMiner are low-power devices for solo mining &#x2014; extremely unlikely to find a block, but the payout is a full block reward if you do.</p>
       <h3>How to Use This Catalog</h3>
-      <p>Use the filters above to narrow by voltage type or mining algorithm. Click any miner card to load it directly into our <a href="index.html">profitability calculator</a> with dual electricity rates and solar power support. Every spec listed is the manufacturer's stock rating &#x2014; actual performance varies with firmware, ambient temperature, and tuning. Miners marked with "Loki" show estimated hashrate and power when running on a Loki Kit configuration at 120V. Once you've picked a miner, find a compatible <a href="pools.html">mining pool</a> for your algorithm and check live network difficulty in the <a href="datavault.html">Data Vault</a>. Need help with mining terms? See the <a href="glossary.html">glossary</a>.</p>
+      <p>Use the filters above to narrow by voltage type or mining algorithm. Click any miner card to load it directly into our <a href="index.html">profitability calculator</a> with dual electricity rates and solar power support. Every spec listed is the manufacturer's stock rating &#x2014; actual performance varies with firmware, ambient temperature, and tuning. Miners marked with "Loki" show estimated hashrate and power when running on a Loki Kit configuration at 120V. Once you've picked a miner, find a compatible <a href="pools.html">mining pool</a> for your algorithm and check live network difficulty in the <a href="datavault.html">Data Vault</a>. Need help with mining terms? See the <a href="glossary.html">glossary</a>. Want to manage and schedule your miners remotely? See the <a href="remote_management.html">Remote Management guide</a>.</p>
     </article>
 
     <section class="algo-section" data-algo="SHA-256">
@@ -3129,5 +3152,9 @@
 </script>
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
+  <div class="sola-video-float">
+    <img src="assets/sola_hotpick_sun_optimized.jpg" alt="Sola Ray - Video Coming Soon">
+    <div class="svf-label">&#x1F3AC; Video Soon</div>
+  </div>
 </body>
 </html>

@@ -492,6 +492,28 @@
       height: auto;
       border-radius: 12px;
     }
+    .sola-video-float {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      border: 2px solid var(--sola-teal);
+      overflow: hidden;
+      z-index: 998;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .sola-video-float img { width: 100%; height: 100%; object-fit: cover; }
+    .sola-video-float .svf-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(8,26,21,0.85);
+      color: var(--sola-teal);
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0;
+    }
 
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Aftermarket Firmware Guide for ASIC Miners","description":"Compare LuxOS, VNish, and Braiins firmware options for optimizing your mining hardware.","url":"https://www.solarayeffect.com/aftermarket_firmware.html","publisher":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
@@ -516,6 +538,7 @@
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html" class="active">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
     <a href="glossary.html">&#x1F9E0; Glossary</a>
     <a href="datavault.html">&#x1F4CA; Data Vault</a>
   </nav>
@@ -636,6 +659,35 @@
       </table>
     </section>
     
+    <section class="section" id="shutdown-restart">
+      <h2 class="section-title">Shutdown, Restart &amp; Scheduling</h2>
+      <p>If you mine on solar or time-of-use electricity rates, you need to stop and start miners on a schedule. How that works depends entirely on your firmware. Some make it easy. Others will brick your remote access if you use the wrong command.</p>
+
+      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">Shutdown Behavior by Firmware</h3>
+      <div style="overflow-x: auto;">
+      <table>
+        <tr><th>Firmware</th><th>Stop Mining</th><th>Full Shutdown</th><th>Remote Restart</th><th>Scheduling</th></tr>
+        <tr><td>Stock (Bitmain)</td><td>Web UI only</td><td>No SSH access (locked since 2019)</td><td>PDU power cycle only</td><td>Not supported</td></tr>
+        <tr><td>Braiins OS+</td><td><code>bosminer stop</code></td><td><code>poweroff</code> (loses network)</td><td>PDU power cycle after poweroff; <code>bosminer start</code> after stop</td><td>Cron jobs work</td></tr>
+        <tr><td>LuxOS</td><td>API or web UI</td><td><code>poweroff</code> (miner stuck OFF)</td><td>PDU power cycle only</td><td>Limited</td></tr>
+        <tr><td>Vnish</td><td>Web UI toggle</td><td><code>poweroff</code> (loses network)</td><td>PDU power cycle after poweroff</td><td>Built-in scheduler</td></tr>
+      </table>
+      </div>
+
+      <div class="warning-box">
+        <p><strong>⚠️ The Poweroff Trap:</strong> Running <code>poweroff</code> or <code>shutdown</code> over SSH kills the miner's network stack. The miner is now off and unreachable — nothing over the network can turn it back on. You must physically power cycle it or use a smart PDU. This applies to ALL firmware.</p>
+      </div>
+
+      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">Stock Firmware — SSH Is Locked</h3>
+      <p>Bitmain locked SSH access on S19-series miners starting in 2019. If you're on stock firmware, you cannot use any SSH commands — no <code>poweroff</code>, no <code>reboot</code>, no cron scheduling. Your only remote option is the miner's web interface (for monitoring) and a smart PDU (for power cycling). This is the #1 reason home miners switch to aftermarket firmware.</p>
+
+      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">Braiins OS+ — The Most Flexible</h3>
+      <p><code>bosminer stop</code> pauses mining without shutting down the miner — your SSH session stays alive and the miner stays on the network. <code>bosminer start</code> resumes mining. This is the safest software method for solar schedules. Cron jobs work reliably for automated stop/start. <strong>Known issue:</strong> pool settings may reset after a full restart — verify your pool config after any reboot.</p>
+
+      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">LuxOS — Use PDU, Not SSH</h3>
+      <p>LuxOS supports remote management through its API and web UI, but <code>poweroff</code> over SSH leaves the miner completely stuck off with no remote recovery path. If you're on LuxOS and need to shut down on a schedule, use a smart PDU to cut and restore power rather than any SSH shutdown command. See our <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Smart PDU guide</a> for recommended hardware.</p>
+    </section>
+
     <section class="section">
       <h2 class="section-title">For Loki Kit Users</h2>
       <p>If you're running a Loki Kit setup on 120V, you'll need firmware that supports:</p>
@@ -1045,5 +1097,9 @@
 </script>
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
+  <div class="sola-video-float">
+    <img src="assets/sola_hotpick_sun_optimized.jpg" alt="Sola Ray - Video Coming Soon">
+    <div class="svf-label">&#x1F3AC; Video Soon</div>
+  </div>
 </body>
 </html>
