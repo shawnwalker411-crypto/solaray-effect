@@ -67,7 +67,7 @@
   --terminal-cyan: #00d4ff;
   --scarif-sand: #c4a574;
   --text-primary: #e8f0f7;
-  --text-muted: #6b7d8f;
+  --text-muted: #8a9bab;
   --scanline-opacity: 0.03;
 }
 
@@ -440,7 +440,6 @@ body::after {
   border-top: 1px solid var(--vault-border);
   border-left: 3px solid var(--terminal-cyan);
   background: rgba(0, 212, 255, 0.03);
-  opacity: 0.75;
 }
 
 /* ============================================
@@ -770,7 +769,8 @@ body::after {
 
 .vault-footer a {
   color: var(--terminal-cyan);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   transition: color 0.2s ease;
 }
 
@@ -1242,7 +1242,7 @@ body::after {
 
   <!-- Hamburger Menu -->
   <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
       <span class="bun-top"></span>
       <span class="lettuce"></span>
       <span class="patty"></span>
@@ -1840,7 +1840,7 @@ body::after {
 
   <footer class="vault-footer">
     <p>SOLA'S ARRAY &#x2022; DATA VAULT &#x2022; <a href="index.html">&#x2190; Return to Calculator</a></p>
-    <p style="margin-top: 10px; opacity: 0.6;">Data sourced from Blockchain.com & CoinGecko APIs &#x2022; Charts update on load</p>
+    <p style="margin-top: 10px; opacity: 0.8;">Data sourced from Blockchain.com & CoinGecko APIs &#x2022; Charts update on load</p>
   </footer>
 
   <!-- Chart.js + Date Adapter -->
