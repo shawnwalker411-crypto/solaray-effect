@@ -152,14 +152,15 @@ body::after {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .vault-title {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
 }
 
 .vault-logo {
@@ -208,6 +209,7 @@ body::after {
   display: flex;
   align-items: center;
   gap: 30px;
+  margin-top: 12px;
 }
 
 .status-indicator {
@@ -865,6 +867,18 @@ body::after {
   animation: pulse-glow 1.5s ease-in-out infinite;
 }
 
+.boot-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--terminal-cyan);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 40px;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+}
+
 .boot-text {
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.85rem;
@@ -918,6 +932,10 @@ body::after {
    RESPONSIVE &#x2014; Mobile
    ============================================ */
 @media (max-width: 768px) {
+  .boot-title {
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+  }
   .vault-header {
     padding: 15px 20px;
   }
@@ -982,6 +1000,11 @@ body::after {
    RESPONSIVE &#x2014; Small Mobile
    ============================================ */
 @media (max-width: 480px) {
+  .boot-title {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
   .vault-title h1 {
     font-size: 1.1rem;
     letter-spacing: 1px;
@@ -1232,7 +1255,7 @@ body::after {
   <!-- Boot Overlay -->
   <div class="boot-overlay" id="boot-overlay">
     <div class="boot-content">
-      <div class="boot-logo">SA</div>
+      <div class="boot-title">Welcome to Sola's Array</div>
       <div class="boot-progress">
         <div class="boot-progress-fill" id="boot-progress-fill"></div>
       </div>
@@ -1276,7 +1299,6 @@ body::after {
   <header class="vault-header">
     <div class="header-content">
       <div class="vault-title">
-        <div class="vault-logo">SA</div>
         <div>
           <h1>Live Mining Stats &mdash; Network Difficulty, Hashrate & Market Data</h1>
           <div class="subtitle">Data Vault &#x2022; Sector 7</div>
@@ -1913,7 +1935,7 @@ const BOOT_MESSAGES = [
   'Decrypting data streams...',
   'Calibrating chart arrays...',
   'All systems operational.',
-  'Welcome to Sola\'s Array.'
+  'Access granted.'
 ];
 
 
