@@ -1108,11 +1108,12 @@ body::after {
       left: -280px;
       width: 280px;
       height: 100vh;
+      overflow-y: auto;
       background: var(--vault-dark);
       border-right: 2px solid var(--terminal-cyan);
       z-index: 10000;
       transition: left 0.3s ease;
-      padding: 80px 1.5rem 2rem;
+      padding: 70px 1.5rem 1.5rem;
       box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
     }
     .nav-drawer.open { left: 0; }
@@ -1120,6 +1121,7 @@ body::after {
       color: var(--terminal-amber);
       font-family: 'Orbitron', monospace;
       font-size: 0.85rem;
+      padding-left: 60px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(255, 184, 0, 0.3);
@@ -1130,11 +1132,11 @@ body::after {
       display: block;
       color: var(--text-primary);
       text-decoration: none;
-      padding: 0.75rem 1rem;
-      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      margin-bottom: 0.3rem;
       border-radius: 6px;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
@@ -1146,7 +1148,7 @@ body::after {
     .nav-drawer a.active {
       background: rgba(0, 212, 255, 0.1);
       border-color: var(--terminal-cyan);
-      color: var(--terminal-cyan);
+      color: #ffffff;
     }
     .nav-overlay {
       display: none;
@@ -1205,7 +1207,7 @@ body::after {
       font-family: 'Orbitron', monospace;
       color: var(--terminal-amber, #ffb800);
       font-size: 1.1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(255, 184, 0, 0.3);
       letter-spacing: 1px;
@@ -1282,6 +1284,7 @@ body::after {
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
     <a href="glossary.html">&#x1F9E0; Glossary</a>
     <a href="datavault.html" class="active">&#x1F4CA; Data Vault</a>
   </nav>

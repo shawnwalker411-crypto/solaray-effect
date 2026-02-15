@@ -173,11 +173,12 @@
       left: -280px;
       width: 280px;
       height: 100vh;
+      overflow-y: auto;
       background: var(--bg-secondary);
       border-right: 2px solid var(--sola-teal);
       z-index: 999;
       transition: left 0.3s ease;
-      padding: 80px 1.5rem 2rem;
+      padding: 70px 1.5rem 1.5rem;
       box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
     }
     
@@ -186,6 +187,7 @@
     .nav-drawer h3 {
       color: var(--sola-gold);
       font-size: 1rem;
+      padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
@@ -195,10 +197,10 @@
       display: block;
       color: var(--text-primary);
       text-decoration: none;
-      padding: 0.75rem 1rem;
-      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      margin-bottom: 0.3rem;
       border-radius: 6px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
@@ -212,7 +214,7 @@
     .nav-drawer a.active {
       background: rgba(0, 206, 209, 0.15);
       border-color: var(--sola-teal);
-      color: var(--sola-teal);
+      color: #ffffff;
     }
     
     .nav-drawer .nav-disabled {
@@ -358,7 +360,7 @@
     .section-title {
       font-size: 1.3rem;
       color: var(--sola-teal);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -366,7 +368,7 @@
     
     .section p {
       color: var(--text-secondary);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     
     .section p:last-child {
@@ -607,7 +609,7 @@
     
     .cta-section h3 {
       color: var(--sola-gold);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     
     .cta-btn {
@@ -812,7 +814,7 @@
     
     .page-blocked h2 {
       color: var(--text-secondary);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     
     .page-blocked p {
@@ -896,6 +898,7 @@
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html" class="active">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
     <a href="glossary.html">&#x1F9E0; Glossary</a>
     <a href="datavault.html">&#x1F4CA; Data Vault</a>
   </nav>
@@ -962,7 +965,7 @@
       <p style="margin-bottom: 0.25rem;">Standard 120V, 15&#x2013;20A.</p>
       <p style="margin-bottom: 0.25rem;">Suitable only for <strong>Loki Kit&#x2013;equipped miners</strong> or miners with <strong>maximum 1,500W continuous draw</strong>, meeting the <strong>80% rule</strong>.</p>
       <p>Dedicated circuit required. Not suitable for stock ASICs.</p>
-      <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 1.5rem;">
+      <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 1.5rem;
         <li>15A circuit &#x2192; 12A continuous &#x2192; <strong>~1,440W max</strong></li>
         <li>20A circuit &#x2192; 16A continuous &#x2192; <strong>~1,920W max</strong> (but 1,500W is the safe real-world ceiling)</li>
       </ul>
@@ -1022,7 +1025,7 @@
       
       <div class="loki-highlight">
         <h4>&#x1F52E; What is a Loki Kit?</h4>
-        <p style="color: var(--text-secondary); margin-bottom: 1rem;">A Loki Kit replaces your miner's power supply with one that runs on 120V. Combined with aftermarket firmware to underclock/undervolt, you can run industrial miners on regular household outlets.</p>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">A Loki Kit replaces your miner's power supply with one that runs on 120V. Combined with aftermarket firmware to underclock/undervolt, you can run industrial miners on regular household outlets.</p>
         <p style="color: var(--text-secondary); margin: 0;"><strong>Trade-off:</strong> Lower hashrate (~40-60% of stock) but uses regular outlets you already have.</p>
       </div>
       
@@ -1226,6 +1229,7 @@
       <div class="info-box" style="margin-top: 1rem;">
         <p><strong>Common setup:</strong> PDUs with L6-30P plugs are popular for 30A circuits. They connect to a NEMA L6-30R outlet and distribute power to multiple miners.</p>
       </div>
+      <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">Switched and intelligent PDUs can also power cycle miners remotely and run on automated schedules &mdash; essential for solar and time-of-use rate setups. See our <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Remote Management guide</a> for smart PDU recommendations and setup.</p>
     </section>
     
     <!-- Safety Section -->
@@ -1256,7 +1260,7 @@
         <li>Install a smoke detector near your mining setup</li>
         <li>Keep miners away from flammable materials</li>
         <li>Don't daisy-chain PDUs (power distribution units)</li>
-        <li>Consider a kill switch or smart plug with power monitoring</li>
+        <li>Consider a kill switch or smart plug with power monitoring &mdash; a <a href="remote_management.html#smart-switches" style="color: var(--sola-teal);">smart switch</a> lets you cut power remotely instead of pulling plugs</li>
         <li>If breakers trip repeatedly, STOP and investigate</li>
       </ul>
       
@@ -1295,7 +1299,7 @@
 
     <div class="cta-section">
       <h3>Ready to Calculate Your Profits?</h3>
-      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Now that you know your electrical setup, see what you can make.</p>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;
       <a href="index.html" class="cta-btn">&#x26A1; Open Calculator</a>
     </div>
   </div>

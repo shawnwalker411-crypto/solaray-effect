@@ -171,7 +171,7 @@
     .category-title {
       color: var(--sola-gold);
       font-size: 1.4rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border-color);
     }
@@ -224,7 +224,7 @@
     
     .cta-section h3 {
       color: var(--sola-gold);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     
     .cta-btn {
@@ -325,11 +325,12 @@
       left: -280px;
       width: 280px;
       height: 100vh;
+      overflow-y: auto;
       background: var(--bg-secondary);
       border-right: 2px solid var(--sola-teal);
       z-index: 999;
       transition: left 0.3s ease;
-      padding: 80px 1.5rem 2rem;
+      padding: 70px 1.5rem 1.5rem;
       box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
     }
     
@@ -338,6 +339,7 @@
     .nav-drawer h3 {
       color: var(--sola-gold);
       font-size: 1rem;
+      padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
@@ -347,10 +349,10 @@
       display: block;
       color: var(--text-primary);
       text-decoration: none;
-      padding: 0.75rem 1rem;
-      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      margin-bottom: 0.3rem;
       border-radius: 6px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
@@ -364,7 +366,7 @@
     .nav-drawer a.active {
       background: rgba(0, 206, 209, 0.15);
       border-color: var(--sola-teal);
-      color: var(--sola-teal);
+      color: #ffffff;
     }
     
     .nav-drawer .nav-disabled {
@@ -419,6 +421,7 @@
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
     <a href="glossary.html" class="active">&#x1F9E0; Glossary</a>
     <a href="datavault.html">&#x1F4CA; Data Vault</a>
   </nav>
@@ -438,6 +441,7 @@
       <a href="#profitability">Profitability</a>
       <a href="#payout-methods">Payout Methods</a>
       <a href="#electricity">Electricity</a>
+      <a href="#remote-mgmt">Remote Management</a>
       <a href="#scams" class="scam-link">&#x26A0;&#xFE0F; Common Scams</a>
     </nav>
     
@@ -559,7 +563,7 @@
       
       <div class="term" id="firmware">
         <div class="term-name">Firmware</div>
-        <div class="term-def">Software embedded in your miner that controls its operation. Stock firmware comes from the manufacturer; aftermarket firmware (Braiins, VNish, LuxOS) can unlock better performance and features.</div>
+        <div class="term-def">Software embedded in your miner that controls its operation. Stock firmware comes from the manufacturer; aftermarket firmware (Braiins, VNish, LuxOS) can unlock better performance and features. Your firmware choice also determines how you can <a href="aftermarket_firmware.html#shutdown-restart" style="color: var(--sola-teal);">shut down, restart, and schedule</a> your miner remotely.</div>
       </div>
       
       <div class="term" id="hash-board">
@@ -733,7 +737,7 @@
       
       <div class="term" id="pdu">
         <div class="term-name">PDU (Power Distribution Unit)</div>
-        <div class="term-def">An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions.</div>
+        <div class="term-def">An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions. Switched and intelligent PDUs (also called <a href="#smart-pdu" style="color: var(--sola-teal);">smart PDUs</a>) add remote on/off control and scheduling &mdash; see the <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Remote Management guide</a>.</div>
         <div class="term-tip">&#x26A0;&#xFE0F; Never daisy-chain PDUs or use residential power strips for mining.</div>
       </div>
       
@@ -781,11 +785,72 @@
         <div class="term-def">The rate of energy consumption. A miner's wattage tells you how much power it draws continuously. Higher wattage = higher electricity cost. To find daily kWh cost: (Watts &#xF7; 1000) &#xD7; 24 &#xD7; your rate per kWh.</div>
       </div>
     </section>
-    
+
+    <!-- Remote Management -->
+    <section class="category" id="remote-mgmt">
+      <h2 class="category-title">&#x1F4E1; Remote Management</h2>
+
+      <div class="term" id="ssh">
+        <div class="term-name">SSH (Secure Shell)</div>
+        <div class="term-def">A text-based command connection to your miner over the network. Required for advanced control like stopping/starting the mining process, checking logs, and running scheduled commands. Stock Bitmain firmware has SSH locked since 2019 &mdash; you need <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a> to use it. See the <a href="remote_management.html#mobile-ssh" style="color: var(--sola-teal);">Mobile SSH guide</a>.</div>
+      </div>
+
+      <div class="term" id="sleep-mode">
+        <div class="term-name">Sleep Mode</div>
+        <div class="term-def">A miner state where mining stops but the control board stays powered, fans run at minimum, and the network connection stays alive. Draws ~50&ndash;100W idle. Useful for pausing mining during peak electricity rates without losing remote access.</div>
+      </div>
+
+      <div class="term" id="graceful-shutdown">
+        <div class="term-name">Graceful Shutdown</div>
+        <div class="term-def">Stopping the mining process and allowing chips to cool before cutting power. Reduces thermal stress on hash boards compared to yanking the plug. See <a href="remote_management.html#safe-shutdown" style="color: var(--sola-teal);">Safe Shutdown Methods</a> for the recommended sequence.</div>
+      </div>
+
+      <div class="term" id="power-cycle">
+        <div class="term-name">Power Cycle</div>
+        <div class="term-def">Cutting power completely and restoring it. The universal fix for frozen ASIC miners. Requires physical access to the plug or a <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">smart PDU</a> for remote power cycling. Nothing over the network can power on a miner after a full shutdown.</div>
+      </div>
+
+      <div class="term" id="mining-daemon">
+        <div class="term-name">Mining Daemon</div>
+        <div class="term-def">The software process doing the actual mining (bmminer on stock, cgminer on older models, bosminer on Braiins OS). Stopping the daemon stops mining without shutting down the miner &mdash; the control board, fans, and network stay active. This is different from a full power-off.</div>
+      </div>
+
+      <div class="term" id="autoping">
+        <div class="term-name">AutoPing</div>
+        <div class="term-def">A smart PDU feature that continuously pings your miner's IP address and automatically power cycles the outlet if the miner stops responding. Acts as a watchdog so frozen miners get restarted even when you're not watching. See <a href="remote_management.html#monitoring" style="color: var(--sola-teal);">Monitoring &amp; Automation</a>.</div>
+      </div>
+
+      <div class="term" id="cron-job">
+        <div class="term-name">Cron Job</div>
+        <div class="term-def">An automatic scheduled task on Linux. Home miners use cron jobs to stop and start mining around electricity rate windows &mdash; for example, shutting down at 7 AM when peak rates begin and restarting at 9 PM when free/cheap power kicks in. Requires SSH access through <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a>.</div>
+      </div>
+
+      <div class="term" id="smart-pdu">
+        <div class="term-name">Smart PDU</div>
+        <div class="term-def">A network-connected power distribution unit with remote on/off control, power monitoring, outlet scheduling, and AutoPing watchdog. The single most important piece of remote management hardware &mdash; it's the only way to power cycle a miner remotely. See <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Smart PDU recommendations</a>.</div>
+      </div>
+
+      <div class="term" id="termius">
+        <div class="term-name">Termius</div>
+        <div class="term-def">A mobile and desktop SSH app for managing miners from your phone. The free tier covers everything home miners need: saved connections, command snippets, and multi-tab sessions. See the <a href="remote_management.html#mobile-ssh" style="color: var(--sola-teal);">Mobile SSH guide</a> for setup.</div>
+      </div>
+
+      <div class="term" id="tailscale">
+        <div class="term-name">Tailscale</div>
+        <div class="term-def">A free mesh VPN that lets you access your home network from anywhere without port forwarding or complicated router configuration. Paired with a Raspberry Pi subnet router, it gives you full access to every miner on your LAN from your phone. See <a href="remote_management.html#vpn-access" style="color: var(--sola-teal);">VPN Remote Access</a>.</div>
+      </div>
+
+      <div class="term" id="wake-on-lan">
+        <div class="term-name">Wake-on-LAN (WoL)</div>
+        <div class="term-def">A PC and server feature that allows remote power-on via a network signal. ASIC miners do NOT support Wake-on-LAN &mdash; their network cards are not designed for it. If your miner is off, the only way to turn it back on remotely is a smart PDU or smart switch that physically restores power.</div>
+        <div class="term-tip">&#x26A0;&#xFE0F; Don't waste time looking for WoL on ASIC miners. Use a smart PDU instead.</div>
+      </div>
+    </section>
+
     <!-- Common Scams -->
     <section class="category" id="scams">
       <h2 class="category-title scam-title">&#x26A0;&#xFE0F; Common Scams</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Mining attracts scammers. Know these red flags to protect yourself.</p>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;
       
       <div class="term scam-term" id="cloud-mining">
         <div class="term-name">Cloud Mining Scams</div>
@@ -838,7 +903,7 @@
     
     <div class="cta-section">
       <h3>Ready to Calculate Your Profits?</h3>
-      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Use The Sola Ray Effect calculator &#x2014; built for home miners.</p>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;
       <a href="index.html" class="cta-btn">&#x26A1; Open Calculator</a>
     </div>
   </div>

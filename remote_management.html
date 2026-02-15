@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Complete guide to remotely managing your home mining operation. Tailscale VPN, Headscale, Raspberry Pi subnet routers, smart PDUs (30A/40A 240V), firmware management, and automation for ASIC miners.">
+  <meta name="keywords" content="remote mining management, Tailscale mining, smart PDU mining, ASIC remote access, Raspberry Pi miner, Headscale VPN, LuxOS remote, Braiins OS, mining automation, smart switch mining, 240V smart PDU">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/remote_management.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.solarayeffect.com/remote_management.html">
+  <meta property="og:title" content="Remote Mining Management Guide | Sola Ray Effect">
+  <meta property="og:description" content="Complete guide to remotely managing your home mining operation. VPN access, smart PDUs, power cycling, and firmware management for ASIC miners.">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/remote_management.html">
+  <meta name="twitter:title" content="Remote Mining Management Guide | Sola Ray Effect">
+  <meta name="twitter:description" content="Complete guide to remotely managing your home mining operation. VPN access, smart PDUs, power cycling, and firmware management.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  
+  <!-- Google tag (gtag.js) - Production only -->
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
+  </script>
+  <title>Remote Mining Management &mdash; VPN Access, Smart PDUs, Power Control &amp; Automation | Sola Ray Effect</title>
+  <!-- Self-hosted fonts -->
+  <style>
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-sans-jp-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/noto-sans-jp-latin-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/noto-sans-jp-latin-700-normal.woff2") format("woff2"); }
+  </style>
+  <style>
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-gold: #D4AF37;
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --v120: #00e676;
+      --v240: #ff9800;
+      --warning: #ff5252;
+      --accent-blue: #4a9eff;
+      --accent-purple: #b388ff;
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    
+    .container { max-width: 850px; margin: 0 auto; padding: 1.5rem; }
+    
+    /* ============================================
+       HAMBURGER MENU (matches site exactly)
+       ============================================ */
+    .hamburger-menu {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+    }
+    
+    .hamburger-btn {
+      background: var(--bg-card);
+      border: 2px solid var(--sola-teal);
+      color: var(--sola-teal);
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+    }
+    
+    .hamburger-btn:hover {
+      background: var(--sola-teal);
+      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+    }
+    
+    .hamburger-btn .bun-top {
+      width: 24px; height: 6px;
+      background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
+      border-radius: 10px 10px 0 0;
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn .lettuce {
+      width: 26px; height: 3px;
+      background: #32CD32;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn .patty {
+      width: 24px; height: 4px;
+      background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn .cheese {
+      width: 26px; height: 3px;
+      background: #FFD700;
+      border-radius: 1px;
+      transform: skewX(-5deg);
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn .bun-bottom {
+      width: 24px; height: 5px;
+      background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
+      border-radius: 0 0 6px 6px;
+      transition: all 0.3s ease;
+    }
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+    
+    .nav-drawer {
+      position: fixed;
+      top: 0; left: -280px;
+      width: 280px; height: 100vh;
+      overflow-y: auto;
+      background: var(--bg-secondary);
+      border-right: 2px solid var(--sola-teal);
+      z-index: 999;
+      transition: left 0.3s ease;
+      padding: 70px 1.5rem 1.5rem;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    .nav-drawer.open { left: 0; }
+    .nav-drawer h3 {
+      color: var(--sola-gold);
+      font-size: 1rem;
+      padding-left: 50px;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    .nav-drawer a {
+      display: block;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      margin-bottom: 0.3rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .nav-drawer a:hover {
+      background: var(--bg-card);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
+    }
+    .nav-drawer a.active {
+      background: rgba(0, 206, 209, 0.15);
+      border-color: var(--sola-teal);
+      color: #ffffff;
+    }
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+    .nav-overlay.show { display: block; }
+    
+    /* ============================================
+       PAGE TITLE & SUBTITLE
+       ============================================ */
+    .page-title {
+      text-align: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 1rem 0;
+    }
+    .page-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--sola-teal);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    .section p:last-child { margin-bottom: 0; }
+    .section ul, .section ol {
+      color: var(--text-secondary);
+      margin: 0.75rem 0 1rem 1.5rem;
+    }
+    .section li { margin-bottom: 0.5rem; }
+    .section strong { color: var(--text-primary); }
+    .section a { color: var(--sola-teal); text-decoration: none; }
+    .section a:hover { text-decoration: underline; }
+    .section code {
+      background: rgba(0, 206, 209, 0.12);
+      color: var(--sola-teal);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: 'Courier New', monospace;
+    }
+    
+    /* ============================================
+       INFO & WARNING BOXES
+       ============================================ */
+    .info-box {
+      background: rgba(0, 206, 209, 0.1);
+      border-left: 4px solid var(--sola-teal);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .info-box p { color: var(--text-primary); margin: 0; }
+    
+    .warning-box {
+      background: rgba(255, 82, 82, 0.1);
+      border-left: 4px solid var(--warning);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .warning-box p { color: var(--text-primary); margin: 0; }
+    .warning-box strong { color: var(--warning); }
+    
+    .gold-box {
+      background: rgba(212, 175, 55, 0.1);
+      border-left: 4px solid var(--sola-gold);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .gold-box p { color: var(--text-primary); margin: 0; }
+    .gold-box strong { color: var(--sola-gold); }
+    
+    /* ============================================
+       COMPARISON GRID (Tailscale vs Headscale etc)
+       ============================================ */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .compare-card {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 1.25rem;
+      border: 2px solid transparent;
+    }
+    .compare-card.option-a { border-color: var(--sola-teal); }
+    .compare-card.option-b { border-color: var(--sola-gold); }
+    .compare-card.option-c { border-color: var(--accent-blue); }
+    .compare-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+    }
+    .compare-card.option-a h3 { color: var(--sola-teal); }
+    .compare-card.option-b h3 { color: var(--sola-gold); }
+    .compare-card.option-c h3 { color: var(--accent-blue); }
+    .compare-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .compare-card li {
+      color: var(--text-secondary);
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .compare-card li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+    
+    /* ============================================
+       PRODUCT/HARDWARE TABLE
+       ============================================ */
+    .hw-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .hw-table th, .hw-table td {
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    .hw-table th {
+      background: rgba(0, 206, 209, 0.15);
+      color: var(--sola-teal);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .hw-table td {
+      color: var(--text-secondary);
+    }
+    .hw-table tr:hover td {
+      background: rgba(0, 206, 209, 0.05);
+    }
+    .hw-table tr.section-header td {
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--sola-gold);
+      font-weight: 700;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .hw-table .best-pick {
+      color: var(--v120);
+      font-weight: 700;
+    }
+    
+    /* ============================================
+       TIER BADGES
+       ============================================ */
+    .tier-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tier-free { background: rgba(0, 230, 118, 0.15); color: var(--v120); border: 1px solid var(--v120); }
+    .tier-mid { background: rgba(74, 158, 255, 0.15); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+    .tier-pro { background: rgba(212, 175, 55, 0.15); color: var(--sola-gold); border: 1px solid var(--sola-gold); }
+    
+    /* ============================================
+       COMMAND BLOCKS
+       ============================================ */
+    .cmd-block {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: #c9d1d9;
+      line-height: 1.6;
+    }
+    .cmd-block .cmd-comment { color: #6e7681; }
+    .cmd-block .cmd-prompt { color: var(--v120); }
+    
+    /* ============================================
+       TABLE OF CONTENTS
+       ============================================ */
+    .toc-heading {
+      color: var(--sola-gold);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .toc-grid { grid-template-columns: 1fr; }
+    }
+    .toc-card {
+      display: block;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .toc-card:hover {
+      border-color: var(--sola-teal);
+    }
+    .toc-card .toc-icon { font-size: 1.1rem; margin-right: 0.4rem; }
+    .toc-card .toc-title { color: var(--sola-teal); font-size: 0.95rem; font-weight: 600; }
+    .toc-card .toc-desc { display: block; color: var(--text-secondary); font-size: 0.82rem; margin-top: 0.25rem; }
+    
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 600px) {
+      .page-title { font-size: 1.5rem; }
+      .section { padding: 1rem; }
+      .hw-table { font-size: 0.8rem; }
+      .hw-table th, .hw-table td { padding: 0.5rem; }
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+    .sola-video-float {
+      position: fixed;
+      top: 7rem;
+      right: 1rem;
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      border: 2px solid var(--sola-teal);
+      overflow: hidden;
+      z-index: 998;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .sola-video-float img { width: 100%; height: 100%; object-fit: cover; }
+    .sola-video-float .svf-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(8,26,21,0.85);
+      color: var(--sola-teal);
+      text-align: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.25rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
+      <span class="bun-top"></span>
+      <span class="lettuce"></span>
+      <span class="patty"></span>
+      <span class="cheese"></span>
+      <span class="bun-bottom"></span>
+    </button>
+  </div>
+  
+  <!-- Navigation Drawer -->
+  <nav class="nav-drawer" id="nav-drawer">
+    <h3>Navigation</h3>
+    <a href="index.html">&#x26A1; Calculator</a>
+    <a href="miners.html">&#x1F527; Miners</a>
+    <a href="pools.html">&#x1F3CA; Mining Pools</a>
+    <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
+    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html" class="active">&#x1F4E1; Remote Management</a>
+    <a href="glossary.html">&#x1F9E0; Glossary</a>
+    <a href="datavault.html">&#x1F4CA; Data Vault</a>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  
+  <div class="container">
+    <h1 class="page-title">&#x1F4E1; Remote Mining Management &mdash; Control Your Rigs From Anywhere</h1>
+    <p class="page-subtitle">VPN access, smart PDUs, power control, and firmware management for home miners</p>
+    
+    <!-- TABLE OF CONTENTS -->
+    <h3 class="toc-heading">&#x1F4D1; What's on This Page</h3>
+    <div class="toc-grid">
+      <a href="#why-remote" class="toc-card"><span class="toc-icon">💡</span><span class="toc-title">Why Remote Management Matters</span><span class="toc-desc">Downtime costs money — manage miners from your phone</span></a>
+      <a href="#vpn-access" class="toc-card"><span class="toc-icon">🔐</span><span class="toc-title">VPN Remote Access</span><span class="toc-desc">Tailscale &amp; Headscale setup for secure access anywhere</span></a>
+      <a href="#pi-router" class="toc-card"><span class="toc-icon">🍓</span><span class="toc-title">Raspberry Pi Subnet Router</span><span class="toc-desc">Reach every miner on your LAN through one device</span></a>
+      <a href="#smart-pdus" class="toc-card"><span class="toc-icon">🔌</span><span class="toc-title">Smart PDUs (30A / 40A / 240V)</span><span class="toc-desc">Remote power cycling — the #1 fix for frozen miners</span></a>
+      <a href="#smart-switches" class="toc-card"><span class="toc-icon">⚡</span><span class="toc-title">Smart Switches &amp; DIN Rail Relays</span><span class="toc-desc">Budget-friendly remote power control options</span></a>
+      <a href="#firmware-remote" class="toc-card"><span class="toc-icon">🧠</span><span class="toc-title">Firmware Remote Management</span><span class="toc-desc">How firmware choice affects your remote control options</span></a>
+      <a href="#mobile-ssh" class="toc-card"><span class="toc-icon">📱</span><span class="toc-title">Mobile SSH Clients</span><span class="toc-desc">Termius &amp; alternatives for managing miners on the go</span></a>
+      <a href="#safe-shutdown" class="toc-card"><span class="toc-icon">🛑</span><span class="toc-title">Safe Shutdown Methods</span><span class="toc-desc">7 methods ranked from gentlest to most aggressive</span></a>
+      <a href="#monitoring" class="toc-card"><span class="toc-icon">📊</span><span class="toc-title">Monitoring &amp; Automation</span><span class="toc-desc">AutoPing, alerts, and scheduled start/stop</span></a>
+      <a href="#security" class="toc-card"><span class="toc-icon">🛡️</span><span class="toc-title">Security Best Practices</span><span class="toc-desc">Lock down your remote access the right way</span></a>
+      <a href="#builds" class="toc-card"><span class="toc-icon">🏗️</span><span class="toc-title">Recommended Builds by Budget</span><span class="toc-desc">Complete setups from $50 starter to $300 full control</span></a>
+    </div>
+
+    <!-- ========================================
+         SECTION 1: WHY REMOTE MANAGEMENT
+         ======================================== -->
+    <section class="section" id="why-remote">
+      <h2 class="section-title">&#x1F4A1; Why Remote Management Matters</h2>
+      <p>Your ASIC miner doesn't care that you're at work, on vacation, or sleeping. When a miner freezes, overheats, or drops off the pool, every minute of downtime is lost revenue. Remote management lets you fix problems from your phone without driving home.</p>
+      
+      <p>Here's what you can do with a proper remote setup:</p>
+      <ul>
+        <li><strong>Power cycle a frozen miner</strong> &mdash; the #1 fix for most ASIC issues</li>
+        <li><strong>Check hashrate and temperatures</strong> from your phone at work</li>
+        <li><strong>Switch pools or adjust settings</strong> through the miner's web interface</li>
+        <li><strong>Shut down miners on schedule</strong> &mdash; perfect for peak-rate electricity windows</li>
+        <li><strong>Get alerts</strong> when a miner drops offline or temperatures spike</li>
+        <li><strong>SSH into miners</strong> running custom firmware (LuxOS, Braiins OS) for advanced control</li>
+      </ul>
+      
+      <div class="info-box">
+        <p><strong>Real talk:</strong> Most home miners don't discover remote management until they've already lost days of mining time to a frozen rig they couldn't restart. Don't wait for that lesson. Set this up now.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 2: VPN REMOTE ACCESS
+         ======================================== -->
+    <section class="section" id="vpn-access">
+      <h2 class="section-title">&#x1F510; VPN Remote Access &mdash; Tailscale &amp; Headscale</h2>
+      
+      <p>The core problem: your miners are on your home network. When you leave the house, you can't reach them. Traditional solutions like port forwarding punch holes in your firewall and expose your network to the internet. That's a terrible idea, especially with equipment worth thousands of dollars behind it.</p>
+      
+      <p>The modern solution is a <strong>mesh VPN</strong> &mdash; software that creates a private encrypted tunnel between your devices, no matter where they are. Your phone at work can talk to your miners at home as if they were on the same network. No open ports. No exposed IP addresses. No complicated configuration.</p>
+      
+      <div class="compare-grid">
+        <div class="compare-card option-a">
+          <h3>&#x1F7E2; Tailscale <span class="tier-badge tier-free">Recommended</span></h3>
+          <ul>
+            <li>Free personal plan: 3 users, 100 devices</li>
+            <li>5-minute setup &mdash; install, sign in, done</li>
+            <li>Works on Windows, Mac, Linux, Android, iOS</li>
+            <li>Built on WireGuard (military-grade encryption)</li>
+            <li>No port forwarding needed</li>
+            <li>Works behind any router or firewall</li>
+            <li>MagicDNS &mdash; reach devices by name, not IP</li>
+            <li>Company handles the coordination server</li>
+          </ul>
+        </div>
+        
+        <div class="compare-card option-b">
+          <h3>&#x1F7E1; Headscale <span class="tier-badge tier-mid">Advanced</span></h3>
+          <ul>
+            <li>Open-source, self-hosted Tailscale server</li>
+            <li>Zero dependency on any company's servers</li>
+            <li>No device limits whatsoever</li>
+            <li>Uses the same Tailscale client apps</li>
+            <li>Requires a VPS or always-on server (~$5/month)</li>
+            <li>More complex setup (Docker, config files)</li>
+            <li>Full control over your network coordination</li>
+            <li>Best for privacy-focused miners</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="gold-box">
+        <p><strong>Which should you pick?</strong> If you're reading this page for the first time, start with Tailscale. It's free, it works in minutes, and the free plan supports 100 devices &mdash; more than any home miner will ever need. Move to Headscale later if you want full self-hosting and zero third-party dependency.</p>
+      </div>
+      
+      <h3 style="color: var(--sola-teal); margin: 1.5rem 0 0.75rem;">How Tailscale Works (The Simple Version)</h3>
+      <p>Tailscale creates a private network (called a "tailnet") that follows you everywhere. Every device you install it on gets a unique <code>100.x.x.x</code> IP address. These addresses work from anywhere in the world &mdash; your couch, the office, a hotel. Traffic goes directly between your devices (peer-to-peer), encrypted end-to-end. Tailscale's servers only help your devices find each other &mdash; they never see your data.</p>
+      
+      <h3 style="color: var(--sola-teal); margin: 1.5rem 0 0.75rem;">Quick Setup: Tailscale on Your Phone + Home PC</h3>
+      <ol>
+        <li>Go to <a href="https://tailscale.com/download" target="_blank" rel="noopener">tailscale.com/download</a> and install on your home computer (the one on the same network as your miners)</li>
+        <li>Sign in with Google, Microsoft, or GitHub &mdash; free account</li>
+        <li>Install the Tailscale app on your phone (Android or iOS)</li>
+        <li>Sign in with the same account</li>
+        <li>Both devices now appear in your tailnet &mdash; they can reach each other from anywhere</li>
+      </ol>
+      
+      <div class="info-box">
+        <p><strong>But my miners can't run Tailscale...</strong> Correct. ASIC miners run stripped-down Linux and you can't install extra software on most of them. That's where the Raspberry Pi subnet router comes in (next section). The Pi runs Tailscale and acts as a gateway to your entire mining network.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 3: RASPBERRY PI SUBNET ROUTER
+         ======================================== -->
+    <section class="section" id="pi-router">
+      <h2 class="section-title">&#x1F353; Raspberry Pi Subnet Router</h2>
+      
+      <p>Your ASIC miners can't install Tailscale directly. They're single-purpose machines with locked-down firmware. The solution is a <strong>subnet router</strong> &mdash; a small computer on your mining network that runs Tailscale and exposes your entire local network to your tailnet. Every device on your home network becomes reachable through the Pi, including every miner.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">What You Need</h3>
+      <ul>
+        <li><strong>Raspberry Pi 4B (2GB+ RAM)</strong> &mdash; $35-55, widely available. Pi 3B+ works too but Pi 4 is more reliable for always-on duty</li>
+        <li><strong>MicroSD card (16GB+)</strong> &mdash; get a decent brand (SanDisk, Samsung). Don't use that ancient 4GB card from 2012</li>
+        <li><strong>Ethernet cable</strong> &mdash; wired connection to your router. Do NOT rely on Wi-Fi for this. Your entire remote access chain depends on this staying connected</li>
+        <li><strong>USB-C power supply</strong> &mdash; official Pi power supply recommended. Underpowered Pi = random disconnects</li>
+        <li><strong>A case with passive cooling</strong> &mdash; a small heatsink or aluminum case keeps it running cool 24/7</li>
+      </ul>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Setup Steps</h3>
+      
+      <div class="cmd-block">
+        <span class="cmd-comment"># 1. Flash Raspberry Pi OS Lite (no desktop needed) to your SD card</span><br>
+        <span class="cmd-comment"># Use Raspberry Pi Imager - enable SSH in the settings before flashing</span><br><br>
+        
+        <span class="cmd-comment"># 2. Boot the Pi, connect via SSH from your home computer</span><br>
+        <span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbabb29ba9baa8abb9bea9a9a2abb2f5b7b4b8bab7">[email&#160;protected]</a><br><br>
+        
+        <span class="cmd-comment"># 3. Update the system</span><br>
+        <span class="cmd-prompt">$</span> sudo apt update && sudo apt upgrade -y<br><br>
+        
+        <span class="cmd-comment"># 4. Install Tailscale</span><br>
+        <span class="cmd-prompt">$</span> curl -fsSL https://tailscale.com/install.sh | sh<br><br>
+        
+        <span class="cmd-comment"># 5. Enable IP forwarding (required for subnet routing)</span><br>
+        <span class="cmd-prompt">$</span> echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf<br>
+        <span class="cmd-prompt">$</span> echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.conf<br>
+        <span class="cmd-prompt">$</span> sudo sysctl -p<br><br>
+        
+        <span class="cmd-comment"># 6. Start Tailscale as a subnet router</span><br>
+        <span class="cmd-comment"># Replace 192.168.1.0/24 with YOUR home network range</span><br>
+        <span class="cmd-prompt">$</span> sudo tailscale up --advertise-routes=192.168.1.0/24<br><br>
+        
+        <span class="cmd-comment"># 7. Authenticate: copy the URL it gives you, open in browser, sign in</span><br><br>
+        
+        <span class="cmd-comment"># 8. Go to Tailscale admin console (admin.tailscale.com)</span><br>
+        <span class="cmd-comment">#    Find your Pi â†’ approve the advertised subnet routes</span><br><br>
+        
+        <span class="cmd-comment"># 9. Enable Tailscale to start on boot</span><br>
+        <span class="cmd-prompt">$</span> sudo systemctl enable tailscaled
+      </div>
+      
+      <div class="info-box">
+        <p><strong>How to find your network range:</strong> On your home PC, run <code>ipconfig</code> (Windows) or <code>ifconfig</code> (Mac/Linux). If your IP is 192.168.1.x, your range is <code>192.168.1.0/24</code>. If it's 192.168.0.x, use <code>192.168.0.0/24</code>. If it's 10.0.0.x, use <code>10.0.0.0/24</code>.</p>
+      </div>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">After Setup</h3>
+      <p>Now when you're away from home with Tailscale running on your phone, you can open a browser and type your miner's local IP address (like <code>192.168.1.50</code>) and the miner's web interface loads &mdash; just like being at home. You can also SSH into miners running custom firmware. The Pi acts as your always-on gateway.</p>
+      
+      <div class="warning-box">
+        <p><strong>Don't forget:</strong> Your Pi needs to stay on 24/7, plugged into your router with ethernet. If the Pi loses power or internet, you lose remote access. Consider putting the Pi and your router on a small UPS battery backup ($40-60) so a brief power flicker doesn't kill your remote access chain.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 4: SMART PDUs
+         ======================================== -->
+    <section class="section" id="smart-pdus">
+      <h2 class="section-title">&#x1F50B; Smart PDUs for Mining &mdash; 30A, 40A &amp; 240V</h2>
+      
+      <p>A <strong>smart PDU</strong> (Power Distribution Unit) is a power strip on steroids. It distributes power from one high-amperage circuit to multiple outlets &mdash; and the "smart" part means you can monitor power draw, switch outlets on/off remotely, and set up automatic power cycling. For miners, this is the single most valuable piece of remote management hardware you can buy.</p>
+      
+      <p>A regular (dumb) metered PDU shows you watts and amps on a screen. A smart PDU connects to your network and lets you do all of that from your phone &mdash; plus automatically reboot a miner when it stops responding.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">What to Look For in a Mining PDU</h3>
+      <ul>
+        <li><strong>Voltage rating:</strong> 240V for most ASIC miners. 120V only for small miners (Goldshell Mini series, lottery miners)</li>
+        <li><strong>Amperage:</strong> 30A is the sweet spot for home mining (7,200W max / 5,760W at 80% rule). 40A+ exists for bigger setups</li>
+        <li><strong>Plug type:</strong> L6-30P for 30A/240V circuits (the locking plug that goes into an L6-30R outlet)</li>
+        <li><strong>Outlets:</strong> C13 outlets for most miners (S19 series, L3++, KS5). C19 outlets for newer high-power miners (S21, S21+)</li>
+        <li><strong>Network connectivity:</strong> Ethernet (RJ45), Wi-Fi, or both &mdash; required for remote monitoring</li>
+        <li><strong>Outlet-level switching:</strong> ability to turn individual outlets on/off remotely</li>
+        <li><strong>AutoPing:</strong> automatically power cycle an outlet when the connected miner stops responding to pings</li>
+        <li><strong>Power metering:</strong> per-outlet wattage, amps, kWh tracking</li>
+      </ul>
+      
+      <div class="warning-box">
+        <p><strong>The 80% Rule is Law.</strong> NEC code says continuous loads (your miners run 24/7) must not exceed 80% of the circuit rating. A 30A circuit maxes at 24A continuous. A 20A circuit maxes at 16A. Exceeding this creates fire risk. No exceptions.</p>
+      </div>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Smart PDU Comparison &mdash; Home Mining Scale</h3>
+      
+      <table class="hw-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Amps / Volts</th>
+            <th>Outlets</th>
+            <th>Smart Features</th>
+            <th>Price Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-header">
+            <td colspan="5">&#x1F3E0; Best for Home Miners (1-5 Rigs)</td>
+          </tr>
+          <tr>
+            <td class="best-pick">SynLink SP (Synaccess)</td>
+            <td>20-30A / 240V</td>
+            <td>4-8 (C13/C19 mix)</td>
+            <td>AutoPing, per-outlet switching, web UI, SNMP, REST API, email alerts, temp sensors, scheduling</td>
+            <td>$300-600</td>
+          </tr>
+          <tr>
+            <td>Synaccess netBooter DU</td>
+            <td>15-20A / 120-240V</td>
+            <td>2-5 (NEMA 5-15)</td>
+            <td>AutoPing, outlet switching, web UI, Telnet, email alerts, scheduling</td>
+            <td>$180-350</td>
+          </tr>
+          <tr>
+            <td class="best-pick">Altair Virgo Smart PDU</td>
+            <td>30A / 240V</td>
+            <td>4 C13 + 2 C19</td>
+            <td>Per-outlet switching, SNMP, Modbus, HTTP/HTTPS, SMTP alerts, Ethernet</td>
+            <td>$200-350</td>
+          </tr>
+          <tr>
+            <td>RPCM Mining Edition (RCNTEC)</td>
+            <td>32-63A / 240V</td>
+            <td>10-30 channels</td>
+            <td>Hashrate watchdog, auto-restart, REST API, SNMP, dual input ATS, per-channel metering</td>
+            <td>$500-1,200</td>
+          </tr>
+          <tr class="section-header">
+            <td colspan="5">&#x1F4B0; Budget Options (Metered Only &mdash; No Remote Switching)</td>
+          </tr>
+          <tr>
+            <td>Generic 30A Mining PDU (Amazon)</td>
+            <td>30A / 240V</td>
+            <td>8 C13 or 6 C13 + 2 C19</td>
+            <td>LCD meter only (amps, watts, kWh). No network. No remote control.</td>
+            <td>$50-120</td>
+          </tr>
+          <tr>
+            <td>Altair Argo Metered PDU</td>
+            <td>30A / 240V</td>
+            <td>4 C13 + 2 C19</td>
+            <td>LCD meter, surge protection. No network. No remote control.</td>
+            <td>$100-180</td>
+          </tr>
+          <tr class="section-header">
+            <td colspan="5">&#x1F3ED; Larger Operations (6+ Rigs)</td>
+          </tr>
+          <tr>
+            <td>Raptor Crypto Slayer 3.0</td>
+            <td>80A 3-phase / 46kW</td>
+            <td>12 x C19 (50A switched breakers)</td>
+            <td>Circuit breaker switching only. No network monitoring. USA made.</td>
+            <td>$800-1,500</td>
+          </tr>
+          <tr>
+            <td>Raptor Crypto Minotaur</td>
+            <td>384A / 92.4kW</td>
+            <td>24 x C19</td>
+            <td>12 x 50A switched breakers. Highest density PDU available. Industrial scale.</td>
+            <td>$1,500-3,000</td>
+          </tr>
+          <tr>
+            <td>AZE Crypto Smart Mining PDU</td>
+            <td>160A 3-phase / 415V</td>
+            <td>24 x C19 (lockable)</td>
+            <td>Full SNMP management, per-outlet monitoring/switching, cascade management</td>
+            <td>$1,000-2,500</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="gold-box">
+        <p><strong>Best bang for the buck for home miners:</strong> The Synaccess SynLink SP series is purpose-built for mining. AutoPing alone is worth the price &mdash; it automatically power cycles a miner when it stops responding. That feature alone can save you from losing days of mining when you're away from home. The Altair Virgo Smart PDU is the best value if you want per-outlet switching on a tighter budget.</p>
+      </div>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">How Many Miners Per PDU?</h3>
+      <p>This depends entirely on each miner's power draw. Here's the math for a 30A/240V PDU (max 24A continuous at 80% rule = 5,760W):</p>
+      <ul>
+        <li><strong>Antminer S19 Pro (3,250W):</strong> 1 per 30A circuit. Draws ~13.5A at 240V</li>
+        <li><strong>Antminer S19J Pro (3,050W):</strong> 1 per 30A circuit. Draws ~12.7A at 240V</li>
+        <li><strong>Antminer L3++ (800W):</strong> Up to 7 per 30A circuit. Draws ~3.3A each at 240V</li>
+        <li><strong>Antminer KS5 (3,150W):</strong> 1 per 30A circuit. Draws ~13.1A at 240V</li>
+        <li><strong>Goldshell Mini DOGE (235W):</strong> Runs on 120V. Up to 6 per 15A standard outlet</li>
+      </ul>
+      
+      <div class="warning-box">
+        <p><strong>Always do your own math.</strong> Check the label on YOUR miner for its actual wattage. Divide by your voltage (240 or 120) to get amps. Stay under 80% of your circuit breaker rating. When in doubt, ask an electrician. See our <a href="electrical_setup.html" style="color: var(--warning);">Electrical Setup Guide</a> for the full breakdown.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 5: SMART SWITCHES & RELAYS
+         ======================================== -->
+    <section class="section" id="smart-switches">
+      <h2 class="section-title">&#x1F50C; Smart Switches &amp; DIN Rail Relays</h2>
+      
+      <p>Not every miner setup needs a full PDU. If you have a single miner on a dedicated circuit, a <strong>smart relay</strong> installed in your breaker panel can give you remote on/off control at a fraction of the PDU cost. These are DIN-rail devices that go inside your electrical panel and control the circuit itself.</p>
+      
+      <div class="compare-grid">
+        <div class="compare-card option-a">
+          <h3>&#x1F7E2; Shelly Pro 1PM</h3>
+          <ul>
+            <li>1 channel, up to 16A</li>
+            <li>110-240V compatible</li>
+            <li>Wi-Fi + LAN + Bluetooth</li>
+            <li>Per-channel power metering</li>
+            <li>DIN rail mount (fits in breaker box)</li>
+            <li>Scheduling, scripting, REST API</li>
+            <li>Works with Home Assistant</li>
+            <li>~$25-35</li>
+          </ul>
+        </div>
+        
+        <div class="compare-card option-b">
+          <h3>&#x1F7E1; Shelly Pro 4PM</h3>
+          <ul>
+            <li>4 channels, 16A each (40A total)</li>
+            <li>110-240V compatible</li>
+            <li>Wi-Fi + LAN + Bluetooth</li>
+            <li>Per-channel power metering</li>
+            <li>Color LCD display on unit</li>
+            <li>Overpower + overvoltage protection</li>
+            <li>Scripting for custom automation</li>
+            <li>~$55-75</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="warning-box">
+        <p><strong>Electrician Required.</strong> Shelly relays install inside your breaker panel on the actual circuit wiring. This is NOT a plug-in device. If you are not a licensed electrician, hire one to install it. The device costs $25-75. The electrician visit costs $100-200. A house fire costs everything.</p>
+      </div>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Smart Plugs &mdash; 120V Only</h3>
+      <p>For small 120V miners (Goldshell Mini series, Bitaxe, lottery miners), a regular Wi-Fi smart plug works fine for remote power cycling. These are plug-and-play, no electrician needed.</p>
+      <ul>
+        <li><strong>TP-Link Kasa KP115</strong> &mdash; 15A/120V, energy monitoring, works with Alexa/Google, ~$15</li>
+        <li><strong>Shelly Plug US</strong> &mdash; 15A/120V, power metering, local API, Home Assistant compatible, ~$20</li>
+      </ul>
+      
+      <div class="warning-box">
+        <p><strong>No consumer smart plug handles 240V at 30A.</strong> They don't exist at retail. For 240V miners, you need a PDU with switching (Section 4) or a DIN-rail relay in your panel (Shelly Pro). Don't try to use a 120V smart plug with a 240V miner &mdash; it will melt or catch fire.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 6: FIRMWARE REMOTE MANAGEMENT
+         ======================================== -->
+    <section class="section" id="firmware-remote">
+      <h2 class="section-title">&#x2699;&#xFE0F; Firmware Remote Management</h2>
+      
+      <p>Every ASIC miner has a built-in web interface for configuration and monitoring. With your VPN set up (Tailscale + Pi subnet router), you can access these from anywhere. But custom firmware takes it further with better APIs, fleet management tools, and advanced controls.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">Stock Firmware (Bitmain/Factory)</h3>
+      <p>What you get out of the box. Access the miner's IP in a browser to see hashrate, temperatures, fan speeds, pool settings, and basic controls. Limited but functional for remote monitoring through your VPN.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Custom Firmware &mdash; Full Comparison</h3>
+      <p>LuxOS, Braiins OS+, and Vnish all support SSH access, web APIs for scripting, and fleet management tools. Each handles shutdown and restart differently &mdash; and getting it wrong can leave a miner stuck off with no remote recovery. See our <a href="aftermarket_firmware.html#shutdown-restart" style="color: var(--sola-teal);">Firmware Guide: Shutdown, Restart &amp; Scheduling</a> for the full comparison table and per-firmware details.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">SSH Access Through Tailscale</h3>
+      <p>With Tailscale + Pi subnet router running, you can SSH into miners running custom firmware from anywhere. On your phone, use an app like Termius (iOS/Android). On your laptop, just open a terminal:</p>
+      
+      <div class="cmd-block">
+        <span class="cmd-comment"># SSH into a miner running Braiins OS or LuxOS</span><br>
+        <span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="473528283307767e756976717f6976697277">[email&#160;protected]</a><br><br>
+        <span class="cmd-comment"># Check miner status via Braiins OS API</span><br>
+        <span class="cmd-prompt">$</span> bosminer status<br><br>
+        <span class="cmd-comment"># Restart mining via SSH</span><br>
+        <span class="cmd-prompt">$</span> /etc/init.d/bosminer restart
+      </div>
+      
+      <div class="warning-box">
+        <p><strong>Known issue:</strong> LuxOS shutdown command via SSH doesn't always restart the miner properly &mdash; it may shut down without coming back up. For reliable remote restarts, a smart PDU with power cycling capability is the better option. SSH is great for monitoring and configuration changes, but for hard power cycles, use your PDU.</p>
+      </div>
+
+      <div class="warning-box" style="border-color: var(--sola-teal); background: rgba(0, 206, 209, 0.08);">
+        <p style="color: var(--sola-teal);"><strong>&#x1F6A8; The Power-On Problem:</strong> No SSH command, firmware API, or software trick can turn a miner back on after a full shutdown. Once the OS is off, the network stack is dead. The ONLY way to restore power remotely is a smart PDU or smart switch that physically cuts and restores electricity to the miner. This is why every serious remote setup includes a <a href="#smart-pdus" style="color: var(--sola-teal);">smart PDU</a>.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 7: MOBILE SSH CLIENTS
+         ======================================== -->
+    <section class="section" id="mobile-ssh">
+      <h2 class="section-title">&#x1F4F1; Mobile SSH Clients &mdash; Termius &amp; Alternatives</h2>
+      
+      <p>Your VPN gets you onto the network. Your firmware gives you SSH access. But you need an app on your phone to actually type commands. This is where mobile SSH clients come in &mdash; they turn your phone into a remote terminal for managing your miners from anywhere.</p>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Termius &mdash; The Recommended Pick</h3>
+      <p><a href="https://termius.com" target="_blank" rel="noopener">Termius</a> is the most popular cross-platform SSH client and the one we recommend for home miners. It runs on iOS, Android, Windows, Mac, and Linux &mdash; and the free Starter plan covers everything a home miner needs.</p>
+      
+      <div class="info-box">
+        <p><strong>What the free plan includes:</strong></p>
+        <ul>
+          <li>SSH, Mosh, Telnet, and SFTP connections</li>
+          <li>Save host IPs, ports, usernames, and passwords for one-tap connecting</li>
+          <li>Multi-tab sessions (manage multiple miners at once)</li>
+          <li>Command snippets &mdash; save your most-used commands and run them with a tap</li>
+          <li>Virtual keyboard with all the special keys SSH needs (Tab, Ctrl, arrows, Esc)</li>
+          <li>FIDO2 hardware key authentication</li>
+        </ul>
+      </div>
+      
+      <p><strong>Why Termius stands out for miners:</strong> The <strong>snippets feature</strong> is the killer app. You save commands like <code>poweroff</code>, <code>/etc/init.d/bosminer restart</code>, or <code>cat /tmp/bosminer.log</code> as named snippets, then execute them with a single tap instead of typing on a phone keyboard. When you're at work and need to restart a frozen S19, tap the miner host â†’ tap your "restart" snippet â†’ done in 5 seconds.</p>
+      
+      <div class="cmd-block">
+        <span class="cmd-comment"># Example Termius snippets to save for mining:</span><br><br>
+        <span class="cmd-comment"># Snippet: "Check Status" (Braiins OS)</span><br>
+        <span class="cmd-prompt">$</span> bosminer status<br><br>
+        <span class="cmd-comment"># Snippet: "Stop Mining" (stop daemon, fans keep running)</span><br>
+        <span class="cmd-prompt">$</span> /etc/init.d/bosminer stop<br><br>
+        <span class="cmd-comment"># Snippet: "Start Mining" (resume daemon)</span><br>
+        <span class="cmd-prompt">$</span> /etc/init.d/bosminer start<br><br>
+        <span class="cmd-comment"># Snippet: "Graceful Shutdown" (stop mining â†’ fans cool â†’ power off)</span><br>
+        <span class="cmd-prompt">$</span> poweroff<br><br>
+        <span class="cmd-comment"># Snippet: "Reboot Miner"</span><br>
+        <span class="cmd-prompt">$</span> reboot<br><br>
+        <span class="cmd-comment"># Snippet: "Check Temps" (Braiins OS)</span><br>
+        <span class="cmd-prompt">$</span> cat /tmp/bosminer.log | grep -i temp | tail -5
+      </div>
+      
+      <p><strong>Setup for miners:</strong> Install Termius on your phone. Create a new host for each miner &mdash; enter the local IP (like <code>192.168.1.50</code>), port 22, username <code>root</code>, and your miner's password. With Tailscale running, these local IPs work from anywhere. Save your most-used commands as snippets. That's it &mdash; you're managing miners from your phone.</p>
+
+      <div class="warning-box">
+        <p><strong>iOS limitation:</strong> iOS kills background SSH sessions after about 3 minutes. This is an Apple restriction, not a Termius bug. Keep your commands quick &mdash; check status, restart, done. For long-running monitoring, use your web-based tools (pool dashboards, MinerStat ASIC Hub) instead.</p>
+      </div>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Free Alternatives</h3>
+      
+      <div class="compare-grid">
+        <div class="compare-card option-a">
+          <h3>Termius (Recommended)</h3>
+          <ul>
+            <li><strong>Platforms:</strong> iOS, Android, Windows, Mac, Linux</li>
+            <li><strong>Free tier:</strong> Yes &mdash; SSH, SFTP, snippets, multi-tab</li>
+            <li><strong>Paid:</strong> $10/mo Pro (syncs hosts across devices)</li>
+            <li><strong>Best for:</strong> Most miners. Clean UI, snippets, cross-platform</li>
+          </ul>
+        </div>
+        
+        <div class="compare-card option-b">
+          <h3>WebSSH (iOS)</h3>
+          <ul>
+            <li><strong>Platforms:</strong> iOS only</li>
+            <li><strong>Free tier:</strong> Yes with ads</li>
+            <li><strong>Paid:</strong> $2.99/mo or $29.99 one-time</li>
+            <li><strong>Best for:</strong> iPhone users who want a simple, no-frills option</li>
+          </ul>
+        </div>
+        
+        <div class="compare-card option-c">
+          <h3>NeoServer (iOS/Mac)</h3>
+          <ul>
+            <li><strong>Platforms:</strong> iOS, iPadOS, macOS</li>
+            <li><strong>Free tier:</strong> Limited</li>
+            <li><strong>Paid:</strong> $19.99 lifetime or $5.99/yr</li>
+            <li><strong>Best for:</strong> Apple users managing NAS + miners. Batch script execution across multiple hosts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="compare-grid" style="margin-top: 1rem;">
+        <div class="compare-card option-a">
+          <h3>JuiceSSH (Android)</h3>
+          <ul>
+            <li><strong>Platforms:</strong> Android only</li>
+            <li><strong>Free tier:</strong> Yes &mdash; full SSH client</li>
+            <li><strong>Paid:</strong> $4.99 one-time Pro</li>
+            <li><strong>Best for:</strong> Android users who want a lightweight, free SSH client</li>
+          </ul>
+        </div>
+        
+        <div class="compare-card option-b">
+          <h3>PuTTY (Desktop)</h3>
+          <ul>
+            <li><strong>Platforms:</strong> Windows, Linux</li>
+            <li><strong>Free tier:</strong> Completely free, open-source</li>
+            <li><strong>Paid:</strong> N/A</li>
+            <li><strong>Best for:</strong> Windows desktop use. No mobile version. Been around forever</li>
+          </ul>
+        </div>
+        
+        <div class="compare-card option-c">
+          <h3>Built-in Terminal</h3>
+          <ul>
+            <li><strong>Platforms:</strong> Mac, Linux, Windows (PowerShell)</li>
+            <li><strong>Free tier:</strong> Built into your OS</li>
+            <li><strong>Paid:</strong> N/A</li>
+            <li><strong>Best for:</strong> Desktop/laptop at home. Just type <code>ssh root@IP</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gold-box">
+        <p><strong>Our pick:</strong> Termius free on your phone + built-in terminal on your laptop. The Termius Pro subscription ($10/mo) is only worth it if you need host syncing across many devices &mdash; most home miners with 1-5 rigs don't need it. The free tier handles everything.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 8: SAFE SHUTDOWN METHODS
+         ======================================== -->
+    <section class="section" id="safe-shutdown">
+      <h2 class="section-title">&#x26A1; Safe Shutdown Methods &mdash; Don't Just Yank the Plug</h2>
+      
+      <p>ASIC miners have no power button. Most miners have been yanking the plug since day one. It works &mdash; until it doesn't. Here's why it matters and what to do instead.</p>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Why Pulling the Plug Is Risky</h3>
+      <p>When you yank the power cord on a running Antminer, the fans stop instantly. The ASIC chips inside were just running at 70-85&deg;C. With zero airflow, those chips briefly spike even hotter before the aluminum heatsinks and housing can passively dissipate the heat. On S17 and S19 series miners, this thermal shock can weaken solder joints on hashboards over time. One hard yank probably won't kill anything. Doing it twice a day for a year &mdash; especially on older or overclocked hardware &mdash; accelerates hashboard failures.</p>
+      
+      <div class="warning-box">
+        <p><strong>S17 series warning:</strong> The Antminer S17 is already notorious for hashboard failures. If you're running an S17, never yank the plug while mining at full power. Always use a graceful shutdown method. These boards are fragile enough without thermal shock.</p>
+      </div>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">The Shutdown Methods &mdash; Gentlest to Most Aggressive</h3>
+
+      <div class="info-box">
+        <p><strong>Method 1: SSH <code>poweroff</code> Command (Best Practice)</strong></p>
+        <p>SSH into the miner and type <code>poweroff</code>. This stops the mining process, lets the fans keep running for a brief cooldown, then halts the system. Wait 2-3 minutes after the command for chips to cool, then cut power at the breaker or PDU.</p>
+        <div class="cmd-block" style="margin: 0.75rem 0;">
+          <span class="cmd-comment"># Graceful shutdown via SSH (works on all Antminers)</span><br>
+          <span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f684999982b6c7cfc4d8c7c0ced8c7d8c3c6">[email&#160;protected]</a><br>
+          <span class="cmd-prompt">root@antminer:~#</span> poweroff
+        </div>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">After running <code>poweroff</code>, fans won't stop immediately &mdash; they keep spinning on residual power for a few moments. When you notice the miner has cooled down (hashboards no longer blowing hot air), it's safe to cut power. This is the method Bitmain actually recommends.</p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Method 2: Stop the Mining Daemon Only (Keeps Miner On)</strong></p>
+        <p>Instead of shutting down the whole system, you can stop just the mining process. The miner stays on, fans keep running, and chips cool down completely &mdash; but it's no longer mining or drawing full power. Perfect for scheduled solar cutoff times when you want to resume later.</p>
+        <div class="cmd-block" style="margin: 0.75rem 0;">
+          <span class="cmd-comment"># Stop mining on stock Antminer firmware (S19 series)</span><br>
+          <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bmminer.sh stop<br><br>
+          <span class="cmd-comment"># Stop mining on L3++ (stock firmware)</span><br>
+          <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh stop<br><br>
+          <span class="cmd-comment"># Stop mining on Braiins OS</span><br>
+          <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer stop<br><br>
+          <span class="cmd-comment"># Resume mining later</span><br>
+          <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer start
+        </div>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"><strong>Note:</strong> The daemon stop/start isn't always 100% reliable. If the miner doesn't resume properly, a <code>reboot</code> command or power cycle will fix it.</p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Method 3: Web Interface Reboot</strong></p>
+        <p>Log into your miner's web dashboard at its local IP address. Navigate to <strong>System â†’ Reboot</strong> (on S19 series) or <strong>System â†’ Reboot</strong> (on S17 series). This performs a clean reboot. It doesn't fully power off the miner &mdash; it restarts &mdash; but it's a clean restart that's gentler than a hard power cut.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">Available on all Antminers with stock or custom firmware. Works from any browser on your network (or through Tailscale remotely). No SSH knowledge needed.</p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Method 4: Firmware API Commands</strong></p>
+        <p>LuxOS, Braiins OS, and Vnish all expose API endpoints for remote control. These can be scripted for automation &mdash; stop mining at 7am when peak rates kick in, start at 9pm when free power begins.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">See our <a href="aftermarket_firmware.html">Firmware Guide</a> for API details on each firmware. LuxOS has 45+ API commands including pause/resume mining.</p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Method 5: Smart PDU Scheduled Power Cut</strong></p>
+        <p>Set your smart PDU (Synaccess SynLink, Altair Virgo, etc.) to cut power on a daily schedule matching your electricity rates. For Sola Ray Effect's setup: power on at 9:00 PM (free power starts), power off at 6:50 AM (10-minute buffer before peak rates at 7:00 AM).</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"><strong>Best practice:</strong> Combine methods &mdash; use a cron job or script to SSH <code>poweroff</code> 5 minutes before the PDU cuts power. This gives the miner a graceful shutdown followed by a hard cutoff as a safety net.</p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Method 6: Circuit Breaker</strong></p>
+        <p>Walk to your breaker panel and flip the breaker off. Cleaner than yanking a plug because the PSU handles a breaker trip more gracefully than a sudden cord disconnect (no strain on connectors, no arc at the plug). Still a hard cut though &mdash; use SSH shutdown first if possible.</p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Method 7: Just Pull the Plug (Last Resort)</strong></p>
+        <p>Yes, it works. Millions of miners do it daily. Modern PSUs have overcurrent protection. But if you have the option to do any of the above first, take 30 seconds and do it right. Your hashboards will thank you.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"><strong>APW12 PSU note (S19 series):</strong> The APW12 has two power input lines. When plugging in: outer line first, then inner. When unplugging: inner line first, then outer. Getting this backwards can damage the PSU. This is from Bitmain's own documentation.</p>
+      </div>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Recommended Shutdown Routine for Solar Miners</h3>
+      <div class="gold-box">
+        <p><strong>The ideal daily shutdown for peak-rate avoidance:</strong></p>
+        <p style="margin-top: 0.5rem;">1. <strong>6:50 AM</strong> &mdash; Automated script sends SSH <code>poweroff</code> to all miners (or stop daemon command if you want fans to cool)</p>
+        <p>2. <strong>6:55 AM</strong> &mdash; Smart PDU cuts power to miner outlets (hard cutoff safety net, 5 min after graceful shutdown)</p>
+        <p>3. <strong>9:00 PM</strong> &mdash; Smart PDU restores power. Miners boot automatically and resume mining</p>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">This gives you a clean graceful shutdown every morning, a hard power cut as backup, and automatic restart every night. Total cost: one Raspberry Pi running a cron job + one smart PDU. Set it once, forget it.</p>
+      </div>
+
+      <div class="warning-box">
+        <p><strong>LuxOS SSH shutdown bug:</strong> As noted in the firmware section, LuxOS <code>poweroff</code> via SSH doesn't always restart the miner properly &mdash; it may shut down and not come back up when power is restored. If you're running LuxOS, rely on the smart PDU for power cycling rather than SSH shutdown. The PDU hard-cuts power, and the miner boots fresh when power returns.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 9: MONITORING & AUTOMATION
+         ======================================== -->
+    <section class="section" id="monitoring">
+      <h2 class="section-title">&#x1F4CA; Monitoring &amp; Automation Tools</h2>
+      
+      <p>Once you can reach your miners remotely, the next step is knowing when something goes wrong without having to check manually. These tools watch your miners and alert you when there's a problem.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">Pool Dashboards (Free)</h3>
+      <p>Every mining pool has a mobile-friendly dashboard or app. This is your first line of monitoring &mdash; if your hashrate drops to zero on the pool dashboard, something is wrong. Most pools send email or push notifications when a worker goes offline.</p>
+      <ul>
+        <li><strong>Braiins Pool</strong> &mdash; web dashboard + email alerts for worker offline</li>
+        <li><strong>F2Pool</strong> &mdash; mobile app with push notifications</li>
+        <li><strong>ViaBTC</strong> &mdash; app with alerts and auto-switching</li>
+        <li><strong>Luxor</strong> &mdash; web dashboard with detailed analytics</li>
+      </ul>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">ASIC Monitoring Software</h3>
+      
+      <table class="hw-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>What It Does</th>
+            <th>Cost</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>MinerStat ASIC Hub</strong></td>
+            <td>Monitor hashrate, temps, fan speeds. Remote reboot, pool switching, profit switching. Requires a local PC/Pi running the hub agent 24/7.</td>
+            <td>Free (up to 2 miners) then paid plans</td>
+            <td>Miners wanting a single dashboard for all rigs</td>
+          </tr>
+          <tr>
+            <td><strong>Foreman.mn</strong></td>
+            <td>Enterprise-grade ASIC management. Auto-detects miners, tracks performance, alerts. Cloud-based with local agent.</td>
+            <td>Free (small scale) then paid</td>
+            <td>Growing operations with 5+ miners</td>
+          </tr>
+          <tr>
+            <td><strong>Awesome Miner</strong></td>
+            <td>Windows-based mining management. Supports ASICs and GPUs. Profit switching, monitoring, alerts.</td>
+            <td>Free (2 miners), paid for more</td>
+            <td>Windows users who want a GUI</td>
+          </tr>
+          <tr>
+            <td><strong>Home Assistant + Shelly</strong></td>
+            <td>DIY automation platform. If Shelly detects miner drawing 0W, trigger a power cycle. Temperature-based shutoffs. Custom dashboards.</td>
+            <td>Free (open source)</td>
+            <td>Tech-savvy miners who want full customization</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">The AutoPing Power Cycle (The Killer Feature)</h3>
+      <p>This is the single most important automation for home miners. Here's how it works on a smart PDU like the Synaccess SynLink:</p>
+      <ol>
+        <li>You assign each outlet a "ping target" &mdash; the IP address of the miner plugged into that outlet</li>
+        <li>The PDU sends a ping to each miner every 30-60 seconds</li>
+        <li>If a miner fails to respond to X consecutive pings (you set the threshold), the PDU automatically power cycles that outlet</li>
+        <li>The miner restarts, reconnects to the pool, and resumes hashing</li>
+        <li>Optionally, the PDU sends you an email: "Outlet 3 was power cycled at 2:47 AM due to ping failure"</li>
+      </ol>
+      <p>This happens automatically, 24/7, whether you're home or not. It's the closest thing to a "set and forget" mining operation.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Electricity Scheduling for Dual-Rate Miners</h3>
+      <p>If you're on a dual-rate electricity plan (like free nights / expensive days through a solar buyback program), you can automate your miners to only run during cheap hours:</p>
+      <ul>
+        <li><strong>Smart PDU scheduling:</strong> Synaccess and Shelly both support time-based outlet schedules. Set miners to turn on at 9 PM and off at 7 AM</li>
+        <li><strong>Custom firmware scheduling:</strong> LuxOS and Braiins OS support power profiles and curtailment modes that can be triggered on schedule or via API</li>
+        <li><strong>Home Assistant automation:</strong> if electricity rate changes at specific times, automate power on/off through Shelly relays</li>
+      </ul>
+    </section>
+
+    <!-- ========================================
+         SECTION 8: SECURITY BEST PRACTICES
+         ======================================== -->
+    <section class="section" id="security">
+      <h2 class="section-title">&#x1F6E1;&#xFE0F; Security Best Practices</h2>
+      
+      <p>Your miners represent thousands of dollars of hardware generating real income. A poorly secured remote access setup is an invitation for someone to redirect your hashrate, steal your coins, or just brick your equipment for fun.</p>
+      
+      <ul>
+        <li><strong>Never use port forwarding.</strong> This exposes your miner's web interface directly to the internet. Anyone who finds it can access it. Use Tailscale instead &mdash; zero open ports.</li>
+        <li><strong>Change default passwords.</strong> Every Bitmain miner ships with username <code>root</code> and password <code>root</code>. Change this immediately. Custom firmware lets you set a proper password.</li>
+        <li><strong>Use HTTPS when available.</strong> Synaccess SynLink PDUs support HTTPS. Braiins OS supports SSH with key-based authentication. Don't use unencrypted HTTP over the internet.</li>
+        <li><strong>Keep firmware updated.</strong> Custom firmware providers regularly patch security vulnerabilities. Running outdated firmware is running known exploits.</li>
+        <li><strong>Separate your mining network.</strong> If your router supports VLANs, put your miners on a separate network segment from your family's devices. A compromised miner shouldn't be able to reach your personal laptop.</li>
+        <li><strong>Monitor for pool changes.</strong> A common attack redirects your miner to a different pool/wallet. Periodically verify your pool settings haven't been changed.</li>
+        <li><strong>Tailscale key expiry.</strong> Tailscale auth keys expire (default is 180 days). Set a calendar reminder to re-authenticate your Pi before the key expires, or you'll lose remote access until you can physically reach the Pi.</li>
+      </ul>
+      
+      <div class="info-box">
+        <p><strong>Headscale advantage:</strong> If you self-host with Headscale, your coordination server data never touches a third party. You control the authentication, the keys, and the routing. For miners with significant hashrate, this level of control can be worth the extra setup complexity.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 9: RECOMMENDED BUILDS
+         ======================================== -->
+    <section class="section" id="builds">
+      <h2 class="section-title">&#x1F680; Recommended Builds by Budget</h2>
+      
+      <div class="compare-grid">
+        <div class="compare-card option-a">
+          <h3>&#x1F7E2; Starter &mdash; Under $100</h3>
+          <ul>
+            <li>Tailscale free account</li>
+            <li>Raspberry Pi 4B (2GB) + case + SD card</li>
+            <li>Ethernet cable to router</li>
+            <li>Termius app on phone (free)</li>
+            <li>Pool dashboard for monitoring</li>
+            <li>Total: ~$50-80</li>
+          </ul>
+          <p style="color: var(--text-secondary); margin-top: 0.75rem; font-size: 0.9rem;"><strong>Gets you:</strong> Remote web access to all miners, SSH capability, pool monitoring. No remote power cycling.</p>
+        </div>
+        
+        <div class="compare-card option-b">
+          <h3>&#x1F7E1; Recommended &mdash; $300-500</h3>
+          <ul>
+            <li>Everything from Starter, plus:</li>
+            <li>Synaccess SynLink or Altair Virgo Smart PDU</li>
+            <li>Small UPS for Pi + router ($40-60)</li>
+            <li>Shelly Pro 1PM for circuit control ($30)</li>
+            <li>Total: ~$350-500</li>
+          </ul>
+          <p style="color: var(--text-secondary); margin-top: 0.75rem; font-size: 0.9rem;"><strong>Gets you:</strong> Everything above + AutoPing power cycling, per-outlet monitoring, scheduling, email alerts. True hands-off operation.</p>
+        </div>
+        
+        <div class="compare-card option-c">
+          <h3>&#x1F535; Full Control &mdash; $500+</h3>
+          <ul>
+            <li>Everything from Recommended, plus:</li>
+            <li>Headscale on a $5/mo VPS</li>
+            <li>Home Assistant on a dedicated Pi</li>
+            <li>Shelly Pro 4PM (4 circuits, 40A)</li>
+            <li>Temperature/humidity sensors</li>
+            <li>Custom firmware on all miners</li>
+            <li>Total: ~$500-800+</li>
+          </ul>
+          <p style="color: var(--text-secondary); margin-top: 0.75rem; font-size: 0.9rem;"><strong>Gets you:</strong> Full self-hosted VPN, automated power control, environment monitoring, custom dashboards, zero third-party dependency.</p>
+        </div>
+      </div>
+      
+      <div class="gold-box">
+        <p><strong>Start with Starter. Upgrade when you feel the pain.</strong> A $50 Raspberry Pi with Tailscale covers 80% of what you need. The smart PDU is the next natural step when you get tired of driving home to power cycle a frozen miner. Don't over-engineer on day one &mdash; build as your operation grows.</p>
+      </div>
+    </section>
+    
+    <!-- QUICK REFERENCE -->
+    <section class="section">
+      <h2 class="section-title">&#x1F517; Quick Reference Links</h2>
+      <ul>
+        <li><a href="https://tailscale.com/download" target="_blank" rel="noopener">Tailscale Download</a> &mdash; install on your devices</li>
+        <li><a href="https://login.tailscale.com/admin/machines" target="_blank" rel="noopener">Tailscale Admin Console</a> &mdash; manage devices, approve subnet routes</li>
+        <li><a href="https://github.com/juanfont/headscale" target="_blank" rel="noopener">Headscale GitHub</a> &mdash; self-hosted Tailscale server</li>
+        <li><a href="https://synaccess.com/home-mining" target="_blank" rel="noopener">Synaccess Home Mining</a> &mdash; smart PDUs designed for miners</li>
+        <li><a href="https://us.shelly.com/products/shelly-pro-4pm" target="_blank" rel="noopener">Shelly Pro 4PM</a> &mdash; 4-channel DIN rail smart relay</li>
+        <li><a href="https://luxor.tech/firmware" target="_blank" rel="noopener">LuxOS Firmware</a> &mdash; custom firmware with remote API</li>
+        <li><a href="https://braiins.com/os-firmware" target="_blank" rel="noopener">Braiins OS</a> &mdash; open-source ASIC firmware</li>
+        <li><a href="https://termius.com" target="_blank" rel="noopener">Termius</a> &mdash; cross-platform SSH client (iOS, Android, desktop)</li>
+        <li><a href="https://juicessh.com" target="_blank" rel="noopener">JuiceSSH</a> &mdash; free SSH client for Android</li>
+        <li><a href="https://synaccess.com/resources/power-distribution-guide-for-home-mining" target="_blank" rel="noopener">Synaccess Power Distribution Guide</a> &mdash; excellent detailed guide on circuit/PDU sizing</li>
+        <li><a href="electrical_setup.html">Sola Ray Effect Electrical Setup Guide</a> &mdash; our own guide on wiring, breakers &amp; safety</li>
+        <li><a href="aftermarket_firmware.html">Sola Ray Effect Firmware Guide</a> &mdash; our firmware comparison &amp; advisor tool</li>
+      </ul>
+    </section>
+
+  </div><!-- end .container -->
+
+  <div class="sola-video-float">
+    <img src="assets/solar_effect_300x300.jpg" alt="Sola Ray - Video Coming Soon">
+    <div class="svf-label">&#x1F3AC; Video Soon</div>
+  </div>
+  
+  <!-- Navigation Script (matches site) -->
+  <script>
+    function toggleNav() {
+      document.getElementById('hamburger-btn').classList.toggle('open');
+      document.getElementById('nav-drawer').classList.toggle('open');
+      document.getElementById('nav-overlay').classList.toggle('show');
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleNav();
+        });
+      }
+      if (navOverlay) {
+        navOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
