@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
@@ -850,7 +851,7 @@
 <span class="cmd-comment"># Use Raspberry Pi Imager - enable SSH in the settings before flashing</span>
 
 <span class="cmd-comment"># 2. Boot the Pi, connect via SSH from your home computer</span>
-<span class="cmd-prompt">$</span> ssh pi@raspberrypi.local
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="582831182a392b283a3d2a2a2128317634373b3934">[email&#160;protected]</a>
 
 <span class="cmd-comment"># 3. Update the system</span>
 <span class="cmd-prompt">$</span> sudo apt update &amp;&amp; sudo apt upgrade -y
@@ -1103,7 +1104,7 @@
           </button>
           <div class="cmd-block" id="ssh-firmware">
 <span class="cmd-comment"># SSH into a miner running Braiins OS or LuxOS</span>
-<span class="cmd-prompt">$</span> ssh root@192.168.1.50
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cdbfa2a2b98dfcf4ffe3fcfbf5e3fce3f8fd">[email&#160;protected]</a>
 
 <span class="cmd-comment"># Check miner status via Braiins OS API</span>
 <span class="cmd-prompt">$</span> bosminer status
@@ -1280,7 +1281,7 @@
                 </button>
                 <div class="cmd-block" id="shutdown-m1">
 <span class="cmd-comment"># Graceful shutdown via SSH (works on all Antminers)</span>
-<span class="cmd-prompt">$</span> ssh root@192.168.1.50
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8af8e5e5fecabbb3b8a4bbbcb2a4bba4bfba">[email&#160;protected]</a>
 <span class="cmd-prompt">root@antminer:~#</span> poweroff
                 </div>
               </div>
@@ -1557,7 +1558,7 @@
   </div>
   
   <!-- Navigation Script (matches site) -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     function toggleNav() {
       document.getElementById('hamburger-btn').classList.toggle('open');
       document.getElementById('nav-drawer').classList.toggle('open');
@@ -1584,7 +1585,8 @@
   <footer>
     <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
     <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <p style="margin-top:0.5rem;"><a href="index.html">&larr; Back to Calculator</a></p>
+    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:solarayeffect@gmail.com" style="color:#00CED1;">solarayeffect@gmail.com</a></div></div>
+    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
   </footer>
 
 <!-- ============================================ -->
@@ -1877,27 +1879,3 @@ function dollyFallback(btn, text) {
   ta.style.position = 'fixed';
   ta.style.left = '-9999px';
   document.body.appendChild(ta);
-  ta.select();
-  try {
-    document.execCommand('copy');
-    dollySuccess(btn);
-  } catch(e) {
-    // silently fail
-  }
-  document.body.removeChild(ta);
-}
-
-function dollySuccess(btn) {
-  btn.classList.add('cloned');
-  var label = btn.querySelector('.dolly-label');
-  var origText = label.textContent;
-  label.textContent = 'Cloned!';
-  setTimeout(function() {
-    btn.classList.remove('cloned');
-    label.textContent = origText;
-  }, 2000);
-}
-</script>
-
-</body>
-</html>
