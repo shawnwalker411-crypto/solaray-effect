@@ -80,14 +80,45 @@
 
 body {
   font-family: 'Rajdhani', sans-serif;
-  background-color: #0B2F26;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
-  background-repeat: repeat;
-  background-position: 0 0;
-  background-size: 600px 600px;
+  background: var(--vault-black);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* --- Scanline Overlay --- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 136, var(--scanline-opacity)) 2px,
+    rgba(0, 255, 136, var(--scanline-opacity)) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* --- Grid Background --- */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* ============================================
@@ -725,7 +756,30 @@ body {
   font-weight: 600;
 }
 
-/* vault-footer removed - using standard footer */
+/* ============================================
+   FOOTER
+   ============================================ */
+.vault-footer {
+  text-align: center;
+  padding: 30px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--vault-border);
+  margin-top: 40px;
+}
+
+.vault-footer a {
+  color: var(--terminal-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.vault-footer a:hover {
+  color: var(--terminal-green);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
 
 /* ============================================
    DATA REFRESH INDICATOR
@@ -986,12 +1040,12 @@ body {
   <style>
     .hamburger-menu {
       position: fixed;
-      top: 4.5rem;
+      top: 1rem;
       left: 1rem;
-      z-index: 1000;
+      z-index: 10001;
     }
     .hamburger-btn {
-      background: var(--bg-card, #22303f);
+      background: var(--bg-card, #1a2332);
       border: 2px solid var(--sola-teal, #00CED1);
       color: var(--sola-teal, #00CED1);
       width: 44px;
@@ -1012,32 +1066,37 @@ body {
       box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
     }
     .hamburger-btn .bun-top {
-      width: 24px; height: 6px;
+      width: 24px;
+      height: 6px;
       background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
       border-radius: 10px 10px 0 0;
       transition: all 0.3s ease;
     }
     .hamburger-btn .lettuce {
-      width: 26px; height: 3px;
+      width: 26px;
+      height: 3px;
       background: #32CD32;
       border-radius: 1px;
       transition: all 0.3s ease;
     }
     .hamburger-btn .patty {
-      width: 24px; height: 4px;
+      width: 24px;
+      height: 4px;
       background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
       border-radius: 2px;
       transition: all 0.3s ease;
     }
     .hamburger-btn .cheese {
-      width: 26px; height: 3px;
+      width: 26px;
+      height: 3px;
       background: #FFD700;
       border-radius: 1px;
       transform: skewX(-5deg);
       transition: all 0.3s ease;
     }
     .hamburger-btn .bun-bottom {
-      width: 24px; height: 5px;
+      width: 24px;
+      height: 5px;
       background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
       border-radius: 0 0 6px 6px;
       transition: all 0.3s ease;
@@ -1055,9 +1114,9 @@ body {
       width: 280px;
       height: 100vh;
       overflow-y: auto;
-      background: var(--bg-secondary, #1a2836);
+      background: var(--bg-secondary, #131c2a);
       border-right: 2px solid var(--sola-teal, #00CED1);
-      z-index: 999;
+      z-index: 10000;
       transition: left 0.3s ease;
       padding: 70px 1.5rem 1.5rem;
       box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
@@ -1070,23 +1129,20 @@ body {
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
-    .nav-drawer a {
+    .nav-drawer a, .nav-drawer .nav-disabled {
       display: block;
-      color: var(--text-primary);
+      color: var(--text-primary, #e0e6ed);
       text-decoration: none;
       padding: 0.5rem 1rem;
       margin-bottom: 0.3rem;
       border-radius: 6px;
-      font-family: 'Rajdhani', sans-serif;
       font-size: 1rem;
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
     .nav-drawer a:hover {
-      background: var(--bg-card, #22303f);
+      background: var(--bg-card, #1a2332);
       border-color: var(--sola-teal, #00CED1);
       color: var(--sola-teal, #00CED1);
     }
@@ -1094,6 +1150,10 @@ body {
       background: rgba(0, 206, 209, 0.15);
       border-color: var(--sola-teal, #00CED1);
       color: #ffffff;
+    }
+    .nav-drawer .nav-disabled {
+      color: var(--text-muted, #556677);
+      cursor: not-allowed;
     }
     .nav-overlay {
       display: none;
@@ -1194,24 +1254,6 @@ body {
     @media (max-width: 600px) {
       .glossary-drawer { width: 100%; right: -100%; }
     }
-  
-    /* ============================================
-       SITE FOOTER
-       ============================================ */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      margin-top: 2rem;
-      border-top: 1px solid rgba(0, 206, 209, 0.2);
-      color: #8899aa;
-    }
-    footer a {
-      color: #00CED1;
-      text-decoration: none;
-    }
-    footer a:hover {
-      color: #D4AF37;
-    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"Solas Array - Live Mining Data Vault","description":"Real-time cryptocurrency mining network statistics including difficulty, hashrate, and block data.","url":"https://www.solarayeffect.com/datavault.html","license":"https://www.solarayeffect.com/","creator":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
 </head>
@@ -1230,7 +1272,7 @@ body {
 
   <!-- Hamburger Menu -->
   <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
       <span class="bun-top"></span>
       <span class="lettuce"></span>
       <span class="patty"></span>
@@ -1241,7 +1283,7 @@ body {
 
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
-    <h3>&#x26A1; NAVIGATION</h3>
+    <h3>NAVIGATION</h3>
     <a href="index.html">&#x26A1; Calculator</a>
     <a href="miners.html">&#x1F527; Miners</a>
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
@@ -1826,10 +1868,9 @@ body {
     </div>
   </div>
 
-    <footer>
-    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
-    <p><span style="white-space:nowrap;">&#x1F527; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <p style="margin-top:0.5rem;"><a href="index.html">&larr; Back to Calculator</a></p>
+  <footer class="vault-footer">
+    <p>SOLA'S ARRAY &#x2022; DATA VAULT &#x2022; <a href="index.html">&#x2190; Return to Calculator</a></p>
+    <p style="margin-top: 10px; opacity: 0.8;">Data sourced from Blockchain.com & CoinGecko APIs &#x2022; Charts update on load</p>
   </footer>
 
   <!-- Chart.js + Date Adapter -->
@@ -3064,17 +3105,34 @@ document.addEventListener('DOMContentLoaded', init);
 
   <!-- Navigation Toggle -->
   <script>
+    // Toggle navigation drawer
     function toggleNav() {
-      const btn = document.getElementById('hamburger-btn');
-      const drawer = document.getElementById('nav-drawer');
-      const overlay = document.getElementById('nav-overlay');
-      btn.classList.toggle('open');
-      drawer.classList.toggle('open');
-      overlay.classList.toggle('show');
+      document.getElementById('hamburger-btn').classList.toggle('open');
+      document.getElementById('nav-drawer').classList.toggle('open');
+      document.getElementById('nav-overlay').classList.toggle('show');
     }
 
-    document.getElementById('hamburger-btn').addEventListener('click', toggleNav);
-    document.getElementById('nav-overlay').addEventListener('click', toggleNav);
+    // Setup all interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hamburger menu
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleNav();
+        });
+      }
+      
+      if (navOverlay) {
+        navOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+    });
 
     // ============================================
     // GLOSSARY DEFINITIONS

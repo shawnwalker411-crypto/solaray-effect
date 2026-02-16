@@ -83,7 +83,7 @@
     
     h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
     
-    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem; }
     
     header {
       text-align: center;
@@ -234,6 +234,14 @@
       color: var(--text-secondary);
     }
     
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 2rem;
+    }
 
     /* ============================================
        GLOSSARY DRAWER
@@ -394,14 +402,12 @@
     .nav-drawer.open { left: 0; }
     
     .nav-drawer h3 {
-      color: var(--sola-gold, #D4AF37);
+      color: var(--sola-gold);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
     
     .nav-drawer a, .nav-drawer .nav-disabled {
@@ -511,24 +517,6 @@
       padding: 0.25rem 0;
     }
 
-  
-    /* ============================================
-       SITE FOOTER
-       ============================================ */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      margin-top: 2rem;
-      border-top: 1px solid rgba(0, 206, 209, 0.2);
-      color: #8899aa;
-    }
-    footer a {
-      color: #00CED1;
-      text-decoration: none;
-    }
-    footer a:hover {
-      color: #D4AF37;
-    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Aftermarket Firmware Guide for ASIC Miners","description":"Compare LuxOS, VNish, and Braiins firmware options for optimizing your mining hardware.","url":"https://www.solarayeffect.com/aftermarket_firmware.html","publisher":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
 </head>
@@ -546,7 +534,7 @@
   
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
-    <h3>&#x26A1; NAVIGATION</h3>
+    <h3>NAVIGATION</h3>
     <a href="index.html">&#x26A1; Calculator</a>
     <a href="miners.html">&#x1F527; Miners</a>
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
@@ -730,11 +718,10 @@
       <p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">See which miners support aftermarket firmware in the <a href="miners.html" style="color: var(--sola-teal, #00CED1);">ASIC miner catalog</a> &mdash; Loki Kit compatible models are marked. Running a 240V miner on 120V with a Loki Kit? Check the <a href="electrical_setup.html" style="color: var(--sola-teal, #00CED1);">electrical setup guide</a> for safe wiring. Compare how firmware tuning affects your bottom line in the <a href="index.html" style="color: var(--sola-teal, #00CED1);">profitability calculator</a> &mdash; try stock power vs underclocked settings. Find the right <a href="pools.html" style="color: var(--sola-teal, #00CED1);">mining pool</a> for your setup, and track live difficulty in the <a href="datavault.html" style="color: var(--sola-teal, #00CED1);">Data Vault</a>.</p>
     </div>
     
-      <footer>
-    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
-    <p><span style="white-space:nowrap;">&#x1F527; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <p style="margin-top:0.5rem;"><a href="index.html">&larr; Back to Calculator</a></p>
-  </footer>
+    <footer>
+      <p>&#xA9; 2026 The Sola Ray Effect</p>
+      <p><a href="index.html">Back to Calculator</a></p>
+    </footer>
   </div>
 
   <script>

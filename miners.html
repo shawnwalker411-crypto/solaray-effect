@@ -115,13 +115,13 @@
       justify-content: center;
       gap: 5px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px var(--sola-teal-glow);
+      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
     }
     
     .hamburger-btn:hover {
       background: var(--sola-teal);
       color: #000;
-      box-shadow: 0 0 20px var(--sola-teal-glow);
+      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
     }
     
     .hamburger-btn .bun-top {
@@ -189,17 +189,15 @@
     .nav-drawer.open { left: 0; }
     
     .nav-drawer h3 {
-      color: var(--sola-gold, #D4AF37);
+      color: var(--sola-gold);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
     
-    .nav-drawer a {
+    .nav-drawer a, .nav-drawer .nav-disabled {
       display: block;
       color: var(--text-primary);
       text-decoration: none;
@@ -580,8 +578,22 @@
     /* ============================================
        FOOTER
        ============================================ */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      margin-top: 2rem;
+    }
     
+    footer a {
+      color: var(--sola-teal);
+      text-decoration: none;
+    }
     
+    footer a:hover {
+      color: var(--sola-gold);
+    }
 
     /* ============================================
        GLOSSARY DRAWER
@@ -696,24 +708,6 @@
       font-weight: 600;
       padding: 0.25rem 0;
     }
-  
-    /* ============================================
-       SITE FOOTER
-       ============================================ */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      margin-top: 2rem;
-      border-top: 1px solid rgba(0, 206, 209, 0.2);
-      color: #8899aa;
-    }
-    footer a {
-      color: #00CED1;
-      text-decoration: none;
-    }
-    footer a:hover {
-      color: #D4AF37;
-    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Home Miner Catalog - ASIC Mining Hardware for Residential Setups","description":"Complete catalog of 69 ASIC cryptocurrency miners for home mining, including SHA-256 Bitcoin miners, Scrypt Litecoin/Dogecoin miners, KHeavyHash Kaspa miners, and more. Filtered by voltage (120V, 240V, Loki Kit) and algorithm.","url":"https://www.solarayeffect.com/miners.html","numberOfItems":69,"itemListElement":[{"@type":"ListItem","position":1,"name":"Antminer S21 200T - 200 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":2,"name":"Antminer S21 Pro 234T - 234 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":3,"name":"Antminer S19 Pro 110T - 110 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":4,"name":"Antminer L7 9500M - 9500 MH/s Scrypt Litecoin/Dogecoin Miner (240V)"},{"@type":"ListItem","position":5,"name":"Antminer KS5 - 20000 GH/s KHeavyHash Kaspa Miner (240V)"},{"@type":"ListItem","position":6,"name":"Bitaxe Ultra - 0.5 TH/s Solo Lottery Bitcoin Miner (120V)"},{"@type":"ListItem","position":7,"name":"IceRiver KS0 Ultra - 400 GH/s Kaspa Miner (120V)"},{"@type":"ListItem","position":8,"name":"Goldshell Mini-DOGE III - 760 MH/s Scrypt Miner (120V)"},{"@type":"ListItem","position":9,"name":"Antminer L3++ - 596 MH/s Scrypt Litecoin/Dogecoin Miner (120V)"},{"@type":"ListItem","position":10,"name":"S19 Pro 110T Loki Kit - 44 TH/s on 120V household power"}]}</script>
 </head>
@@ -732,13 +726,12 @@
   
   <!-- Nav Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
-    <h3>&#x26A1; NAVIGATION</h3>
+    <h3>NAVIGATION</h3>
     <a href="index.html">&#x26A1; Calculator</a>
     <a href="miners.html" class="active">&#x1F527; Miners</a>
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
-    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
     <a href="remote_management.html">&#x1F4E1; Remote Management</a>
     <a href="glossary.html">&#x1F9E0; Glossary</a>
     <a href="datavault.html">&#x1F4CA; Data Vault</a>
@@ -2705,10 +2698,8 @@
     </div>
   </div>
   
-    <footer>
-    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
-    <p><span style="white-space:nowrap;">&#x1F527; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <p style="margin-top:0.5rem;"><a href="index.html">&larr; Back to Calculator</a></p>
+  <footer>
+    <p>The Sola Ray Effect | <a href="index.html">Back to Calculator</a> | <a href="glossary.html">Full Glossary</a></p>
   </footer>
   
   <script>
