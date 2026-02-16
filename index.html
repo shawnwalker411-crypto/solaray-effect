@@ -123,13 +123,13 @@
       justify-content: center;
       gap: 5px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+      box-shadow: 0 0 10px var(--sola-teal-glow);
     }
     
     .hamburger-btn:hover {
       background: var(--sola-teal);
       color: #000;
-      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+      box-shadow: 0 0 20px var(--sola-teal-glow);
     }
     
     .hamburger-btn .bun-top {
@@ -197,12 +197,14 @@
     .nav-drawer.open { left: 0; }
     
     .nav-drawer h3 {
-      color: var(--sola-gold);
+      color: var(--sola-gold, #D4AF37);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
     
     .nav-drawer a, .nav-drawer .nav-disabled {
@@ -1116,23 +1118,8 @@
     /* ============================================
        FOOTER
        ============================================ */
-    footer {
-      text-align: center;
-      padding: 1.5rem 1rem;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      border-top: 2px solid var(--border-color);
-      margin-top: 2rem;
-    }
     
-    footer a {
-      color: var(--sola-teal);
-      text-decoration: none;
-    }
     
-    footer a:hover {
-      color: var(--sola-gold);
-    }
     
     .price-note {
       font-size: 0.75rem;
@@ -1494,6 +1481,24 @@
   .coin-row { justify-content: center; }
 }
 
+  
+    /* ============================================
+       SITE FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(0, 206, 209, 0.2);
+      color: #8899aa;
+    }
+    footer a {
+      color: #00CED1;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #D4AF37;
+    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sola Ray Effect Home Mining Calculator","url":"https://www.solarayeffect.com/","description":"Free cryptocurrency mining profitability calculator for home miners with dual electricity rates, solar power support, and 40+ ASIC miners.","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"The Sola Ray Effect","url":"https://www.solarayeffect.com/","logo":{"@type":"ImageObject","url":"https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg"}}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bitcoin mining still profitable at home in 2026?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use our calculator with your actual rates to find out."}},{"@type":"Question","name":"Can I run an Antminer S19 on a regular outlet?","acceptedAnswer":{"@type":"Answer","text":"Not at full power \u2014 S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw."}},{"@type":"Question","name":"What is a solar buyback program?","acceptedAnswer":{"@type":"Answer","text":"Some utility companies credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs."}},{"@type":"Question","name":"Should I sell solar energy back or mine Bitcoin with it?","acceptedAnswer":{"@type":"Answer","text":"Many solar buyback plans pay $0.02 to $0.06 per kWh for excess energy. That same energy powering an efficient ASIC miner can earn roughly double at current difficulty. Mining converts cheap exported kilowatts into an appreciating asset instead of selling back at a fraction of retail price."}}]}</script>
@@ -1521,8 +1526,8 @@
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>NAVIGATION</h3>
-    <a href="index.html" class="active">&#x26A1; Calculator</a>
-    <a href="miners.html">&#x1F527; Miners</a>
+    <a href="index.html" class="active">&#x1F9EE; Calculator</a>
+    <a href="miners.html">&#x1F4B0; Miners</a>
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
@@ -1598,7 +1603,7 @@
     
     <!-- Miner Selection -->
     <section class="section" >
-      <h2 class="section-title">&#x1F527; Select Your Miner</h2>
+      <h2 class="section-title">&#x1F4B0; Select Your Miner</h2>
       
       <!-- Live Coin Price Display -->
       <div class="live-price-display" id="live-price-display" style="visibility: hidden; position: absolute;">
@@ -1862,7 +1867,7 @@
         <h3 style="color: var(--sola-gold); font-size: 1.1rem; margin-bottom: 1.5rem;">&#x1F6E0;&#xFE0F; Next Steps</h3>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
           <a href="miners.html" style="display: block; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; text-decoration: none; transition: all 0.2s ease;">
-            <span style="color: var(--sola-teal); font-weight: 600; font-size: 0.95rem;">&#x1F527; Compare All Miners</span>
+            <span style="color: var(--sola-teal); font-weight: 600; font-size: 0.95rem;">&#x1F4B0; Compare All Miners</span>
             <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">Full specs, voltage, noise, and Loki Kit compatibility for 100+ ASIC miners.</p>
           </a>
           <a href="pools.html" style="display: block; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; text-decoration: none; transition: all 0.2s ease;">
@@ -1929,10 +1934,11 @@
       <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>What is a solar buyback program?</strong> Some utility companies credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs.</p>
     </section>
     
-    <footer>
-      <p>&#xA9; 2026 The Sola Ray Effect. Built for home miners.</p>
-      <p>Estimates only. Results vary with <span class="glossary-term" data-term="difficulty">difficulty</span>, <span class="glossary-term" data-term="pool">pool</span> fees, and market conditions.</p>
-    </footer>
+      <footer>
+    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
+    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
+    <p style="margin-top:0.5rem;"><a href="index.html">&larr; Back to Calculator</a></p>
+  </footer>
   </div>
   </main>
 
@@ -3423,7 +3429,7 @@
       const minerName = selectedMiner ? selectedMiner.name : 'this miner';
       const algoName = algorithm.replace('-BCH', '');
       const coinName = rateInfo.coin;
-      links.push(`<a href="miners.html" style="${linkStyle}">&#x1F527; View ${minerName} full specs</a>`);
+      links.push(`<a href="miners.html" style="${linkStyle}">&#x1F4B0; View ${minerName} full specs</a>`);
       links.push(`<a href="pools.html" style="${linkStyle}">&#x1F3CA; ${coinName} mining pools</a>`);
       if (selectedMiner && selectedMiner.voltage === '240V') {
         links.push(`<a href="electrical_setup.html" style="${linkStyle}">&#x1F50C; 240V wiring guide</a>`);

@@ -337,12 +337,14 @@
     .nav-drawer.open { left: 0; }
     
     .nav-drawer h3 {
-      color: var(--sola-gold);
+      color: var(--sola-gold, #D4AF37);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
     
     .nav-drawer a, .nav-drawer .nav-disabled {
@@ -398,6 +400,24 @@
       .term { padding-left: 0.75rem; }
     }
 
+  
+    /* ============================================
+       SITE FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(0, 206, 209, 0.2);
+      color: #8899aa;
+    }
+    footer a {
+      color: #00CED1;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #D4AF37;
+    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","name":"Cryptocurrency Mining Glossary","description":"Comprehensive glossary of cryptocurrency mining terms, payout methods, and hardware terminology.","url":"https://www.solarayeffect.com/glossary.html"}</script>
 </head>
@@ -416,8 +436,8 @@
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>NAVIGATION</h3>
-    <a href="index.html">&#x26A1; Calculator</a>
-    <a href="miners.html">&#x1F527; Miners</a>
+    <a href="index.html">&#x1F9EE; Calculator</a>
+    <a href="miners.html">&#x1F4B0; Miners</a>
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
@@ -533,7 +553,7 @@
     
     <!-- Hardware -->
     <section class="category" id="hardware">
-      <h2 class="category-title">&#x1F527; Hardware</h2>
+      <h2 class="category-title">&#x1F4B0; Hardware</h2>
       
       <div class="term" id="asic">
         <div class="term-name">ASIC</div>
@@ -900,12 +920,6 @@
       <h3 style="color: #00CED1; font-size: 1.1rem; margin-bottom: 0.75rem;">Put These Terms to Work</h3>
       <p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">Try the <a href="index.html" style="color: var(--sola-teal, #00CED1);">profitability calculator</a> to see hashrate, difficulty, and ROI in action with real numbers. Browse the <a href="miners.html" style="color: var(--sola-teal, #00CED1);">ASIC miner catalog</a> to compare efficiency (J/TH, J/GH) across 100+ models. Compare <a href="pools.html" style="color: var(--sola-teal, #00CED1);">mining pool</a> payout methods &mdash; FPPS, PPS+, and PPLNS. Understand what your miner needs from the <a href="electrical_setup.html" style="color: var(--sola-teal, #00CED1);">electrical setup guide</a>, or explore <a href="aftermarket_firmware.html" style="color: var(--sola-teal, #00CED1);">aftermarket firmware</a> to optimize performance. Live network stats are in the <a href="datavault.html" style="color: var(--sola-teal, #00CED1);">Data Vault</a>.</p>
     </div>
-    
-    <div class="cta-section">
-      <h3>Ready to Calculate Your Profits?</h3>
-      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;
-      <a href="index.html" class="cta-btn">&#x26A1; Open Calculator</a>
-    </div>
   </div>
   
   <script>
@@ -1200,5 +1214,10 @@
 </script>
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
+  <footer>
+    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
+    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
+    <p style="margin-top:0.5rem;"><a href="index.html">&larr; Back to Calculator</a></p>
+  </footer>
 </body>
 </html>

@@ -113,13 +113,13 @@
       justify-content: center;
       gap: 5px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+      box-shadow: 0 0 10px var(--sola-teal-glow);
     }
     
     .hamburger-btn:hover {
       background: var(--sola-teal);
       color: #000;
-      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+      box-shadow: 0 0 20px var(--sola-teal-glow);
     }
     
     .hamburger-btn .bun-top {
@@ -187,12 +187,14 @@
     .nav-drawer.open { left: 0; }
     
     .nav-drawer h3 {
-      color: var(--sola-gold);
+      color: var(--sola-gold, #D4AF37);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
     
     .nav-drawer a, .nav-drawer .nav-disabled {
@@ -1103,22 +1105,8 @@
     /* ============================================
        FOOTER
        ============================================ */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      margin-top: 2rem;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-muted);
-    }
     
-    footer a {
-      color: var(--sola-teal);
-      text-decoration: none;
-    }
     
-    footer a:hover {
-      color: var(--sola-gold);
-    }
 
     /* ============================================
        RESPONSIVE
@@ -1131,6 +1119,24 @@
       .pool-table { font-size: 0.8rem; }
       .pool-table th, .pool-table td { padding: 0.5rem 0.3rem; }
       .payout-legend { flex-direction: column; gap: 0.5rem; }
+    }
+  
+    /* ============================================
+       SITE FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(0, 206, 209, 0.2);
+      color: #8899aa;
+    }
+    footer a {
+      color: #00CED1;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #D4AF37;
     }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Mining Pools Guide for Home Miners","description":"Comprehensive mining pool directory organized by cryptocurrency with fee comparisons and payout method explanations.","url":"https://www.solarayeffect.com/pools.html","publisher":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
@@ -1150,8 +1156,8 @@
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
     <h3>NAVIGATION</h3>
-    <a href="index.html">&#x26A1; Calculator</a>
-    <a href="miners.html">&#x1F527; Miners</a>
+    <a href="index.html">&#x1F9EE; Calculator</a>
+    <a href="miners.html">&#x1F4B0; Miners</a>
     <a href="pools.html" class="active">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
@@ -2304,8 +2310,10 @@
     </div>
   </div>
   
-  <footer>
-    <p>The Sola Ray Effect | <a href="index.html">Back to Calculator</a> | <a href="glossary.html">Full Glossary</a></p>
+    <footer>
+    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
+    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
+    <p style="margin-top:0.5rem;"><a href="index.html">&larr; Back to Calculator</a></p>
   </footer>
   
   <script>
