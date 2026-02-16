@@ -1039,16 +1039,17 @@ body::after {
 </style>
 <!-- Hamburger nav overrides for vault theme -->
 <style>
-    .hamburger-menu {
+.hamburger-menu {
       position: fixed;
       top: 4.5rem;
       left: 1rem;
-      z-index: 10001;
+      z-index: 1000;
     }
+    
     .hamburger-btn {
-      background: var(--vault-panel);
-      border: 2px solid var(--terminal-cyan);
-      color: var(--terminal-cyan);
+      background: var(--bg-card);
+      border: 2px solid var(--sola-teal);
+      color: var(--sola-teal);
       width: 44px;
       height: 44px;
       border-radius: 8px;
@@ -1059,50 +1060,62 @@ body::after {
       justify-content: center;
       gap: 5px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+      box-shadow: 0 0 10px var(--sola-teal-glow);
     }
+    
     .hamburger-btn:hover {
-      background: var(--terminal-cyan);
+      background: var(--sola-teal);
       color: #000;
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+      box-shadow: 0 0 20px var(--sola-teal-glow);
     }
+    
     .hamburger-btn .bun-top {
-      width: 24px; height: 6px;
+      width: 24px;
+      height: 6px;
       background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
       border-radius: 10px 10px 0 0;
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn .lettuce {
-      width: 26px; height: 3px;
+      width: 26px;
+      height: 3px;
       background: #32CD32;
       border-radius: 1px;
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn .patty {
-      width: 24px; height: 4px;
+      width: 24px;
+      height: 4px;
       background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
       border-radius: 2px;
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn .cheese {
-      width: 26px; height: 3px;
+      width: 26px;
+      height: 3px;
       background: #FFD700;
       border-radius: 1px;
       transform: skewX(-5deg);
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn .bun-bottom {
-      width: 24px; height: 5px;
+      width: 24px;
+      height: 5px;
       background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
       border-radius: 0 0 6px 6px;
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
     .hamburger-btn.open .lettuce { opacity: 0; }
     .hamburger-btn.open .patty { opacity: 0; }
     .hamburger-btn.open .cheese { opacity: 0; }
     .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
-
+    
     .nav-drawer {
       position: fixed;
       top: 0;
@@ -1110,47 +1123,54 @@ body::after {
       width: 280px;
       height: 100vh;
       overflow-y: auto;
-      background: var(--vault-dark);
-      border-right: 2px solid var(--terminal-cyan);
-      z-index: 10000;
+      background: var(--bg-secondary);
+      border-right: 2px solid var(--sola-teal);
+      z-index: 999;
       transition: left 0.3s ease;
       padding: 70px 1.5rem 1.5rem;
       box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
     }
+    
     .nav-drawer.open { left: 0; }
+    
     .nav-drawer h3 {
-      color: var(--terminal-amber);
-      font-family: 'Orbitron', monospace;
-      font-size: 0.85rem;
-      padding-left: 60px;
+      color: var(--sola-gold);
+      font-size: 1rem;
+      padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(255, 184, 0, 0.3);
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-gold);
     }
-    .nav-drawer a {
+    
+    .nav-drawer a, .nav-drawer .nav-disabled {
       display: block;
       color: var(--text-primary);
       text-decoration: none;
       padding: 0.5rem 1rem;
       margin-bottom: 0.3rem;
       border-radius: 6px;
-      font-family: 'Rajdhani', sans-serif;
       font-size: 1rem;
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
+    
     .nav-drawer a:hover {
-      background: var(--vault-panel);
-      border-color: var(--terminal-cyan);
-      color: var(--terminal-cyan);
+      background: var(--bg-card);
+      border-color: var(--sola-teal);
+      color: var(--sola-teal);
     }
+    
     .nav-drawer a.active {
-      background: rgba(0, 212, 255, 0.1);
-      border-color: var(--terminal-cyan);
+      background: rgba(0, 206, 209, 0.15);
+      border-color: var(--sola-teal);
       color: #ffffff;
     }
+    
+    .nav-drawer .nav-disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    
     .nav-overlay {
       display: none;
       position: fixed;
@@ -1159,9 +1179,11 @@ body::after {
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
-      z-index: 9998;
+      z-index: 998;
     }
+    
     .nav-overlay.show { display: block; }
+
 
     /* ============================================
        GLOSSARY DRAWER (vault-themed)
@@ -1317,7 +1339,7 @@ body {
 </div>
 <!-- Hamburger Menu -->
 <div class="hamburger-menu">
-<button aria-label="Menu" class="hamburger-btn" id="hamburger-btn">
+<button class="hamburger-btn" id="hamburger-btn" title="Menu">
 <span class="bun-top"></span>
 <span class="lettuce"></span>
 <span class="patty"></span>
@@ -1340,7 +1362,7 @@ body {
 <div class="header-content">
 <div class="vault-title">
 <div>
-<h1>Live Mining Stats — Network Difficulty, Hashrate &amp; Market Data</h1>
+<h1 style="text-align:center;">Live Mining Stats — Network Difficulty, Hashrate &amp; Market Data</h1>
 <div class="subtitle">Data Vault • Sector 7</div>
 </div>
 </div>
@@ -1354,8 +1376,8 @@ body {
 </div>
 </header>
 <section aria-label="Workflow links" class="internal-links">
-  <h2 class="internal-links-title">Workflow</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Workflow</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="index.html">Return to mining calculator</a>
     <a href="miners.html">Explore hardware</a>
     <a href="pools.html">Compare pools</a>
@@ -3284,9 +3306,7 @@ document.addEventListener('DOMContentLoaded', init);
 <script>
 (function() {
   // Don't show if user already dismissed or submitted THIS SESSION
-  if (sessionStorage.getItem('sola-fb-done')) return;
-
-  var widget = document.getElementById('sola-feedback-widget');
+var widget = document.getElementById('sola-feedback-widget');
   var bubble = document.getElementById('sola-fb-bubble');
   var wizard = document.getElementById('sola-fb-wizard');
   var video = document.getElementById('sola-fb-video');
@@ -3317,14 +3337,12 @@ document.addEventListener('DOMContentLoaded', init);
   document.getElementById('sola-fb-no').addEventListener('click', function() {
     widget.style.display = 'none';
     video.pause();
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
+});
 
   // Close wizard
   document.getElementById('sola-fb-close').addEventListener('click', function() {
     widget.style.display = 'none';
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
+});
 
   // Step navigation
   function showStep(n) {
@@ -3414,8 +3432,7 @@ document.addEventListener('DOMContentLoaded', init);
     .then(function(result) {
       if (result.success) {
         showStep(6);
-        sessionStorage.setItem('sola-fb-done', 'submitted');
-        // Auto-close after 3 seconds
+// Auto-close after 3 seconds
         setTimeout(function() { widget.style.display = 'none'; }, 3000);
       } else {
         document.getElementById('sola-fb-error').style.display = 'block';
@@ -3439,8 +3456,8 @@ document.addEventListener('DOMContentLoaded', init);
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
 <section aria-label="Internal links" class="internal-links">
-  <h2 class="internal-links-title">Explore next</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Explore next</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="index.html">Return to mining calculator</a>
     <a href="miners.html">Explore hardware</a>
     <a href="pools.html">Compare pools</a>

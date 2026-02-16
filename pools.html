@@ -91,7 +91,7 @@
        ============================================ */
     .hamburger-menu {
       position: fixed;
-      top: 1rem;
+      top: 4.5rem;
       left: 1rem;
       z-index: 1000;
     }
@@ -189,17 +189,17 @@
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--sola-gold-glow);
+      border-bottom: 1px solid var(--border-gold);
     }
     
-    .nav-drawer a {
+    .nav-drawer a, .nav-drawer .nav-disabled {
       display: block;
       color: var(--text-primary);
       text-decoration: none;
-      padding: 0.75rem 1rem;
+      padding: 0.5rem 1rem;
       margin-bottom: 0.3rem;
       border-radius: 6px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
@@ -216,6 +216,11 @@
       color: #ffffff;
     }
     
+    .nav-drawer .nav-disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    
     .nav-overlay {
       display: none;
       position: fixed;
@@ -228,7 +233,7 @@
     }
     
     .nav-overlay.show { display: block; }
-
+    
     /* ============================================
        GLOSSARY DRAWER (Right side)
        ============================================ */
@@ -1177,7 +1182,7 @@
 <body>
 <!-- Hamburger Menu -->
 <div class="hamburger-menu">
-<button aria-label="Open navigation menu" class="hamburger-btn" id="hamburger-btn">
+<button class="hamburger-btn" id="hamburger-btn" title="Menu">
 <span class="bun-top"></span>
 <span class="lettuce"></span>
 <span class="patty"></span>
@@ -1201,12 +1206,12 @@
 </div>
 <div class="container">
 <header>
-<h1 class="page-title">Mining Pools Guide — Fees, Payouts &amp; Minimums for Every Algorithm</h1>
+<h1 class="page-title" style="text-align:center;">Mining Pools Guide — Fees, Payouts &amp; Minimums for Every Algorithm</h1>
 <p class="page-subtitle">Home miner focused • North America priority • Always verify current fees</p>
 </header>
 <section aria-label="Workflow links" class="internal-links">
-  <h2 class="internal-links-title">Workflow</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Workflow</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="miners.html">Compatible mining hardware</a>
     <a href="aftermarket_firmware.html">Firmware compatibility</a>
     <a href="remote_management.html">Remote pool monitoring tools</a>
@@ -2847,9 +2852,7 @@
 <script>
 (function() {
   // Don't show if user already dismissed or submitted THIS SESSION
-  if (sessionStorage.getItem('sola-fb-done')) return;
-
-  var widget = document.getElementById('sola-feedback-widget');
+var widget = document.getElementById('sola-feedback-widget');
   var bubble = document.getElementById('sola-fb-bubble');
   var wizard = document.getElementById('sola-fb-wizard');
   var video = document.getElementById('sola-fb-video');
@@ -2880,14 +2883,12 @@
   document.getElementById('sola-fb-no').addEventListener('click', function() {
     widget.style.display = 'none';
     video.pause();
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
+});
 
   // Close wizard
   document.getElementById('sola-fb-close').addEventListener('click', function() {
     widget.style.display = 'none';
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
+});
 
   // Step navigation
   function showStep(n) {
@@ -2977,8 +2978,7 @@
     .then(function(result) {
       if (result.success) {
         showStep(6);
-        sessionStorage.setItem('sola-fb-done', 'submitted');
-        // Auto-close after 3 seconds
+// Auto-close after 3 seconds
         setTimeout(function() { widget.style.display = 'none'; }, 3000);
       } else {
         document.getElementById('sola-fb-error').style.display = 'block';
@@ -3002,8 +3002,8 @@
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
 <section aria-label="Internal links" class="internal-links">
-  <h2 class="internal-links-title">Explore next</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Explore next</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="index.html">Return to mining calculator</a>
     <a href="miners.html">Explore hardware</a>
     <a href="pools.html">Compare pools</a>

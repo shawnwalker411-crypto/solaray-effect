@@ -239,9 +239,9 @@
     /* ============================================
        HAMBURGER MENU
        ============================================ */
-    .hamburger-menu {
+.hamburger-menu {
       position: fixed;
-      top: 1rem;
+      top: 4.5rem;
       left: 1rem;
       z-index: 1000;
     }
@@ -260,13 +260,13 @@
       justify-content: center;
       gap: 5px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+      box-shadow: 0 0 10px var(--sola-teal-glow);
     }
     
     .hamburger-btn:hover {
       background: var(--sola-teal);
       color: #000;
-      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+      box-shadow: 0 0 20px var(--sola-teal-glow);
     }
     
     .hamburger-btn .bun-top {
@@ -339,7 +339,7 @@
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      border-bottom: 1px solid var(--border-gold);
     }
     
     .nav-drawer a, .nav-drawer .nav-disabled {
@@ -383,6 +383,7 @@
     }
     
     .nav-overlay.show { display: block; }
+
     
     .cta-btn:hover {
       transform: translateY(-2px);
@@ -443,7 +444,7 @@
 <body>
 <!-- Hamburger Menu -->
 <div class="hamburger-menu">
-<button aria-label="Open navigation menu" class="hamburger-btn" id="hamburger-btn">
+<button class="hamburger-btn" id="hamburger-btn" title="Menu">
 <span class="bun-top"></span>
 <span class="lettuce"></span>
 <span class="patty"></span>
@@ -458,11 +459,11 @@
 <div class="banner-container">
 <img alt="The Sola Ray Effect" src="assets/img-e688b707c7.jpg"/>
 </div>
-<h1 class="page-title">🧠 Mining Glossary — Every Term Explained for Home Miners</h1>
+<h1 class="page-title" style="text-align:center;">🧠 Mining Glossary — Every Term Explained for Home Miners</h1>
 <p class="page-subtitle">Everything a home miner needs to know — plus how to stay safe.</p>
 <section aria-label="Workflow links" class="internal-links">
-  <h2 class="internal-links-title">Workflow</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Workflow</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="index.html">Return to mining calculator</a>
     <a href="miners.html">Explore hardware</a>
     <a href="pools.html">Compare pools</a>
@@ -853,149 +854,11 @@
 <h3 style="color: #00CED1; font-size: 1.1rem; margin-bottom: 0.75rem;">Put These Terms to Work</h3>
 <p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">Try the <a href="index.html" style="color: var(--sola-teal, #00CED1);">profitability calculator</a> to see hashrate, difficulty, and ROI in action with real numbers. Browse the <a href="miners.html" style="color: var(--sola-teal, #00CED1);">ASIC miner catalog</a> to compare efficiency (J/TH, J/GH) across 100+ models. Compare <a href="pools.html" style="color: var(--sola-teal, #00CED1);">mining pool</a> payout methods — FPPS, PPS+, and PPLNS. Understand what your miner needs from the <a href="electrical_setup.html" style="color: var(--sola-teal, #00CED1);">electrical setup guide</a>, or explore <a href="aftermarket_firmware.html" style="color: var(--sola-teal, #00CED1);">aftermarket firmware</a> to optimize performance. Live network stats are in the <a href="datavault.html" style="color: var(--sola-teal, #00CED1);">Data Vault</a>.</p>
 </div>
-<div class="cta-section">
-<h3>Ready to Calculate Your Profits?</h3>
-<p class="cta-btn" index.html"="" style="color: var(--text-secondary); margin-bottom: 1.5rem;
-      &lt;a href=">⚡ Open Calculator
-</p></div>
 
-<script>
-    // ============================================
-    // NAVIGATION - UNIFIED HANDLER
-    // ============================================
-    function toggleNav() {
-      document.getElementById('hamburger-btn').classList.toggle('open');
-      document.getElementById('nav-drawer').classList.toggle('open');
-      document.getElementById('nav-overlay').classList.toggle('show');
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      var hamburgerBtn = document.getElementById('hamburger-btn');
-      var navOverlay = document.getElementById('nav-overlay');
-      
-      if (hamburgerBtn) {
-        // Handle both click and touch
-        hamburgerBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleNav();
-        });
-      }
-      
-      if (navOverlay) {
-        navOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          toggleNav();
-        });
-      }
-    });
-  </script>
-<!-- ============================================ -->
-<!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
-<!-- Remove this entire block when feedback window closes -->
-<!-- ============================================ -->
-<div id="sola-feedback-widget" style="display:none;">
-<!-- Small trigger bubble (bottom-right) -->
-<div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
-<p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
-<video height="113" id="sola-fb-video" loop="" muted="" playsinline="" src="assets/sola_feedback.mp4" style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);" width="200"></video>
-<div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
-<button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
-<button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
-</div>
-</div>
-<!-- Wizard overlay -->
-<div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
-<!-- Header -->
-<div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
-<span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray — Feedback</span>
-<button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">×</button>
-</div>
-<!-- Privacy note -->
-<div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
-      Your email is used only for direct communication with Sola Ray Effect. It will never be sold, shared, or added to any mailing list.
-    </div>
-<!-- Steps container -->
-<div id="sola-fb-steps" style="padding:16px;">
-<!-- Step 1: How did you find us -->
-<div class="sola-fb-step" data-step="1">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
-<select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
-<option value="">Select one...</option>
-<option value="Google Search">Google Search</option>
-<option value="YouTube">YouTube</option>
-<option value="Reddit">Reddit</option>
-<option value="Twitter/X">Twitter / X</option>
-<option value="Facebook">Facebook</option>
-<option value="A Friend">A Friend</option>
-<option value="Mining Forum">Mining Forum</option>
-<option value="Other">Other</option>
-</select>
-<button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-</div>
-<!-- Step 2: What brought you here -->
-<div class="sola-fb-step" data-step="2" style="display:none;">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
-<textarea id="sola-fb-reason" placeholder="What were you looking for?" rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-<div style="display:flex;gap:8px;margin-top:12px;">
-<button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-<button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-</div>
-</div>
-<!-- Step 3: Feedback -->
-<div class="sola-fb-step" data-step="3" style="display:none;">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
-<textarea id="sola-fb-message" placeholder="What do you like most about the site?" rows="4" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-<div style="display:flex;gap:8px;margin-top:12px;">
-<button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-<button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-</div>
-</div>
-<!-- Step 4: Coin/miner request -->
-<div class="sola-fb-step" data-step="4" style="display:none;">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
-<textarea id="sola-fb-request" placeholder="Optional — skip if you want" rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-<div style="display:flex;gap:8px;margin-top:12px;">
-<button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-<button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-</div>
-</div>
-<!-- Step 5: Email + Name -->
-<div class="sola-fb-step" data-step="5" style="display:none;">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
-<input id="sola-fb-name" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;" type="text"/>
-<input id="sola-fb-email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;" type="email"/>
-<div style="display:flex;gap:8px;margin-top:12px;">
-<button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-<button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
-</div>
-</div>
-<!-- Step 6: Thank you -->
-<div class="sola-fb-step" data-step="6" style="display:none;">
-<p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
-<p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
-</div>
-<!-- Error state -->
-<div id="sola-fb-error" style="display:none;">
-<p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
-</div>
-</div>
-<!-- Step indicator dots -->
-<div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-</div>
-</div>
-</div>
 <script>
 (function() {
   // Don't show if user already dismissed or submitted THIS SESSION
-  if (sessionStorage.getItem('sola-fb-done')) return;
-
-  var widget = document.getElementById('sola-feedback-widget');
+var widget = document.getElementById('sola-feedback-widget');
   var bubble = document.getElementById('sola-fb-bubble');
   var wizard = document.getElementById('sola-fb-wizard');
   var video = document.getElementById('sola-fb-video');
@@ -1026,14 +889,12 @@
   document.getElementById('sola-fb-no').addEventListener('click', function() {
     widget.style.display = 'none';
     video.pause();
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
+});
 
   // Close wizard
   document.getElementById('sola-fb-close').addEventListener('click', function() {
     widget.style.display = 'none';
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
+});
 
   // Step navigation
   function showStep(n) {
@@ -1123,8 +984,7 @@
     .then(function(result) {
       if (result.success) {
         showStep(6);
-        sessionStorage.setItem('sola-fb-done', 'submitted');
-        // Auto-close after 3 seconds
+// Auto-close after 3 seconds
         setTimeout(function() { widget.style.display = 'none'; }, 3000);
       } else {
         document.getElementById('sola-fb-error').style.display = 'block';
@@ -1148,8 +1008,8 @@
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
 <section aria-label="Internal links" class="internal-links">
-  <h2 class="internal-links-title">Explore next</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Explore next</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="index.html">Return to mining calculator</a>
     <a href="miners.html">Explore hardware</a>
     <a href="pools.html">Compare pools</a>

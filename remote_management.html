@@ -90,9 +90,9 @@
     /* ============================================
        HAMBURGER MENU (matches site exactly)
        ============================================ */
-    .hamburger-menu {
+.hamburger-menu {
       position: fixed;
-      top: 1rem;
+      top: 4.5rem;
       left: 1rem;
       z-index: 1000;
     }
@@ -111,45 +111,56 @@
       justify-content: center;
       gap: 5px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+      box-shadow: 0 0 10px var(--sola-teal-glow);
     }
     
     .hamburger-btn:hover {
       background: var(--sola-teal);
-      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+      color: #000;
+      box-shadow: 0 0 20px var(--sola-teal-glow);
     }
     
     .hamburger-btn .bun-top {
-      width: 24px; height: 6px;
+      width: 24px;
+      height: 6px;
       background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
       border-radius: 10px 10px 0 0;
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn .lettuce {
-      width: 26px; height: 3px;
+      width: 26px;
+      height: 3px;
       background: #32CD32;
       border-radius: 1px;
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn .patty {
-      width: 24px; height: 4px;
+      width: 24px;
+      height: 4px;
       background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
       border-radius: 2px;
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn .cheese {
-      width: 26px; height: 3px;
+      width: 26px;
+      height: 3px;
       background: #FFD700;
       border-radius: 1px;
       transform: skewX(-5deg);
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn .bun-bottom {
-      width: 24px; height: 5px;
+      width: 24px;
+      height: 5px;
       background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
       border-radius: 0 0 6px 6px;
       transition: all 0.3s ease;
     }
+    
     .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
     .hamburger-btn.open .lettuce { opacity: 0; }
     .hamburger-btn.open .patty { opacity: 0; }
@@ -158,8 +169,10 @@
     
     .nav-drawer {
       position: fixed;
-      top: 0; left: -280px;
-      width: 280px; height: 100vh;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
       overflow-y: auto;
       background: var(--bg-secondary);
       border-right: 2px solid var(--sola-teal);
@@ -168,16 +181,19 @@
       padding: 70px 1.5rem 1.5rem;
       box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
     }
+    
     .nav-drawer.open { left: 0; }
+    
     .nav-drawer h3 {
       color: var(--sola-gold);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      border-bottom: 1px solid var(--border-gold);
     }
-    .nav-drawer a {
+    
+    .nav-drawer a, .nav-drawer .nav-disabled {
       display: block;
       color: var(--text-primary);
       text-decoration: none;
@@ -188,25 +204,37 @@
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
+    
     .nav-drawer a:hover {
       background: var(--bg-card);
       border-color: var(--sola-teal);
       color: var(--sola-teal);
     }
+    
     .nav-drawer a.active {
       background: rgba(0, 206, 209, 0.15);
       border-color: var(--sola-teal);
       color: #ffffff;
     }
+    
+    .nav-drawer .nav-disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    
     .nav-overlay {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.5);
       z-index: 998;
     }
+    
     .nav-overlay.show { display: block; }
+
     
     /* ============================================
        PAGE TITLE & SUBTITLE
@@ -524,7 +552,7 @@
 <body>
 <!-- Hamburger Menu -->
 <div class="hamburger-menu">
-<button aria-label="Open navigation menu" class="hamburger-btn" id="hamburger-btn">
+<button class="hamburger-btn" id="hamburger-btn" title="Menu">
 <span class="bun-top"></span>
 <span class="lettuce"></span>
 <span class="patty"></span>
@@ -536,11 +564,11 @@
 <nav class="nav-drawer" id="nav-drawer"><h3>⚡ NAVIGATION</h3><a href="index.html">⚡ Calculator</a><a href="miners.html">🔧 Miners</a><a href="pools.html">🏊 Mining Pools</a><a href="aftermarket_firmware.html">⚙️ Firmware Guide</a><a href="electrical_setup.html">🔌 Electrical Setup</a><a class="active" href="remote_management.html">📡 Remote Management</a><a href="glossary.html">🧠 Glossary</a><a href="datavault.html">📊 Data Vault</a></nav>
 <div class="nav-overlay" id="nav-overlay"></div>
 <div class="container">
-<h1 class="page-title">📡 Remote Mining Management — Control Your Rigs From Anywhere</h1>
+<h1 class="page-title" style="text-align:center;">📡 Remote Mining Management — Control Your Rigs From Anywhere</h1>
 <p class="page-subtitle">VPN access, smart PDUs, power control, and firmware management for home miners</p>
 <section aria-label="Workflow links" class="internal-links">
-  <h2 class="internal-links-title">Workflow</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Workflow</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="aftermarket_firmware.html">Supported mining firmware</a>
     <a href="miners.html">Compatible mining hardware</a>
     <a href="pools.html">Pool performance tracking</a>
@@ -1235,9 +1263,261 @@
     });
   </script>
 
+<!-- ============================================ -->
+<!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
+<!-- Remove this entire block when feedback window closes -->
+<!-- ============================================ -->
+<div id="sola-feedback-widget" style="display:none;">
+<!-- Small trigger bubble (bottom-right) -->
+<div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
+<p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
+<video height="113" id="sola-fb-video" loop="" muted="" playsinline="" src="assets/sola_feedback.mp4" style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);" width="200"></video>
+<div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
+<button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
+<button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
+</div>
+</div>
+<!-- Wizard overlay -->
+<div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
+<!-- Header -->
+<div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
+<span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray — Feedback</span>
+<button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">×</button>
+</div>
+<!-- Privacy note -->
+<div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
+      Your email is used only for direct communication with Sola Ray Effect. It will never be sold, shared, or added to any mailing list.
+    </div>
+<!-- Steps container -->
+<div id="sola-fb-steps" style="padding:16px;">
+<!-- Step 1: How did you find us -->
+<div class="sola-fb-step" data-step="1">
+<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
+<select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
+<option value="">Select one...</option>
+<option value="Google Search">Google Search</option>
+<option value="YouTube">YouTube</option>
+<option value="Reddit">Reddit</option>
+<option value="Twitter/X">Twitter / X</option>
+<option value="Facebook">Facebook</option>
+<option value="A Friend">A Friend</option>
+<option value="Mining Forum">Mining Forum</option>
+<option value="Other">Other</option>
+</select>
+<button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+</div>
+<!-- Step 2: What brought you here -->
+<div class="sola-fb-step" data-step="2" style="display:none;">
+<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
+<textarea id="sola-fb-reason" placeholder="What were you looking for?" rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+<div style="display:flex;gap:8px;margin-top:12px;">
+<button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+<button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+</div>
+</div>
+<!-- Step 3: Feedback -->
+<div class="sola-fb-step" data-step="3" style="display:none;">
+<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
+<textarea id="sola-fb-message" placeholder="What do you like most about the site?" rows="4" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+<div style="display:flex;gap:8px;margin-top:12px;">
+<button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+<button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+</div>
+</div>
+<!-- Step 4: Coin/miner request -->
+<div class="sola-fb-step" data-step="4" style="display:none;">
+<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
+<textarea id="sola-fb-request" placeholder="Optional — skip if you want" rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+<div style="display:flex;gap:8px;margin-top:12px;">
+<button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+<button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+</div>
+</div>
+<!-- Step 5: Email + Name -->
+<div class="sola-fb-step" data-step="5" style="display:none;">
+<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
+<input id="sola-fb-name" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;" type="text"/>
+<input id="sola-fb-email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;" type="email"/>
+<div style="display:flex;gap:8px;margin-top:12px;">
+<button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+<button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
+</div>
+</div>
+<!-- Step 6: Thank you -->
+<div class="sola-fb-step" data-step="6" style="display:none;">
+<p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
+<p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
+</div>
+<!-- Error state -->
+<div id="sola-fb-error" style="display:none;">
+<p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
+</div>
+</div>
+<!-- Step indicator dots -->
+<div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
+<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
+<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+</div>
+</div>
+</div>
+<script>
+(function() {
+  // Don't show if user already dismissed or submitted THIS SESSION
+var widget = document.getElementById('sola-feedback-widget');
+  var bubble = document.getElementById('sola-fb-bubble');
+  var wizard = document.getElementById('sola-fb-wizard');
+  var video = document.getElementById('sola-fb-video');
+  var dots = document.querySelectorAll('.sola-fb-dot');
+
+  // Show bubble after 2 minutes
+  setTimeout(function() {
+    widget.style.display = 'block';
+    video.play().catch(function() {});
+  }, 120000);
+
+  // Click video to unmute and replay
+  video.addEventListener('click', function() {
+    video.muted = false;
+    video.currentTime = 0;
+    video.play().catch(function() {});
+  });
+
+  // "Sure!" \u2014 open wizard
+  document.getElementById('sola-fb-yes').addEventListener('click', function() {
+    bubble.style.display = 'none';
+    video.pause();
+    video.muted = true;
+    wizard.style.display = 'block';
+  });
+
+  // "Not now" \u2014 dismiss for this session
+  document.getElementById('sola-fb-no').addEventListener('click', function() {
+    widget.style.display = 'none';
+    video.pause();
+});
+
+  // Close wizard
+  document.getElementById('sola-fb-close').addEventListener('click', function() {
+    widget.style.display = 'none';
+});
+
+  // Step navigation
+  function showStep(n) {
+    var steps = document.querySelectorAll('.sola-fb-step');
+    for (var i = 0; i < steps.length; i++) {
+      steps[i].style.display = steps[i].getAttribute('data-step') == n ? 'block' : 'none';
+    }
+    // Update dots
+    for (var j = 0; j < dots.length; j++) {
+      dots[j].style.background = (j < n && n <= 5) ? 'var(--sola-gold, #D4AF37)' : 'var(--text-muted, #5a6a7a)';
+    }
+    // Hide dots on thank you
+    document.getElementById('sola-fb-dots').style.display = n == 6 ? 'none' : 'flex';
+  }
+
+  // Next buttons
+  document.querySelectorAll('.sola-fb-next').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var next = parseInt(this.getAttribute('data-next'));
+      // Validate step 1: source required
+      if (next == 2 && !document.getElementById('sola-fb-source').value) {
+        document.getElementById('sola-fb-source').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      // Validate step 2: reason required
+      if (next == 3 && !document.getElementById('sola-fb-reason').value.trim()) {
+        document.getElementById('sola-fb-reason').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      // Validate step 3: feedback required
+      if (next == 4 && !document.getElementById('sola-fb-message').value.trim()) {
+        document.getElementById('sola-fb-message').style.borderColor = 'var(--loss, #ff5252)';
+        return;
+      }
+      showStep(next);
+    });
+  });
+
+  // Back buttons
+  document.querySelectorAll('.sola-fb-back').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      showStep(parseInt(this.getAttribute('data-back')));
+    });
+  });
+
+  // Reset border on input
+  document.getElementById('sola-fb-source').addEventListener('change', function() {
+    this.style.borderColor = '';
+  });
+  document.getElementById('sola-fb-reason').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+  document.getElementById('sola-fb-message').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+
+  // Submit
+  document.getElementById('sola-fb-submit').addEventListener('click', function() {
+    var email = document.getElementById('sola-fb-email').value.trim();
+    if (!email) {
+      document.getElementById('sola-fb-email').style.borderColor = 'var(--loss, #ff5252)';
+      return;
+    }
+    document.getElementById('sola-fb-email').style.borderColor = '';
+    var btn = this;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    var data = {
+      access_key: 'f66dbe16-41bf-4d02-ac67-aab832222384',
+      subject: 'Sola Ray Feedback \u2014 via ' + document.getElementById('sola-fb-source').value,
+      from_name: 'Sola Ray Feedback Widget',
+      name: document.getElementById('sola-fb-name').value.trim() || 'Anonymous',
+      email: email,
+      found_us_via: document.getElementById('sola-fb-source').value,
+      what_brought_you: document.getElementById('sola-fb-reason').value.trim(),
+      feedback: document.getElementById('sola-fb-message').value.trim(),
+      feature_request: document.getElementById('sola-fb-request').value.trim() || 'None'
+    };
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(result) {
+      if (result.success) {
+        showStep(6);
+// Auto-close after 3 seconds
+        setTimeout(function() { widget.style.display = 'none'; }, 3000);
+      } else {
+        document.getElementById('sola-fb-error').style.display = 'block';
+        btn.textContent = 'Send Feedback';
+        btn.disabled = false;
+      }
+    })
+    .catch(function() {
+      document.getElementById('sola-fb-error').style.display = 'block';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
+    });
+  });
+
+  // Email border reset
+  document.getElementById('sola-fb-email').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+})();
+</script>
+<!-- END SOLA FEEDBACK POPUP WIDGET -->
+
 <section aria-label="Internal links" class="internal-links">
-  <h2 class="internal-links-title">Explore next</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Explore next</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="index.html">Return to mining calculator</a>
     <a href="miners.html">Explore hardware</a>
     <a href="pools.html">Compare pools</a>

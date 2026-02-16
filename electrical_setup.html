@@ -90,7 +90,7 @@
        ============================================ */
     .hamburger-menu {
       position: fixed;
-      top: 1rem;
+      top: 4.5rem;
       left: 1rem;
       z-index: 1000;
     }
@@ -109,12 +109,13 @@
       justify-content: center;
       gap: 5px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+      box-shadow: 0 0 10px var(--sola-teal-glow);
     }
     
     .hamburger-btn:hover {
       background: var(--sola-teal);
-      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
+      color: #000;
+      box-shadow: 0 0 20px var(--sola-teal-glow);
     }
     
     .hamburger-btn .bun-top {
@@ -187,7 +188,7 @@
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      border-bottom: 1px solid var(--border-gold);
     }
     
     .nav-drawer a, .nav-drawer .nav-disabled {
@@ -914,7 +915,7 @@
 <div id="main-content">
 <!-- Hamburger Menu -->
 <div class="hamburger-menu">
-<button aria-label="Open navigation menu" class="hamburger-btn" id="hamburger-btn">
+<button class="hamburger-btn" id="hamburger-btn" title="Menu">
 <span class="bun-top"></span>
 <span class="lettuce"></span>
 <span class="patty"></span>
@@ -939,11 +940,11 @@
 </div>
 </div>
 <div class="container">
-<h1 class="page-title">⚡ Home Mining Electrical Guide — 120V vs 240V Wiring, Breakers &amp; Safe Setup</h1>
+<h1 class="page-title" style="text-align:center;">⚡ Home Mining Electrical Guide — 120V vs 240V Wiring, Breakers &amp; Safe Setup</h1>
 <p class="page-subtitle">What you need to know before plugging in your first <span class="glossary-term" data-term="asic">ASIC</span></p>
 <section aria-label="Workflow links" class="internal-links">
-  <h2 class="internal-links-title">Workflow</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Workflow</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="miners.html">Hardware wattage requirements</a>
     <a href="aftermarket_firmware.html">Firmware undervolting options</a>
     <a href="remote_management.html">Temperature monitoring tools</a>
@@ -1284,13 +1285,7 @@
 <h3 style="color: #00CED1; font-size: 1.1rem; margin-bottom: 0.75rem;">Related Guides</h3>
 <p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">Browse the <a href="miners.html" style="color: var(--sola-teal, #00CED1);">ASIC miner catalog</a> to see power draw and voltage requirements for 100+ miners. Running a 240V miner on 120V? Learn about <a href="aftermarket_firmware.html" style="color: var(--sola-teal, #00CED1);">aftermarket firmware</a> and the Loki Kit. Find a <a href="pools.html" style="color: var(--sola-teal, #00CED1);">mining pool</a> that matches your hardware, and check live network stats in the <a href="datavault.html" style="color: var(--sola-teal, #00CED1);">Data Vault</a>. New to mining terms? The <a href="glossary.html" style="color: var(--sola-teal, #00CED1);">glossary</a> covers everything from hashrate to PPLNS.</p>
 </div>
-<div class="cta-section">
-<h3>Ready to Calculate Your Profits?</h3>
-<p class="cta-btn" index.html"="" style="color: var(--text-secondary); margin-bottom: 1.5rem;
-      &lt;a href=">⚡ Open Calculator
-</p></div>
-</div>
-</div><!-- End main-content -->
+<!-- End main-content -->
 <script>
     // Legal Modal Logic
     (function() {
@@ -1555,9 +1550,7 @@
 <script>
 (function() {
   // Don't show if user already dismissed or submitted THIS SESSION
-  if (sessionStorage.getItem('sola-fb-done')) return;
-
-  var widget = document.getElementById('sola-feedback-widget');
+var widget = document.getElementById('sola-feedback-widget');
   var bubble = document.getElementById('sola-fb-bubble');
   var wizard = document.getElementById('sola-fb-wizard');
   var video = document.getElementById('sola-fb-video');
@@ -1588,14 +1581,12 @@
   document.getElementById('sola-fb-no').addEventListener('click', function() {
     widget.style.display = 'none';
     video.pause();
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
+});
 
   // Close wizard
   document.getElementById('sola-fb-close').addEventListener('click', function() {
     widget.style.display = 'none';
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
+});
 
   // Step navigation
   function showStep(n) {
@@ -1685,8 +1676,7 @@
     .then(function(result) {
       if (result.success) {
         showStep(6);
-        sessionStorage.setItem('sola-fb-done', 'submitted');
-        // Auto-close after 3 seconds
+// Auto-close after 3 seconds
         setTimeout(function() { widget.style.display = 'none'; }, 3000);
       } else {
         document.getElementById('sola-fb-error').style.display = 'block';
@@ -1710,8 +1700,8 @@
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
 <section aria-label="Internal links" class="internal-links">
-  <h2 class="internal-links-title">Explore next</h2>
-  <p class="internal-links-list">
+  <h2 class="internal-links-title" style="text-align:center;">Explore next</h2>
+  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
     <a href="index.html">Return to mining calculator</a>
     <a href="miners.html">Explore hardware</a>
     <a href="pools.html">Compare pools</a>
