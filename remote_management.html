@@ -173,12 +173,14 @@
     }
     .nav-drawer.open { left: 0; }
     .nav-drawer h3 {
-      color: var(--sola-gold);
+      color: var(--sola-gold, #D4AF37);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
     .nav-drawer a {
       display: block;
@@ -480,6 +482,24 @@
       font-weight: 600;
       padding: 0.25rem 0;
     }
+  
+    /* ============================================
+       SITE FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(0, 206, 209, 0.2);
+      color: #8899aa;
+    }
+    footer a {
+      color: #00CED1;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #D4AF37;
+    }
   </style>
 </head>
 <body>
@@ -497,7 +517,7 @@
   
   <!-- Navigation Drawer -->
   <nav class="nav-drawer" id="nav-drawer">
-    <h3>Navigation</h3>
+    <h3>&#x26A1; NAVIGATION</h3>
     <a href="index.html">&#x26A1; Calculator</a>
     <a href="miners.html">&#x1F527; Miners</a>
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
@@ -516,17 +536,17 @@
     <!-- TABLE OF CONTENTS -->
     <h3 class="toc-heading">&#x1F4D1; What's on This Page</h3>
     <div class="toc-grid">
-      <a href="#why-remote" class="toc-card"><span class="toc-icon">💡</span><span class="toc-title">Why Remote Management Matters</span><span class="toc-desc">Downtime costs money — manage miners from your phone</span></a>
-      <a href="#vpn-access" class="toc-card"><span class="toc-icon">🔐</span><span class="toc-title">VPN Remote Access</span><span class="toc-desc">Tailscale &amp; Headscale setup for secure access anywhere</span></a>
-      <a href="#pi-router" class="toc-card"><span class="toc-icon">🍓</span><span class="toc-title">Raspberry Pi Subnet Router</span><span class="toc-desc">Reach every miner on your LAN through one device</span></a>
-      <a href="#smart-pdus" class="toc-card"><span class="toc-icon">🔌</span><span class="toc-title">Smart PDUs (30A / 40A / 240V)</span><span class="toc-desc">Remote power cycling — the #1 fix for frozen miners</span></a>
-      <a href="#smart-switches" class="toc-card"><span class="toc-icon">⚡</span><span class="toc-title">Smart Switches &amp; DIN Rail Relays</span><span class="toc-desc">Budget-friendly remote power control options</span></a>
-      <a href="#firmware-remote" class="toc-card"><span class="toc-icon">🧠</span><span class="toc-title">Firmware Remote Management</span><span class="toc-desc">How firmware choice affects your remote control options</span></a>
-      <a href="#mobile-ssh" class="toc-card"><span class="toc-icon">📱</span><span class="toc-title">Mobile SSH Clients</span><span class="toc-desc">Termius &amp; alternatives for managing miners on the go</span></a>
-      <a href="#safe-shutdown" class="toc-card"><span class="toc-icon">🛑</span><span class="toc-title">Safe Shutdown Methods</span><span class="toc-desc">7 methods ranked from gentlest to most aggressive</span></a>
-      <a href="#monitoring" class="toc-card"><span class="toc-icon">📊</span><span class="toc-title">Monitoring &amp; Automation</span><span class="toc-desc">AutoPing, alerts, and scheduled start/stop</span></a>
-      <a href="#security" class="toc-card"><span class="toc-icon">🛡️</span><span class="toc-title">Security Best Practices</span><span class="toc-desc">Lock down your remote access the right way</span></a>
-      <a href="#builds" class="toc-card"><span class="toc-icon">🏗️</span><span class="toc-title">Recommended Builds by Budget</span><span class="toc-desc">Complete setups from $50 starter to $300 full control</span></a>
+      <a href="#why-remote" class="toc-card"><span class="toc-icon">ðŸ’¡</span><span class="toc-title">Why Remote Management Matters</span><span class="toc-desc">Downtime costs money â€” manage miners from your phone</span></a>
+      <a href="#vpn-access" class="toc-card"><span class="toc-icon">ðŸ”</span><span class="toc-title">VPN Remote Access</span><span class="toc-desc">Tailscale &amp; Headscale setup for secure access anywhere</span></a>
+      <a href="#pi-router" class="toc-card"><span class="toc-icon">ðŸ“</span><span class="toc-title">Raspberry Pi Subnet Router</span><span class="toc-desc">Reach every miner on your LAN through one device</span></a>
+      <a href="#smart-pdus" class="toc-card"><span class="toc-icon">ðŸ”Œ</span><span class="toc-title">Smart PDUs (30A / 40A / 240V)</span><span class="toc-desc">Remote power cycling â€” the #1 fix for frozen miners</span></a>
+      <a href="#smart-switches" class="toc-card"><span class="toc-icon">âš¡</span><span class="toc-title">Smart Switches &amp; DIN Rail Relays</span><span class="toc-desc">Budget-friendly remote power control options</span></a>
+      <a href="#firmware-remote" class="toc-card"><span class="toc-icon">ðŸ§ </span><span class="toc-title">Firmware Remote Management</span><span class="toc-desc">How firmware choice affects your remote control options</span></a>
+      <a href="#mobile-ssh" class="toc-card"><span class="toc-icon">ðŸ“±</span><span class="toc-title">Mobile SSH Clients</span><span class="toc-desc">Termius &amp; alternatives for managing miners on the go</span></a>
+      <a href="#safe-shutdown" class="toc-card"><span class="toc-icon">ðŸ›‘</span><span class="toc-title">Safe Shutdown Methods</span><span class="toc-desc">7 methods ranked from gentlest to most aggressive</span></a>
+      <a href="#monitoring" class="toc-card"><span class="toc-icon">ðŸ“Š</span><span class="toc-title">Monitoring &amp; Automation</span><span class="toc-desc">AutoPing, alerts, and scheduled start/stop</span></a>
+      <a href="#security" class="toc-card"><span class="toc-icon">ðŸ›¡ï¸</span><span class="toc-title">Security Best Practices</span><span class="toc-desc">Lock down your remote access the right way</span></a>
+      <a href="#builds" class="toc-card"><span class="toc-icon">ðŸ—ï¸</span><span class="toc-title">Recommended Builds by Budget</span><span class="toc-desc">Complete setups from $50 starter to $300 full control</span></a>
     </div>
 
     <!-- ========================================
@@ -656,7 +676,7 @@
         <span class="cmd-comment"># 7. Authenticate: copy the URL it gives you, open in browser, sign in</span><br><br>
         
         <span class="cmd-comment"># 8. Go to Tailscale admin console (admin.tailscale.com)</span><br>
-        <span class="cmd-comment">#    Find your Pi â†’ approve the advertised subnet routes</span><br><br>
+        <span class="cmd-comment">#    Find your Pi Ã¢â€ â€™ approve the advertised subnet routes</span><br><br>
         
         <span class="cmd-comment"># 9. Enable Tailscale to start on boot</span><br>
         <span class="cmd-prompt">$</span> sudo systemctl enable tailscaled
@@ -919,7 +939,7 @@
         </ul>
       </div>
       
-      <p><strong>Why Termius stands out for miners:</strong> The <strong>snippets feature</strong> is the killer app. You save commands like <code>poweroff</code>, <code>/etc/init.d/bosminer restart</code>, or <code>cat /tmp/bosminer.log</code> as named snippets, then execute them with a single tap instead of typing on a phone keyboard. When you're at work and need to restart a frozen S19, tap the miner host â†’ tap your "restart" snippet â†’ done in 5 seconds.</p>
+      <p><strong>Why Termius stands out for miners:</strong> The <strong>snippets feature</strong> is the killer app. You save commands like <code>poweroff</code>, <code>/etc/init.d/bosminer restart</code>, or <code>cat /tmp/bosminer.log</code> as named snippets, then execute them with a single tap instead of typing on a phone keyboard. When you're at work and need to restart a frozen S19, tap the miner host Ã¢â€ â€™ tap your "restart" snippet Ã¢â€ â€™ done in 5 seconds.</p>
       
       <div class="cmd-block">
         <span class="cmd-comment"># Example Termius snippets to save for mining:</span><br><br>
@@ -929,7 +949,7 @@
         <span class="cmd-prompt">$</span> /etc/init.d/bosminer stop<br><br>
         <span class="cmd-comment"># Snippet: "Start Mining" (resume daemon)</span><br>
         <span class="cmd-prompt">$</span> /etc/init.d/bosminer start<br><br>
-        <span class="cmd-comment"># Snippet: "Graceful Shutdown" (stop mining â†’ fans cool â†’ power off)</span><br>
+        <span class="cmd-comment"># Snippet: "Graceful Shutdown" (stop mining Ã¢â€ â€™ fans cool Ã¢â€ â€™ power off)</span><br>
         <span class="cmd-prompt">$</span> poweroff<br><br>
         <span class="cmd-comment"># Snippet: "Reboot Miner"</span><br>
         <span class="cmd-prompt">$</span> reboot<br><br>
@@ -1060,7 +1080,7 @@
 
       <div class="info-box">
         <p><strong>Method 3: Web Interface Reboot</strong></p>
-        <p>Log into your miner's web dashboard at its local IP address. Navigate to <strong>System â†’ Reboot</strong> (on S19 series) or <strong>System â†’ Reboot</strong> (on S17 series). This performs a clean reboot. It doesn't fully power off the miner &mdash; it restarts &mdash; but it's a clean restart that's gentler than a hard power cut.</p>
+        <p>Log into your miner's web dashboard at its local IP address. Navigate to <strong>System Ã¢â€ â€™ Reboot</strong> (on S19 series) or <strong>System Ã¢â€ â€™ Reboot</strong> (on S17 series). This performs a clean reboot. It doesn't fully power off the miner &mdash; it restarts &mdash; but it's a clean restart that's gentler than a hard power cut.</p>
         <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">Available on all Antminers with stock or custom firmware. Works from any browser on your network (or through Tailscale remotely). No SSH knowledge needed.</p>
       </div>
 
@@ -1303,5 +1323,10 @@
       }
     });
   </script>
+  <footer>
+    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
+    <p><span style="white-space:nowrap;">&#x1F527; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
+    <p style="margin-top:0.5rem;"><a href="index.html">&larr; Back to Calculator</a></p>
+  </footer>
 </body>
 </html>
