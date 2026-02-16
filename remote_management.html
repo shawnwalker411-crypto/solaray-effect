@@ -88,7 +88,7 @@
     
     h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
     
-    .container { max-width: 850px; margin: 0 auto; padding: 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
     
     /* ============================================
        HAMBURGER MENU (matches site exactly)
@@ -311,6 +311,9 @@
       gap: 1.5rem;
       margin: 1.5rem 0;
     }
+    .compare-grid.stacked {
+      grid-template-columns: 1fr;
+    }
     .compare-card {
       background: var(--bg-secondary);
       border-radius: 10px;
@@ -449,6 +452,192 @@
     .toc-card .toc-desc { display: block; color: var(--text-secondary); font-size: 0.82rem; margin-top: 0.25rem; }
     
     /* ============================================
+       COLLAPSIBLE CODE BLOCKS (details/summary)
+       ============================================ */
+    .code-collapse {
+      margin: 1rem 0;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0d1117;
+    }
+    .code-collapse summary {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      color: var(--sola-teal);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: rgba(0, 206, 209, 0.08);
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s ease;
+      list-style: none;
+      user-select: none;
+    }
+    .code-collapse summary::-webkit-details-marker { display: none; }
+    .code-collapse summary::before {
+      content: "▶";
+      font-size: 0.7rem;
+      margin-right: 0.5rem;
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+    .code-collapse[open] summary::before { transform: rotate(90deg); }
+    .code-collapse[open] summary { border-bottom: 1px solid #30363d; }
+    .code-collapse summary:hover { background: rgba(0, 206, 209, 0.14); }
+    .code-collapse .cmd-block { margin: 0; border: none; border-radius: 0; }
+    .code-collapse .code-wrapper { position: relative; }
+
+    /* ============================================
+       DOLLY THE CLONE SHEEP — COPY BUTTON
+       ============================================ */
+    .dolly-copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      z-index: 5;
+      font-family: 'Roboto', sans-serif;
+    }
+    .dolly-copy-btn:hover {
+      background: rgba(212, 175, 55, 0.25);
+      border-color: var(--sola-gold);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 12px rgba(212, 175, 55, 0.2);
+    }
+    .dolly-copy-btn:active { transform: scale(0.96); }
+    .dolly-copy-btn .dolly-sheep {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .dolly-copy-btn .dolly-sheep .sheep-clone {
+      opacity: 0.4;
+      transition: all 0.35s ease;
+    }
+    .dolly-copy-btn:hover .dolly-sheep .sheep-clone { opacity: 0.7; }
+    .dolly-copy-btn .dolly-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--sola-gold);
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .dolly-copy-btn.cloned {
+      background: rgba(0, 230, 118, 0.15);
+      border-color: var(--v120);
+    }
+    .dolly-copy-btn.cloned .dolly-sheep .sheep-clone { opacity: 1; }
+    .dolly-copy-btn.cloned .dolly-label { color: var(--v120); }
+
+    /* ============================================
+       TWO-COLUMN BULLET LISTS
+       ============================================ */
+    .two-col-list {
+      columns: 2;
+      column-gap: 2rem;
+    }
+    .two-col-list li { break-inside: avoid; }
+
+    /* ============================================
+       SHUTDOWN ACCORDION
+       ============================================ */
+    .shutdown-accordion { margin: 1rem 0; }
+    .shutdown-accordion details {
+      background: rgba(0, 206, 209, 0.06);
+      border: 1px solid rgba(0, 206, 209, 0.15);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+    .shutdown-accordion details[open] {
+      border-color: rgba(0, 206, 209, 0.3);
+      background: rgba(0, 206, 209, 0.1);
+    }
+    .shutdown-accordion details summary {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      list-style: none;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+    .shutdown-accordion details summary::-webkit-details-marker { display: none; }
+    .shutdown-accordion details summary::before {
+      content: "▶";
+      font-size: 0.65rem;
+      margin-right: 0.65rem;
+      color: var(--sola-teal);
+      transition: transform 0.2s ease;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .shutdown-accordion details[open] summary::before { transform: rotate(90deg); }
+    .shutdown-accordion details summary:hover { background: rgba(0, 206, 209, 0.08); }
+    .shutdown-accordion .accordion-body {
+      padding: 0 1.25rem 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .shutdown-accordion .accordion-body p {
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .shutdown-accordion .accordion-body p:last-child { margin-bottom: 0; }
+    .shutdown-accordion .accordion-body .cmd-block { margin: 0.75rem 0; }
+    .shutdown-accordion .accordion-body .code-collapse { margin: 0.75rem 0; }
+    .shutdown-accordion .method-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .method-tag.best { background: rgba(0, 230, 118, 0.15); color: var(--v120); border: 1px solid var(--v120); }
+    .method-tag.good { background: rgba(74, 158, 255, 0.15); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+    .method-tag.ok { background: rgba(212, 175, 55, 0.15); color: var(--sola-gold); border: 1px solid var(--sola-gold); }
+    .method-tag.last { background: rgba(255, 82, 82, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+
+    /* ============================================
+       BUILDS 3-COLUMN GRID
+       ============================================ */
+    .builds-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* ============================================
+       RESPONSIVE ADDITIONS
+       ============================================ */
+    @media (max-width: 900px) {
+      .builds-grid { grid-template-columns: 1fr; }
+      .two-col-list { columns: 1; }
+    }
+
+    /* ============================================
        RESPONSIVE
        ============================================ */
     @media (max-width: 600px) {
@@ -555,7 +744,7 @@
       <p>Your ASIC miner doesn't care that you're at work, on vacation, or sleeping. When a miner freezes, overheats, or drops off the pool, every minute of downtime is lost revenue. Remote management lets you fix problems from your phone without driving home.</p>
       
       <p>Here's what you can do with a proper remote setup:</p>
-      <ul>
+      <ul class="two-col-list">
         <li><strong>Power cycle a frozen miner</strong> &mdash; the #1 fix for most ASIC issues</li>
         <li><strong>Check hashrate and temperatures</strong> from your phone at work</li>
         <li><strong>Switch pools or adjust settings</strong> through the miner's web interface</li>
@@ -649,36 +838,45 @@
 
       <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Setup Steps</h3>
       
-      <div class="cmd-block">
-        <span class="cmd-comment"># 1. Flash Raspberry Pi OS Lite (no desktop needed) to your SD card</span><br>
-        <span class="cmd-comment"># Use Raspberry Pi Imager - enable SSH in the settings before flashing</span><br><br>
-        
-        <span class="cmd-comment"># 2. Boot the Pi, connect via SSH from your home computer</span><br>
-        <span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbabb29ba9baa8abb9bea9a9a2abb2f5b7b4b8bab7">[email&#160;protected]</a><br><br>
-        
-        <span class="cmd-comment"># 3. Update the system</span><br>
-        <span class="cmd-prompt">$</span> sudo apt update && sudo apt upgrade -y<br><br>
-        
-        <span class="cmd-comment"># 4. Install Tailscale</span><br>
-        <span class="cmd-prompt">$</span> curl -fsSL https://tailscale.com/install.sh | sh<br><br>
-        
-        <span class="cmd-comment"># 5. Enable IP forwarding (required for subnet routing)</span><br>
-        <span class="cmd-prompt">$</span> echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf<br>
-        <span class="cmd-prompt">$</span> echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.conf<br>
-        <span class="cmd-prompt">$</span> sudo sysctl -p<br><br>
-        
-        <span class="cmd-comment"># 6. Start Tailscale as a subnet router</span><br>
-        <span class="cmd-comment"># Replace 192.168.1.0/24 with YOUR home network range</span><br>
-        <span class="cmd-prompt">$</span> sudo tailscale up --advertise-routes=192.168.1.0/24<br><br>
-        
-        <span class="cmd-comment"># 7. Authenticate: copy the URL it gives you, open in browser, sign in</span><br><br>
-        
-        <span class="cmd-comment"># 8. Go to Tailscale admin console (admin.tailscale.com)</span><br>
-        <span class="cmd-comment">#    Find your Pi &rarr; approve the advertised subnet routes</span><br><br>
-        
-        <span class="cmd-comment"># 9. Enable Tailscale to start on boot</span><br>
-        <span class="cmd-prompt">$</span> sudo systemctl enable tailscaled
-      </div>
+      <details class="code-collapse">
+        <summary>&#x1F4CB; Pi Subnet Router Setup Commands &mdash; Copy &amp; Paste Ready</summary>
+        <div class="code-wrapper">
+          <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="pi-setup">
+            <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+            <span class="dolly-label">Clone</span>
+          </button>
+          <div class="cmd-block" id="pi-setup">
+<span class="cmd-comment"># 1. Flash Raspberry Pi OS Lite (no desktop needed) to your SD card</span>
+<span class="cmd-comment"># Use Raspberry Pi Imager - enable SSH in the settings before flashing</span>
+
+<span class="cmd-comment"># 2. Boot the Pi, connect via SSH from your home computer</span>
+<span class="cmd-prompt">$</span> ssh pi@raspberrypi.local
+
+<span class="cmd-comment"># 3. Update the system</span>
+<span class="cmd-prompt">$</span> sudo apt update &amp;&amp; sudo apt upgrade -y
+
+<span class="cmd-comment"># 4. Install Tailscale</span>
+<span class="cmd-prompt">$</span> curl -fsSL https://tailscale.com/install.sh | sh
+
+<span class="cmd-comment"># 5. Enable IP forwarding (required for subnet routing)</span>
+<span class="cmd-prompt">$</span> echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf
+<span class="cmd-prompt">$</span> echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.conf
+<span class="cmd-prompt">$</span> sudo sysctl -p
+
+<span class="cmd-comment"># 6. Start Tailscale as a subnet router</span>
+<span class="cmd-comment"># Replace 192.168.1.0/24 with YOUR home network range</span>
+<span class="cmd-prompt">$</span> sudo tailscale up --advertise-routes=192.168.1.0/24
+
+<span class="cmd-comment"># 7. Authenticate: copy the URL it gives you, open in browser, sign in</span>
+
+<span class="cmd-comment"># 8. Go to Tailscale admin console (admin.tailscale.com)</span>
+<span class="cmd-comment">#    Find your Pi &rarr; approve the advertised subnet routes</span>
+
+<span class="cmd-comment"># 9. Enable Tailscale to start on boot</span>
+<span class="cmd-prompt">$</span> sudo systemctl enable tailscaled
+          </div>
+        </div>
+      </details>
       
       <div class="info-box">
         <p><strong>How to find your network range:</strong> On your home PC, run <code>ipconfig</code> (Windows) or <code>ifconfig</code> (Mac/Linux). If your IP is 192.168.1.x, your range is <code>192.168.1.0/24</code>. If it's 192.168.0.x, use <code>192.168.0.0/24</code>. If it's 10.0.0.x, use <code>10.0.0.0/24</code>.</p>
@@ -703,7 +901,7 @@
       <p>A regular (dumb) metered PDU shows you watts and amps on a screen. A smart PDU connects to your network and lets you do all of that from your phone &mdash; plus automatically reboot a miner when it stops responding.</p>
       
       <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">What to Look For in a Mining PDU</h3>
-      <ul>
+      <ul class="two-col-list">
         <li><strong>Voltage rating:</strong> 240V for most ASIC miners. 120V only for small miners (Goldshell Mini series, lottery miners)</li>
         <li><strong>Amperage:</strong> 30A is the sweet spot for home mining (7,200W max / 5,760W at 80% rule). 40A+ exists for bigger setups</li>
         <li><strong>Plug type:</strong> L6-30P for 30A/240V circuits (the locking plug that goes into an L6-30R outlet)</li>
@@ -896,14 +1094,25 @@
       <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">SSH Access Through Tailscale</h3>
       <p>With Tailscale + Pi subnet router running, you can SSH into miners running custom firmware from anywhere. On your phone, use an app like Termius (iOS/Android). On your laptop, just open a terminal:</p>
       
-      <div class="cmd-block">
-        <span class="cmd-comment"># SSH into a miner running Braiins OS or LuxOS</span><br>
-        <span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="473528283307767e756976717f6976697277">[email&#160;protected]</a><br><br>
-        <span class="cmd-comment"># Check miner status via Braiins OS API</span><br>
-        <span class="cmd-prompt">$</span> bosminer status<br><br>
-        <span class="cmd-comment"># Restart mining via SSH</span><br>
-        <span class="cmd-prompt">$</span> /etc/init.d/bosminer restart
-      </div>
+      <details class="code-collapse">
+        <summary>&#x1F4CB; SSH Commands for Custom Firmware &mdash; Copy &amp; Paste Ready</summary>
+        <div class="code-wrapper">
+          <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="ssh-firmware">
+            <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+            <span class="dolly-label">Clone</span>
+          </button>
+          <div class="cmd-block" id="ssh-firmware">
+<span class="cmd-comment"># SSH into a miner running Braiins OS or LuxOS</span>
+<span class="cmd-prompt">$</span> ssh root@192.168.1.50
+
+<span class="cmd-comment"># Check miner status via Braiins OS API</span>
+<span class="cmd-prompt">$</span> bosminer status
+
+<span class="cmd-comment"># Restart mining via SSH</span>
+<span class="cmd-prompt">$</span> /etc/init.d/bosminer restart
+          </div>
+        </div>
+      </details>
       
       <div class="warning-box">
         <p><strong>Known issue:</strong> LuxOS shutdown command via SSH doesn't always restart the miner properly &mdash; it may shut down without coming back up. For reliable remote restarts, a smart PDU with power cycling capability is the better option. SSH is great for monitoring and configuration changes, but for hard power cycles, use your PDU.</p>
@@ -939,21 +1148,36 @@
       
       <p><strong>Why Termius stands out for miners:</strong> The <strong>snippets feature</strong> is the killer app. You save commands like <code>poweroff</code>, <code>/etc/init.d/bosminer restart</code>, or <code>cat /tmp/bosminer.log</code> as named snippets, then execute them with a single tap instead of typing on a phone keyboard. When you're at work and need to restart a frozen S19, tap the miner host &rarr; tap your "restart" snippet &rarr; done in 5 seconds.</p>
       
-      <div class="cmd-block">
-        <span class="cmd-comment"># Example Termius snippets to save for mining:</span><br><br>
-        <span class="cmd-comment"># Snippet: "Check Status" (Braiins OS)</span><br>
-        <span class="cmd-prompt">$</span> bosminer status<br><br>
-        <span class="cmd-comment"># Snippet: "Stop Mining" (stop daemon, fans keep running)</span><br>
-        <span class="cmd-prompt">$</span> /etc/init.d/bosminer stop<br><br>
-        <span class="cmd-comment"># Snippet: "Start Mining" (resume daemon)</span><br>
-        <span class="cmd-prompt">$</span> /etc/init.d/bosminer start<br><br>
-        <span class="cmd-comment"># Snippet: "Graceful Shutdown" (stop mining &rarr; fans cool &rarr; power off)</span><br>
-        <span class="cmd-prompt">$</span> poweroff<br><br>
-        <span class="cmd-comment"># Snippet: "Reboot Miner"</span><br>
-        <span class="cmd-prompt">$</span> reboot<br><br>
-        <span class="cmd-comment"># Snippet: "Check Temps" (Braiins OS)</span><br>
-        <span class="cmd-prompt">$</span> cat /tmp/bosminer.log | grep -i temp | tail -5
-      </div>
+      <details class="code-collapse">
+        <summary>&#x1F4CB; Termius Snippet Commands &mdash; Save These for One-Tap Mining Control</summary>
+        <div class="code-wrapper">
+          <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="termius-snippets">
+            <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+            <span class="dolly-label">Clone</span>
+          </button>
+          <div class="cmd-block" id="termius-snippets">
+<span class="cmd-comment"># Example Termius snippets to save for mining:</span>
+
+<span class="cmd-comment"># Snippet: "Check Status" (Braiins OS)</span>
+<span class="cmd-prompt">$</span> bosminer status
+
+<span class="cmd-comment"># Snippet: "Stop Mining" (stop daemon, fans keep running)</span>
+<span class="cmd-prompt">$</span> /etc/init.d/bosminer stop
+
+<span class="cmd-comment"># Snippet: "Start Mining" (resume daemon)</span>
+<span class="cmd-prompt">$</span> /etc/init.d/bosminer start
+
+<span class="cmd-comment"># Snippet: "Graceful Shutdown" (stop mining &rarr; fans cool &rarr; power off)</span>
+<span class="cmd-prompt">$</span> poweroff
+
+<span class="cmd-comment"># Snippet: "Reboot Miner"</span>
+<span class="cmd-prompt">$</span> reboot
+
+<span class="cmd-comment"># Snippet: "Check Temps" (Braiins OS)</span>
+<span class="cmd-prompt">$</span> cat /tmp/bosminer.log | grep -i temp | tail -5
+          </div>
+        </div>
+      </details>
       
       <p><strong>Setup for miners:</strong> Install Termius on your phone. Create a new host for each miner &mdash; enter the local IP (like <code>192.168.1.50</code>), port 22, username <code>root</code>, and your miner's password. With Tailscale running, these local IPs work from anywhere. Save your most-used commands as snippets. That's it &mdash; you're managing miners from your phone.</p>
 
@@ -961,71 +1185,63 @@
         <p><strong>iOS limitation:</strong> iOS kills background SSH sessions after about 3 minutes. This is an Apple restriction, not a Termius bug. Keep your commands quick &mdash; check status, restart, done. For long-running monitoring, use your web-based tools (pool dashboards, MinerStat ASIC Hub) instead.</p>
       </div>
 
-      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Free Alternatives</h3>
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">SSH Client Comparison</h3>
       
-      <div class="compare-grid">
-        <div class="compare-card option-a">
-          <h3>Termius (Recommended)</h3>
-          <ul>
-            <li><strong>Platforms:</strong> iOS, Android, Windows, Mac, Linux</li>
-            <li><strong>Free tier:</strong> Yes &mdash; SSH, SFTP, snippets, multi-tab</li>
-            <li><strong>Paid:</strong> $10/mo Pro (syncs hosts across devices)</li>
-            <li><strong>Best for:</strong> Most miners. Clean UI, snippets, cross-platform</li>
-          </ul>
-        </div>
-        
-        <div class="compare-card option-b">
-          <h3>WebSSH (iOS)</h3>
-          <ul>
-            <li><strong>Platforms:</strong> iOS only</li>
-            <li><strong>Free tier:</strong> Yes with ads</li>
-            <li><strong>Paid:</strong> $2.99/mo or $29.99 one-time</li>
-            <li><strong>Best for:</strong> iPhone users who want a simple, no-frills option</li>
-          </ul>
-        </div>
-        
-        <div class="compare-card option-c">
-          <h3>NeoServer (iOS/Mac)</h3>
-          <ul>
-            <li><strong>Platforms:</strong> iOS, iPadOS, macOS</li>
-            <li><strong>Free tier:</strong> Limited</li>
-            <li><strong>Paid:</strong> $19.99 lifetime or $5.99/yr</li>
-            <li><strong>Best for:</strong> Apple users managing NAS + miners. Batch script execution across multiple hosts</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="compare-grid" style="margin-top: 1rem;">
-        <div class="compare-card option-a">
-          <h3>JuiceSSH (Android)</h3>
-          <ul>
-            <li><strong>Platforms:</strong> Android only</li>
-            <li><strong>Free tier:</strong> Yes &mdash; full SSH client</li>
-            <li><strong>Paid:</strong> $4.99 one-time Pro</li>
-            <li><strong>Best for:</strong> Android users who want a lightweight, free SSH client</li>
-          </ul>
-        </div>
-        
-        <div class="compare-card option-b">
-          <h3>PuTTY (Desktop)</h3>
-          <ul>
-            <li><strong>Platforms:</strong> Windows, Linux</li>
-            <li><strong>Free tier:</strong> Completely free, open-source</li>
-            <li><strong>Paid:</strong> N/A</li>
-            <li><strong>Best for:</strong> Windows desktop use. No mobile version. Been around forever</li>
-          </ul>
-        </div>
-        
-        <div class="compare-card option-c">
-          <h3>Built-in Terminal</h3>
-          <ul>
-            <li><strong>Platforms:</strong> Mac, Linux, Windows (PowerShell)</li>
-            <li><strong>Free tier:</strong> Built into your OS</li>
-            <li><strong>Paid:</strong> N/A</li>
-            <li><strong>Best for:</strong> Desktop/laptop at home. Just type <code>ssh root@IP</code></li>
-          </ul>
-        </div>
-      </div>
+      <table class="hw-table">
+        <thead>
+          <tr>
+            <th>App</th>
+            <th>Platforms</th>
+            <th>Free Tier</th>
+            <th>Paid</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="best-pick"><a href="https://termius.com" target="_blank" rel="noopener" style="color: var(--v120);">Termius</a> &#x2B50;</td>
+            <td>iOS, Android, Win, Mac, Linux</td>
+            <td>SSH, SFTP, snippets, multi-tab</td>
+            <td>$10/mo Pro</td>
+            <td>Most miners &mdash; clean UI, snippets, cross-platform</td>
+          </tr>
+          <tr>
+            <td>WebSSH</td>
+            <td>iOS only</td>
+            <td>Yes (with ads)</td>
+            <td>$2.99/mo or $29.99 once</td>
+            <td>iPhone users wanting simple &amp; no-frills</td>
+          </tr>
+          <tr>
+            <td>NeoServer</td>
+            <td>iOS, iPadOS, macOS</td>
+            <td>Limited</td>
+            <td>$19.99 lifetime or $5.99/yr</td>
+            <td>Apple users managing NAS + miners</td>
+          </tr>
+          <tr>
+            <td><a href="https://juicessh.com" target="_blank" rel="noopener" style="color: var(--sola-teal);">JuiceSSH</a></td>
+            <td>Android only</td>
+            <td>Full SSH client</td>
+            <td>$4.99 one-time</td>
+            <td>Android users &mdash; lightweight &amp; free</td>
+          </tr>
+          <tr>
+            <td>PuTTY</td>
+            <td>Windows, Linux</td>
+            <td>100% free, open-source</td>
+            <td>N/A</td>
+            <td>Windows desktop &mdash; the classic</td>
+          </tr>
+          <tr>
+            <td>Built-in Terminal</td>
+            <td>Mac, Linux, Win (PowerShell)</td>
+            <td>Built into your OS</td>
+            <td>N/A</td>
+            <td>Desktop/laptop &mdash; just type <code>ssh root@IP</code></td>
+          </tr>
+        </tbody>
+      </table>
 
       <div class="gold-box">
         <p><strong>Our pick:</strong> Termius free on your phone + built-in terminal on your laptop. The Termius Pro subscription ($10/mo) is only worth it if you need host syncing across many devices &mdash; most home miners with 1-5 rigs don't need it. The free tier handles everything.</p>
@@ -1049,60 +1265,104 @@
 
       <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">The Shutdown Methods &mdash; Gentlest to Most Aggressive</h3>
 
-      <div class="info-box">
-        <p><strong>Method 1: SSH <code>poweroff</code> Command (Best Practice)</strong></p>
-        <p>SSH into the miner and type <code>poweroff</code>. This stops the mining process, lets the fans keep running for a brief cooldown, then halts the system. Wait 2-3 minutes after the command for chips to cool, then cut power at the breaker or PDU.</p>
-        <div class="cmd-block" style="margin: 0.75rem 0;">
-          <span class="cmd-comment"># Graceful shutdown via SSH (works on all Antminers)</span><br>
-          <span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f684999982b6c7cfc4d8c7c0ced8c7d8c3c6">[email&#160;protected]</a><br>
-          <span class="cmd-prompt">root@antminer:~#</span> poweroff
-        </div>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">After running <code>poweroff</code>, fans won't stop immediately &mdash; they keep spinning on residual power for a few moments. When you notice the miner has cooled down (hashboards no longer blowing hot air), it's safe to cut power. This is the method Bitmain actually recommends.</p>
-      </div>
+      <div class="shutdown-accordion">
+        <!-- Method 1 -->
+        <details open>
+          <summary>Method 1: SSH <code>poweroff</code> Command <span class="method-tag best">Best Practice</span></summary>
+          <div class="accordion-body">
+            <p>SSH into the miner and type <code>poweroff</code>. This stops the mining process, lets the fans keep running for a brief cooldown, then halts the system. Wait 2-3 minutes after the command for chips to cool, then cut power at the breaker or PDU.</p>
+            <details class="code-collapse">
+              <summary>&#x1F4CB; SSH Poweroff Commands</summary>
+              <div class="code-wrapper">
+                <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="shutdown-m1">
+                  <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+                  <span class="dolly-label">Clone</span>
+                </button>
+                <div class="cmd-block" id="shutdown-m1">
+<span class="cmd-comment"># Graceful shutdown via SSH (works on all Antminers)</span>
+<span class="cmd-prompt">$</span> ssh root@192.168.1.50
+<span class="cmd-prompt">root@antminer:~#</span> poweroff
+                </div>
+              </div>
+            </details>
+            <p style="font-size: 0.9rem;">After running <code>poweroff</code>, fans won't stop immediately &mdash; they keep spinning on residual power. When the miner has cooled down (hashboards no longer blowing hot air), it's safe to cut power. This is the method Bitmain recommends.</p>
+          </div>
+        </details>
 
-      <div class="info-box">
-        <p><strong>Method 2: Stop the Mining Daemon Only (Keeps Miner On)</strong></p>
-        <p>Instead of shutting down the whole system, you can stop just the mining process. The miner stays on, fans keep running, and chips cool down completely &mdash; but it's no longer mining or drawing full power. Perfect for scheduled solar cutoff times when you want to resume later.</p>
-        <div class="cmd-block" style="margin: 0.75rem 0;">
-          <span class="cmd-comment"># Stop mining on stock Antminer firmware (S19 series)</span><br>
-          <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bmminer.sh stop<br><br>
-          <span class="cmd-comment"># Stop mining on L3++ (stock firmware)</span><br>
-          <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh stop<br><br>
-          <span class="cmd-comment"># Stop mining on Braiins OS</span><br>
-          <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer stop<br><br>
-          <span class="cmd-comment"># Resume mining later</span><br>
-          <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer start
-        </div>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"><strong>Note:</strong> The daemon stop/start isn't always 100% reliable. If the miner doesn't resume properly, a <code>reboot</code> command or power cycle will fix it.</p>
-      </div>
+        <!-- Method 2 -->
+        <details>
+          <summary>Method 2: Stop the Mining Daemon Only (Keeps Miner On) <span class="method-tag best">Best Practice</span></summary>
+          <div class="accordion-body">
+            <p>Stop just the mining process. The miner stays on, fans keep running, chips cool down completely &mdash; but it's no longer mining or drawing full power. Perfect for scheduled solar cutoff times when you want to resume later.</p>
+            <details class="code-collapse">
+              <summary>&#x1F4CB; Stop/Start Daemon Commands by Firmware</summary>
+              <div class="code-wrapper">
+                <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="shutdown-m2">
+                  <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+                  <span class="dolly-label">Clone</span>
+                </button>
+                <div class="cmd-block" id="shutdown-m2">
+<span class="cmd-comment"># Stop mining on stock Antminer firmware (S19 series)</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bmminer.sh stop
 
-      <div class="info-box">
-        <p><strong>Method 3: Web Interface Reboot</strong></p>
-        <p>Log into your miner's web dashboard at its local IP address. Navigate to <strong>System &rarr; Reboot</strong> (on S19 series) or <strong>System &rarr; Reboot</strong> (on S17 series). This performs a clean reboot. It doesn't fully power off the miner &mdash; it restarts &mdash; but it's a clean restart that's gentler than a hard power cut.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">Available on all Antminers with stock or custom firmware. Works from any browser on your network (or through Tailscale remotely). No SSH knowledge needed.</p>
-      </div>
+<span class="cmd-comment"># Stop mining on L3++ (stock firmware)</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh stop
 
-      <div class="info-box">
-        <p><strong>Method 4: Firmware API Commands</strong></p>
-        <p>LuxOS, Braiins OS, and Vnish all expose API endpoints for remote control. These can be scripted for automation &mdash; stop mining at 7am when peak rates kick in, start at 9pm when free power begins.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">See our <a href="aftermarket_firmware.html">Firmware Guide</a> for API details on each firmware. LuxOS has 45+ API commands including pause/resume mining.</p>
-      </div>
+<span class="cmd-comment"># Stop mining on Braiins OS</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer stop
 
-      <div class="info-box">
-        <p><strong>Method 5: Smart PDU Scheduled Power Cut</strong></p>
-        <p>Set your smart PDU (Synaccess SynLink, Altair Virgo, etc.) to cut power on a daily schedule matching your electricity rates. For Sola Ray Effect's setup: power on at 9:00 PM (free power starts), power off at 6:50 AM (10-minute buffer before peak rates at 7:00 AM).</p>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"><strong>Best practice:</strong> Combine methods &mdash; use a cron job or script to SSH <code>poweroff</code> 5 minutes before the PDU cuts power. This gives the miner a graceful shutdown followed by a hard cutoff as a safety net.</p>
-      </div>
+<span class="cmd-comment"># Resume mining later</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer start
+                </div>
+              </div>
+            </details>
+            <p style="font-size: 0.9rem;"><strong>Note:</strong> The daemon stop/start isn't always 100% reliable. If the miner doesn't resume properly, a <code>reboot</code> command or power cycle will fix it.</p>
+          </div>
+        </details>
 
-      <div class="info-box">
-        <p><strong>Method 6: Circuit Breaker</strong></p>
-        <p>Walk to your breaker panel and flip the breaker off. Cleaner than yanking a plug because the PSU handles a breaker trip more gracefully than a sudden cord disconnect (no strain on connectors, no arc at the plug). Still a hard cut though &mdash; use SSH shutdown first if possible.</p>
-      </div>
+        <!-- Method 3 -->
+        <details>
+          <summary>Method 3: Web Interface Reboot <span class="method-tag good">Good</span></summary>
+          <div class="accordion-body">
+            <p>Log into your miner's web dashboard at its local IP address. Navigate to <strong>System &rarr; Reboot</strong>. This performs a clean reboot &mdash; it doesn't fully power off the miner, but it's a clean restart that's gentler than a hard power cut.</p>
+            <p style="font-size: 0.9rem;">Available on all Antminers with stock or custom firmware. Works from any browser on your network (or through Tailscale remotely). No SSH knowledge needed.</p>
+          </div>
+        </details>
 
-      <div class="info-box">
-        <p><strong>Method 7: Just Pull the Plug (Last Resort)</strong></p>
-        <p>Yes, it works. Millions of miners do it daily. Modern PSUs have overcurrent protection. But if you have the option to do any of the above first, take 30 seconds and do it right. Your hashboards will thank you.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"><strong>APW12 PSU note (S19 series):</strong> The APW12 has two power input lines. When plugging in: outer line first, then inner. When unplugging: inner line first, then outer. Getting this backwards can damage the PSU. This is from Bitmain's own documentation.</p>
+        <!-- Method 4 -->
+        <details>
+          <summary>Method 4: Firmware API Commands <span class="method-tag good">Good</span></summary>
+          <div class="accordion-body">
+            <p>LuxOS, Braiins OS, and Vnish all expose API endpoints for remote control. These can be scripted for automation &mdash; stop mining at 7am when peak rates kick in, start at 9pm when free power begins.</p>
+            <p style="font-size: 0.9rem;">See our <a href="aftermarket_firmware.html">Firmware Guide</a> for API details on each firmware. LuxOS has 45+ API commands including pause/resume mining.</p>
+          </div>
+        </details>
+
+        <!-- Method 5 -->
+        <details>
+          <summary>Method 5: Smart PDU Scheduled Power Cut <span class="method-tag ok">Combo</span></summary>
+          <div class="accordion-body">
+            <p>Set your smart PDU (Synaccess SynLink, Altair Virgo, etc.) to cut power on a daily schedule matching your electricity rates. For Sola Ray Effect's setup: power on at 9:00 PM (free power starts), power off at 6:50 AM (10-minute buffer before peak rates at 7:00 AM).</p>
+            <p style="font-size: 0.9rem;"><strong>Best practice:</strong> Combine methods &mdash; use a cron job or script to SSH <code>poweroff</code> 5 minutes before the PDU cuts power. Graceful shutdown followed by a hard cutoff as a safety net.</p>
+          </div>
+        </details>
+
+        <!-- Method 6 -->
+        <details>
+          <summary>Method 6: Circuit Breaker <span class="method-tag ok">OK</span></summary>
+          <div class="accordion-body">
+            <p>Walk to your breaker panel and flip the breaker off. Cleaner than yanking a plug because the PSU handles a breaker trip more gracefully than a sudden cord disconnect (no strain on connectors, no arc at the plug). Still a hard cut &mdash; use SSH shutdown first if possible.</p>
+          </div>
+        </details>
+
+        <!-- Method 7 -->
+        <details>
+          <summary>Method 7: Just Pull the Plug <span class="method-tag last">Last Resort</span></summary>
+          <div class="accordion-body">
+            <p>Yes, it works. Millions of miners do it daily. Modern PSUs have overcurrent protection. But if you have the option to do any of the above first, take 30 seconds and do it right. Your hashboards will thank you.</p>
+            <p style="font-size: 0.9rem;"><strong>APW12 PSU note (S19 series):</strong> The APW12 has two power input lines. When plugging in: outer line first, then inner. When unplugging: inner line first, then outer. Getting this backwards can damage the PSU. This is from Bitmain's own documentation.</p>
+          </div>
+        </details>
       </div>
 
       <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Recommended Shutdown Routine for Solar Miners</h3>
@@ -1203,7 +1463,7 @@
       
       <p>Your miners represent thousands of dollars of hardware generating real income. A poorly secured remote access setup is an invitation for someone to redirect your hashrate, steal your coins, or just brick your equipment for fun.</p>
       
-      <ul>
+      <ul class="two-col-list">
         <li><strong>Never use port forwarding.</strong> This exposes your miner's web interface directly to the internet. Anyone who finds it can access it. Use Tailscale instead &mdash; zero open ports.</li>
         <li><strong>Change default passwords.</strong> Every Bitmain miner ships with username <code>root</code> and password <code>root</code>. Change this immediately. Custom firmware lets you set a proper password.</li>
         <li><strong>Use HTTPS when available.</strong> Synaccess SynLink PDUs support HTTPS. Braiins OS supports SSH with key-based authentication. Don't use unencrypted HTTP over the internet.</li>
@@ -1224,7 +1484,7 @@
     <section class="section" id="builds">
       <h2 class="section-title">&#x1F680; Recommended Builds by Budget</h2>
       
-      <div class="compare-grid">
+      <div class="builds-grid">
         <div class="compare-card option-a">
           <h3>&#x1F7E2; Starter &mdash; Under $100</h3>
           <ul>
@@ -1273,7 +1533,7 @@
     <!-- QUICK REFERENCE -->
     <section class="section">
       <h2 class="section-title">&#x1F517; Quick Reference Links</h2>
-      <ul>
+      <ul class="two-col-list">
         <li><a href="https://tailscale.com/download" target="_blank" rel="noopener">Tailscale Download</a> &mdash; install on your devices</li>
         <li><a href="https://login.tailscale.com/admin/machines" target="_blank" rel="noopener">Tailscale Admin Console</a> &mdash; manage devices, approve subnet routes</li>
         <li><a href="https://github.com/juanfont/headscale" target="_blank" rel="noopener">Headscale GitHub</a> &mdash; self-hosted Tailscale server</li>
@@ -1587,6 +1847,57 @@
 </script>
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
+<!-- Dolly the Clone Sheep — Copy Button Script -->
+<script>
+function dollyClone(btn) {
+  var codeId = btn.getAttribute('data-code');
+  var codeEl = document.getElementById(codeId);
+  if (!codeEl) return;
+  
+  // Extract clean text from the code block (strip HTML tags, clean up whitespace)
+  var text = codeEl.innerText || codeEl.textContent;
+  // Clean up: remove excessive blank lines, trim
+  text = text.replace(/\n{3,}/g, '\n\n').trim();
+  
+  // Copy to clipboard
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      dollySuccess(btn);
+    }).catch(function() {
+      dollyFallback(btn, text);
+    });
+  } else {
+    dollyFallback(btn, text);
+  }
+}
+
+function dollyFallback(btn, text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    dollySuccess(btn);
+  } catch(e) {
+    // silently fail
+  }
+  document.body.removeChild(ta);
+}
+
+function dollySuccess(btn) {
+  btn.classList.add('cloned');
+  var label = btn.querySelector('.dolly-label');
+  var origText = label.textContent;
+  label.textContent = 'Cloned!';
+  setTimeout(function() {
+    btn.classList.remove('cloned');
+    label.textContent = origText;
+  }, 2000);
+}
+</script>
 
 </body>
 </html>
