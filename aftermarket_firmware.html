@@ -240,61 +240,66 @@
        GLOSSARY DRAWER
        ============================================ */
     .glossary-overlay {
+      display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 1000;
     }
-    
-    .glossary-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
+    .glossary-overlay.show { display: block; }
     .glossary-drawer {
       position: fixed;
-      top: 0; right: -400px;
-      width: 400px;
-      max-width: 90vw;
+      top: 0;
+      right: -420px;
+      width: 420px;
+      max-width: 92vw;
       height: 100vh;
       background: var(--bg-secondary);
-      border-left: 2px solid var(--sola-gold);
-      z-index: 1000;
-      transition: right 0.3s ease;
-      display: flex;
-      flex-direction: column;
+      border-left: 2px solid var(--sola-teal);
+      z-index: 1001;
+      transition: right 0.25s ease;
+      padding: 1.5rem 1.5rem 1.25rem;
+      overflow-y: auto;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
     }
-    
-    .glossary-drawer.active {
-      right: 0;
-    }
-    
-    .glossary-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .glossary-header h3 {
-      color: var(--sola-gold);
-      margin: 0;
-    }
-    
-    .glossary-close {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-    
-    .glossary-close:hover {
+    .glossary-drawer.open { right: 0; }
+    .glossary-drawer-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: 1px solid rgba(0, 206, 209, 0.55);
       color: var(--sola-teal);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.35rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 18px rgba(0, 206, 209, 0.12);
+    }
+    .glossary-drawer-close:hover {
+      background: rgba(0, 206, 209, 0.12);
+      border-color: var(--sola-teal);
+    }
+    .glossary-drawer h3 {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--sola-gold);
+      font-size: 1.35rem;
+      margin: 0.25rem 0 0.85rem;
+      padding-right: 2.5rem;
+      letter-spacing: 0.5px;
+    }
+    .glossary-drawer p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin: 0 0 1rem;
+      font-size: 0.98rem;
     }
     
     /* ============================================
@@ -447,34 +452,73 @@
     
     .nav-overlay.show { display: block; }
     
-    .glossary-content {
-      padding: 1.5rem;
-      overflow-y: auto;
-      flex: 1;
-    }
-    
-    .glossary-term-title {
-      color: var(--sola-teal);
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .glossary-term-def {
-      color: var(--text-primary);
-      line-height: 1.7;
-    }
-    
     .glossary-term {
       color: var(--sola-teal);
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      text-underline-offset: 3px;
-      cursor: pointer;
+      border-bottom: 1px dotted rgba(0, 206, 209, 0.7);
+      cursor: help;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
     }
-    
     .glossary-term:hover {
       color: var(--sola-gold);
+      border-color: rgba(212, 175, 55, 0.8);
+    }
+    .glossary-term-actions {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.14);
+    }
+    .glossary-more-link {
+      color: var(--sola-teal);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .glossary-more-link:hover { color: var(--sola-gold); }
+
+    /* Glossary drawer buy/official pill buttons */
+    .glossary-term-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+    .glossary-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .glossary-pill:hover {
+      transform: translateY(-1px);
+      background: rgba(0, 206, 209, 0.14);
+      border-color: rgba(0, 206, 209, 0.55);
+      color: var(--sola-teal);
+      text-decoration: none;
+    }
+    .glossary-pill-amazon {
+      border-color: rgba(212, 175, 55, 0.35);
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--sola-gold);
+    }
+    .glossary-pill-amazon:hover {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: rgba(212, 175, 55, 0.55);
+      color: var(--sola-gold);
+    }
+    .glossary-pill-official {
+      border-color: rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
     }
     
     /* Banner */
@@ -559,20 +603,17 @@
   </nav>
   <div class="nav-overlay" id="nav-overlay"></div>
   
-  <!-- Glossary Overlay -->
-  <div class="glossary-overlay" id="glossary-overlay"></div>
-  
   <!-- Glossary Drawer -->
-  <div class="glossary-drawer" id="glossary-drawer">
-    <div class="glossary-header">
-      <h3>&#x1F9E0; Glossary</h3>
-      <button class="glossary-close" aria-label="Close glossary">&#x2715;</button>
-    </div>
-    <div class="glossary-content">
-      <div class="glossary-term-title" id="glossary-term-title">Term</div>
-      <div class="glossary-term-def" id="glossary-term-def">Definition</div>
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here...</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
     </div>
   </div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
 
   <div class="container">
     <div class="banner-container">
@@ -734,61 +775,12 @@
       <footer>
     <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
     <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:solarayeffect@gmail.com" style="color:#00CED1;">solarayeffect@gmail.com</a></div></div>
+    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="/cdn-cgi/l/email-protection#fc8f93909d8e9d85999a9a999f88bc9b919d9590d29f9391" style="color:#00CED1;"><span class="__cf_email__" data-cfemail="22514d4e4350435b47444447415662454f434b4e0c414d4f">[email&#160;protected]</span></a></div></div>
     <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
   </footer>
   </div>
 
-  <script>
-    // Glossary data
-    const GLOSSARY = {
-      asic: {
-        title: 'ASIC',
-        definition: 'ASIC (Application-Specific Integrated Circuit) is specialized hardware designed solely for cryptocurrency mining. Unlike general-purpose computers, ASICs are optimized for a specific mining algorithm, making them extremely efficient but limited to mining particular cryptocurrencies.'
-      },
-      hashrate: {
-        title: 'Hashrate',
-        definition: 'Hashrate measures computational power - how many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. Measured in H/s, KH/s, MH/s, GH/s, TH/s, or PH/s.'
-      },
-      firmware: {
-        title: 'Firmware',
-        definition: 'Firmware is the software embedded in your mining hardware that controls its operation. Aftermarket firmware replaces manufacturer software to unlock features like overclocking, undervolting, and efficiency improvements.'
-      },
-      overclocking: {
-        title: 'Overclocking',
-        definition: 'Overclocking pushes your miner beyond factory settings for higher hashrate. This increases heat and power consumption but can boost earnings. Requires careful tuning and adequate cooling.'
-      },
-      undervolting: {
-        title: 'Undervolting',
-        definition: 'Undervolting reduces the voltage supplied to mining chips. This lowers power consumption and heat while maintaining hashrate, improving efficiency and profitability.'
-      },
-      efficiency: {
-        title: 'Efficiency',
-        definition: 'Mining efficiency is measured in watts per unit of hashrate (e.g., J/TH for Bitcoin). Lower numbers mean less electricity to produce the same mining output - critical for profitability.'
-      },
-      devfee: {
-        title: 'Dev Fee',
-        definition: 'Dev fee is a percentage of your mining time/rewards that goes to the firmware developers. Typically 2-3% for aftermarket firmware. This compensates developers for creating and maintaining the software.'
-      }
-    };
-    
-    // Open glossary drawer
-    function openGlossary(term) {
-      const data = GLOSSARY[term];
-      if (data) {
-        document.getElementById('glossary-term-title').textContent = data.title;
-        document.getElementById('glossary-term-def').textContent = data.definition;
-        document.getElementById('glossary-drawer').classList.add('active');
-        document.getElementById('glossary-overlay').classList.add('active');
-      }
-    }
-    
-    // Close glossary drawer
-    function closeGlossary() {
-      document.getElementById('glossary-drawer').classList.remove('active');
-      document.getElementById('glossary-overlay').classList.remove('active');
-    }
-    
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Toggle navigation drawer
     function toggleNav() {
       document.getElementById('hamburger-btn').classList.toggle('open');
@@ -806,15 +798,6 @@
         }
       });
 
-      // Glossary term clicks
-      document.querySelectorAll('.glossary-term').forEach(el => {
-        el.addEventListener('click', function(e) {
-          e.preventDefault();
-          const term = this.getAttribute('data-term');
-          if (term) openGlossary(term);
-        });
-      });
-      
       // Hamburger menu
       var hamburgerBtn = document.getElementById('hamburger-btn');
       var navOverlay = document.getElementById('nav-overlay');
@@ -833,26 +816,12 @@
           toggleNav();
         });
       }
-      
-      // Glossary drawer close
-      var glossaryOverlay = document.getElementById('glossary-overlay');
-      var glossaryClose = document.querySelector('.glossary-drawer-close');
-      
-      if (glossaryOverlay) {
-        glossaryOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          closeGlossary();
-        });
-      }
-      
-      if (glossaryClose) {
-        glossaryClose.addEventListener('click', function(e) {
-          e.preventDefault();
-          closeGlossary();
-        });
-      }
     });
   </script>
+
+<!-- Shared Glossary System -->
+<script src="/scripts/glossary-data.js"></script>
+<script src="/scripts/glossary-drawer.js"></script>
 
 <!-- ============================================ -->
 <!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
@@ -1110,13 +1079,4 @@
   document.getElementById('sola-fb-email').addEventListener('input', function() {
     this.style.borderColor = '';
   });
-})();
-</script>
-<!-- END SOLA FEEDBACK POPUP WIDGET -->
-
-  <div class="sola-video-float">
-    <img src="assets/solar_effect_300x300.jpg" alt="Sola Ray - Video Coming Soon">
-    <div class="svf-label">&#x1F3AC; Video Soon</div>
-  </div>
-</body>
-</html>
+}
