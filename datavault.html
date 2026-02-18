@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
-<!-- Google tag (gtag.js) - Production only -->
-<script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <!-- Google tag (gtag.js) - Production only -->
+  <script>
     (function () {
       var host = window.location.hostname;
       var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
@@ -21,23 +21,23 @@
       gtag("config", "G-M6F5T8Y2P6");
     })();
   </script>
-<title>Live Mining Stats — BTC, LTC, KAS Network Difficulty, Hashrate &amp; Prices | Sola Ray Effect</title>
-<meta content="Live cryptocurrency mining data vault. Real-time network difficulty, hashrate charts, and mining statistics for Bitcoin, Litecoin, Kaspa, and more." name="description"/>
-<meta content="bitcoin network difficulty, mining hashrate chart, crypto mining statistics, bitcoin difficulty history, mining data dashboard, litecoin hashrate, kaspa network stats" name="keywords"/>
-<meta content="Sola Ray Effect" name="author"/>
-<meta content="index, follow" name="robots"/>
-<link href="https://www.solarayeffect.com/datavault.html" rel="canonical"/>
-<meta content="Sola's Array | Data Vault" property="og:title"/>
-<meta content="Live cryptocurrency mining data vault with real-time network difficulty, hashrate charts, and mining statistics." property="og:description"/>
-<meta content="https://www.solarayeffect.com/datavault.html" property="og:url"/>
-<meta content="website" property="og:type"/>
-<meta content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg" property="og:image"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Sola's Array | Data Vault" name="twitter:title"/>
-<meta content="Live cryptocurrency mining data vault with real-time network difficulty, hashrate charts, and mining statistics." name="twitter:description"/>
-<meta content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg" name="twitter:image"/>
-<!-- Self-hosted fonts -->
-<style>
+  <title>Live Mining Stats &mdash; BTC, LTC, KAS Network Difficulty, Hashrate & Prices | Sola Ray Effect</title>
+  <meta name="description" content="Live cryptocurrency mining data vault. Real-time network difficulty, hashrate charts, and mining statistics for Bitcoin, Litecoin, Kaspa, and more.">
+  <meta name="keywords" content="bitcoin network difficulty, mining hashrate chart, crypto mining statistics, bitcoin difficulty history, mining data dashboard, litecoin hashrate, kaspa network stats">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/datavault.html">
+  <meta property="og:title" content="Sola's Array | Data Vault">
+  <meta property="og:description" content="Live cryptocurrency mining data vault with real-time network difficulty, hashrate charts, and mining statistics.">
+  <meta property="og:url" content="https://www.solarayeffect.com/datavault.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sola's Array | Data Vault">
+  <meta name="twitter:description" content="Live cryptocurrency mining data vault with real-time network difficulty, hashrate charts, and mining statistics.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  <!-- Self-hosted fonts -->
+  <style>
     @font-face { font-family: "Orbitron"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/orbitron-latin-400-normal.woff2") format("woff2"); }
     @font-face { font-family: "Orbitron"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/orbitron-latin-600-normal.woff2") format("woff2"); }
     @font-face { font-family: "Orbitron"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/orbitron-latin-700-normal.woff2") format("woff2"); }
@@ -47,7 +47,7 @@
     @font-face { font-family: "Rajdhani"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/rajdhani-latin-600-normal.woff2") format("woff2"); }
     @font-face { font-family: "Rajdhani"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/rajdhani-latin-700-normal.woff2") format("woff2"); }
   </style>
-<style>
+  <style>
 /* ============================================
    SOLA'S ARRAY &#x2014; DATA VAULT
    Scarif Aesthetic
@@ -81,45 +81,14 @@
 
 body {
   font-family: 'Rajdhani', sans-serif;
-  background: var(--vault-black);
+  background-color: #0B2F26;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+  background-repeat: repeat;
+  background-position: 0 0;
+  background-size: 600px 600px;
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
-}
-
-/* --- Scanline Overlay --- */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 255, 136, var(--scanline-opacity)) 2px,
-    rgba(0, 255, 136, var(--scanline-opacity)) 4px
-  );
-  pointer-events: none;
-  z-index: 1000;
-}
-
-/* --- Grid Background --- */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image:
-    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  pointer-events: none;
-  z-index: -1;
 }
 
 /* ============================================
@@ -757,30 +726,7 @@ body::after {
   font-weight: 600;
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
-.vault-footer {
-  text-align: center;
-  padding: 30px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  border-top: 1px solid var(--vault-border);
-  margin-top: 40px;
-}
-
-.vault-footer a {
-  color: var(--terminal-cyan);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.2s ease;
-}
-
-.vault-footer a:hover {
-  color: var(--terminal-green);
-  text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
-}
+/* vault-footer removed - using standard footer */
 
 /* ============================================
    DATA REFRESH INDICATOR
@@ -1037,19 +983,18 @@ body::after {
 }
 
 </style>
-<!-- Hamburger nav overrides for vault theme -->
-<style>
-.hamburger-menu {
+  <!-- Hamburger nav overrides for vault theme -->
+  <style>
+    .hamburger-menu {
       position: fixed;
-      top: 4.5rem;
+      top: 1rem;
       left: 1rem;
-      z-index: 1000;
+      z-index: 10001;
     }
-    
     .hamburger-btn {
-      background: var(--bg-card);
-      border: 2px solid var(--sola-teal);
-      color: var(--sola-teal);
+      background: var(--vault-panel);
+      border: 2px solid var(--terminal-cyan);
+      color: var(--terminal-cyan);
       width: 44px;
       height: 44px;
       border-radius: 8px;
@@ -1060,15 +1005,13 @@ body::after {
       justify-content: center;
       gap: 5px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px var(--sola-teal-glow);
+      box-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
     }
-    
     .hamburger-btn:hover {
-      background: var(--sola-teal);
+      background: var(--terminal-cyan);
       color: #000;
-      box-shadow: 0 0 20px var(--sola-teal-glow);
+      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
     }
-    
     .hamburger-btn .bun-top {
       width: 24px;
       height: 6px;
@@ -1076,7 +1019,6 @@ body::after {
       border-radius: 10px 10px 0 0;
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn .lettuce {
       width: 26px;
       height: 3px;
@@ -1084,7 +1026,6 @@ body::after {
       border-radius: 1px;
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn .patty {
       width: 24px;
       height: 4px;
@@ -1092,7 +1033,6 @@ body::after {
       border-radius: 2px;
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn .cheese {
       width: 26px;
       height: 3px;
@@ -1101,7 +1041,6 @@ body::after {
       transform: skewX(-5deg);
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn .bun-bottom {
       width: 24px;
       height: 5px;
@@ -1109,13 +1048,12 @@ body::after {
       border-radius: 0 0 6px 6px;
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
     .hamburger-btn.open .lettuce { opacity: 0; }
     .hamburger-btn.open .patty { opacity: 0; }
     .hamburger-btn.open .cheese { opacity: 0; }
     .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
-    
+
     .nav-drawer {
       position: fixed;
       top: 0;
@@ -1123,25 +1061,22 @@ body::after {
       width: 280px;
       height: 100vh;
       overflow-y: auto;
-      background: var(--bg-secondary);
-      border-right: 2px solid var(--sola-teal);
-      z-index: 999;
+      background: var(--vault-dark);
+      border-right: 2px solid var(--terminal-cyan);
+      z-index: 10000;
       transition: left 0.3s ease;
       padding: 70px 1.5rem 1.5rem;
       box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
     }
-    
     .nav-drawer.open { left: 0; }
-    
     .nav-drawer h3 {
-      color: var(--sola-gold);
+      color: var(--terminal-amber);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border-gold);
+      border-bottom: 1px solid rgba(255, 184, 0, 0.3);
     }
-    
     .nav-drawer a, .nav-drawer .nav-disabled {
       display: block;
       color: var(--text-primary);
@@ -1153,24 +1088,20 @@ body::after {
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
-    
     .nav-drawer a:hover {
-      background: var(--bg-card);
-      border-color: var(--sola-teal);
-      color: var(--sola-teal);
+      background: var(--vault-panel);
+      border-color: var(--terminal-cyan);
+      color: var(--terminal-cyan);
     }
-    
     .nav-drawer a.active {
-      background: rgba(0, 206, 209, 0.15);
-      border-color: var(--sola-teal);
+      background: rgba(0, 212, 255, 0.1);
+      border-color: var(--terminal-cyan);
       color: #ffffff;
     }
-    
     .nav-drawer .nav-disabled {
       color: var(--text-muted);
       cursor: not-allowed;
     }
-    
     .nav-overlay {
       display: none;
       position: fixed;
@@ -1179,11 +1110,9 @@ body::after {
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
-      z-index: 998;
+      z-index: 9998;
     }
-    
     .nav-overlay.show { display: block; }
-
 
     /* ============================================
        GLOSSARY DRAWER (vault-themed)
@@ -1273,642 +1202,648 @@ body::after {
       .glossary-drawer { width: 100%; right: -100%; }
     }
   
-
-/* ===== Sola Ray Effect: Global Footer (Uniform) ===== */
-.site-footer{
-  text-align:center;
-  padding:1.5rem 1rem;
-  color: var(--text-muted, rgba(255,255,255,0.75));
-  font-size:0.85rem;
-  border-top:2px solid var(--border-color, rgba(255,255,255,0.18));
-  margin-top:2rem;
-}
-.site-footer .footer-links{ margin:0.75rem 0; }
-.site-footer .footer-links a{ text-decoration:none; }
-.site-footer .footer-links a:hover{ text-decoration:underline; }
-.site-footer .back-to-calculator{ font-weight:700; }
-
-/* ===== Sola Ray Effect: Internal Links (Uniform) ===== */
-.internal-links{
-  margin:2rem auto 0;
-  padding:1rem 1rem;
-  max-width: 1100px;
-  border: 1px solid var(--border-color, rgba(255,255,255,0.18));
-  background: var(--bg-card, rgba(0,0,0,0.25));
-  border-radius: 14px;
-}
-.internal-links-title{
-  margin:0 0 0.75rem 0;
-  font-size:1.05rem;
-}
-.internal-links-list{
-  margin:0;
-  display:flex;
-  flex-wrap:wrap;
-  gap:0.6rem 0.9rem;
-}
-.internal-links-list a{
-  text-decoration:none;
-  border-bottom: 1px solid transparent;
-}
-.internal-links-list a:hover{
-  border-bottom-color: currentColor;
-}
-
-
-/* ===== Sola Ray Effect: Data Vault Background Normalization ===== */
-body {
-  background-color: var(--sola-emerald, #0B3B2E);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M0 0 L600 0 L600 600 L0 600 Z'/><path d='M100 0 L100 600'/><path d='M200 0 L200 600'/><path d='M300 0 L300 600'/><path d='M400 0 L400 600'/><path d='M500 0 L500 600'/><path d='M0 100 L600 100'/><path d='M0 200 L600 200'/><path d='M0 300 L600 300'/><path d='M0 400 L600 400'/><path d='M0 500 L600 500'/></g></svg>");
-  background-size: 600px 600px;
-  background-attachment: fixed;
-}
-</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"Solas Array - Live Mining Data Vault","description":"Real-time cryptocurrency mining network statistics including difficulty, hashrate, and block data.","url":"https://www.solarayeffect.com/datavault.html","license":"https://www.solarayeffect.com/","creator":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
+    /* ============================================
+       SITE FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(0, 206, 209, 0.2);
+      color: #8899aa;
+    }
+    footer a {
+      color: #00CED1;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #D4AF37;
+    }
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"Solas Array - Live Mining Data Vault","description":"Real-time cryptocurrency mining network statistics including difficulty, hashrate, and block data.","url":"https://www.solarayeffect.com/datavault.html","license":"https://www.solarayeffect.com/","creator":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
 </head>
-<body style="background-color: var(--sola-emerald);background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");background-repeat: repeat;background-position:0 0;background-size:600px 600px;">
-<!-- Boot Overlay -->
-<div class="boot-overlay" id="boot-overlay">
-<div class="boot-content">
-<div class="boot-title">Welcome to Sola's Array</div>
-<div class="boot-progress">
-<div class="boot-progress-fill" id="boot-progress-fill"></div>
-</div>
-<div class="boot-text" id="boot-text">DATA VAULT v4.7.7</div>
-</div>
-</div>
-<!-- Hamburger Menu -->
-<div class="hamburger-menu">
-<button class="hamburger-btn" id="hamburger-btn" title="Menu">
-<span class="bun-top"></span>
-<span class="lettuce"></span>
-<span class="patty"></span>
-<span class="cheese"></span>
-<span class="bun-bottom"></span>
-</button>
-</div>
-<!-- Navigation Drawer -->
-<nav class="nav-drawer" id="nav-drawer"><h3>⚡ NAVIGATION</h3><a href="index.html">⚡ Calculator</a><a href="miners.html">🔧 Miners</a><a href="pools.html">🏊 Mining Pools</a><a href="aftermarket_firmware.html">⚙️ Firmware Guide</a><a href="electrical_setup.html">🔌 Electrical Setup</a><a href="remote_management.html">📡 Remote Management</a><a href="glossary.html">🧠 Glossary</a><a class="active" href="datavault.html">📊 Data Vault</a></nav>
-<div class="nav-overlay" id="nav-overlay"></div>
-<!-- Glossary Drawer -->
-<div class="glossary-drawer" id="glossary-drawer">
-<button class="glossary-drawer-close" id="glossary-close">×</button>
-<h3 id="glossary-term-title">Term</h3>
-<p id="glossary-term-definition">Definition goes here...</p>
-</div>
-<div class="glossary-overlay" id="glossary-overlay"></div>
-<!-- Header -->
-<header class="vault-header">
-<div class="header-content">
-<div class="vault-title">
-<div>
-<h1 style="text-align:center;">Live Mining Stats — Network Difficulty, Hashrate &amp; Market Data</h1>
-<div class="subtitle">Data Vault • Sector 7</div>
-</div>
-</div>
-<div class="vault-status">
-<div class="status-indicator">
-<span class="status-dot"></span>
-<span>LIVE FEED</span>
-</div>
-<div class="classified-badge">Restricted Access</div>
-</div>
-</div>
-</header>
-<section aria-label="Workflow links" class="internal-links">
-  <h2 class="internal-links-title" style="text-align:center;">Workflow</h2>
-  <p class="internal-links-list" style="text-align:center;font-size:0.9rem;white-space:nowrap;overflow-x:auto;">
-    <a href="index.html" style="color: var(--sola-gold, #D4AF37);">Return to mining calculator</a>
-    <a href="miners.html" style="color: var(--sola-gold, #D4AF37);">Explore hardware</a>
-    <a href="pools.html" style="color: var(--sola-gold, #D4AF37);">Compare pools</a>
-    <a href="aftermarket_firmware.html" style="color: var(--sola-gold, #D4AF37);">Firmware resources</a>
-    <a href="electrical_setup.html" style="color: var(--sola-gold, #D4AF37);">Electrical planning</a>
-  </p>
-</section>
+<body>
 
-<main class="vault-container">
-<!-- Refresh Bar -->
-<div class="refresh-bar">
-<span class="refresh-timestamp">Last sync: --:--:--</span>
-<button class="refresh-btn">REFRESH DATA</button>
-</div>
-<!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
+  <!-- Boot Overlay -->
+  <div class="boot-overlay" id="boot-overlay">
+    <div class="boot-content">
+      <div class="boot-title">Welcome to Sola's Array</div>
+      <div class="boot-progress">
+        <div class="boot-progress-fill" id="boot-progress-fill"></div>
+      </div>
+      <div class="boot-text" id="boot-text">DATA VAULT v4.7.7</div>
+    </div>
+  </div>
+
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
+      <span class="bun-top"></span>
+      <span class="lettuce"></span>
+      <span class="patty"></span>
+      <span class="cheese"></span>
+      <span class="bun-bottom"></span>
+    </button>
+  </div>
+
+  <!-- Navigation Drawer -->
+  <nav class="nav-drawer" id="nav-drawer">
+    <h3>NAVIGATION</h3>
+    <a href="index.html">&#x1F9EE; Calculator</a>
+    <a href="miners.html">&#x1F4B0; Miners</a>
+    <a href="pools.html">&#x1F3CA; Mining Pools</a>
+    <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
+    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
+    <a href="glossary.html">&#x1F9E0; Glossary</a>
+    <a href="datavault.html" class="active">&#x1F4CA; Data Vault</a>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer">
+    <button class="glossary-drawer-close" id="glossary-close">&#xD7;</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here...</p>
+  </div>
+  <div class="glossary-overlay" id="glossary-overlay"></div>
+
+  <!-- Header -->
+  <header class="vault-header">
+    <div class="header-content">
+      <div class="vault-title">
+        <div>
+          <h1>Live Mining Stats &mdash; Network Difficulty, Hashrate & Market Data</h1>
+          <div class="subtitle">Data Vault &#x2022; Sector 7</div>
+        </div>
+      </div>
+      <div class="vault-status">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span>LIVE FEED</span>
+        </div>
+        <div class="classified-badge">Restricted Access</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="vault-container">
+
+    <!-- Refresh Bar -->
+    <div class="refresh-bar">
+      <span class="refresh-timestamp">Last sync: --:--:--</span>
+      <button class="refresh-btn">REFRESH DATA</button>
+    </div>
+
+    <!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
          SECTION: CORE METRICS
          Hashrate &#x2022; Difficulty &#x2022; Price
          &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90; -->
-<!-- Panel 1: Network Hashrate -->
-<div class="terminal-panel" id="hashrate-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Network <span class="glossary-term" data-term="hashrate">Hashrate</span></h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="hashrate" data-range="30">30D</button>
-<button class="time-btn" data-chart="hashrate" data-range="90">90D</button>
-<button class="time-btn active" data-chart="hashrate" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="hashrate-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Accessing mainframe...</div>
-</div>
-<div class="chart-container">
-<canvas id="hashrate-chart"></canvas>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Current Hashrate</span>
-<span class="stat-value" id="hashrate-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">30D Change</span>
-<span class="stat-value" id="hashrate-change">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">All-Time High</span>
-<span class="stat-value amber" id="hashrate-ath">--</span>
-</div>
-</div>
-<div class="panel-explain">Total computing power securing the Bitcoin network. When <span class="glossary-term" data-term="hashrate">hashrate</span> rises, more miners are competing — which usually means <span class="glossary-term" data-term="difficulty">difficulty</span> is about to increase. For home miners, rising hashrate means your slice of the pie gets smaller.</div>
-</div>
-<!-- Panel 2: Mining Difficulty -->
-<div class="terminal-panel" id="difficulty-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Mining <span class="glossary-term" data-term="difficulty">Difficulty</span></h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="difficulty" data-range="30">30D</button>
-<button class="time-btn" data-chart="difficulty" data-range="90">90D</button>
-<button class="time-btn active" data-chart="difficulty" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="difficulty-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Decrypting data...</div>
-</div>
-<div class="chart-container">
-<canvas id="difficulty-chart"></canvas>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Current Difficulty</span>
-<span class="stat-value" id="difficulty-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Next Adjustment</span>
-<span class="stat-value green" id="difficulty-next">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Est. Change</span>
-<span class="stat-value" id="difficulty-est">--</span>
-</div>
-</div>
-<div class="panel-explain">How hard it is to mine a Bitcoin block. Adjusts every ~2,016 blocks (roughly 2 weeks) based on <span class="glossary-term" data-term="hashrate">hashrate</span>. When <span class="glossary-term" data-term="difficulty">difficulty</span> goes up, your miner earns less BTC for the same electricity. This is the single most important number for your profitability.</div>
-</div>
-<!-- Panel 3: BTC Market Price -->
-<div class="terminal-panel" id="price-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>BTC Market Price</h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="price" data-range="30">30D</button>
-<button class="time-btn" data-chart="price" data-range="90">90D</button>
-<button class="time-btn active" data-chart="price" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="price-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Syncing market data...</div>
-</div>
-<div class="chart-container">
-<canvas id="price-chart"></canvas>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Current Price</span>
-<span class="stat-value green" id="price-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">30D Change</span>
-<span class="stat-value" id="price-change">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">All-Time High</span>
-<span class="stat-value amber" id="price-ath">--</span>
-</div>
-</div>
-<div class="panel-explain">What one Bitcoin is worth in USD. Price rising can offset difficulty increases — even if you're mining less BTC, each coin is worth more. Price dropping while difficulty stays high is the worst-case scenario for miners.</div>
-</div>
-<!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
+
+    <!-- Panel 1: Network Hashrate -->
+    <div class="terminal-panel" id="hashrate-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Network <span class="glossary-term" data-term="hashrate">Hashrate</span></h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="hashrate">30D</button>
+          <button class="time-btn" data-range="90" data-chart="hashrate">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="hashrate">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="hashrate-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Accessing mainframe...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="hashrate-chart"></canvas>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Current Hashrate</span>
+          <span class="stat-value" id="hashrate-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">30D Change</span>
+          <span class="stat-value" id="hashrate-change">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">All-Time High</span>
+          <span class="stat-value amber" id="hashrate-ath">--</span>
+        </div>
+      </div>
+      <div class="panel-explain">Total computing power securing the Bitcoin network. When <span class="glossary-term" data-term="hashrate">hashrate</span> rises, more miners are competing &#x2014; which usually means <span class="glossary-term" data-term="difficulty">difficulty</span> is about to increase. For home miners, rising hashrate means your slice of the pie gets smaller.</div>
+    </div>
+
+    <!-- Panel 2: Mining Difficulty -->
+    <div class="terminal-panel" id="difficulty-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Mining <span class="glossary-term" data-term="difficulty">Difficulty</span></h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="difficulty">30D</button>
+          <button class="time-btn" data-range="90" data-chart="difficulty">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="difficulty">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="difficulty-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Decrypting data...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="difficulty-chart"></canvas>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Current Difficulty</span>
+          <span class="stat-value" id="difficulty-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Next Adjustment</span>
+          <span class="stat-value green" id="difficulty-next">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Est. Change</span>
+          <span class="stat-value" id="difficulty-est">--</span>
+        </div>
+      </div>
+      <div class="panel-explain">How hard it is to mine a Bitcoin block. Adjusts every ~2,016 blocks (roughly 2 weeks) based on <span class="glossary-term" data-term="hashrate">hashrate</span>. When <span class="glossary-term" data-term="difficulty">difficulty</span> goes up, your miner earns less BTC for the same electricity. This is the single most important number for your profitability.</div>
+    </div>
+
+    <!-- Panel 3: BTC Market Price -->
+    <div class="terminal-panel" id="price-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>BTC Market Price</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="price">30D</button>
+          <button class="time-btn" data-range="90" data-chart="price">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="price">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="price-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Syncing market data...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="price-chart"></canvas>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Current Price</span>
+          <span class="stat-value green" id="price-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">30D Change</span>
+          <span class="stat-value" id="price-change">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">All-Time High</span>
+          <span class="stat-value amber" id="price-ath">--</span>
+        </div>
+      </div>
+      <div class="panel-explain">What one Bitcoin is worth in USD. Price rising can offset difficulty increases &#x2014; even if you're mining less BTC, each coin is worth more. Price dropping while difficulty stays high is the worst-case scenario for miners.</div>
+    </div>
+
+    <!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
          SECTION: CORRELATION ANALYSIS
          &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90; -->
-<div class="section-divider">
-<div class="divider-icon"></div>
+    <div class="section-divider">
+      <div class="divider-icon"></div>
       CORRELATION ANALYSIS
       <div class="divider-icon"></div>
-</div>
-<!-- Panel 4: Hashrate vs Price Overlay (dual-axis) -->
-<div class="terminal-panel" id="overlay-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Hashrate vs Price</h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="overlay" data-range="30">30D</button>
-<button class="time-btn" data-chart="overlay" data-range="90">90D</button>
-<button class="time-btn active" data-chart="overlay" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="overlay-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Correlating signals...</div>
-</div>
-<div class="chart-container">
-<canvas id="overlay-chart"></canvas>
-</div>
-</div>
-<div class="overlay-legend">
-<div class="overlay-legend-item">
-<div class="overlay-legend-line hashrate-line"></div>
-<span>Hashrate</span>
-</div>
-<div class="overlay-legend-item">
-<div class="overlay-legend-line price-line"></div>
-<span>Price</span>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Hashrate</span>
-<span class="stat-value" id="overlay-hashrate">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Price</span>
-<span class="stat-value" id="overlay-price">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">30D Trend</span>
-<span class="stat-value" id="overlay-correlation">--</span>
-</div>
-</div>
-<div class="panel-explain">Shows whether hashrate and price are moving together or apart. When they're aligned (both rising), mining economics are stable. When they diverge — especially price dropping while hashrate climbs — profitability is getting squeezed.</div>
-</div>
-<!-- Panel 5: Difficulty Adjustments (bar chart) -->
-<div class="terminal-panel" id="adjustments-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Difficulty Adjustments</h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="adjustments" data-range="90">90D</button>
-<button class="time-btn" data-chart="adjustments" data-range="180">180D</button>
-<button class="time-btn active" data-chart="adjustments" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="adjustments-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Analyzing adjustments...</div>
-</div>
-<div class="chart-container">
-<canvas id="adjustments-chart"></canvas>
-</div>
-</div>
-<div class="diff-adjust-legend">
-<div class="legend-item">
-<div class="legend-dot positive"></div>
-<span>Positive (difficulty up)</span>
-</div>
-<div class="legend-item">
-<div class="legend-dot negative"></div>
-<span>Negative (difficulty down)</span>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Last Adjustment</span>
-<span class="stat-value" id="adj-last">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Positive/Total</span>
-<span class="stat-value" id="adj-positive">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Avg Change</span>
-<span class="stat-value" id="adj-avg">--</span>
-</div>
-</div>
-<div class="panel-explain">Each bar is one difficulty adjustment (every ~2 weeks). Green bars mean difficulty went up — more competition. Red bars mean it dropped — miners leaving the network. A string of green bars means the network is growing and your earnings per machine are shrinking.</div>
-</div>
-<!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
+    </div>
+
+    <!-- Panel 4: Hashrate vs Price Overlay (dual-axis) -->
+    <div class="terminal-panel" id="overlay-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Hashrate vs Price</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="overlay">30D</button>
+          <button class="time-btn" data-range="90" data-chart="overlay">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="overlay">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="overlay-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Correlating signals...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="overlay-chart"></canvas>
+        </div>
+      </div>
+      <div class="overlay-legend">
+        <div class="overlay-legend-item">
+          <div class="overlay-legend-line hashrate-line"></div>
+          <span>Hashrate</span>
+        </div>
+        <div class="overlay-legend-item">
+          <div class="overlay-legend-line price-line"></div>
+          <span>Price</span>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Hashrate</span>
+          <span class="stat-value" id="overlay-hashrate">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Price</span>
+          <span class="stat-value" id="overlay-price">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">30D Trend</span>
+          <span class="stat-value" id="overlay-correlation">--</span>
+        </div>
+      </div>
+      <div class="panel-explain">Shows whether hashrate and price are moving together or apart. When they're aligned (both rising), mining economics are stable. When they diverge &#x2014; especially price dropping while hashrate climbs &#x2014; profitability is getting squeezed.</div>
+    </div>
+
+    <!-- Panel 5: Difficulty Adjustments (bar chart) -->
+    <div class="terminal-panel" id="adjustments-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Difficulty Adjustments</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="90" data-chart="adjustments">90D</button>
+          <button class="time-btn" data-range="180" data-chart="adjustments">180D</button>
+          <button class="time-btn active" data-range="365" data-chart="adjustments">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="adjustments-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Analyzing adjustments...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="adjustments-chart"></canvas>
+        </div>
+      </div>
+      <div class="diff-adjust-legend">
+        <div class="legend-item">
+          <div class="legend-dot positive"></div>
+          <span>Positive (difficulty up)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot negative"></div>
+          <span>Negative (difficulty down)</span>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Last Adjustment</span>
+          <span class="stat-value" id="adj-last">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Positive/Total</span>
+          <span class="stat-value" id="adj-positive">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Avg Change</span>
+          <span class="stat-value" id="adj-avg">--</span>
+        </div>
+      </div>
+      <div class="panel-explain">Each bar is one difficulty adjustment (every ~2 weeks). Green bars mean difficulty went up &#x2014; more competition. Red bars mean it dropped &#x2014; miners leaving the network. A string of green bars means the network is growing and your earnings per machine are shrinking.</div>
+    </div>
+
+    <!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
          SECTION: NETWORK HEALTH
          Mempool &#x2022; Block Time &#x2022; Fees
          &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90; -->
-<div class="section-divider">
-<div class="divider-icon"></div>
+    <div class="section-divider">
+      <div class="divider-icon"></div>
       NETWORK HEALTH
       <div class="divider-icon"></div>
-</div>
-<div class="panel-grid">
-<!-- Panel 6: Mempool Size -->
-<div class="terminal-panel" id="mempool-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Mempool Size</h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="mempool" data-range="30">30D</button>
-<button class="time-btn" data-chart="mempool" data-range="90">90D</button>
-<button class="time-btn active" data-chart="mempool" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="mempool-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Scanning mempool...</div>
-</div>
-<div class="chart-container">
-<canvas id="mempool-chart"></canvas>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Current Size</span>
-<span class="stat-value" id="mempool-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">30D Change</span>
-<span class="stat-value" id="mempool-change">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Peak Size</span>
-<span class="stat-value" id="mempool-peak">--</span>
-</div>
-</div>
-<div class="panel-explain">The waiting room for unconfirmed Bitcoin transactions. A large mempool means the network is congested and transaction fees are high — which is actually good for miners since fees are part of your revenue. A small mempool means low fees.</div>
-</div>
-<!-- Panel 7: Median Block Time -->
-<div class="terminal-panel" id="blocktime-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Median Block Time</h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="blocktime" data-range="30">30D</button>
-<button class="time-btn" data-chart="blocktime" data-range="90">90D</button>
-<button class="time-btn active" data-chart="blocktime" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="blocktime-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Timing block intervals...</div>
-</div>
-<div class="chart-container">
-<canvas id="blocktime-chart"></canvas>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Current</span>
-<span class="stat-value" id="blocktime-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Target</span>
-<span class="stat-value" id="blocktime-target">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Deviation</span>
-<span class="stat-value" id="blocktime-deviation">--</span>
-</div>
-</div>
-<div class="panel-explain">How long it takes to mine one block, targeting 10 minutes. Blocks coming faster than 10 minutes means miners are outpacing difficulty — next adjustment will likely go up. Slower than 10 minutes means hashrate has dropped and difficulty should come down.</div>
-</div>
-</div><!-- /panel-grid (mempool + blocktime) -->
-<!-- Panel 8: Transaction Fees &#x2014; full-width between grids -->
-<div class="terminal-panel" id="fees-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Transaction Fees (USD)</h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="fees" data-range="30">30D</button>
-<button class="time-btn" data-chart="fees" data-range="90">90D</button>
-<button class="time-btn active" data-chart="fees" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="fees-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Tallying fees...</div>
-</div>
-<div class="chart-container">
-<canvas id="fees-chart"></canvas>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Daily Fees</span>
-<span class="stat-value" id="fees-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">30D Change</span>
-<span class="stat-value" id="fees-change">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Peak Fees</span>
-<span class="stat-value" id="fees-peak">--</span>
-</div>
-</div>
-<div class="panel-explain">Total fees paid by Bitcoin users per day in USD. Fees spike during network congestion — NFT mints, market panic, heavy trading. For home miners, high-fee periods can meaningfully boost your daily earnings on top of the block reward.</div>
-</div>
-<!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
+    </div>
+
+    <div class="panel-grid">
+
+      <!-- Panel 6: Mempool Size -->
+      <div class="terminal-panel" id="mempool-panel">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="terminal-icon"></div>
+            <h2>Mempool Size</h2>
+          </div>
+          <div class="terminal-controls">
+            <button class="time-btn" data-range="30" data-chart="mempool">30D</button>
+            <button class="time-btn" data-range="90" data-chart="mempool">90D</button>
+            <button class="time-btn active" data-range="365" data-chart="mempool">1Y</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <div class="loading-overlay" id="mempool-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Scanning mempool...</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="mempool-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">Current Size</span>
+            <span class="stat-value" id="mempool-current">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">30D Change</span>
+            <span class="stat-value" id="mempool-change">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Peak Size</span>
+            <span class="stat-value" id="mempool-peak">--</span>
+          </div>
+        </div>
+        <div class="panel-explain">The waiting room for unconfirmed Bitcoin transactions. A large mempool means the network is congested and transaction fees are high &#x2014; which is actually good for miners since fees are part of your revenue. A small mempool means low fees.</div>
+      </div>
+
+      <!-- Panel 7: Median Block Time -->
+      <div class="terminal-panel" id="blocktime-panel">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="terminal-icon"></div>
+            <h2>Median Block Time</h2>
+          </div>
+          <div class="terminal-controls">
+            <button class="time-btn" data-range="30" data-chart="blocktime">30D</button>
+            <button class="time-btn" data-range="90" data-chart="blocktime">90D</button>
+            <button class="time-btn active" data-range="365" data-chart="blocktime">1Y</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <div class="loading-overlay" id="blocktime-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Timing block intervals...</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="blocktime-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">Current</span>
+            <span class="stat-value" id="blocktime-current">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Target</span>
+            <span class="stat-value" id="blocktime-target">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Deviation</span>
+            <span class="stat-value" id="blocktime-deviation">--</span>
+          </div>
+        </div>
+        <div class="panel-explain">How long it takes to mine one block, targeting 10 minutes. Blocks coming faster than 10 minutes means miners are outpacing difficulty &#x2014; next adjustment will likely go up. Slower than 10 minutes means hashrate has dropped and difficulty should come down.</div>
+      </div>
+
+    </div><!-- /panel-grid (mempool + blocktime) -->
+
+    <!-- Panel 8: Transaction Fees &#x2014; full-width between grids -->
+    <div class="terminal-panel" id="fees-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Transaction Fees (USD)</h2>
+        </div>
+        <div class="terminal-controls">
+          <button class="time-btn" data-range="30" data-chart="fees">30D</button>
+          <button class="time-btn" data-range="90" data-chart="fees">90D</button>
+          <button class="time-btn active" data-range="365" data-chart="fees">1Y</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="fees-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Tallying fees...</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="fees-chart"></canvas>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Daily Fees</span>
+          <span class="stat-value" id="fees-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">30D Change</span>
+          <span class="stat-value" id="fees-change">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Peak Fees</span>
+          <span class="stat-value" id="fees-peak">--</span>
+        </div>
+      </div>
+      <div class="panel-explain">Total fees paid by Bitcoin users per day in USD. Fees spike during network congestion &#x2014; NFT mints, market panic, heavy trading. For home miners, high-fee periods can meaningfully boost your daily earnings on top of the block reward.</div>
+    </div>
+
+    <!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
          SECTION: MINING ECONOMICS
          Revenue &#x2022; Hashprice
          &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90; -->
-<div class="section-divider">
-<div class="divider-icon"></div>
+    <div class="section-divider">
+      <div class="divider-icon"></div>
       MINING ECONOMICS
       <div class="divider-icon"></div>
-</div>
-<div class="panel-grid">
-<!-- Panel 9: Miner Revenue -->
-<div class="terminal-panel" id="revenue-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Miner Revenue (USD)</h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="revenue" data-range="30">30D</button>
-<button class="time-btn" data-chart="revenue" data-range="90">90D</button>
-<button class="time-btn active" data-chart="revenue" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="revenue-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Compiling revenue data...</div>
-</div>
-<div class="chart-container">
-<canvas id="revenue-chart"></canvas>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Daily Revenue</span>
-<span class="stat-value" id="revenue-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">30D Change</span>
-<span class="stat-value" id="revenue-change">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Avg Revenue</span>
-<span class="stat-value" id="revenue-avg">--</span>
-</div>
-</div>
-<div class="panel-explain">Total USD earned by all Bitcoin miners per day — block rewards plus transaction fees combined. This is the whole pie. Your share depends on what percentage of total network hashrate your machines represent.</div>
-</div>
-<!-- Panel 10: Hashprice -->
-<div class="terminal-panel" id="hashprice-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2><span class="glossary-term" data-term="hashprice">Hashprice</span> ($/TH/day)</h2>
-</div>
-<div class="terminal-controls">
-<button class="time-btn" data-chart="hashprice" data-range="30">30D</button>
-<button class="time-btn" data-chart="hashprice" data-range="90">90D</button>
-<button class="time-btn active" data-chart="hashprice" data-range="365">1Y</button>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="hashprice-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Calculating hashprice...</div>
-</div>
-<div class="chart-container">
-<canvas id="hashprice-chart"></canvas>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Current</span>
-<span class="stat-value" id="hashprice-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">30D Change</span>
-<span class="stat-value" id="hashprice-change">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Period Low</span>
-<span class="stat-value" id="hashprice-low">--</span>
-</div>
-</div>
-<div class="panel-explain">What one terahash of mining power earns per day in USD. This is the bottom line — it accounts for difficulty, price, and fees all in one number. Compare this against your electricity cost per TH to know if you're profitable.</div>
-</div>
-</div><!-- /panel-grid (revenue + hashprice) -->
-<!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
+    </div>
+
+    <div class="panel-grid">
+
+      <!-- Panel 9: Miner Revenue -->
+      <div class="terminal-panel" id="revenue-panel">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="terminal-icon"></div>
+            <h2>Miner Revenue (USD)</h2>
+          </div>
+          <div class="terminal-controls">
+            <button class="time-btn" data-range="30" data-chart="revenue">30D</button>
+            <button class="time-btn" data-range="90" data-chart="revenue">90D</button>
+            <button class="time-btn active" data-range="365" data-chart="revenue">1Y</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <div class="loading-overlay" id="revenue-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Compiling revenue data...</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="revenue-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">Daily Revenue</span>
+            <span class="stat-value" id="revenue-current">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">30D Change</span>
+            <span class="stat-value" id="revenue-change">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Avg Revenue</span>
+            <span class="stat-value" id="revenue-avg">--</span>
+          </div>
+        </div>
+        <div class="panel-explain">Total USD earned by all Bitcoin miners per day &#x2014; block rewards plus transaction fees combined. This is the whole pie. Your share depends on what percentage of total network hashrate your machines represent.</div>
+      </div>
+
+      <!-- Panel 10: Hashprice -->
+      <div class="terminal-panel" id="hashprice-panel">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="terminal-icon"></div>
+            <h2><span class="glossary-term" data-term="hashprice">Hashprice</span> ($/TH/day)</h2>
+          </div>
+          <div class="terminal-controls">
+            <button class="time-btn" data-range="30" data-chart="hashprice">30D</button>
+            <button class="time-btn" data-range="90" data-chart="hashprice">90D</button>
+            <button class="time-btn active" data-range="365" data-chart="hashprice">1Y</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <div class="loading-overlay" id="hashprice-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Calculating hashprice...</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="hashprice-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">Current</span>
+            <span class="stat-value" id="hashprice-current">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">30D Change</span>
+            <span class="stat-value" id="hashprice-change">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Period Low</span>
+            <span class="stat-value" id="hashprice-low">--</span>
+          </div>
+        </div>
+        <div class="panel-explain">What one terahash of mining power earns per day in USD. This is the bottom line &#x2014; it accounts for difficulty, price, and fees all in one number. Compare this against your electricity cost per TH to know if you're profitable.</div>
+      </div>
+
+    </div><!-- /panel-grid (revenue + hashprice) -->
+
+    <!-- &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;
          SECTION: HALVING EPOCH
          &#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90;&#xE2;&#x2022;&#x90; -->
-<div class="section-divider">
-<div class="divider-icon"></div>
+    <div class="section-divider">
+      <div class="divider-icon"></div>
       HALVING EPOCH
       <div class="divider-icon"></div>
-</div>
-<!-- Panel 11: Halving Countdown (no chart &#x2014; custom layout) -->
-<div class="terminal-panel halving-panel" id="halving-panel">
-<div class="terminal-header">
-<div class="terminal-title">
-<div class="terminal-icon"></div>
-<h2>Halving Countdown</h2>
-</div>
-</div>
-<div class="terminal-body">
-<div class="loading-overlay" id="halving-loading">
-<div class="loading-spinner"></div>
-<div class="loading-text">Calculating epoch...</div>
-</div>
-<div class="halving-epoch">EPOCH 5 — BLOCK REWARD REDUCTION</div>
-<div class="halving-countdown">
-<div class="countdown-block">
-<span class="countdown-value" id="countdown-days">---</span>
-<span class="countdown-label">Days</span>
-</div>
-<div class="countdown-block">
-<span class="countdown-value" id="countdown-hours">--</span>
-<span class="countdown-label">Hours</span>
-</div>
-<div class="countdown-block">
-<span class="countdown-value" id="countdown-minutes">--</span>
-<span class="countdown-label">Minutes</span>
-</div>
-</div>
-<div class="halving-progress">
-<div class="progress-bar-track">
-<div class="progress-bar-fill" id="halving-progress-fill"></div>
-</div>
-<div class="progress-label">
-<span id="halving-progress-text">--% through current epoch</span>
-</div>
-</div>
-<div class="halving-info">
-          Current Reward: <span class="highlight" id="halving-reward-current">3.125 BTC</span>
-           → 
-          Post-Halving: <span class="highlight" id="halving-reward-next">1.5625 BTC</span>
-</div>
-</div>
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Target Block</span>
-<span class="stat-value amber" id="halving-block">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Current Block</span>
-<span class="stat-value" id="halving-current">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Blocks Remaining</span>
-<span class="stat-value" id="halving-remaining">--</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Est. Date</span>
-<span class="stat-value green" id="halving-estimate">--</span>
-</div>
-</div>
-<div class="panel-explain">Bitcoin cuts the <span class="glossary-term" data-term="block-reward">block reward</span> in half roughly every 4 years. The last halving (April 2024) dropped the reward from 6.25 to 3.125 BTC per block. The next one will cut it to 1.5625 BTC. Halvings historically squeeze miners short-term but have preceded major price increases.</div>
-</div>
-</main>
-<!-- Cross-links -->
-<div style="max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem;">
-<div style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem;">
-<h3 style="color: #00CED1; font-size: 1.1rem; margin-bottom: 0.75rem;">Use This Data</h3>
-<p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">Run the numbers with live difficulty and prices in the <a href="index.html" style="color: #00CED1;">profitability calculator</a>. Browse 100+ miners by algorithm in the <a href="miners.html" style="color: #00CED1;">ASIC miner catalog</a>, or find the right <a href="pools.html" style="color: #00CED1;">mining pool</a> for your coin. Setting up your first miner? Start with the <a href="electrical_setup.html" style="color: #00CED1;">electrical setup guide</a> and explore <a href="aftermarket_firmware.html" style="color: #00CED1;">aftermarket firmware</a> for better efficiency. Mining terms explained in the <a href="glossary.html" style="color: #00CED1;">glossary</a>.</p>
-</div>
-</div>
+    </div>
 
-<!-- Chart.js + Date Adapter -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-<script>
+    <!-- Panel 11: Halving Countdown (no chart &#x2014; custom layout) -->
+    <div class="terminal-panel halving-panel" id="halving-panel">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="terminal-icon"></div>
+          <h2>Halving Countdown</h2>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="loading-overlay" id="halving-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Calculating epoch...</div>
+        </div>
+
+        <div class="halving-epoch">EPOCH 5 &#x2014; BLOCK REWARD REDUCTION</div>
+
+        <div class="halving-countdown">
+          <div class="countdown-block">
+            <span class="countdown-value" id="countdown-days">---</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-value" id="countdown-hours">--</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-value" id="countdown-minutes">--</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+        </div>
+
+        <div class="halving-progress">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="halving-progress-fill"></div>
+          </div>
+          <div class="progress-label">
+            <span id="halving-progress-text">--% through current epoch</span>
+          </div>
+        </div>
+
+        <div class="halving-info">
+          Current Reward: <span class="highlight" id="halving-reward-current">3.125 BTC</span>
+          &nbsp;&#x2192;&nbsp;
+          Post-Halving: <span class="highlight" id="halving-reward-next">1.5625 BTC</span>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-label">Target Block</span>
+          <span class="stat-value amber" id="halving-block">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Current Block</span>
+          <span class="stat-value" id="halving-current">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Blocks Remaining</span>
+          <span class="stat-value" id="halving-remaining">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Est. Date</span>
+          <span class="stat-value green" id="halving-estimate">--</span>
+        </div>
+      </div>
+      <div class="panel-explain">Bitcoin cuts the <span class="glossary-term" data-term="block-reward">block reward</span> in half roughly every 4 years. The last halving (April 2024) dropped the reward from 6.25 to 3.125 BTC per block. The next one will cut it to 1.5625 BTC. Halvings historically squeeze miners short-term but have preceded major price increases.</div>
+    </div>
+
+  </main>
+
+  <!-- Cross-links -->
+  <div style="max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem;">
+    <div style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem;">
+      <h3 style="color: #00CED1; font-size: 1.1rem; margin-bottom: 0.75rem;">Use This Data</h3>
+      <p style="color: #8899a8; font-size: 0.95rem; margin-bottom: 0.5rem;">Run the numbers with live difficulty and prices in the <a href="index.html" style="color: #00CED1;">profitability calculator</a>. Browse 100+ miners by algorithm in the <a href="miners.html" style="color: #00CED1;">ASIC miner catalog</a>, or find the right <a href="pools.html" style="color: #00CED1;">mining pool</a> for your coin. Setting up your first miner? Start with the <a href="electrical_setup.html" style="color: #00CED1;">electrical setup guide</a> and explore <a href="aftermarket_firmware.html" style="color: #00CED1;">aftermarket firmware</a> for better efficiency. Mining terms explained in the <a href="glossary.html" style="color: #00CED1;">glossary</a>.</p>
+    </div>
+  </div>
+
+    <footer>
+    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
+    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
+    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:solarayeffect@gmail.com" style="color:#00CED1;">solarayeffect@gmail.com</a></div></div>
+    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
+  </footer>
+
+  <!-- Chart.js + Date Adapter -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+  <script>
 /* \u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090
    SOLA'S ARRAY \u2014 DATA VAULT CHART ENGINE
    solas-charts.js
@@ -3134,19 +3069,37 @@ async function init() {
 document.addEventListener('DOMContentLoaded', init);
 
 </script>
-<!-- Navigation Toggle -->
-<script>
+
+  <!-- Navigation Toggle -->
+  <script>
+    // Toggle navigation drawer
     function toggleNav() {
-      const btn = document.getElementById('hamburger-btn');
-      const drawer = document.getElementById('nav-drawer');
-      const overlay = document.getElementById('nav-overlay');
-      btn.classList.toggle('open');
-      drawer.classList.toggle('open');
-      overlay.classList.toggle('show');
+      document.getElementById('hamburger-btn').classList.toggle('open');
+      document.getElementById('nav-drawer').classList.toggle('open');
+      document.getElementById('nav-overlay').classList.toggle('show');
     }
 
-    document.getElementById('hamburger-btn').addEventListener('click', toggleNav);
-    document.getElementById('nav-overlay').addEventListener('click', toggleNav);
+    // Setup all interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hamburger menu
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleNav();
+        });
+      }
+      
+      if (navOverlay) {
+        navOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+    });
 
     // ============================================
     // GLOSSARY DEFINITIONS
@@ -3203,110 +3156,116 @@ document.addEventListener('DOMContentLoaded', init);
       closeGlossary();
     });
   </script>
+
 <!-- ============================================ -->
 <!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
 <!-- Remove this entire block when feedback window closes -->
 <!-- ============================================ -->
 <div id="sola-feedback-widget" style="display:none;">
-<!-- Small trigger bubble (bottom-right) -->
-<div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
-<p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
-<video height="113" id="sola-fb-video" loop="" muted="" playsinline="" src="assets/sola_feedback.mp4" style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);" width="200"></video>
-<div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
-<button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
-<button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
-</div>
-</div>
-<!-- Wizard overlay -->
-<div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
-<!-- Header -->
-<div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
-<span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray — Feedback</span>
-<button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">×</button>
-</div>
-<!-- Privacy note -->
-<div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
+  <!-- Small trigger bubble (bottom-right) -->
+  <div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
+    <p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
+    <video id="sola-fb-video" width="200" height="113" muted playsinline loop style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);"
+      src="assets/sola_feedback.mp4"></video>
+    <div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
+      <button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
+      <button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
+    </div>
+  </div>
+
+  <!-- Wizard overlay -->
+  <div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
+    <!-- Header -->
+    <div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
+      <span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray &#x2014; Feedback</span>
+      <button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">&times;</button>
+    </div>
+    <!-- Privacy note -->
+    <div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
       Your email is used only for direct communication with Sola Ray Effect. It will never be sold, shared, or added to any mailing list.
     </div>
-<!-- Steps container -->
-<div id="sola-fb-steps" style="padding:16px;">
-<!-- Step 1: How did you find us -->
-<div class="sola-fb-step" data-step="1">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
-<select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
-<option value="">Select one...</option>
-<option value="Google Search">Google Search</option>
-<option value="YouTube">YouTube</option>
-<option value="Reddit">Reddit</option>
-<option value="Twitter/X">Twitter / X</option>
-<option value="Facebook">Facebook</option>
-<option value="A Friend">A Friend</option>
-<option value="Mining Forum">Mining Forum</option>
-<option value="Other">Other</option>
-</select>
-<button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+    <!-- Steps container -->
+    <div id="sola-fb-steps" style="padding:16px;">
+      <!-- Step 1: How did you find us -->
+      <div class="sola-fb-step" data-step="1">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
+        <select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
+          <option value="">Select one...</option>
+          <option value="Google Search">Google Search</option>
+          <option value="YouTube">YouTube</option>
+          <option value="Reddit">Reddit</option>
+          <option value="Twitter/X">Twitter / X</option>
+          <option value="Facebook">Facebook</option>
+          <option value="A Friend">A Friend</option>
+          <option value="Mining Forum">Mining Forum</option>
+          <option value="Other">Other</option>
+        </select>
+        <button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+      </div>
+      <!-- Step 2: What brought you here -->
+      <div class="sola-fb-step" data-step="2" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
+        <textarea id="sola-fb-reason" rows="3" placeholder="What were you looking for?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 3: Feedback -->
+      <div class="sola-fb-step" data-step="3" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
+        <textarea id="sola-fb-message" rows="4" placeholder="What do you like most about the site?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 4: Coin/miner request -->
+      <div class="sola-fb-step" data-step="4" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
+        <textarea id="sola-fb-request" rows="3" placeholder="Optional &#x2014; skip if you want" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
+        </div>
+      </div>
+      <!-- Step 5: Email + Name -->
+      <div class="sola-fb-step" data-step="5" style="display:none;">
+        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
+        <input id="sola-fb-name" type="text" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;">
+        <input id="sola-fb-email" type="email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
+          <button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
+        </div>
+      </div>
+      <!-- Step 6: Thank you -->
+      <div class="sola-fb-step" data-step="6" style="display:none;">
+        <p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
+        <p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
+      </div>
+      <!-- Error state -->
+      <div id="sola-fb-error" style="display:none;">
+        <p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
+      </div>
+    </div>
+    <!-- Step indicator dots -->
+    <div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
+    </div>
+  </div>
 </div>
-<!-- Step 2: What brought you here -->
-<div class="sola-fb-step" data-step="2" style="display:none;">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
-<textarea id="sola-fb-reason" placeholder="What were you looking for?" rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-<div style="display:flex;gap:8px;margin-top:12px;">
-<button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-<button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-</div>
-</div>
-<!-- Step 3: Feedback -->
-<div class="sola-fb-step" data-step="3" style="display:none;">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
-<textarea id="sola-fb-message" placeholder="What do you like most about the site?" rows="4" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-<div style="display:flex;gap:8px;margin-top:12px;">
-<button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-<button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-</div>
-</div>
-<!-- Step 4: Coin/miner request -->
-<div class="sola-fb-step" data-step="4" style="display:none;">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
-<textarea id="sola-fb-request" placeholder="Optional — skip if you want" rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-<div style="display:flex;gap:8px;margin-top:12px;">
-<button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-<button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-</div>
-</div>
-<!-- Step 5: Email + Name -->
-<div class="sola-fb-step" data-step="5" style="display:none;">
-<p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
-<input id="sola-fb-name" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;" type="text"/>
-<input id="sola-fb-email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;" type="email"/>
-<div style="display:flex;gap:8px;margin-top:12px;">
-<button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-<button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
-</div>
-</div>
-<!-- Step 6: Thank you -->
-<div class="sola-fb-step" data-step="6" style="display:none;">
-<p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
-<p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
-</div>
-<!-- Error state -->
-<div id="sola-fb-error" style="display:none;">
-<p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
-</div>
-</div>
-<!-- Step indicator dots -->
-<div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-<span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-</div>
-</div>
-</div>
+
 <script>
 (function() {
   // Don't show if user already dismissed or submitted THIS SESSION
-var widget = document.getElementById('sola-feedback-widget');
+  if (sessionStorage.getItem('sola-fb-done')) return;
+
+  var widget = document.getElementById('sola-feedback-widget');
   var bubble = document.getElementById('sola-fb-bubble');
   var wizard = document.getElementById('sola-fb-wizard');
   var video = document.getElementById('sola-fb-video');
@@ -3337,12 +3296,14 @@ var widget = document.getElementById('sola-feedback-widget');
   document.getElementById('sola-fb-no').addEventListener('click', function() {
     widget.style.display = 'none';
     video.pause();
-});
+    sessionStorage.setItem('sola-fb-done', 'dismissed');
+  });
 
   // Close wizard
   document.getElementById('sola-fb-close').addEventListener('click', function() {
     widget.style.display = 'none';
-});
+    sessionStorage.setItem('sola-fb-done', 'dismissed');
+  });
 
   // Step navigation
   function showStep(n) {
@@ -3432,7 +3393,8 @@ var widget = document.getElementById('sola-feedback-widget');
     .then(function(result) {
       if (result.success) {
         showStep(6);
-// Auto-close after 3 seconds
+        sessionStorage.setItem('sola-fb-done', 'submitted');
+        // Auto-close after 3 seconds
         setTimeout(function() { widget.style.display = 'none'; }, 3000);
       } else {
         document.getElementById('sola-fb-error').style.display = 'block';
@@ -3455,18 +3417,5 @@ var widget = document.getElementById('sola-feedback-widget');
 </script>
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
-<footer class="site-footer" style="background: rgba(8,26,21,0.85);">
-<p><strong>The Sola Ray Effect</strong></p>
-<p class="footer-links">
-<a href="index.html">⚡ Calculator</a> ·
-    <a href="miners.html">🔧 Miners</a> ·
-    <a href="pools.html">🏊 Mining Pools</a> ·
-    <a href="aftermarket_firmware.html">⚙️ Firmware</a> ·
-    <a href="electrical_setup.html">🔌 Electrical</a> ·
-    <a href="remote_management.html">📡 Remote</a> ·
-    <a href="glossary.html">🧠 Glossary</a> ·
-    <a href="datavault.html">📊 Data Vault</a>
-</p>
-<p><a class="back-to-calculator" href="index.html">← Back to Calculator</a></p>
-</footer></body>
+</body>
 </html>
