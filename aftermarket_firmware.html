@@ -731,16 +731,16 @@
       </div>
 
       <div class="warning-box">
-        <p><strong>âš ï¸ The Poweroff Trap:</strong> Running <code>poweroff</code> or <code>shutdown</code> over SSH kills the miner's network stack. The miner is now off and unreachable â€” nothing over the network can turn it back on. You must physically power cycle it or use a smart PDU. This applies to ALL firmware.</p>
+        <p><strong>&#9888; The Poweroff Trap:</strong> Running <code>poweroff</code> or <code>shutdown</code> over SSH kills the miner's network stack. The miner is now off and unreachable &mdash; nothing over the network can turn it back on. You must physically power cycle it or use a smart PDU. This applies to ALL firmware.</p>
       </div>
 
-      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">Stock Firmware â€” SSH Is Locked</h3>
-      <p>Bitmain locked SSH access on S19-series miners starting in 2019. If you're on stock firmware, you cannot use any SSH commands â€” no <code>poweroff</code>, no <code>reboot</code>, no cron scheduling. Your only remote option is the miner's web interface (for monitoring) and a smart PDU (for power cycling). This is the #1 reason home miners switch to aftermarket firmware.</p>
+      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">Stock Firmware &mdash; SSH Is Locked</h3>
+      <p>Bitmain locked SSH access on S19-series miners starting in 2019. If you're on stock firmware, you cannot use any SSH commands &mdash; no <code>poweroff</code>, no <code>reboot</code>, no cron scheduling. Your only remote option is the miner's web interface (for monitoring) and a smart PDU (for power cycling). This is the #1 reason home miners switch to aftermarket firmware.</p>
 
-      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">Braiins OS+ â€” The Most Flexible</h3>
-      <p><code>bosminer stop</code> pauses mining without shutting down the miner â€” your SSH session stays alive and the miner stays on the network. <code>bosminer start</code> resumes mining. This is the safest software method for solar schedules. Cron jobs work reliably for automated stop/start. <strong>Known issue:</strong> pool settings may reset after a full restart â€” verify your pool config after any reboot.</p>
+      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">Braiins OS+ &mdash; The Most Flexible</h3>
+      <p><code>bosminer stop</code> pauses mining without shutting down the miner &mdash; your SSH session stays alive and the miner stays on the network. <code>bosminer start</code> resumes mining. This is the safest software method for solar schedules. Cron jobs work reliably for automated stop/start. <strong>Known issue:</strong> pool settings may reset after a full restart &mdash; verify your pool config after any reboot.</p>
 
-      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">LuxOS â€” Use PDU, Not SSH</h3>
+      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">LuxOS &mdash; Use PDU, Not SSH</h3>
       <p>LuxOS supports remote management through its API and web UI, but <code>poweroff</code> over SSH leaves the miner completely stuck off with no remote recovery path. If you're on LuxOS and need to shut down on a schedule, use a smart PDU to cut and restore power rather than any SSH shutdown command. See our <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Smart PDU guide</a> for recommended hardware.</p>
     </section>
 
