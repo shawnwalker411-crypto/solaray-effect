@@ -4137,4 +4137,15 @@
     .catch(function() {
       document.getElementById('sola-fb-error').style.display = 'block';
       btn.textContent = 'Send Feedback';
-      btn.
+      btn.disabled = false;
+    });
+  });
+
+  // Email border reset
+  document.getElementById('sola-fb-email').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+}
+</script>
+</body>
+</html>
