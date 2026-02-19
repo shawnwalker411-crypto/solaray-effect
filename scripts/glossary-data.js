@@ -281,6 +281,16 @@ var SOLA_GLOSSARY = {
     definition: "Mining without a pool. You only earn when you find a full block; payouts are rare and highly variable."
   },
 
+  "solo": {
+    title: "Solo Mining",
+    definition: "You only get paid if your specific work finds a block. Extremely high variance with potentially massive reward. With small hashrate, you may never find a block. Recommended only for fun or lottery purposes with extra hashrate you can afford to lose."
+  },
+
+  "pps": {
+    title: "PPS / PPS+ (Pay Per Share)",
+    definition: "PPS pays a fixed amount for each valid share, regardless of whether the pool finds a block. PPS+ adds a share of transaction fees on top. This hybrid approach balances predictability with potential upside during high-fee periods."
+  },
+
   "failover-pool": {
     title: "Failover Pool",
     definition: "A backup pool configuration that automatically takes over if the primary pool is unreachable."
