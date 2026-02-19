@@ -53,6 +53,34 @@ var SOLA_GLOSSARY = {
     ebay: "https://www.ebay.com/sch/i.html?_nkw=bitmain+apw12+power+supply&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_apw12&toolid=10001&mkevt=1"
   },
 
+  "antminer-s19-pro": {
+    title: "Antminer S19 Pro",
+    definition: "Bitmain's flagship SHA-256 Bitcoin miner. Produces ~110 TH/s at ~3,250W. One of the most widely deployed miners for home and small-scale operations.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=antminer+s19+pro&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_s19pro&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=antminer+s19+pro"
+  },
+
+  "antminer-s19j-pro": {
+    title: "Antminer S19j Pro",
+    definition: "An upgraded S19 variant from Bitmain. Produces ~104 TH/s at ~3,068W with improved efficiency over the original S19.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=antminer+s19j+pro&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_s19jpro&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=antminer+s19j+pro"
+  },
+
+  "antminer-l3plus": {
+    title: "Antminer L3++",
+    definition: "Bitmain's Scrypt algorithm miner used for Litecoin and Dogecoin. Produces ~580 MH/s at ~942W. Widely available on the secondary market.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=antminer+l3%2B%2B&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_l3plus&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=antminer+l3%2B%2B"
+  },
+
+  "antminer-ks5": {
+    title: "Antminer KS5",
+    definition: "Bitmain's KHeavyHash algorithm miner designed for Kaspa (KAS). Produces ~20 TH/s at ~3,400W.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=antminer+ks5&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_ks5&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=antminer+ks5"
+  },
+
   "psu": {
     title: "PSU (Power Supply Unit)",
     definition: "Converts AC power from your wall outlet to DC power that your miner needs. Must be rated for your miner's wattage plus 10-20% headroom. Critical for reliability and safety. Most ASIC miners come with a PSU, but replacements or upgrades may be needed.",
@@ -140,12 +168,16 @@ var SOLA_GLOSSARY = {
 
   "nema620": {
     title: "NEMA 6-20R",
-    definition: "A 240V/20A outlet. The \"6\" indicates 240V, \"20\" is the amperage, \"R\" means receptacle (outlet). Provides up to 3,840W continuous (at 80%). Common for window AC units and smaller industrial equipment."
+    definition: "A 240V/20A outlet. The \"6\" indicates 240V, \"20\" is the amperage, \"R\" means receptacle (outlet). Provides up to 3,840W continuous (at 80%). Common for window AC units and smaller industrial equipment.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=nema+6-20r+outlet&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_nema620&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=nema+6-20r+outlet"
   },
 
   "nemal630": {
     title: "NEMA L6-30R",
-    definition: "A 240V/30A locking outlet. The \"L\" means twist-lock \u2014 the plug locks in place to prevent accidental disconnection. Provides up to 5,760W continuous (at 80%). Popular for multiple miners via a PDU. Locking outlets are preferred for mining \u2014 vibration from fans won't shake the plug loose."
+    definition: "A 240V/30A locking outlet. The \"L\" means twist-lock \u2014 the plug locks in place to prevent accidental disconnection. Provides up to 5,760W continuous (at 80%). Popular for multiple miners via a PDU. Locking outlets are preferred for mining \u2014 vibration from fans won't shake the plug loose.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=nema+l6-30r+outlet&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_nemal630&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=nema+l6-30r+outlet"
   },
 
   "rule80": {
@@ -155,12 +187,16 @@ var SOLA_GLOSSARY = {
 
   "doublepole": {
     title: "Double-Pole Breaker",
-    definition: "A circuit breaker that controls both hot wires in a 240V circuit simultaneously. Required for all 240V circuits. Takes two slots in your breaker panel. Trips both legs if either overloads."
+    definition: "A circuit breaker that controls both hot wires in a 240V circuit simultaneously. Required for all 240V circuits. Takes two slots in your breaker panel. Trips both legs if either overloads.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=double+pole+circuit+breaker+240v&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_doublepole&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=double+pole+circuit+breaker+240v"
   },
 
   "awg": {
     title: "Wire Gauge (AWG)",
-    definition: "American Wire Gauge \u2014 the standard for measuring wire thickness in the US. Lower numbers = thicker wire = more capacity. For mining: 12 AWG handles 20A circuits, 10 AWG handles 30A circuits. Using too-thin wire is a fire hazard. When in doubt, go one size thicker."
+    definition: "American Wire Gauge \u2014 the standard for measuring wire thickness in the US. Lower numbers = thicker wire = more capacity. For mining: 12 AWG handles 20A circuits, 10 AWG handles 30A circuits. Using too-thin wire is a fire hazard. When in doubt, go one size thicker.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=10+awg+wire+romex&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_awg&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=10+awg+wire+romex"
   },
 
   "nec": {
@@ -322,6 +358,20 @@ var SOLA_GLOSSARY = {
     title: "Loki Kit",
     definition: "A hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. The kit runs only one hash board at reduced power (~1200W), providing roughly 40% of full hashrate. Requires aftermarket firmware like LuxOS or VNish.",
     ebay: "https://www.ebay.com/sch/i.html?_nkw=loki+kit+antminer&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_loki_kit&toolid=10001&mkevt=1"
+  },
+
+  "raspberry-pi": {
+    title: "Raspberry Pi",
+    definition: "A small, low-power single-board computer commonly used as a subnet router for remote miner management. A Raspberry Pi 4 or 5 running Tailscale or Headscale lets you access your entire mining LAN from anywhere.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=raspberry+pi+4+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_raspberry_pi&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=raspberry+pi+4+kit"
+  },
+
+  "shelly": {
+    title: "Shelly Pro Relay",
+    definition: "A DIN-rail mountable smart relay used to remotely control and monitor power to miners. The Shelly Pro 1PM handles one circuit; the Pro 4PM handles four. Both report real-time wattage and can be triggered by automation rules.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=shelly+pro+1pm&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_shelly&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=shelly+pro+1pm"
   },
 
   /* ================================================
