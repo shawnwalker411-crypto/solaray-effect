@@ -242,91 +242,134 @@
        GLOSSARY DRAWER
        ============================================ */
     .glossary-overlay {
+      display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 1000;
     }
-    
-    .glossary-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
+    .glossary-overlay.show { display: block; }
     .glossary-drawer {
       position: fixed;
-      top: 0; right: -400px;
-      width: 400px;
-      max-width: 90vw;
+      top: 0;
+      right: -420px;
+      width: 420px;
+      max-width: 92vw;
       height: 100vh;
       background: var(--bg-secondary);
-      border-left: 2px solid var(--sola-gold);
-      z-index: 1000;
-      transition: right 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .glossary-drawer.active {
-      right: 0;
-    }
-    
-    .glossary-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .glossary-header h3 {
-      color: var(--sola-gold);
-      margin: 0;
-    }
-    
-    .glossary-close {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-    
-    .glossary-close:hover {
-      color: var(--sola-teal);
-    }
-    
-    .glossary-content {
-      padding: 1.5rem;
+      border-left: 2px solid var(--sola-teal);
+      z-index: 1001;
+      transition: right 0.25s ease;
+      padding: 1.5rem 1.5rem 1.25rem;
       overflow-y: auto;
-      flex: 1;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
     }
-    
-    .glossary-term-title {
+    .glossary-drawer.open { right: 0; }
+    .glossary-drawer-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: 1px solid rgba(0, 206, 209, 0.55);
       color: var(--sola-teal);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.35rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 18px rgba(0, 206, 209, 0.12);
+    }
+    .glossary-drawer-close:hover {
+      background: rgba(0, 206, 209, 0.12);
+      border-color: var(--sola-teal);
+    }
+    .glossary-drawer h3 {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+      color: var(--sola-gold);
+      font-size: 1.35rem;
+      margin: 0.25rem 0 0.85rem;
+      padding-right: 2.5rem;
+      letter-spacing: 0.5px;
     }
-    
-    .glossary-term-def {
-      color: var(--text-primary);
-      line-height: 1.7;
+    .glossary-drawer p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin: 0 0 1rem;
+      font-size: 0.98rem;
     }
-    
     .glossary-term {
       color: var(--sola-teal);
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      text-underline-offset: 3px;
-      cursor: pointer;
+      border-bottom: 1px dotted rgba(0, 206, 209, 0.7);
+      cursor: help;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
     }
-    
     .glossary-term:hover {
       color: var(--sola-gold);
+      border-color: rgba(212, 175, 55, 0.8);
+    }
+    .glossary-term-actions {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.14);
+    }
+    .glossary-more-link {
+      color: var(--sola-teal);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .glossary-more-link:hover { color: var(--sola-gold); }
+
+    /* Glossary drawer buy/official pill buttons */
+    .glossary-term-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+    .glossary-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .glossary-pill:hover {
+      transform: translateY(-1px);
+      background: rgba(0, 206, 209, 0.14);
+      border-color: rgba(0, 206, 209, 0.55);
+      color: var(--sola-teal);
+      text-decoration: none;
+    }
+    .glossary-pill-amazon {
+      border-color: rgba(212, 175, 55, 0.35);
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--sola-gold);
+    }
+    .glossary-pill-amazon:hover {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: rgba(212, 175, 55, 0.55);
+      color: var(--sola-gold);
+    }
+    .glossary-pill-official {
+      border-color: rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
     }
     
     /* ============================================
@@ -925,20 +968,17 @@
   </nav>
   <div class="nav-overlay" id="nav-overlay"></div>
   
-  <!-- Glossary Overlay -->
-  <div class="glossary-overlay" id="glossary-overlay"></div>
-  
   <!-- Glossary Drawer -->
-  <div class="glossary-drawer" id="glossary-drawer">
-    <div class="glossary-header">
-      <h3>&#x1F9E0; Glossary</h3>
-      <button class="glossary-close" aria-label="Close glossary">&#x2715;</button>
-    </div>
-    <div class="glossary-content">
-      <div class="glossary-term-title" id="glossary-term-title">Term</div>
-      <div class="glossary-term-def" id="glossary-term-def">Definition</div>
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here...</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
     </div>
   </div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
 
   <div class="container">
     <h1 class="page-title">&#x26A1; Home Mining Electrical Guide &mdash; 120V vs 240V Wiring, Breakers & Safe Setup</h1>
@@ -1349,78 +1389,7 @@
       });
     })();
     
-    // Glossary data for electrical terms
-    const GLOSSARY = {
-      nema: {
-        title: 'NEMA',
-        definition: 'National Electrical Manufacturers Association. The organization that sets standards for electrical outlets and plugs in North America. When you see "NEMA 6-20" on a miner\'s specs, it refers to a specific outlet type.'
-      },
-      nema515: {
-        title: 'NEMA 5-15 / 5-20',
-        definition: 'Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most Loki-modified miners plug into these. The "5" means 120V grounded, the number after the dash is the amperage rating.'
-      },
-      nema620: {
-        title: 'NEMA 6-20R',
-        definition: 'A 240V/20A outlet. The "6" indicates 240V, "20" is the amperage, "R" means receptacle (outlet). Provides up to 3,840W continuous (at 80%). Common for window AC units and smaller industrial equipment.'
-      },
-      nemal630: {
-        title: 'NEMA L6-30R',
-        definition: 'A 240V/30A locking outlet. The "L" means twist-lock \u2014 the plug locks in place to prevent accidental disconnection. Provides up to 5,760W continuous (at 80%). Popular for multiple miners via a PDU. Locking outlets are preferred for mining \u2014 vibration from fans won\'t shake the plug loose.'
-      },
-      psu: {
-        title: 'PSU (Power Supply Unit)',
-        definition: 'Converts AC power from your wall outlet to DC power that your miner needs. Must be rated for your miner\'s wattage plus 10-20% headroom. Critical for reliability and safety. Most ASIC miners come with a PSU, but replacements or upgrades may be needed.'
-      },
-      pdu: {
-        title: 'PDU (Power Distribution Unit)',
-        definition: 'An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions. Never daisy-chain PDUs.'
-      },
-      rule80: {
-        title: '80% Rule',
-        definition: 'NEC requirement that continuous loads (running 3+ hours) use no more than 80% of circuit capacity. A 20A circuit = 16A max continuous. A 30A circuit = 24A max continuous. Mining is always a continuous load, so size your circuits with 20% headroom. Violating this is a fire hazard.'
-      },
-      doublepole: {
-        title: 'Double-Pole Breaker',
-        definition: 'A circuit breaker that controls both hot wires in a 240V circuit simultaneously. Required for all 240V circuits. Takes two slots in your breaker panel. Trips both legs if either overloads.'
-      },
-      awg: {
-        title: 'Wire Gauge (AWG)',
-        definition: 'American Wire Gauge \u2014 the standard for measuring wire thickness in the US. Lower numbers = thicker wire = more capacity. For mining: 12 AWG handles 20A circuits, 10 AWG handles 30A circuits. Using too-thin wire is a fire hazard. When in doubt, go one size thicker.'
-      },
-      nec: {
-        title: 'NEC (National Electrical Code)',
-        definition: 'The US standard for safe electrical installation (NFPA 70). Covers wiring, outlets, breakers, and everything else electrical. Most jurisdictions require NEC compliance. Electricians follow this code \u2014 and so should you for any DIY work.'
-      },
-      loki: {
-        title: 'Loki Kit',
-        definition: 'Hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. Lets home miners use powerful equipment without electrical upgrades. May require a PSU change.'
-      },
-      voltage: {
-        title: '120V vs 240V',
-        definition: 'Standard US outlets are 120V (15-20A). Dryers and ovens use 240V. Most industrial ASICs need 240V but can run on 120V with a Loki Kit or modifications. 240V is more efficient (less heat loss in wiring).'
-      },
-      asic: {
-        title: 'ASIC',
-        definition: 'Application-Specific Integrated Circuit \u2014 specialized hardware designed solely for cryptocurrency mining. Unlike general-purpose computers, ASICs are optimized for a specific mining algorithm, making them extremely efficient but limited to mining particular cryptocurrencies.'
-      }
-    };
-    
-    // Open glossary drawer
-    function openGlossary(term) {
-      const data = GLOSSARY[term];
-      if (data) {
-        document.getElementById('glossary-term-title').textContent = data.title;
-        document.getElementById('glossary-term-def').textContent = data.definition;
-        document.getElementById('glossary-drawer').classList.add('active');
-        document.getElementById('glossary-overlay').classList.add('active');
-      }
-    }
-    
-    // Close glossary drawer
-    function closeGlossary() {
-      document.getElementById('glossary-drawer').classList.remove('active');
-      document.getElementById('glossary-overlay').classList.remove('active');
-    }
+    // Glossary handled by shared glossary-data.js + glossary-drawer.js
     
     function toggleNav() {
       document.getElementById('hamburger-btn').classList.toggle('open');
@@ -1430,15 +1399,6 @@
     
     // Setup all interactions
     document.addEventListener('DOMContentLoaded', function() {
-      // Glossary term clicks
-      document.querySelectorAll('.glossary-term').forEach(el => {
-        el.addEventListener('click', function(e) {
-          e.preventDefault();
-          const term = this.getAttribute('data-term');
-          if (term) openGlossary(term);
-        });
-      });
-      
       // Hamburger menu
       var hamburgerBtn = document.getElementById('hamburger-btn');
       var navOverlay = document.getElementById('nav-overlay');
@@ -1457,26 +1417,12 @@
           toggleNav();
         });
       }
-      
-      // Glossary drawer close
-      var glossaryOverlay = document.getElementById('glossary-overlay');
-      var glossaryClose = document.querySelector('.glossary-drawer-close');
-      
-      if (glossaryOverlay) {
-        glossaryOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          closeGlossary();
-        });
-      }
-      
-      if (glossaryClose) {
-        glossaryClose.addEventListener('click', function(e) {
-          e.preventDefault();
-          closeGlossary();
-        });
-      }
     });
   </script>
+
+<!-- Shared Glossary System -->
+<script src="/scripts/glossary-data.js"></script>
+<script src="/scripts/glossary-drawer.js"></script>
 
 <!-- ============================================ -->
 <!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
@@ -1741,8 +1687,5 @@
   <footer>
     <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
     <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:solarayeffect@gmail.com" style="color:#00CED1;">solarayeffect@gmail.com</a></div></div>
-    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
-  </footer>
-</body>
-</html>
+    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="/cdn-cgi/l/email-protection#eb9884878a998a928e8d8d8e889fab8c868a8287c5888486" style="color:#00CED1;"><span class="__cf_email__" data-cfemail="fe8d91929f8c9f879b98989b9d8abe99939f9792d09d9193">[email&#160;protected]</span></a></div></div>
+    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &md

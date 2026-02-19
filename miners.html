@@ -590,17 +590,18 @@
     .glossary-drawer {
       position: fixed;
       top: 0;
-      right: -400px;
-      width: 400px;
-      max-width: 90vw;
+      right: -420px;
+      width: 420px;
+      max-width: 92vw;
       height: 100vh;
       background: var(--bg-secondary);
       border-left: 2px solid var(--sola-teal);
       z-index: 1001;
-      transition: right 0.3s ease;
-      padding: 2rem 1.5rem;
+      transition: right 0.25s ease;
+      padding: 1.5rem 1.5rem 1.25rem;
       overflow-y: auto;
-      box-shadow: -5px 0 30px rgba(0, 206, 209, 0.3);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
     }
     
     .glossary-drawer.open { right: 0; }
@@ -609,45 +610,48 @@
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background: none;
-      border: 1px solid var(--sola-teal);
+      background: transparent;
+      border: 1px solid rgba(0, 206, 209, 0.55);
       color: var(--sola-teal);
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.35rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.2s ease;
+      box-shadow: 0 0 18px rgba(0, 206, 209, 0.12);
     }
     
     .glossary-drawer-close:hover {
-      background: var(--sola-teal);
-      color: #000;
+      background: rgba(0, 206, 209, 0.12);
+      border-color: var(--sola-teal);
     }
     
     .glossary-drawer h3 {
       font-family: 'Noto Sans JP', sans-serif;
       color: var(--sola-gold);
-      font-size: 1.3rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      font-size: 1.35rem;
+      margin: 0.25rem 0 0.85rem;
+      padding-right: 2.5rem;
+      letter-spacing: 0.5px;
     }
     
     .glossary-drawer p {
       color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
+      line-height: 1.75;
+      margin: 0 0 1rem;
+      font-size: 0.98rem;
     }
     
     .glossary-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
       z-index: 1000;
     }
     
@@ -655,14 +659,72 @@
     
     .glossary-term {
       color: var(--sola-teal);
-      border-bottom: 1px dotted var(--sola-teal);
+      border-bottom: 1px dotted rgba(0, 206, 209, 0.7);
       cursor: help;
-      transition: all 0.2s ease;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
     }
     
     .glossary-term:hover {
       color: var(--sola-gold);
-      border-color: var(--sola-gold);
+      border-color: rgba(212, 175, 55, 0.8);
+    }
+    .glossary-term-actions {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.14);
+    }
+    .glossary-more-link {
+      color: var(--sola-teal);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .glossary-more-link:hover { color: var(--sola-gold); }
+
+    /* Glossary drawer buy/official pill buttons */
+    .glossary-term-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+    .glossary-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .glossary-pill:hover {
+      transform: translateY(-1px);
+      background: rgba(0, 206, 209, 0.14);
+      border-color: rgba(0, 206, 209, 0.55);
+      color: var(--sola-teal);
+      text-decoration: none;
+    }
+    .glossary-pill-amazon {
+      border-color: rgba(212, 175, 55, 0.35);
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--sola-gold);
+    }
+    .glossary-pill-amazon:hover {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: rgba(212, 175, 55, 0.55);
+      color: var(--sola-gold);
+    }
+    .glossary-pill-official {
+      border-color: rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
     }
 
     /* ============================================
@@ -748,12 +810,16 @@
   <div class="nav-overlay" id="nav-overlay"></div>
 
   <!-- Glossary Drawer -->
-  <div class="glossary-drawer" id="glossary-drawer">
-    <button class="glossary-drawer-close" id="glossary-close">&#xD7;</button>
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
     <h3 id="glossary-term-title">Term</h3>
     <p id="glossary-term-definition">Definition goes here...</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
+    </div>
   </div>
-  <div class="glossary-overlay" id="glossary-overlay"></div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
 
   <div class="container">
     <header>
@@ -2708,11 +2774,11 @@
     <footer>
     <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
     <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:solarayeffect@gmail.com" style="color:#00CED1;">solarayeffect@gmail.com</a></div></div>
+    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="/cdn-cgi/l/email-protection#d5a6bab9b4a7b4acb0b3b3b0b6a195b2b8b4bcb9fbb6bab8" style="color:#00CED1;"><span class="__cf_email__" data-cfemail="88fbe7e4e9fae9f1edeeeeedebfcc8efe5e9e1e4a6ebe7e5">[email&#160;protected]</span></a></div></div>
     <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
   </footer>
   
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ============================================
 
     // ============================================
@@ -2819,90 +2885,11 @@
       // Initial render
       renderMiners();
     });
-
-    // ============================================
-    // GLOSSARY DEFINITIONS
-    // ============================================
-    const GLOSSARY = {
-      'hashrate': {
-        title: 'Hashrate',
-        definition: 'How many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. Measured in H/s, KH/s, MH/s, GH/s, TH/s, or PH/s depending on the algorithm. Don\'t chase highest hashrate \u2014 efficiency (hashrate per watt) matters more for home miners.'
-      },
-      'algorithm': {
-        title: 'Algorithm',
-        definition: 'The mathematical puzzle miners solve. Different coins use different algorithms: SHA-256 (Bitcoin), Scrypt (Litecoin/Dogecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash). Your ASIC can only mine its specific algorithm.'
-      },
-      'voltage': {
-        title: 'Voltage (120V vs 240V)',
-        definition: '120V is standard US household outlet power. 240V requires special installation (like a dryer outlet) but allows running high-power industrial miners at full capacity. The Loki Kit enables running 240V miners on 120V at reduced power.'
-      },
-      'loki-kit': {
-        title: 'Loki Kit',
-        definition: 'A hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. The kit runs only one hash board at reduced power (~1200W), providing roughly 40% of full hashrate. Requires aftermarket firmware like LuxOS or VNish.'
-      },
-      'lottery': {
-        title: 'Lottery Miner',
-        definition: 'Low-power USB or small ASIC miners (like Bitaxe, NerdMiner) that have very low hashrate but give you a chance to solo mine a full block reward. Called "lottery" because winning is rare but the payout is huge if you do. Great entry point for beginners.'
-      },
-      'firmware': {
-        title: 'Firmware',
-        definition: 'Software embedded in your miner that controls its operation. Stock firmware comes from the manufacturer; aftermarket firmware (Braiins, VNish, LuxOS) can unlock better performance, efficiency tuning, and features like Loki Kit compatibility.'
-      },
-      'asic': {
-        title: 'ASIC',
-        definition: 'Application-Specific Integrated Circuit. Specialized hardware built solely for mining one algorithm. Extremely efficient but expensive and can\'t be repurposed for other algorithms.'
-      },
-      'efficiency': {
-        title: 'Efficiency (J/TH)',
-        definition: 'Power consumption per unit of hashrate. Lower is better. A 25 J/TH miner uses less electricity than a 35 J/TH miner for the same hashrate \u2014 critical for profitability. For home miners, efficiency often matters more than raw hashrate due to electricity costs.'
-      }
-    };
-
-    // ============================================
-    // GLOSSARY DRAWER FUNCTIONS
-    // ============================================
-    function openGlossary(term) {
-      const data = GLOSSARY[term];
-      if (!data) return;
-      document.getElementById('glossary-term-title').textContent = data.title;
-      document.getElementById('glossary-term-definition').textContent = data.definition;
-      document.getElementById('glossary-drawer').classList.add('open');
-      document.getElementById('glossary-overlay').classList.add('show');
-    }
-
-    function closeGlossary() {
-      document.getElementById('glossary-drawer').classList.remove('open');
-      document.getElementById('glossary-overlay').classList.remove('show');
-    }
-
-    // Initialize glossary clicks
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.glossary-term').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          var term = el.getAttribute('data-term');
-          if (term) openGlossary(term);
-        });
-      });
-
-      var glossaryClose = document.getElementById('glossary-close');
-      if (glossaryClose) {
-        glossaryClose.addEventListener('click', function(e) {
-          e.preventDefault();
-          closeGlossary();
-        });
-      }
-
-      var glossaryOverlay = document.getElementById('glossary-overlay');
-      if (glossaryOverlay) {
-        glossaryOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          closeGlossary();
-        });
-      }
-    });
   </script>
+
+<!-- Shared Glossary System -->
+<script src="/scripts/glossary-data.js"></script>
+<script src="/scripts/glossary-drawer.js"></script>
 
 <!-- ============================================ -->
 <!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
@@ -3160,13 +3147,4 @@
   document.getElementById('sola-fb-email').addEventListener('input', function() {
     this.style.borderColor = '';
   });
-})();
-</script>
-<!-- END SOLA FEEDBACK POPUP WIDGET -->
-
-  <div class="sola-video-float">
-    <img src="assets/solar_effect_300x300.jpg" alt="Sola Ray - Video Coming Soon">
-    <div class="svf-label">&#x1F3AC; Video Soon</div>
-  </div>
-</body>
-</html>
+}

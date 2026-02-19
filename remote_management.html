@@ -1023,6 +1023,50 @@
     }
     .glossary-more-link:hover { color: var(--sola-gold); }
 
+    /* Glossary drawer buy/official pill buttons */
+    .glossary-term-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+    .glossary-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .glossary-pill:hover {
+      transform: translateY(-1px);
+      background: rgba(0, 206, 209, 0.14);
+      border-color: rgba(0, 206, 209, 0.55);
+      color: var(--sola-teal);
+      text-decoration: none;
+    }
+    .glossary-pill-amazon {
+      border-color: rgba(212, 175, 55, 0.35);
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--sola-gold);
+    }
+    .glossary-pill-amazon:hover {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: rgba(212, 175, 55, 0.55);
+      color: var(--sola-gold);
+    }
+    .glossary-pill-official {
+      border-color: rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
+    }
+
 </style>
 </head>
 <body>
@@ -1082,6 +1126,7 @@
     <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">×</button>
     <h3 id="glossary-term-title">Term</h3>
     <p id="glossary-term-definition">Definition goes here...</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
     <div class="glossary-term-actions">
       <a class="glossary-more-link" href="glossary.html">Open full glossary →</a>
     </div>
@@ -2260,190 +2305,9 @@ function dollySuccess(btn) {
 })();
 </script>
 
-
-<script>
-(function () {
-  const GLOSSARY = {
-    "mesh-vpn": {
-      title: "Mesh VPN",
-      def: "A software VPN that connects devices directly in a private network (often peer-to-peer), so you can reach miners securely without port forwarding."
-    },
-    "tailscale": {
-      title: "Tailscale",
-      def: "A mesh VPN built on WireGuard that makes secure remote access simple without exposing ports to the internet."
-    },
-    "headscale": {
-      title: "Headscale",
-      def: "A self-hosted control server compatible with Tailscale clients. Used when you want full control of coordination."
-    },
-    "wireguard": {
-      title: "WireGuard",
-      def: "A modern, lightweight VPN protocol focused on speed and strong cryptography. Used under the hood by Tailscale."
-    },
-    "subnet-router": {
-      title: "Subnet Router",
-      def: "A device (often a Raspberry Pi) that routes a private LAN subnet into your VPN so you can access miners and web UIs remotely as if you were at home."
-    },
-    "cgnat": {
-      title: "CGNAT",
-      def: "Carrier-Grade NAT. Your ISP places you behind shared public IPs, which often breaks inbound port forwarding. A mesh VPN avoids this problem."
-    },
-    "port-forwarding": {
-      title: "Port Forwarding",
-      def: "A router setting that exposes an internal device/service to the public internet. High-risk if misconfigured; avoid when possible."
-    },
-    "static-ip": {
-      title: "Static IP",
-      def: "A public IP address that does not change. Can simplify remote access when you must use traditional networking methods."
-    },
-    "vlan": {
-      title: "VLAN",
-      def: "A virtual LAN that logically separates devices on the same physical network. Used to isolate miners from home devices and reduce network noise."
-    },
-    "segmentation": {
-      title: "Segmentation",
-      def: "Separating devices into distinct network or power zones to improve reliability and security."
-    },
-    "broadcast-traffic": {
-      title: "Broadcast Traffic",
-      def: "Network packets sent to all devices on a LAN. Too much broadcast noise can destabilize large miner deployments."
-    },
-    "pdu": {
-      title: "PDU",
-      def: "Power Distribution Unit. In mining, a switched or metered PDU enables remote power cycling and load visibility for stability."
-    },
-    "switched-pdu": {
-      title: "Switched PDU",
-      def: "A PDU that allows you to remotely turn outlets on/off for recovery without physical access."
-    },
-    "metered-pdu": {
-      title: "Metered PDU",
-      def: "A PDU that measures electrical load (amps/watts) so you can track stability and avoid overload."
-    },
-    "din-rail": {
-      title: "DIN Rail",
-      def: "A standardized metal rail used inside electrical panels to mount components like relays, contactors, and monitoring modules."
-    },
-    "smart-relay": {
-      title: "Smart Relay",
-      def: "A controllable electrical switch used for automation and remote load control (often DIN-rail mounted for panels)."
-    },
-    "contactor": {
-      title: "Contactor",
-      def: "An electrically controlled high-current switch. Often used when relays cannot safely handle the load."
-    },
-    "smart-panel": {
-      title: "Smart Panel",
-      def: "A breaker panel with monitoring and sometimes control features (per-circuit measurement, alerts, or remote toggling depending on model)."
-    },
-    "derating": {
-      title: "Derating",
-      def: "Running hardware below its maximum rating to improve safety and long-term reliability."
-    },
-    "continuous-load": {
-      title: "Continuous Load",
-      def: "A load expected to run for 3+ hours. Often sized at ~80% of circuit rating for safety (check local code)."
-    },
-    "ups": {
-      title: "UPS",
-      def: "Uninterruptible Power Supply. Provides short runtime during outages and can smooth power events for network gear and controllers."
-    },
-    "luxos": {
-      title: "LuxOS",
-      def: "Third-party ASIC firmware focused on tuning, monitoring, and fleet management features."
-    },
-    "braiins-os": {
-      title: "Braiins OS",
-      def: "ASIC firmware focused on transparency and efficiency tuning, with features like autotuning on supported devices."
-    },
-    "control-board": {
-      title: "Control Board",
-      def: "The management board inside a miner that handles networking, configuration, and coordination of hashboards."
-    },
-    "hashboard": {
-      title: "Hashboard",
-      def: "The board in an ASIC miner containing the hashing chips. Multiple hashboards provide total hashrate."
-    },
-    "apw12": {
-      title: "APW12",
-      def: "A Bitmain power supply commonly used with S19-series miners (verify model and connector compatibility)."
-    },
-    "watchdog": {
-      title: "Watchdog",
-      def: "A monitoring mechanism that triggers a restart or recovery action when a system becomes unresponsive."
-    },
-    "failover-pool": {
-      title: "Failover Pool",
-      def: "A backup pool configuration that automatically takes over if the primary pool is unreachable."
-    },
-    "fpps": {
-      title: "FPPS",
-      def: "Full Pay Per Share. A payout method that pays per share and typically includes transaction fees (depends on pool)."
-    },
-    "pplns": {
-      title: "PPLNS",
-      def: "Pay Per Last N Shares. Rewards are distributed based on recent shares; variance can be higher but fees may differ."
-    },
-    "solo-mining": {
-      title: "Solo Mining",
-      def: "Mining without a pool. You only earn when you find a full block; payouts are rare and highly variable."
-    },
-    "hashrate": {
-      title: "Hashrate",
-      def: "How fast a miner computes hashes. Higher hashrate generally increases expected earnings, but power and heat rise too."
-    },
-    "difficulty": {
-      title: "Difficulty",
-      def: "A network parameter that adjusts how hard it is to find blocks. Higher difficulty reduces expected coins at the same hashrate."
-    },
-    "uptime": {
-      title: "Uptime",
-      def: "The percent of time your miners are hashing as expected. Stability infrastructure exists to protect uptime."
-    },
-    "redundancy": {
-      title: "Redundancy",
-      def: "Spare components or alternate paths (power/network) that reduce downtime when something fails."
-    }
-  };
-
-  const drawer = document.getElementById('glossary-drawer');
-  const overlay = document.getElementById('glossary-overlay');
-  const closeBtn = document.getElementById('glossary-close');
-  const titleEl = document.getElementById('glossary-term-title');
-  const defEl = document.getElementById('glossary-term-definition');
-
-  function openDrawer(termKey, fallbackText) {
-    const t = GLOSSARY[termKey];
-    titleEl.textContent = t?.title || fallbackText || "Term";
-    defEl.textContent = t?.def || "Definition coming soon.";
-    drawer.classList.add('open');
-    overlay.classList.add('show');
-    drawer.setAttribute('aria-hidden', 'false');
-    overlay.setAttribute('aria-hidden', 'false');
-  }
-
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    overlay.classList.remove('show');
-    drawer.setAttribute('aria-hidden', 'true');
-    overlay.setAttribute('aria-hidden', 'true');
-  }
-
-  document.addEventListener('click', function (e) {
-    const el = e.target.closest('.glossary-term');
-    if (!el) return;
-    e.preventDefault();
-    openDrawer(el.getAttribute('data-term'), el.textContent.trim());
-  });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-  if (overlay) overlay.addEventListener('click', closeDrawer);
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('show')) closeDrawer();
-  });
-})();
-</script>
+<!-- Shared Glossary System -->
+<script src="/scripts/glossary-data.js"></script>
+<script src="/scripts/glossary-drawer.js"></script>
 
 
   <footer>

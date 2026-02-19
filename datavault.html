@@ -1120,17 +1120,18 @@ body {
     .glossary-drawer {
       position: fixed;
       top: 0;
-      right: -400px;
-      width: 400px;
-      max-width: 90vw;
+      right: -420px;
+      width: 420px;
+      max-width: 92vw;
       height: 100vh;
       background: var(--vault-dark, #0a0e1a);
       border-left: 2px solid var(--terminal-cyan, #00d4ff);
       z-index: 10002;
-      transition: right 0.3s ease;
-      padding: 2rem 1.5rem;
+      transition: right 0.25s ease;
+      padding: 1.5rem 1.5rem 1.25rem;
       overflow-y: auto;
-      box-shadow: -5px 0 30px rgba(0, 212, 255, 0.3);
+      box-shadow: -10px 0 40px rgba(0, 212, 255, 0.3);
+      backdrop-filter: blur(8px);
     }
     
     .glossary-drawer.open { right: 0; }
@@ -1139,48 +1140,49 @@ body {
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background: none;
-      border: 1px solid var(--terminal-cyan, #00d4ff);
+      background: transparent;
+      border: 1px solid rgba(0, 212, 255, 0.55);
       color: var(--terminal-cyan, #00d4ff);
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.35rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.2s ease;
+      box-shadow: 0 0 18px rgba(0, 212, 255, 0.12);
     }
     
     .glossary-drawer-close:hover {
-      background: var(--terminal-cyan, #00d4ff);
-      color: #000;
+      background: rgba(0, 212, 255, 0.12);
+      border-color: var(--terminal-cyan, #00d4ff);
     }
     
     .glossary-drawer h3 {
       font-family: 'Orbitron', monospace;
       color: var(--terminal-amber, #ffb800);
       font-size: 1.1rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(255, 184, 0, 0.3);
+      margin: 0.25rem 0 0.85rem;
+      padding-right: 2.5rem;
       letter-spacing: 1px;
     }
     
     .glossary-drawer p {
       font-family: 'Rajdhani', sans-serif;
       color: var(--text-secondary, #8899a8);
-      line-height: 1.7;
+      line-height: 1.75;
       font-size: 1.05rem;
-      margin-bottom: 1.5rem;
+      margin: 0 0 1rem;
     }
     
     .glossary-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
       z-index: 10001;
     }
     
@@ -1190,12 +1192,70 @@ body {
       color: var(--terminal-cyan, #00d4ff);
       border-bottom: 1px dotted var(--terminal-cyan, #00d4ff);
       cursor: help;
-      transition: all 0.2s ease;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
     }
     
     .glossary-term:hover {
       color: var(--terminal-amber, #ffb800);
       border-color: var(--terminal-amber, #ffb800);
+    }
+    .glossary-term-actions {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 184, 0, 0.14);
+    }
+    .glossary-more-link {
+      color: var(--terminal-cyan, #00d4ff);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .glossary-more-link:hover { color: var(--terminal-amber, #ffb800); }
+
+    /* Glossary drawer buy/official pill buttons */
+    .glossary-term-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+    .glossary-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(0, 212, 255, 0.35);
+      background: rgba(0, 212, 255, 0.08);
+      color: var(--terminal-cyan, #00d4ff);
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .glossary-pill:hover {
+      transform: translateY(-1px);
+      background: rgba(0, 212, 255, 0.14);
+      border-color: rgba(0, 212, 255, 0.55);
+      color: var(--terminal-cyan, #00d4ff);
+      text-decoration: none;
+    }
+    .glossary-pill-amazon {
+      border-color: rgba(255, 184, 0, 0.35);
+      background: rgba(255, 184, 0, 0.08);
+      color: var(--terminal-amber, #ffb800);
+    }
+    .glossary-pill-amazon:hover {
+      background: rgba(255, 184, 0, 0.14);
+      border-color: rgba(255, 184, 0, 0.55);
+      color: var(--terminal-amber, #ffb800);
+    }
+    .glossary-pill-official {
+      border-color: rgba(0, 212, 255, 0.35);
+      background: rgba(0, 212, 255, 0.08);
+      color: var(--terminal-cyan, #00d4ff);
     }
 
     @media (max-width: 600px) {
@@ -1261,12 +1321,16 @@ body {
   <div class="nav-overlay" id="nav-overlay"></div>
 
   <!-- Glossary Drawer -->
-  <div class="glossary-drawer" id="glossary-drawer">
-    <button class="glossary-drawer-close" id="glossary-close">&#xD7;</button>
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
     <h3 id="glossary-term-title">Term</h3>
     <p id="glossary-term-definition">Definition goes here...</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
+    </div>
   </div>
-  <div class="glossary-overlay" id="glossary-overlay"></div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
 
   <!-- Header -->
   <header class="vault-header">
@@ -1836,12 +1900,12 @@ body {
     <footer>
     <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
     <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:solarayeffect@gmail.com" style="color:#00CED1;">solarayeffect@gmail.com</a></div></div>
+    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="/cdn-cgi/l/email-protection#1a6975767b687b637f7c7c7f796e5a7d777b737634797577" style="color:#00CED1;"><span class="__cf_email__" data-cfemail="84f7ebe8e5f6e5fde1e2e2e1e7f0c4e3e9e5ede8aae7ebe9">[email&#160;protected]</span></a></div></div>
     <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
   </footer>
 
   <!-- Chart.js + Date Adapter -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
   <script>
 /* \u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090
@@ -3100,62 +3164,11 @@ document.addEventListener('DOMContentLoaded', init);
         });
       }
     });
-
-    // ============================================
-    // GLOSSARY DEFINITIONS
-    // ============================================
-    const GLOSSARY = {
-      'hashrate': {
-        title: 'Hashrate',
-        definition: 'How many calculations your miner performs per second. Higher hashrate = more chances to earn rewards. The network hashrate is the combined power of all miners worldwide. When it rises, difficulty follows \u2014 and your share of rewards shrinks.'
-      },
-      'difficulty': {
-        title: 'Difficulty',
-        definition: 'A measure of how hard it is to mine a block. Adjusts automatically every ~2,016 blocks based on total network hashrate. Higher difficulty = less frequent rewards for the same hashrate. This is the single most important number for your profitability.'
-      },
-      'block-reward': {
-        title: 'Block Reward',
-        definition: 'The cryptocurrency paid to miners who successfully add a new block to the blockchain. For Bitcoin, this halves every ~4 years. Currently 3.125 BTC per block (since April 2024). Next halving will reduce it to 1.5625 BTC.'
-      },
-      'hashprice': {
-        title: 'Hashprice',
-        definition: 'What one terahash of mining power earns per day in USD. This is the bottom-line number \u2014 it accounts for difficulty, price, and fees all in one. Compare this against your electricity cost per TH to know if you\'re profitable.'
-      }
-    };
-
-    function openGlossary(term) {
-      var data = GLOSSARY[term];
-      if (!data) return;
-      document.getElementById('glossary-term-title').textContent = data.title;
-      document.getElementById('glossary-term-definition').textContent = data.definition;
-      document.getElementById('glossary-drawer').classList.add('open');
-      document.getElementById('glossary-overlay').classList.add('show');
-    }
-
-    function closeGlossary() {
-      document.getElementById('glossary-drawer').classList.remove('open');
-      document.getElementById('glossary-overlay').classList.remove('show');
-    }
-
-    document.querySelectorAll('.glossary-term').forEach(function(el) {
-      el.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var term = el.getAttribute('data-term');
-        if (term) openGlossary(term);
-      });
-    });
-
-    document.getElementById('glossary-close').addEventListener('click', function(e) {
-      e.preventDefault();
-      closeGlossary();
-    });
-
-    document.getElementById('glossary-overlay').addEventListener('click', function(e) {
-      e.preventDefault();
-      closeGlossary();
-    });
   </script>
+
+<!-- Shared Glossary System -->
+<script src="/scripts/glossary-data.js"></script>
+<script src="/scripts/glossary-drawer.js"></script>
 
 <!-- ============================================ -->
 <!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
@@ -3405,17 +3418,4 @@ document.addEventListener('DOMContentLoaded', init);
     .catch(function() {
       document.getElementById('sola-fb-error').style.display = 'block';
       btn.textContent = 'Send Feedback';
-      btn.disabled = false;
-    });
-  });
-
-  // Email border reset
-  document.getElementById('sola-fb-email').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-})();
-</script>
-<!-- END SOLA FEEDBACK POPUP WIDGET -->
-
-</body>
-</html>
+      btn.
