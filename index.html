@@ -55,153 +55,128 @@
   
     /* ============================================
    AFFILIATE LEFT RAIL (INDEX ONLY)
-   Premium glass panel + subtle hover motion
+   Shop Miners Rail &mdash; 14 row affiliate directory
    ============================================ */
 .affiliate-rail {
-  position: fixed;
-  top: 270px;
-  left: 28px;
-  width: 180px;
+  position: absolute;
+  top: 0;
+  left: 12px;
+  width: 200px;
   z-index: 900;
+  overflow-y: visible;
 }
 
-.affiliate-rail a {
+
+.affiliate-rail .rail-header { text-align: center; margin-bottom: 8px; padding: 6px 0 4px; }
+.affiliate-rail .rail-site-label {
+  color: rgba(212,175,55,0.5);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.affiliate-rail .rail-title {
+  color: rgba(232,240,247,0.9);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+}
+.affiliate-rail .rail-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+  margin-bottom: 6px;
+}
+
+.mine-row {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  border-radius: 18px;
-  padding: 14px 12px 12px;
+  padding: 8px 8px;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  min-height: 44px;
+  background: linear-gradient(135deg, rgba(8,26,21,0.75), rgba(5,10,12,0.88));
+  border: 1px solid rgba(212,175,55,0.28);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   overflow: hidden;
-
-  /* glass + depth */
-  background: linear-gradient(180deg, rgba(8, 26, 21, 0.62), rgba(5, 10, 12, 0.78));
-  border: 1px solid rgba(212, 175, 55, 0.42);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.48);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
 }
-
-/* ultra-faint circuit texture */
-.affiliate-rail a::before {
+.mine-row::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.04;
   background-image:
-    radial-gradient(circle at 20% 22%, rgba(212,175,55,0.9) 0 1px, rgba(0,0,0,0) 2px),
-    radial-gradient(circle at 78% 34%, rgba(0,206,209,0.9) 0 1px, rgba(0,0,0,0) 2px),
-    linear-gradient(90deg, rgba(232,240,247,0.35) 1px, rgba(0,0,0,0) 1px),
-    linear-gradient(0deg, rgba(232,240,247,0.22) 1px, rgba(0,0,0,0) 1px);
-  background-size: auto, auto, 22px 22px, 22px 22px;
-  background-position: center;
-  mix-blend-mode: screen;
+    linear-gradient(90deg, rgba(232,240,247,0.4) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(232,240,247,0.25) 1px, transparent 1px);
+  background-size: 18px 18px;
 }
-
-/* soft glow vignette */
-.affiliate-rail a::after {
-  content: "";
-  position: absolute;
-  inset: -40px -30px -60px -30px;
-  pointer-events: none;
-  opacity: 0.25;
-  background: radial-gradient(circle at 50% 18%, rgba(212,175,55,0.35), rgba(0,0,0,0) 60%);
-}
-
-.affiliate-rail a:hover {
+.mine-row:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.58);
-  border-color: rgba(212, 175, 55, 0.62);
+  border-color: rgba(212,175,55,0.65);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.55), 0 0 14px rgba(212,175,55,0.08);
 }
 
-.affiliate-rail .aff-title {
-  position: relative;
-  color: rgba(232, 240, 247, 0.95);
-  font-weight: 800;
-  font-size: 0.80rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 2px 0 6px 0;
-}
-
-.affiliate-rail .aff-label {
-  position: relative;
-  color: rgba(232, 240, 247, 0.58);
-  font-weight: 700;
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 0 0 10px 0;
-}
-
-.affiliate-rail .aff-divider {
-  position: relative;
-  height: 1px;
-  width: 64%;
-  margin: 10px auto 12px;
-  background: linear-gradient(90deg, rgba(0,0,0,0), rgba(212,175,55,0.75), rgba(0,0,0,0));
-  transform-origin: center;
-  transition: transform 0.18s ease, opacity 0.18s ease;
-  opacity: 0.90;
-}
-
-.affiliate-rail a:hover .aff-divider {
-  transform: scaleX(1.22);
-  opacity: 1;
-}
-
-.affiliate-rail .aff-sub {
-  position: relative;
-  color: rgba(232, 240, 247, 0.80);
-  font-size: 0.76rem;
-  line-height: 1.35;
-  text-align: center;
-  margin: 0 0 14px 0;
-}
-
-.affiliate-rail .aff-cta {
-  position: relative;
-  display: inline-flex;
+.mine-left, .mine-right {
+  flex-shrink: 0;
+  width: 32px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 10px 10px;
-  border-radius: 999px;
-
-  /* premium glass outline */
-  background: rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(212, 175, 55, 0.78);
-  color: rgba(212, 175, 55, 0.92);
-  font-weight: 900;
-  font-size: 0.84rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-
-  transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
 }
-
-.affiliate-rail a:hover .aff-cta {
-  box-shadow: 0 0 0 2px rgba(212,175,55,0.16), 0 0 22px rgba(212,175,55,0.18);
-  border-color: rgba(212, 175, 55, 0.92);
-  color: rgba(232, 240, 247, 0.96);
-  background: rgba(212, 175, 55, 0.10);
-  transform: translateY(-1px);
+.mine-left img, .mine-right img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 5px rgba(212,175,55,0.5));
 }
-
-.affiliate-rail .aff-foot {
-  position: relative;
-  color: rgba(90, 106, 122, 0.92);
-  font-size: 0.66rem;
+.mine-left .rail-emoji, .mine-right .rail-emoji {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.mine-info {
+  flex: 1;
+  min-width: 0;
+  padding: 0 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.mine-name {
+  color: rgba(232,240,247,0.92);
+  font-size: 0.70rem;
+  font-weight: 800;
+  line-height: 1.25;
   text-align: center;
-  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.mine-hash {
+  color: rgba(212,175,55,0.75);
+  font-size: 0.58rem;
+  font-weight: 700;
+  margin-top: 2px;
+  text-align: center;
+  min-height: 0.7rem;
+}
+.affiliate-rail .rail-footer {
+  text-align: center;
+  margin-top: 6px;
+  color: rgba(90,106,122,0.7);
+  font-size: 0.58rem;
+  letter-spacing: 0.10em;
 }
 
-/* Make room for the rail on wide screens so it doesn't cover content */
+/* Make room for rail on wide screens */
 @media (min-width: 1200px) {
   body.has-affiliate-rail main .container { margin-left: 220px; }
 }
@@ -1782,18 +1757,142 @@
   </button>
 
 
-  <!-- Affiliate Left Rail (eBay Miner Listings) -->
-<aside class="affiliate-rail" aria-label="Affiliate link: eBay miner listings">
-  <a href="https://www.ebay.com/sch/i.html?_nkw=bitcoin+asic+miner&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=indexbanner&toolid=10001&mkevt=1"
-     target="_blank" rel="noopener sponsored">
-    <div class="aff-title">Need a Miner?</div>
-    <div class="aff-label">eBay Marketplace</div>
-    <div class="aff-divider"></div>
-    <p class="aff-sub">Antminer &#x2022; Whatsminer &#x2022; Bitaxe</p>
-    <div class="aff-cta">View Listings <span aria-hidden="true">&#x2192;</span></div>
-    <div class="aff-foot">Affiliate link</div>
+  <!-- Affiliate Left Rail &mdash; Shop Miners Directory -->
+<aside class="affiliate-rail" aria-label="Shop miners on eBay">
+  <div class="rail-header">
+    <div class="rail-site-label">Sola Ray Effect</div>
+    <div class="rail-title">Shop Miners</div>
+  </div>
+  <div class="rail-divider"></div>
+  
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=lottery+miner&amp;_sacat=179197&amp;customid=rail-lottery&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="btc" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Lottery Miners</div>
+      <div class="mine-hash">Up to 4.5 TH/s</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F3B0;</span></div>
   </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=Antminer+S19&amp;_sacat=179197&amp;customid=rail-s19&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="btc" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Antminer S19</div>
+      <div class="mine-hash">Up to 140 TH/s</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="btc" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=Antminer+S21&amp;_sacat=179197&amp;customid=rail-s21&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="btc" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Antminer S21</div>
+      <div class="mine-hash">Up to 200 TH/s</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="btc" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=WhatsMiner&amp;_sacat=179197&amp;customid=rail-whatsminer&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="btc" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">WhatsMiner</div>
+      <div class="mine-hash">Up to 186 TH/s</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="btc" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=antminer+equihash+zec+zcash&amp;_sacat=179197&amp;customid=rail-zcash&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="zec" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Zcash Miners</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="zec" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=KAS+miner&amp;_sacat=179197&amp;customid=rail-kas&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="kas" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">KAS Miners</div>
+      <div class="mine-hash">Up to 21 TH/s</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="kas" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=scrypt+miner&amp;_sacat=179197&amp;customid=rail-scrypt&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="ltc" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Scrypt Miners</div>
+      <div class="mine-hash">Up to 9,500 MH/s</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAJU0lEQVR4nIWWbYxU1RnH/885d+6dO+87w77DspBFCCCgiIKAgNTWqrEi7jY2qbUxaU1rWtsPTWxjgMTQJr70xaZqP9TapCGyaLVC1CogFLEiYhcX2F1gYZfdZXdn533mzp25556nH9CmUWP/H5+T/H7J+fQjfMG2bYPYvp1BRBoAyhd+0BKOx67PZ/OrdY2WSEMnlWLIQLAkSI2YET5GodSRYPyxswDAzARsJ6Id+rNs+uxh9+5u2dPT6wNAZWbbal3L3V8cH9lSnUw3CXIhRQ1mQMOtEQQz7EgALMOQsYZCuLX1aCAWf94IPdV7Rdwtia6wvlDIvFsS9fhDB7fM7lg658ni2ERPbfwUXNeBiCZ02IYvJAmlJZl2gH1PwSlqltInSUpSXSHc0gm7feFBNryHreQzJz9lfk746UNx5JH1pnR2TfcdbC/PjPuJjnbN0jKcfBnTY3mOhkHxhiCkZYOkgK8J0jDhkcEBdvzKVIakGTaalq0qBZvn3xeIPfbK/0rFFdk2QdTjVy/v2KRKmdcH39jV7rkzntXUJob688bU4DBZAQ/DF1yanHBgBSUZlkQwZMC2AVPWwKU0Zsaysm4lpBEWauTI/mhx+FSvm3vkbqIen3d3SwAwmLcJYDs75+0OJzO26/KxV8OGTcqTMaP/nyMIoIr25bMgDQFpCmRmKoDWrNw6a08QWLPv1UnYCcRDhJB0cHHEk83tjWr02GHRFYr+lSs/X0/hncd5d7cUwHYQEQqVqT/lhg42wxKqqkLy5JELqDsVxFMhJiGZax5qLhBubIPVkIIRipGwQhAGiGUMjDBUZgL7913ExaEsClN5GUmF/am+94JOqf7s8edWBtC9mAUR6dGj937LKPVv9lVGwUoakxcy0L5CNGZCkiJpmRSes5hv//YNfPNdV8NXiry6QqXgoloFiiUN9/IZ9A+W8bu/uCBiVIsOJieVUcrNeLXxcysX3rG8h2iHFtu2wfBV9eHs6ACTnaD02AwK2TICpkQiFcXsRYsw98Y7kJg/H6mkAV0YB/keUCtxrZhHYTIHJzMOw5I4/J5CvgRUSnX4mnFpOA9tRqkwOsDVPD+0uxvSuHvp9Wsq2clrGRJuTon0RB7SkAiYBuYvX8Jtq1fR1PkJNqRAPBJBOV9GU2c7kiuaKdt3BpmJNLikUXUUmht8dLYAExM1tLcZUPUaKmUlRW0aNGv6uuUP3LxSCFH5uqnSwjTgl/NlKKUBZrTNjaN52dWoVCPY9cQ+FNNZMoIJROJhlP0g9r44hHS6iHJRAUwoFhRuXGnilrUCuTxjatKFIQmZtAOn4mlRSxswzVtEtSqWq7oPHwE4VQ1oH6ZJ1LFiMWTDHIwcP88RE4imoqwohGgqQh+9O8Rvv3iG9/SmkS96aG6PIZ4KIRIPYuO6KAQYhaKCUhqZvEbVkyikc3DrlWVGvuB2WHEfbomFcj1opbl5QQqNnV2Ak6bFN7di8aYfEVQcyi1yMVdnLqVJGITWNhvLVzXCc+sIx2zUHAkyTCxbHcPIwASk9uGSD+qwqJovgQKh2Ua+VI02RjQ8tw4pGJYlyIokGPEGnDrch2d+04e1N0b4nu9vRkAmyEjOw5IVRXRexUgmLWjfR61OSLam4DkOatUa1q8JYemqdfjwwBlMjuQQtMIsoOApN2Qoj2s1x0ep6IOFiYBlQNomoMvYu2uIL/VP0PmQTZePH+aGWQ2ggIVwIs6G6XC9piifqaB5QQfcahV7906gXFG48boQNzZUafNdHXj5hRJy0xVKNdnQdc8VNad+zteAW65rAAiYAZD2AbIwuy2A9jaBjZtTaEwKuLlpTg9fwOSlNBgCXl0jnrQQa7KgqnVsvimBDWtm4d3jHs3MVOAXc7huXRuK2SrHkjaU66fF0Cnnw3AkgKCh2XNrMAzBqlQEvDpWrW9DMav5VzvHeOfOs/znF8bw1sEsShUNr6ZABKQzHv9jz1lEgkAoZGHhohCClsBMzmeDfBaWCa2Z7UQIg6fLJ42j71cObNjU8ItIzJBO1r/ypeShPj2Gq67rwqNPVKj/xCRVlIEF8yS3JhmCNJXyZZbEyE87dOStAhbMs/Dya9OYHs6hY24IXZ0JeGRisD+LqGmIfEXyG/vz7xCAwG8fTH6w5dbosqOHp3SqKSzjMeLOFfPQuPQGhhEiGEwQdcbUeS6MTVF2Ik11D0ysEJAKVjSFeEucX9szitltMZo7P4ZEuIxjp8M48877euOtHeJCJnjizp8MrREgeG8fKD6XLwtKpQI6m6nBitqYGZ1EZWyQwApwfdTGJ5GfyGBmPA23UoUkhaoinBzwQJYFv5DF174Sx/JrgjD9MfQNVLnv0GnM67Q41jaL3nxl7FkQPGKGIIK58zsNR7/33ZZrjrx50TftoJg9N4Rkkw2FIOItjeSX0rqYLaFSqpMG0eUZ5qAlIZSD04N1NLdYrH0Fp+xRJi+RS1ewpEOrm7asDOx7febjBx4fuYF5W426AfmSgD9X4/qnn+g4tPZ629z/6gXWEOKaDfM5Gjfp/ImLlM95uuYTPJ8oESdKNYa4uTUCkgS2IlBssFMnlEtBZEYzyF8c0pu+sVB8dNKt/uyn5zaeFnT8Uc1C9AL+1q2QFwQde/Lx0R/+++Oa2HRnl6xWtX/o7wN06WIZgUQDD5z1KD1ZobjtojklELIJQmqEYhZaWm10Lm3BgsVdqGUc4vyov+72RUbfoOBf//Lc/f2fyHYA+r9N090N2buH/K/O4vseeGj27zeuDUeHBzKq/0QWCoZMtiTYtG1IK0hNSZdiDba2wgkKWhogjWLR5OylyzpkldHa1WEcOOhknn/6zINv5WhP9z0se3vhf67adndDfvMl8udrXnPv1thTt902a3XnHBOXzucxcKqopqc9DkdDwjQZhiE5ZBIFbZ/NgI9ZLTFq7kzJgmNh3yujB55+YfrH44L6X9zKsucT2Rd26YYNMI4eJbXI44ZUC3rWrwvfv+ra2Kr2joQM2T78eg3a82HZQQSCNsywCZ8MDA+X8cG/CoPv7Z/4w9+G9R+lIdx1ShuHAPWlIfzJBDMQMEl3eBwPASuWLsE1Vy2JrWxuC3dFY0ZYQFKx4jvT6erliYuV02f6qh9mCnh3QNKkr+6RRL0M4HPl/f8mmSEMg0CCPs3KBIBGAM0AkgBsAJCGgBCEbkB+GfA/hMbBARQvYBwAAAAASUVORK5CYII=" alt="doge" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=xmr+monero+miner&amp;_sacat=179197&amp;customid=rail-monero&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="xmr" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Monero Miners</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAI0ElEQVR4nH2WWYxcxRWG/1NVd+nbd3q6Z/WMZ2G8YJvFxsIGY8imKEpMQEmkjImSh6CsL5HykCARIIyd8BAkJBAvKFKU5YWATTDYSEAcBAnBCjFgYoK38TLM6p6l19t916qTB2MUsZ3HOqX/O4tK9RM+JiYmIPbsYRCRAQBeuXM4jkrbomZ0c5KmmwUnRXAWE6U15dgzbqF4VNvmb173YzMAwMwE7CGivebD2vThg337xuXu3fs1ALTL9+5Mggs/qs/P3EatrFuHAYwwcHIKTAQpGL7voN0WEIXO5Vzv2pf9vpE/kHv385fA45LoktbHAi9fmPz3HcOja1b/pjp15ttpeRIJBNhk7BU943XkIN0O0po5CeoQpDmsBySVI20iiMIa5Ec3HTIq9zO38/5J5n2SaLf+CPByYmXqFzfnqfnkwvGXVyftuukeGzLt2JaCI3QUCIIIhgWIJIzRMFpDWgppGDEbY5pLNXK8ouzesK0Kv/9Ot+uBg/zyhKIv7M0+ADJPCKK9pn7xnh0qCl+cevVAQVhxWlqzUTXKNeTzmjp7PBaOBylAkB5zFoKIQJYDDQc6qCCJNOIwhsniLCovWv3X365V/5pvuYW7n7o8PeKJCYE9e7i1eFd/Us3eXDn2zGDxCj/LtK9q5QqvGilAOh4BzCQtSGEgHB+sUwhlQ6caJkuYBJEUQNyoUrUq2StI055+T6y64Y6QCt4tTumBY/v2jUuBq68mIuKkJh6pnfz7oF1yssgUZdhO0TM0gkZDIUtTwGQkkYCUDZ0mABNYp2AdgoQkZdkIFssolyX7RYU4gvRHBkz1zD+9KJC/5X2Q4+P7WNDu3Xrx+PdvjebeuUNajczu7JKV2Sp6ugC3bxT+2A5UKi6SKICyFdIoAzMRGwMdR2CtYVlAVJlDrDZi5MbPQ8FA6Ta0dqTmRma3T29PvviT3URkBABqLFXvqs1Nst3ho1KOMDDogA3DRMvoGmCs2rwD5cogVy8uwvMlTJrApAnSKIESGVZmV5BaV2LwqmE4VoB2BCiRIWw0QdKi5twpblX1T8cBSS89dt2Wnr7C61Y2a8PthIlj9PUTslST07uWuwa6AGUhRRGnjhxHQc1jcKybNBU4qS9geTlDru86DAwxoGMYNnjv5Ax8q41mIyUmxVmjhs51O3RlceYW4Xd1f87Kqo4k1svLMSTFyGIDNnRpV1kEtGtkhXO49rPrkeVGcO70Mse1eZQXBTpWr8NAXx1pZR5pfRm6WUUYRGBtYNsCUZQiTbTJmtMqIbVLcbJ4k7BCWI6ADusUgtFZtJkEIQ3bQFNjqRqhp9cjDuu8dlMH5i4MY3pqHkPreuDRRbTLKStFotWMOdMGrUYbnY4irRlEErAchNUVSLd0lWo0oivzXQYUZRS3E0hPQKcJmo0Udl4i6XDx+msXwYbxlS+vRnvpIkq2Q86Aw/HSFFICQi3pP++GvGW9RJpqJK0MaaeLNNFoNzVyrqSg1kbsyCHVitiDMVhZCZDGYGVbVKvEiMIMUrWxPN/Gqi5g7lyFDx2KsfPGIrVnlzmONVxXQDs+Dh6YQ77o07pBgk4MkzGoVzRs14awFLVbGTsiRRimrgiCOCGpLr2vzEBrAxICSgnErRBxlEIbYO36Drg6xF9fqjBbirwcIRQ+9u9fRLfbwsZ1HjfrKZpNTfmCB+XlkcFCI5AcBBpRBCSJbCudJOcdW2xupBkLGNRrGeecDFobuHkHUZgiSyUaqY3VoxbSszX894TksU39eHr/AnZeo5H3OuC4MRyl+OzJOmE5g+cITlImy8+Dwoh7+3KYn07OiIWp+GgSGbSaMeJIo9VMkEQpLEsAJkOWaLgyQxSEFAYJxsZyyJkQzz5+DjddFaGvzwEgIQhgFhhYZXGnl8GRCXK2gRCMLErh93Xh9OnGW7S1G9se/OXwawXZtmZnQlg2wcsRDBMBzNJS0KkhEMGyBSuh4Xc4MIaRJJd+HdtVnEQZCUHI+zaiiJEmKQWxi6AZc14xujeORvf9/Ng2cWwFb7x9PDjS1ZNDPk9aGyKSCqwNcjkFMCPvW3BdCSEIJBRpA+R8B/lCDh29nUhlN6zSIPL9QxC5EmDbsHN5GHYQLtf0xq299O6xpcMvTOOEICIcfqXxaCUgKnQ63KxGrFUBEBZYgzpLLrQGkigFtIHjCLZsCZCA5dqQlgPXc+D6BcSRRK1cQdgGKq1V3CqXcc22AQQo4eknZh8iIghjWBw+r5957oXqoTWbeq2eHlvPnFqE43uoB8xLc3VYIuVCyWHDjLCVIEsyaLYhhIDtSHT2FKnDi5DDDLyOPHKlDVicOgfbNunA+iF16Kmzjz97Aa8++eQ3JQEQzMxENPD4/av/tetLxeEX959J6wGroQ1DEMiQBA1aPeggCmN2cgrKcWGyDNLNwbYYJIG8KyC9QUxOSsyeeAe+E+idX92iDhxcePfHD89/jnmiSrSXCQAmAPErQeZawbfcd8/gc7tu6+08/JfJ7MJkW/SPlSjfU0LBTeE5gGUT4ighk2nOl/IoFh1kKIApj+nzFQRzp3hgKJ+t27refubgwoUHHprZNS3ptNEsAJgPPM0EIPYKMusN3/DDO3v++PWv9WyKGi2cfHsxW5iPRanPp8HRHs77IBMH0Ckj1+GiFaRorKScBA14HWS2fGadolwXnvjTuSMP/7783XlJZy/DPuLaJgDxa0XGZNz3na3Wvbfe3v+DLZscL4lSrJRDXpqva51pFLtzSGPNAJG0bZR6PTG2oVsI28brR+utfzw/9+gjr4QPSkX1+zIWe9+HfawvvbxTIQWvMXz9zdvt723fXrx1dNS7Yu2YhJ8TIGa4vgUjFULtYepCAyeOVafeeav24ptHot8dBd543zQx/g/2SUAAoPFxiAMHSBvDuMJgpNvDpjVr1ebhYXekVFJ+msFUK0lrqRxNL5w1x2faOHFeYJaEwJ+/YeTu/dCfoP2pQeOAlJKgFEGID+pTAAQACEGQSkBKwsQExKc0AQD4Hyp8sYCgWmIgAAAAAElFTkSuQmCC" alt="xmr" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=ethereum+classic+miner&amp;_sacat=179197&amp;customid=rail-etc&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="etc" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Ethereum Classic</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="etc" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=asic+sha-256+solo&amp;_sacat=179197&amp;customid=rail-dgb&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="dgb" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">DigiByte Solo</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="dgb" width="28" height="28"></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=raven+coin+miner&amp;_sacat=179197&amp;customid=rail-kawpow&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F60E;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">KAWPoW GPU Rigs</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F60E;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=immersion+miner&amp;_sacat=179197&amp;customid=rail-immersion&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F976;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Immersion Cool Rigs</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F976;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=crypto+hardware+wallet&amp;_sacat=179197&amp;customid=rail-wallets&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="wallet" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Crypto Wallets</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="wallet" width="28" height="28"></div>
+  </a>
+  <div class="rail-footer">Affiliate links &bull; eBay</div>
 </aside>
+
+  <!-- Solo Mining Fact Box - positioned in left gap level with Select Your Miner -->
+  <div id="solo-fact-box" style="position:absolute; left:12px; width:200px; z-index:890; padding:0.6rem 0.75rem; background:rgba(0,206,209,0.05); border:1px solid rgba(0,206,209,0.2); border-radius:6px; font-size:0.7rem; color:#8899a8;">
+    <div style="color:var(--sola-teal); font-weight:600; margin-bottom:0.2rem; text-align:center;">&#x1F914; Interesting Info</div>
+    <div style="color:rgba(232,240,247,0.5); font-size:0.67rem; margin-bottom:0.4rem; text-align:center;">Solo Mining at 4.5 TH/s</div>
+    <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
+      <colgroup><col style="width:28%"><col style="width:42%"><col style="width:30%"></colgroup>
+      <thead>
+        <tr style="color:rgba(232,240,247,0.5); font-size:0.67rem;">
+          <th style="text-align:center; padding-bottom:3px; white-space:nowrap;">Coin</th>
+          <th style="text-align:center; padding-bottom:3px; white-space:nowrap;">USD</th>
+          <th style="text-align:center; padding-bottom:3px; white-space:nowrap;">Odds</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:1px 0; white-space:nowrap; text-align:center;">BTC</td><td style="text-align:center; white-space:nowrap;">~$211,400</td><td style="text-align:center; white-space:nowrap;">4,100 yrs</td></tr>
+        <tr><td style="padding:1px 0; white-space:nowrap; text-align:center;">BCH</td><td style="text-align:center; white-space:nowrap;">~$1,755</td><td style="text-align:center; white-space:nowrap;">46 yrs</td></tr>
+        <tr><td style="padding:1px 0; white-space:nowrap; text-align:center;">BSV</td><td style="text-align:center; white-space:nowrap;">~$51.85</td><td style="text-align:center; white-space:nowrap;">1.08 yrs</td></tr>
+        <tr><td style="padding:1px 0; white-space:nowrap; text-align:center;">DGB</td><td style="text-align:center; white-space:nowrap;">~$1.60</td><td style="text-align:center; white-space:nowrap;">2.3 days</td></tr>
+      </tbody>
+    </table>
+  </div>
 
 
 
@@ -4147,6 +4246,64 @@
     this.style.borderColor = '';
   });
 }
+</script>
+<script>
+(function() {
+  function alignRail() {
+    var rail = document.querySelector('.affiliate-rail');
+    if (!rail) return;
+    var headings = document.querySelectorAll('.section-title');
+    var elecSection = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].textContent.indexOf('Electricity Setup') !== -1) {
+        elecSection = headings[i].closest('section') || headings[i];
+        break;
+      }
+    }
+    if (!elecSection) return;
+    var sectionTop = elecSection.getBoundingClientRect().top + window.scrollY;
+    var containerTop = rail.offsetParent ? rail.offsetParent.getBoundingClientRect().top + window.scrollY : 0;
+    rail.style.top = (sectionTop - containerTop) + 'px';
+
+    // Align solo fact box with Select Your Miner section
+    var factBox = document.getElementById('solo-fact-box');
+    if (factBox) {
+      var minerSection = null;
+      for (var j = 0; j < headings.length; j++) {
+        if (headings[j].textContent.indexOf('Select Your Miner') !== -1) {
+          minerSection = headings[j].closest('section') || headings[j];
+          break;
+        }
+      }
+      if (minerSection) {
+        var minerTop = minerSection.getBoundingClientRect().top + window.scrollY;
+        factBox.style.top = (minerTop - containerTop) + 'px';
+      }
+    }
+  }
+
+  function init() {
+    alignRail();
+    window.addEventListener('resize', alignRail);
+
+    // Re-align whenever the page content changes height (calculator results expanding)
+    var observer = new MutationObserver(function() {
+      alignRail();
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class']
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
 </body>
 </html>
