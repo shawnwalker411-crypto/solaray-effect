@@ -176,13 +176,54 @@
   letter-spacing: 0.10em;
 }
 
-/* Make room for rail on wide screens */
-@media (min-width: 1200px) {
-  body.has-affiliate-rail main .container { margin-left: 220px; }
+/* ============================================
+   AFFILIATE RIGHT RAIL (INDEX ONLY)
+   Shop Gear Rail &mdash; 14 row Amazon directory
+   ============================================ */
+.affiliate-rail-right {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  width: 200px;
+  z-index: 900;
+  overflow-y: visible;
 }
-/* Hide rail on tablets/mobile */
+.affiliate-rail-right .rail-header { text-align: center; margin-bottom: 8px; padding: 6px 0 4px; }
+.affiliate-rail-right .rail-site-label {
+  color: rgba(212,175,55,0.5);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.affiliate-rail-right .rail-title {
+  color: rgba(232,240,247,0.9);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+}
+.affiliate-rail-right .rail-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+  margin-bottom: 6px;
+}
+.affiliate-rail-right .rail-footer {
+  text-align: center;
+  margin-top: 6px;
+  color: rgba(90,106,122,0.7);
+  font-size: 0.58rem;
+  letter-spacing: 0.10em;
+}
+
+/* Make room for rails on wide screens */
+@media (min-width: 1200px) {
+  body.has-affiliate-rail main .container { margin-left: 220px; margin-right: 220px; }
+}
+/* Hide rails on tablets/mobile */
 @media (max-width: 1199px) {
-  .affiliate-rail { display: none; }
+  .affiliate-rail, .affiliate-rail-right { display: none; }
   body.has-affiliate-rail main .container { margin-left: auto; margin-right: auto; }
 }
 
@@ -1861,6 +1902,14 @@
     </div>
     <div class="mine-right"><span class="rail-emoji">&#x1F976;</span></div>
   </a>
+  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=asic+repair+service&amp;_sacat=179197&amp;customid=rail-repair&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F527;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">ASIC Repair Service</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F527;</span></div>
+  </a>
   <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=crypto+hardware+wallet&amp;_sacat=179197&amp;customid=rail-wallets&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
     <div class="mine-left"><img src="data:image/png;base64,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" alt="wallet" width="28" height="28"></div>
     <div class="mine-info">
@@ -1869,7 +1918,130 @@
     </div>
     <div class="mine-right"><img src="data:image/png;base64,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" alt="wallet" width="28" height="28"></div>
   </a>
-  <div class="rail-footer">Affiliate links &bull; eBay</div>
+  <div class="rail-footer">Affiliate links &#x2022; eBay</div>
+</aside>
+
+<!-- Affiliate Right Rail &mdash; Shop Gear Directory (Amazon) -->
+<aside class="affiliate-rail-right" aria-label="Shop mining gear on Amazon">
+  <div class="rail-header">
+    <div class="rail-site-label">Sola Ray Effect</div>
+    <div class="rail-title">Shop Gear</div>
+  </div>
+  <div class="rail-divider"></div>
+
+  <a class="mine-row" href="https://www.amazon.com/s?k=bitcoin+crypto+miner&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x26CF;&#xFE0F;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Miners</div>
+      <div class="mine-hash">ASIC &#x2022; USB &#x2022; Lottery</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x26CF;&#xFE0F;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=bitmain+psu&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F50C;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Miner PSU</div>
+      <div class="mine-hash">Bitmain APW Series</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F50C;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=240V+PDU&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F5F2;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">240V PDUs</div>
+      <div class="mine-hash">Power Distribution</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F5F2;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=Romex+12%2F2+10%2F2&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F9F5;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Romex Wire</div>
+      <div class="mine-hash">12/2 &#x2022; 10/2</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F9F5;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=ethernet+switch&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F310;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Ethernet Switches</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F310;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=wifi+ethernet+adapter&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F4F6;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">WiFi Adapters</div>
+      <div class="mine-hash">Wireless Ethernet</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F4F6;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=mining+rig+frame+rack&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F9F1;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Rig Frames</div>
+      <div class="mine-hash">Racks &#x2022; Shelving</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F9F1;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=IEC+C14+to+2X+C13+Splitter+Power+Cord+-+200%7E250V+12AWG+20A+to+Dual+14AWG+15A+Heavy+Duty&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F500;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Power Splitters</div>
+      <div class="mine-hash">C14 to C13</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F500;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=antminer+shrouds&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F507;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Noise Shrouds</div>
+      <div class="mine-hash">Sound Reduction</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F507;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=AC+Infinity+CLOUDLINE&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F4A8;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Cooling Fans</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F4A8;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=Flexible+6-Inch+Aluminum+Ducting&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F300;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Ducts Air Flow</div>
+      <div class="mine-hash">6&#x2033; Aluminum Flex</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F300;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=sd+cards&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F4BE;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">SD Cards</div>
+      <div class="mine-hash">Firmware Flashing</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F4BE;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=crypto+shirts+and+hats&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><span class="rail-emoji">&#x1F455;</span></div>
+    <div class="mine-info">
+      <div class="mine-name">Crypto Flare</div>
+      <div class="mine-hash">Shirts &#x2022; Hats</div>
+    </div>
+    <div class="mine-right"><span class="rail-emoji">&#x1F9E2;</span></div>
+  </a>
+  <a class="mine-row" href="https://www.amazon.com/s?k=crypto+hardware+wallet&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">
+    <div class="mine-left"><img src="data:image/png;base64,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" alt="wallet" width="28" height="28"></div>
+    <div class="mine-info">
+      <div class="mine-name">Crypto Wallets</div>
+      <div class="mine-hash">&#160;</div>
+    </div>
+    <div class="mine-right"><img src="data:image/png;base64,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" alt="wallet" width="28" height="28"></div>
+  </a>
+  <div class="rail-footer">Affiliate links &#x2022; Amazon</div>
 </aside>
 
   <!-- Solo Mining Fact Box - positioned in left gap level with Select Your Miner -->
@@ -4264,6 +4436,13 @@
     var sectionTop = elecSection.getBoundingClientRect().top + window.scrollY;
     var containerTop = rail.offsetParent ? rail.offsetParent.getBoundingClientRect().top + window.scrollY : 0;
     rail.style.top = (sectionTop - containerTop) + 'px';
+
+    // Align right rail (Amazon) to same position
+    var railRight = document.querySelector('.affiliate-rail-right');
+    if (railRight) {
+      var containerTopRight = railRight.offsetParent ? railRight.offsetParent.getBoundingClientRect().top + window.scrollY : 0;
+      railRight.style.top = (sectionTop - containerTopRight) + 'px';
+    }
 
     // Align solo fact box with Select Your Miner section
     var factBox = document.getElementById('solo-fact-box');
