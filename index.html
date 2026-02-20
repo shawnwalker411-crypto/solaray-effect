@@ -228,6 +228,61 @@
 }
 
 /* ============================================
+   HOT PICK NAV CARDS (desktop only)
+   Flanking cards beside Sola's Hot Pick
+   ============================================ */
+.hotpick-nav-card {
+  display: none;
+}
+@media (min-width: 1200px) {
+  .hotpick-nav-card {
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 180px;
+    padding: 1rem 0.75rem;
+    background: rgba(0,206,209,0.04);
+    border: 1px solid rgba(0,206,209,0.15);
+    border-radius: 8px;
+    z-index: 50;
+  }
+  .hotpick-nav-card.left-card { left: 0; transform: translate(-110%, -50%); }
+  .hotpick-nav-card.right-card { right: 0; transform: translate(110%, -50%); }
+  .hotpick-nav-card .nav-card-title {
+    color: rgba(212,175,55,0.85);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+  .hotpick-nav-card .nav-card-link {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    margin-bottom: 4px;
+    color: rgba(232,240,247,0.8);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .hotpick-nav-card .nav-card-link:hover {
+    background: rgba(0,206,209,0.1);
+    color: #00CED1;
+  }
+  .hotpick-nav-card .nav-card-desc {
+    color: rgba(136,153,168,0.7);
+    font-size: 0.55rem;
+    display: block;
+    margin-top: 1px;
+  }
+}
+
+/* ============================================
    MOBILE AFFILIATE STRIPS (under 1200px only)
    Horizontal scrollable affiliate buttons
    ============================================ */
@@ -1799,7 +1854,7 @@
     }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sola Ray Effect Home Mining Calculator","url":"https://www.solarayeffect.com/","description":"Free cryptocurrency mining profitability calculator for home miners with dual electricity rates, solar power support, and 40+ ASIC miners.","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"The Sola Ray Effect","url":"https://www.solarayeffect.com/","logo":{"@type":"ImageObject","url":"https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg"}}}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bitcoin mining still profitable at home in 2026?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use our calculator with your actual rates to find out."}},{"@type":"Question","name":"Can I run an Antminer S19 on a regular outlet?","acceptedAnswer":{"@type":"Answer","text":"Not at full power \u2014 S19 models require 240V. But with a Loki Kit and aftermarket firmware (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw."}},{"@type":"Question","name":"What is a solar buyback program?","acceptedAnswer":{"@type":"Answer","text":"Some utility companies credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs."}},{"@type":"Question","name":"Should I sell solar energy back or mine Bitcoin with it?","acceptedAnswer":{"@type":"Answer","text":"Many solar buyback plans pay $0.02 to $0.06 per kWh for excess energy. That same energy powering an efficient ASIC miner can earn roughly double at current difficulty. Mining converts cheap exported kilowatts into an appreciating asset instead of selling back at a fraction of retail price."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bitcoin mining still profitable at home in 2026?","acceptedAnswer":{"@type":"Answer","text":"It comes down to what you pay for electricity. If you have solar, free overnight power, or a rate under $0.08/kWh, the numbers can absolutely work with efficient hardware like the S19K Pro or S21. Run your actual rates through the calculator and see."}},{"@type":"Question","name":"Can I run an Antminer S19 on a regular outlet?","acceptedAnswer":{"@type":"Answer","text":"Not at full power \u2014 they need 240V. But with a Loki Kit and aftermarket firmware like LuxOS, VNish, or Braiins OS+ you can run one hash board on a standard 120V outlet at about 40% hashrate and 1,200W. The Electrical Setup guide walks through the wiring."}},{"@type":"Question","name":"What is a solar buyback program?","acceptedAnswer":{"@type":"Answer","text":"Your utility credits your account for excess solar energy you export to the grid. During those hours your electricity is effectively free. This calculator lets you separate those free solar hours from your paid grid rate so you can see exactly what mining earns you versus selling power back."}}]}</script>
 </head>
 <body class=\"has-affiliate-rail\">
   <!-- Live Price Ticker -->
@@ -2141,6 +2196,27 @@
 </header>
     <p class="affiliate-disclosure" style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 1rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
 
+    <!-- Sola's Hot Pick with Nav Cards -->
+    <div style="position:relative;">
+
+      <!-- Left Nav Card: New to Mining? -->
+      <div class="hotpick-nav-card left-card">
+        <div class="nav-card-title">New to Mining?</div>
+        <a class="nav-card-link" href="#about-sola">&#x2600;&#xFE0F; About Sola Ray&#x2019;s Effect<span class="nav-card-desc">What this calculator does</span></a>
+        <a class="nav-card-link" href="electrical_setup.html">&#x26A1; Electrical Setup<span class="nav-card-desc">Wiring, voltage, breakers</span></a>
+        <a class="nav-card-link" href="glossary.html">&#x1F4D6; Glossary<span class="nav-card-desc">Mining terms explained</span></a>
+        <a class="nav-card-link" href="miners.html">&#x1F4B0; Miner Catalog<span class="nav-card-desc">Compare 60+ ASICs</span></a>
+      </div>
+
+      <!-- Right Nav Card: Already Mining? -->
+      <div class="hotpick-nav-card right-card">
+        <div class="nav-card-title">Already Mining?</div>
+        <a class="nav-card-link" href="#about-sola">&#x2600;&#xFE0F; About Sola Ray&#x2019;s Effect<span class="nav-card-desc">What this calculator does</span></a>
+        <a class="nav-card-link" href="aftermarket_firmware.html">&#x2699;&#xFE0F; Aftermarket Firmware<span class="nav-card-desc">LuxOS, VNish, Braiins</span></a>
+        <a class="nav-card-link" href="remote_management.html">&#x1F4E1; Remote Management<span class="nav-card-desc">Monitor from anywhere</span></a>
+        <a class="nav-card-link" href="datavault.html">&#x1F4CA; Data Vault<span class="nav-card-desc">Live stats &#x26; hashrates</span></a>
+      </div>
+
     <!-- Sola's Hot Pick -->
     <section class="sola-banner" id="sunrise-pick" style="visibility:hidden;">
       <img src="assets/sola_hotpick_sun_optimized.jpg" fetchpriority="high" decoding="async" width="1200" height="799" style="position:absolute;opacity:0;pointer-events:none;left:-9999px;" alt="">
@@ -2175,6 +2251,7 @@
         </div>
       </div>
     </section>
+    </div><!-- end hotpick nav card wrapper -->
 
     
     <!-- Miner Selection -->
@@ -2542,20 +2619,18 @@
     </div>
 
     <!-- SEO Content Section -->
-    <section class="seo-content" style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem; margin-top: 2rem;">
-      <h2 style="color: #00CED1; font-size: 1.3rem; margin-bottom: 1.5rem;">Home Mining Profitability Calculator &#x2014; Built for Residential Setups</h2>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Most Bitcoin mining calculators are designed for warehouse-scale operations running on industrial power contracts. This calculator is different &#x2014; it's built specifically for home miners running ASIC hardware on residential electricity in North America. It accounts for real-world factors that generic calculators ignore: dual electricity rates with separate peak and off-peak pricing, solar power generation hours, free overnight electricity from utility buyback programs, and battery storage windows.</p>
-      <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">What Makes This Calculator Different</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>Dual electricity rates</strong> let you model setups where power costs change by time of day &#x2014; common with solar buyback programs where you get free or credited electricity during solar production hours and pay grid rates at night. <strong>Solar hours, free night/weekend hours, and battery hours</strong> are separate inputs so you can precisely model your actual power situation rather than using a single blended rate. <strong><span class="glossary-term" data-term="loki-kit">Loki Kit</span> support</strong> calculates profitability for running 240V industrial miners like the Antminer S19 Pro or S21 on standard 120V household outlets at reduced power using <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a>.</p>
-      <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Supported Hardware</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">The calculator includes over 60 ASIC miners across six algorithms: SHA-256 for Bitcoin (Antminer S19, S19 Pro, S19J Pro, S21, Whatsminer M50, M60 series), Scrypt for Litecoin and Dogecoin (L3++, L7, Mini-DOGE), KHeavyHash for Kaspa (KS0, KS1, KS2, KS3, KS5, KA Box), Etchash for Ethereum Classic, Equihash for Zcash, and X11 for Dash. Browse the full list in our <a href="miners.html" style="color: var(--sola-teal);">Miner Catalog</a>. Each miner's stock specifications are pre-loaded &#x2014; select your hardware and adjust power settings to match your actual configuration. Live cryptocurrency prices update automatically via CoinGecko API. Track network stats in the <a href="datavault.html" style="color: var(--sola-teal);">Data Vault</a>.</p>
-      <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Solar Buyback vs. Mining: What's Your Excess Energy Worth?</h3>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">If you have rooftop solar, your utility probably offers a buyback rate for excess energy you export to the grid. Many solar buyback plans pay between <strong>$0.02 and $0.06 per kWh</strong>. That means a system producing 25 kWh of excess during solar hours earns you roughly <strong>$0.50 to $1.50 per day</strong> selling back to the grid &mdash; and that rate is locked. It never grows. Now consider this: that same 25 kWh powering an efficient ASIC miner earns Bitcoin that changes in value every day. At today's prices, that's roughly <strong>$1.50 to $1.70 per day</strong> &mdash; but Bitcoin is a store of value. The BTC you mine today could be worth significantly more in a year. A $0.03 buyback credit will always be worth $0.03.</p>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">This is the real advantage of home mining with solar: your electricity cost during production hours is effectively <strong>$0.00/kWh</strong>. Combine that with a <a href="electrical_setup.html" style="color: var(--sola-teal);">free nights or free weekends plan</a>, and you can run miners 16&mdash;24 hours a day at zero or near-zero power cost. The calculator above lets you model this exact scenario &mdash; enter your solar hours, free night hours, and paid grid rate separately to see how much Bitcoin you'd stack compared to selling energy back at buyback rates. Miners on free nights and solar buyback utility plans are already doing this. Use the <a href="miners.html" style="color: var(--sola-teal);">miner catalog</a> to compare which hardware fits your solar production window, and check the <a href="datavault.html" style="color: var(--sola-teal);">Data Vault</a> for live Bitcoin difficulty and pricing to see if the math works for your setup today.</p>
+    <section id="about-sola" class="seo-content" style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem; margin-top: 2rem;">
+      <h2 style="color: #00CED1; font-size: 1.3rem; margin-bottom: 1.5rem;">Home Mining Profitability Calculator &#x2014; Built for Your Setup, Not a Warehouse</h2>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Most mining calculators assume you&#x2019;re running an industrial operation with a flat power rate. That&#x2019;s not how it works at home. You&#x2019;ve got solar hours, free nights from your utility plan, maybe a battery, and a grid rate that only kicks in when everything else runs out. This calculator lets you plug in each one separately so you see what you&#x2019;d actually earn &#x2014; not some generic number based on national averages.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">It covers over 60 ASIC miners across Bitcoin, Litecoin, Dogecoin, Kaspa, Zcash, Ethereum Classic, and Dash. Pick your hardware from the <a href="miners.html" style="color: var(--sola-teal);">Miner Catalog</a>, enter your power situation, and it pulls live prices automatically. Track network difficulty and live pricing in the <a href="datavault.html" style="color: var(--sola-teal);">Data Vault</a>. If you&#x2019;re running <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a> with a <span class="glossary-term" data-term="loki-kit">Loki Kit</span> on 120V, there&#x2019;s a toggle for that too.</p>
+      <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Why Mine Instead of Selling Solar Back?</h3>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">If you&#x2019;ve got rooftop solar, your utility probably pays you somewhere between <strong>$0.02 and $0.06 per kWh</strong> for excess energy you send back to the grid. On a good day that&#x2019;s maybe <strong>$1.50</strong> in credits. That credit will never be worth more than $1.50.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Now point that same energy at a miner. At today&#x2019;s prices you&#x2019;d earn roughly the same amount &#x2014; except you&#x2019;re earning Bitcoin, not a utility credit. Bitcoin goes up. A buyback credit doesn&#x2019;t. The kWh you mine with today could be worth five times more in a few years. The $0.03 credit from your utility will always be $0.03.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;">Stack that with a <a href="electrical_setup.html" style="color: var(--sola-teal);">free nights or free weekends plan</a> and your effective electricity cost drops to zero for 16 to 24 hours a day. That&#x2019;s the whole game. This calculator shows you the math for your exact setup.</p>
       <h3 style="color: #D4AF37; font-size: 1.1rem; margin: 1rem 0 0.5rem;">Frequently Asked Questions</h3>
-      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Is Bitcoin mining still profitable at home in 2026?</strong> It depends entirely on your electricity cost. Home miners with solar power, free overnight electricity, or rates below $0.08/kWh can still mine profitably with efficient hardware like the S19K Pro or S21. Use this calculator with your actual rates to find out.</p>
-      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power &#x2014; S19 models require 240V. But with a <span class="glossary-term" data-term="loki-kit">Loki Kit</span> and <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a> (LuxOS, VNish, or Braiins OS+), you can run one hash board on a standard 120V outlet at approximately 40% hashrate and 1,200W power draw. See our <a href="electrical_setup.html" style="color: var(--sola-teal);">Electrical Setup Guide</a> for wiring details.</p>
-      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>What is a solar buyback program?</strong> Some utility companies credit your account for excess solar energy exported to the grid, effectively giving you free electricity during daytime hours. This calculator lets you input those free solar hours separately from your paid grid rate to see exactly how solar offsets your mining costs.</p>
+      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Is Bitcoin mining still profitable at home in 2026?</strong> It comes down to what you pay for electricity. If you&#x2019;ve got solar, free overnight power, or a rate under $0.08/kWh, the numbers can absolutely work with efficient hardware like the S19K Pro or S21. Run your actual rates through the calculator and see.</p>
+      <p style="color: #8899a8; margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>Can I run an Antminer S19 on a regular outlet?</strong> Not at full power &#x2014; they need 240V. But with a <span class="glossary-term" data-term="loki-kit">Loki Kit</span> and <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a> like LuxOS, VNish, or Braiins OS+ you can run one <span class="glossary-term" data-term="hashboard">hash board</span> on a standard 120V outlet at about 40% <span class="glossary-term" data-term="hashrate">hashrate</span> and 1,200W. The <a href="electrical_setup.html" style="color: var(--sola-teal);">Electrical Setup</a> guide walks through the wiring.</p>
+      <p style="color: #8899a8; margin-bottom: 0.75rem; font-size: 0.95rem;"><strong>What is a solar buyback program?</strong> Your utility credits your account for excess solar energy you export to the grid. During those hours your electricity is effectively free. This calculator lets you separate those free solar hours from your paid grid rate so you can see exactly what mining earns you versus selling power back.</p>
     </section>
     
       <footer>
