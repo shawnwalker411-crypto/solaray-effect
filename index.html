@@ -227,6 +227,68 @@
   body.has-affiliate-rail main .container { margin-left: auto; margin-right: auto; }
 }
 
+/* ============================================
+   MOBILE AFFILIATE STRIPS (under 1200px only)
+   Horizontal scrollable affiliate buttons
+   ============================================ */
+.mobile-affiliate-strip { display: none; }
+@media (max-width: 1199px) {
+  .mobile-affiliate-strip {
+    display: block;
+    margin: 1.5rem 0;
+    padding: 0.75rem 0;
+    border-top: 1px solid rgba(212,175,55,0.2);
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+  .mobile-affiliate-strip .strip-header {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .mobile-affiliate-strip .strip-title {
+    color: rgba(232,240,247,0.9);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .mobile-affiliate-strip .strip-label {
+    color: rgba(212,175,55,0.5);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .mobile-affiliate-strip .strip-scroll {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 8px;
+    justify-content: center;
+  }
+  .mobile-affiliate-strip .strip-btn {
+    display: inline-block;
+    padding: 6px 10px;
+    background: rgba(0,206,209,0.06);
+    border: 1px solid rgba(0,206,209,0.15);
+    border-radius: 6px;
+    color: rgba(232,240,247,0.85);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .mobile-affiliate-strip .strip-btn:active {
+    background: rgba(0,206,209,0.15);
+  }
+  .mobile-affiliate-strip .strip-footer {
+    text-align: center;
+    margin-top: 0.4rem;
+    color: rgba(232,240,247,0.78);
+    font-size: 0.5rem;
+    line-height: 1.3;
+    padding: 0 1rem;
+  }
+}
+
   </style>
   <style>
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -2408,6 +2470,29 @@
       </div>
     </section>
 
+    <!-- Mobile eBay Affiliate Strip (visible under 1200px only) -->
+    <div class="mobile-affiliate-strip">
+      <div class="strip-header">
+        <div class="strip-label">Sola Ray Effect</div>
+        <div class="strip-title">Shop Miners &#x2022; eBay</div>
+      </div>
+      <div class="strip-scroll">
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=lottery+miner&amp;_sacat=179197&amp;customid=rail-lottery&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Lottery Miners</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19&amp;_sacat=179197&amp;customid=rail-s19&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Antminer S19</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=antminer+s21&amp;_sacat=179197&amp;customid=rail-s21&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Antminer S21</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=whatsminer&amp;_sacat=179197&amp;customid=rail-whats&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">WhatsMiner</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=zcash+miner&amp;_sacat=179197&amp;customid=rail-zcash&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Zcash Miners</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=kaspa+miner&amp;_sacat=179197&amp;customid=rail-kas&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">KAS Miners</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=scrypt+miner&amp;_sacat=179197&amp;customid=rail-scrypt&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Scrypt Miners</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=monero+miner&amp;_sacat=179197&amp;customid=rail-xmr&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Monero Miners</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=ethereum+classic+miner&amp;_sacat=179197&amp;customid=rail-etc&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">ETC Miners</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=immersion+cooling+mining&amp;_sacat=179197&amp;customid=rail-immersion&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Immersion Cool</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=asic+repair+service&amp;_sacat=179197&amp;customid=rail-repair&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">ASIC Repair Service</a>
+        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=crypto+hardware+wallet&amp;_sacat=179197&amp;customid=rail-wallets&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Crypto Wallets</a>
+      </div>
+      <div class="strip-footer">Affiliate links &#x2022; eBay &#x2022; Verify model, voltage, and compatibility before purchasing. We are not responsible for incorrect orders, improper installation, misuse, or resulting damages.</div>
+    </div>
+
     <!-- Browse All Miners -->
     <section class="section browse-section">
       <button class="browse-toggle" id="browse-toggle" onclick="toggleBrowse()">
@@ -2430,6 +2515,31 @@
         </table>
       </div>
     </section>
+
+    <!-- Mobile Amazon Affiliate Strip (visible under 1200px only) -->
+    <div class="mobile-affiliate-strip">
+      <div class="strip-header">
+        <div class="strip-label">Sola Ray Effect</div>
+        <div class="strip-title">Shop Gear &#x2022; Amazon</div>
+      </div>
+      <div class="strip-scroll">
+        <a class="strip-btn" href="https://www.amazon.com/s?k=bitcoin+crypto+miner&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Miners</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=bitmain+psu&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Miner PSU</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=240V+PDU&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">240V PDUs</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=Romex+12%2F2+10%2F2&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Romex Wire</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=ethernet+switch&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Ethernet Switches</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=wifi+ethernet+adapter&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">WiFi Adapters</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=mining+rig+frame+rack&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Rig Frames</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=IEC+C14+to+2X+C13+Splitter+Power+Cord+-+200%7E250V+12AWG+20A+to+Dual+14AWG+15A+Heavy+Duty&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Power Splitters</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=antminer+shrouds&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Noise Shrouds</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=AC+Infinity+CLOUDLINE&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Cooling Fans</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=Flexible+6-Inch+Aluminum+Ducting&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Ducts Air Flow</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=sd+cards&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">SD Cards</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=crypto+shirts+and+hats&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Crypto Flare</a>
+        <a class="strip-btn" href="https://www.amazon.com/s?k=crypto+hardware+wallet&amp;tag=YOURTAG-20" target="_blank" rel="noopener sponsored">Crypto Wallets</a>
+      </div>
+      <div class="strip-footer">Affiliate links &#x2022; Amazon &#x2022; Verify model, voltage, and compatibility before purchasing. We are not responsible for incorrect orders, improper installation, misuse, or resulting damages.</div>
+    </div>
 
     <!-- SEO Content Section -->
     <section class="seo-content" style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 10px; padding: 1.5rem; margin-top: 2rem;">
