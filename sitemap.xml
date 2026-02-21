@@ -48,4 +48,10 @@
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.solarayeffect.com/solar_mining.html</loc>
+    <lastmod>2026-02-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
