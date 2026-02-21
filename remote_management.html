@@ -7,24 +7,24 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Home mining electrical guide: 120V vs 240V circuits, breaker requirements, PDU setups, Loki Kit configurations, and safety basics for ASIC miners.">
-  <meta name="keywords" content="bitcoin miner electrical, 240V mining, ASIC power requirements, mining PDU, Loki Kit, home mining electrical, miner circuit breaker">
+  <meta name="description" content="Complete guide to remotely managing your home mining operation. Tailscale VPN, Headscale, Raspberry Pi subnet routers, smart PDUs (30A/40A 240V), firmware management, and automation for ASIC miners.">
+  <meta name="keywords" content="remote mining management, Tailscale mining, smart PDU mining, ASIC remote access, Raspberry Pi miner, Headscale VPN, LuxOS remote, Braiins OS, mining automation, smart switch mining, 240V smart PDU">
   <meta name="author" content="Sola Ray Effect">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.solarayeffect.com/electrical_setup.html">
+  <link rel="canonical" href="https://www.solarayeffect.com/remote_management.html">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://www.solarayeffect.com/electrical_setup.html">
-  <meta property="og:title" content="Electrical Setup for Home Mining | Sola Ray Effect">
-  <meta property="og:description" content="Home mining electrical guide: 120V vs 240V circuits, breaker requirements, PDU setups, and safety basics for ASIC miners.">
+  <meta property="og:url" content="https://www.solarayeffect.com/remote_management.html">
+  <meta property="og:title" content="Remote Mining Management Guide | Sola Ray Effect">
+  <meta property="og:description" content="Complete guide to remotely managing your home mining operation. VPN access, smart PDUs, power cycling, and firmware management for ASIC miners.">
   <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://www.solarayeffect.com/electrical_setup.html">
-  <meta name="twitter:title" content="Electrical Setup for Home Mining | Sola Ray Effect">
-  <meta name="twitter:description" content="Home mining electrical guide: 120V vs 240V circuits, breaker requirements, PDU setups, and safety basics for ASIC miners.">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/remote_management.html">
+  <meta name="twitter:title" content="Remote Mining Management Guide | Sola Ray Effect">
+  <meta name="twitter:description" content="Complete guide to remotely managing your home mining operation. VPN access, smart PDUs, power cycling, and firmware management.">
   <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
   <!-- Google tag (gtag.js) - Production only -->
@@ -43,7 +43,7 @@
       gtag("config", "G-M6F5T8Y2P6");
     })();
   </script>
-  <title>How to Wire an ASIC Miner at Home &mdash; 120V vs 240V Circuits, Breakers & Safety | Sola Ray Effect</title>
+  <title>Remote Mining Management &mdash; VPN Access, Smart PDUs, Power Control &amp; Automation | Sola Ray Effect</title>
   <!-- Self-hosted fonts -->
   <style>
     @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
@@ -68,6 +68,8 @@
       --v120: #00e676;
       --v240: #ff9800;
       --warning: #ff5252;
+      --accent-blue: #4a9eff;
+      --accent-purple: #b388ff;
     }
     
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,10 +89,10 @@
     
     h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
     
-    .container { max-width: 850px; margin: 0 auto; padding: 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
     
     /* ============================================
-       HAMBURGER MENU
+       HAMBURGER MENU (matches site exactly)
        ============================================ */
     .hamburger-menu {
       position: fixed;
@@ -122,46 +124,36 @@
     }
     
     .hamburger-btn .bun-top {
-      width: 24px;
-      height: 6px;
+      width: 24px; height: 6px;
       background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%);
       border-radius: 10px 10px 0 0;
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn .lettuce {
-      width: 26px;
-      height: 3px;
+      width: 26px; height: 3px;
       background: #32CD32;
       border-radius: 1px;
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn .patty {
-      width: 24px;
-      height: 4px;
+      width: 24px; height: 4px;
       background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
       border-radius: 2px;
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn .cheese {
-      width: 26px;
-      height: 3px;
+      width: 26px; height: 3px;
       background: #FFD700;
       border-radius: 1px;
       transform: skewX(-5deg);
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn .bun-bottom {
-      width: 24px;
-      height: 5px;
+      width: 24px; height: 5px;
       background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%);
       border-radius: 0 0 6px 6px;
       transition: all 0.3s ease;
     }
-    
     .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
     .hamburger-btn.open .lettuce { opacity: 0; }
     .hamburger-btn.open .patty { opacity: 0; }
@@ -170,10 +162,8 @@
     
     .nav-drawer {
       position: fixed;
-      top: 0;
-      left: -280px;
-      width: 280px;
-      height: 100vh;
+      top: 0; left: -280px;
+      width: 280px; height: 100vh;
       overflow-y: auto;
       background: var(--bg-secondary);
       border-right: 2px solid var(--sola-teal);
@@ -182,20 +172,15 @@
       padding: 70px 1.5rem 1.5rem;
       box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
     }
-    
     .nav-drawer.open { left: 0; }
-    
     .nav-drawer h3 {
-      color: var(--sola-gold, #D4AF37);
+      color: var(--sola-gold);
       font-size: 1rem;
       padding-left: 50px;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
-    
     .nav-drawer a, .nav-drawer .nav-disabled {
       display: block;
       color: var(--text-primary);
@@ -207,40 +192,646 @@
       transition: all 0.2s ease;
       border: 1px solid transparent;
     }
-    
     .nav-drawer a:hover {
       background: var(--bg-card);
       border-color: var(--sola-teal);
       color: var(--sola-teal);
     }
-    
     .nav-drawer a.active {
       background: rgba(0, 206, 209, 0.15);
       border-color: var(--sola-teal);
       color: #ffffff;
     }
-    
-    .nav-drawer .nav-disabled {
-      color: var(--text-muted);
-      cursor: not-allowed;
-    }
-    
     .nav-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.5);
       z-index: 998;
     }
-    
     .nav-overlay.show { display: block; }
     
     /* ============================================
-       GLOSSARY DRAWER
+       PAGE TITLE & SUBTITLE
        ============================================ */
+    .page-title {
+      text-align: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 1rem 0;
+    }
+    .page-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--sola-teal);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    .section p:last-child { margin-bottom: 0; }
+    .section ul, .section ol {
+      color: var(--text-secondary);
+      margin: 0.75rem 0 1rem 1.5rem;
+    }
+    .section li { margin-bottom: 0.5rem; }
+    .section strong { color: var(--text-primary); }
+    /* ============================================
+       LINKS (Global)
+       ============================================ */
+    a, a:visited {
+      color: var(--sola-teal);
+      text-decoration: none;
+    }
+    a:hover {
+      color: var(--sola-gold);
+      text-decoration: underline;
+    }
+
+    /* Keep section links consistent */
+    .section a { color: var(--sola-teal); }
+    .section a:hover { color: var(--sola-gold); }
+    /* External links inside headings/cards */
+    a.extlink { color: inherit; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+    a.extlink:hover { color: var(--sola-gold); text-decoration-style: solid; }
+
+    .section code {
+      background: rgba(0, 206, 209, 0.12);
+      color: var(--sola-teal);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: 'Courier New', monospace;
+    }
+    
+    /* ============================================
+       INFO & WARNING BOXES
+       ============================================ */
+    .info-box {
+      background: rgba(0, 206, 209, 0.1);
+      border-left: 4px solid var(--sola-teal);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .info-box p { color: var(--text-primary); margin: 0; }
+    
+    .warning-box {
+      background: rgba(255, 82, 82, 0.1);
+      border-left: 4px solid var(--warning);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .warning-box p { color: var(--text-primary); margin: 0; }
+    .warning-box strong { color: var(--warning); }
+    
+    .gold-box {
+      background: rgba(212, 175, 55, 0.1);
+      border-left: 4px solid var(--sola-gold);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .gold-box p { color: var(--text-primary); margin: 0; }
+    .gold-box strong { color: var(--sola-gold); }
+    
+    /* ============================================
+       COMPARISON GRID (Tailscale vs Headscale etc)
+       ============================================ */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .compare-grid.stacked {
+      grid-template-columns: 1fr;
+    }
+    .compare-card {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 1.25rem;
+      border: 2px solid transparent;
+    }
+    .compare-card.option-a { border-color: var(--sola-teal); }
+    .compare-card.option-b { border-color: var(--sola-gold); }
+    .compare-card.option-c { border-color: var(--accent-blue); }
+    .compare-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+    }
+    .compare-card.option-a h3 { color: var(--sola-teal); }
+    .compare-card.option-b h3 { color: var(--sola-gold); }
+    .compare-card.option-c h3 { color: var(--accent-blue); }
+    .compare-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .compare-card li {
+      color: var(--text-secondary);
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .compare-card li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+    
+    /* ============================================
+       PRODUCT/HARDWARE TABLE
+       ============================================ */
+    .hw-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .hw-table th, .hw-table td {
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    .hw-table th {
+      background: rgba(0, 206, 209, 0.15);
+      color: var(--sola-teal);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .hw-table td {
+      color: var(--text-secondary);
+    }
+    .hw-table tr:hover td {
+      background: rgba(0, 206, 209, 0.05);
+    }
+    .hw-table tr.section-header td {
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--sola-gold);
+      font-weight: 700;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .hw-table .best-pick {
+      color: var(--v120);
+      font-weight: 700;
+    }
+    
+    /* ============================================
+       TIER BADGES
+       ============================================ */
+    .tier-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tier-free { background: rgba(0, 230, 118, 0.15); color: var(--v120); border: 1px solid var(--v120); }
+    .tier-mid { background: rgba(74, 158, 255, 0.15); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+    .tier-pro { background: rgba(212, 175, 55, 0.15); color: var(--sola-gold); border: 1px solid var(--sola-gold); }
+    
+    /* ============================================
+       COMMAND BLOCKS
+       ============================================ */
+    .cmd-block {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: #c9d1d9;
+      line-height: 1.6;
+    }
+    .cmd-block .cmd-comment { color: #6e7681; }
+    .cmd-block .cmd-prompt { color: var(--v120); }
+    
+    /* ============================================
+       TABLE OF CONTENTS
+       ============================================ */
+    .toc-heading {
+      color: var(--sola-gold);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .toc-grid { grid-template-columns: 1fr; }
+    }
+    .toc-card {
+      display: block;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .toc-card:hover {
+      border-color: var(--sola-teal);
+    }
+    .toc-card .toc-icon { font-size: 1.1rem; margin-right: 0.4rem; }
+    .toc-card .toc-title { color: var(--sola-teal); font-size: 0.95rem; font-weight: 600; }
+    .toc-card .toc-desc { display: block; color: var(--text-secondary); font-size: 0.82rem; margin-top: 0.25rem; }
+    
+    /* ============================================
+       COLLAPSIBLE CODE BLOCKS (details/summary)
+       ============================================ */
+    .code-collapse {
+      margin: 1rem 0;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0d1117;
+    }
+    .code-collapse summary {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      color: var(--sola-teal);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: rgba(0, 206, 209, 0.08);
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s ease;
+      list-style: none;
+      user-select: none;
+    }
+    .code-collapse summary::-webkit-details-marker { display: none; }
+    .code-collapse summary::before {
+      content: "▶";
+      font-size: 0.7rem;
+      margin-right: 0.5rem;
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+    .code-collapse[open] summary::before { transform: rotate(90deg); }
+    .code-collapse[open] summary { border-bottom: 1px solid #30363d; }
+    .code-collapse summary:hover { background: rgba(0, 206, 209, 0.14); }
+    .code-collapse .cmd-block {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      /* Reserve space so Dolly doesn't sit on top of code */
+      padding-right: 9.5rem;
+    }
+    .code-collapse .code-wrapper { position: relative; }
+
+    /* ============================================
+       DOLLY THE CLONE SHEEP — COPY BUTTON
+       ============================================ */
+    .dolly-copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      z-index: 5;
+      font-family: 'Roboto', sans-serif;
+    }
+    .dolly-copy-btn:hover {
+      background: rgba(212, 175, 55, 0.25);
+      border-color: var(--sola-gold);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 12px rgba(212, 175, 55, 0.2);
+    }
+    .dolly-copy-btn:active { transform: scale(0.96); }
+    .dolly-copy-btn .dolly-sheep {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .dolly-copy-btn .dolly-sheep .sheep-clone {
+      opacity: 0.4;
+      transition: all 0.35s ease;
+    }
+    .dolly-copy-btn:hover .dolly-sheep .sheep-clone { opacity: 0.7; }
+    .dolly-copy-btn .dolly-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--sola-gold);
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .dolly-copy-btn.cloned {
+      background: rgba(0, 230, 118, 0.15);
+      border-color: var(--v120);
+    }
+    .dolly-copy-btn.cloned .dolly-sheep .sheep-clone { opacity: 1; }
+    .dolly-copy-btn.cloned .dolly-label { color: var(--v120); }
+
+    /* ============================================
+       TWO-COLUMN BULLET LISTS
+       ============================================ */
+    .two-col-list {
+      columns: 2;
+      column-gap: 2rem;
+    }
+    .two-col-list li { break-inside: avoid; }
+
+    /* ============================================
+       SHUTDOWN ACCORDION
+       ============================================ */
+    .shutdown-accordion { margin: 1rem 0; }
+    .shutdown-accordion details {
+      background: rgba(0, 206, 209, 0.06);
+      border: 1px solid rgba(0, 206, 209, 0.15);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+    .shutdown-accordion details[open] {
+      border-color: rgba(0, 206, 209, 0.3);
+      background: rgba(0, 206, 209, 0.1);
+    }
+    .shutdown-accordion details summary {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      list-style: none;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+    .shutdown-accordion details summary::-webkit-details-marker { display: none; }
+    .shutdown-accordion details summary::before {
+      content: "▶";
+      font-size: 0.65rem;
+      margin-right: 0.65rem;
+      color: var(--sola-teal);
+      transition: transform 0.2s ease;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .shutdown-accordion details[open] summary::before { transform: rotate(90deg); }
+    .shutdown-accordion details summary:hover { background: rgba(0, 206, 209, 0.08); }
+    .shutdown-accordion .accordion-body {
+      padding: 0 1.25rem 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .shutdown-accordion .accordion-body p {
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .shutdown-accordion .accordion-body p:last-child { margin-bottom: 0; }
+    .shutdown-accordion .accordion-body .cmd-block { margin: 0.75rem 0; }
+    .shutdown-accordion .accordion-body .code-collapse { margin: 0.75rem 0; }
+    .shutdown-accordion .method-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .method-tag.best { background: rgba(0, 230, 118, 0.15); color: var(--v120); border: 1px solid var(--v120); }
+    .method-tag.good { background: rgba(74, 158, 255, 0.15); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+    .method-tag.ok { background: rgba(212, 175, 55, 0.15); color: var(--sola-gold); border: 1px solid var(--sola-gold); }
+    .method-tag.last { background: rgba(255, 82, 82, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+
+    /* ============================================
+       BUILDS 3-COLUMN GRID
+       ============================================ */
+    .builds-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+
+    .builds-grid ul { list-style: none; padding-left: 0; margin-top: 1rem; }
+    .builds-grid li { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; padding: 0.35rem 0; }
+    .build-item { flex: 1; min-width: 0; color: var(--text-secondary); }
+    .build-item strong { color: var(--text-primary); }
+    .buy-links { display: inline-flex; gap: 0.35rem; flex-shrink: 0; }
+    .buy-links a {
+      font-size: 0.72rem;
+      padding: 0.14rem 0.5rem;
+      border-radius: 7px;
+      text-decoration: none;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      color: var(--sola-gold);
+      background: rgba(212, 175, 55, 0.06);
+      letter-spacing: 0.4px;
+    }
+    .buy-links a:hover {
+      border-color: rgba(0, 206, 209, 0.55);
+      color: var(--sola-teal);
+      background: rgba(0, 206, 209, 0.08);
+    }
+    .build-item a { color: var(--sola-teal); text-decoration: none; border-bottom: 1px dotted rgba(0, 206, 209, 0.6); }
+    .build-item a:hover { color: var(--sola-gold); border-bottom-color: rgba(212, 175, 55, 0.7); }
+    }
+
+    /* ============================================
+       RESPONSIVE ADDITIONS
+       ============================================ */
+    @media (max-width: 900px) {
+      .builds-grid { grid-template-columns: 1fr; }
+      .two-col-list { columns: 1; }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 600px) {
+      .page-title { font-size: 1.5rem; }
+      .section { padding: 1rem; }
+      .hw-table { font-size: 0.8rem; }
+      .hw-table th, .hw-table td { padding: 0.5rem; }
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+    .sola-video-float {
+      position: fixed;
+      top: 7rem;
+      right: 1rem;
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      border: 2px solid var(--sola-teal);
+      overflow: hidden;
+      z-index: 998;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .sola-video-float img { width: 100%; height: 100%; object-fit: cover; }
+    .sola-video-float .svf-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(8,26,21,0.85);
+      color: var(--sola-teal);
+      text-align: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.25rem 0;
+    }
+  
+    /* ============================================
+       SITE FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(0, 206, 209, 0.2);
+      color: #8899aa;
+    }
+    footer a {
+      color: #00CED1;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #D4AF37;
+    }
+  
+    /* Liability modal */
+    .liability-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1rem;
+    }
+    .liability-overlay.show { display: flex; }
+    .liability-modal {
+      width: 100%;
+      max-width: 760px;
+      background: rgba(8, 26, 21, 0.92);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      border-radius: 16px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+    .liability-top {
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: linear-gradient(180deg, rgba(212,175,55,0.08), rgba(0,0,0,0));
+    }
+    .liability-title {
+      margin: 0;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.05rem;
+      color: var(--sola-gold);
+      letter-spacing: 0.5px;
+    }
+    .liability-body {
+      padding: 1.1rem 1.25rem 1.25rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      font-size: 0.95rem;
+    }
+    .liability-body strong { color: var(--text-primary); }
+    .liability-bullets {
+      margin: 0.85rem 0 0.9rem 1.1rem;
+    }
+    .liability-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      justify-content: flex-end;
+      padding: 0 1.25rem 1.25rem;
+    }
+    .liability-btn {
+      padding: 0.65rem 1rem;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid rgba(0, 206, 209, 0.4);
+      background: rgba(0, 206, 209, 0.10);
+      color: var(--sola-teal);
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .liability-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(0, 206, 209, 0.16);
+      border-color: rgba(0, 206, 209, 0.6);
+    }
+    .liability-note {
+      padding: 0.85rem 1.25rem 1.15rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.12);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+
+    /* ============================================
+       GLOSSARY (Slide-out drawer)
+       ============================================ */
+    .glossary-term {
+      color: var(--sola-teal);
+      border-bottom: 1px dotted rgba(0, 206, 209, 0.7);
+      cursor: help;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .glossary-term:hover {
+      color: var(--sola-gold);
+      border-color: rgba(212, 175, 55, 0.8);
+    }
     .glossary-overlay {
       display: none;
       position: fixed;
@@ -303,18 +894,6 @@
       margin: 0 0 1rem;
       font-size: 0.98rem;
     }
-    .glossary-term {
-      color: var(--sola-teal);
-      border-bottom: 1px dotted rgba(0, 206, 209, 0.7);
-      cursor: help;
-      transition: color 0.15s ease, border-color 0.15s ease;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .glossary-term:hover {
-      color: var(--sola-gold);
-      border-color: rgba(212, 175, 55, 0.8);
-    }
     .glossary-term-actions {
       margin-top: 1.25rem;
       padding-top: 1rem;
@@ -371,579 +950,37 @@
       background: rgba(0, 206, 209, 0.08);
       color: var(--sola-teal);
     }
-    
-    /* ============================================
-       PAGE HEADER
-       ============================================ */
-    .page-title {
-      text-align: center;
-      font-size: 2rem;
-      background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin: 1rem 0;
-    }
-    
-    .page-subtitle {
-      text-align: center;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-    }
-    
-    /* ============================================
-       SECTIONS
-       ============================================ */
-    .section {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      backdrop-filter: blur(6px);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .section-title {
-      font-size: 1.3rem;
-      color: var(--sola-teal);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .section p {
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-    }
-    
-    .section p:last-child {
-      margin-bottom: 0;
-    }
-    
-    /* ============================================
-       VOLTAGE COMPARISON
-       ============================================ */
-    .voltage-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-    }
-    
-    .voltage-card {
-      background: var(--bg-secondary);
-      border-radius: 10px;
-      padding: 1.25rem;
-      border: 2px solid transparent;
-    }
-    
-    .voltage-card.v120 {
-      border-color: var(--v120);
-    }
-    
-    .voltage-card.v240 {
-      border-color: var(--v240);
-    }
-    
-    .voltage-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .voltage-card.v120 h3 { color: var(--v120); }
-    .voltage-card.v240 h3 { color: var(--v240); }
-    
-    .voltage-card ul {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .voltage-card li {
-      color: var(--text-secondary);
-      padding: 0.4rem 0;
-      padding-left: 1.5rem;
-      position: relative;
-    }
-    
-    .voltage-card li::before {
-      content: "\2022";
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
-    }
-    
-    /* ============================================
-       OUTLET IMAGES
-       ============================================ */
-    .outlet-comparison {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-    }
-    
-    .outlet-box {
-      text-align: center;
-      background: var(--bg-secondary);
-      border-radius: 10px;
-      padding: 1.25rem;
-    }
-    
-    .outlet-icon {
-      font-size: 3rem;
-      margin-bottom: 0.75rem;
-    }
-    
-    .outlet-box h4 {
-      color: var(--sola-gold);
-      margin-bottom: 0.5rem;
-    }
-    
-    .outlet-box p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin: 0;
-    }
-    
-    /* ============================================
-       INFO BOXES
-       ============================================ */
-    .info-box {
-      background: rgba(0, 206, 209, 0.1);
-      border-left: 4px solid var(--sola-teal);
-      padding: 1rem 1.25rem;
-      border-radius: 0 8px 8px 0;
-      margin: 1rem 0;
-    }
-    
-    .info-box p {
-      color: var(--text-primary);
-      margin: 0;
-    }
-    
-    .warning-box {
-      background: rgba(255, 82, 82, 0.1);
-      border-left: 4px solid var(--warning);
-      padding: 1rem 1.25rem;
-      border-radius: 0 8px 8px 0;
-      margin: 1rem 0;
-    }
-    
-    .warning-box p {
-      color: var(--text-primary);
-      margin: 0;
-    }
-    
-    .warning-box strong {
-      color: var(--warning);
-    }
-    
-    /* ============================================
-       LOKI SECTION
-       ============================================ */
-    .loki-highlight {
-      background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(0, 206, 209, 0.1));
-      border: 1px solid rgba(156, 39, 176, 0.3);
-      border-radius: 10px;
-      padding: 1.25rem;
-      margin: 1rem 0;
-    }
-    
-    .loki-highlight h4 {
-      color: #9c27b0;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    /* ============================================
-       CIRCUIT REQUIREMENTS TABLE
-       ============================================ */
-    .circuit-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-      font-size: 0.95rem;
-    }
-    
-    .circuit-table th,
-    .circuit-table td {
-      padding: 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    .circuit-table th {
-      color: var(--sola-gold);
-      font-weight: 600;
-      background: rgba(212, 175, 55, 0.1);
-    }
-    
-    .circuit-table td {
-      color: var(--text-secondary);
-    }
-    
-    .circuit-table tr:hover td {
-      background: rgba(0, 206, 209, 0.05);
-    }
-    
-    .circuit-table tr.loki-row td {
-      background: rgba(156, 39, 176, 0.1);
-      border-left: 3px solid #9c27b0;
-    }
-    
-    .circuit-table tr.loki-row:hover td {
-      background: rgba(156, 39, 176, 0.18);
-    }
-    
-    .circuit-table .loki-label {
-      color: #9c27b0;
-      font-weight: 600;
-    }
-    
-    .circuit-table .section-header td {
-      background: rgba(0, 0, 0, 0.3);
-      color: var(--sola-gold);
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-    }
-    
-    /* ============================================
-       CHECKLIST
-       ============================================ */
-    .checklist {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .checklist li {
-      padding: 0.75rem 0;
-      padding-left: 2rem;
-      position: relative;
-      color: var(--text-secondary);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    
-    .checklist li:last-child {
-      border-bottom: none;
-    }
-    
-    .checklist li::before {
-      content: "\2610";
-      position: absolute;
-      left: 0;
-      color: var(--sola-teal);
-      font-size: 1.1rem;
-    }
-    
-    /* ============================================
-       CTA SECTION
-       ============================================ */
-    .cta-section {
-      text-align: center;
-      padding: 2rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      margin-top: 2rem;
-    }
-    
-    .cta-section h3 {
-      color: var(--sola-gold);
-      margin-bottom: 1.5rem;
-    }
-    
-    .cta-btn {
-      display: inline-block;
-      padding: 1rem 2rem;
-      background: linear-gradient(135deg, var(--sola-teal), var(--sola-teal-dark));
-      color: #000;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-family: 'Noto Sans JP', sans-serif;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .cta-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(0, 206, 209, 0.4);
-    }
-    
-    /* ============================================
-       RESPONSIVE
-       ============================================ */
-    @media (max-width: 600px) {
-      .page-title { font-size: 1.6rem; }
-      .section { padding: 1.25rem; }
-      .circuit-table { font-size: 0.85rem; }
-      .circuit-table th,
-      .circuit-table td { padding: 0.5rem; }
-    }
-    
-    /* ============================================
-       LEGAL DISCLAIMER MODAL
-       ============================================ */
-    .legal-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-    
-    .legal-modal-overlay.hidden { display: none; }
-    
-    .legal-modal {
-      background: var(--bg-primary);
-      border: 2px solid var(--sola-gold);
-      border-radius: 12px;
-      max-width: 600px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
-    }
-    
-    .legal-modal-header {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(0, 206, 209, 0.1));
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border-color);
-      text-align: center;
-    }
-    
-    .legal-modal-header h2 {
-      color: var(--sola-gold);
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .legal-modal-header p {
-      color: var(--warning);
-      font-weight: 600;
-    }
-    
-    .legal-modal-body {
-      padding: 1.5rem;
-    }
-    
-    .legal-modal-body h3 {
-      color: var(--sola-teal);
-      font-size: 1.1rem;
-      margin: 1.25rem 0 0.75rem 0;
-    }
-    
-    .legal-modal-body h3:first-child { margin-top: 0; }
-    
-    .legal-modal-body p,
-    .legal-modal-body li {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin-bottom: 0.5rem;
-    }
-    
-    .legal-modal-body ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    
-    .legal-modal-body li::before {
-      content: "\26A0\FE0F ";
-    }
-    
-    .legal-warning-box {
-      background: rgba(255, 82, 82, 0.15);
-      border: 1px solid var(--warning);
-      border-radius: 8px;
-      padding: 1rem;
-      margin: 1rem 0;
-    }
-    
-    .legal-warning-box p {
-      color: var(--warning);
-      font-weight: 500;
-      margin: 0;
-    }
-    
-    .legal-modal-footer {
-      padding: 1.5rem;
-      border-top: 1px solid var(--border-color);
-      background: rgba(0, 0, 0, 0.2);
-    }
-    
-    .legal-checkbox-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-    }
-    
-    .legal-checkbox-row input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      margin-top: 2px;
-      accent-color: var(--sola-teal);
-      cursor: pointer;
-    }
-    
-    .legal-checkbox-row label {
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      cursor: pointer;
-    }
-    
-    .legal-btn-row {
-      display: flex;
-      gap: 1rem;
-    }
-    
-    .legal-btn {
-      flex: 1;
-      padding: 0.875rem 1.5rem;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-    
-    .legal-btn-agree {
-      background: var(--sola-teal);
-      color: var(--bg-primary);
-      border-color: var(--sola-teal);
-    }
-    
-    .legal-btn-agree:hover:not(:disabled) {
-      background: var(--sola-teal-dark);
-      box-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
-    }
-    
-    .legal-btn-agree:disabled {
-      background: var(--text-muted);
-      border-color: var(--text-muted);
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-    
-    .legal-btn-decline {
-      background: transparent;
-      color: var(--text-secondary);
-      border-color: var(--text-muted);
-    }
-    
-    .legal-btn-decline:hover {
-      border-color: var(--warning);
-      color: var(--warning);
-    }
-    
-    .page-blocked {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 2rem;
-    }
-    
-    .page-blocked h2 {
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-    }
-    
-    .page-blocked p {
-      color: var(--text-muted);
-    }
-    
-    .page-blocked a {
-      color: var(--sola-teal);
-    }
-    
-    .content-hidden { display: none !important; }
-  
-    /* ============================================
-       SITE FOOTER
-       ============================================ */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      margin-top: 2rem;
-      border-top: 1px solid rgba(0, 206, 209, 0.2);
-      color: #8899aa;
-    }
-    footer a {
-      color: #00CED1;
-      text-decoration: none;
-    }
-    footer a:hover {
-      color: #D4AF37;
-    }
-  </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Electrical Setup for Home Mining","description":"Complete guide to 120V and 240V electrical requirements, safety, and circuit planning for cryptocurrency mining at home.","url":"https://www.solarayeffect.com/electrical_setup.html","publisher":{"@type":"Organization","name":"The Sola Ray Effect"}}</script>
+
+</style>
 </head>
 <body>
-  <!-- Legal Disclaimer Modal -->
-  <div class="legal-modal-overlay" id="legal-modal">
-    <div class="legal-modal">
-      <div class="legal-modal-header">
-        <h2>&#x26A0;&#xFE0F; Important Safety Disclaimer</h2>
-        <p>Read carefully before proceeding</p>
-      </div>
-      <div class="legal-modal-body">
-        <h3>&#x26A1; Nature of This Content</h3>
-        <p>This page provides <strong>educational information only</strong> about electrical concepts related to cryptocurrency mining. The Sola Ray Effect does not sell, install, service, or inspect electrical equipment of any kind.</p>
-        
-        <div class="legal-warning-box">
-          <p>&#x26A0;&#xFE0F; ELECTRICITY CAN CAUSE FIRE, PROPERTY DAMAGE, SERIOUS INJURY, OR DEATH</p>
-        </div>
-        
-        <h3>&#x1F4CB; By Proceeding, You Acknowledge</h3>
-        <ul>
-          <li>I am at least 18 years of age</li>
-          <li>I take full responsibility for any electrical decisions I make</li>
-          <li>I will follow all applicable local, state, and federal electrical codes</li>
-          <li>I will obtain required permits for any electrical work</li>
-          <li>I understand that only a licensed electrician should perform electrical work</li>
-          <li>This information is general in nature and may not apply to my specific situation</li>
+
+  
+  <!-- LIABILITY / EXPECTATION MODAL -->
+  <div class="liability-overlay" id="liability-overlay" aria-hidden="true">
+    <div class="liability-modal" role="dialog" aria-modal="true" aria-labelledby="liability-title">
+      <div class="liability-top">
+        <h2 class="liability-title" id="liability-title">Important: Residential Mining Is a Project</h2>
+</div>
+      <div class="liability-body">
+        <p><strong>This is not buy, plug, and walk away.</strong> Remote residential mining requires electrical planning, network configuration, firmware management, airflow control, and safety verification.</p>
+        <ul class="liability-bullets">
+          <li>You will make mistakes.</li>
+          <li>You will encounter conflicting information.</li>
+          <li>If you are unsure, verify from multiple sources and consult licensed professionals when required.</li>
         </ul>
-        
-        <h3>&#x1F6E1;&#xEF;&#xB8;&#x8F; Limitation of Liability</h3>
-        <p>To the maximum extent permitted by law, The Sola Ray Effect, its owners, operators, and contributors shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of this information, including but not limited to property damage, personal injury, or death.</p>
-        
-        <h3>&#x2616;&#xFE0F; Indemnification</h3>
-        <p>You agree to indemnify and hold harmless The Sola Ray Effect from any claims, damages, or expenses arising from your use of this information or any electrical work you perform or commission.</p>
-        
-        <h3>&#x1F3AF; Assumption of Risk</h3>
-        <p>You expressly assume all risks associated with using this educational content to inform electrical decisions. You acknowledge that electrical work is inherently dangerous and that professional consultation is strongly recommended.</p>
+        <p>When you get it right, it feels good. It is a real accomplishment. If it were easy, everyone would do it.</p>
       </div>
-      <div class="legal-modal-footer">
-        <div class="legal-checkbox-row">
-          <input type="checkbox" id="legal-checkbox">
-          <label for="legal-checkbox">I have read, understand, and agree to the above terms. I am at least 18 years old and accept full responsibility for my electrical decisions.</label>
-        </div>
-        <div class="legal-btn-row">
-          <button class="legal-btn legal-btn-decline" id="legal-decline">I Do Not Agree</button>
-          <button class="legal-btn legal-btn-agree" id="legal-agree" disabled>I Agree & Continue</button>
-        </div>
+      <div class="liability-actions">
+        <button class="liability-btn" id="liability-ack">I Understand</button>
+      </div>
+      <div class="liability-note">
+        Educational content only. This is not professional electrical, networking, or financial advice. You are responsible for your own safety and compliance with local codes.
       </div>
     </div>
   </div>
-
-  <!-- Main Content Wrapper -->
-  <div id="main-content">
-  <!-- Hamburger Menu -->
+  <!-- END LIABILITY / EXPECTATION MODAL -->
+<!-- Hamburger Menu -->
   <div class="hamburger-menu">
     <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
       <span class="bun-top"></span>
@@ -961,438 +998,1069 @@
     <a href="miners.html">&#x1F4B0; Miners</a>
     <a href="pools.html">&#x1F3CA; Mining Pools</a>
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
-    <a href="electrical_setup.html" class="active">&#x1F50C; Electrical Setup</a>
-    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
+    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html" class="active">&#x1F4E1; Remote Management</a>
     <a href="glossary.html">&#x1F9E0; Glossary</a>
     <a href="datavault.html">&#x1F4CA; Data Vault</a>
   </nav>
   <div class="nav-overlay" id="nav-overlay"></div>
-  
+
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
-    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">×</button>
     <h3 id="glossary-term-title">Term</h3>
     <p id="glossary-term-definition">Definition goes here...</p>
     <div id="glossary-term-links" class="glossary-term-links"></div>
     <div class="glossary-term-actions">
-      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
+      <a class="glossary-more-link" href="glossary.html">Open full glossary →</a>
     </div>
   </div>
   <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
 
+  
   <div class="container">
-    <h1 class="page-title">&#x26A1; Home Mining Electrical Guide &mdash; 120V vs 240V Wiring, Breakers & Safe Setup</h1>
+    <h1 class="page-title">&#x1F4E1; Remote Mining Management &mdash; Control Your Rigs From Anywhere</h1>
     <p class="affiliate-disclosure" style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 1rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
-    <p class="page-subtitle">What you need to know before plugging in your first <span class="glossary-term" data-term="asic">ASIC</span></p>
-    
-    <!-- The Big Question -->
-    <section class="section">
-      <h2 class="section-title">&#x1F50C; 120V vs 240V: What's the Difference?</h2>
-      <p>Every home in the USA has both 120V and 240V available. The question is whether you have a 240V outlet where you want to mine.</p>
+    <p class="page-subtitle">VPN access, smart <span class="glossary-term" data-term="pdu">PDUs</span>, power control, and firmware management for home miners</p>
+
+    <div class="gold-box" style="margin-top: 1.25rem;">
+      <p><strong>Quick links:</strong>
+        <a href="index.html">Calculator</a> ·
+        <a href="aftermarket_firmware.html">Firmware Guide</a> ·
+        <a href="electrical_setup.html">Electrical Setup</a> ·
+        <a href="miners.html">Miners</a> ·
+        <a href="pools.html">Pools</a> ·
+        <a href="glossary.html">Glossary</a> ·
+        <a href="datavault.html">Data Vault</a>
+      </p>
+    </div>
+
+
+    <!-- TABLE OF CONTENTS -->
+    <h3 class="toc-heading">&#x1F4D1; What's on This Page</h3>
+    <div class="toc-grid">
+      <a href="#why-remote" class="toc-card"><span class="toc-icon">&#x1F4A1;</span><span class="toc-title">Why Remote Management Matters</span><span class="toc-desc">Downtime costs money &mdash; manage miners from your phone</span></a>
+      <a href="#vpn-access" class="toc-card"><span class="toc-icon">&#x1F510;</span><span class="toc-title">VPN Remote Access</span><span class="toc-desc">Tailscale &amp; Headscale setup for secure access anywhere</span></a>
+      <a href="#pi-router" class="toc-card"><span class="toc-icon">&#x1F353;</span><span class="toc-title">Raspberry Pi Subnet Router</span><span class="toc-desc">Reach every miner on your LAN through one device</span></a>
+      <a href="#smart-pdus" class="toc-card"><span class="toc-icon">&#x1F50C;</span><span class="toc-title">Smart <span class="glossary-term" data-term="pdu">PDUs</span> (30A / 40A / 240V)</span><span class="toc-desc">Remote power cycling &mdash; the #1 fix for frozen miners</span></a>
+      <a href="#smart-switches" class="toc-card"><span class="toc-icon">&#x26A1;</span><span class="toc-title">Smart Switches &amp; DIN Rail Relays</span><span class="toc-desc">Budget-friendly remote power control options</span></a>
+      <a href="#firmware-remote" class="toc-card"><span class="toc-icon">&#x1F9E0;</span><span class="toc-title">Firmware Remote Management</span><span class="toc-desc">How firmware choice affects your remote control options</span></a>
+      <a href="#mobile-ssh" class="toc-card"><span class="toc-icon">&#x1F4F1;</span><span class="toc-title">Mobile SSH Clients</span><span class="toc-desc">Termius &amp; alternatives for managing miners on the go</span></a>
+      <a href="#safe-shutdown" class="toc-card"><span class="toc-icon">&#x1F6D1;</span><span class="toc-title">Safe Shutdown Methods</span><span class="toc-desc">7 methods ranked from gentlest to most aggressive</span></a>
+      <a href="#monitoring" class="toc-card"><span class="toc-icon">&#x1F4CA;</span><span class="toc-title">Monitoring &amp; Automation</span><span class="toc-desc">AutoPing, alerts, and scheduled start/stop</span></a>
+      <a href="#scheduling" class="toc-card"><span class="toc-icon">&#x1F551;</span><span class="toc-title">Electricity Scheduling</span><span class="toc-desc">Run miners only during free or cheap hours</span></a>
+      <a href="#security" class="toc-card"><span class="toc-icon">&#x1F6E1;&#xFE0F;</span><span class="toc-title">Security Best Practices</span><span class="toc-desc">Lock down your remote access the right way</span></a>
+      <a href="#builds" class="toc-card"><span class="toc-icon">&#x1F3D7;&#xFE0F;</span><span class="toc-title">Recommended Builds by Budget</span><span class="toc-desc">Complete setups from $50 starter to $300 full control</span></a>
+      <a href="#troubleshooting" class="toc-card"><span class="toc-icon">&#x1F527;</span><span class="toc-title">Common Problems &amp; Fixes</span><span class="toc-desc">Quick solutions when something goes wrong</span></a>
+    </div>
+
+    <!-- ========================================
+         QUICK START BOX
+         ======================================== -->
+    <div id="quick-start" style="background: rgba(0, 206, 209, 0.08); border: 2px solid rgba(0, 206, 209, 0.35); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2rem;">
+      <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin-bottom: 0.5rem;">&#x26A1; Quick Start &mdash; The 90% Solution</h3>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">Just want to restart frozen miners from your phone? You need two things:</p>
+      <ol style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 0.75rem;">
+        <li><strong style="color: var(--sola-teal);">Tailscale</strong> &mdash; free VPN that lets you reach your home network from anywhere</li>
+        <li><strong style="color: var(--sola-teal);">Smart <span class="glossary-term" data-term="pdu">PDU</span></strong> ($150&ndash;250) &mdash; remote power cycling with AutoPing that reboots frozen miners automatically</li>
+      </ol>
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">That covers 90% of home mining remote management. Everything else on this page builds on top of those two. &rarr; <a href="#smart-pdus" style="color: var(--sola-teal); font-weight: 600;">Skip to Smart PDUs</a></p>
+    </div>
+
+    <!-- ========================================
+         SECTION 1: WHY REMOTE MANAGEMENT
+         ======================================== -->
+    <section class="section" id="why-remote">
+      <h2 class="section-title">&#x1F4A1; Why Remote Management Matters</h2>
+      <p>Your ASIC miner doesn't care that you're at work, on vacation, or sleeping. When a miner freezes, overheats, or drops off the pool, every minute of downtime is lost revenue. Remote management lets you fix problems from your phone without driving home.</p>
       
-      <div class="voltage-grid">
-        <div class="voltage-card v120">
-          <h3>&#x1F7E2; 120V (Standard Outlets)</h3>
+      <p>Here's what you can do with a proper remote setup:</p>
+      <ul class="two-col-list">
+        <li><strong>Power cycle a frozen miner</strong> &mdash; the #1 fix for most ASIC issues</li>
+        <li><strong>Check hashrate and temperatures</strong> from your phone at work</li>
+        <li><strong>Switch pools or adjust settings</strong> through the miner's web interface</li>
+        <li><strong>Shut down miners on schedule</strong> &mdash; perfect for peak-rate electricity windows</li>
+        <li><strong>Get alerts</strong> when a miner drops offline or temperatures spike</li>
+        <li><strong>SSH into miners</strong> running custom firmware (<a class="extlink" href="https://luxor.tech/firmware" target="_blank" rel="noopener">LuxOS</a>, <a class="extlink" href="https://braiins.com/os-firmware" target="_blank" rel="noopener">Braiins OS</a>) for advanced control</li>
+      </ul>
+      
+      <div class="info-box">
+        <p><strong>Real talk:</strong> Most home miners don't discover remote management until they've already lost days of mining time to a frozen rig they couldn't restart. Don't wait for that lesson. Set this up now.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 2: VPN REMOTE ACCESS
+         ======================================== -->
+    <section class="section" id="vpn-access">
+      <h2 class="section-title">&#x1F510; VPN Remote Access &mdash; Tailscale &amp; Headscale</h2>
+      
+      <p>The core problem: your miners are on your home network. When you leave the house, you can't reach them. Traditional solutions like port forwarding punch holes in your firewall and expose your network to the internet. That's a terrible idea, especially with equipment worth thousands of dollars behind it.</p>
+      
+      <p>The modern solution is a <strong><span class="glossary-term" data-term="mesh-vpn">mesh VPN</span></strong> &mdash; software that creates a private encrypted tunnel between your devices, no matter where they are. Your phone at work can talk to your miners at home as if they were on the same network. No open ports. No exposed IP addresses. No complicated configuration.</p>
+      
+      <div class="compare-grid">
+        <div class="compare-card option-a">
+          <h3>&#x1F7E2; <a class="extlink" href="https://tailscale.com/" target="_blank" rel="noopener">Tailscale</a> <span class="tier-badge tier-free">Recommended</span></h3>
           <ul>
-            <li>Every outlet in your house</li>
-            <li>Max ~1,800 watts safely</li>
-            <li>15-20 amp circuits</li>
-            <li>Regular 3-prong plug</li>
-            <li>Most miners WON'T run on this</li>
+            <li>Free personal plan: 3 users, 100 devices</li>
+            <li>5-minute setup &mdash; install, sign in, done</li>
+            <li>Works on Windows, Mac, Linux, Android, iOS</li>
+            <li>Built on WireGuard (military-grade encryption)</li>
+            <li>No port forwarding needed</li>
+            <li>Works behind any router or firewall</li>
+            <li>MagicDNS &mdash; reach devices by name, not IP</li>
+            <li>Company handles the coordination server</li>
           </ul>
         </div>
         
-        <div class="voltage-card v240">
-          <h3>&#x1F7E0; 240V (High Power)</h3>
+        <div class="compare-card option-b">
+          <h3>&#x1F7E1; <a class="extlink" href="https://headscale.net" target="_blank" rel="noopener">Headscale</a> <span class="tier-badge tier-mid">Advanced</span></h3>
           <ul>
-            <li>Dryer, oven, AC, water heater</li>
-            <li>Max ~3,600-7,200 watts</li>
-            <li>30-50 amp circuits</li>
-            <li>Special large plugs</li>
-            <li>What most ASICs need</li>
+            <li>Open-source, self-hosted Tailscale server</li>
+            <li>Zero dependency on any company's servers</li>
+            <li>No device limits whatsoever</li>
+            <li>Uses the same Tailscale client apps</li>
+            <li>Requires a VPS or always-on server (~$5/month)</li>
+            <li>More complex setup (Docker, config files)</li>
+            <li>Full control over your network coordination</li>
+            <li>Best for privacy-focused miners</li>
           </ul>
         </div>
       </div>
       
-      <div class="info-box">
-        <p><strong>Why does voltage matter?</strong> Higher voltage = same power with less current = less heat in wires = safer and more efficient. A 3,000W miner on 240V draws only 12.5 amps. On 120V it would need 25 amps &#x2014; more than most circuits can handle.</p>
+      <div class="gold-box">
+        <p><strong>Which should you pick?</strong> If you&rsquo;re reading this page for the first time, start with <span class="glossary-term" data-term="tailscale">Tailscale</span>. It&rsquo;s free, it works in minutes, and the free plan supports 100 devices &mdash; more than any home miner will ever need. Move to <span class="glossary-term" data-term="headscale">Headscale</span> later if you want full self-hosting and zero third-party dependency.</p>
       </div>
-    </section>
-    
-    <!-- Common Mining Outlets -->
-    <section class="section">
-      <h2 class="section-title">&#x1F50C; Common Mining Outlets</h2>
       
-      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><span class="glossary-term" data-term="nema515">NEMA 5-15 / 5-20</span></h3>
-      <p style="margin-bottom: 0.25rem;">Standard 120V, 15&#x2013;20A.</p>
-      <p style="margin-bottom: 0.25rem;">Suitable only for <strong>Loki Kit&#x2013;equipped miners</strong> or miners with <strong>maximum 1,500W continuous draw</strong>, meeting the <strong>80% rule</strong>.</p>
-      <p>Dedicated circuit required. Not suitable for stock ASICs.</p>
-      <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 1.5rem;
-        <li>15A circuit &#x2192; 12A continuous &#x2192; <strong>~1,440W max</strong></li>
-        <li>20A circuit &#x2192; 16A continuous &#x2192; <strong>~1,920W max</strong> (but 1,500W is the safe real-world ceiling)</li>
-      </ul>
+      <h3 style="color: var(--sola-teal); margin: 1.5rem 0 0.75rem;">How Tailscale Works (The Simple Version)</h3>
+      <p>Tailscale creates a private network (called a "tailnet") that follows you everywhere. Every device you install it on gets a unique <code>100.x.x.x</code> IP address. These addresses work from anywhere in the world &mdash; your couch, the office, a hotel. Traffic goes directly between your devices (peer-to-peer), encrypted end-to-end. Tailscale's servers only help your devices find each other &mdash; they never see your data.</p>
       
-      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><span class="glossary-term" data-term="nema620">NEMA 6-20R</span></h3>
-      <p style="margin-bottom: 0.25rem;">240V, 20A.</p>
-      <p style="margin-bottom: 0.25rem;"><strong>Minimum <a href="https://www.ebay.com/sch/i.html?_nkw=12%2F2+romex+wire+250ft&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_12gauge_wire&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">12-gauge wire</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong>. Suitable for <strong>one high-power miner</strong>.</p>
-      <p><strong>Maximum 3,840W continuous</strong>, meeting the <strong>80% rule</strong>.</p>
-      <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 0.5rem;">
-        <li>20A &#xD7; 80% = 16A</li>
-        <li>16A &#xD7; 240V = 3,840W</li>
-      </ul>
-      <p>Common in garages and workshop installs.</p>
-      
-      <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem; margin-top: 1.5rem;"><span class="glossary-term" data-term="nemal630">NEMA L6-30R</span></h3>
-      <p style="margin-bottom: 0.25rem;">240V, 30A twist-lock receptacle. Prevents accidental disconnection.</p>
-      <p style="margin-bottom: 0.25rem;"><strong>Minimum <a href="https://www.ebay.com/sch/i.html?_nkw=10%2F2+romex+wire+250ft&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_10gauge_wire&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">10-gauge wire</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong>. Ideal for <strong>PDU-based setups</strong> running multiple miners.</p>
-      <p><strong>Maximum 5,760W continuous</strong>, meeting the <strong>80% rule</strong>.</p>
-      <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 0.5rem;">
-        <li>30A &#xD7; 80% = 24A</li>
-        <li>24A &#xD7; 240V = 5,760W</li>
-      </ul>
-      <p>Common in commercial, industrial, and dedicated mining installs.</p>
-    </section>
-    
-    <!-- When to Call Electrician - MOVED UP -->
-    <section class="section">
-      <h2 class="section-title">&#x1F477; When to Call an Electrician</h2>
-      <p>Some things are DIY. Some things aren't. Call a pro if you need:</p>
-      
-      <ul class="checklist">
-        <li>New 240V circuit installed</li>
-        <li>Panel upgrade (if you're out of breaker space)</li>
-        <li>Sub-panel for dedicated mining area</li>
-        <li>Any work inside your breaker panel</li>
-        <li>Permit-required electrical work</li>
-        <li>You're not 100% sure what you're doing</li>
-      </ul>
-      
-      <p style="margin-top: 1rem;"><strong>Typical costs:</strong></p>
-      <ul style="color: var(--text-secondary); margin-left: 1.25rem;">
-        <li>New 240V/30A outlet: $200-400</li>
-        <li>New 240V/50A outlet: $300-500</li>
-        <li>Sub-panel installation: $500-1,500</li>
-        <li>Panel upgrade (100A to 200A): $1,500-3,000</li>
-      </ul>
+      <h3 style="color: var(--sola-teal); margin: 1.5rem 0 0.75rem;">Quick Setup: Tailscale on Your Phone + Home PC</h3>
+      <ol>
+        <li>Go to <a href="https://tailscale.com/download" target="_blank" rel="noopener">tailscale.com/download</a> and install on your home computer (the one on the same network as your miners)</li>
+        <li>Sign in with Google, Microsoft, or GitHub &mdash; free account</li>
+        <li>Install the Tailscale app on your phone (Android or iOS)</li>
+        <li>Sign in with the same account</li>
+        <li>Both devices now appear in your tailnet &mdash; they can reach each other from anywhere</li>
+      </ol>
       
       <div class="info-box">
-        <p><strong>Worth it?</strong> A $300 electrician visit is cheap compared to a house fire or fried miner. Plus proper wiring improves efficiency and resale value.</p>
+        <p><strong>But my miners can't run Tailscale...</strong> Correct. ASIC miners run stripped-down Linux and you can't install extra software on most of them. That's where the Raspberry Pi <span class="glossary-term" data-term="subnet-router">subnet router</span> comes in (next section). The Pi runs Tailscale and acts as a gateway to your entire mining network.</p>
       </div>
     </section>
-    
-    <!-- The 120V Option -->
-    <section class="section">
-      <h2 class="section-title">&#x1F7E3; The 120V Solution: <span class="glossary-term" data-term="loki">Loki Kit</span></h2>
-      <p>Don't have 240V where you want to mine? There's a workaround.</p>
+
+    <!-- ========================================
+         SECTION 3: RASPBERRY PI SUBNET ROUTER
+         ======================================== -->
+    <section class="section" id="pi-router">
+      <h2 class="section-title">&#x1F353; Raspberry Pi Subnet Router</h2>
       
-      <div class="loki-highlight">
-        <h4>&#x1F52E; What is a Loki Kit?</h4>
-        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">A Loki Kit replaces your miner's power supply with one that runs on 120V. Combined with aftermarket firmware to underclock/undervolt, you can run industrial miners on regular household outlets.</p>
-        <p style="color: var(--text-secondary); margin: 0;"><strong>Trade-off:</strong> Lower hashrate (~40-60% of stock) but uses regular outlets you already have.</p>
+      <p>Your ASIC miners can't install Tailscale directly. They're single-purpose machines with locked-down firmware. The solution is a <strong><span class="glossary-term" data-term="subnet-router">subnet router</span></strong> &mdash; a small computer on your mining network that runs Tailscale and exposes your entire local network to your tailnet. Every device on your home network becomes reachable through the Pi, including every miner.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">What You Need</h3>
+      <ul>
+        <li><strong><span class="glossary-term" data-term="raspberry-pi">Raspberry Pi 4B</span> (2GB+ RAM)</strong> &mdash; $35-55, widely available. Pi 3B+ works too but Pi 4 is more reliable for always-on duty</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=endurance+microsd+card+32gb&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_microsd&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">MicroSD card (16GB+)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; get a decent brand (SanDisk, Samsung). Don&rsquo;t use that ancient 4GB card from 2012</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=cat6+ethernet+cable+10ft&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_ethernet_cable&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Ethernet cable</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; wired connection to your router. Do NOT rely on Wi-Fi for this. Your entire remote access chain depends on this staying connected</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=raspberry+pi+usb-c+power+supply&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_pi_psu&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">USB-C power supply</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; official Pi power supply recommended. Underpowered Pi = random disconnects</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=raspberry+pi+aluminum+case+heatsink&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_pi_case&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">A case with passive cooling</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; a small heatsink or aluminum case keeps it running cool 24/7</li>
+      </ul>
+      <!-- INLINE PROCUREMENT PAIR: Stability Step: Secure Access Gateway -->
+
+
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Setup Steps</h3>
+      
+      <details class="code-collapse">
+        <summary>&#x1F4CB; Pi Subnet Router Setup Commands &mdash; Copy &amp; Paste Ready</summary>
+        <div class="code-wrapper">
+          <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="pi-setup">
+            <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+            <span class="dolly-label">Clone</span>
+          </button>
+          <div class="cmd-block" id="pi-setup">
+<span class="cmd-comment"># 1. Flash Raspberry Pi OS Lite (no desktop needed) to your SD card</span>
+<span class="cmd-comment"># Use Raspberry Pi Imager - enable SSH in the settings before flashing</span>
+
+<span class="cmd-comment"># 2. Boot the Pi, connect via SSH from your home computer</span>
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="582831182a392b283a3d2a2a2128317634373b3934">[email&#160;protected]</a>
+
+<span class="cmd-comment"># 3. Update the system</span>
+<span class="cmd-prompt">$</span> sudo apt update &amp;&amp; sudo apt upgrade -y
+
+<span class="cmd-comment"># 4. Install Tailscale</span>
+<span class="cmd-prompt">$</span> curl -fsSL https://tailscale.com/install.sh | sh
+
+<span class="cmd-comment"># 5. Enable IP forwarding (required for subnet routing)</span>
+<span class="cmd-prompt">$</span> echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf
+<span class="cmd-prompt">$</span> echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.conf
+<span class="cmd-prompt">$</span> sudo sysctl -p
+
+<span class="cmd-comment"># 6. Start Tailscale as a <span class="glossary-term" data-term="subnet-router">subnet router</span></span>
+<span class="cmd-comment"># Replace 192.168.1.0/24 with YOUR home network range</span>
+<span class="cmd-prompt">$</span> sudo tailscale up --advertise-routes=192.168.1.0/24
+
+<span class="cmd-comment"># 7. Authenticate: copy the URL it gives you, open in browser, sign in</span>
+
+<span class="cmd-comment"># 8. Go to Tailscale admin console (admin.tailscale.com)</span>
+<span class="cmd-comment">#    Find your Pi &rarr; approve the advertised subnet routes</span>
+
+<span class="cmd-comment"># 9. Enable Tailscale to start on boot</span>
+<span class="cmd-prompt">$</span> sudo systemctl enable tailscaled
+          </div>
+        </div>
+      </details>
+      
+      <div class="info-box">
+        <p><strong>How to find your network range:</strong> On your home PC, run <code>ipconfig</code> (Windows) or <code>ifconfig</code> (Mac/Linux). If your IP is 192.168.1.x, your range is <code>192.168.1.0/24</code>. If it's 192.168.0.x, use <code>192.168.0.0/24</code>. If it's 10.0.0.x, use <code>10.0.0.0/24</code>.</p>
       </div>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">After Setup</h3>
+      <p>Now when you're away from home with Tailscale running on your phone, you can open a browser and type your miner's local IP address (like <code>192.168.1.50</code>) and the miner's web interface loads &mdash; just like being at home. You can also SSH into miners running custom firmware. The Pi acts as your always-on gateway.</p>
       
       <div class="warning-box">
-        <p><strong>&#x26A0;&#xFE0F; PSU Change May Be Required:</strong> Depending on your miner and Loki Kit, you may need to replace the stock PSU with a 120V-compatible power supply. Check your Loki Kit requirements.</p>
+        <p><strong>Don&rsquo;t forget:</strong> Your Pi needs to stay on 24/7, plugged into your router with ethernet. If the Pi loses power or internet, you lose remote access. Consider putting the Pi and your router on a small <span class="glossary-term" data-term="ups">UPS</span> battery backup ($40-60) so a brief power flicker doesn&rsquo;t kill your remote access chain.</p>
       </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 4: SMART <span class="glossary-term" data-term="pdu">PDUs</span>
+         ======================================== -->
+    <section class="section" id="smart-pdus">
+      <h2 class="section-title">&#x1F50B; Smart <span class="glossary-term" data-term="pdu">PDUs</span> for Mining &mdash; 30A, 40A &amp; 240V</h2>
       
-      <p><strong>Requirements for Loki mining:</strong></p>
-      <ul class="checklist">
-        <li>Compatible miner (S19, S19 Pro, S19J Pro, etc.)</li>
-        <li>A miner with a Loki Kit may require a PSU change (120V compatible)</li>
-        <li>Aftermarket firmware (Vnish, Braiins, LuxOS)</li>
-        <li>Dedicated 20A circuit (don't share with other devices)</li>
-        <li>Good ventilation (still produces heat)</li>
+      <p>A <strong>smart <span class="glossary-term" data-term="pdu">PDU</span></strong> (Power Distribution Unit) is a power strip on steroids. It distributes power from one high-amperage circuit to multiple outlets &mdash; and the "smart" part means you can monitor power draw, switch outlets on/off remotely, and set up automatic power cycling. For miners, this is the single most valuable piece of remote management hardware you can buy.</p>
+      
+      <p>A standard <span class="glossary-term" data-term="metered-pdu">metered PDU</span> shows you watts and amps on a screen. A <span class="glossary-term" data-term="switched-pdu">smart PDU</span> connects to your network and lets you do all of that from your phone &mdash; plus automatically reboot a miner when it stops responding.</p>
+
+
+      
+      <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">What to Look For in a Mining <span class="glossary-term" data-term="pdu">PDU</span></h3>
+      <ul class="two-col-list">
+        <li><strong>Voltage rating:</strong> 240V for most ASIC miners. 120V only for small miners (Goldshell Mini series, lottery miners)</li>
+        <li><strong>Amperage:</strong> 30A is the sweet spot for home mining (7,200W max / 5,760W at 80% rule). 40A+ exists for bigger setups</li>
+        <li><strong>Plug type:</strong> <a href="https://www.ebay.com/sch/i.html?_nkw=l6-30p+power+cord&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_l630p_cord&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">L6-30P</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> for 30A/240V circuits (the locking plug that goes into an L6-30R outlet)</li>
+        <li><strong>Outlets:</strong> C13 outlets for most miners (S19 series, L3++, KS5). C19 outlets for newer high-power miners (S21, S21+)</li>
+        <li><strong>Network connectivity:</strong> Ethernet (RJ45), Wi-Fi, or both &mdash; required for remote monitoring</li>
+        <li><strong>Outlet-level switching:</strong> ability to turn individual outlets on/off remotely</li>
+        <li><strong>AutoPing:</strong> automatically power cycle an outlet when the connected miner stops responding to pings</li>
+        <li><strong>Power metering:</strong> per-outlet wattage, amps, kWh tracking</li>
       </ul>
       
-      <p style="margin-top: 1rem;"><a href="aftermarket_firmware.html" style="color: var(--sola-teal);">See our Firmware Guide &#x2192;</a> for details on underclocking.</p>
-    </section>
-    
-    <!-- Circuit Requirements -->
-    <section class="section">
-      <h2 class="section-title">&#x1F4CB; Circuit Requirements by Miner</h2>
-      <p>How much power does your circuit need? Here's a quick reference:</p>
+      <div class="warning-box">
+        <p><strong>The 80% Rule is Law.</strong> NEC code says continuous loads (your miners run 24/7) must not exceed 80% of the circuit rating. A 30A circuit maxes at 24A continuous. A 20A circuit maxes at 16A. Exceeding this creates fire risk. No exceptions.</p>
+      </div>
       
-      <table class="circuit-table">
-        <tr>
-          <th>Miner</th>
-          <th>Algorithm</th>
-          <th>Power</th>
-          <th>Circuit</th>
-        </tr>
-        <tr class="section-header">
-          <td colspan="4">&#x26A1; Stock Miners (240V Required)</td>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s21&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s21&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Antminer S21</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>SHA-256 (BTC)</td>
-          <td>3,550W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s21+pro&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s21pro&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Antminer S21 Pro</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>SHA-256 (BTC)</td>
-          <td>3,510W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19+xp&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19xp&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Antminer S19 XP</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>SHA-256 (BTC)</td>
-          <td>3,010W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><span class="glossary-term" data-term="antminer-s19-pro">Antminer S19 Pro</span></td>
-          <td>SHA-256 (BTC)</td>
-          <td>3,250W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><span class="glossary-term" data-term="antminer-s19j-pro">Antminer S19J Pro</span></td>
-          <td>SHA-256 (BTC)</td>
-          <td>3,050W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Antminer S19</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>SHA-256 (BTC)</td>
-          <td>3,250W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><span class="glossary-term" data-term="antminer-ks5">Antminer KS5</span></td>
-          <td>kHeavyHash (KAS)</td>
-          <td>3,000W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=antminer+ks5+pro&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_ks5pro&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Antminer KS5 Pro</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>kHeavyHash (KAS)</td>
-          <td>3,150W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=antminer+l7&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_l7&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Antminer L7</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>Scrypt (LTC/DOGE)</td>
-          <td>3,425W</td>
-          <td>240V / 20A</td>
-        </tr>
-        <tr>
-          <td><span class="glossary-term" data-term="antminer-l3plus">Antminer L3++</span></td>
-          <td>Scrypt (LTC/DOGE)</td>
-          <td>800W</td>
-          <td>240V / 15A or 120V</td>
-        </tr>
-        <tr class="section-header">
-          <td colspan="4">&#x1F52E; Loki Kit Miners (120V Compatible)</td>
-        </tr>
-        <tr class="loki-row">
-          <td><span class="loki-label"><a href="https://www.ebay.com/sch/i.html?_nkw=s19+pro+with+loki+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19pro_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: inherit;">S19 Pro + Loki</a></span> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>SHA-256 (BTC)</td>
-          <td>~1,500W</td>
-          <td>120V / 20A dedicated</td>
-        </tr>
-        <tr class="loki-row">
-          <td><span class="loki-label"><a href="https://www.ebay.com/sch/i.html?_nkw=s19j+pro+with+loki+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19jpro_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: inherit;">S19J Pro + Loki</a></span> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>SHA-256 (BTC)</td>
-          <td>~1,400W</td>
-          <td>120V / 20A dedicated</td>
-        </tr>
-        <tr class="loki-row">
-          <td><span class="loki-label"><a href="https://www.ebay.com/sch/i.html?_nkw=s19+with+loki+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: inherit;">S19 + Loki</a></span> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>SHA-256 (BTC)</td>
-          <td>~1,500W</td>
-          <td>120V / 20A dedicated</td>
-        </tr>
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Smart <span class="glossary-term" data-term="pdu">PDU</span> Comparison &mdash; Home Mining Scale</h3>
+      
+      <table class="hw-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Amps / Volts</th>
+            <th>Outlets</th>
+            <th>Smart Features</th>
+            <th>Price Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-header">
+            <td colspan="5">&#x1F3E0; Best for Home Miners (1-5 Rigs)</td>
+          </tr>
+          <tr>
+            <td class="best-pick"><a href="https://www.ebay.com/sch/i.html?_nkw=synaccess+synlink+sp&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_synlink_sp&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">SynLink SP (Synaccess)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>20-30A / 240V</td>
+            <td>4-8 (C13/C19 mix)</td>
+            <td>AutoPing, per-outlet switching, web UI, SNMP, REST API, email alerts, temp sensors, scheduling</td>
+            <td>$300-600</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.ebay.com/sch/i.html?_nkw=synaccess+netbooter&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_netbooter&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Synaccess netBooter DU</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>15-20A / 120-240V</td>
+            <td>2-5 (NEMA 5-15)</td>
+            <td>AutoPing, outlet switching, web UI, Telnet, email alerts, scheduling</td>
+            <td>$180-350</td>
+          </tr>
+          <tr>
+            <td class="best-pick"><a href="https://www.ebay.com/sch/i.html?_nkw=altair+virgo+smart+pdu&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_altair_virgo&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Altair Virgo Smart PDU</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>30A / 240V</td>
+            <td>4 C13 + 2 C19</td>
+            <td>Per-outlet switching, SNMP, Modbus, HTTP/HTTPS, SMTP alerts, Ethernet</td>
+            <td>$200-350</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.ebay.com/sch/i.html?_nkw=rpcm+mining+edition+rcntec&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_rpcm&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">RPCM Mining Edition (RCNTEC)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>32-63A / 240V</td>
+            <td>10-30 channels</td>
+            <td>Hashrate watchdog, auto-restart, REST API, SNMP, dual input ATS, per-channel metering</td>
+            <td>$500-1,200</td>
+          </tr>
+          <tr class="section-header">
+            <td colspan="5">&#x1F4B0; Budget Options (Metered Only &mdash; No Remote Switching)</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.ebay.com/sch/i.html?_nkw=30a+mining+pdu+240v&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_generic_pdu&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Generic 30A Mining <span class="glossary-term" data-term="metered-pdu">PDU</span></a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>30A / 240V</td>
+            <td>8 C13 or 6 C13 + 2 C19</td>
+            <td>LCD meter only (amps, watts, kWh). No network. No remote control.</td>
+            <td>$50-120</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.ebay.com/sch/i.html?_nkw=altair+argo+metered+pdu&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_altair_argo&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Altair Argo <span class="glossary-term" data-term="metered-pdu">Metered PDU</span></a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>30A / 240V</td>
+            <td>4 C13 + 2 C19</td>
+            <td>LCD meter, surge protection. No network. No remote control.</td>
+            <td>$100-180</td>
+          </tr>
+          <tr class="section-header">
+            <td colspan="5">&#x1F3ED; Larger Operations (6+ Rigs)</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.ebay.com/sch/i.html?_nkw=raptor+crypto+slayer+pdu&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_raptor_slayer&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Raptor Crypto Slayer 3.0</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>80A 3-phase / 46kW</td>
+            <td>12 x C19 (50A switched breakers)</td>
+            <td>Circuit breaker switching only. No network monitoring. USA made.</td>
+            <td>$800-1,500</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.ebay.com/sch/i.html?_nkw=raptor+crypto+minotaur+pdu&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_raptor_minotaur&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Raptor Crypto Minotaur</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>384A / 92.4kW</td>
+            <td>24 x C19</td>
+            <td>12 x 50A switched breakers. Highest density <span class="glossary-term" data-term="pdu">PDU</span> available. Industrial scale.</td>
+            <td>$1,500-3,000</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.ebay.com/sch/i.html?_nkw=aze+crypto+smart+mining+pdu&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_tbl_aze_crypto&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">AZE Crypto Smart Mining PDU</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+            <td>160A 3-phase / 415V</td>
+            <td>24 x C19 (lockable)</td>
+            <td>Full SNMP management, per-outlet monitoring/switching, cascade management</td>
+            <td>$1,000-2,500</td>
+          </tr>
+        </tbody>
       </table>
       
-      <div class="info-box">
-        <p><strong>Note:</strong> Power consumption varies by firmware, tuning, and ambient temperature. Always check manufacturer specs for your specific model.</p>
+      <div class="gold-box">
+        <p><strong>Best bang for the buck for home miners:</strong> The Synaccess SynLink SP series is purpose-built for mining. AutoPing alone is worth the price &mdash; it automatically power cycles a miner when it stops responding. That feature alone can save you from losing days of mining when you're away from home. The Altair Virgo Smart <span class="glossary-term" data-term="pdu">PDU</span> is the best value if you want per-outlet switching on a tighter budget.</p>
       </div>
       
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">How Many Miners Per <span class="glossary-term" data-term="pdu">PDU</span>?</h3>
+      <p>This depends entirely on each miner's power draw. Here's the math for a 30A/240V <span class="glossary-term" data-term="pdu">PDU</span> (max 24A continuous at 80% rule = 5,760W):</p>
+      <ul>
+        <li><strong><span class="glossary-term" data-term="antminer-s19-pro">Antminer S19 Pro</span> (3,250W):</strong> 1 per 30A circuit. Draws ~13.5A at 240V</li>
+        <li><strong><span class="glossary-term" data-term="antminer-s19j-pro">Antminer S19J Pro</span> (3,050W):</strong> 1 per 30A circuit. Draws ~12.7A at 240V</li>
+        <li><strong><span class="glossary-term" data-term="antminer-l3plus">Antminer L3++</span> (800W):</strong> Up to 7 per 30A circuit. Draws ~3.3A each at 240V</li>
+        <li><strong><span class="glossary-term" data-term="antminer-ks5">Antminer KS5</span> (3,150W):</strong> 1 per 30A circuit. Draws ~13.1A at 240V</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=goldshell+mini+doge&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_goldshell_minidoge&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Goldshell Mini DOGE</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> (235W):</strong> Runs on 120V. Up to 6 per 15A standard outlet</li>
+      </ul>
+      
       <div class="warning-box">
-        <p><strong>&#x26A0;&#xFE0F; The <span class="glossary-term" data-term="rule80">80% Rule</span>:</strong> Electrical code says continuous loads should use max 80% of circuit capacity. A 20A circuit = 16A continuous max. A 30A circuit = 24A continuous max. Size up if you're close.</p>
+        <p><strong>Always do your own math.</strong> Check the label on YOUR miner for its actual wattage. Divide by your voltage (240 or 120) to get amps. Stay under 80% of your circuit breaker rating. When in doubt, ask an electrician. See our <a href="electrical_setup.html" style="color: var(--warning);">Electrical Setup Guide</a> for the full breakdown.</p>
       </div>
     </section>
-    
-    <!-- PSU Section -->
-    <section class="section">
-      <h2 class="section-title">&#x1F50C; <span class="glossary-term" data-term="psu">Power Supply Units (PSUs)</span></h2>
-      <p>A PSU (Power Supply Unit) converts AC power from your wall outlet to DC power that your miner needs. Most ASIC miners come with a PSU, but replacements or upgrades may be needed.</p>
+
+    <!-- ========================================
+         PDU vs SHELLY CLARIFIER
+         ======================================== -->
+    <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2rem;">
+      <h3 style="color: var(--sola-gold); font-size: 1rem; margin-bottom: 0.75rem;">&#x1F504; PDU vs Smart Switch &mdash; Which Do You Need?</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div style="background: rgba(8, 26, 21, 0.5); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px; padding: 1rem;">
+          <p style="color: var(--sola-teal); font-weight: 600; margin-bottom: 0.5rem;">Smart <span class="glossary-term" data-term="pdu">PDU</span></p>
+          <ul style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7; margin-left: 1rem;">
+            <li>240V / 30&ndash;40A circuits</li>
+            <li>$150&ndash;400</li>
+            <li>AutoPing built in &mdash; auto-reboots frozen miners</li>
+            <li>Per-outlet power monitoring</li>
+            <li>Best for: S19, S21, L7, KS5 &mdash; any full-power ASIC</li>
+          </ul>
+        </div>
+        <div style="background: rgba(8, 26, 21, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; padding: 1rem;">
+          <p style="color: var(--sola-gold); font-weight: 600; margin-bottom: 0.5rem;">Shelly Smart Switch</p>
+          <ul style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7; margin-left: 1rem;">
+            <li>120V or 240V (model dependent)</li>
+            <li>$25&ndash;60</li>
+            <li>No AutoPing &mdash; needs Home Assistant for automation</li>
+            <li>Basic power monitoring</li>
+            <li>Best for: Loki rigs, KS0, L3++, Mini-DOGE &mdash; lower-wattage setups</li>
+          </ul>
+        </div>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.88rem; margin-top: 0.75rem;">If you run 240V miners and want set-and-forget reliability, get a <span class="glossary-term" data-term="pdu">PDU</span>. If you&rsquo;re on a budget or running 120V gear, Shelly gets you remote power control for a fraction of the cost.</p>
+    </div>
+
+    <!-- ========================================
+         SECTION 5: SMART SWITCHES & RELAYS
+         ======================================== -->
+    <section class="section" id="smart-switches">
+      <h2 class="section-title">&#x1F50C; Smart Switches &amp; DIN Rail Relays</h2>
       
-      <div class="warning-box">
-        <p><strong>&#x26A0;&#xFE0F; Important:</strong> Power cords are sold separately. Always check manufacturer specs for your specific miner and PSU combination.</p>
+      <p>Not every miner setup needs a full <span class="glossary-term" data-term="pdu">PDU</span>. If you have a single miner on a dedicated circuit, a <strong>smart relay</strong> installed in your breaker panel can give you remote on/off control at a fraction of the <span class="glossary-term" data-term="pdu">PDU</span> cost. These are DIN-rail devices that go inside your electrical panel and control the circuit itself.</p>
+      
+      <div class="compare-grid">
+        <div class="compare-card option-a">
+          <h3>&#x1F7E2; <a class="extlink" href="https://us.shelly.com/products/shelly-pro-1pm" target="_blank" rel="noopener">Shelly Pro 1PM</a></h3>
+          <ul>
+            <li>1 channel, up to 16A</li>
+            <li>110-240V compatible</li>
+            <li>Wi-Fi + LAN + Bluetooth</li>
+            <li>Per-channel power metering</li>
+            <li><span class="glossary-term" data-term="din-rail">DIN rail</span> mount (fits in breaker box)</li>
+            <li>Scheduling, scripting, REST API</li>
+            <li>Works with Home Assistant</li>
+            <li>~$25-35</li>
+          </ul>
+        </div>
+        
+        
+      <!-- INLINE PROCUREMENT PAIR: Stability Step: Panel-Level Power Control -->
+
+<div class="compare-card option-b">
+          <h3>&#x1F7E1; <a href="https://www.ebay.com/sch/i.html?_nkw=shelly+pro+4pm&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_shelly_pro4pm&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-gold);">Shelly Pro 4PM</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></h3>
+          <ul>
+            <li>4 channels, 16A each (40A total)</li>
+            <li>110-240V compatible</li>
+            <li>Wi-Fi + LAN + Bluetooth</li>
+            <li>Per-channel power metering</li>
+            <li>Color LCD display on unit</li>
+            <li>Overpower + overvoltage protection</li>
+            <li>Scripting for custom automation</li>
+            <li>~$55-75</li>
+          </ul>
+        </div>
       </div>
       
-      <p style="margin-top: 1rem;"><strong>Common Bitmain PSU Models:</strong></p>
+      <div class="warning-box">
+        <p><strong>Electrician Required.</strong> <span class="glossary-term" data-term="shelly">Shelly</span> relays install inside your breaker panel on the actual circuit wiring. This is NOT a plug-in device. If you are not a licensed electrician, hire one to install it. The device costs $25-75. The electrician visit costs $100-200. A house fire costs everything.</p>
+      </div>
       
-      <table class="circuit-table">
-        <tr>
-          <th>PSU Model</th>
-          <th>Input Voltage</th>
-          <th>Output</th>
-          <th>Max Power</th>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=bitmain+apw3%2B%2B+power+supply&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_apw3&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">APW3++</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>100-240V AC</td>
-          <td>12V DC</td>
-          <td>1200W @110V / 1600W @220V</td>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=bitmain+apw7+power+supply&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_apw7&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">APW7</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>100-240V AC</td>
-          <td>12V DC</td>
-          <td>1000W @110V / 1800W @220V</td>
-        </tr>
-        <tr>
-          <td><span class="glossary-term" data-term="apw12">APW12</span></td>
-          <td>200-240V AC only</td>
-          <td>12-15V DC</td>
-          <td>~3600W @220V</td>
-        </tr>
-        <tr>
-          <td><a href="https://www.ebay.com/sch/i.html?_nkw=bitmain+apw17+power+supply&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_apw17&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">APW17</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-          <td>220-277V AC only</td>
-          <td>12-15V DC</td>
-          <td>~3600W @220V</td>
-        </tr>
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Smart Plugs &mdash; 120V Only</h3>
+      <p>For small 120V miners (Goldshell Mini series, Bitaxe, lottery miners), a regular Wi-Fi smart plug works fine for remote power cycling. These are plug-and-play, no electrician needed.</p>
+      <ul>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=tp-link+kasa+kp115&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_kasa_kp115&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">TP-Link Kasa KP115</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; 15A/120V, energy monitoring, works with Alexa/Google, ~$15</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=shelly+plug+us&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_shelly_plug_us&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Shelly Plug US</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; 15A/120V, power metering, local API, Home Assistant compatible, ~$20</li>
+      </ul>
+      
+      <div class="warning-box">
+        <p><strong>No consumer smart plug handles 240V at 30A.</strong> They don't exist at retail. For 240V miners, you need a <span class="glossary-term" data-term="pdu">PDU</span> with switching (Section 4) or a DIN-rail relay in your panel (Shelly Pro). Don't try to use a 120V smart plug with a 240V miner &mdash; it will melt or catch fire.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 6: FIRMWARE REMOTE MANAGEMENT
+         ======================================== -->
+    <section class="section" id="firmware-remote">
+      <h2 class="section-title">&#x2699;&#xFE0F; Firmware Remote Management</h2>
+      
+      <p>Every ASIC miner has a built-in web interface for configuration and monitoring. With your VPN set up (Tailscale + Pi <span class="glossary-term" data-term="subnet-router">subnet router</span>), you can access these from anywhere. But custom firmware takes it further with better APIs, fleet management tools, and advanced controls.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">Stock Firmware (Bitmain/Factory)</h3>
+      <p>What you get out of the box. Access the miner&rsquo;s IP in a browser to see hashrate, temperatures, <a href="https://www.ebay.com/sch/i.html?_nkw=bitmain+antminer+7000+rpm+fan&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_miner_fan&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">fan</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> speeds, pool settings, and basic controls. Limited but functional for remote monitoring through your VPN.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Custom Firmware &mdash; Full Comparison</h3>
+      <p>LuxOS, Braiins OS+, and Vnish all support SSH access, web APIs for scripting, and fleet management tools. Each handles shutdown and restart differently &mdash; and getting it wrong can leave a miner stuck off with no remote recovery. See our <a href="aftermarket_firmware.html#shutdown-restart" style="color: var(--sola-teal);">Firmware Guide: Shutdown, Restart &amp; Scheduling</a> for the full comparison table and per-firmware details.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">SSH Access Through Tailscale</h3>
+      <p>With Tailscale + Pi <span class="glossary-term" data-term="subnet-router">subnet router</span> running, you can SSH into miners running custom firmware from anywhere. On your phone, use an app like Termius (iOS/Android). On your laptop, just open a terminal:</p>
+      
+      <details class="code-collapse">
+        <summary>&#x1F4CB; SSH Commands for Custom Firmware &mdash; Copy &amp; Paste Ready</summary>
+        <div class="code-wrapper">
+          <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="ssh-firmware">
+            <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+            <span class="dolly-label">Clone</span>
+          </button>
+          <div class="cmd-block" id="ssh-firmware">
+<span class="cmd-comment"># SSH into a miner running Braiins OS or LuxOS</span>
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cdbfa2a2b98dfcf4ffe3fcfbf5e3fce3f8fd">[email&#160;protected]</a>
+
+<span class="cmd-comment"># Check miner status via Braiins OS API</span>
+<span class="cmd-prompt">$</span> bosminer status
+
+<span class="cmd-comment"># Restart mining via SSH</span>
+<span class="cmd-prompt">$</span> /etc/init.d/bosminer restart
+          </div>
+        </div>
+      </details>
+      
+      <div class="warning-box">
+        <p><strong>Known issue:</strong> LuxOS shutdown command via SSH doesn't always restart the miner properly &mdash; it may shut down without coming back up. For reliable remote restarts, a smart <span class="glossary-term" data-term="pdu">PDU</span> with power cycling capability is the better option. SSH is great for monitoring and configuration changes, but for hard power cycles, use your <span class="glossary-term" data-term="pdu">PDU</span>.</p>
+      </div>
+
+      <div class="warning-box" style="border-color: var(--sola-teal); background: rgba(0, 206, 209, 0.08);">
+        <p style="color: var(--sola-teal);"><strong>&#x1F6A8; The Power-On Problem:</strong> No SSH command, firmware API, or software trick can turn a miner back on after a full shutdown. Once the OS is off, the network stack is dead. The ONLY way to restore power remotely is a smart <span class="glossary-term" data-term="pdu">PDU</span> or smart switch that physically cuts and restores electricity to the miner. This is why every serious remote setup includes a <a href="#smart-pdus" style="color: var(--sola-teal);">smart <span class="glossary-term" data-term="pdu">PDU</span></a>.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 7: MOBILE SSH CLIENTS
+         ======================================== -->
+    <section class="section" id="mobile-ssh">
+      <h2 class="section-title">&#x1F4F1; Mobile SSH Clients &mdash; Termius &amp; Alternatives</h2>
+      
+      <p>Your VPN gets you onto the network. Your firmware gives you SSH access. But you need an app on your phone to actually type commands. This is where mobile SSH clients come in &mdash; they turn your phone into a remote terminal for managing your miners from anywhere.</p>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Termius &mdash; The Recommended Pick</h3>
+      <p><a href="https://termius.com" target="_blank" rel="noopener">Termius</a> is the most popular cross-platform SSH client and the one we recommend for home miners. It runs on iOS, Android, Windows, Mac, and Linux &mdash; and the free Starter plan covers everything a home miner needs.</p>
+      
+      <div class="info-box">
+        <p><strong>What the free plan includes:</strong></p>
+        <ul>
+          <li>SSH, Mosh, Telnet, and SFTP connections</li>
+          <li>Save host IPs, ports, usernames, and passwords for one-tap connecting</li>
+          <li>Multi-tab sessions (manage multiple miners at once)</li>
+          <li>Command snippets &mdash; save your most-used commands and run them with a tap</li>
+          <li>Virtual keyboard with all the special keys SSH needs (Tab, Ctrl, arrows, Esc)</li>
+          <li>FIDO2 hardware key authentication</li>
+        </ul>
+      </div>
+      
+      <p><strong>Why Termius stands out for miners:</strong> The <strong>snippets feature</strong> is the killer app. You save commands like <code>poweroff</code>, <code>/etc/init.d/bosminer restart</code>, or <code>cat /tmp/bosminer.log</code> as named snippets, then execute them with a single tap instead of typing on a phone keyboard. When you're at work and need to restart a frozen S19, tap the miner host &rarr; tap your "restart" snippet &rarr; done in 5 seconds.</p>
+      
+      <details class="code-collapse">
+        <summary>&#x1F4CB; Termius Snippet Commands &mdash; Save These for One-Tap Mining Control</summary>
+        <div class="code-wrapper">
+          <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="termius-snippets">
+            <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+            <span class="dolly-label">Clone</span>
+          </button>
+          <div class="cmd-block" id="termius-snippets">
+<span class="cmd-comment"># Example Termius snippets to save for mining:</span>
+
+<span class="cmd-comment"># Snippet: "Check Status" (Braiins OS)</span>
+<span class="cmd-prompt">$</span> bosminer status
+
+<span class="cmd-comment"># Snippet: "Stop Mining" (stop daemon, fans keep running)</span>
+<span class="cmd-prompt">$</span> /etc/init.d/bosminer stop
+
+<span class="cmd-comment"># Snippet: "Start Mining" (resume daemon)</span>
+<span class="cmd-prompt">$</span> /etc/init.d/bosminer start
+
+<span class="cmd-comment"># Snippet: "Graceful Shutdown" (stop mining &rarr; fans cool &rarr; power off)</span>
+<span class="cmd-prompt">$</span> poweroff
+
+<span class="cmd-comment"># Snippet: "Reboot Miner"</span>
+<span class="cmd-prompt">$</span> reboot
+
+<span class="cmd-comment"># Snippet: "Check Temps" (Braiins OS)</span>
+<span class="cmd-prompt">$</span> cat /tmp/bosminer.log | grep -i temp | tail -5
+          </div>
+        </div>
+      </details>
+      
+      <p><strong>Setup for miners:</strong> Install Termius on your phone. Create a new host for each miner &mdash; enter the local IP (like <code>192.168.1.50</code>), port 22, username <code>root</code>, and your miner's password. With Tailscale running, these local IPs work from anywhere. Save your most-used commands as snippets. That's it &mdash; you're managing miners from your phone.</p>
+
+      <div class="warning-box">
+        <p><strong>iOS limitation:</strong> iOS kills background SSH sessions after about 3 minutes. This is an Apple restriction, not a Termius bug. Keep your commands quick &mdash; check status, restart, done. For long-running monitoring, use your web-based tools (pool dashboards, MinerStat ASIC Hub) instead.</p>
+      </div>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">SSH Client Comparison</h3>
+      
+      <table class="hw-table">
+        <thead>
+          <tr>
+            <th>App</th>
+            <th>Platforms</th>
+            <th>Free Tier</th>
+            <th>Paid</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="best-pick"><a href="https://termius.com" target="_blank" rel="noopener" style="color: var(--v120);">Termius</a> &#x2B50;</td>
+            <td>iOS, Android, Win, Mac, Linux</td>
+            <td>SSH, SFTP, snippets, multi-tab</td>
+            <td>$10/mo Pro</td>
+            <td>Most miners &mdash; clean UI, snippets, cross-platform</td>
+          </tr>
+          <tr>
+            <td>WebSSH</td>
+            <td>iOS only</td>
+            <td>Yes (with ads)</td>
+            <td>$2.99/mo or $29.99 once</td>
+            <td>iPhone users wanting simple &amp; no-frills</td>
+          </tr>
+          <tr>
+            <td>NeoServer</td>
+            <td>iOS, iPadOS, macOS</td>
+            <td>Limited</td>
+            <td>$19.99 lifetime or $5.99/yr</td>
+            <td>Apple users managing NAS + miners</td>
+          </tr>
+
+          <tr>
+            <td>PuTTY</td>
+            <td>Windows, Linux</td>
+            <td>100% free, open-source</td>
+            <td>N/A</td>
+            <td>Windows desktop &mdash; the classic</td>
+          </tr>
+          <tr>
+            <td>Built-in Terminal</td>
+            <td>Mac, Linux, Win (PowerShell)</td>
+            <td>Built into your OS</td>
+            <td>N/A</td>
+            <td>Desktop/laptop &mdash; just type <code>ssh root@IP</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="gold-box">
+        <p><strong>Our pick:</strong> Termius free on your phone + built-in terminal on your laptop. The Termius Pro subscription ($10/mo) is only worth it if you need host syncing across many devices &mdash; most home miners with 1-5 rigs don't need it. The free tier handles everything.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 8: SAFE SHUTDOWN METHODS
+         ======================================== -->
+    <section class="section" id="safe-shutdown">
+      <h2 class="section-title">&#x26A1; Safe Shutdown Methods &mdash; Don't Just Yank the Plug</h2>
+      
+      <p>ASIC miners have no power button. Most miners have been yanking the plug since day one. It works &mdash; until it doesn't. Here's why it matters and what to do instead.</p>
+
+
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Why Pulling the Plug Is Risky</h3>
+      <p>When you yank the power cord on a running Antminer, the fans stop instantly. The ASIC chips inside were just running at 70-85&deg;C. With zero airflow, those chips briefly spike even hotter before the aluminum heatsinks and housing can passively dissipate the heat. On S17 and S19 series miners, this thermal shock can weaken solder joints on hashboards over time. One hard yank probably won't kill anything. Doing it twice a day for a year &mdash; especially on older or overclocked hardware &mdash; accelerates hashboard failures.</p>
+      
+      <div class="warning-box">
+        <p><strong>S17 series warning:</strong> The Antminer S17 is already notorious for hashboard failures. If you're running an S17, never yank the plug while mining at full power. Always use a graceful shutdown method. These boards are fragile enough without thermal shock.</p>
+      </div>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">The Shutdown Methods &mdash; Gentlest to Most Aggressive</h3>
+
+      <div class="shutdown-accordion">
+        <!-- Method 1 -->
+        <details open>
+          <summary>Method 1: SSH <code>poweroff</code> Command <span class="method-tag best">Best Practice</span></summary>
+          <div class="accordion-body">
+            <p>SSH into the miner and type <code>poweroff</code>. This stops the mining process, lets the fans keep running for a brief cooldown, then halts the system. Wait 2-3 minutes after the command for chips to cool, then cut power at the breaker or <span class="glossary-term" data-term="pdu">PDU</span>.</p>
+            <details class="code-collapse">
+              <summary>&#x1F4CB; SSH Poweroff Commands</summary>
+              <div class="code-wrapper">
+                <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="shutdown-m1">
+                  <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+                  <span class="dolly-label">Clone</span>
+                </button>
+                <div class="cmd-block" id="shutdown-m1">
+<span class="cmd-comment"># Graceful shutdown via SSH (works on all Antminers)</span>
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8af8e5e5fecabbb3b8a4bbbcb2a4bba4bfba">[email&#160;protected]</a>
+<span class="cmd-prompt">root@antminer:~#</span> poweroff
+                </div>
+              </div>
+            </details>
+            <p style="font-size: 0.9rem;">After running <code>poweroff</code>, fans won't stop immediately &mdash; they keep spinning on residual power. When the miner has cooled down (hashboards no longer blowing hot air), it's safe to cut power. This is the method Bitmain recommends.</p>
+          </div>
+        </details>
+
+        <!-- Method 2 -->
+        <details>
+          <summary>Method 2: Stop the Mining Daemon Only (Keeps Miner On) <span class="method-tag best">Best Practice</span></summary>
+          <div class="accordion-body">
+            <p>Stop just the mining process. The miner stays on, fans keep running, chips cool down completely &mdash; but it's no longer mining or drawing full power. Perfect for scheduled solar cutoff times when you want to resume later.</p>
+            <details class="code-collapse">
+              <summary>&#x1F4CB; Stop/Start Daemon Commands by Firmware</summary>
+              <div class="code-wrapper">
+                <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="shutdown-m2">
+                  <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
+                  <span class="dolly-label">Clone</span>
+                </button>
+                <div class="cmd-block" id="shutdown-m2">
+<span class="cmd-comment"># Stop mining on stock Antminer firmware (S19 series)</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bmminer.sh stop
+
+<span class="cmd-comment"># Stop mining on L3++ (stock firmware)</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh stop
+
+<span class="cmd-comment"># Stop mining on Braiins OS</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer stop
+
+<span class="cmd-comment"># Resume mining later</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer start
+                </div>
+              </div>
+            </details>
+            <p style="font-size: 0.9rem;"><strong>Note:</strong> The daemon stop/start isn't always 100% reliable. If the miner doesn't resume properly, a <code>reboot</code> command or power cycle will fix it.</p>
+          </div>
+        </details>
+
+        <!-- Method 3 -->
+        <details>
+          <summary>Method 3: Web Interface Reboot <span class="method-tag good">Good</span></summary>
+          <div class="accordion-body">
+            <p>Log into your miner's web dashboard at its local IP address. Navigate to <strong>System &rarr; Reboot</strong>. This performs a clean reboot &mdash; it doesn't fully power off the miner, but it's a clean restart that's gentler than a hard power cut.</p>
+            <p style="font-size: 0.9rem;">Available on all Antminers with stock or custom firmware. Works from any browser on your network (or through Tailscale remotely). No SSH knowledge needed.</p>
+          </div>
+        </details>
+
+        <!-- Method 4 -->
+        <details>
+          <summary>Method 4: Firmware API Commands <span class="method-tag good">Good</span></summary>
+          <div class="accordion-body">
+            <p>LuxOS, Braiins OS, and Vnish all expose API endpoints for remote control. These can be scripted for automation &mdash; stop mining at 7am when peak rates kick in, start at 9pm when free power begins.</p>
+            <p style="font-size: 0.9rem;">See our <a href="aftermarket_firmware.html">Firmware Guide</a> for API details on each firmware. LuxOS has 45+ API commands including pause/resume mining.</p>
+          </div>
+        </details>
+
+        <!-- Method 5 -->
+        <details>
+          <summary>Method 5: Smart <span class="glossary-term" data-term="pdu">PDU</span> Scheduled Power Cut <span class="method-tag ok">Combo</span></summary>
+          <div class="accordion-body">
+            <p>Set your smart <span class="glossary-term" data-term="pdu">PDU</span> (Synaccess SynLink, Altair Virgo, etc.) to cut power on a daily schedule matching your electricity rates. For Sola Ray Effect's setup: power on at 9:00 PM (free power starts), power off at 6:50 AM (10-minute buffer before peak rates at 7:00 AM).</p>
+            <p style="font-size: 0.9rem;"><strong>Best practice:</strong> Combine methods &mdash; use a cron job or script to SSH <code>poweroff</code> 5 minutes before the <span class="glossary-term" data-term="pdu">PDU</span> cuts power. Graceful shutdown followed by a hard cutoff as a safety net.</p>
+          </div>
+        </details>
+
+        <!-- Method 6 -->
+        <details>
+          <summary>Method 6: Circuit Breaker <span class="method-tag ok">OK</span></summary>
+          <div class="accordion-body">
+            <p>Walk to your breaker panel and flip the breaker off. Cleaner than yanking a plug because the PSU handles a breaker trip more gracefully than a sudden cord disconnect (no strain on connectors, no arc at the plug). Still a hard cut &mdash; use SSH shutdown first if possible.</p>
+          </div>
+        </details>
+
+        <!-- Method 7 -->
+        <details>
+          <summary>Method 7: Just Pull the Plug <span class="method-tag last">Last Resort</span></summary>
+          <div class="accordion-body">
+            <p>Yes, it works. Millions of miners do it daily. Modern PSUs have overcurrent protection. But if you have the option to do any of the above first, take 30 seconds and do it right. Your hashboards will thank you.</p>
+            <p style="font-size: 0.9rem;"><strong>APW12 PSU note (S19 series):</strong> The APW12 has two power input lines. When plugging in: outer line first, then inner. When unplugging: inner line first, then outer. Getting this backwards can damage the PSU. This is from Bitmain's own documentation.</p>
+          </div>
+        </details>
+      </div>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Recommended Shutdown Routine for Solar Miners</h3>
+      <div class="gold-box">
+        <p><strong>The ideal daily shutdown for peak-rate avoidance:</strong></p>
+        <p style="margin-top: 0.5rem;">1. <strong>6:50 AM</strong> &mdash; Automated script sends SSH <code>poweroff</code> to all miners (or stop daemon command if you want fans to cool)</p>
+        <p>2. <strong>6:55 AM</strong> &mdash; Smart <span class="glossary-term" data-term="pdu">PDU</span> cuts power to miner outlets (hard cutoff safety net, 5 min after graceful shutdown)</p>
+        <p>3. <strong>9:00 PM</strong> &mdash; Smart <span class="glossary-term" data-term="pdu">PDU</span> restores power. Miners boot automatically and resume mining</p>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">This gives you a clean graceful shutdown every morning, a hard power cut as backup, and automatic restart every night. Total cost: one Raspberry Pi running a cron job + one smart <span class="glossary-term" data-term="pdu">PDU</span>. Set it once, forget it.</p>
+      </div>
+
+      <div class="warning-box">
+        <p><strong>LuxOS SSH shutdown bug:</strong> As noted in the firmware section, LuxOS <code>poweroff</code> via SSH doesn't always restart the miner properly &mdash; it may shut down and not come back up when power is restored. If you're running LuxOS, rely on the smart <span class="glossary-term" data-term="pdu">PDU</span> for power cycling rather than SSH shutdown. The <span class="glossary-term" data-term="pdu">PDU</span> hard-cuts power, and the miner boots fresh when power returns.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 9: MONITORING & AUTOMATION
+         ======================================== -->
+    <section class="section" id="monitoring">
+      <h2 class="section-title">&#x1F4CA; Monitoring &amp; Automation Tools</h2>
+      
+      <p>Once you can reach your miners remotely, the next step is knowing when something goes wrong without having to check manually. These tools watch your miners and alert you when there's a problem.</p>
+      
+      <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">Pool Dashboards (Free)</h3>
+      <p>Every mining pool has a mobile-friendly dashboard or app. This is your first line of monitoring &mdash; if your hashrate drops to zero on the pool dashboard, something is wrong. Most pools send email or push notifications when a worker goes offline.</p>
+      <ul>
+        <li><strong><a href="https://braiins.com/pool" target="_blank" rel="noopener" style="color: var(--sola-teal);">Braiins Pool</a></strong> &mdash; web dashboard + email alerts for worker offline</li>
+        <li><strong><a href="https://www.f2pool.com" target="_blank" rel="noopener" style="color: var(--sola-teal);">F2Pool</a></strong> &mdash; mobile app with push notifications</li>
+        <li><strong><a href="https://www.viabtc.com" target="_blank" rel="noopener" style="color: var(--sola-teal);">ViaBTC</a></strong> &mdash; app with alerts and auto-switching</li>
+        <li><strong><a href="https://luxor.tech" target="_blank" rel="noopener" style="color: var(--sola-teal);">Luxor</a></strong> &mdash; web dashboard with detailed analytics</li>
+      </ul>
+      
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">ASIC Monitoring Software</h3>
+      
+      <table class="hw-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>What It Does</th>
+            <th>Cost</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><a href="https://minerstat.com/software/asic-hub" target="_blank" rel="noopener" style="color: var(--sola-teal);">MinerStat ASIC Hub</a></strong></td>
+            <td>Monitor hashrate, temps, fan speeds. Remote reboot, pool switching, profit switching. Requires a local PC/Pi running the hub agent 24/7.</td>
+            <td>Free (up to 2 miners) then paid plans</td>
+            <td>Miners wanting a single dashboard for all rigs</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://foreman.mn" target="_blank" rel="noopener" style="color: var(--sola-teal);">Foreman.mn</a></strong></td>
+            <td>Enterprise-grade ASIC management. Auto-detects miners, tracks performance, alerts. Cloud-based with local agent.</td>
+            <td>Free (small scale) then paid</td>
+            <td>Growing operations with 5+ miners</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.awesomeminer.com" target="_blank" rel="noopener" style="color: var(--sola-teal);">Awesome Miner</a></strong></td>
+            <td>Windows-based mining management. Supports ASICs and GPUs. Profit switching, monitoring, alerts.</td>
+            <td>Free (2 miners), paid for more</td>
+            <td>Windows users who want a GUI</td>
+          </tr>
+          <tr>
+            <td><strong>Home Assistant + Shelly</strong></td>
+            <td>DIY automation platform. If Shelly detects miner drawing 0W, trigger a power cycle. Temperature-based shutoffs. Custom dashboards.</td>
+            <td>Free (open source)</td>
+            <td>Tech-savvy miners who want full customization</td>
+          </tr>
+        </tbody>
       </table>
       
-      <div class="info-box">
-        <p><strong>Note:</strong> PSU versions matter. APW12 and APW17 have multiple versions (a, b, c, etc.) that are NOT interchangeable. Always verify the exact version required for your miner before purchasing a replacement.</p>
-      </div>
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">The AutoPing Power Cycle (The Killer Feature)</h3>
+      <p>This is the single most important automation for home miners. Here's how it works on a smart <span class="glossary-term" data-term="pdu">PDU</span> like the Synaccess SynLink:</p>
+      <ol>
+        <li>You assign each outlet a "ping target" &mdash; the IP address of the miner plugged into that outlet</li>
+        <li>The <span class="glossary-term" data-term="pdu">PDU</span> sends a ping to each miner every 30-60 seconds</li>
+        <li>If a miner fails to respond to X consecutive pings (you set the threshold), the <span class="glossary-term" data-term="pdu">PDU</span> automatically power cycles that outlet</li>
+        <li>The miner restarts, reconnects to the pool, and resumes hashing</li>
+        <li>Optionally, the <span class="glossary-term" data-term="pdu">PDU</span> sends you an email: "Outlet 3 was power cycled at 2:47 AM due to ping failure"</li>
+      </ol>
+      <p>This happens automatically, 24/7, whether you&rsquo;re home or not. It&rsquo;s the closest thing to a &ldquo;set and forget&rdquo; mining operation.</p>
     </section>
-    
-    <!-- PDU Section -->
-    <section class="section">
-      <h2 class="section-title">&#x1F50B; <span class="glossary-term" data-term="pdu">Power Distribution Units (PDUs)</span></h2>
-      <p>A PDU (Power Distribution Unit) distributes electrical power from a single source to multiple devices. Think of it as an industrial-grade power strip designed for high-power equipment.</p>
-      
-      <div class="info-box">
-        <p><strong>Single miner?</strong> A 20A circuit is sufficient. <strong>Multiple miners?</strong> A 30A or larger circuit with a PDU may be required.</p>
-      </div>
-      
-      <p style="margin-top: 1rem;"><strong>When do you need a PDU?</strong></p>
-      <ul class="checklist">
-        <li>Running 2 or more miners from one circuit</li>
-        <li>Want centralized power management</li>
-        <li>Need remote monitoring or power cycling</li>
-        <li>Planning to scale your mining operation</li>
+
+    <!-- ========================================
+         SECTION: ELECTRICITY SCHEDULING
+         ======================================== -->
+    <section class="section" id="scheduling">
+      <h2 class="section-title">&#x1F551; Running Miners Only During Free Hours</h2>
+
+      <p>If your utility gives you free electricity from 9 PM to 6 AM and your solar covers daytime, your miners can run on nearly zero electricity cost. The trick is automating the on/off schedule so you don&rsquo;t have to do it manually every day.</p>
+
+      <p>There are three ways to automate this, depending on your hardware:</p>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Option 1: Smart <span class="glossary-term" data-term="pdu">PDU</span> Scheduling</h3>
+      <p>Most smart <span class="glossary-term" data-term="pdu">PDUs</span> (Synaccess SynLink, Tripp Lite, APC) have built-in outlet scheduling. This is the simplest method &mdash; no extra software needed.</p>
+      <ol style="margin-left: 1.25rem; line-height: 1.8;">
+        <li>Log into your <span class="glossary-term" data-term="pdu">PDU</span>&rsquo;s web interface (locally or through Tailscale)</li>
+        <li>Navigate to the outlet schedule or timer settings</li>
+        <li>Set each mining outlet to <strong>ON</strong> at the start of your free/cheap window (e.g., 9:00 PM)</li>
+        <li>Set each outlet to <strong>OFF</strong> before peak rates kick in (e.g., 5:45 AM &mdash; give miners 15 minutes to shut down gracefully)</li>
+        <li>Verify the <span class="glossary-term" data-term="pdu">PDU</span>&rsquo;s internal clock is synced to NTP &mdash; a drifted clock means your schedule fires at the wrong time</li>
+      </ol>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Option 2: Firmware Power Profiles</h3>
+      <p>Custom firmware can throttle or pause mining without cutting power to the machine. This is gentler on hardware than a hard power cut.</p>
+      <ul style="margin-left: 1.25rem; line-height: 1.8;">
+        <li><strong>Braiins OS+:</strong> Power target mode lets you set a wattage limit. You can schedule it through the API &mdash; set power target to 0W during peak hours and back to full during free hours. The miner stays on but stops hashing.</li>
+        <li><strong>LuxOS:</strong> Supports curtailment profiles that can be triggered on a schedule or via API. Set a &ldquo;sleep&rdquo; profile for peak hours and a &ldquo;full power&rdquo; profile for free hours.</li>
+        <li><strong>VNish:</strong> Supports scheduled frequency adjustments. Reduce frequency to minimum during expensive hours.</li>
       </ul>
-      
-      <p style="margin-top: 1rem;"><strong>Types of PDUs:</strong></p>
-      <ul style="color: var(--text-secondary); margin-left: 1.25rem;">
-        <li><strong><span class="glossary-term" data-term="pdu">Basic PDU</span>:</strong> Simple power distribution, no monitoring. Just outlets.</li>
-        <li><strong><span class="glossary-term" data-term="metered-pdu">Metered PDU</span>:</strong> Shows real-time power consumption data.</li>
-        <li><strong><span class="glossary-term" data-term="switched-pdu">Switched PDU</span>:</strong> Allows remote on/off control of individual outlets.</li>
-        <li><strong>Intelligent PDU:</strong> Full monitoring, remote control, alerts, and environmental sensing.</li>
-      </ul>
-      
       <div class="info-box" style="margin-top: 1rem;">
-        <p><strong>Common setup:</strong> PDUs with <a href="https://www.ebay.com/sch/i.html?_nkw=l6-30p+power+cord&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_l630p_cord&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">L6-30P plugs</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> are popular for 30A circuits. They connect to a NEMA L6-30R outlet and distribute power to multiple miners.</p>
+        <p><strong>Why firmware scheduling beats hard power cuts:</strong> Repeatedly cutting and restoring power to an ASIC is harder on the machine than letting it idle. Firmware-based scheduling keeps the control board running and avoids the thermal shock of cold starts. If your <span class="glossary-term" data-term="pdu">PDU</span> supports scheduling AND you run custom firmware, use the firmware method.</p>
       </div>
-      <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">Switched and intelligent PDUs can also power cycle miners remotely and run on automated schedules &mdash; essential for solar and time-of-use rate setups. See our <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Remote Management guide</a> for smart PDU recommendations and setup.</p>
-    </section>
-    
-    <!-- Safety Section -->
-    <section class="section">
-      <h2 class="section-title">&#x1F525; Safety: Don't Burn Your House Down</h2>
-      <p>ASIC miners pull serious power. Take these precautions:</p>
-      
-      <div class="warning-box">
-        <p><strong>&#x26A0;&#xFE0F; ALWAYS turn off the main breaker before doing ANY electrical work.</strong> Electricity can cause fire, serious injury, or death.</p>
-      </div>
-      
-      <div class="warning-box">
-        <p><strong>Never use extension cords or power strips</strong> for ASIC miners. They're not rated for continuous high-current loads and can melt or catch fire.</p>
-      </div>
-      
-      <p style="margin-top: 1rem;"><strong>Wiring Requirements:</strong></p>
-      <ul class="checklist">
-        <li>Use correct gauge wire: <span class="glossary-term" data-term="awg">10 AWG</span> for 30A circuits, <span class="glossary-term" data-term="awg">12 AWG</span> for 20A circuits</li>
-        <li>240V circuits require two hot wires + ground (no neutral)</li>
-        <li>Use <span class="glossary-term" data-term="doublepole">double-pole breakers</span> for 240V circuits</li>
-        <li>Obtain local permits for any new electrical work</li>
+
+      <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Option 3: Shelly + Home Assistant</h3>
+      <p>If you use Shelly smart switches for power control, you can build automations in Home Assistant that trigger on time-of-use rate changes:</p>
+      <ul style="margin-left: 1.25rem; line-height: 1.8;">
+        <li>Create a time-based automation: <strong>IF</strong> time is 9:00 PM <strong>THEN</strong> turn on Shelly relay for mining circuit</li>
+        <li>Create the reverse: <strong>IF</strong> time is 5:45 AM <strong>THEN</strong> turn off Shelly relay</li>
+        <li>Add a condition: <strong>IF</strong> miner temperature sensor reads above 95&deg;F <strong>THEN</strong> delay start until it cools (useful in Texas summers)</li>
       </ul>
+      <p>Home Assistant is free and open source, but it requires a dedicated device (Raspberry Pi or old PC) running 24/7 to execute automations.</p>
+
+      <div class="warning-box" style="margin-top: 1rem;">
+        <p><strong>Check your rate plan details.</strong> &ldquo;Free nights&rdquo; plans vary by provider. Some start at 9 PM, some at 8 PM. Some end at 6 AM, others at 5 AM. Get the exact hours from your utility and set your schedule accordingly. Running even one hour into peak rate can eat your savings.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 8: SECURITY BEST PRACTICES
+         ======================================== -->
+    <section class="section" id="security">
+      <h2 class="section-title">&#x1F6E1;&#xFE0F; Security Best Practices</h2>
       
-      <p style="margin-top: 1rem;"><strong>Operating Safety:</strong></p>
-      <ul class="checklist">
-        <li>Plug directly into wall outlets &#x2014; no extension cords</li>
-        <li>Check outlet/plug for heat after 1 hour of mining</li>
-        <li>Install a smoke detector near your mining setup</li>
-        <li>Keep miners away from flammable materials</li>
-        <li>Don't daisy-chain PDUs (power distribution units)</li>
-        <li>Consider a kill switch or smart plug with power monitoring &mdash; a <a href="remote_management.html#smart-switches" style="color: var(--sola-teal);">smart switch</a> lets you cut power remotely instead of pulling plugs</li>
-        <li>If breakers trip repeatedly, STOP and investigate</li>
+      <p>Your miners represent thousands of dollars of hardware generating real income. A poorly secured remote access setup is an invitation for someone to redirect your hashrate, steal your coins, or just brick your equipment for fun.</p>
+      
+      <ul class="two-col-list">
+        <li><strong>Never use port forwarding.</strong> This exposes your miner's web interface directly to the internet. Anyone who finds it can access it. Use Tailscale instead &mdash; zero open ports.</li>
+        <li><strong>Change default passwords.</strong> Every Bitmain miner ships with username <code>root</code> and password <code>root</code>. Change this immediately. Custom firmware lets you set a proper password.</li>
+        <li><strong>Use HTTPS when available.</strong> Synaccess SynLink <span class="glossary-term" data-term="pdu">PDUs</span> support HTTPS. Braiins OS supports SSH with key-based authentication. Don't use unencrypted HTTP over the internet.</li>
+        <li><strong>Keep firmware updated.</strong> Custom firmware providers regularly patch security vulnerabilities. Running outdated firmware is running known exploits.</li>
+        <li><strong>Separate your mining network.</strong> If your router supports <span class="glossary-term" data-term="vlan">VLAN</span>s, put your miners on a separate network segment from your family's devices. A compromised miner shouldn't be able to reach your personal laptop.</li>
+        <li><strong>Monitor for pool changes.</strong> A common attack redirects your miner to a different pool/wallet. Periodically verify your pool settings haven't been changed.</li>
+        <li><strong>Tailscale key expiry.</strong> Tailscale auth keys expire (default is 180 days). Set a calendar reminder to re-authenticate your Pi before the key expires, or you'll lose remote access until you can physically reach the Pi.</li>
       </ul>
       
       <div class="info-box">
-        <p><strong>Signs of trouble:</strong> Warm outlets, burning smell, discolored plugs, flickering lights, or tripping breakers. Any of these = stop mining and call an electrician.</p>
+        <p><strong>Headscale advantage:</strong> If you self-host with Headscale, your coordination server data never touches a third party. You control the authentication, the keys, and the routing. For miners with significant hashrate, this level of control can be worth the extra setup complexity.</p>
       </div>
-      
-      <div class="info-box" style="margin-top: 1rem;">
-        <p><strong>&#x1F4DA; National Electrical Code (NEC):</strong> All electrical work should comply with NFPA 70 (National Electrical Code). View the code at <a href="https://up.codes/code/nfpa-70-national-electrical-code-2020" target="_blank" style="color: var(--sola-teal);" rel="noopener">up.codes/code/nfpa-70</a></p>
+    </section>
+
+    <!-- ========================================
+         SECTION 9: RECOMMENDED BUILDS
+         ======================================== -->
+    <section class="section" id="builds">
+      <h2 class="section-title">&#x1F680; Recommended Builds by Budget</h2>
+      <p style="color: var(--text-secondary); margin-top: -0.25rem;">
+        Click any line-item to source it. Links point to <strong>eBay</strong> with affiliate tracking. Software links go to official sites.
+      </p>
+
+      <div class="builds-grid">
+        <div class="compare-card option-a">
+          <h3>&#x1F7E2; Starter &mdash; Under $100</h3>
+          <ul>
+            <li><span class="build-item"><a href="https://tailscale.com" target="_blank" rel="noopener">Tailscale</a> free account</span>
+              <span class="buy-links"><a href="https://tailscale.com/pricing" target="_blank" rel="noopener">Official</a></span></li>
+
+            <li><span class="build-item">Raspberry Pi 4B (2GB) + case + SD card</span>
+              <span class="buy-links">
+                <a href="https://www.ebay.com/sch/i.html?_nkw=raspberry+pi+4b+2gb+kit+case+sd&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_builds_pi4b&toolid=10001&mkevt=1" target="_blank" rel="noopener">eBay</a>
+              </span></li>
+
+            <li><span class="build-item">Ethernet cable to router (Cat6)</span>
+              <span class="buy-links">
+                <a href="https://www.ebay.com/sch/i.html?_nkw=cat6+ethernet+cable+10+ft&mkcid=1&mkrid=711-53200-19255-0&campid=5339142622&customid=rm_cat6_cable&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">eBay</a>
+                
+              </span></li>
+
+            <li><span class="build-item"><a href="https://termius.com" target="_blank" rel="noopener">Termius</a> app on phone (free)</span>
+              <span class="buy-links"><a href="https://termius.com" target="_blank" rel="noopener">Official</a></span></li>
+
+            <li><span class="build-item">Pool dashboard for monitoring</span>
+              <span class="buy-links"><a href="/pools.html">Pools</a></span></li>
+
+            <li><span class="build-item"><strong>Total:</strong> ~$50-80</span></li>
+          </ul>
+          <p style="color: var(--text-secondary); margin-top: 0.75rem; font-size: 0.9rem;"><strong>Gets you:</strong> Remote web access to all miners, SSH capability, pool monitoring. No remote power cycling.</p>
+        </div>
+
+        <div class="compare-card option-b">
+          <h3>&#x1F7E1; Recommended &mdash; $300-500</h3>
+          <ul>
+            <li><span class="build-item">Everything from Starter, plus:</span></li>
+
+            <li><span class="build-item">Synaccess SynLink or Altair Virgo Smart <span class="glossary-term" data-term="pdu">PDU</span></span>
+              <span class="buy-links">
+                <a href="https://www.ebay.com/sch/i.html?_nkw=Synaccess+SynLink&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_builds_synlink&toolid=10001&mkevt=1" target="_blank" rel="noopener">eBay</a>
+              </span></li>
+
+            <li><span class="build-item">Small UPS for Pi + router ($40-60)</span>
+              <span class="buy-links">
+                <a href="https://www.ebay.com/sch/i.html?_nkw=mini+ups+for+router+and+raspberry+pi&mkcid=1&mkrid=711-53200-19255-0&campid=5339142622&customid=rm_small_ups_gateway&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">eBay</a>
+                
+              </span></li>
+
+            <li><span class="build-item">Shelly Pro 1PM for circuit control ($30)</span>
+              <span class="buy-links">
+                <a href="https://www.ebay.com/sch/i.html?_nkw=Shelly+Pro+1PM&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_builds_shelly1pm&toolid=10001&mkevt=1" target="_blank" rel="noopener">eBay</a>
+              </span></li>
+
+            <li><span class="build-item"><strong>Total:</strong> ~$350-500</span></li>
+          </ul>
+          <p style="color: var(--text-secondary); margin-top: 0.75rem; font-size: 0.9rem;"><strong>Gets you:</strong> Everything above + AutoPing power cycling, per-outlet monitoring, scheduling, email alerts. True hands-off operation.</p>
+        </div>
+
+        <div class="compare-card option-c">
+          <h3>&#x1F535; Full Control &mdash; $500+</h3>
+          <ul>
+            <li><span class="build-item">Everything from Recommended, plus:</span></li>
+
+            <li><span class="build-item"><a href="https://headscale.net" target="_blank" rel="noopener">Headscale</a> on a $5/mo VPS</span>
+              <span class="buy-links">
+                <a href="https://www.digitalocean.com/pricing/droplets" target="_blank" rel="noopener">VPS</a>
+                <a href="https://headscale.net" target="_blank" rel="noopener">Official</a>
+              </span></li>
+
+            <li><span class="build-item"><a href="https://www.home-assistant.io" target="_blank" rel="noopener">Home Assistant</a> on a dedicated Pi</span>
+              <span class="buy-links">
+                <a href="https://www.ebay.com/sch/i.html?_nkw=raspberry+pi+5+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_builds_pi5&toolid=10001&mkevt=1" target="_blank" rel="noopener">eBay</a>
+              </span></li>
+
+            <li><span class="build-item">Shelly Pro 4PM (4 circuits, 40A)</span>
+              <span class="buy-links">
+                <a href="https://www.ebay.com/sch/i.html?_nkw=Shelly+Pro+4PM&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_builds_shelly4pm&toolid=10001&mkevt=1" target="_blank" rel="noopener">eBay</a>
+              </span></li>
+
+            <li><span class="build-item">Temperature / humidity sensors</span>
+              <span class="buy-links">
+                <a href="https://www.ebay.com/sch/i.html?_nkw=temperature+humidity+sensor+wifi&mkcid=1&mkrid=711-53200-19255-0&campid=5339142622&customid=rm_temp_humidity_sensors&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">eBay</a>
+                
+              </span></li>
+
+            <li><span class="build-item">Custom firmware on all miners</span>
+              <span class="buy-links"><a href="/aftermarket_firmware.html">Firmware</a></span></li>
+
+            <li><span class="build-item"><strong>Total:</strong> ~$500-800+</span></li>
+          </ul>
+          <p style="color: var(--text-secondary); margin-top: 0.75rem; font-size: 0.9rem;"><strong>Gets you:</strong> Full self-hosted VPN, automated power control, environment monitoring, custom dashboards, zero third-party dependency.</p>
+        </div>
+      </div>
+
+      <div class="gold-box">
+        <p><strong>Start with Starter. Upgrade when you feel the pain.</strong> A $50 Raspberry Pi with Tailscale covers 80% of what you need. The smart <span class="glossary-term" data-term="pdu">PDU</span> is the next natural step when you get tired of driving home to power cycle a frozen miner. Don't over-engineer on day one &mdash; build as your operation grows.</p>
       </div>
     </section>
     
-    <!-- Quick Start -->
+    <!-- QUICK REFERENCE -->
     <section class="section">
-      <h2 class="section-title">&#x1F680; Quick Start Checklist</h2>
-      <p>Before you plug in your first miner:</p>
-      
-      <ul class="checklist">
-        <li>Know your miner's power requirements (watts and voltage)</li>
-        <li>Identify available circuits and their amperage</li>
-        <li>Match miner to circuit (with 20% headroom)</li>
-        <li>Get correct plug/adapter for your outlet type</li>
-        <li>Plan ventilation (miners are loud and hot)</li>
-        <li>Set up remote monitoring before starting</li>
-        <li>Test for 1 hour and check for heat at outlet</li>
-        <li>Calculate your electricity costs in the calculator</li>
+      <h2 class="section-title">&#x1F517; Quick Reference Links</h2>
+      <ul class="two-col-list">
+        <li><a href="https://tailscale.com/download" target="_blank" rel="noopener">Tailscale Download</a> &mdash; install on your devices</li>
+        <li><a href="https://login.tailscale.com/admin/machines" target="_blank" rel="noopener">Tailscale Admin Console</a> &mdash; manage devices, approve subnet routes</li>
+        <li><a href="https://headscale.net" target="_blank" rel="noopener">Headscale</a> &mdash; self-hosted Tailscale server</li>
+        <li><a href="https://synaccess.com/home-mining" target="_blank" rel="noopener">Synaccess Home Mining</a> &mdash; smart <span class="glossary-term" data-term="pdu">PDUs</span> designed for miners</li>
+        <li><a href="https://us.shelly.com/products/shelly-pro-4pm" target="_blank" rel="noopener">Shelly Pro 4PM</a> &mdash; 4-channel <span class="glossary-term" data-term="din-rail">DIN rail</span> smart relay</li>
+        <li><a href="https://luxor.tech/firmware" target="_blank" rel="noopener">LuxOS Firmware</a> &mdash; custom firmware with remote API</li>
+        <li><a href="https://braiins.com/os-firmware" target="_blank" rel="noopener">Braiins OS</a> &mdash; open-source ASIC firmware</li>
+        <li><a href="https://termius.com" target="_blank" rel="noopener">Termius</a> &mdash; cross-platform SSH client (iOS, Android, desktop)</li>
+
+        <li><a href="https://synaccess.com/resources/power-distribution-guide-for-home-mining" target="_blank" rel="noopener">Synaccess Power Distribution Guide</a> &mdash; excellent detailed guide on circuit/<span class="glossary-term" data-term="pdu">PDU</span> sizing</li>
+        <li><a href="electrical_setup.html">Sola Ray Effect Electrical Setup Guide</a> &mdash; our own guide on wiring, breakers &amp; safety</li>
+        <li><a href="aftermarket_firmware.html">Sola Ray Effect Firmware Guide</a> &mdash; our firmware comparison &amp; advisor tool</li>
       </ul>
     </section>
-    
+
+    <!-- ========================================
+         SECTION: COMMON PROBLEMS & FIXES
+         ======================================== -->
+    <section class="section" id="troubleshooting">
+      <h2 class="section-title">&#x1F527; Common Problems &amp; Fixes</h2>
+
+      <p>Things break. Here are the problems home miners run into most often with remote management, and how to fix them fast.</p>
+
+      <div style="display: grid; gap: 1rem; margin-top: 1rem;">
+
+        <div style="background: var(--bg-card, rgba(8, 26, 21, 0.78)); border: 1px solid rgba(0, 206, 209, 0.15); border-radius: 8px; padding: 1rem 1.25rem;">
+          <p style="color: var(--sola-teal); font-weight: 600; margin-bottom: 0.4rem;">&#x26A0;&#xFE0F; &ldquo;I lost Tailscale access to my Pi&rdquo;</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Tailscale auth keys expire after 180 days by default. Once expired, you need physical access to the Pi to re-authenticate. Fix: log into the <a href="https://login.tailscale.com/admin/machines" target="_blank" rel="noopener" style="color: var(--sola-teal);">Tailscale admin console</a>, find the device, and disable key expiry. Set a calendar reminder 30 days before expiry if you prefer to keep it enabled.</p>
+        </div>
+
+        <div style="background: var(--bg-card, rgba(8, 26, 21, 0.78)); border: 1px solid rgba(0, 206, 209, 0.15); border-radius: 8px; padding: 1rem 1.25rem;">
+          <p style="color: var(--sola-teal); font-weight: 600; margin-bottom: 0.4rem;">&#x26A0;&#xFE0F; &ldquo;My <span class="glossary-term" data-term="pdu">PDU</span> schedule didn&rsquo;t fire&rdquo;</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Check the <span class="glossary-term" data-term="pdu">PDU</span>&rsquo;s internal clock &mdash; a power outage may have reset it. Verify NTP (network time sync) is enabled and the timezone is set correctly. Some <span class="glossary-term" data-term="pdu">PDUs</span> default to UTC, which will fire schedules hours off from your local time.</p>
+        </div>
+
+        <div style="background: var(--bg-card, rgba(8, 26, 21, 0.78)); border: 1px solid rgba(0, 206, 209, 0.15); border-radius: 8px; padding: 1rem 1.25rem;">
+          <p style="color: var(--sola-teal); font-weight: 600; margin-bottom: 0.4rem;">&#x26A0;&#xFE0F; &ldquo;I can&rsquo;t SSH into my miner&rdquo;</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Three things to check: (1) The miner&rsquo;s IP may have changed &mdash; check your router&rsquo;s DHCP lease list or set a static IP. (2) Stock Bitmain firmware locks SSH &mdash; verify custom firmware is still installed. (3) A firmware update or factory reset may have reverted the miner to stock, which kills SSH access.</p>
+        </div>
+
+        <div style="background: var(--bg-card, rgba(8, 26, 21, 0.78)); border: 1px solid rgba(0, 206, 209, 0.15); border-radius: 8px; padding: 1rem 1.25rem;">
+          <p style="color: var(--sola-teal); font-weight: 600; margin-bottom: 0.4rem;">&#x26A0;&#xFE0F; &ldquo;My Pi lost its IP address&rdquo;</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Your router assigned a new IP via DHCP after a reboot or lease expiry. Fix: log into your router, find the Pi&rsquo;s MAC address (run <code>ip link show eth0</code> on the Pi), and create a DHCP reservation so it always gets the same IP. Tailscale access still works even if the local IP changes &mdash; it uses its own addresses.</p>
+        </div>
+
+        <div style="background: var(--bg-card, rgba(8, 26, 21, 0.78)); border: 1px solid rgba(0, 206, 209, 0.15); border-radius: 8px; padding: 1rem 1.25rem;">
+          <p style="color: var(--sola-teal); font-weight: 600; margin-bottom: 0.4rem;">&#x26A0;&#xFE0F; &ldquo;Miner shows hashing but pool shows zero&rdquo;</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">The miner thinks it&rsquo;s working but shares aren&rsquo;t reaching the pool. Check your internet connection first. If SSH is available, try pinging the pool address from the miner. Verify the pool URL and port haven&rsquo;t changed &mdash; some pools retire old stratum addresses. Check that your firewall or router isn&rsquo;t blocking outbound traffic on the pool&rsquo;s port.</p>
+        </div>
+
+        <div style="background: var(--bg-card, rgba(8, 26, 21, 0.78)); border: 1px solid rgba(0, 206, 209, 0.15); border-radius: 8px; padding: 1rem 1.25rem;">
+          <p style="color: var(--sola-teal); font-weight: 600; margin-bottom: 0.4rem;">&#x26A0;&#xFE0F; &ldquo;<span class="glossary-term" data-term="pdu">PDU</span> says miner is drawing 0 watts but it&rsquo;s running&rdquo;</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">The <span class="glossary-term" data-term="pdu">PDU</span>&rsquo;s current sensor isn&rsquo;t reading the load. Either the current clamp isn&rsquo;t seated properly on the cable, or the miner is plugged into a different outlet than the one you&rsquo;re monitoring. This requires physical verification &mdash; no remote fix.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- end .container -->
+
+  <div class="sola-video-float">
+    <img src="assets/solar_effect_300x300.jpg" alt="Sola Ray - Video Coming Soon">
+    <div class="svf-label">&#x1F3AC; Video Soon</div>
   </div>
-  </div><!-- End main-content -->
   
-  <script>
-    // Legal Modal Logic
-    (function() {
-      const modal = document.getElementById('legal-modal');
-      const mainContent = document.getElementById('main-content');
-      const checkbox = document.getElementById('legal-checkbox');
-      const agreeBtn = document.getElementById('legal-agree');
-      const declineBtn = document.getElementById('legal-decline');
-      
-      // Always show modal - no localStorage check
-      mainContent.classList.add('content-hidden');
-      
-      // Enable button when checkbox checked
-      checkbox.addEventListener('change', function() {
-        agreeBtn.disabled = !this.checked;
-      });
-      
-      // Agree button
-      agreeBtn.addEventListener('click', function() {
-        modal.classList.add('hidden');
-        mainContent.classList.remove('content-hidden');
-      });
-      
-      // Decline button
-      declineBtn.addEventListener('click', function() {
-        document.body.innerHTML = '<div class="page-blocked"><div><h2>Access Declined</h2><p>You chose not to accept the safety disclaimer.</p><p style="margin-top: 1rem;"><a href="index.html">\u2190 Return to Calculator</a></p></div></div>';
-      });
-    })();
-    
-    // Glossary handled by shared glossary-data.js + glossary-drawer.js
-    
+  <!-- Navigation Script (matches site) -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     function toggleNav() {
       document.getElementById('hamburger-btn').classList.toggle('open');
       document.getElementById('nav-drawer').classList.toggle('open');
       document.getElementById('nav-overlay').classList.toggle('show');
     }
-    
-    // Setup all interactions
     document.addEventListener('DOMContentLoaded', function() {
       // Hamburger menu
       var hamburgerBtn = document.getElementById('hamburger-btn');
@@ -1413,278 +2081,102 @@
         });
       }
     });
-  </script>
+</script>
+<!-- END SOLA FEEDBACK POPUP WIDGET -->
+
+<!-- Dolly the Clone Sheep — Copy Button Script -->
+<script>
+function dollyClone(btn) {
+  var codeId = btn.getAttribute('data-code');
+  var codeEl = document.getElementById(codeId);
+  if (!codeEl) return;
+  
+  // Extract clean text from the code block (strip HTML tags, clean up whitespace)
+  var text = codeEl.innerText || codeEl.textContent;
+  // Clean up: remove excessive blank lines, trim
+  text = text.replace(/\n{3,}/g, '\n\n').trim();
+  
+  // Copy to clipboard
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      dollySuccess(btn);
+    }).catch(function() {
+      dollyFallback(btn, text);
+    });
+  } else {
+    dollyFallback(btn, text);
+  }
+}
+
+function dollyFallback(btn, text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); dollySuccess(btn); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function dollySuccess(btn) {
+  var old = btn.textContent;
+  btn.textContent = 'Copied';
+  btn.style.borderColor = 'rgba(0, 230, 118, 0.55)';
+  btn.style.background = 'rgba(0, 230, 118, 0.10)';
+  setTimeout(function() {
+    btn.textContent = old;
+    btn.style.borderColor = '';
+    btn.style.background = '';
+  }, 1100);
+}
+
+/* Liability modal: show every page load */
+(function() {
+  function showModal() {
+    var overlay = document.getElementById('liability-overlay');
+    if (!overlay) return;
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function hideModal() {
+    var overlay = document.getElementById('liability-overlay');
+    if (!overlay) return;
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var overlay = document.getElementById('liability-overlay');
+    var ack = document.getElementById('liability-ack');
+
+    if (!overlay) return;
+
+    showModal();
+
+    if (ack) ack.addEventListener('click', hideModal);
+  });
+})();
+</script>
 
 <!-- Shared Glossary System -->
 <script src="/scripts/glossary-data.js"></script>
 <script src="/scripts/glossary-drawer.js"></script>
 
-<!-- ============================================ -->
-<!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
-<!-- Remove this entire block when feedback window closes -->
-<!-- ============================================ -->
-<div id="sola-feedback-widget" style="display:none;">
-  <!-- Small trigger bubble (bottom-right) -->
-  <div id="sola-fb-bubble" style="position:fixed;bottom:20px;right:20px;z-index:9999;cursor:pointer;">
-    <p style="color:var(--sola-gold, #D4AF37);font-size:14px;font-weight:700;text-align:center;margin-bottom:6px;font-family:'Roboto',sans-serif;">Hey! Got a second?</p>
-    <video id="sola-fb-video" width="200" height="113" muted playsinline loop style="border-radius:8px;border:2px solid var(--sola-gold, #D4AF37);box-shadow:0 4px 20px rgba(0,0,0,0.5);"
-      src="assets/sola_feedback.mp4"></video>
-    <div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
-      <button id="sola-fb-yes" style="padding:6px 18px;border-radius:8px;border:1px solid var(--sola-gold, #D4AF37);background:var(--sola-emerald, #0B2F26);color:var(--sola-gold, #D4AF37);font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;">Sure!</button>
-      <button id="sola-fb-no" style="padding:6px 18px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-family:'Roboto',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;">Not now</button>
-    </div>
-  </div>
-
-  <!-- Wizard overlay -->
-  <div id="sola-fb-wizard" style="display:none;position:fixed;bottom:20px;right:20px;z-index:10000;width:320px;background:var(--bg-card, #22303f);border:1px solid var(--sola-gold, #D4AF37);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.6);font-family:'Roboto',sans-serif;overflow:hidden;">
-    <!-- Header -->
-    <div style="background:var(--sola-emerald, #0B2F26);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--sola-gold, #D4AF37);">
-      <span style="color:var(--sola-gold, #D4AF37);font-weight:700;font-size:14px;">Sola Ray &#x2014; Feedback</span>
-      <button id="sola-fb-close" style="background:none;border:none;color:var(--text-secondary, #8899a8);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">&times;</button>
-    </div>
-    <!-- Privacy note -->
-    <div style="padding:8px 16px;background:var(--bg-secondary, #1a2836);font-size:11px;color:var(--text-muted, #5a6a7a);line-height:1.4;">
-      Your email is used only for direct communication with Sola Ray Effect. It will never be sold, shared, or added to any mailing list.
-    </div>
-    <!-- Steps container -->
-    <div id="sola-fb-steps" style="padding:16px;">
-      <!-- Step 1: How did you find us -->
-      <div class="sola-fb-step" data-step="1">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">How did you find Sola Ray Effect?</p>
-        <select id="sola-fb-source" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
-          <option value="">Select one...</option>
-          <option value="Google Search">Google Search</option>
-          <option value="YouTube">YouTube</option>
-          <option value="Reddit">Reddit</option>
-          <option value="Twitter/X">Twitter / X</option>
-          <option value="Facebook">Facebook</option>
-          <option value="A Friend">A Friend</option>
-          <option value="Mining Forum">Mining Forum</option>
-          <option value="Other">Other</option>
-        </select>
-        <button class="sola-fb-next" data-next="2" style="margin-top:12px;width:100%;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-      </div>
-      <!-- Step 2: What brought you here -->
-      <div class="sola-fb-step" data-step="2" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What brought you to the site?</p>
-        <textarea id="sola-fb-reason" rows="3" placeholder="What were you looking for?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="1" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="3" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 3: Feedback -->
-      <div class="sola-fb-step" data-step="3" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">What's your favorite thing about Sola Ray Effect?</p>
-        <textarea id="sola-fb-message" rows="4" placeholder="What do you like most about the site?" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="2" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="4" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 4: Coin/miner request -->
-      <div class="sola-fb-step" data-step="4" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Any coins, miners, or features you'd like to see added?</p>
-        <textarea id="sola-fb-request" rows="3" placeholder="Optional &#x2014; skip if you want" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;resize:vertical;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="3" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button class="sola-fb-next" data-next="5" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--sola-gold, #D4AF37);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Next</button>
-        </div>
-      </div>
-      <!-- Step 5: Email + Name -->
-      <div class="sola-fb-step" data-step="5" style="display:none;">
-        <p style="color:var(--text-primary, #e8f0f7);font-size:14px;margin-bottom:12px;font-weight:700;">Where can Sola reach you?</p>
-        <input id="sola-fb-name" type="text" placeholder="Name (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;margin-bottom:8px;">
-        <input id="sola-fb-email" type="email" placeholder="Your email" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border-color, rgba(0,206,209,0.4));background:var(--bg-secondary, #1a2836);color:var(--text-primary, #e8f0f7);font-size:14px;font-family:'Roboto',sans-serif;">
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="sola-fb-back" data-back="4" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--text-muted, #5a6a7a);background:transparent;color:var(--text-secondary, #8899a8);font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Back</button>
-          <button id="sola-fb-submit" style="flex:2;padding:10px;border-radius:8px;border:none;background:var(--profit, #00e676);color:var(--sola-emerald, #0B2F26);font-weight:700;font-size:14px;cursor:pointer;font-family:'Roboto',sans-serif;">Send Feedback</button>
-        </div>
-      </div>
-      <!-- Step 6: Thank you -->
-      <div class="sola-fb-step" data-step="6" style="display:none;">
-        <p style="color:var(--sola-gold, #D4AF37);font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Thanks for the feedback!</p>
-        <p style="color:var(--text-secondary, #8899a8);font-size:13px;text-align:center;">Sola will respond to your email directly.</p>
-      </div>
-      <!-- Error state -->
-      <div id="sola-fb-error" style="display:none;">
-        <p style="color:var(--loss, #ff5252);font-size:13px;text-align:center;margin-top:8px;">Something went wrong. Please try again.</p>
-      </div>
-    </div>
-    <!-- Step indicator dots -->
-    <div id="sola-fb-dots" style="display:flex;justify-content:center;gap:6px;padding:0 16px 12px;">
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--sola-gold, #D4AF37);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-      <span class="sola-fb-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted, #5a6a7a);"></span>
-    </div>
-  </div>
-</div>
-
-<script>
-(function() {
-  // Don't show if user already dismissed or submitted THIS SESSION
-  if (sessionStorage.getItem('sola-fb-done')) return;
-
-  var widget = document.getElementById('sola-feedback-widget');
-  var bubble = document.getElementById('sola-fb-bubble');
-  var wizard = document.getElementById('sola-fb-wizard');
-  var video = document.getElementById('sola-fb-video');
-  var dots = document.querySelectorAll('.sola-fb-dot');
-
-  // Show bubble after 2 minutes
-  setTimeout(function() {
-    widget.style.display = 'block';
-    video.play().catch(function() {});
-  }, 120000);
-
-  // Click video to unmute and replay
-  video.addEventListener('click', function() {
-    video.muted = false;
-    video.currentTime = 0;
-    video.play().catch(function() {});
-  });
-
-  // "Sure!" \u2014 open wizard
-  document.getElementById('sola-fb-yes').addEventListener('click', function() {
-    bubble.style.display = 'none';
-    video.pause();
-    video.muted = true;
-    wizard.style.display = 'block';
-  });
-
-  // "Not now" \u2014 dismiss for this session
-  document.getElementById('sola-fb-no').addEventListener('click', function() {
-    widget.style.display = 'none';
-    video.pause();
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
-
-  // Close wizard
-  document.getElementById('sola-fb-close').addEventListener('click', function() {
-    widget.style.display = 'none';
-    sessionStorage.setItem('sola-fb-done', 'dismissed');
-  });
-
-  // Step navigation
-  function showStep(n) {
-    var steps = document.querySelectorAll('.sola-fb-step');
-    for (var i = 0; i < steps.length; i++) {
-      steps[i].style.display = steps[i].getAttribute('data-step') == n ? 'block' : 'none';
-    }
-    // Update dots
-    for (var j = 0; j < dots.length; j++) {
-      dots[j].style.background = (j < n && n <= 5) ? 'var(--sola-gold, #D4AF37)' : 'var(--text-muted, #5a6a7a)';
-    }
-    // Hide dots on thank you
-    document.getElementById('sola-fb-dots').style.display = n == 6 ? 'none' : 'flex';
-  }
-
-  // Next buttons
-  document.querySelectorAll('.sola-fb-next').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var next = parseInt(this.getAttribute('data-next'));
-      // Validate step 1: source required
-      if (next == 2 && !document.getElementById('sola-fb-source').value) {
-        document.getElementById('sola-fb-source').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      // Validate step 2: reason required
-      if (next == 3 && !document.getElementById('sola-fb-reason').value.trim()) {
-        document.getElementById('sola-fb-reason').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      // Validate step 3: feedback required
-      if (next == 4 && !document.getElementById('sola-fb-message').value.trim()) {
-        document.getElementById('sola-fb-message').style.borderColor = 'var(--loss, #ff5252)';
-        return;
-      }
-      showStep(next);
-    });
-  });
-
-  // Back buttons
-  document.querySelectorAll('.sola-fb-back').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      showStep(parseInt(this.getAttribute('data-back')));
-    });
-  });
-
-  // Reset border on input
-  document.getElementById('sola-fb-source').addEventListener('change', function() {
-    this.style.borderColor = '';
-  });
-  document.getElementById('sola-fb-reason').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-  document.getElementById('sola-fb-message').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-
-  // Submit
-  document.getElementById('sola-fb-submit').addEventListener('click', function() {
-    var email = document.getElementById('sola-fb-email').value.trim();
-    if (!email) {
-      document.getElementById('sola-fb-email').style.borderColor = 'var(--loss, #ff5252)';
-      return;
-    }
-    document.getElementById('sola-fb-email').style.borderColor = '';
-    var btn = this;
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    var data = {
-      access_key: 'f66dbe16-41bf-4d02-ac67-aab832222384',
-      subject: 'Sola Ray Feedback \u2014 via ' + document.getElementById('sola-fb-source').value,
-      from_name: 'Sola Ray Feedback Widget',
-      name: document.getElementById('sola-fb-name').value.trim() || 'Anonymous',
-      email: email,
-      found_us_via: document.getElementById('sola-fb-source').value,
-      what_brought_you: document.getElementById('sola-fb-reason').value.trim(),
-      feedback: document.getElementById('sola-fb-message').value.trim(),
-      feature_request: document.getElementById('sola-fb-request').value.trim() || 'None'
-    };
-
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(function(res) { return res.json(); })
-    .then(function(result) {
-      if (result.success) {
-        showStep(6);
-        sessionStorage.setItem('sola-fb-done', 'submitted');
-        // Auto-close after 3 seconds
-        setTimeout(function() { widget.style.display = 'none'; }, 3000);
-      } else {
-        document.getElementById('sola-fb-error').style.display = 'block';
-        btn.textContent = 'Send Feedback';
-        btn.disabled = false;
-      }
-    })
-    .catch(function() {
-      document.getElementById('sola-fb-error').style.display = 'block';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
-    });
-  });
-
-  // Email border reset
-  document.getElementById('sola-fb-email').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
-})();
-</script>
-<!-- END SOLA FEEDBACK POPUP WIDGET -->
 
   <footer>
     <p style="color:#5a6a7a;font-size:0.72rem;line-height:1.5;max-width:720px;margin:0 auto 1.25rem;padding:0 1rem;"><strong style="color:#8899a8;">Disclosure &#x26; Disclaimer:</strong> This website contains affiliate links, including Amazon and eBay. We may earn a commission from qualifying purchases at no additional cost to you. We are not manufacturers or sellers of the products referenced and assume no liability for product defects, improper installation, misuse, or any resulting damages or injuries. Always consult a qualified professional before installing electrical equipment.</p>
     <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
     <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="/cdn-cgi/l/email-protection#eb9884878a998a928e8d8d8e889fab8c868a8287c5888486" style="color:#00CED1;"><span class="__cf_email__" data-cfemail="fe8d91929f8c9f879b98989b9d8abe99939f9792d09d9193">[email&#160;protected]</span></a></div></div>
+    <div style="display:flex;align-items:center;margin-top:0.5rem;">
+      <div style="flex:1;"></div>
+      <div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div>
+      <div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:solarayeffect@gmail.com" style="color:#00CED1;">solarayeffect@gmail.com</a></div>
+    </div>
     <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
   </footer>
+
 </body>
 </html>
