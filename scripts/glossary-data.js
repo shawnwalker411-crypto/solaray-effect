@@ -357,7 +357,7 @@ var SOLA_GLOSSARY = {
   "loki-kit": {
     title: "Loki Kit",
     definition: "A hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. The kit runs only one hash board at reduced power (~1200W), providing roughly 40% of full hashrate. Requires aftermarket firmware like LuxOS or VNish.",
-    ebay: "https://www.ebay.com/sch/i.html?_nkw=loki+kit+antminer&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_loki_kit&toolid=10001&mkevt=1"
+    official: "/aftermarket_firmware.html"
   },
 
   "raspberry-pi": {
