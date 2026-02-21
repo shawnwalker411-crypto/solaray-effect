@@ -2081,26 +2081,6 @@
         });
       }
     });
-    document.addEventListener('DOMContentLoaded', function() {
-    var key = 'sola-liability-ack';
-    var seen = sessionStorage.getItem(key);
-    var overlay = document.getElementById('liability-overlay');
-    var ack = document.getElementById('liability-ack');
-
-    if (!overlay) return;
-
-    // Show on first load each session — must acknowledge to proceed
-    if (!seen) showModal();
-
-    function acknowledge() {
-      sessionStorage.setItem(key, '1');
-      hideModal();
-    }
-
-    if (ack) ack.addEventListener('click', acknowledge);
-
-    // No close button, no overlay click-to-dismiss, no ESC-to-dismiss.
-  });
 </script>
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
