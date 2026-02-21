@@ -2131,7 +2131,7 @@ function dollySuccess(btn) {
   }, 1100);
 }
 
-/* Liability modal: show once per session */
+/* Liability modal: show every page load */
 (function() {
   function showModal() {
     var overlay = document.getElementById('liability-overlay');
@@ -2149,24 +2149,14 @@ function dollySuccess(btn) {
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    var key = 'sola-liability-ack';
-    var seen = sessionStorage.getItem(key);
     var overlay = document.getElementById('liability-overlay');
     var ack = document.getElementById('liability-ack');
 
     if (!overlay) return;
 
-    // Show on first load each session — must acknowledge to proceed
-    if (!seen) showModal();
+    showModal();
 
-    function acknowledge() {
-      sessionStorage.setItem(key, '1');
-      hideModal();
-    }
-
-    if (ack) ack.addEventListener('click', acknowledge);
-
-    // No close button, no overlay click-to-dismiss, no ESC-to-dismiss.
+    if (ack) ack.addEventListener('click', hideModal);
   });
 })();
 </script>
