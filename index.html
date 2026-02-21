@@ -2697,6 +2697,9 @@
       
       // NATIVE 120V - Etchash (ETC)
       { id: 'ipollo-v1-mini', name: 'iPollo V1 Mini', manufacturer: 'iPollo', hashrate: 130, unit: 'MH/s', power: 240, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+
+      // NATIVE 120V - Equihash (ZEC)
+      { id: 'z9-mini', name: 'Antminer Z9 Mini', manufacturer: 'Bitmain', hashrate: 10, unit: 'kSol/s', power: 300, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Moderate (50-65 dB)', cooling: 'Room Temp', loki: false },
     ];
     
     // ============================================
@@ -2750,6 +2753,11 @@
       { id: 'e9-pro', name: 'E9 Pro', manufacturer: 'Bitmain', hashrate: 3680, unit: 'MH/s', power: 2200, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
       // Equihash (ZEC)
+      { id: 'a9-zmaster', name: 'Innosilicon A9 ZMaster', manufacturer: 'Innosilicon', hashrate: 50, unit: 'kSol/s', power: 620, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Loud (65-75 dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'z11e', name: 'Antminer Z11e', manufacturer: 'Bitmain', hashrate: 70, unit: 'kSol/s', power: 1390, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'a9-plus-zmaster', name: 'Innosilicon A9+ ZMaster', manufacturer: 'Innosilicon', hashrate: 120, unit: 'kSol/s', power: 1550, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'z11', name: 'Antminer Z11', manufacturer: 'Bitmain', hashrate: 135, unit: 'kSol/s', power: 1418, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'a9pp-zmaster', name: 'Innosilicon A9++ ZMaster', manufacturer: 'Innosilicon', hashrate: 140, unit: 'kSol/s', power: 1550, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'z15', name: 'Antminer Z15', manufacturer: 'Bitmain', hashrate: 420, unit: 'kSol/s', power: 1510, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'z15-pro', name: 'Antminer Z15 Pro', manufacturer: 'Bitmain', hashrate: 840, unit: 'kSol/s', power: 2560, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
@@ -4318,6 +4326,15 @@
     initMiningStats(); // Fetch live difficulty data on page load
     // All coins now fetched via /api/mining-stats direct APIs
     initPriceInput(); // Enable custom price input for what-if scenarios
+
+    // Pre-select miner if linked from miners.html catalog
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var minerId = params.get('miner');
+      if (minerId) {
+        selectMinerFromTable(minerId);
+      }
+    })();
   </script>
 
   <script>
