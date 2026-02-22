@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Monitor and control your ASIC miners remotely. Tailscale VPN setup, smart PDU wiring for 240V, Raspberry Pi routers, and automation for home mining rigs.">
+  <meta name="description" content="Complete guide to remotely managing your home mining operation. Tailscale VPN, Headscale, Raspberry Pi subnet routers, smart PDUs (30A/40A 240V), firmware management, and automation for ASIC miners.">
   <meta name="keywords" content="remote mining management, Tailscale mining, smart PDU mining, ASIC remote access, Raspberry Pi miner, Headscale VPN, LuxOS remote, Braiins OS, mining automation, smart switch mining, 240V smart PDU">
   <meta name="author" content="Sola Ray Effect">
   <meta name="robots" content="index, follow">
@@ -43,7 +43,7 @@
       gtag("config", "G-M6F5T8Y2P6");
     })();
   </script>
-  <title>Remote ASIC Miner Management &mdash; VPN, Smart PDU &amp; Automation</title>
+  <title>Remote Mining Management &mdash; VPN Access, Smart PDUs, Power Control &amp; Automation | Sola Ray Effect</title>
   <!-- Self-hosted fonts -->
   <style>
     @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
@@ -1000,7 +1000,6 @@
     <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
     <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
     <a href="remote_management.html" class="active">&#x1F4E1; Remote Management</a>
-    <a href="solar_mining.html">&#x2600;&#xFE0F; Solar Mining</a>
     <a href="glossary.html">&#x1F9E0; Glossary</a>
     <a href="datavault.html">&#x1F4CA; Data Vault</a>
   </nav>
@@ -1020,7 +1019,7 @@
 
   
   <div class="container">
-    <h1 class="page-title">Remote Mining Management &mdash; Control Your Rigs From Anywhere</h1>
+    <h1 class="page-title">&#x1F4E1; Remote Mining Management &mdash; Control Your Rigs From Anywhere</h1>
     <p class="affiliate-disclosure" style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 1rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
     <p class="page-subtitle">VPN access, smart <span class="glossary-term" data-term="pdu">PDUs</span>, power control, and firmware management for home miners</p>
 
@@ -1456,7 +1455,7 @@
       <p>Every ASIC miner has a built-in web interface for configuration and monitoring. With your VPN set up (Tailscale + Pi <span class="glossary-term" data-term="subnet-router">subnet router</span>), you can access these from anywhere. But custom firmware takes it further with better APIs, fleet management tools, and advanced controls.</p>
       
       <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">Stock Firmware (Bitmain/Factory)</h3>
-      <p>What you get out of the box. Access the miner's IP in a browser to see hashrate, temperatures, fan speeds, pool settings, and basic controls. Limited but functional for remote monitoring through your VPN.</p>
+      <p>What you get out of the box. Access the miner&rsquo;s IP in a browser to see hashrate, temperatures, <a href="https://www.ebay.com/sch/i.html?_nkw=bitmain+antminer+7000+rpm+fan&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_miner_fan&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">fan</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> speeds, pool settings, and basic controls. Limited but functional for remote monitoring through your VPN.</p>
       
       <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Custom Firmware &mdash; Full Comparison</h3>
       <p>LuxOS, Braiins OS+, and Vnish all support SSH access, web APIs for scripting, and fleet management tools. Each handles shutdown and restart differently &mdash; and getting it wrong can leave a miner stuck off with no remote recovery. See our <a href="aftermarket_firmware.html#shutdown-restart" style="color: var(--sola-teal);">Firmware Guide: Shutdown, Restart &amp; Scheduling</a> for the full comparison table and per-firmware details.</p>
@@ -2170,7 +2169,7 @@ function dollySuccess(btn) {
   <footer>
     <p style="color:#5a6a7a;font-size:0.72rem;line-height:1.5;max-width:720px;margin:0 auto 1.25rem;padding:0 1rem;"><strong style="color:#8899a8;">Disclosure &#x26; Disclaimer:</strong> This website contains affiliate links, including Amazon and eBay. We may earn a commission from qualifying purchases at no additional cost to you. We are not manufacturers or sellers of the products referenced and assume no liability for product defects, improper installation, misuse, or any resulting damages or injuries. Always consult a qualified professional before installing electrical equipment.</p>
     <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
-    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x2600;&#xFE0F; <a href="solar_mining.html">Solar Mining</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
+    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
     <div style="display:flex;align-items:center;margin-top:0.5rem;">
       <div style="flex:1;"></div>
       <div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div>
