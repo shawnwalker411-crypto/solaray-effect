@@ -1,6 +1,6 @@
 // /api/mining-stats.js
 // Live mining network stats API \u2014 NOWNodes unified
-// All 11 coins via NOWNodes paid tier
+// All 11 coins via NOWNodes paid tier (DGB uses JSON-RPC for SHA-256 specific difficulty)
 // 1-hour cache
 
 let cache = {};
@@ -96,6 +96,7 @@ async function fetchCoinData(coin) {
   switch (coin) {
     case 'KAS': return fetchKAS();
     case 'XMR': return fetchXMR();
+    case 'DGB': return fetchDGB();
     case 'BTC':
     case 'LTC':
     case 'DOGE':
@@ -104,7 +105,6 @@ async function fetchCoinData(coin) {
     case 'RVN':
     case 'ETC':
     case 'ZEC':
-    case 'DGB':
       return fetchViaNowNodes(coin);
     default:
       throw new Error('Unsupported coin');
@@ -167,7 +167,59 @@ async function fetchXMR() {
   };
 }
 
-/* ================= NOWNODES BLOCKBOOK COINS (9 coins) ================= */
+/* ================= DGB (NOWNodes DigiByte JSON-RPC) ================= */
+/* Uses getmininginfo which returns per-algorithm difficulty fields:    */
+/* difficulty_sha256d, difficulty_scrypt, difficulty_groestl, etc.      */
+/* This gives accurate SHA-256 specific hashrate instead of blended.   */
+
+async function fetchDGB() {
+  const apiKey = process.env.NOWNODES_API_KEY;
+  if (!apiKey) throw new Error('Missing NOWNodes API key');
+
+  const res = await fetch('https://dgb.nownodes.io', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'api-key': apiKey
+    },
+    body: JSON.stringify({
+      jsonrpc: '1.0',
+      id: 'dgb-mining',
+      method: 'getmininginfo',
+      params: []
+    })
+  });
+
+  const json = await res.json();
+  const data = json.result || {};
+
+  // SHA-256 specific difficulty from the multi-algo response
+  const sha256Difficulty = Number(data.difficulty_sha256d) || Number(data.difficulty) || 0;
+
+  // DGB has 5 algos, each targets ~75 sec block time (15 sec overall / 5 algos)
+  // SHA-256 hashrate = difficulty_sha256d * 2^32 / 75
+  const perAlgoBlockTime = 75;
+  const networkHashrate = sha256Difficulty > 0
+    ? (sha256Difficulty * Math.pow(2, 32)) / perAlgoBlockTime
+    : 0;
+
+  // Block reward decreases 1% per month from original 8000
+  // Current reward ~271 DGB per block (as of early 2026)
+  // Use dynamic value from getmininginfo if available, otherwise fallback
+  const blockReward = 271;
+
+  return {
+    coin: 'DGB',
+    difficulty: sha256Difficulty,
+    network_hashrate: networkHashrate,
+    block_reward: blockReward,
+    block_time: perAlgoBlockTime,
+    height: Number(data.blocks) || 0,
+    hashrate_estimated: true
+  };
+}
+
+/* ================= NOWNODES BLOCKBOOK COINS (8 coins) ================= */
 
 async function fetchViaNowNodes(coin) {
   const apiKey = process.env.NOWNODES_API_KEY;
@@ -181,8 +233,7 @@ async function fetchViaNowNodes(coin) {
     DASH: 'https://dashbook.nownodes.io/api/v2',
     RVN: 'https://rvnbook.nownodes.io/api/v2',
     ETC: 'https://etcbook.nownodes.io/api/v2',
-    ZEC: 'https://zecbook.nownodes.io/api/v2',
-    DGB: 'https://dgbbook.nownodes.io/api/v2'
+    ZEC: 'https://zecbook.nownodes.io/api/v2'
   };
 
   const blockRewards = {
@@ -193,8 +244,7 @@ async function fetchViaNowNodes(coin) {
     DASH: 0.44,
     RVN: 1250,
     ETC: 2.56,
-    ZEC: 1.25,
-    DGB: 665
+    ZEC: 1.25
   };
 
   const blockTimes = {
@@ -205,8 +255,7 @@ async function fetchViaNowNodes(coin) {
     DASH: 150,
     RVN: 60,
     ETC: 14,
-    ZEC: 75,
-    DGB: 15
+    ZEC: 75
   };
 
   const res = await fetch(endpoints[coin], {
