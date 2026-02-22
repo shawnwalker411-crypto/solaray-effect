@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://api.solochance.org https://www.google-analytics.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
@@ -223,7 +223,7 @@
 }
 /* Hide rails on tablets/mobile */
 @media (max-width: 1199px) {
-  .affiliate-rail, .affiliate-rail-right, #solo-fact-box { display: none; }
+  .affiliate-rail, .affiliate-rail-right { display: none; }
   body.has-affiliate-rail main .container { margin-left: auto; margin-right: auto; }
 }
 
@@ -342,6 +342,135 @@
     line-height: 1.3;
     padding: 0 1rem;
   }
+}
+
+/* ============================================
+   SOLO CHANCE CALCULATOR (left rail widget)
+   Powered by SoloChance.org API
+   ============================================ */
+#solo-calc-box {
+  position: absolute;
+  left: 12px;
+  width: 200px;
+  z-index: 890;
+  padding: 0.5rem 0.6rem;
+  background: rgba(0,206,209,0.05);
+  border: 1px solid rgba(0,206,209,0.2);
+  border-radius: 6px;
+  font-size: 0.65rem;
+  color: #8899a8;
+}
+#solo-calc-box .solo-calc-title {
+  color: var(--sola-teal);
+  font-weight: 700;
+  font-size: 0.68rem;
+  text-align: center;
+  margin-bottom: 0.35rem;
+}
+#solo-calc-box label {
+  display: block;
+  color: rgba(232,240,247,0.5);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+  margin-top: 0.3rem;
+}
+#solo-calc-box select,
+#solo-calc-box input[type="number"] {
+  width: 100%;
+  padding: 3px 4px;
+  font-size: 0.62rem;
+  color: var(--text-primary);
+  background: rgba(8,26,21,0.8);
+  border: 1px solid rgba(0,206,209,0.25);
+  border-radius: 4px;
+  outline: none;
+  font-family: inherit;
+}
+#solo-calc-box select:focus,
+#solo-calc-box input[type="number"]:focus {
+  border-color: var(--sola-teal);
+}
+#solo-calc-box .solo-hash-row {
+  display: flex;
+  gap: 3px;
+}
+#solo-calc-box .solo-hash-row input { flex: 1; min-width: 0; }
+#solo-calc-box .solo-hash-row select { width: 58px; flex-shrink: 0; }
+#solo-calc-box .solo-calc-btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 4px 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--sola-emerald);
+  background: linear-gradient(135deg, var(--sola-teal), var(--sola-teal-dark));
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: opacity 0.15s;
+}
+#solo-calc-box .solo-calc-btn:hover { opacity: 0.85; }
+#solo-calc-box .solo-calc-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+#solo-calc-box .solo-results {
+  margin-top: 0.4rem;
+  display: none;
+}
+#solo-calc-box .solo-results table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#solo-calc-box .solo-results th {
+  color: rgba(232,240,247,0.5);
+  font-size: 0.56rem;
+  font-weight: 600;
+  text-align: left;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(0,206,209,0.1);
+}
+#solo-calc-box .solo-results td {
+  font-size: 0.6rem;
+  padding: 2px 0;
+  color: rgba(232,240,247,0.85);
+}
+#solo-calc-box .solo-results td:last-child {
+  text-align: right;
+}
+#solo-calc-box .solo-results .solo-usd {
+  color: var(--profit);
+  font-weight: 700;
+}
+#solo-calc-box .solo-error {
+  color: var(--loss);
+  font-size: 0.58rem;
+  text-align: center;
+  margin-top: 0.3rem;
+  display: none;
+}
+#solo-calc-box .solo-credit {
+  margin-top: 0.4rem;
+  text-align: center;
+  font-size: 0.5rem;
+  color: rgba(136,153,168,0.6);
+  border-top: 1px solid rgba(0,206,209,0.1);
+  padding-top: 0.3rem;
+}
+#solo-calc-box .solo-credit a {
+  color: rgba(0,206,209,0.6);
+  text-decoration: none;
+}
+#solo-calc-box .solo-credit a:hover {
+  color: var(--sola-teal);
+  text-decoration: underline;
+}
+@media (max-width: 1199px) {
+  #solo-calc-box { display: none; }
 }
 
   </style>
@@ -2166,26 +2295,72 @@
   <div style="text-align:center;margin-top:6px;color:rgba(232,240,247,0.78);font-size:0.52rem;line-height:1.3;padding:0 6px;">Verify model, voltage, and compatibility before purchasing. We are not responsible for incorrect orders, improper installation, misuse, or resulting damages.</div>
 </aside>
 
-  <!-- Solo Mining Fact Box - positioned in left gap level with Select Your Miner -->
-  <div id="solo-fact-box" style="position:absolute; left:12px; width:200px; z-index:890; padding:0.6rem 0.75rem; background:rgba(0,206,209,0.05); border:1px solid rgba(0,206,209,0.2); border-radius:6px; font-size:0.7rem; color:#8899a8;">
-    <div style="color:var(--sola-teal); font-weight:600; margin-bottom:0.2rem; text-align:center;">&#x1F914; Interesting Info</div>
-    <div style="color:rgba(232,240,247,0.5); font-size:0.67rem; margin-bottom:0.4rem; text-align:center;">Solo Mining at 4.5 TH/s</div>
-    <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
-      <colgroup><col style="width:28%"><col style="width:42%"><col style="width:30%"></colgroup>
-      <thead>
-        <tr style="color:rgba(232,240,247,0.5); font-size:0.67rem;">
-          <th style="text-align:center; padding-bottom:3px; white-space:nowrap;">Coin</th>
-          <th style="text-align:center; padding-bottom:3px; white-space:nowrap;">USD</th>
-          <th style="text-align:center; padding-bottom:3px; white-space:nowrap;">Odds</th>
+  <!-- Solo Chance Calculator - powered by SoloChance.org -->
+  <div id="solo-calc-box">
+    <div class="solo-calc-title">&#x1F3B2; Solo Mining Odds</div>
+
+    <label for="solo-coin">Coin</label>
+    <select id="solo-coin">
+      <option value="">-- Select Coin --</option>
+      <option value="BTC" data-unit="TH">Bitcoin (BTC) &ndash; SHA-256</option>
+      <option value="BCH" data-unit="TH">Bitcoin Cash (BCH) &ndash; SHA-256</option>
+      <option value="BSV" data-unit="TH">Bitcoin SV (BSV) &ndash; SHA-256</option>
+      <option value="XEC" data-unit="TH">eCash (XEC) &ndash; SHA-256</option>
+      <option value="DGB" data-unit="TH">DigiByte (DGB) &ndash; SHA-256</option>
+      <option value="PPC" data-unit="TH">Peercoin (PPC) &ndash; SHA-256</option>
+      <option value="BC2" data-unit="TH">BitcoinII (BC2) &ndash; SHA-256</option>
+      <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
+      <option value="DOGE" data-unit="MH">Dogecoin (DOGE) &ndash; Scrypt</option>
+      <option value="XMR" data-unit="KH">Monero (XMR) &ndash; RandomX</option>
+      <option value="RVN" data-unit="MH">Ravencoin (RVN) &ndash; KawPow</option>
+      <option value="ETC" data-unit="MH">Ethereum Classic (ETC) &ndash; ETChash</option>
+      <option value="ZEC" data-unit="KH">Zcash (ZEC) &ndash; Equihash</option>
+      <option value="SC" data-unit="GH">Siacoin (SC) &ndash; Blake2b</option>
+    </select>
+
+    <label>Hashrate</label>
+    <div class="solo-hash-row">
+      <input type="number" id="solo-hashrate" placeholder="e.g. 110" min="0" step="any" disabled>
+      <select id="solo-unit" disabled>
+        <option value="TH">TH/s</option>
+      </select>
+    </div>
+
+    <button class="solo-calc-btn" id="solo-calc-go" disabled>Calculate</button>
+
+    <div class="solo-error" id="solo-error"></div>
+
+    <div class="solo-results" id="solo-results">
+      <table>
+        <tr>
+          <th colspan="2">Results</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr><td style="padding:1px 0; white-space:nowrap; text-align:center;">BTC</td><td style="text-align:center; white-space:nowrap;">~$211,400</td><td style="text-align:center; white-space:nowrap;">4,100 yrs</td></tr>
-        <tr><td style="padding:1px 0; white-space:nowrap; text-align:center;">BCH</td><td style="text-align:center; white-space:nowrap;">~$1,755</td><td style="text-align:center; white-space:nowrap;">46 yrs</td></tr>
-        <tr><td style="padding:1px 0; white-space:nowrap; text-align:center;">BSV</td><td style="text-align:center; white-space:nowrap;">~$51.85</td><td style="text-align:center; white-space:nowrap;">1.08 yrs</td></tr>
-        <tr><td style="padding:1px 0; white-space:nowrap; text-align:center;">DGB</td><td style="text-align:center; white-space:nowrap;">~$1.60</td><td style="text-align:center; white-space:nowrap;">2.3 days</td></tr>
-      </tbody>
-    </table>
+        <tr>
+          <td>Block Reward</td>
+          <td class="solo-usd" id="solo-usd">--</td>
+        </tr>
+        <tr>
+          <td>Per Hour</td>
+          <td id="solo-hour">--</td>
+        </tr>
+        <tr>
+          <td>Per Day</td>
+          <td id="solo-day">--</td>
+        </tr>
+        <tr>
+          <td>Per Week</td>
+          <td id="solo-week">--</td>
+        </tr>
+        <tr>
+          <td>Per Year</td>
+          <td id="solo-year">--</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="solo-credit">
+      Data by <a href="https://solochance.org/" target="_blank" rel="noopener">SoloChance.org</a>
+    </div>
   </div>
 
 
@@ -2799,7 +2974,7 @@
       // CPU Algorithms  
       'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
       // DGB
-      'Scrypt-DGB': { perUnit: 0.01, unit: 'GH/s', coin: 'DGB' }
+      'SHA-256-DGB': { perUnit: 10, unit: 'TH/s', coin: 'DGB' }
     };
     
     // Mining stats status
@@ -2818,7 +2993,7 @@
         { value: 'Etchash', label: 'Etchash (ETC)' },
         { value: 'Equihash', label: 'Equihash (ZEC)' },
         { value: 'X11', label: 'X11 (DASH)' },
-        { value: 'Scrypt-DGB', label: 'Scrypt (DGB)' }
+        { value: 'SHA-256-DGB', label: 'SHA-256 (DGB)' }
       ],
       GPU: [
         { value: 'Etchash-GPU', label: 'Etchash (ETC)', unit: 'MH/s' },
@@ -3145,8 +3320,8 @@
       'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
       // ZEC: ~0.00005 to ~0.005 ZEC/kSol/day
       'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
-      // DGB: ~50 to ~1000 DGB/GH/day (large block reward, moderate hashrate)
-      'Scrypt-DGB': { min: 10, max: 5000, coin: 'DGB', unit: 'GH' }
+      // DGB: ~0.01 to ~50 DGB/TH/day (SHA-256, large block reward)
+      'SHA-256-DGB': { min: 0.001, max: 100, coin: 'DGB', unit: 'TH' }
     };
     
     // Track last known good rates for fallback
@@ -3328,17 +3503,17 @@
         }
       }
       
-      // DGB (Scrypt) via chainz.cryptoid.info
+      // DGB (SHA-256) via NOWNodes JSON-RPC getmininginfo (SHA-256 specific difficulty)
       if (data.DGB && data.DGB.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.DGB.block_time || 15);
-        const dailyCoins = (data.DGB.block_reward || 665) * blocksPerDay;
-        // Network hashrate is in H/s, we need per GH/s
-        const perGH = dailyCoins / (data.DGB.network_hashrate / 1e9);
+        const blocksPerDay = 86400 / (data.DGB.block_time || 75);
+        const dailyCoins = (data.DGB.block_reward || 271) * blocksPerDay;
+        // Network hashrate is in H/s, we need per TH/s
+        const perTH = dailyCoins / (data.DGB.network_hashrate / 1e12);
         
-        const validation = validateAndUpdateRate('Scrypt-DGB', perGH, 'DGB');
+        const validation = validateAndUpdateRate('SHA-256-DGB', perTH, 'DGB');
         if (validation.rate) {
-          REVENUE_RATES['Scrypt-DGB'].perUnit = validation.rate;
-          console.log('DGB rate updated:', validation.rate, 'DGB/GH/day', validation.valid ? '\u2714' : '(fallback)');
+          REVENUE_RATES['SHA-256-DGB'].perUnit = validation.rate;
+          console.log('DGB rate updated:', validation.rate, 'DGB/TH/day', validation.valid ? '\u2714' : '(fallback)');
         }
       }
       
@@ -3451,7 +3626,7 @@
         'X11': ['DASH'],
         'KAWPOW': ['RVN'],
         'RandomX': ['XMR'],
-        'Scrypt-DGB': ['DGB']
+        'SHA-256-DGB': ['DGB']
       };
       
       const coins = algoCoinMap[algorithm];
@@ -3516,7 +3691,7 @@
         'X11': 'DASH',
         'KAWPOW': 'RVN',
         'RandomX': 'XMR',
-        'Scrypt-DGB': 'DGB'
+        'SHA-256-DGB': 'DGB'
       };
       
       if (algoFilter === 'all') {
@@ -3627,7 +3802,7 @@
       
       if (algoFilter !== 'all') {
         // SHA-256-BCH uses same miners as SHA-256 (BTC)
-        const filterAlgo = algoFilter === 'SHA-256-BCH' ? 'SHA-256' : algoFilter;
+        const filterAlgo = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? 'SHA-256' : algoFilter;
         miners = miners.filter(m => m.algorithm === filterAlgo);
       }
       
@@ -4209,8 +4384,8 @@
         const rateInfo = REVENUE_RATES[algo];
         if (!rateInfo) return;
         
-        // SHA-256-BCH uses same miners as SHA-256 (BTC)
-        const filterAlgo = algo === 'SHA-256-BCH' ? 'SHA-256' : algo;
+        // SHA-256-BCH and SHA-256-DGB use same miners as SHA-256 (BTC)
+        const filterAlgo = (algo === 'SHA-256-BCH' || algo === 'SHA-256-DGB') ? 'SHA-256' : algo;
         const miners = ALL_MINERS.filter(m => m.algorithm === filterAlgo && m.category !== 'lottery');
         if (miners.length === 0) return;
         
@@ -4652,9 +4827,9 @@
       railRight.style.top = (sectionTop - containerTopRight) + 'px';
     }
 
-    // Align solo fact box with Select Your Miner section
-    var factBox = document.getElementById('solo-fact-box');
-    if (factBox) {
+    // Align solo calc box with Select Your Miner section
+    var calcBox = document.getElementById('solo-calc-box');
+    if (calcBox) {
       var minerSection = null;
       for (var j = 0; j < headings.length; j++) {
         if (headings[j].textContent.indexOf('Select Your Miner') !== -1) {
@@ -4664,7 +4839,7 @@
       }
       if (minerSection) {
         var minerTop = minerSection.getBoundingClientRect().top + window.scrollY;
-        factBox.style.top = (minerTop - containerTop) + 'px';
+        calcBox.style.top = (minerTop - containerTop) + 'px';
       }
     }
   }
@@ -4690,6 +4865,82 @@
   } else {
     init();
   }
+})();
+</script>
+<!-- Solo Chance Calculator Logic - powered by api.solochance.org -->
+<script>
+(function() {
+  var unitLabels = {KH:'KH/s', MH:'MH/s', GH:'GH/s', TH:'TH/s', PH:'PH/s', EH:'EH/s'};
+  var unitOrder  = ['KH','MH','GH','TH','PH','EH'];
+
+  var elCoin    = document.getElementById('solo-coin');
+  var elHash    = document.getElementById('solo-hashrate');
+  var elUnit    = document.getElementById('solo-unit');
+  var elBtn     = document.getElementById('solo-calc-go');
+  var elResults = document.getElementById('solo-results');
+  var elError   = document.getElementById('solo-error');
+  var elUsd     = document.getElementById('solo-usd');
+  var elHour    = document.getElementById('solo-hour');
+  var elDay     = document.getElementById('solo-day');
+  var elWeek    = document.getElementById('solo-week');
+  var elYear    = document.getElementById('solo-year');
+
+  function buildUnits(defaultUnit) {
+    elUnit.innerHTML = '';
+    for (var i = 0; i < unitOrder.length; i++) {
+      var o = document.createElement('option');
+      o.value = unitOrder[i];
+      o.textContent = unitLabels[unitOrder[i]];
+      if (unitOrder[i] === defaultUnit) o.selected = true;
+      elUnit.appendChild(o);
+    }
+  }
+
+  elCoin.addEventListener('change', function() {
+    var sel = elCoin.options[elCoin.selectedIndex];
+    elResults.style.display = 'none';
+    elError.style.display = 'none';
+    if (!elCoin.value) {
+      elHash.disabled = true;
+      elUnit.disabled = true;
+      elBtn.disabled  = true;
+      return;
+    }
+    buildUnits(sel.getAttribute('data-unit') || 'TH');
+    elHash.disabled = false;
+    elUnit.disabled = false;
+    elBtn.disabled  = false;
+    elHash.focus();
+  });
+
+  elBtn.addEventListener('click', function() {
+    var coin = elCoin.value;
+    var hr   = parseFloat(elHash.value);
+    var unit = elUnit.value;
+    elError.style.display = 'none';
+    elResults.style.display = 'none';
+    if (!coin) { showErr('Select a coin.'); return; }
+    if (!hr || hr <= 0) { showErr('Enter a hashrate.'); return; }
+    elBtn.disabled = true;
+    elBtn.textContent = 'Loading\u2026';
+    var url = 'https://api.solochance.org/getSoloChanceCalculations?currency=' +
+              encodeURIComponent(coin) + '&hashrate=' + hr + '&hashrateUnit=' + unit;
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        if (!d || d.error) { showErr(d.error || 'API error.'); return; }
+        elUsd.textContent  = '$' + Number(d.blockRewardInUSD).toLocaleString('en-US', {maximumFractionDigits:2});
+        elHour.textContent = d.hourChanceText  || '--';
+        elDay.textContent  = d.dayChanceText   || '--';
+        elWeek.textContent = d.weekChanceText  || '--';
+        elYear.textContent = d.yearChanceText  || '--';
+        elResults.style.display = 'block';
+      })
+      .catch(function() { showErr('API unreachable.'); })
+      .finally(function() { elBtn.disabled = false; elBtn.textContent = 'Calculate'; });
+  });
+
+  function showErr(msg) { elError.textContent = msg; elError.style.display = 'block'; }
 })();
 </script>
 </body>
