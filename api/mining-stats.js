@@ -168,8 +168,9 @@ async function fetchXMR() {
 }
 
 /* ================= DGB (NOWNodes DigiByte JSON-RPC) ================= */
-/* Uses getmininginfo which returns per-algorithm difficulty fields:    */
-/* difficulty_sha256d, difficulty_scrypt, difficulty_groestl, etc.      */
+/* Uses getmininginfo which returns per-algorithm fields:               */
+/*   difficulties: { sha256d, scrypt, skein, qubit, odo }              */
+/*   networkhashesps: { sha256d, scrypt, skein, qubit, odo }           */
 /* This gives accurate SHA-256 specific hashrate instead of blended.   */
 
 async function fetchDGB() {
@@ -193,19 +194,13 @@ async function fetchDGB() {
   const json = await res.json();
   const data = json.result || {};
 
-  // SHA-256 specific difficulty from the multi-algo response
-  const sha256Difficulty = Number(data.difficulty_sha256d) || Number(data.difficulty) || 0;
+  // SHA-256 specific values from the per-algorithm objects
+  const sha256Difficulty = Number(data.difficulties?.sha256d) || 0;
+  const networkHashrate = Number(data.networkhashesps?.sha256d) || 0;
 
   // DGB has 5 algos, each targets ~75 sec block time (15 sec overall / 5 algos)
-  // SHA-256 hashrate = difficulty_sha256d * 2^32 / 75
+  // Block reward decreases 1% per month — ~271 DGB per block as of early 2026
   const perAlgoBlockTime = 75;
-  const networkHashrate = sha256Difficulty > 0
-    ? (sha256Difficulty * Math.pow(2, 32)) / perAlgoBlockTime
-    : 0;
-
-  // Block reward decreases 1% per month from original 8000
-  // Current reward ~271 DGB per block (as of early 2026)
-  // Use dynamic value from getmininginfo if available, otherwise fallback
   const blockReward = 271;
 
   return {
@@ -215,7 +210,7 @@ async function fetchDGB() {
     block_reward: blockReward,
     block_time: perAlgoBlockTime,
     height: Number(data.blocks) || 0,
-    hashrate_estimated: true
+    hashrate_estimated: false
   };
 }
 
