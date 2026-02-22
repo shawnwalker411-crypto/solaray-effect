@@ -113,6 +113,13 @@ var SOLA_GLOSSARY = {
     amazon: "https://www.amazon.com/s?k=metered+pdu+240v"
   },
 
+  "intelligent-pdu": {
+    title: "Intelligent PDU",
+    definition: "A fully featured PDU combining power distribution, real-time metering, remote outlet switching, environmental sensors, and network alerts \u2014 the all-in-one option for serious mining setups.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=intelligent+pdu+240v&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_intelligent_pdu&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=intelligent+pdu+240v"
+  },
+
   "ups": {
     title: "UPS",
     definition: "Uninterruptible Power Supply. Provides short runtime during outages and can smooth power events for network gear and controllers.",
