@@ -161,9 +161,8 @@ var SOLA_GLOSSARY = {
 
   "altair-virgo": {
     title: "Altair Virgo Smart PDU",
-    definition: "A 30A/240V switched PDU with per-outlet remote control via web interface. Supports SNMP, Modbus, HTTP/HTTPS, and email alerts. The only 30A/240V switched PDU available at retail for home miners as of early 2026. L6-30P input, 4\u00d7C13 + 2\u00d7C19 outlets.",
-    ebay: "https://www.ebay.com/sch/i.html?_nkw=altair+virgo+smart+pdu&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_altair_virgo&toolid=10001&mkevt=1",
-    amazon: "https://www.amazon.com/s?k=Altair+Virgo+smart+PDU+30A+240V"
+    definition: "A 30A/240V switched PDU with per-outlet remote control via web interface. Supports SNMP, Modbus, HTTP/HTTPS, and email alerts. The only 30A/240V switched PDU available at retail for home miners as of early 2026. L6-30P input, 4\u00d7C13 + 2\u00d7C19 outlets. Sold direct from Altair Technology only.",
+    official: "https://altairtech.io/product/virgo-smart-pdu-30a-1u-240v-7500w-l6-30p/"
   },
 
   "altair-argo": {
