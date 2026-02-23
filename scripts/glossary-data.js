@@ -159,6 +159,25 @@ var SOLA_GLOSSARY = {
     amazon: "https://www.amazon.com/s?k=smart+breaker+panel"
   },
 
+  "altair-virgo": {
+    title: "Altair Virgo Smart PDU",
+    definition: "A 30A/240V switched PDU with per-outlet remote control via web interface. Supports SNMP, Modbus, HTTP/HTTPS, and email alerts. The only 30A/240V switched PDU available at retail for home miners as of early 2026. L6-30P input, 4\u00d7C13 + 2\u00d7C19 outlets.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=altair+virgo+smart+pdu&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_altair_virgo&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=Altair+Virgo+smart+PDU+30A+240V"
+  },
+
+  "altair-argo": {
+    title: "Altair Argo Metered PDU",
+    definition: "A 30A/240V metered PDU with an LCD display showing amps, watts, and kWh. Has an overload protection breaker but no surge protection and no remote switching. L6-30P input, 4\u00d7C13 + 2\u00d7C19 outlets. Used with a WiFi pool pump timer for remote power control on a budget.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=altair+argo+metered+pdu&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_altair_argo&toolid=10001&mkevt=1",
+    amazon: "https://www.amazon.com/s?k=Altair+Argo+metered+PDU+30A+240V"
+  },
+
+  "autoping": {
+    title: "AutoPing",
+    definition: "A feature that automatically power-cycles a miner when it stops responding to network pings. The device pings each miner at regular intervals. After several consecutive failures, it cuts and restores power to that outlet, forcing a reboot. No retail 30A/240V switched PDU currently includes AutoPing \u2014 but you can build the same functionality with a simple script on a Raspberry Pi."
+  },
+
   /* ================================================
      ELECTRICAL CONCEPTS — Definitions from electrical_setup
      ================================================ */
