@@ -722,13 +722,13 @@
       <p>If you mine on solar or time-of-use electricity rates, you need to stop and start miners on a schedule. How that works depends entirely on your firmware. Some make it easy. Others will brick your remote access if you use the wrong command.</p>
 
       <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">Shutdown Behavior by Firmware</h3>
-      <div style="overflow-x: auto;">
-      <table>
+      <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -0.5rem; padding: 0 0.5rem;">
+      <table class="comparison-table" style="font-size: 0.85rem; white-space: nowrap;">
         <tr><th>Firmware</th><th>Stop Mining</th><th>Full Shutdown</th><th>Remote Restart</th><th>Scheduling</th></tr>
-        <tr><td>Stock (Bitmain)</td><td>Web UI only</td><td>No SSH access (locked since 2019)</td><td>PDU power cycle only</td><td>Not supported</td></tr>
-        <tr><td>Braiins OS+</td><td><code>bosminer stop</code></td><td><code>poweroff</code> (loses network)</td><td>PDU power cycle after poweroff; <code>bosminer start</code> after stop</td><td>Cron jobs work</td></tr>
+        <tr><td>Stock (Bitmain)</td><td>Web UI only</td><td>No SSH (locked since 2019)</td><td>PDU power cycle only</td><td>Not supported</td></tr>
+        <tr><td>Braiins OS+</td><td><code>bosminer stop</code></td><td><code>poweroff</code> (loses network)</td><td>PDU power cycle; <code>bosminer start</code> after stop</td><td>Cron jobs</td></tr>
         <tr><td>LuxOS</td><td>API or web UI</td><td><code>poweroff</code> (miner stuck OFF)</td><td>PDU power cycle only</td><td>Limited</td></tr>
-        <tr><td>Vnish</td><td>Web UI toggle</td><td><code>poweroff</code> (loses network)</td><td>PDU power cycle after poweroff</td><td>Built-in scheduler</td></tr>
+        <tr><td>Vnish</td><td>Web UI toggle</td><td><code>poweroff</code> (loses network)</td><td>PDU power cycle after poweroff</td><td>Built-in</td></tr>
       </table>
       </div>
 
@@ -743,7 +743,7 @@
       <p><code>bosminer stop</code> pauses mining without shutting down the miner &mdash; your SSH session stays alive and the miner stays on the network. <code>bosminer start</code> resumes mining. This is the safest software method for solar schedules. Cron jobs work reliably for automated stop/start. <strong>Known issue:</strong> pool settings may reset after a full restart &mdash; verify your pool config after any reboot.</p>
 
       <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">LuxOS &mdash; Use PDU, Not SSH</h3>
-      <p>LuxOS supports remote management through its API and web UI, but <code>poweroff</code> over SSH leaves the miner completely stuck off with no remote recovery path. If you're on LuxOS and need to shut down on a schedule, use a smart PDU to cut and restore power rather than any SSH shutdown command. See our <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Smart PDU guide</a> for recommended hardware.</p>
+      <p>LuxOS supports remote management through its API and web UI, but <code>poweroff</code> over SSH leaves the miner completely stuck off with no remote recovery path. If you're on LuxOS and need to shut down on a schedule, use a smart PDU to cut and restore power rather than any SSH shutdown command. See our <a href="remote_management.html#power-240v" style="color: var(--sola-teal);">240V Power Control guide</a> for recommended hardware.</p>
     </section>
 
     <section class="section">
