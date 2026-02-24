@@ -1100,7 +1100,7 @@
 
       <p>Here&rsquo;s what you can do with a proper remote setup:</p>
       <ul class="two-col-list">
-        <li><strong>Power cycle a frozen miner</strong> &mdash; the #1 fix for most ASIC issues</li>
+        <li><strong>Power cycle a frozen miner</strong> &mdash; the most common first fix for ASIC issues</li>
         <li><strong>Check hashrate and temperatures</strong> from your phone at work</li>
         <li><strong>Switch pools or adjust settings</strong> through the miner&rsquo;s web interface</li>
         <li><strong>Shut down miners on schedule</strong> &mdash; perfect for peak-rate electricity windows</li>
@@ -1128,10 +1128,10 @@
         <div class="compare-card option-a">
           <h3>&#x1F7E2; <a class="extlink" href="https://tailscale.com/" target="_blank" rel="noopener">Tailscale</a> <span class="tier-badge tier-free">Recommended</span></h3>
           <ul>
-            <li>Free personal plan: 3 users, 100 devices</li>
+            <li>Free personal plan: up to 100 devices &mdash; <a href="https://tailscale.com/pricing" target="_blank" rel="noopener" style="color: var(--sola-teal);">check current limits</a></li>
             <li>5-minute setup &mdash; install, sign in, done</li>
             <li>Works on Windows, Mac, Linux, Android, iOS</li>
-            <li>Built on WireGuard (military-grade encryption)</li>
+            <li>Built on WireGuard (modern, widely-audited VPN protocol)</li>
             <li>No port forwarding needed</li>
             <li>Works behind any router or firewall</li>
             <li>MagicDNS &mdash; reach devices by name, not IP</li>
@@ -1159,7 +1159,7 @@
       </div>
 
       <h3 style="color: var(--sola-teal); margin: 1.5rem 0 0.75rem;">How Tailscale Works (The Simple Version)</h3>
-      <p>Tailscale creates a private network (called a &ldquo;tailnet&rdquo;) that follows you everywhere. Every device you install it on gets a unique <code>100.x.x.x</code> IP address. These addresses work from anywhere in the world &mdash; your couch, the office, a hotel. Traffic goes directly between your devices (peer-to-peer), encrypted end-to-end. Tailscale&rsquo;s servers only help your devices find each other &mdash; they never see your data.</p>
+      <p>Tailscale creates a private network (called a &ldquo;tailnet&rdquo;) that follows you everywhere. Every device you install it on gets a unique <code>100.x.x.x</code> IP address. These addresses work from anywhere in the world &mdash; your couch, the office, a hotel. Traffic goes directly between your devices (peer-to-peer), encrypted end-to-end. Tailscale&rsquo;s coordination servers help your devices find each other. When a direct connection isn&rsquo;t possible, traffic may relay through Tailscale&rsquo;s DERP servers, but the content stays encrypted end-to-end &mdash; Tailscale cannot read your data.</p>
 
       <h3 style="color: var(--sola-teal); margin: 1.5rem 0 0.75rem;">Quick Setup: Tailscale on Your Phone + Home PC</h3>
       <ol>
@@ -1190,7 +1190,7 @@
 
       <h3 style="color: var(--sola-gold); margin: 1rem 0 0.75rem;">What You Need</h3>
       <ul>
-        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=raspberry+pi+4+model+b&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_pi4b&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);"><span class="glossary-term" data-term="raspberry-pi">Raspberry Pi 4B</span> (2GB+ RAM)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; $35&ndash;55, widely available. Pi 3B+ works too but Pi 4 is more reliable for always-on duty.</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=raspberry+pi+4+model+b&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_pi4b&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);"><span class="glossary-term" data-term="raspberry-pi">Raspberry Pi 4B</span> (2GB+ RAM)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; typically $35&ndash;55 (prices vary by market). Pi 3B+ works too but Pi 4 is more reliable for always-on duty.</li>
         <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=endurance+microsd+card+32gb&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_microsd&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">MicroSD card (16GB+)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; get a decent brand (SanDisk, Samsung). Don&rsquo;t use that ancient 4GB card from 2012.</li>
         <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=cat6+ethernet+cable+10ft&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_ethernet_cable&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Ethernet cable</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; wired connection to your router. Do NOT rely on Wi-Fi for this. Your entire remote access chain depends on this staying connected.</li>
         <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=raspberry+pi+usb-c+power+supply&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_pi_psu&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">USB-C power supply</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; official Pi power supply recommended. Underpowered Pi = random disconnects.</li>
@@ -1211,7 +1211,7 @@
 <span class="cmd-comment"># Use Raspberry Pi Imager - enable SSH in the settings before flashing</span>
 
 <span class="cmd-comment"># 2. Boot the Pi, connect via SSH from your home computer</span>
-<span class="cmd-prompt">$</span> ssh pi@raspberrypi.local
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f2829bb280938182909780808b829bdc9e9d91939e">[email&#160;protected]</a>
 
 <span class="cmd-comment"># 3. Update the system</span>
 <span class="cmd-prompt">$</span> sudo apt update &amp;&amp; sudo apt upgrade -y
@@ -1247,7 +1247,7 @@
       <p>Now when you&rsquo;re away from home with Tailscale running on your phone, you can open a browser and type your miner&rsquo;s local IP address (like <code>192.168.1.50</code>) and the miner&rsquo;s web interface loads &mdash; just like being at home. You can also SSH into miners running custom firmware. The Pi acts as your always-on gateway.</p>
 
       <div class="warning-box">
-        <p><strong>Don&rsquo;t forget:</strong> Your Pi needs to stay on 24/7, plugged into your router with ethernet. If the Pi loses power or internet, you lose remote access. Consider putting the Pi and your router on a small <a href="https://www.ebay.com/sch/i.html?_nkw=apc+ups+battery+backup+600va&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_ups_pi&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);"><span class="glossary-term" data-term="ups">UPS</span> battery backup</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> ($40&ndash;60) so a brief power flicker doesn&rsquo;t kill your remote access chain.</p>
+        <p><strong>Don&rsquo;t forget:</strong> Your Pi needs to stay on 24/7, plugged into your router with ethernet. If the Pi loses power or internet, you lose remote access. Consider putting the Pi and your router on a small <a href="https://www.ebay.com/sch/i.html?_nkw=apc+ups+battery+backup+600va&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_ups_pi&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);"><span class="glossary-term" data-term="ups">UPS</span> battery backup</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> (typically $40&ndash;60, prices vary) so a brief power flicker doesn&rsquo;t kill your remote access chain.</p>
       </div>
     </section>
 
@@ -1258,10 +1258,10 @@
     <section class="section" id="power-240v">
       <h2 class="section-title">&#x1F50C; 240V Remote Power Control</h2>
 
-      <p>When a miner freezes, the #1 fix is power cycling it &mdash; turning it off and back on. If you&rsquo;re not home, you need a way to do this remotely. For 240V ASIC miners (<span class="glossary-term" data-term="antminer-s19-pro">S19 Pro</span>, <span class="glossary-term" data-term="antminer-s19j-pro">S19J Pro</span>, <span class="glossary-term" data-term="antminer-ks5">KS5</span>, L7, S21), there are three proven paths to remote power control. Every product listed here is available for purchase on eBay or Amazon with a real price and a real buy link.</p>
+      <p>When a miner freezes, the most common first fix is power cycling it &mdash; turning it off and back on. If you&rsquo;re not home, you need a way to do this remotely. For 240V ASIC miners (<span class="glossary-term" data-term="antminer-s19-pro">S19 Pro</span>, <span class="glossary-term" data-term="antminer-s19j-pro">S19J Pro</span>, <span class="glossary-term" data-term="antminer-ks5">KS5</span>, L7, S21), there are three proven paths to remote power control. Every product listed here is available for purchase on eBay or Amazon with a real price and a real buy link.</p>
 
       <div class="warning-box">
-        <p><strong>The 80% Rule is Law.</strong> NEC code says continuous loads (your miners run 24/7) must not exceed 80% of the circuit rating. A 30A circuit maxes at 24A continuous (5,760W at 240V). A 20A circuit maxes at 16A. Exceeding this creates fire risk. No exceptions. See our <a href="electrical_setup.html" style="color: var(--warning);">Electrical Setup Guide</a> for the full breakdown.</p>
+        <p><strong>The 80% Rule is Law.</strong> NEC code says continuous loads (your miners run 24/7) must not exceed 80% of the circuit rating. A 30A circuit maxes at 24A continuous (5,760W at 240V). A 20A circuit maxes at 16A. Exceeding this creates fire risk. Codes vary by jurisdiction &mdash; follow your local code and consult an electrician. See our <a href="electrical_setup.html" style="color: var(--warning);">Electrical Setup Guide</a> for the full breakdown.</p>
       </div>
 
       <!-- ---- SETUP 1: BUDGET ---- -->
@@ -1284,15 +1284,9 @@
         <tbody>
           <tr>
             <td class="best-pick"><a href="https://www.ebay.com/sch/i.html?_nkw=Dewenwils+40A+240V+wifi+pool+pump+timer&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_dewenwils&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">Dewenwils 3HP 240VAC WiFi Timer</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-            <td>40A / 240V / 9,600W</td>
+            <td>40A / 240V / 3HP</td>
             <td>WiFi app, Alexa, Google, scheduling, ETL listed</td>
             <td>$57&ndash;60</td>
-          </tr>
-          <tr>
-            <td><a href="https://www.ebay.com/sch/i.html?_nkw=BN-Link+wifi+40A+240V+pool+pump+timer&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=rm_bnlink&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">BN-Link WiFi 40A 240V Timer</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
-            <td>40A / 240V / 9,600W</td>
-            <td>WiFi app, Alexa, Google, scheduling</td>
-            <td>$45&ndash;55</td>
           </tr>
         </tbody>
       </table>
@@ -1523,54 +1517,97 @@
       <p>With Tailscale + Pi subnet router running, you can SSH into miners running custom firmware from anywhere. On your phone, use Termius (iOS/Android). On your laptop, open a terminal:</p>
 
       <details class="code-collapse">
-        <summary>&#x1F4CB; SSH Commands for Custom Firmware &mdash; Copy &amp; Paste Ready</summary>
+        <summary>&#x1F4CB; SSH Commands by Firmware &mdash; Copy &amp; Paste Ready</summary>
         <div class="code-wrapper">
           <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="ssh-firmware">
             <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
             <span class="dolly-label">Clone</span>
           </button>
           <div class="cmd-block" id="ssh-firmware">
-<span class="cmd-comment"># SSH into a miner running Braiins OS or LuxOS</span>
-<span class="cmd-prompt">$</span> ssh root@192.168.1.50
+<span class="cmd-comment"># SSH into any miner running custom firmware</span>
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c6e7373685c2d252e322d2a24322d32292c">[email&#160;protected]</a>
 
-<span class="cmd-comment"># Check miner status via Braiins OS API</span>
-<span class="cmd-prompt">$</span> bosminer status
+<span class="cmd-comment"># ── Braiins OS ──</span>
+<span class="cmd-comment"># Stop mining (fans keep running)</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer stop
 
-<span class="cmd-comment"># Restart mining via SSH</span>
-<span class="cmd-prompt">$</span> /etc/init.d/bosminer restart
+<span class="cmd-comment"># Start mining</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer start
+
+<span class="cmd-comment"># Restart mining daemon</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer restart
+
+<span class="cmd-comment"># ── LuxOS ──</span>
+<span class="cmd-comment"># Step 1: Get a session ID (required before curtail)</span>
+<span class="cmd-prompt">root@antminer:~#</span> echo &apos;{&quot;command&quot;: &quot;logon&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># Step 2: Put miner to sleep (replace SESSION_ID with the value from Step 1)</span>
+<span class="cmd-prompt">root@antminer:~#</span> echo &apos;{&quot;command&quot;: &quot;curtail&quot;, &quot;parameter&quot;:&quot;SESSION_ID,sleep&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># Step 3: Wake miner back up</span>
+<span class="cmd-prompt">root@antminer:~#</span> echo &apos;{&quot;command&quot;: &quot;curtail&quot;, &quot;parameter&quot;:&quot;SESSION_ID,wakeup&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># ── Stock Bitmain L3++ (CGMiner) ──</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh stop
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh start
           </div>
         </div>
       </details>
 
+      <div class="warning-box">
+        <p><strong>LuxOS curtail warning:</strong> A miner put into sleep mode via the curtail command will <strong>stay curtailed even if you reboot the machine or restore power</strong>. The only way to resume mining is to send the <code>wakeup</code> command. If the session ID has expired after a reboot, run the <code>logon</code> command again to get a fresh one, then send <code>wakeup</code>. This is confirmed in the <a href="https://docs.luxor.tech" target="_blank" rel="noopener" style="color: var(--warning);">official Luxor documentation</a>.</p>
+      </div>
+
+      <div class="warning-box">
+        <p><strong>Stock S19 series firmware has SSH disabled.</strong> You cannot SSH into a stock Antminer S19, S19 Pro, S19J Pro, or S19 XP. Bitmain locked SSH access on all S19-series stock firmware. You must install custom firmware (LuxOS, Braiins OS, or Vnish) to use SSH commands. The L3++ with stock firmware does allow SSH.</p>
+      </div>
+
       <!-- MOBILE SSH CLIENTS -->
       <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Mobile SSH Clients</h3>
-      <p>Your VPN gets you onto the network. Your firmware gives you SSH access. You need an app on your phone to type commands. <a href="https://termius.com" target="_blank" rel="noopener">Termius</a> is our recommended pick &mdash; the free Starter plan includes SSH, SFTP, saved hosts, multi-tab sessions, and command snippets. The <strong>snippets feature</strong> is the killer app: save commands like <code>poweroff</code> or <code>/etc/init.d/bosminer restart</code> and execute them with a single tap from your phone.</p>
+      <p>Your VPN gets you onto the network. Your firmware gives you SSH access. You need an app on your phone to type commands. <a href="https://termius.com" target="_blank" rel="noopener">Termius</a> is our recommended pick &mdash; the free Starter plan includes SSH, SFTP, saved hosts, multi-tab sessions, and command snippets. The <strong>snippets feature</strong> is the killer app: save commands like <code>poweroff</code>, <code>/etc/init.d/bosminer restart</code> (Braiins OS), or LuxOS curtail commands and execute them with a single tap from your phone. On a Windows desktop, <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" target="_blank" rel="noopener">PuTTY</a> is the standard free SSH client &mdash; download, run, type your miner&rsquo;s IP, and you&rsquo;re in.</p>
 
       <details class="code-collapse">
-        <summary>&#x1F4CB; Termius Snippet Commands &mdash; Save These for One-Tap Mining Control</summary>
+        <summary>&#x1F4CB; Termius Snippet Commands by Firmware &mdash; Save These for One-Tap Mining Control</summary>
         <div class="code-wrapper">
           <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="termius-snippets">
             <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
             <span class="dolly-label">Clone</span>
           </button>
           <div class="cmd-block" id="termius-snippets">
-<span class="cmd-comment"># Snippet: &ldquo;Check Status&rdquo; (Braiins OS)</span>
-<span class="cmd-prompt">$</span> bosminer status
+<span class="cmd-comment"># ── Braiins OS Snippets ──</span>
 
-<span class="cmd-comment"># Snippet: &ldquo;Stop Mining&rdquo; (stop daemon, fans keep running)</span>
+<span class="cmd-comment"># Snippet: &ldquo;Stop Mining &ndash; Braiins&rdquo; (stop daemon, fans keep running)</span>
 <span class="cmd-prompt">$</span> /etc/init.d/bosminer stop
 
-<span class="cmd-comment"># Snippet: &ldquo;Start Mining&rdquo; (resume daemon)</span>
+<span class="cmd-comment"># Snippet: &ldquo;Start Mining &ndash; Braiins&rdquo; (resume daemon)</span>
 <span class="cmd-prompt">$</span> /etc/init.d/bosminer start
+
+<span class="cmd-comment"># ── LuxOS Snippets ──</span>
+
+<span class="cmd-comment"># Snippet: &ldquo;Get Session ID &ndash; LuxOS&rdquo; (run this first)</span>
+<span class="cmd-prompt">$</span> echo &apos;{&quot;command&quot;: &quot;logon&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># Snippet: &ldquo;Sleep Miner &ndash; LuxOS&rdquo; (replace SESSION_ID)</span>
+<span class="cmd-prompt">$</span> echo &apos;{&quot;command&quot;: &quot;curtail&quot;, &quot;parameter&quot;:&quot;SESSION_ID,sleep&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># Snippet: &ldquo;Wake Miner &ndash; LuxOS&rdquo; (replace SESSION_ID)</span>
+<span class="cmd-prompt">$</span> echo &apos;{&quot;command&quot;: &quot;curtail&quot;, &quot;parameter&quot;:&quot;SESSION_ID,wakeup&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># ── Stock Bitmain L3++ Snippets ──</span>
+
+<span class="cmd-comment"># Snippet: &ldquo;Stop Mining &ndash; L3++&rdquo;</span>
+<span class="cmd-prompt">$</span> /etc/init.d/cgminer.sh stop
+
+<span class="cmd-comment"># Snippet: &ldquo;Start Mining &ndash; L3++&rdquo;</span>
+<span class="cmd-prompt">$</span> /etc/init.d/cgminer.sh start
+
+<span class="cmd-comment"># ── Universal Snippets (all firmware) ──</span>
 
 <span class="cmd-comment"># Snippet: &ldquo;Graceful Shutdown&rdquo; (stop mining &rarr; fans cool &rarr; power off)</span>
 <span class="cmd-prompt">$</span> poweroff
 
 <span class="cmd-comment"># Snippet: &ldquo;Reboot Miner&rdquo;</span>
 <span class="cmd-prompt">$</span> reboot
-
-<span class="cmd-comment"># Snippet: &ldquo;Check Temps&rdquo; (Braiins OS)</span>
-<span class="cmd-prompt">$</span> cat /tmp/bosminer.log | grep -i temp | tail -5
           </div>
         </div>
       </details>
@@ -1645,7 +1682,7 @@
                 </button>
                 <div class="cmd-block" id="shutdown-m1">
 <span class="cmd-comment"># Graceful shutdown via SSH (works on all Antminers)</span>
-<span class="cmd-prompt">$</span> ssh root@192.168.1.50
+<span class="cmd-prompt">$</span> ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="64160b0b1024555d564a55525c4a554a5154">[email&#160;protected]</a>
 <span class="cmd-prompt">root@antminer:~#</span> poweroff
                 </div>
               </div>
@@ -1660,28 +1697,42 @@
           <div class="accordion-body">
             <p>Stop just the mining process. The miner stays on, fans keep running, chips cool down completely &mdash; but it&rsquo;s no longer mining or drawing full power. Perfect for scheduled solar cutoff times when you want to resume later.</p>
             <details class="code-collapse">
-              <summary>&#x1F4CB; Stop/Start Daemon Commands by Firmware</summary>
+              <summary>&#x1F4CB; Stop/Start Mining Commands by Firmware</summary>
               <div class="code-wrapper">
                 <button class="dolly-copy-btn" onclick="dollyClone(this)" data-code="shutdown-m2">
                   <span class="dolly-sheep">&#x1F411;<span class="sheep-clone">&#x1F411;</span></span>
                   <span class="dolly-label">Clone</span>
                 </button>
                 <div class="cmd-block" id="shutdown-m2">
-<span class="cmd-comment"># Stop mining on stock Antminer firmware (S19 series)</span>
-<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bmminer.sh stop
-
-<span class="cmd-comment"># Stop mining on L3++ (stock firmware)</span>
-<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh stop
-
-<span class="cmd-comment"># Stop mining on Braiins OS</span>
+<span class="cmd-comment"># ── Braiins OS ──</span>
+<span class="cmd-comment"># Stop mining (miner stays on, fans keep running)</span>
 <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer stop
 
-<span class="cmd-comment"># Resume mining later</span>
+<span class="cmd-comment"># Resume mining</span>
 <span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/bosminer start
+
+<span class="cmd-comment"># ── LuxOS ──</span>
+<span class="cmd-comment"># Get session ID first (required)</span>
+<span class="cmd-prompt">root@antminer:~#</span> echo &apos;{&quot;command&quot;: &quot;logon&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># Put miner to sleep (replace SESSION_ID)</span>
+<span class="cmd-prompt">root@antminer:~#</span> echo &apos;{&quot;command&quot;: &quot;curtail&quot;, &quot;parameter&quot;:&quot;SESSION_ID,sleep&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># Wake miner back up (replace SESSION_ID)</span>
+<span class="cmd-prompt">root@antminer:~#</span> echo &apos;{&quot;command&quot;: &quot;curtail&quot;, &quot;parameter&quot;:&quot;SESSION_ID,wakeup&quot;}&apos; | nc 127.0.0.1 4028
+
+<span class="cmd-comment"># ── Stock Bitmain L3++ (CGMiner) ──</span>
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh stop
+<span class="cmd-prompt">root@antminer:~#</span> /etc/init.d/cgminer.sh start
+
+<span class="cmd-comment"># ── Stock S19 Series ──</span>
+<span class="cmd-comment"># SSH is DISABLED on stock S19 firmware.</span>
+<span class="cmd-comment"># You cannot stop/start mining via SSH on a stock S19.</span>
+<span class="cmd-comment"># Install custom firmware (LuxOS, Braiins OS, or Vnish) for SSH access.</span>
                 </div>
               </div>
             </details>
-            <p style="font-size: 0.9rem;"><strong>Note:</strong> The daemon stop/start isn&rsquo;t always 100% reliable. If the miner doesn&rsquo;t resume properly, a <code>reboot</code> command or power cycle will fix it.</p>
+            <p style="font-size: 0.9rem;"><strong>Note:</strong> The daemon stop/start isn&rsquo;t always 100% reliable. If the miner doesn&rsquo;t resume properly, a <code>reboot</code> command or power cycle will fix it. For LuxOS, a miner in sleep mode stays curtailed even after a reboot &mdash; you must send the <code>wakeup</code> command to resume mining.</p>
           </div>
         </details>
 
@@ -1723,7 +1774,7 @@
           <summary>Method 7: Just Pull the Plug <span class="method-tag last">Last Resort</span></summary>
           <div class="accordion-body">
             <p>Yes, it works. Millions of miners do it daily. Modern PSUs have overcurrent protection. But if you have the option to do any of the above first, take 30 seconds and do it right. Your hashboards will thank you.</p>
-            <p style="font-size: 0.9rem;"><strong>APW12 PSU note (S19 series):</strong> The APW12 has two power input lines. When plugging in: outer line first, then inner. When unplugging: inner line first, then outer. Getting this backwards can damage the PSU. This is from Bitmain&rsquo;s own documentation.</p>
+            <p style="font-size: 0.9rem;"><strong>APW12 PSU note (S19 series):</strong> The APW12 has two power input lines. When plugging in: outer line first, then inner. When unplugging: inner line first, then outer. Getting this backwards can damage the PSU. Best practice (community guidance) &mdash; check your specific PSU manual for the manufacturer&rsquo;s recommended sequence.</p>
           </div>
         </details>
       </div>
@@ -1861,7 +1912,7 @@ fi
       <p>There are three ways to automate this, depending on your hardware:</p>
 
       <h3 style="color: var(--sola-gold); margin: 1.5rem 0 0.75rem;">Option 1: WiFi Pool Pump Timer or PDU Scheduling</h3>
-      <p>The simplest method. Your WiFi pool pump timer (Dewenwils, BN-Link) or Altair Virgo switched PDU has built-in scheduling through its app or web interface. No extra software needed.</p>
+      <p>The simplest method. Your WiFi pool pump timer (Dewenwils) or Altair Virgo switched PDU has built-in scheduling through its app or web interface. No extra software needed.</p>
       <ol style="margin-left: 1.25rem; line-height: 1.8;">
         <li>Open the timer&rsquo;s smartphone app or PDU&rsquo;s web interface (locally or through Tailscale)</li>
         <li>Set the schedule: <strong>ON</strong> at the start of your free/cheap window (e.g., 9:00 PM)</li>
@@ -1904,7 +1955,7 @@ fi
       <p>Your miners represent thousands of dollars of hardware generating real income. A poorly secured remote access setup is an invitation for someone to redirect your hashrate, steal your coins, or just brick your equipment for fun.</p>
 
       <ul class="two-col-list">
-        <li><strong>Never use port forwarding.</strong> This exposes your miner&rsquo;s web interface directly to the internet. Anyone who finds it can access it. Use Tailscale instead &mdash; zero open ports.</li>
+        <li><strong>Avoid port forwarding.</strong> Port forwarding exposes your miner&rsquo;s web interface directly to the internet and greatly increases your attack surface. If you must use it, lock it down with VPN, IP allowlists, and strong authentication. Tailscale is the safer path &mdash; zero open ports.</li>
         <li><strong>Change default passwords.</strong> Every Bitmain miner ships with username <code>root</code> and password <code>root</code>. Change this immediately. Custom firmware lets you set a proper password.</li>
         <li><strong>Use HTTPS when available.</strong> The Altair Virgo supports HTTPS. Braiins OS supports SSH with key-based authentication. Don&rsquo;t use unencrypted HTTP over the internet.</li>
         <li><strong>Keep firmware updated.</strong> Custom firmware providers regularly patch security vulnerabilities. Running outdated firmware is running known exploits.</li>
@@ -1970,7 +2021,7 @@ fi
   </div>
 
   <!-- Navigation Script (matches site) -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     function toggleNav() {
       document.getElementById('hamburger-btn').classList.toggle('open');
       document.getElementById('nav-drawer').classList.toggle('open');
@@ -2082,11 +2133,4 @@ function dollySuccess(btn) {
     <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x2600;&#xFE0F; <a href="solar_mining.html">Solar Mining</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
     <div style="display:flex;align-items:center;margin-top:0.5rem;">
       <div style="flex:1;"></div>
-      <div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div>
-      <div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:solarayeffect@gmail.com" style="color:#00CED1;">solarayeffect@gmail.com</a></div>
-    </div>
-    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
-  </footer>
-
-</body>
-</html>
+      <div style="flex:1;text-align:center;"><a href="index.html">&larr
