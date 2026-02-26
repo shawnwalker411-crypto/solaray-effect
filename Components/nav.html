@@ -1,1 +1,51 @@
+<!-- Hamburger Menu -->
+<div class="hamburger-menu">
+  <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false">
+    <span class="bun-top"></span>
+    <span class="lettuce"></span>
+    <span class="patty"></span>
+    <span class="cheese"></span>
+    <span class="bun-bottom"></span>
+  </button>
+</div>
 
+<!-- Navigation Drawer -->
+<nav class="nav-drawer" id="nav-drawer">
+  <h3>NAVIGATION</h3>
+  <a href="index.html">&#x1F9EE; Calculator</a>
+  <a href="miners.html">&#x1F4B0; Miners</a>
+  <a href="pools.html">&#x1F3CA; Mining Pools</a>
+  <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
+  <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+  <a href="remote_management.html">&#x1F4E1; Remote Management</a>
+  <a href="lottery_mining.html">&#x1F3B0; Lottery Mining</a>
+  <a href="solar_mining.html">&#x2600;&#xFE0F; Solar Mining</a>
+  <a href="glossary.html">&#x1F9E0; Glossary</a>
+  <a href="datavault.html">&#x1F4CA; Data Vault</a>
+</nav>
+<div class="nav-overlay" id="nav-overlay"></div>
+
+<script>
+(function(){
+  /* --- Highlight active page --- */
+  var page = window.location.pathname.split('/').pop() || 'index.html';
+  var links = document.querySelectorAll('#nav-drawer a');
+  for(var i=0;i<links.length;i++){
+    if(links[i].getAttribute('href')===page){
+      links[i].classList.add('active');
+    }
+  }
+  /* --- Toggle drawer --- */
+  var btn = document.getElementById('hamburger-btn');
+  var drawer = document.getElementById('nav-drawer');
+  var overlay = document.getElementById('nav-overlay');
+  function toggle(){
+    var open = drawer.classList.toggle('open');
+    overlay.classList.toggle('show');
+    btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  }
+  if(btn) btn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); toggle(); });
+  if(overlay) overlay.addEventListener('click', toggle);
+})();
+</script>
