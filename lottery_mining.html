@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Beginner&rsquo;s guide to lottery mining with Bitaxe, NerdQaxe, and open-source solo miners. Setup, pools, wallets, upgrades, solar integration, and the cost-per-hash math nobody talks about.">
+  <meta name="keywords" content="Bitaxe, lottery mining, solo mining, NerdQaxe, open source miner, Bitaxe Gamma, solo CKPool, Public Pool, AxeOS, home mining solar, Bitaxe setup, Bitaxe upgrades, Loki Kit, cost per terahash">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/lottery_mining.html">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Lottery Mining &mdash; Beginner&rsquo;s Guide to Bitaxe, NerdQaxe, and Open-Source Solo Miners",
+    "description": "Everything a beginner needs to start lottery mining with open-source hardware. Covers setup, pools, wallet mistakes, cooling upgrades, solar integration, fleet management, and the cost-per-hash reality check.",
+    "author": {
+      "@type": "Organization",
+      "name": "Sola Ray Effect",
+      "url": "https://www.solarayeffect.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Sola Ray Effect",
+      "url": "https://www.solarayeffect.com"
+    },
+    "mainEntityOfPage": "https://www.solarayeffect.com/lottery_mining.html",
+    "dateModified": "2026-02-26",
+    "keywords": ["lottery mining", "Bitaxe", "NerdQaxe", "solo mining", "open source miner", "AxeOS", "solar mining", "Loki Kit", "cost per terahash"]
+  }
+  </script>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.solarayeffect.com/lottery_mining.html">
+  <meta property="og:title" content="Lottery Mining &mdash; Beginner&rsquo;s Guide to Open-Source Solo Miners | Sola Ray Effect">
+  <meta property="og:description" content="Bitaxe, NerdQaxe, setup, pools, upgrades, solar integration, and the cost-per-hash math. Everything a beginner needs to start lottery mining.">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/lottery_mining.html">
+  <meta name="twitter:title" content="Lottery Mining &mdash; Open-Source Solo Miner Guide | Sola Ray Effect">
+  <meta name="twitter:description" content="Bitaxe, NerdQaxe, setup, pools, wallet mistakes, cooling upgrades, solar, fleet management, and when bigger hardware starts making sense.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+
+  <!-- Google tag (gtag.js) - Production only -->
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
+  </script>
+
+  <title>Lottery Mining &mdash; Beginner&rsquo;s Guide to Bitaxe, NerdQaxe &amp; Open-Source Solo Miners</title>
+
+  <!-- Self-hosted fonts -->
+  <style>
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-sans-jp-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/noto-sans-jp-latin-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/noto-sans-jp-latin-700-normal.woff2") format("woff2"); }
+  </style>
+
+  <style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-gold: #D4AF37;
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --v120: #00e676;
+      --v240: #ff9800;
+      --warning: #ff5252;
+      --accent-blue: #4a9eff;
+      --accent-purple: #b388ff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+
+    /* HAMBURGER MENU */
+    .hamburger-menu { position: fixed; top: 1rem; left: 1rem; z-index: 1000; }
+    .hamburger-btn { background: var(--bg-card); border: 2px solid var(--sola-teal); color: var(--sola-teal); width: 44px; height: 44px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; transition: all 0.3s ease; box-shadow: 0 0 10px rgba(0, 206, 209, 0.4); }
+    .hamburger-btn:hover { background: var(--sola-teal); box-shadow: 0 0 20px rgba(0, 206, 209, 0.4); }
+    .hamburger-btn .bun-top { width: 24px; height: 6px; background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%); border-radius: 10px 10px 0 0; transition: all 0.3s ease; }
+    .hamburger-btn .lettuce { width: 26px; height: 3px; background: #32CD32; border-radius: 1px; transition: all 0.3s ease; }
+    .hamburger-btn .patty { width: 24px; height: 4px; background: linear-gradient(180deg, #8B4513 0%, #654321 100%); border-radius: 2px; transition: all 0.3s ease; }
+    .hamburger-btn .cheese { width: 26px; height: 3px; background: #FFD700; border-radius: 1px; transform: skewX(-5deg); transition: all 0.3s ease; }
+    .hamburger-btn .bun-bottom { width: 24px; height: 5px; background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%); border-radius: 0 0 6px 6px; transition: all 0.3s ease; }
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+
+    /* NAV DRAWER */
+    .nav-drawer { position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; overflow-y: auto; background: var(--bg-secondary); border-right: 2px solid var(--sola-teal); z-index: 999; transition: left 0.3s ease; padding: 70px 1.5rem 1.5rem; box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5); }
+    .nav-drawer.open { left: 0; }
+    .nav-drawer h3 { color: var(--sola-gold); font-size: 1rem; padding-left: 50px; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(212, 175, 55, 0.3); }
+    .nav-drawer a { display: block; color: var(--text-primary); text-decoration: none; padding: 0.5rem 1rem; margin-bottom: 0.3rem; border-radius: 6px; font-size: 1rem; transition: all 0.2s ease; border: 1px solid transparent; }
+    .nav-drawer a:hover { background: var(--bg-card); border-color: var(--sola-teal); color: var(--sola-teal); }
+    .nav-drawer a.active { background: rgba(0, 206, 209, 0.15); border-color: var(--sola-teal); color: #ffffff; }
+    .nav-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 998; }
+    .nav-overlay.show { display: block; }
+
+    /* GLOSSARY DRAWER */
+    .glossary-term { color: var(--sola-teal); border-bottom: 1px dotted rgba(0, 206, 209, 0.7); cursor: help; transition: color 0.15s ease, border-color 0.15s ease; text-decoration: none; white-space: nowrap; }
+    .glossary-term:hover { color: var(--sola-gold); border-color: rgba(212, 175, 55, 0.8); }
+    .glossary-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 1000; }
+    .glossary-overlay.show { display: block; }
+    .glossary-drawer { position: fixed; top: 0; right: -420px; width: 420px; max-width: 92vw; height: 100vh; background: var(--bg-secondary); border-left: 2px solid var(--sola-teal); z-index: 1001; transition: right 0.25s ease; padding: 1.5rem; overflow-y: auto; box-shadow: -10px 0 40px rgba(0, 0, 0, 0.55); backdrop-filter: blur(8px); }
+    .glossary-drawer.open { right: 0; }
+    .glossary-drawer-close { position: absolute; top: 1rem; right: 1rem; background: transparent; border: 1px solid rgba(0, 206, 209, 0.55); color: var(--sola-teal); width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 1.35rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+    .glossary-drawer-close:hover { background: rgba(0, 206, 209, 0.12); border-color: var(--sola-teal); }
+    .glossary-drawer h3 { font-family: 'Noto Sans JP', sans-serif; color: var(--sola-gold); font-size: 1.35rem; margin: 0.25rem 0 0.85rem; padding-right: 2.5rem; }
+    .glossary-drawer p { color: var(--text-secondary); line-height: 1.75; margin: 0 0 1rem; font-size: 0.98rem; }
+    .glossary-term-actions { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(212, 175, 55, 0.14); }
+    .glossary-more-link { color: var(--sola-teal); text-decoration: none; font-weight: 600; }
+    .glossary-more-link:hover { color: var(--sola-gold); }
+    .glossary-term-links { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+
+    /* LIABILITY MODAL */
+    .liability-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; }
+    .liability-overlay.show { display: flex; }
+    .liability-modal { width: 100%; max-width: 760px; background: rgba(8, 26, 21, 0.92); border: 1px solid rgba(212, 175, 55, 0.28); border-radius: 16px; box-shadow: 0 20px 80px rgba(0,0,0,0.6); backdrop-filter: blur(10px); overflow: hidden; }
+    .liability-top { padding: 1.1rem 1.25rem; border-bottom: 1px solid rgba(212, 175, 55, 0.18); display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: linear-gradient(180deg, rgba(212,175,55,0.08), rgba(0,0,0,0)); }
+    .liability-title { margin: 0; font-family: 'Noto Sans JP', sans-serif; font-size: 1.05rem; color: var(--sola-gold); letter-spacing: 0.5px; }
+    .liability-body { padding: 1.1rem 1.25rem 1.25rem; color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem; }
+    .liability-body strong { color: var(--text-primary); }
+    .liability-bullets { margin: 0.85rem 0 0.9rem 1.1rem; }
+    .liability-actions { display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: flex-end; padding: 0 1.25rem 1.25rem; }
+    .liability-btn { padding: 0.65rem 1rem; border-radius: 12px; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(0, 206, 209, 0.4); background: rgba(0, 206, 209, 0.10); color: var(--sola-teal); transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease; }
+    .liability-btn:hover { transform: translateY(-1px); background: rgba(0, 206, 209, 0.16); border-color: rgba(0, 206, 209, 0.6); }
+    .liability-note { padding: 0.85rem 1.25rem 1.15rem; border-top: 1px solid rgba(212, 175, 55, 0.12); color: var(--text-muted); font-size: 0.78rem; line-height: 1.6; }
+
+    /* PAGE TITLE */
+    .page-title { text-align: center; font-size: 2rem; background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 1rem 0; }
+    .page-subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 2rem; }
+
+    /* SECTIONS */
+    .section { background: var(--bg-card); border: 1px solid var(--border-color); backdrop-filter: blur(6px); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .section-title { font-size: 1.3rem; color: var(--sola-teal); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+    .section p:last-child { margin-bottom: 0; }
+    .section ul, .section ol { color: var(--text-secondary); margin: 0.75rem 0 1rem 1.5rem; }
+    .section li { margin-bottom: 0.5rem; }
+    .section strong { color: var(--text-primary); }
+
+    /* LINKS */
+    a, a:visited { color: var(--sola-teal); text-decoration: none; }
+    a:hover { color: var(--sola-gold); text-decoration: underline; }
+    .section a { color: var(--sola-teal); }
+    .section a:hover { color: var(--sola-gold); }
+    a.ebay-link { color: var(--sola-gold); text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+    a.ebay-link:hover { color: var(--sola-teal); text-decoration-style: solid; }
+    .section code { background: rgba(0, 206, 209, 0.12); color: var(--sola-teal); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; font-family: 'Courier New', monospace; }
+
+    /* INFO / WARNING / GOLD BOXES */
+    .info-box { background: rgba(0, 206, 209, 0.1); border-left: 4px solid var(--sola-teal); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .info-box p { color: var(--text-primary); margin: 0; }
+    .warning-box { background: rgba(255, 82, 82, 0.1); border-left: 4px solid var(--warning); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .warning-box p { color: var(--text-primary); margin: 0; }
+    .warning-box strong { color: var(--warning); }
+    .gold-box { background: rgba(212, 175, 55, 0.1); border-left: 4px solid var(--sola-gold); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .gold-box p { color: var(--text-primary); margin: 0; }
+    .gold-box strong { color: var(--sola-gold); }
+
+    /* COMPARE GRID */
+    .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+    .compare-card { background: var(--bg-secondary); border-radius: 10px; padding: 1.25rem; border: 2px solid transparent; }
+    .compare-card.option-a { border-color: var(--sola-teal); }
+    .compare-card.option-b { border-color: var(--sola-gold); }
+    .compare-card.option-c { border-color: var(--accent-blue); }
+    .compare-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; }
+    .compare-card.option-a h3 { color: var(--sola-teal); }
+    .compare-card.option-b h3 { color: var(--sola-gold); }
+    .compare-card.option-c h3 { color: var(--accent-blue); }
+    .compare-card ul { list-style: none; padding: 0; }
+    .compare-card li { color: var(--text-secondary); padding: 0.4rem 0 0.4rem 1.5rem; position: relative; }
+    .compare-card li::before { content: "\2022"; position: absolute; left: 0; color: var(--text-muted); }
+
+    /* HARDWARE TABLE */
+    .hw-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+    .hw-table th, .hw-table td { padding: 0.65rem 0.75rem; border: 1px solid var(--border-color); text-align: left; }
+    .hw-table th { background: rgba(0, 206, 209, 0.15); color: var(--sola-teal); font-weight: 600; white-space: nowrap; }
+    .hw-table td { color: var(--text-secondary); }
+    .hw-table tr:hover td { background: rgba(0, 206, 209, 0.05); }
+    .hw-table .cost-highlight { color: var(--sola-gold); font-weight: 700; }
+
+    /* ACCORDION */
+    .accordion { margin: 1rem 0; }
+    .accordion details { background: rgba(0, 206, 209, 0.06); border: 1px solid rgba(0, 206, 209, 0.15); border-radius: 8px; margin-bottom: 0.5rem; overflow: hidden; }
+    .accordion details[open] { border-color: rgba(0, 206, 209, 0.3); background: rgba(0, 206, 209, 0.1); }
+    .accordion details summary { display: flex; align-items: center; padding: 0.85rem 1.25rem; cursor: pointer; color: var(--text-primary); font-weight: 600; font-size: 0.95rem; list-style: none; user-select: none; transition: all 0.2s ease; }
+    .accordion details summary::-webkit-details-marker { display: none; }
+    .accordion details summary::before { content: "\25B6"; font-size: 0.65rem; margin-right: 0.65rem; color: var(--sola-teal); transition: transform 0.2s ease; display: inline-block; flex-shrink: 0; }
+    .accordion details[open] summary::before { transform: rotate(90deg); }
+    .accordion details summary:hover { background: rgba(0, 206, 209, 0.08); }
+    .accordion .accordion-body { padding: 0 1.25rem 1rem; color: var(--text-secondary); }
+    .accordion .accordion-body p { margin: 0.5rem 0; }
+
+    /* TOC GRID */
+    .toc-heading { font-family: 'Noto Sans JP', sans-serif; color: var(--sola-gold); font-size: 1.1rem; margin-bottom: 0.75rem; }
+    .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 2rem; }
+    .toc-card { display: flex; flex-direction: column; gap: 0.2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.85rem 1rem; text-decoration: none; transition: all 0.2s ease; }
+    .toc-card:hover { border-color: var(--sola-teal); background: rgba(0, 206, 209, 0.06); transform: translateY(-2px); text-decoration: none; }
+    .toc-icon { font-size: 1.3rem; }
+    .toc-title { color: var(--text-primary); font-weight: 600; font-size: 0.95rem; }
+    .toc-desc { color: var(--text-muted); font-size: 0.8rem; }
+
+    /* TABLE SCROLL */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1rem 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .page-title { font-size: 1.5rem; }
+      .container { padding: 1rem; }
+      .section { padding: 1.25rem; }
+      .hw-table { font-size: 0.8rem; }
+      .hw-table th, .hw-table td { padding: 0.5rem; }
+      .toc-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .toc-grid { grid-template-columns: 1fr; }
+    }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2rem 1.5rem; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 2rem; }
+    footer a { color: var(--sola-teal); text-decoration: none; }
+    footer a:hover { color: var(--sola-gold); }
+  </style>
+</head>
+<body>
+
+<!-- PHASE 1 COMPLETE -->
+<!-- LIABILITY / EXPECTATION MODAL -->
+  <div class="liability-overlay" id="liability-overlay" aria-hidden="true">
+    <div class="liability-modal" role="dialog" aria-modal="true" aria-labelledby="liability-title">
+      <div class="liability-top">
+        <h2 class="liability-title" id="liability-title">Before You Start: Set Your Expectations</h2>
+      </div>
+      <div class="liability-body">
+        <p><strong>Lottery mining is not a guaranteed income stream.</strong> You are buying chances, not hashrate. The odds of any single device finding a Bitcoin block are extremely small. People have won &mdash; multiple times &mdash; but many more have mined for years without hitting a block.</p>
+        <ul class="liability-bullets">
+          <li>If you cannot afford to lose what you spend on hardware and electricity, this is not for you.</li>
+          <li>This page is educational. It is not financial advice.</li>
+          <li>Verify everything from multiple sources before spending money.</li>
+        </ul>
+        <p>That said &mdash; someone has to find the next block. Every hash is a new ticket.</p>
+      </div>
+      <div class="liability-actions">
+        <button class="liability-btn" id="liability-ack">I Understand the Odds</button>
+      </div>
+      <div class="liability-note">
+        Educational content only. Not financial, electrical, or professional advice of any kind. You are responsible for your own decisions.
+      </div>
+    </div>
+  </div>
+
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
+      <span class="bun-top"></span>
+      <span class="lettuce"></span>
+      <span class="patty"></span>
+      <span class="cheese"></span>
+      <span class="bun-bottom"></span>
+    </button>
+  </div>
+
+  <!-- Navigation Drawer -->
+  <nav class="nav-drawer" id="nav-drawer">
+    <h3>NAVIGATION</h3>
+    <a href="index.html">&#x1F9EE; Calculator</a>
+    <a href="miners.html">&#x1F4B0; Miners</a>
+    <a href="pools.html">&#x1F3CA; Mining Pools</a>
+    <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
+    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
+    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
+    <a href="lottery_mining.html" class="active">&#x1F3B0; Lottery Mining</a>
+    <a href="solar_mining.html">&#x2600;&#xFE0F; Solar Mining</a>
+    <a href="glossary.html">&#x1F9E0; Glossary</a>
+    <a href="datavault.html">&#x1F4CA; Data Vault</a>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- Glossary Slide-Out Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here&hellip;</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
+    </div>
+  </div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
+
+  <div class="container">
+
+    <h1 class="page-title">&#x1F3B0; Solo &amp; Lottery Mining &mdash; Beginner&rsquo;s Guide</h1>
+    <p style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 0.5rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
+    <p class="page-subtitle">Open-source Bitcoin miners, honest numbers, and what nobody tells beginners</p>
+
+    <div class="gold-box" style="margin-top:1.25rem;">
+      <p><strong>Quick links:</strong>
+        <a href="index.html">Solo Mining Calculator</a> &middot;
+        <a href="miners.html">Miners</a> &middot;
+        <a href="pools.html">Pools</a> &middot;
+        <a href="remote_management.html">Remote Management</a> &middot;
+        <a href="electrical_setup.html">Electrical</a> &middot;
+        <a href="glossary.html">Glossary</a>
+      </p>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <h3 class="toc-heading" style="margin-top:1.5rem;">&#x1F4D1; What&rsquo;s on This Page</h3>
+    <div class="toc-grid">
+      <a href="#what-is-lottery" class="toc-card"><span class="toc-icon">&#x1F3B2;</span><span class="toc-title">What Is Lottery Mining?</span><span class="toc-desc">You&rsquo;re buying chances, not hashrate</span></a>
+      <a href="#the-hardware" class="toc-card"><span class="toc-icon">&#x1F4BB;</span><span class="toc-title">The Hardware</span><span class="toc-desc">Every model compared honestly</span></a>
+      <a href="#first-setup" class="toc-card"><span class="toc-icon">&#x1F527;</span><span class="toc-title">First-Time Setup</span><span class="toc-desc">Unbox to hashing in 5 minutes</span></a>
+      <a href="#wallet-mistakes" class="toc-card"><span class="toc-icon">&#x26A0;</span><span class="toc-title">Wallet Mistakes</span><span class="toc-desc">Errors that cost people blocks</span></a>
+      <a href="#pools" class="toc-card"><span class="toc-icon">&#x1F3CA;</span><span class="toc-title">Which Pool &amp; Why</span><span class="toc-desc">Solo CKPool, Public Pool, OCEAN, more</span></a>
+      <a href="#upgrades" class="toc-card"><span class="toc-icon">&#x2699;&#xFE0F;</span><span class="toc-title">Upgrades That Help</span><span class="toc-desc">Cooling, fans, paste, PSUs</span></a>
+      <a href="#fleet-remote" class="toc-card"><span class="toc-icon">&#x1F4F1;</span><span class="toc-title">Fleet &amp; Remote Access</span><span class="toc-desc">Checking miners when you&rsquo;re not home</span></a>
+      <a href="#solar" class="toc-card"><span class="toc-icon">&#x2600;&#xFE0F;</span><span class="toc-title">Solar + Lottery Mining</span><span class="toc-desc">Power budgets and scaling on solar</span></a>
+      <a href="#cost-per-hash" class="toc-card"><span class="toc-icon">&#x1F4B0;</span><span class="toc-title">When the Math Talks</span><span class="toc-desc">Cost per TH/s and a kit you haven&rsquo;t heard of</span></a>
+    </div>
+
+    <!-- ========================================
+         SECTION 1: WHAT IS LOTTERY MINING
+         ======================================== -->
+    <section class="section" id="what-is-lottery">
+      <h2 class="section-title">&#x1F3B2; What Is Lottery Mining?</h2>
+
+      <p>Every 10 minutes, the Bitcoin network needs someone to find the next block. The miner that finds it gets the full <span class="glossary-term" data-term="block-reward">block reward</span> &mdash; currently <strong>3.125 BTC</strong> (plus transaction fees). At today&rsquo;s prices, that is over <strong>$200,000</strong>.</p>
+
+      <p>Lottery mining means pointing a small, low-power miner at the network and hoping your device is the one that finds it. You are not earning steady income. You are not splitting rewards with a pool. You either find a block and get the entire reward, or you get nothing. Every hash your device generates is an independent random chance &mdash; like a lottery ticket that never expires.</p>
+
+      <p>The odds for a single Bitaxe Gamma (1.2 TH/s) against a network fluctuating between roughly 600&ndash;900 EH/s are in the range of <strong>1 in 500 million to 750 million per block</strong>. That sounds impossible. But blocks have been found by these devices &mdash; multiple times, verified on-chain:</p>
+
+      <ul>
+        <li><strong>July 2024:</strong> First confirmed Bitaxe solo block &mdash; <a href="https://mempool.space/block/853742" target="_blank" rel="noopener" style="color:var(--sola-teal);">Block #853,742</a>. Reward: ~3.13 BTC. Reported by Solo CKPool.</li>
+        <li><strong>September 2025:</strong> NerdQaxe++ finds its first block &mdash; <a href="https://mempool.space/block/913272" target="_blank" rel="noopener" style="color:var(--sola-teal);">Block #913,272</a>. Confirmed via OCEAN pool tag.</li>
+        <li><strong>October 2025:</strong> A Solo Satoshi customer running NerdQaxe++ Rev 6 units earned ~3.14 BTC (~$342,000) at <a href="https://mempool.space/block/920440" target="_blank" rel="noopener" style="color:var(--sola-teal);">Block #920,440</a> via a self-hosted Public Pool instance.</li>
+        <li><strong>2024&ndash;2026:</strong> Multiple additional confirmed wins reported across Solo CKPool and Public Pool. According to Solo Satoshi&rsquo;s published block wins table, combined payouts from open-source miners have exceeded <strong>$1 million</strong>.</li>
+      </ul>
+
+      <p>Every Bitaxe you add increases your odds linearly. Two Gammas = twice the chance. Ten Gammas = ten times the chance. The odds are still long, but probability does not work on a timer. Someone has to find the next block &mdash; and every hash is a new shot.</p>
+
+      <div class="gold-box">
+        <p><strong>Run your own numbers:</strong> Use our <a href="index.html">Solo Mining Odds Calculator</a> to see your actual chances per hour, per day, per week, and per year for any hashrate and any SHA-256 coin.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 2: THE HARDWARE
+         ======================================== -->
+    <section class="section" id="the-hardware">
+      <h2 class="section-title">&#x1F4BB; The Hardware &mdash; Every Model Compared</h2>
+
+      <p>Most retail builds ship WiFi-enabled, use individual Bitmain <span class="glossary-term" data-term="asic">ASIC</span> chips (BM1366, BM1368, BM1370 &mdash; not full Bitmain boards), and mine <span class="glossary-term" data-term="sha256">SHA-256</span> (Bitcoin). The firmware is called <strong>AxeOS</strong> &mdash; browser-based, no command line needed. You manage everything from your phone or computer.</p>
+
+      <p>Prices change frequently and vary by seller. These are approximate ranges as of <strong>February 2026</strong> &mdash; always check current seller listings before buying.</p>
+
+      <div class="table-wrap">
+        <table class="hw-table">
+          <thead>
+            <tr>
+              <th>Device</th>
+              <th>Chip(s)</th>
+              <th>Hashrate</th>
+              <th>Power</th>
+              <th>Price</th>
+              <th>$/TH</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Bitaxe Max (100)</strong></td>
+              <td>1&times; BM1397</td>
+              <td>~400 GH/s</td>
+              <td>~15W</td>
+              <td>~$99</td>
+              <td class="cost-highlight">~$248</td>
+            </tr>
+            <tr>
+              <td><strong>Bitaxe Ultra (200)</strong></td>
+              <td>1&times; BM1366</td>
+              <td>~500 GH/s</td>
+              <td>~15W</td>
+              <td>~$120&ndash;150</td>
+              <td class="cost-highlight">~$240&ndash;300</td>
+            </tr>
+            <tr>
+              <td><strong>Bitaxe Supra (400)</strong></td>
+              <td>1&times; BM1368</td>
+              <td>~625 GH/s</td>
+              <td>~15W</td>
+              <td>~$150&ndash;200</td>
+              <td class="cost-highlight">~$240&ndash;320</td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://www.ebay.com/sch/i.html?_nkw=bitaxe+gamma+bitcoin+miner&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_gamma&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Bitaxe Gamma (600)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong></td>
+              <td>1&times; BM1370</td>
+              <td>1.0&ndash;1.2 TH/s</td>
+              <td>~18&ndash;21W</td>
+              <td>~$190&ndash;300</td>
+              <td class="cost-highlight">~$158&ndash;300</td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://www.ebay.com/sch/i.html?_nkw=bitaxe+GT+bitcoin+miner&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_gt&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Bitaxe GT (800)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong></td>
+              <td>2&times; BM1370</td>
+              <td>~2.2 TH/s</td>
+              <td>~30W</td>
+              <td>~$350&ndash;500</td>
+              <td class="cost-highlight">~$159&ndash;227</td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://www.ebay.com/sch/i.html?_nkw=nerdqaxe+bitcoin+miner&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_nqplus&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">NerdQaxe+</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong></td>
+              <td>4&times; BM1368</td>
+              <td>~2.5 TH/s</td>
+              <td>~55W</td>
+              <td>~$300&ndash;400</td>
+              <td class="cost-highlight">~$120&ndash;160</td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://www.ebay.com/sch/i.html?_nkw=nerdqaxe%2B%2B+bitcoin+miner&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_nqpp&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">NerdQaxe++</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong></td>
+              <td>4&times; BM1370</td>
+              <td>~4.8 TH/s</td>
+              <td>~72&ndash;80W</td>
+              <td>$240&ndash;500</td>
+              <td class="cost-highlight">~$50&ndash;104</td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://www.ebay.com/sch/i.html?_nkw=nerdqaxe+rev+6&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_nqrev6&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">NerdQaxe++ Rev 6.1</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong></td>
+              <td>4&times; BM1370</td>
+              <td>6+ TH/s</td>
+              <td>~100W</td>
+              <td>$382&ndash;580</td>
+              <td class="cost-highlight best-pick">~$65&ndash;97</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>The $/TH column matters.</strong> That is how much you pay for each terahash of mining power. Lower is better. The Bitaxe Gamma is the most popular model, but at typical 2026 pricing, NerdQaxe++ models often offer significantly better <span class="glossary-term" data-term="hashrate">hashrate</span> per dollar spent.</p>
+
+      <div class="info-box">
+        <p><strong>All of these run on 5V or 12V DC power.</strong> A single Bitaxe Gamma uses about the same power as a phone charger. A NerdQaxe++ uses about the same as a laptop. No 240V wiring, no electrician, no special circuits. Plug into a wall outlet and go.</p>
+      </div>
+
+      <div class="warning-box">
+        <p><strong>Watch out for clones.</strong> Fake Bitaxe units with inferior chips have appeared on AliExpress and other marketplaces. Buy from verified US sellers: <a href="https://www.solosatoshi.com" target="_blank" rel="noopener" style="color:var(--sola-teal);">Solo Satoshi</a> (Houston, TX), <a href="https://altairtech.io" target="_blank" rel="noopener" style="color:var(--sola-teal);">Altair Technology</a> (St. Louis, MO), <a href="https://www.blueforgeadvisors.io" target="_blank" rel="noopener" style="color:var(--sola-teal);">BlueForge Advisors</a> (USA), <a href="https://bitcoinmerch.com" target="_blank" rel="noopener" style="color:var(--sola-teal);">Bitcoin Merch</a> (USA), <a href="https://d-central.tech" target="_blank" rel="noopener" style="color:var(--sola-teal);">D-Central</a> (Canada), or <a href="https://www.thesolomining.co" target="_blank" rel="noopener" style="color:var(--sola-teal);">The Solo Mining Co</a>. Also available on <a href="https://www.ebay.com/sch/i.html?_nkw=bitaxe+miner&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_bitaxe_all&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">eBay</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> &mdash; just verify seller ratings and reviews before buying.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 3: FIRST-TIME SETUP
+         ======================================== -->
+    <section class="section" id="first-setup">
+      <h2 class="section-title">&#x1F527; First-Time Setup &mdash; Unbox to Hashing in 5 Minutes</h2>
+
+      <p>This applies to most Bitaxe and NerdQaxe builds. They run <span class="glossary-term" data-term="axeos">AxeOS</span> and the setup process is the same.</p>
+
+      <div class="accordion">
+        <details>
+          <summary>Step 1: Plug it in</summary>
+          <div class="accordion-body">
+            <p>Connect the included power supply to the miner and plug it into a wall outlet. The screen will light up and display a WiFi network name like <code>Bitaxe_XXXX</code> or <code>Nerdaxe_XXXX</code>.</p>
+            <p><strong>Use only the included power supply or a verified replacement.</strong> Bitaxe models use 5V DC. NerdQaxe++ uses 12V DC. Using the wrong voltage will damage the device.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Step 2: Connect to its WiFi hotspot</summary>
+          <div class="accordion-body">
+            <p>On your phone or laptop, connect to the WiFi network the miner is broadcasting (the name shown on the screen). A setup page should open automatically in your browser. If it does not, open your browser and go to <code>192.168.4.1</code>.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Step 3: Enter your home WiFi credentials</summary>
+          <div class="accordion-body">
+            <p>In the AxeOS setup page, enter your home WiFi name (SSID) and password. <strong>2.4 GHz WiFi is recommended</strong> for these miners. Mining uses very low bandwidth, so 2.4 GHz handles it easily and tends to have better range through walls. Some builds may support 5 GHz, but 2.4 GHz will cause the fewest connection problems.</p>
+            <p>If your router broadcasts a combined SSID for both bands, the miner will usually connect on 2.4 GHz automatically. If you are having connection trouble, try creating a separate 2.4 GHz network name in your router settings and connecting to that instead.</p>
+            <p>Double-check your WiFi name and password before saving &mdash; a typo here means you will need to factory reset the device to try again.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Step 4: Enter your Bitcoin wallet address and pool</summary>
+          <div class="accordion-body">
+            <p>This is the most important step. Under <strong>Stratum User</strong>, enter your Bitcoin wallet address. This is where your block reward goes if you find a block. If you leave the default address, you are mining for someone else.</p>
+            <p>Under <strong>Stratum URL</strong> and <strong>Stratum Port</strong>, enter your pool. The default is usually Public Pool (<code>public-pool.io</code> port <code>21496</code>) or Solo CKPool (<code>solo.ckpool.org</code> port <code>3333</code>). Both work for solo/lottery mining.</p>
+            <p>You can optionally add a worker name after your wallet address with a period: <code>bc1qYOURADDRESS.MyBitaxe1</code>. This helps you identify devices on the pool dashboard.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Step 5: Save, restart, and verify</summary>
+          <div class="accordion-body">
+            <p>Click Save, then Restart. The miner will reboot, connect to your home WiFi, and start hashing. After a minute or two, the screen will show an IP address (like <code>192.168.1.xxx</code>). Type that IP into your browser on the same network to access the full AxeOS dashboard.</p>
+            <p>You should see hashrate, temperature, shares submitted, and your pool connection status. If everything is green, you are mining.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What is an IP address and how do I find my miner?</summary>
+          <div class="accordion-body">
+            <p>An <strong>IP address</strong> is a number your router assigns to every device on your network &mdash; like a house number on a street. Your phone has one, your computer has one, and your miner gets one too. It looks like <code>192.168.1.105</code> or <code>10.0.0.47</code>.</p>
+            <p>The miner&rsquo;s screen shows its IP address after it connects to WiFi. If the screen is too small to read or you are not near the miner, you can also find it by:</p>
+            <ul>
+              <li><strong>Router admin page:</strong> Log into your router (usually <code>192.168.1.1</code> or <code>10.0.0.1</code> in your browser), look for &ldquo;Connected Devices&rdquo; or &ldquo;DHCP Client List,&rdquo; and find the device named Bitaxe or Nerdaxe.</li>
+              <li><strong>Fing app:</strong> Free app for iPhone/Android that scans your network and shows every connected device with its IP.</li>
+              <li><strong>Pool dashboard:</strong> Your mining pool shows the IP your miner is connecting from. Check your worker list on Solo CKPool or Public Pool.</li>
+            </ul>
+            <p>Once you have the IP, type it into any browser on the same WiFi network. Bookmark it so you do not have to look it up again.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="warning-box">
+        <p><strong>Router interference:</strong> Some routers (including AT&amp;T models) have a setting called &ldquo;AI Protection&rdquo; or &ldquo;WiFi Protection&rdquo; that blocks the miner from connecting. If your Bitaxe will not connect to WiFi, check your router settings and disable this feature for the miner&rsquo;s connection.</p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Firmware updates:</strong> AxeOS does <strong>not</strong> auto-update. You must manually download the latest firmware from <a href="https://github.com/skot/ESP-Miner" target="_blank" rel="noopener" style="color:var(--sola-teal);">GitHub</a> and upload it through the AxeOS web interface under Settings &gt; OTA Update. Some sellers ship custom firmware builds and recommend <em>not</em> updating to the generic version &mdash; check with your seller first before updating.</p>
+      </div>
+    </section>
+
+<!-- PHASE 3 START -->
+
+    <!-- ========================================
+         SECTION 4: WALLET MISTAKES
+         ======================================== -->
+    <section class="section" id="wallet-mistakes">
+      <h2 class="section-title">&#x26A0; Wallets &amp; Mistakes That Cost People Blocks</h2>
+
+      <p>Before we talk about mistakes, let&rsquo;s cover the basics. A lot of beginners jump straight into mining without understanding what a wallet is or where to get one.</p>
+
+      <div class="accordion">
+        <details>
+          <summary>What is a Bitcoin wallet?</summary>
+          <div class="accordion-body">
+            <p>A <strong>wallet</strong> is software (or hardware) that stores your private keys &mdash; the secret codes that prove you own your Bitcoin. When you mine, you give the pool a <strong>receiving address</strong> generated by your wallet. If you find a block, the reward is sent to that address. Without a wallet, you have nowhere to receive your Bitcoin.</p>
+            <p>Your wallet does not actually &ldquo;hold&rdquo; Bitcoin inside it. It holds the keys that let you spend Bitcoin that is recorded on the blockchain. Think of it like a password manager for your money.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Where do I get a good, safe wallet?</summary>
+          <div class="accordion-body">
+            <p><strong>Hardware wallets</strong> (most secure &mdash; your keys never touch the internet):</p>
+            <ul>
+              <li><a href="https://www.ebay.com/sch/i.html?_nkw=blockstream+jade+wallet&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_jade&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Blockstream Jade</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> &mdash; Open source, air-gapped option, ~$65&ndash;170. Popular in the Bitcoin mining community.</li>
+              <li><a href="https://www.ebay.com/sch/i.html?_nkw=trezor+hardware+wallet&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_trezor&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Trezor</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> &mdash; Established brand, open source, ~$59&ndash;179.</li>
+              <li><a href="https://www.ebay.com/sch/i.html?_nkw=ledger+nano+hardware+wallet&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_ledger&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Ledger Nano</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> &mdash; Widely used, ~$79&ndash;149. Not fully open source.</li>
+            </ul>
+            <p><strong>Software wallets</strong> (free, on your phone or computer):</p>
+            <ul>
+              <li><strong>Sparrow Wallet</strong> (<a href="https://sparrowwallet.com" target="_blank" rel="noopener" style="color:var(--sola-teal);">sparrowwallet.com</a>) &mdash; Desktop, Bitcoin-only, advanced features. Best free option for serious miners.</li>
+              <li><strong>BlueWallet</strong> (<a href="https://bluewallet.io" target="_blank" rel="noopener" style="color:var(--sola-teal);">bluewallet.io</a>) &mdash; Mobile (iOS/Android), simple, supports on-chain and Lightning.</li>
+              <li><strong>Electrum</strong> (<a href="https://electrum.org" target="_blank" rel="noopener" style="color:var(--sola-teal);">electrum.org</a>) &mdash; Desktop, been around since 2011. Lightweight and reliable.</li>
+            </ul>
+            <p><strong>Do not use an exchange as your wallet for mining.</strong> More on that below.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What if I mine other SHA-256 coins like eCash (XEC), Bitcoin Cash (BCH), or DigiByte (DGB)?</summary>
+          <div class="accordion-body">
+            <p>Each coin has its own blockchain and its own addresses. <strong>You cannot use a Bitcoin (BTC) address to receive eCash (XEC) or DigiByte (DGB).</strong> You need a separate wallet for each coin you mine.</p>
+            <ul>
+              <li><strong>eCash (XEC):</strong> Use <a href="https://cashtab.com" target="_blank" rel="noopener" style="color:var(--sola-teal);">Cashtab</a> (web wallet) or <a href="https://www.bitcoinabc.org/electrum/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Electrum ABC</a>. XEC addresses start with <code>ecash:</code>.</li>
+              <li><strong>Bitcoin Cash (BCH):</strong> Use <a href="https://electroncash.org" target="_blank" rel="noopener" style="color:var(--sola-teal);">Electron Cash</a> or the Bitcoin.com wallet. BCH addresses start with <code>bitcoincash:</code>.</li>
+              <li><strong>DigiByte (DGB):</strong> Use the official <a href="https://digibyte.org/#download" target="_blank" rel="noopener" style="color:var(--sola-teal);">DigiByte Core wallet</a> or a multi-coin wallet like Exodus.</li>
+            </ul>
+            <p>Some hardware wallets (Ledger, Trezor) support multiple coins, but always double-check which coins are supported before sending mining payouts to one.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Mistake: Leaving the default wallet address in AxeOS</summary>
+          <div class="accordion-body">
+            <p>Some devices ship with a default wallet address pre-loaded in the Stratum User field. If you do not change it to your own address, you are mining for whoever that default belongs to. <strong>Always verify the Stratum User field shows YOUR wallet address before you start mining.</strong></p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Using an exchange wallet address</summary>
+          <div class="accordion-body">
+            <p>Some exchanges (Coinbase, Binance, CoinEx, etc.) do not reliably credit mining coinbase payouts. Some rotate your receiving address, some flag mining deposits, and some simply take days or weeks to process them. <strong>Use a non-custodial wallet where you control the private keys.</strong> Hardware wallets like Ledger, Trezor, Blockstream Jade, or SeedSigner are the safest option. Software wallets like BlueWallet, Sparrow, or Electrum also work.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Using a Lightning address instead of on-chain</summary>
+          <div class="accordion-body">
+            <p>Lightning Network addresses do not work for mining payouts. The Stratum User field requires a standard on-chain Bitcoin address. Valid formats start with <code>bc1q</code> (native SegWit), <code>bc1p</code> (Taproot), <code>3</code> (SegWit wrapped), or <code>1</code> (legacy). If your address does not start with one of these, it is probably wrong.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Mining the wrong coin for your hardware</summary>
+          <div class="accordion-body">
+            <p>Bitaxe and NerdQaxe devices mine SHA-256 only. That means Bitcoin (BTC), Bitcoin Cash (BCH), eCash (XEC), DigiByte (DGB), and a few others. <strong>You cannot mine Litecoin (LTC) or Dogecoin (DOGE) with a Bitaxe</strong> &mdash; those use the Scrypt algorithm and require different hardware (like an L3++ or L7). If someone in a group says they are mining LTC on a Bitaxe Gamma, something is wrong with their setup.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Not understanding block confirmation delays</summary>
+          <div class="accordion-body">
+            <p>If you find a block, the reward does not appear in your wallet instantly. Bitcoin block rewards require <strong>100 confirmations</strong> before they can be spent &mdash; that is roughly 16&ndash;17 hours. Do not panic if you hit a block and your wallet shows nothing. Check the pool dashboard first, then wait for confirmations.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="gold-box">
+        <p><strong>Test before you mine:</strong> After entering your wallet address, use the pool&rsquo;s dashboard to verify your miner is connected and submitting shares to the correct address. On Public Pool, go to <a href="https://web.public-pool.io" target="_blank" rel="noopener">web.public-pool.io</a> and search your wallet address. On Solo CKPool, go to <a href="https://solo.ckpool.org" target="_blank" rel="noopener">solo.ckpool.org</a> and enter your address.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 5: POOLS
+         ======================================== -->
+    <section class="section" id="pools">
+      <h2 class="section-title">&#x1F3CA; Which Pool and Why It Matters</h2>
+
+      <p>A solo mining pool is not really a pool in the traditional sense. It does not split rewards among participants. It provides the infrastructure (called <span class="glossary-term" data-term="stratum">stratum</span>) so your miner can talk to the Bitcoin network without running your own full node. If YOUR miner finds a block, YOU get the full reward.</p>
+
+      <div class="table-wrap">
+        <table class="hw-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Type</th>
+              <th>Registration</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><a href="https://solo.ckpool.org/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Solo CKPool</a></strong></td>
+              <td>Solo (lottery)</td>
+              <td>None &mdash; wallet only</td>
+              <td>Default in many AxeOS builds. Running since 2014. Battle-tested. <a href="https://solo.ckpool.org/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Setup &amp; status page &rarr;</a></td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://web.public-pool.io/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Public Pool</a></strong></td>
+              <td>Solo (lottery)</td>
+              <td>None &mdash; wallet only</td>
+              <td>No pool fee. Built for open-source miners. Can self-host on Umbrel or Start9. <a href="https://web.public-pool.io/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Dashboard &rarr;</a></td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://ocean.xyz/" target="_blank" rel="noopener" style="color:var(--sola-teal);">OCEAN</a></strong></td>
+              <td>Pooled (TIDES)</td>
+              <td>None &mdash; wallet only</td>
+              <td>Not true solo mining. Tiny regular payouts proportional to your hashrate. Better income smoothing but no jackpot. <a href="https://ocean.xyz/docs/getting-started" target="_blank" rel="noopener" style="color:var(--sola-teal);">Getting started &rarr;</a></td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://btc.solopool.org/" target="_blank" rel="noopener" style="color:var(--sola-teal);">SoloPool.org</a></strong></td>
+              <td>Solo (lottery)</td>
+              <td>None</td>
+              <td>Multi-coin solo pool: BTC, XEC, BCH, DGB, DOGE (Scrypt), LTC, and more. I run 85 TH/s on BTC and 80 TH/s on XEC here. <a href="https://btc.solopool.org/" target="_blank" rel="noopener" style="color:var(--sola-teal);">BTC dashboard &rarr;</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>For most beginners with a Bitaxe:</strong> Start with Public Pool or Solo CKPool. Both are wallet-only (no account needed), both pay the full block reward directly to your address if you find a block, and both have good support for low-hashrate devices.</p>
+
+      <p>Pool fees vary and change over time. See our <a href="pools.html" style="color:var(--sola-teal);">Mining Pools page</a> for the current fee comparison across all pools and algorithms.</p>
+
+      <p><strong>If you mine multiple SHA-256 coins</strong> (not just BTC), <a href="https://solopool.org" target="_blank" rel="noopener" style="color:var(--sola-teal);">SoloPool.org</a> supports solo lottery mining for BTC, XEC, BCH, DGB, and several other coins with coin-specific dashboards. For Scrypt coins (LTC, DOGE), SoloPool.org also has dedicated endpoints. See our <a href="pools.html">Mining Pools page</a> for the full pool comparison across all algorithms.</p>
+
+      <div class="info-box">
+        <p><strong>OCEAN is different.</strong> If you point your Bitaxe at OCEAN, you are pool mining &mdash; not lottery mining. You will earn tiny fractions of satoshis regularly, but you give up the chance at the full block reward. Some people prefer the steady drip. It depends on what you want out of this.</p>
+      </div>
+
+      <div class="gold-box">
+        <p><strong>Decentralization matters.</strong> Every hash you point at Foundry, AntPool, or F2Pool makes Bitcoin more centralized. Solo CKPool, Public Pool, and OCEAN all support decentralization. Your pool choice is a vote for the kind of network you want Bitcoin to be.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 6: UPGRADES & ACCESSORIES
+         ======================================== -->
+    <section class="section" id="upgrades">
+      <h2 class="section-title">&#x2699;&#xFE0F; Upgrades That Actually Help</h2>
+
+      <p>Stock Bitaxe units work fine out of the box. But if you want to overclock for more hashrate, run quieter, or keep temperatures lower for longer hardware life, these are the upgrades people are actually using.</p>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Heatsinks</h3>
+      <p>The stock gold heatsink is fine at stock power settings. Once you raise the voltage or frequency, you will usually need more cooling headroom. Upgraded heatsinks can drop ASIC temperatures significantly, which means more stable hashrate and longer chip life.</p>
+      <ul>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=52pi+ice+tower+heatsink&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_icetower&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">52Pi Ice Tower</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; Raspberry Pi heatsink with copper heatpipe. Requires a 3D-printed adapter bracket. Available from <a href="https://altairtech.io/product/ice-tower-heatsink/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Altair Technology</a> as a complete kit with adapter, paste, and instructions.</li>
+        <li><strong>Dark Horse Heatsink</strong> &mdash; Custom designed for Bitaxe by <a href="https://www.solosatoshi.com/product/bitaxe-heatsink-upgrade/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Solo Satoshi</a>. Drop-in replacement, no adapter needed. Nylon tension pins click into place.</li>
+        <li><strong>Bitchin&rsquo; Sink</strong> &mdash; CNC-milled aluminum heatsink by I Am GPIO. 73% more aluminum than stock, 34% more surface area. Available from <a href="https://www.thesolomining.co" target="_blank" rel="noopener" style="color:var(--sola-teal);">The Solo Mining Co</a>.</li>
+      </ul>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Fans</h3>
+      <p>Stock fans work but can be noisy and do not move enough air for overclocked settings.</p>
+      <ul>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=noctua+nf-a4x20+5v+pwm&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_noctua_a4&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Noctua NF-A4x20 5V PWM</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; The gold standard for quiet Bitaxe fans. ~$15. Significantly quieter than stock while moving more air.</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=arctic+p9+max+fan&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_arctic_p9&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Arctic P9 Max</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; Higher CFM option (4,300 RPM) for maximum cooling. Louder than Noctua but moves significantly more air. Good for aggressive overclocks.</li>
+      </ul>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Thermal Paste</h3>
+      <ul>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=thermal+grizzly+kryonaut&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_kryonaut&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Thermal Grizzly Kryonaut</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; High-performance paste used by most upgraders in the community. ~$10&ndash;15. Apply a thin, even layer on the ASIC chip when swapping heatsinks.</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=noctua+nt-h2+thermal+paste&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_nth2&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Noctua NT-H2</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; Another solid option, often bundled in upgrade kits.</li>
+      </ul>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">VRM Copper Heatsinks</h3>
+      <p>The voltage regulator module (<span class="glossary-term" data-term="vrm">VRM</span>) on the back of the board generates heat that most people ignore. Small <a href="https://www.ebay.com/sch/i.html?_nkw=copper+heatsink+small+VRM&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_vrm_hs&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">copper heatsinks</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> ($5&ndash;10 for a pack) stuck to the VRM can drop temperatures by up to 15&deg;C. <a href="https://www.solosatoshi.com" target="_blank" rel="noopener" style="color:var(--sola-teal);">Solo Satoshi</a> has placement guides showing exactly where to stick them on each board.</p>
+
+      <div class="warning-box">
+        <p><strong>Incorrect heatsink placement can short circuit traces and damage the VRM.</strong> Follow the seller&rsquo;s placement guide for your specific board. Do not guess.</p>
+      </div>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;"><span class="glossary-term" data-term="psu">Power Supplies</span></h3>
+      <p>Stock PSUs are usually fine for stock settings. If you overclock, you may need more headroom. The 80% rule applies &mdash; do not run a <span class="glossary-term" data-term="psu">PSU</span> above 80% of its rated capacity continuously.</p>
+      <ul>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=mean+well+lrs-50-5&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_lrs50&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Mean Well LRS-50-5</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; 5V / 50W. Good for a single overclocked Bitaxe.</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=mean+well+lrs-350-5&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_lrs350&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Mean Well LRS-350-5</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; 5V / 350W. For running multiple Bitaxe units from one PSU.</li>
+        <li><strong><a href="https://www.ebay.com/sch/i.html?_nkw=mean+well+lrs-600-12&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_lrs600&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Mean Well LRS-600-12</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong> &mdash; 12V / 600W. For NerdQaxe++ builds or multi-unit setups.</li>
+      </ul>
+
+      <div class="info-box">
+        <p><strong>Complete upgrade kits exist.</strong> &ldquo;Pimp My Bitaxe&rdquo; kits from <a href="https://solomining.de" target="_blank" rel="noopener">Solomining.de</a> include heatsink, fan, adapter, thermal paste, and Y-splitter cable in one box. ~$40&ndash;60 depending on configuration.</p>
+      </div>
+    </section>
+
+<!-- PHASE 4 START -->
+
+    <!-- ========================================
+         SECTION 7: FLEET & REMOTE ACCESS
+         ======================================== -->
+    <section class="section" id="fleet-remote">
+      <h2 class="section-title">&#x1F4F1; Fleet Management &amp; Remote Access</h2>
+
+      <p>One Bitaxe is easy. Five are manageable. Once you have ten or more, you need a way to monitor them without opening ten browser tabs. And if you want to check on your miners when you are away from home, you need remote access.</p>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">AxeOS Dashboard (Built In)</h3>
+      <p>Every Bitaxe and NerdQaxe has a browser dashboard at its local IP address. From there you can see hashrate, temperature, fan speed, pool connection, uptime, and shares. This is the first thing to check when something looks off. Bookmark each miner&rsquo;s IP on your phone.</p>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Pool Dashboard</h3>
+      <p>Both Solo CKPool and Public Pool show all workers connected to your wallet address on a single page. This is the fastest way to see if any device went offline &mdash; just check your pool dashboard. If you use worker names (the <code>.WorkerName</code> after your wallet address), each device shows up individually.</p>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Remote Access with <span class="glossary-term" data-term="tailscale">Tailscale</span></h3>
+      <p>Tailscale creates an encrypted mesh VPN between your devices. Install it on a Raspberry Pi or always-on computer on the same network as your miners, plus your phone. You can then access every miner&rsquo;s local dashboard from anywhere, as if you were on your home WiFi.</p>
+      <p>No port forwarding. No dynamic DNS. No exposing your network to the internet. Tailscale is free for personal use (up to 100 devices).</p>
+
+      <div class="gold-box">
+        <p><strong>Full guide:</strong> Our <a href="remote_management.html">Remote Management page</a> covers Tailscale setup, router considerations, and monitoring tools in detail &mdash; including setups for both Bitaxe fleets and full-size ASIC miners.</p>
+      </div>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Static IP Addresses</h3>
+      <p>By default, your router assigns a new IP address to each miner every time it reconnects. This means your bookmarks break. To fix this, log into your router and assign a <strong>DHCP reservation</strong> (static IP) for each miner&rsquo;s MAC address. Most routers have this under LAN settings. Once set, each miner keeps the same IP every time.</p>
+
+      <div class="info-box">
+        <p><strong>Labeling tip:</strong> Use worker names that match physical locations: <code>bc1qYOUR...ADDR.shelf-top-left</code> or <code>bc1qYOUR...ADDR.garage-rack-3</code>. When something goes offline, you know exactly which device to physically check.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 8: SOLAR + LOTTERY MINING
+         ======================================== -->
+    <section class="section" id="solar">
+      <h2 class="section-title">&#x2600;&#xFE0F; Solar + Lottery Mining</h2>
+
+      <p>Lottery mining and solar power are a natural fit. These devices use so little power that even a small solar setup can run them for free during daylight hours. If your electricity is the main cost holding you back from adding more miners, solar changes the equation.</p>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Power Budgets</h3>
+      <p>Here is what you can run with different solar panel sizes, assuming 5.5&ndash;6.5 peak sun hours per day (typical for Texas and the southern US) and a battery or grid-tie system:</p>
+
+      <div class="table-wrap">
+        <table class="hw-table">
+          <thead>
+            <tr>
+              <th>Solar Capacity</th>
+              <th>What It Powers</th>
+              <th>Example Fleet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>100W panel</strong></td>
+              <td>~80W usable</td>
+              <td>3&ndash;4 Bitaxe Gammas <em>or</em> 1 NerdQaxe++</td>
+            </tr>
+            <tr>
+              <td><strong>200W panel</strong></td>
+              <td>~160W usable</td>
+              <td>6&ndash;8 Bitaxe Gammas <em>or</em> 2 NerdQaxe++</td>
+            </tr>
+            <tr>
+              <td><strong>400W panel</strong></td>
+              <td>~320W usable</td>
+              <td>12&ndash;15 Bitaxe Gammas <em>or</em> 3&ndash;4 NerdQaxe++</td>
+            </tr>
+            <tr>
+              <td><strong>800W+ panels</strong></td>
+              <td>~640W usable</td>
+              <td>Fleet of 20+ Gammas, multiple NerdQaxe++, or start looking at a Loki rig</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The numbers above are conservative. Actual output depends on your latitude, panel angle, shading, and inverter efficiency. Texas gets some of the best solar in the country &mdash; a 400W panel in DFW will reliably produce 300+ usable watts for 5&ndash;6 hours most days of the year.</p>
+
+      <div class="info-box">
+        <p><strong>Free nights electricity plans</strong> (available from some Texas providers like TXU and Gexa) let you run miners at zero electricity cost from 9 PM to 6 AM. Combined with solar during the day, you can potentially mine 24/7 at near-zero energy cost. This is one of the biggest advantages of lottery mining in deregulated electricity markets.</p>
+      </div>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Grid-Tie vs. Off-Grid</h3>
+      <p>If your home has rooftop solar with net metering, your Bitaxe fleet is already running on solar during the day and grid at night. No extra hardware needed &mdash; just plug them in.</p>
+      <p>If you want a dedicated off-grid setup (a panel, charge controller, battery, and inverter), expect to spend $200&ndash;500 for a small system that powers 2&ndash;4 Bitaxe units indefinitely with no electricity bill. The payback period is measured in years unless you hit a block.</p>
+
+      <div class="gold-box">
+        <p><strong>More detail:</strong> Our <a href="solar_mining.html">Solar Mining page</a> covers panel sizing, charge controllers, battery banks, inverter selection, and wiring diagrams for mining-specific solar setups.</p>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 9: COST-PER-HASH REALITY CHECK
+         ======================================== -->
+    <section class="section" id="cost-per-hash">
+      <h2 class="section-title">&#x1F4B0; When the Math Talks</h2>
+
+      <p>This section is not about telling you what to buy. It is about making sure you see the full picture before you spend money. The Bitaxe community is passionate, supportive, and building something important for Bitcoin decentralization. That is real. But the numbers are also real, and you deserve to see them.</p>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Cost Per Terahash &mdash; The Number That Matters</h3>
+      <p>In lottery mining, your chance of finding a block is directly proportional to your hashrate. More terahashes = more chances. So the question is: <strong>how much does each terahash cost you?</strong></p>
+
+      <div class="table-wrap">
+        <table class="hw-table">
+          <thead>
+            <tr>
+              <th>Setup</th>
+              <th>Total Hashrate</th>
+              <th>Total Cost</th>
+              <th>$/TH</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 Bitaxe Gamma</td>
+              <td>~1.2 TH/s</td>
+              <td>~$250</td>
+              <td class="cost-highlight">~$208</td>
+            </tr>
+            <tr>
+              <td>5 Bitaxe Gammas</td>
+              <td>~6 TH/s</td>
+              <td>~$1,250</td>
+              <td class="cost-highlight">~$208</td>
+            </tr>
+            <tr>
+              <td>10 Bitaxe Gammas</td>
+              <td>~12 TH/s</td>
+              <td>~$2,500</td>
+              <td class="cost-highlight">~$208</td>
+            </tr>
+            <tr>
+              <td>1 NerdQaxe++ Rev 6</td>
+              <td>~6 TH/s</td>
+              <td>~$400</td>
+              <td class="cost-highlight best-pick">~$65</td>
+            </tr>
+            <tr>
+              <td>1 <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> Rig (single hashboard, pre-built)</td>
+              <td>~30&ndash;35 TH/s</td>
+              <td>~$500&ndash;900</td>
+              <td class="cost-highlight best-pick">~$15&ndash;30</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>A fleet of 10 Bitaxe Gammas costs roughly $2,500 and gives you about 12 TH/s. A single pre-built <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rig at $500&ndash;900 gives you 30&ndash;35 TH/s. At typical 2026 pricing, the <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rig offers significantly more hashrate per dollar &mdash; but the two serve different purposes.</p>
+
+      <p>This does not mean Bitaxes are a bad purchase. If you are running solar and have free electricity, if you value the open-source project, if you enjoy building a fleet, or if you simply want a quiet miner on your desk that costs pennies to run &mdash; a Bitaxe makes sense. It is a lottery ticket that costs almost nothing to keep playing. The point is to understand what you are buying and why.</p>
+
+      <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">The Loki Kit &mdash; A Tool You Should Know About</h3>
+
+      <p>The <strong><a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);text-decoration:none;"><span class="glossary-term" data-term="loki-kit">Loki Kit</span></a></strong> is a product from <a href="https://pivotalpleb.com" target="_blank" rel="noopener" style="color:var(--sola-teal);">Pivotal Pleb Tech</a> (Utah) &mdash; a pleb-mining company, not a corporation. It is a small circuit board that tricks a Bitmain X19/X21 hashboard into running independently on any 12&ndash;15V DC power supply. This enables running a single hashboard on a <strong>standard 120V outlet</strong> with an APW3 or APW7 PSU. No electrician. No 240V wiring.</p>
+
+      <p>One hashboard produces 30&ndash;35 TH/s at roughly 1,200&ndash;1,400 watts. That is more hashrate than an entire fleet of Bitaxes. The kit itself is ~$50&ndash;75, but a complete pre-built rig (hashboard + PSU + kit + enclosure + fans) runs <strong>$500&ndash;900</strong> depending on the build and seller.</p>
+
+      <div class="accordion">
+        <details>
+          <summary>What you need for a Loki rig (DIY)</summary>
+          <div class="accordion-body">
+            <ul>
+              <li><strong>1 <a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);">Loki Kit</a></strong> &mdash; ~$50&ndash;75</li>
+              <li><strong>1 hashboard</strong> &mdash; Used boards available on <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19+hashboard&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_hashboard&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">eBay</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;">, <a href="https://altairtech.io/product/antminer-hashboard-bitcoin-mining/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Altair</a>, or <a href="https://d-central.tech" target="_blank" rel="noopener" style="color:var(--sola-teal);">D-Central</a> for $100&ndash;250</li>
+              <li><strong>1 control board</strong> &mdash; Amlogic or Xilinx type, depending on your <a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);">Loki Kit variant</a></li>
+              <li><strong>1 compatible PSU</strong> &mdash; <a href="https://www.ebay.com/sch/i.html?_nkw=bitmain+APW3+PSU&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_apw3&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">APW3++</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> or APW7. Used units $50&ndash;100</li>
+              <li><strong>120V power</strong> &mdash; Standard wall outlet (dedicated 15A or 20A circuit recommended)</li>
+              <li><strong>Cooling</strong> &mdash; Stock fan shroud or custom 3D-printed enclosure with <a href="https://www.ebay.com/sch/i.html?_nkw=AC+infinity+cloudline+8+inch&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_cloudline&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">AC Infinity Cloudline fan</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></li>
+            </ul>
+            <p>Total DIY cost: <strong>$350&ndash;600</strong> depending on whether you source used parts.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Pre-built Loki rigs</summary>
+          <div class="accordion-body">
+            <p>If you do not want to build one yourself, pre-built <a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);">Loki</a> rigs are available from <a href="https://d-central.tech/product/antminer-loki-edition/" target="_blank" rel="noopener" style="color:var(--sola-teal);">D-Central</a> (Loki Edition, ~$700+) and <a href="https://altairtech.io/product/urlacher/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Altair Technology</a> (The Urlacher). These come fully assembled and tested with aftermarket firmware, silent fans, and 120V-ready PSUs.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Where to buy the Loki Kit itself</summary>
+          <div class="accordion-body">
+            <p>The <a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);">Loki Kit</a> is made by Pivotal Pleb Tech and sold through several retailers:</p>
+            <ul>
+              <li><a href="https://pivotalpleb.com/products/loki-kit" target="_blank" rel="noopener" style="color:var(--sola-teal);">Pivotal Pleb Tech</a> (original creator &mdash; Utah, USA)</li>
+              <li><a href="https://altairtech.io/product/loki-kit/" target="_blank" rel="noopener" style="color:var(--sola-teal);">Altair Technology</a> (St. Louis, MO)</li>
+              <li><a href="https://nakamotomining.com/en-us/products/loki-kit" target="_blank" rel="noopener" style="color:var(--sola-teal);">Nakamoto Mining</a></li>
+              <li><a href="https://d-central.tech/product/loki-diy-kit/" target="_blank" rel="noopener" style="color:var(--sola-teal);">D-Central Technologies</a> (Canada)</li>
+            </ul>
+            <p>For full firmware compatibility info, Loki Bingo card, and recommended firmware settings, see our <a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);">Firmware Guide &mdash; Loki Kit section</a>.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Why this is not &ldquo;anti-Bitaxe&rdquo;</summary>
+          <div class="accordion-body">
+            <p>The Loki Kit was built by pleb miners, for pleb miners. It exists in the same open-source, decentralization-first spirit as the Bitaxe project. It is another tool in the toolbox. Some people run both &mdash; a fleet of Bitaxes on solar during the day, and a Loki rig on free nights electricity. The two approaches complement each other.</p>
+            <p>The goal is the same: mine Bitcoin, support decentralization, and keep hashrate out of corporate data centers. How you get there is up to you.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="warning-box">
+        <p><strong>A <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rig is not quiet.</strong> A single hashboard with stock fans measures roughly <strong>53 dB at 3 feet</strong> (per Altair&rsquo;s Urlacher specs) &mdash; about as loud as a normal conversation or a running dishwasher. With aftermarket silent fans (Noctua, Arctic) it can be quieter, but it is still not a desk miner. Plan for garage, shed, or a closet with ventilation.</p>
+      </div>
+
+      <div class="gold-box">
+        <p><strong>Run the odds for any hashrate:</strong> Whether you have 1.2 TH/s from a single Gamma or 35 TH/s from a Loki rig, use the <a href="index.html">Solo Mining Calculator</a> to see exactly how your chances change. The math does not lie &mdash; and it does not judge.</p>
+      </div>
+    </section>
+
+  </div><!-- end container -->
+
+<!-- PHASE 5 START -->
+
+  <!-- FOOTER -->
+  <footer>
+    <p style="color:#5a6a7a;font-size:0.72rem;line-height:1.5;max-width:720px;margin:0 auto 1.25rem;padding:0 1rem;"><strong style="color:#8899a8;">Disclosure &#x26; Disclaimer:</strong> This website contains affiliate links, including Amazon and eBay. We may earn a commission from qualifying purchases at no additional cost to you. We are not manufacturers or sellers of the products referenced and assume no liability for product defects, improper installation, misuse, or any resulting damages or injuries. Solo mining involves significant risk. You may never find a block. Only spend what you can afford to lose.</p>
+    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
+    <p><span style="white-space:nowrap;">&#x1F9EE; <a href="index.html">Calculator</a></span> &middot; <span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x1F3B0; <a href="lottery_mining.html">Lottery Mining</a></span> &middot; <span style="white-space:nowrap;">&#x2600;&#xFE0F; <a href="solar_mining.html">Solar Mining</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
+    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;"></div></div>
+    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
+  </footer>
+
+  <!-- ========================================
+       JAVASCRIPT
+       ======================================== -->
+  <script src="/scripts/glossary-data.js"></script>
+  <script src="/scripts/glossary-drawer.js"></script>
+  <script>
+    /* --- Liability Modal --- */
+    (function(){
+      var overlay = document.getElementById('liability-overlay');
+      var btn = document.getElementById('liability-ack');
+      var key = 'lotteryLiabilityAck';
+      if(!localStorage.getItem(key)){
+        overlay.setAttribute('aria-hidden','false');
+        overlay.style.display='flex';
+      }
+      btn.addEventListener('click',function(){
+        localStorage.setItem(key,'true');
+        overlay.setAttribute('aria-hidden','true');
+        overlay.style.display='none';
+      });
+    })();
+
+    /* --- Hamburger Navigation --- */
+    (function(){
+      var btn = document.getElementById('hamburger-btn');
+      var drawer = document.getElementById('nav-drawer');
+      var overlay = document.getElementById('nav-overlay');
+      function toggle(){
+        var open = drawer.classList.toggle('open');
+        overlay.classList.toggle('open');
+        btn.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+      }
+      btn.addEventListener('click', toggle);
+      overlay.addEventListener('click', toggle);
+    })();
+  </script>
+
+<!-- PHASE 5 END -->
+
+</body>
+</html>
