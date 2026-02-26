@@ -423,31 +423,8 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","name":"Cryptocurrency Mining Glossary","description":"Comprehensive glossary of cryptocurrency mining terms, payout methods, and hardware terminology.","url":"https://www.solarayeffect.com/glossary.html"}</script>
 </head>
 <body>
-  <!-- Hamburger Menu -->
-  <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
-      <span class="bun-top"></span>
-      <span class="lettuce"></span>
-      <span class="patty"></span>
-      <span class="cheese"></span>
-      <span class="bun-bottom"></span>
-    </button>
-  </div>
-  
-  <!-- Navigation Drawer -->
-  <nav class="nav-drawer" id="nav-drawer">
-    <h3>NAVIGATION</h3>
-    <a href="index.html">&#x1F9EE; Calculator</a>
-    <a href="miners.html">&#x1F4B0; Miners</a>
-    <a href="pools.html">&#x1F3CA; Mining Pools</a>
-    <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
-    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
-    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
-    <a href="solar_mining.html">&#x2600;&#xFE0F; Solar Mining</a>
-    <a href="glossary.html" class="active">&#x1F9E0; Glossary</a>
-    <a href="datavault.html">&#x1F4CA; Data Vault</a>
-  </nav>
-  <div class="nav-overlay" id="nav-overlay"></div>
+  <!-- Shared Navigation (loaded from /components/nav.html) -->
+  <div id="site-nav"></div>
 
   <div class="container">
     <div class="banner-container">
@@ -920,37 +897,8 @@
 
   </div>
   
-  <script>
-    // ============================================
-    // NAVIGATION - UNIFIED HANDLER
-    // ============================================
-    function toggleNav() {
-      document.getElementById('hamburger-btn').classList.toggle('open');
-      document.getElementById('nav-drawer').classList.toggle('open');
-      document.getElementById('nav-overlay').classList.toggle('show');
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      var hamburgerBtn = document.getElementById('hamburger-btn');
-      var navOverlay = document.getElementById('nav-overlay');
-      
-      if (hamburgerBtn) {
-        // Handle both click and touch
-        hamburgerBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleNav();
-        });
-      }
-      
-      if (navOverlay) {
-        navOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          toggleNav();
-        });
-      }
-    });
-  </script>
+  <!-- Shared Components Loader -->
+  <script src="/scripts/site-components.js"></script>
 
 <!-- ============================================ -->
 <!-- SOLA FEEDBACK POPUP WIDGET &#x2014; Temporary feature -->
@@ -1212,9 +1160,7 @@
 </script>
 <!-- END SOLA FEEDBACK POPUP WIDGET -->
 
-  <footer>
-    <p style="color:#5a6a7a;font-size:0.72rem;line-height:1.5;max-width:720px;margin:0 auto 1.25rem;padding:0 1rem;"><strong style="color:#8899a8;">Disclosure &#x26; Disclaimer:</strong> This website contains affiliate links, including Amazon and eBay. We may earn a commission from qualifying purchases at no additional cost to you. We are not manufacturers or sellers of the products referenced and assume no liability for product defects, improper installation, misuse, or any resulting damages or injuries. Always consult a qualified professional before installing electrical equipment.</p>
-    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
-    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x2600;&#xFE0F; <a href="solar_mining.html">Solar Mining</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="/cdn-cgi/l/email-protection#5c2f33303d2e3d25393a3a393f281c3b313d3530723f3331" style="color:#00CED1;"><span class="__cf_email__" data-cfemail="a4d7cbc8c5d6c5ddc1c2c2c1c7d0e4c3c9c5cdc88ac7cbc9">[email&#160;protected]</span></a></div></div>
-    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &md
+  <!-- Shared Footer (loaded from /components/footer.html) -->
+  <div id="site-footer"></div>
+</body>
+</html>
