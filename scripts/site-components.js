@@ -32,6 +32,6 @@
     };
     xhr.send();
   }
-  load('site-nav', '/components/nav.html');
-  load('site-footer', '/components/footer.html');
+  load('site-nav', '/Components/nav.html');
+  load('site-footer', '/Components/footer.html');
 })();
