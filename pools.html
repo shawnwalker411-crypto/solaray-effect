@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com https://analytics.google.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
@@ -1334,7 +1334,6 @@
       </div>
     </div>
 
-
     <!-- BITCOIN SECTION -->
     <section class="coin-section" data-coin="btc">
       <div class="coin-header">
@@ -2316,15 +2315,10 @@
   <!-- Shared Footer (loaded from /Components/footer.html) -->
   <div id="site-footer"></div>
   
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // ============================================
     // NAVIGATION
     // ============================================
-    function toggleNav() {
-      document.getElementById('hamburger-btn').classList.toggle('open');
-      document.getElementById('nav-drawer').classList.toggle('open');
-      document.getElementById('nav-overlay').classList.toggle('show');
-    }
 
     // ============================================
     // FILTER POOLS
@@ -2379,25 +2373,7 @@
         if (link && typeof gtag === 'function') {
           gtag('event', 'pool_link_click', { pool_url: link.href, pool_name: link.textContent.trim() });
         }
-      });
-
-      // Hamburger menu
-      var hamburgerBtn = document.getElementById('hamburger-btn');
-      var navOverlay = document.getElementById('nav-overlay');
-      
-      if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleNav();
-        });
-      }
-      
-      if (navOverlay) {
-        navOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          toggleNav();
-        });
+      }););
       }
       
       // Filter event listeners
@@ -2668,7 +2644,6 @@
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }, 80);
     }
-
 
   </script>
 
