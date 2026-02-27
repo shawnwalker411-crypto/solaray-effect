@@ -374,86 +374,7 @@
       color: var(--sola-teal);
     }
 
-    /* ============================================
-       LIABILITY MODAL
-       ============================================ */
-    .liability-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      padding: 1rem;
-    }
-    .liability-overlay.show { display: flex; }
-    .liability-modal {
-      width: 100%;
-      max-width: 760px;
-      background: rgba(8, 26, 21, 0.92);
-      border: 1px solid rgba(212, 175, 55, 0.28);
-      border-radius: 16px;
-      box-shadow: 0 20px 80px rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      overflow: hidden;
-    }
-    .liability-top {
-      padding: 1.1rem 1.25rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      background: linear-gradient(180deg, rgba(212,175,55,0.08), rgba(0,0,0,0));
-    }
-    .liability-title {
-      margin: 0;
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 1.05rem;
-      color: var(--sola-gold);
-      letter-spacing: 0.5px;
-    }
-    .liability-body {
-      padding: 1.1rem 1.25rem 1.25rem;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      font-size: 0.95rem;
-    }
-    .liability-body strong { color: var(--text-primary); }
-    .liability-bullets { margin: 0.85rem 0 0.9rem 1.1rem; }
-    .liability-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      justify-content: flex-end;
-      padding: 0 1.25rem 1.25rem;
-    }
-    .liability-btn {
-      padding: 0.65rem 1rem;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: 1px solid rgba(0, 206, 209, 0.4);
-      background: rgba(0, 206, 209, 0.10);
-      color: var(--sola-teal);
-      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-    }
-    .liability-btn:hover {
-      transform: translateY(-1px);
-      background: rgba(0, 206, 209, 0.16);
-      border-color: rgba(0, 206, 209, 0.6);
-    }
-    .liability-note {
-      padding: 0.85rem 1.25rem 1.15rem;
-      border-top: 1px solid rgba(212, 175, 55, 0.12);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      line-height: 1.6;
-    }
+
 
     /* ============================================
        PAGE TITLE &amp; SUBTITLE
@@ -834,29 +755,7 @@
 <body>
 
   <!-- LIABILITY / EXPECTATION MODAL -->
-  <div class="liability-overlay" id="liability-overlay" aria-hidden="true">
-    <div class="liability-modal" role="dialog" aria-modal="true" aria-labelledby="liability-title">
-      <div class="liability-top">
-        <h2 class="liability-title" id="liability-title">Important: Residential Mining Is a Project</h2>
-      </div>
-      <div class="liability-body">
-        <p><strong>This is not buy, plug, and walk away.</strong> Remote residential mining requires electrical planning, network configuration, firmware management, airflow control, and safety verification.</p>
-        <ul class="liability-bullets">
-          <li>You will make mistakes.</li>
-          <li>You will encounter conflicting information.</li>
-          <li>If you are unsure, verify from multiple sources and consult licensed professionals when required.</li>
-        </ul>
-        <p>When you get it right, it feels good. It is a real accomplishment. If it were easy, everyone would do it.</p>
-      </div>
-      <div class="liability-actions">
-        <button class="liability-btn" id="liability-ack">I Understand</button>
-      </div>
-      <div class="liability-note">
-        Educational content only. This is not professional electrical, networking, or financial advice. You are responsible for your own safety and compliance with local codes.
-      </div>
-    </div>
-  </div>
-  <!-- END LIABILITY MODAL -->
+
 
   <!-- Shared Navigation (loaded from /Components/nav.html) -->
   <div id="site-nav"></div>
@@ -1293,26 +1192,7 @@
        NAVIGATION JS
        ========================================== -->
 
-  <!-- ==========================================
-       LIABILITY MODAL JS
-       ========================================== -->
-  <script>
-    (function () {
-      function showModal() {
-        var el = document.getElementById('liability-overlay');
-        if (el) { el.classList.add('show'); el.removeAttribute('aria-hidden'); }
-      }
-      function hideModal() {
-        var el = document.getElementById('liability-overlay');
-        if (el) { el.classList.remove('show'); el.setAttribute('aria-hidden', 'true'); }
-      }
-      document.addEventListener('DOMContentLoaded', function () {
-        showModal();
-        var ack = document.getElementById('liability-ack');
-        if (ack) ack.addEventListener('click', hideModal);
-      });
-    })();
-  </script>
+
 
   <!-- ==========================================
        DOLLY THE CLONE SHEEP - COPY BUTTON JS
