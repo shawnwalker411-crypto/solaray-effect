@@ -475,6 +475,11 @@
         <div class="term-name">Solo Mining</div>
         <div class="term-def">Mining without a pool. You keep 100% of any block you find, but for Bitcoin you might wait years between rewards. Only practical for coins with low difficulty.</div>
       </div>
+
+      <div class="term" id="stratum">
+        <div class="term-name">Stratum</div>
+        <div class="term-def">The communication protocol between your miner and a mining pool. Stratum handles job assignments, share submissions, and difficulty adjustments. Most miners use Stratum V1; some pools and firmware support the newer Stratum V2 which gives miners more control over block templates.</div>
+      </div>
       
       <div class="term" id="algorithm">
         <div class="term-name">Algorithm</div>
@@ -560,10 +565,20 @@
         <div class="term-name">PSU (Power Supply Unit)</div>
         <div class="term-def">Converts AC power from your wall to DC power for the miner. Must be rated for your miner's wattage plus 10-20% headroom. Critical for reliability and safety.</div>
       </div>
+
+      <div class="term" id="vrm">
+        <div class="term-name">VRM (Voltage Regulator Module)</div>
+        <div class="term-def">The component on an ASIC miner or Bitaxe board that converts input voltage down to the precise level the hashing chips need. VRMs generate significant heat under load. Adding small <a href="https://www.ebay.com/sch/i.html?_nkw=copper+heatsink+vrm&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=gl_vrm&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">copper heatsinks</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> to VRMs is a common upgrade on Bitaxe builds to improve stability and allow higher clock speeds.</div>
+      </div>
       
       <div class="term" id="firmware">
         <div class="term-name">Firmware</div>
         <div class="term-def">Software embedded in your miner that controls its operation. Stock firmware comes from the manufacturer; aftermarket firmware (Braiins, VNish, LuxOS) can unlock better performance and features. Your firmware choice also determines how you can <a href="aftermarket_firmware.html#shutdown-restart" style="color: var(--sola-teal);">shut down, restart, and schedule</a> your miner remotely.</div>
+      </div>
+
+      <div class="term" id="axeos">
+        <div class="term-name">AxeOS</div>
+        <div class="term-def">The open-source firmware that runs on most Bitaxe and NerdQaxe lottery miners. AxeOS provides a web interface for configuring your pool, wallet address, frequency, and voltage. It does not auto-update &mdash; you flash new versions manually via the Settings &gt; OTA Update page. Source code on <a href="https://github.com/skot/ESP-Miner" target="_blank" rel="noopener" style="color: var(--sola-teal);">GitHub</a>.</div>
       </div>
       
       <div class="term" id="hash-board">
