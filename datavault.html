@@ -1867,12 +1867,11 @@ body {
     </div>
 
   </main>
-
-    <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <!-- Shared Footer (loaded from /Components/footer.html) -->
   <div id="site-footer"></div>
 
   <!-- Chart.js + Date Adapter -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
   <script>
 /* \u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090
@@ -1944,7 +1943,6 @@ const BOOT_MESSAGES = [
   'Access granted.'
 ];
 
-
 /* ================================================================
    SECTION 1: FORMATTING UTILITIES
    ================================================================ */
@@ -2003,7 +2001,6 @@ function formatHashprice(value) {
 function formatNumber(value) {
   return value.toLocaleString('en-US', { maximumFractionDigits: 0 });
 }
-
 
 /* ================================================================
    SECTION 2: DATA PROCESSING UTILITIES
@@ -2117,7 +2114,6 @@ function calcHashprice(revenueData, priceData, hashrateData) {
 
   return hashprice;
 }
-
 
 /* ================================================================
    SECTION 3: CHART CREATION
@@ -2407,7 +2403,6 @@ function createAdjustmentsChart(canvasId, data) {
   });
 }
 
-
 /* ================================================================
    SECTION 4: CHART UPDATE / TIME RANGE FILTERING
    ================================================================ */
@@ -2471,7 +2466,6 @@ function updateAdjustmentsRange(days) {
   store.chart.data.datasets[0].borderColor = borderColors;
   store.chart.update('none');
 }
-
 
 /* ================================================================
    SECTION 5: API FETCH FUNCTIONS
@@ -2553,7 +2547,6 @@ function showFetchError(loadingEl) {
     `;
   }
 }
-
 
 /* ================================================================
    SECTION 6: STATS DISPLAY UPDATES
@@ -2716,7 +2709,6 @@ function updateDifficultyEstimates(diffData) {
   }
 }
 
-
 /* ================================================================
    SECTION 7: HALVING COUNTDOWN
    ================================================================ */
@@ -2783,7 +2775,6 @@ async function initHalvingCountdown() {
   }
 }
 
-
 /* ================================================================
    SECTION 8: BOOT SEQUENCE ANIMATION
    ================================================================ */
@@ -2834,7 +2825,6 @@ function runBootSequence() {
   });
 }
 
-
 /* ================================================================
    SECTION 9: DATA REFRESH
    ================================================================ */
@@ -2874,7 +2864,6 @@ function updateRefreshTimestamp() {
     });
   }
 }
-
 
 /* ================================================================
    SECTION 10: MASTER DATA LOADER
@@ -3033,7 +3022,6 @@ function destroyChart(name) {
   }
 }
 
-
 /* ================================================================
    SECTION 11: EVENT LISTENERS
    ================================================================ */
@@ -3073,7 +3061,6 @@ function initRefreshButton() {
   }
 }
 
-
 /* ================================================================
    SECTION 12: INITIALIZATION
    ================================================================ */
@@ -3100,8 +3087,6 @@ async function init() {
 document.addEventListener('DOMContentLoaded', init);
 
 </script>
-
-
 
 <!-- Shared Glossary System -->
 <script src="/scripts/glossary-data.js"></script>
@@ -3366,7 +3351,7 @@ document.addEventListener('DOMContentLoaded', init);
 }
 </script>
 
-  <!-- Shared Components Loader (must be after both site-nav and site-footer divs) -->
+  <!-- Shared Components Loader -->
   <script src="/scripts/site-components.js"></script>
 </body>
 </html>

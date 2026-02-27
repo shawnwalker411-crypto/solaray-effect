@@ -744,12 +744,48 @@
         <li><a href="https://d-central.tech/" target="_blank" rel="noopener">D-Central Technologies</a> (pre-built <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rigs)</li>
       </ul>
     </section>
-
-    <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <!-- Shared Footer (loaded from /Components/footer.html) -->
   <div id="site-footer"></div>
   </div>
 
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Toggle navigation drawer
+    function toggleNav() {
+      document.getElementById('hamburger-btn').classList.toggle('open');
+      document.getElementById('nav-drawer').classList.toggle('open');
+      document.getElementById('nav-overlay').classList.toggle('show');
+    }
+    
+    // Setup all interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track outbound firmware & vendor link clicks
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[target="_blank"]');
+        if (link && typeof gtag === 'function') {
+          gtag('event', 'firmware_link_click', { link_url: link.href, link_text: link.textContent.trim() });
+        }
+      });
 
+      // Hamburger menu
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleNav();
+        });
+      }
+      
+      if (navOverlay) {
+        navOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+    });
+  </script>
 
 <!-- Shared Glossary System -->
 <script src="/scripts/glossary-data.js"></script>
@@ -1014,7 +1050,7 @@
 }
 </script>
 
-  <!-- Shared Components Loader (must be after both site-nav and site-footer divs) -->
+  <!-- Shared Components Loader -->
   <script src="/scripts/site-components.js"></script>
 </body>
 </html>

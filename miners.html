@@ -3308,11 +3308,117 @@
       <p>Miners listed are compatible with home setups (single-phase 120V or 240V). Specs are manufacturer defaults &#x2014; actual performance varies with <span class="glossary-term" data-term="firmware">firmware</span>, ambient temperature, and configuration. <strong><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;"><span class="glossary-term" data-term="loki-kit">Loki Kit</span></a></strong> miners require aftermarket firmware (LuxOS, VNish) and run at ~40% of rated <span class="glossary-term" data-term="hashrate">hashrate</span>. <strong><span class="glossary-term" data-term="lottery">Lottery miners</span></strong> are for fun &#x2014; extremely unlikely to find blocks solo. Always verify current specs before purchasing.</p>
     </div>
   </div>
-  
-    <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <!-- Shared Footer (loaded from /Components/footer.html) -->
   <div id="site-footer"></div>
   
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ============================================
 
+    // ============================================
+    // NAVIGATION
+    // ============================================
+    function toggleNav() {
+      document.getElementById('hamburger-btn').classList.toggle('open');
+      document.getElementById('nav-drawer').classList.toggle('open');
+      document.getElementById('nav-overlay').classList.toggle('show');
+    }
+
+    // ============================================
+    // RENDER MINERS (filter static HTML cards)
+    // ============================================
+    function renderMiners() {
+      const voltageFilter = document.getElementById('voltage-filter').value;
+      const algoFilter = document.getElementById('algo-filter').value;
+      const searchFilter = document.getElementById('search-filter').value.toLowerCase().trim();
+      
+      const cards = document.querySelectorAll('#miners-container .miner-card');
+      const sections = document.querySelectorAll('#miners-container .algo-section');
+      
+      // Filter individual cards
+      cards.forEach(function(card) {
+        var show = true;
+        var voltage = card.getAttribute('data-voltage');
+        var algo = card.getAttribute('data-algo');
+        var loki = card.getAttribute('data-loki');
+        var category = card.getAttribute('data-category');
+        var searchText = card.getAttribute('data-search');
+        
+        // Voltage filter
+        if (voltageFilter === 'loki') {
+          if (loki !== 'true') show = false;
+        } else if (voltageFilter === '120V') {
+          if (voltage !== '120V') show = false;
+        } else if (voltageFilter === '240V') {
+          if (voltage !== '240V') show = false;
+        }
+        
+        // Algorithm filter
+        if (algoFilter !== 'all' && algo !== algoFilter) show = false;
+        
+        // Search filter
+        if (searchFilter && searchText.indexOf(searchFilter) === -1) show = false;
+        
+        card.style.display = show ? '' : 'none';
+      });
+      
+      // Hide empty algorithm sections
+      sections.forEach(function(section) {
+        var visibleCards = section.querySelectorAll('.miner-card:not([style*="display: none"])');
+        section.style.display = visibleCards.length > 0 ? '' : 'none';
+      });
+      
+      // Hide SEO content when filtering
+      var seoContent = document.querySelector('.seo-content');
+      if (seoContent) {
+        var isFiltering = (voltageFilter !== 'all' || algoFilter !== 'all' || searchFilter !== '');
+        seoContent.style.display = isFiltering ? 'none' : '';
+      }
+    }
+
+    // ============================================
+    // GO TO CALCULATOR
+    // ============================================
+    function goToCalculator(minerId) {
+      // Track catalog click
+      if (typeof gtag === 'function') {
+        gtag('event', 'catalog_to_calculator', { miner_id: minerId });
+      }
+      // Navigate to calculator with miner pre-selected via URL parameter
+      window.location.href = `index.html?miner=${minerId}`;
+    }
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hamburger menu
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleNav();
+        });
+      }
+      
+      if (navOverlay) {
+        navOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+      
+      // Filter event listeners
+      document.getElementById('voltage-filter').addEventListener('change', renderMiners);
+      document.getElementById('algo-filter').addEventListener('change', renderMiners);
+      document.getElementById('search-filter').addEventListener('input', renderMiners);
+      
+      // Initial render
+      renderMiners();
+    });
+  </script>
 
 <!-- Shared Glossary System -->
 <script src="/scripts/glossary-data.js"></script>
@@ -3577,7 +3683,7 @@
 }
 </script>
 
-  <!-- Shared Components Loader (must be after both site-nav and site-footer divs) -->
+  <!-- Shared Components Loader -->
   <script src="/scripts/site-components.js"></script>
 </body>
 </html>

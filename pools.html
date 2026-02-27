@@ -2313,11 +2313,99 @@
       <p>Pool fees, payout methods, minimum thresholds, and server locations change frequently. <strong>Always verify current terms on the official pool website before connecting your miners.</strong> The Sola Ray Effect is not affiliated with any pool listed. Mining cryptocurrency involves risk of loss. This is not financial advice.</p>
     </div>
   </div>
-  
-    <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <!-- Shared Footer (loaded from /Components/footer.html) -->
   <div id="site-footer"></div>
   
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ============================================
+    // NAVIGATION
+    // ============================================
+    function toggleNav() {
+      document.getElementById('hamburger-btn').classList.toggle('open');
+      document.getElementById('nav-drawer').classList.toggle('open');
+      document.getElementById('nav-overlay').classList.toggle('show');
+    }
 
+    // ============================================
+    // FILTER POOLS
+    // ============================================
+    function filterPools() {
+      const coinFilter = document.getElementById('coin-filter').value.toLowerCase();
+      const payoutFilter = document.getElementById('payout-filter').value.toLowerCase();
+      const searchFilter = document.getElementById('search-filter').value.toLowerCase().trim();
+      
+      const sections = document.querySelectorAll('.coin-section');
+      sections.forEach(section => {
+        const sectionCoins = section.getAttribute('data-coin').toLowerCase().split(' ');
+        const matchesCoin = coinFilter === 'all' || sectionCoins.includes(coinFilter);
+        
+        if (matchesCoin) {
+          section.style.display = 'block';
+          
+          const rows = section.querySelectorAll('tbody tr');
+          let visibleRows = 0;
+          
+          rows.forEach(row => {
+            const rowPayouts = (row.getAttribute('data-payouts') || '').toLowerCase();
+            const rowText = row.textContent.toLowerCase();
+            
+            const matchesPayout = payoutFilter === 'all' || rowPayouts.includes(payoutFilter);
+            const matchesSearch = !searchFilter || rowText.includes(searchFilter);
+            
+            if (matchesPayout && matchesSearch) {
+              row.style.display = '';
+              visibleRows++;
+            } else {
+              row.style.display = 'none';
+            }
+          });
+          
+          if (visibleRows === 0 && (payoutFilter !== 'all' || searchFilter)) {
+            section.style.display = 'none';
+          }
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    }
+
+    // ============================================
+    // EVENT LISTENERS - UNIFIED
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track outbound pool link clicks
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a.pool-link');
+        if (link && typeof gtag === 'function') {
+          gtag('event', 'pool_link_click', { pool_url: link.href, pool_name: link.textContent.trim() });
+        }
+      });
+
+      // Hamburger menu
+      var hamburgerBtn = document.getElementById('hamburger-btn');
+      var navOverlay = document.getElementById('nav-overlay');
+      
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleNav();
+        });
+      }
+      
+      if (navOverlay) {
+        navOverlay.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleNav();
+        });
+      }
+      
+      // Filter event listeners
+      document.getElementById('coin-filter').addEventListener('change', filterPools);
+      document.getElementById('payout-filter').addEventListener('change', filterPools);
+      document.getElementById('search-filter').addEventListener('input', filterPools);
+    });
+  </script>
 
 <!-- Shared Glossary System -->
 <script src="/scripts/glossary-data.js"></script>
@@ -2843,7 +2931,7 @@
 }
 </script>
 
-  <!-- Shared Components Loader (must be after both site-nav and site-footer divs) -->
+  <!-- Shared Components Loader -->
   <script src="/scripts/site-components.js"></script>
 </body>
 </html>
