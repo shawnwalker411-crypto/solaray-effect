@@ -474,6 +474,32 @@ var SOLA_GLOSSARY = {
   "hashprice": {
     title: "Hashprice",
     definition: "What one terahash of mining power earns per day in USD. This is the bottom-line number \u2014 it accounts for difficulty, price, and fees all in one. Compare this against your electricity cost per TH to know if you're profitable."
+  },
+
+  /* ================================================
+     LOTTERY MINING TERMS
+     ================================================ */
+
+  "sha256": {
+    title: "SHA-256",
+    definition: "Secure Hash Algorithm 256-bit \u2014 the proof-of-work algorithm used by Bitcoin and several other cryptocurrencies. Every ASIC miner built for Bitcoin is designed to compute SHA-256 hashes as fast as possible."
+  },
+
+  "stratum": {
+    title: "Stratum",
+    definition: "The communication protocol between your miner and a mining pool. Stratum handles job assignments, share submissions, and difficulty adjustments. Most miners use Stratum V1; some pools and firmware support the newer Stratum V2 which gives miners more control over block templates."
+  },
+
+  "axeos": {
+    title: "AxeOS",
+    definition: "The open-source firmware that runs on most Bitaxe and NerdQaxe lottery miners. AxeOS provides a web interface for configuring your pool, wallet address, frequency, and voltage. It does not auto-update \u2014 you flash new versions manually via the Settings > OTA Update page.",
+    official: "https://github.com/skot/ESP-Miner"
+  },
+
+  "vrm": {
+    title: "VRM (Voltage Regulator Module)",
+    definition: "The component on an ASIC miner or Bitaxe board that converts input voltage down to the precise level the hashing chips need. VRMs generate significant heat under load. Adding small copper heatsinks to VRMs is a common upgrade on Bitaxe builds to improve stability and allow higher clock speeds.",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=copper+heatsink+vrm&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_vrm&toolid=10001&mkevt=1"
   }
 
 };
