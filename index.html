@@ -66,7 +66,6 @@
   overflow-y: visible;
 }
 
-
 .affiliate-rail .rail-header { text-align: center; margin-bottom: 8px; padding: 6px 0 4px; }
 .affiliate-rail .rail-site-label {
   color: rgba(212,175,55,0.5);
@@ -2021,7 +2020,6 @@
     </div>
   </button>
 
-
   <!-- Affiliate Left Rail &mdash; Shop Miners Directory -->
 <aside class="affiliate-rail" aria-label="Shop miners on eBay">
   <div class="rail-header">
@@ -2339,8 +2337,6 @@
       Data by <a href="https://solochance.org/" target="_blank" rel="noopener">SoloChance.org</a>
     </div>
   </div>
-
-
 
   <main>
   <div class="container">
@@ -2790,14 +2786,7 @@
   </div>
   </main>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    function toggleNav() {
-      document.getElementById('hamburger-btn').classList.toggle('open');
-      document.getElementById('nav-drawer').classList.toggle('open');
-      document.getElementById('nav-overlay').classList.toggle('show');
-    }
-    
-    
+  <script>
     // ============================================
     // MINER DATABASE - 120V (Native + Loki)
     // ============================================
@@ -4438,7 +4427,6 @@
       container.style.visibility = 'visible';
     }
 
-
     // Update Sunrise Pick after prices load
     setTimeout(updateSunrisePick, 2500);
     setInterval(updateSunrisePick, 60000);
@@ -4482,33 +4470,6 @@
         selectMinerFromTable(minerId);
       }
     })();
-  </script>
-
-  <script>
-    // ============================================
-    // STABLE INTERACTION BINDINGS
-    // (no inline onclick, no eval; works on desktop/tablet/mobile)
-    // ============================================
-    document.addEventListener('DOMContentLoaded', function () {
-      // Nav drawer
-      var hamburgerBtn = document.getElementById('hamburger-btn');
-      var navOverlay = document.getElementById('nav-overlay');
-      if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleNav();
-        });
-      }
-      if (navOverlay) {
-        navOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          toggleNav();
-        });
-      }
-
-      // Glossary handled by shared glossary-drawer.js
-    });
   </script>
 
 <!-- Shared Glossary System -->
