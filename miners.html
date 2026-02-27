@@ -811,33 +811,8 @@
 </head>
 <body>
 
-  <!-- Hamburger Menu -->
-  <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
-      <span class="bun-top"></span>
-      <span class="lettuce"></span>
-      <span class="patty"></span>
-      <span class="cheese"></span>
-      <span class="bun-bottom"></span>
-    </button>
-  </div>
-  
-  <!-- Nav Drawer -->
-  <nav class="nav-drawer" id="nav-drawer">
-    <h3>NAVIGATION</h3>
-    <a href="index.html">&#x1F9EE; Calculator</a>
-    <a href="miners.html" class="active">&#x1F4B0; Miners</a>
-    <a href="pools.html">&#x1F3CA; Mining Pools</a>
-    <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
-    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
-    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
-    <a href="solar_mining.html">&#x2600;&#xFE0F; Solar Mining</a>
-    <a href="glossary.html">&#x1F9E0; Glossary</a>
-    <a href="datavault.html">&#x1F4CA; Data Vault</a>
-  </nav>
-  
-  <!-- Nav Overlay -->
-  <div class="nav-overlay" id="nav-overlay"></div>
+  <!-- Shared Navigation (loaded from /Components/nav.html) -->
+  <div id="site-nav"></div>
 
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
@@ -3334,121 +3309,10 @@
     </div>
   </div>
   
-    <footer>
-    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
-    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x2600;&#xFE0F; <a href="solar_mining.html">Solar Mining</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="/cdn-cgi/l/email-protection#d5a6bab9b4a7b4acb0b3b3b0b6a195b2b8b4bcb9fbb6bab8" style="color:#00CED1;"><span class="__cf_email__" data-cfemail="88fbe7e4e9fae9f1edeeeeedebfcc8efe5e9e1e4a6ebe7e5">[email&#160;protected]</span></a></div></div>
-    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
-  </footer>
+    <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <div id="site-footer"></div>
   
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // ============================================
 
-    // ============================================
-    // NAVIGATION
-    // ============================================
-    function toggleNav() {
-      document.getElementById('hamburger-btn').classList.toggle('open');
-      document.getElementById('nav-drawer').classList.toggle('open');
-      document.getElementById('nav-overlay').classList.toggle('show');
-    }
-
-    // ============================================
-    // RENDER MINERS (filter static HTML cards)
-    // ============================================
-    function renderMiners() {
-      const voltageFilter = document.getElementById('voltage-filter').value;
-      const algoFilter = document.getElementById('algo-filter').value;
-      const searchFilter = document.getElementById('search-filter').value.toLowerCase().trim();
-      
-      const cards = document.querySelectorAll('#miners-container .miner-card');
-      const sections = document.querySelectorAll('#miners-container .algo-section');
-      
-      // Filter individual cards
-      cards.forEach(function(card) {
-        var show = true;
-        var voltage = card.getAttribute('data-voltage');
-        var algo = card.getAttribute('data-algo');
-        var loki = card.getAttribute('data-loki');
-        var category = card.getAttribute('data-category');
-        var searchText = card.getAttribute('data-search');
-        
-        // Voltage filter
-        if (voltageFilter === 'loki') {
-          if (loki !== 'true') show = false;
-        } else if (voltageFilter === '120V') {
-          if (voltage !== '120V') show = false;
-        } else if (voltageFilter === '240V') {
-          if (voltage !== '240V') show = false;
-        }
-        
-        // Algorithm filter
-        if (algoFilter !== 'all' && algo !== algoFilter) show = false;
-        
-        // Search filter
-        if (searchFilter && searchText.indexOf(searchFilter) === -1) show = false;
-        
-        card.style.display = show ? '' : 'none';
-      });
-      
-      // Hide empty algorithm sections
-      sections.forEach(function(section) {
-        var visibleCards = section.querySelectorAll('.miner-card:not([style*="display: none"])');
-        section.style.display = visibleCards.length > 0 ? '' : 'none';
-      });
-      
-      // Hide SEO content when filtering
-      var seoContent = document.querySelector('.seo-content');
-      if (seoContent) {
-        var isFiltering = (voltageFilter !== 'all' || algoFilter !== 'all' || searchFilter !== '');
-        seoContent.style.display = isFiltering ? 'none' : '';
-      }
-    }
-
-    // ============================================
-    // GO TO CALCULATOR
-    // ============================================
-    function goToCalculator(minerId) {
-      // Track catalog click
-      if (typeof gtag === 'function') {
-        gtag('event', 'catalog_to_calculator', { miner_id: minerId });
-      }
-      // Navigate to calculator with miner pre-selected via URL parameter
-      window.location.href = `index.html?miner=${minerId}`;
-    }
-
-    // ============================================
-    // EVENT LISTENERS
-    // ============================================
-    document.addEventListener('DOMContentLoaded', function() {
-      // Hamburger menu
-      var hamburgerBtn = document.getElementById('hamburger-btn');
-      var navOverlay = document.getElementById('nav-overlay');
-      
-      if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleNav();
-        });
-      }
-      
-      if (navOverlay) {
-        navOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          toggleNav();
-        });
-      }
-      
-      // Filter event listeners
-      document.getElementById('voltage-filter').addEventListener('change', renderMiners);
-      document.getElementById('algo-filter').addEventListener('change', renderMiners);
-      document.getElementById('search-filter').addEventListener('input', renderMiners);
-      
-      // Initial render
-      renderMiners();
-    });
-  </script>
 
 <!-- Shared Glossary System -->
 <script src="/scripts/glossary-data.js"></script>
@@ -3712,5 +3576,8 @@
   });
 }
 </script>
+
+  <!-- Shared Components Loader (must be after both site-nav and site-footer divs) -->
+  <script src="/scripts/site-components.js"></script>
 </body>
 </html>

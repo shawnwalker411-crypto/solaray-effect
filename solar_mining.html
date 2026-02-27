@@ -380,31 +380,8 @@
 
   <!-- Main Content Wrapper -->
   <div id="main-content">
-  <!-- Hamburger Menu -->
-  <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
-      <span class="bun-top"></span>
-      <span class="lettuce"></span>
-      <span class="patty"></span>
-      <span class="cheese"></span>
-      <span class="bun-bottom"></span>
-    </button>
-  </div>
-  
-  <!-- Navigation Drawer -->
-  <nav class="nav-drawer" id="nav-drawer">
-    <h3>NAVIGATION</h3>
-    <a href="index.html">&#x1F9EE; Calculator</a>
-    <a href="miners.html">&#x1F4B0; Miners</a>
-    <a href="pools.html">&#x1F3CA; Mining Pools</a>
-    <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
-    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
-    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
-    <a href="solar_mining.html" class="active">&#x2600;&#xFE0F; Solar Mining</a>
-    <a href="glossary.html">&#x1F9E0; Glossary</a>
-    <a href="datavault.html">&#x1F4CA; Data Vault</a>
-  </nav>
-  <div class="nav-overlay" id="nav-overlay"></div>
+  <!-- Shared Navigation (loaded from /Components/nav.html) -->
+  <div id="site-nav"></div>
   
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
@@ -621,26 +598,16 @@
 
   </div><!-- end container -->
 
-  <footer>
-    <p style="color:#5a6a7a;font-size:0.72rem;line-height:1.5;max-width:720px;margin:0 auto 1.25rem;padding:0 1rem;"><strong style="color:#8899a8;">Disclosure &amp; Disclaimer:</strong> This website contains affiliate links, including Amazon and eBay. We may earn a commission from qualifying purchases at no additional cost to you. We are not manufacturers or sellers of the products referenced and assume no liability for product defects, improper installation, misuse, or any resulting damages or injuries. Always consult a qualified professional before installing electrical equipment.</p>
-    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
-    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x2600;&#xFE0F; <a href="solar_mining.html">Solar Mining</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="mailto:support@solarayeffect.com" style="color:#00CED1;">support@solarayeffect.com</a></div></div>
-    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
-  </footer>
+  <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <div id="site-footer"></div>
 
-  <!-- Nav drawer script -->
-  <script>
+<script>
     (function(){
       var btn=document.getElementById('hamburger-btn'),drawer=document.getElementById('nav-drawer'),overlay=document.getElementById('nav-overlay');
       function toggle(){btn.classList.toggle('open');drawer.classList.toggle('open');overlay.classList.toggle('show');}
-      btn.addEventListener('click',toggle);
-      overlay.addEventListener('click',toggle);
-    })();
-  </script>
-  <!-- Glossary drawer scripts -->
-  <script src="scripts/glossary-data.js"></script>
-  <script src="scripts/glossary-drawer.js"></script>
-  </div>
+      btn.addEventListe
+
+  <!-- Shared Components Loader (must be after both site-nav and site-footer divs) -->
+  <script src="/scripts/site-components.js"></script>
 </body>
 </html>

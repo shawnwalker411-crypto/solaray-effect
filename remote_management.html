@@ -858,31 +858,8 @@
   </div>
   <!-- END LIABILITY MODAL -->
 
-  <!-- Hamburger Menu -->
-  <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
-      <span class="bun-top"></span>
-      <span class="lettuce"></span>
-      <span class="patty"></span>
-      <span class="cheese"></span>
-      <span class="bun-bottom"></span>
-    </button>
-  </div>
-
-  <!-- Navigation Drawer -->
-  <nav class="nav-drawer" id="nav-drawer">
-    <h3>NAVIGATION</h3>
-    <a href="index.html">&#x1F9EE; Calculator</a>
-    <a href="miners.html">&#x1F4B0; Miners</a>
-    <a href="pools.html">&#x1F3CA; Mining Pools</a>
-    <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
-    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
-    <a href="remote_management.html" class="active">&#x1F4E1; Remote Management</a>
-    <a href="solar_mining.html">&#x2600;&#xFE0F; Solar Mining</a>
-    <a href="glossary.html">&#x1F9E0; Glossary</a>
-    <a href="datavault.html">&#x1F4CA; Data Vault</a>
-  </nav>
-  <div class="nav-overlay" id="nav-overlay"></div>
+  <!-- Shared Navigation (loaded from /Components/nav.html) -->
+  <div id="site-nav"></div>
 
   <!-- Glossary Slide-Out Drawer -->
   <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
@@ -1312,39 +1289,13 @@
 
   </div><!-- end .container -->
 
-  <footer>
-    <p style="margin-bottom:0.5rem;font-size:0.8rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you. Content is for educational purposes only and is not professional electrical, financial, or legal advice.</p>
-    <p style="font-weight:700;color:var(--sola-teal);margin-bottom:0.75rem;">Sola Ray Effect</p>
-    <p style="font-size:0.9rem;line-height:2;">
-      <a href="index.html">&#x1F9EE; Calculator</a> &nbsp;&middot;&nbsp;
-      <a href="miners.html">&#x1F4B0; Miners</a> &nbsp;&middot;&nbsp;
-      <a href="pools.html">&#x1F3CA; Pools</a> &nbsp;&middot;&nbsp;
-      <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware</a> &nbsp;&middot;&nbsp;
-      <a href="electrical_setup.html">&#x1F50C; Electrical</a> &nbsp;&middot;&nbsp;
-      <a href="remote_management.html">&#x1F4E1; Remote</a> &nbsp;&middot;&nbsp;
-      <a href="solar_mining.html">&#x2600;&#xFE0F; Solar</a> &nbsp;&middot;&nbsp;
-      <a href="glossary.html">&#x1F9E0; Glossary</a> &nbsp;&middot;&nbsp;
-      <a href="datavault.html">&#x1F4CA; Data Vault</a>
-    </p>
-    <p style="margin-top:1rem;font-size:0.75rem;">&copy; 2025 Sola Ray Effect. All rights reserved. &nbsp;&middot;&nbsp; <a href="index.html">&#x2190; Home</a></p>
-  </footer>
+  <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <div id="site-footer"></div>
 
   <!-- ==========================================
        NAVIGATION JS
        ========================================== -->
-  <script>
-    function toggleNav() {
-      var btn     = document.getElementById('hamburger-btn');
-      var drawer  = document.getElementById('nav-drawer');
-      var overlay = document.getElementById('nav-overlay');
-      var open    = drawer.classList.contains('open');
-      btn.classList.toggle('open', !open);
-      drawer.classList.toggle('open', !open);
-      overlay.classList.toggle('show', !open);
-    }
-    document.getElementById('hamburger-btn').addEventListener('click', toggleNav);
-    document.getElementById('nav-overlay').addEventListener('click', toggleNav);
-  </script>
+
 
   <!-- ==========================================
        LIABILITY MODAL JS
@@ -1411,5 +1362,7 @@
   <!-- Cloudflare Email Decode -->
   <script src="https://cdn.jsdelivr.net/gh/nicholasstephan/cfprotect@latest/cfprotect.min.js" defer></script>
 
+  <!-- Shared Components Loader (must be after both site-nav and site-footer divs) -->
+  <script src="/scripts/site-components.js"></script>
 </body>
 </html>

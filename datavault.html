@@ -1295,31 +1295,8 @@ body {
     </div>
   </div>
 
-  <!-- Hamburger Menu -->
-  <div class="hamburger-menu">
-    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu">
-      <span class="bun-top"></span>
-      <span class="lettuce"></span>
-      <span class="patty"></span>
-      <span class="cheese"></span>
-      <span class="bun-bottom"></span>
-    </button>
-  </div>
-
-  <!-- Navigation Drawer -->
-  <nav class="nav-drawer" id="nav-drawer">
-    <h3>NAVIGATION</h3>
-    <a href="index.html">&#x1F9EE; Calculator</a>
-    <a href="miners.html">&#x1F4B0; Miners</a>
-    <a href="pools.html">&#x1F3CA; Mining Pools</a>
-    <a href="aftermarket_firmware.html">&#x2699;&#xFE0F; Firmware Guide</a>
-    <a href="electrical_setup.html">&#x1F50C; Electrical Setup</a>
-    <a href="remote_management.html">&#x1F4E1; Remote Management</a>
-    <a href="solar_mining.html">&#x2600;&#xFE0F; Solar Mining</a>
-    <a href="glossary.html">&#x1F9E0; Glossary</a>
-    <a href="datavault.html" class="active">&#x1F4CA; Data Vault</a>
-  </nav>
-  <div class="nav-overlay" id="nav-overlay"></div>
+  <!-- Shared Navigation (loaded from /Components/nav.html) -->
+  <div id="site-nav"></div>
 
   <!-- Glossary Drawer -->
   <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
@@ -1891,13 +1868,8 @@ body {
 
   </main>
 
-    <footer>
-    <p style="color:#5a6a7a;font-size:0.72rem;line-height:1.5;max-width:720px;margin:0 auto 1.25rem;padding:0 1rem;"><strong style="color:#8899a8;">Disclosure &#x26; Disclaimer:</strong> This website contains affiliate links, including Amazon and eBay. We may earn a commission from qualifying purchases at no additional cost to you. We are not manufacturers or sellers of the products referenced and assume no liability for product defects, improper installation, misuse, or any resulting damages or injuries. Always consult a qualified professional before installing electrical equipment.</p>
-    <p style="color:#00CED1;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">The Sola Ray Effect</p>
-    <p><span style="white-space:nowrap;">&#x1F4B0; <a href="miners.html">Miners</a></span> &middot; <span style="white-space:nowrap;">&#x1F3CA; <a href="pools.html">Mining Pools</a></span> &middot; <span style="white-space:nowrap;">&#x2699;&#xFE0F; <a href="aftermarket_firmware.html">Firmware</a></span> &middot; <span style="white-space:nowrap;">&#x1F50C; <a href="electrical_setup.html">Electrical</a></span> &middot; <span style="white-space:nowrap;">&#x1F4E1; <a href="remote_management.html">Remote</a></span> &middot; <span style="white-space:nowrap;">&#x2600;&#xFE0F; <a href="solar_mining.html">Solar Mining</a></span> &middot; <span style="white-space:nowrap;">&#x1F9E0; <a href="glossary.html">Glossary</a></span> &middot; <span style="white-space:nowrap;">&#x1F4CA; <a href="datavault.html">Data Vault</a></span></p>
-    <div style="display:flex;align-items:center;margin-top:0.5rem;"><div style="flex:1;"></div><div style="flex:1;text-align:center;"><a href="index.html">&larr; Back to Calculator</a></div><div style="flex:1;text-align:right;font-size:0.82rem;color:#5a6a7a;">Contact: <a href="/cdn-cgi/l/email-protection#1a6975767b687b637f7c7c7f796e5a7d777b737634797577" style="color:#00CED1;"><span class="__cf_email__" data-cfemail="84f7ebe8e5f6e5fde1e2e2e1e7f0c4e3e9e5ede8aae7ebe9">[email&#160;protected]</span></a></div></div>
-    <p style="margin-top:0.75rem;font-size:0.78rem;color:#5a6a7a;">&copy; 2026 The Sola Ray Effect &mdash; solarayeffect.com. All content is original work. Unauthorized reproduction or distribution is prohibited.</p>
-  </footer>
+    <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <div id="site-footer"></div>
 
   <!-- Chart.js + Date Adapter -->
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -3129,37 +3101,7 @@ document.addEventListener('DOMContentLoaded', init);
 
 </script>
 
-  <!-- Navigation Toggle -->
-  <script>
-    // Toggle navigation drawer
-    function toggleNav() {
-      document.getElementById('hamburger-btn').classList.toggle('open');
-      document.getElementById('nav-drawer').classList.toggle('open');
-      document.getElementById('nav-overlay').classList.toggle('show');
-    }
 
-    // Setup all interactions
-    document.addEventListener('DOMContentLoaded', function() {
-      // Hamburger menu
-      var hamburgerBtn = document.getElementById('hamburger-btn');
-      var navOverlay = document.getElementById('nav-overlay');
-      
-      if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleNav();
-        });
-      }
-      
-      if (navOverlay) {
-        navOverlay.addEventListener('click', function(e) {
-          e.preventDefault();
-          toggleNav();
-        });
-      }
-    });
-  </script>
 
 <!-- Shared Glossary System -->
 <script src="/scripts/glossary-data.js"></script>
@@ -3423,5 +3365,8 @@ document.addEventListener('DOMContentLoaded', init);
   });
 }
 </script>
+
+  <!-- Shared Components Loader (must be after both site-nav and site-footer divs) -->
+  <script src="/scripts/site-components.js"></script>
 </body>
 </html>
