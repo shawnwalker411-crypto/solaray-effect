@@ -396,7 +396,7 @@
       for (var i = 0; i < today.hours.length; i++) {
         var h = today.hours[i];
         html += '<div class="hour-block ' + h.cloudClass + '"><div class="hour-time">' + fmtHour(h.time) + '</div>';
-        html += '<div class="hour-bars"><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + h.cloudPct + '%"></div></div><span class="bar-val">' + h.cloudPct + '%' + '</span></div>';
+        html += '<div class="hour-bars"><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + h.cloudPct + '%"></div></div></div>';
         html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + h.ghiPct + '%"></div></div></div>';
         html += '<div class="hour-badge">' + cloudIcon(h.cloudPct) + '</div></div>';
       }
@@ -414,7 +414,7 @@
         var d = days[i];
         html += '<div class="day-card ' + d.dayCC + '">';
         html += '<div><div class="day-name">' + fmtDayName(d.date) + '</div><div class="day-date">' + fmtDayDate(d.date) + '</div></div>';
-        html += '<div><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + d.avgCloud + '%"></div></div><span class="bar-val">' + d.avgCloud + '%</span></div>';
+        html += '<div><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + d.avgCloud + '%"></div></div></div>';
         html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + d.avgGHIPct + '%"></div></div></div>';
         html += '<div class="day-potential">' + potentialLabel(d.dayRating) + '</div></div>';
         html += '<div>' + cloudIcon(d.avgCloud) + '</div></div>';
