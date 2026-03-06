@@ -398,7 +398,7 @@
         html += '<div class="hour-block ' + h.cloudClass + '"><div class="hour-time">' + fmtHour(h.time) + '</div>';
         html += '<div class="hour-bars"><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + h.cloudPct + '%"></div></div><span class="bar-val">' + h.cloudLabel + '</span></div>';
         html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + h.ghiPct + '%"></div></div><span class="bar-val">' + h.sunLabel + '</span></div></div>';
-        html += '<div class="hour-badge">' + badge(h.rating) + '</div></div>';
+        html += '<div class="hour-badge">' + cloudIcon(h.cloudPct) + '</div></div>';
       }
       html += '</div><div id="five-day-section"></div>';
       html += '<div class="info-box">&#9728; <strong>Run Miners</strong> = strong sun, low clouds &mdash; best solar window.<br>&#9729; <strong>Maybe</strong> = moderate conditions, solar helping but not peak.<br>&#9730; <strong>Wait</strong> = poor solar &mdash; use grid or free night electricity instead.<br><br>Data: <a href="https://open-meteo.com" target="_blank">Open-Meteo</a> &amp; <a href="https://forecast.solar" target="_blank">Forecast.Solar</a>. Updates at page load &amp; noon.</div>';
@@ -417,7 +417,7 @@
         html += '<div><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + d.avgCloud + '%"></div></div><span class="bar-val">' + d.avgCloud + '%</span></div>';
         html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + d.avgGHIPct + '%"></div></div><span class="bar-val">' + sunLabel(d.avgGHI) + '</span></div>';
         html += '<div class="day-potential">' + potentialLabel(d.dayRating) + '</div></div>';
-        html += '<div>' + badge(d.dayRating) + '</div></div>';
+        html += '<div>' + cloudIcon(d.avgCloud) + '</div></div>';
       }
       html += '</div>';
       el.innerHTML = html;
@@ -429,11 +429,16 @@
     function fmtDayDate(ds) { return new Date(ds + 'T12:00:00').toLocaleDateString([], { month: 'short', day: 'numeric' }); }
     function sunLabel(ghi) { return ghi >= 600 ? 'Full Sun' : ghi >= 350 ? 'Good Sun' : ghi >= 150 ? 'Partial Sun' : 'Weak Sun'; }
     function potentialLabel(r) { return r === 'run' ? '&#9728; Strong solar day' : r === 'maybe' ? '&#9729; Moderate solar day' : '&#9730; Weak solar day'; }
-    function badge(r) {
-      if (r === 'run')   return '<span class="rating-badge run">&#9728; Run Miners</span>';
-      if (r === 'maybe') return '<span class="rating-badge maybe">&#9729; Maybe</span>';
-      return '<span class="rating-badge wait">&#9730; Wait</span>';
+    function cloudIcon(pct) {
+      var icon;
+      if (pct === 0)       icon = '0_clear_sun.svg';
+      else if (pct <= 25)  icon = '25_mostly_sunny.svg';
+      else if (pct <= 50)  icon = '50_partly_cloudy.svg';
+      else if (pct <= 75)  icon = '75_mostly_cloudy.svg';
+      else                 icon = '100_cloudy.svg';
+      return '<img src="/assets/' + icon + '" alt="sky condition" style="width:32px;height:32px;" />';
     }
+    function badge(r) { return ''; }
     function showLoading(show) { var el = document.getElementById('loading-indicator'); if (el) el.style.display = show ? 'flex' : 'none'; }
     function scheduleNoonRefresh(c) {
       var now = new Date(), noon = new Date(now);
