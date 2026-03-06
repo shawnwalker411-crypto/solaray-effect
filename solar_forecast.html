@@ -389,15 +389,15 @@
       html += '<div class="sun-stat"><div class="label">&#9728; Sunrise</div><div class="value">' + fmtTime(today.sunrise) + '</div></div>';
       html += '<div class="sun-stat"><div class="label">&#9790; Sunset</div><div class="value">'  + fmtTime(today.sunset)  + '</div></div>';
       html += '<div class="sun-stat"><div class="label">&#9729; Avg Cloud</div><div class="value">' + today.avgCloud + '%</div></div>';
-      html += '<div class="sun-stat"><div class="label">&#9728; Avg Sun</div><div class="value">' + sunLabel(today.avgGHI) + '</div></div>';
+      html += '<div class="sun-stat"><div class="label">Avg Sun</div><div class="value">' + cloudIcon(today.avgCloud) + '</div></div>';
       html += '</div>';
       html += '<div class="legend"><div class="legend-item"><div class="legend-dot" style="background:var(--clear)"></div>0&ndash;25% = Clear</div><div class="legend-item"><div class="legend-dot" style="background:var(--partial)"></div>26&ndash;60% = Partly Cloudy</div><div class="legend-item"><div class="legend-dot" style="background:var(--overcast)"></div>61%+ = Overcast</div></div>';
       html += '<div class="section-label">&#9728; Today &mdash; Hour by Hour</div><div class="timeline">';
       for (var i = 0; i < today.hours.length; i++) {
         var h = today.hours[i];
         html += '<div class="hour-block ' + h.cloudClass + '"><div class="hour-time">' + fmtHour(h.time) + '</div>';
-        html += '<div class="hour-bars"><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + h.cloudPct + '%"></div></div><span class="bar-val">' + h.cloudLabel + '</span></div>';
-        html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + h.ghiPct + '%"></div></div><span class="bar-val">' + h.sunLabel + '</span></div></div>';
+        html += '<div class="hour-bars"><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + h.cloudPct + '%"></div></div><span class="bar-val">' + h.cloudPct + '%' + '</span></div>';
+        html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + h.ghiPct + '%"></div></div></div>';
         html += '<div class="hour-badge">' + cloudIcon(h.cloudPct) + '</div></div>';
       }
       html += '</div><div id="five-day-section"></div>';
@@ -415,7 +415,7 @@
         html += '<div class="day-card ' + d.dayCC + '">';
         html += '<div><div class="day-name">' + fmtDayName(d.date) + '</div><div class="day-date">' + fmtDayDate(d.date) + '</div></div>';
         html += '<div><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + d.avgCloud + '%"></div></div><span class="bar-val">' + d.avgCloud + '%</span></div>';
-        html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + d.avgGHIPct + '%"></div></div><span class="bar-val">' + sunLabel(d.avgGHI) + '</span></div>';
+        html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + d.avgGHIPct + '%"></div></div></div>';
         html += '<div class="day-potential">' + potentialLabel(d.dayRating) + '</div></div>';
         html += '<div>' + cloudIcon(d.avgCloud) + '</div></div>';
       }
@@ -430,13 +430,11 @@
     function sunLabel(ghi) { return ghi >= 600 ? 'Full Sun' : ghi >= 350 ? 'Good Sun' : ghi >= 150 ? 'Partial Sun' : 'Weak Sun'; }
     function potentialLabel(r) { return r === 'run' ? '&#9728; Strong solar day' : r === 'maybe' ? '&#9729; Moderate solar day' : '&#9730; Weak solar day'; }
     function cloudIcon(pct) {
-      var icon;
-      if (pct === 0)       icon = '0_clear_sun.svg';
-      else if (pct <= 25)  icon = '25_mostly_sunny.svg';
-      else if (pct <= 50)  icon = '50_partly_cloudy.svg';
-      else if (pct <= 75)  icon = '75_mostly_cloudy.svg';
-      else                 icon = '100_cloudy.svg';
-      return '<img src="/assets/' + icon + '" alt="sky condition" style="width:32px;height:32px;" />';
+      if (pct === 0)      return '<span style="font-size:1.6rem;line-height:1;">☀️</span>';
+      if (pct <= 25)      return '<span style="font-size:1.6rem;line-height:1;">🌤️</span>';
+      if (pct <= 50)      return '<span style="font-size:1.6rem;line-height:1;">⛅</span>';
+      if (pct <= 75)      return '<span style="font-size:1.6rem;line-height:1;">🌥️</span>';
+      return '<span style="font-size:1.6rem;line-height:1;">☁️</span>';
     }
     function badge(r) { return ''; }
     function showLoading(show) { var el = document.getElementById('loading-indicator'); if (el) el.style.display = show ? 'flex' : 'none'; }
