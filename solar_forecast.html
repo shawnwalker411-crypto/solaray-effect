@@ -149,8 +149,8 @@
     .legend-item { display:flex; align-items:center; gap:0.35rem; font-size:0.65rem; color:var(--text-muted); font-family:'Share Tech Mono',monospace; }
     .legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
     /* Timeline */
-    .timeline { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:0.5rem; }
-    .hour-block { display:grid; grid-template-columns:4rem 1fr auto; align-items:center; gap:0.5rem; padding:0.55rem 0.85rem; border-radius:8px; background:var(--bg-card); border:1px solid var(--border-color); border-left:3px solid transparent; }
+    .timeline { display:flex !important; flex-direction:column !important; gap:0.4rem; margin-bottom:0.5rem; width:100%; }
+    .hour-block { display:grid !important; grid-template-columns:4rem 1fr auto !important; align-items:center; gap:0.5rem; padding:0.55rem 0.85rem; border-radius:8px; background:var(--bg-card); border:1px solid var(--border-color); border-left:3px solid transparent; width:100%; box-sizing:border-box; }
     .hour-block.clear    { border-left-color:var(--clear); }
     .hour-block.partial  { border-left-color:var(--partial); }
     .hour-block.overcast { border-left-color:var(--overcast); }
@@ -430,11 +430,11 @@
     function sunLabel(ghi) { return ghi >= 600 ? 'Full Sun' : ghi >= 350 ? 'Good Sun' : ghi >= 150 ? 'Partial Sun' : 'Weak Sun'; }
     function potentialLabel(r) { return r === 'run' ? '&#9728; Strong solar day' : r === 'maybe' ? '&#9729; Moderate solar day' : '&#9730; Weak solar day'; }
     function cloudIcon(pct) {
-      if (pct === 0)      return '<span style="font-size:1.6rem;line-height:1;">☀️</span>';
-      if (pct <= 25)      return '<span style="font-size:1.6rem;line-height:1;">🌤️</span>';
-      if (pct <= 50)      return '<span style="font-size:1.6rem;line-height:1;">⛅</span>';
-      if (pct <= 75)      return '<span style="font-size:1.6rem;line-height:1;">🌥️</span>';
-      return '<span style="font-size:1.6rem;line-height:1;">☁️</span>';
+      if (pct === 0)      return '<span style="font-size:1.1rem;line-height:1;vertical-align:middle;">☀️</span>';
+      if (pct <= 25)      return '<span style="font-size:1.1rem;line-height:1;vertical-align:middle;">🌤️</span>';
+      if (pct <= 50)      return '<span style="font-size:1.1rem;line-height:1;vertical-align:middle;">⛅</span>';
+      if (pct <= 75)      return '<span style="font-size:1.1rem;line-height:1;vertical-align:middle;">🌥️</span>';
+      return '<span style="font-size:1.1rem;line-height:1;vertical-align:middle;">☁️</span>';
     }
     function badge(r) { return ''; }
     function showLoading(show) { var el = document.getElementById('loading-indicator'); if (el) el.style.display = show ? 'flex' : 'none'; }
