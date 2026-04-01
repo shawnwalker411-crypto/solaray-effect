@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-03-01T08:46:22.260Z",
+  "fetched_at": "2026-04-01T09:20:23.892Z",
   "source": "minerstat/v2/hardware",
   "note": "May be incomplete depending on MinerStat plan.",
-  "entry_count": 787,
+  "entry_count": 795,
   "data": [
     {
       "id": "61188f24396807ba7ca38919a158766de935852e",
@@ -2067,6 +2067,19 @@
         }
       },
       "specs": null
+    },
+    {
+      "id": "2ea436590bc564734c4ecf4e0a5179e67eaf7ae0",
+      "name": "Bitmain Antminer S21j XP Hyd (495Th)",
+      "url": "bitmain-antminer-s21j-xp-hyd-495th",
+      "type": "asic",
+      "brand": "Bitmain",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-03-06",
+        "Dimensions": "410x170x209 cm",
+        "Noise": "50 dB"
+      }
     },
     {
       "id": "21188f1974ee9a6a79de64dee0fc849629de3181",
@@ -6058,6 +6071,20 @@
         }
       },
       "specs": null
+    },
+    {
+      "id": "e42adf65f65e9c4e654f3ec59b341d5118b8c905",
+      "name": "Bitaxe Gamma 602",
+      "url": "bitaxe-gamma-602",
+      "type": "asic",
+      "brand": "Bitaxe",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-02-28",
+        "Dimensions": "10x6x5 cm",
+        "Weight": "340 kg",
+        "Noise": "35 dB"
+      }
     },
     {
       "id": "de5f4d63e99977a60bee1c8bd77cf91fe4f4c8ef",
@@ -18779,6 +18806,20 @@
         "Dimensions": "195x165x125 cm",
         "Weight": "3050 kg",
         "Noise": "60 dB"
+      }
+    },
+    {
+      "id": "1477d87b43c2fda86eb3ca5cfc3ab6f2099bed88",
+      "name": "Pinecone Matches INIBOX Pro (2.4Gh)",
+      "url": "pinecone-inibox-pro-2-4gh",
+      "type": "asic",
+      "brand": "Pinecone",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-03-12",
+        "Dimensions": "270x184x291 cm",
+        "Weight": "10700 kg",
+        "Noise": "70 dB"
       }
     },
     {
@@ -43323,6 +43364,20 @@
       "specs": null
     },
     {
+      "id": "484ba3dc1194775bae24d1e54e0286e3292a4bdd",
+      "name": "Bitdeer SealMiner DL1 Air",
+      "url": "bitdeer-sealminer-dl1-air",
+      "type": "asic",
+      "brand": "Bitdeer",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-05-01",
+        "Dimensions": "197x365x292 cm",
+        "Weight": "15500 kg",
+        "Noise": "75 dB"
+      }
+    },
+    {
       "id": "fd93ac461456a118d38a8d6b4d18f6741682f3eb",
       "name": "Bitfily Snow Panther A1",
       "url": "bitfily-snow-panther-a1",
@@ -45791,6 +45846,34 @@
       "specs": null
     },
     {
+      "id": "de9d78dcab616b64972c6800904bfa6c4872cf97",
+      "name": "MicroBT WhatsMiner M6DS+",
+      "url": "microbt-whatsminer-m6ds-plus",
+      "type": "asic",
+      "brand": "MicroBT",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-03-08",
+        "Dimensions": "86x483x663 cm",
+        "Weight": "29500 kg",
+        "Noise": "75 dB"
+      }
+    },
+    {
+      "id": "a488aa5caffcff48695e0f400495fd717136ed1e",
+      "name": "MicroBT WhatsMiner M6DS++",
+      "url": "microbt-whatsminer-m6ds-plus-plus",
+      "type": "asic",
+      "brand": "MicroBT",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-03-08",
+        "Dimensions": "86x483x663 cm",
+        "Weight": "29500 kg",
+        "Noise": "75 dB"
+      }
+    },
+    {
       "id": "84e6db00a60db69996c6209fd07ba3b6059d3c58",
       "name": "MicroBT WhatsMiner M70S",
       "url": "microbt-whatsminer-m70s",
@@ -45938,6 +46021,34 @@
       "specs": {
         "Release": "2025-12-08",
         "Noise": "50 dB"
+      }
+    },
+    {
+      "id": "af00ef31bb91d056c29003a554e8c818aaab34f9",
+      "name": "MicroBT WhatsMiner M7D",
+      "url": "microbt-whatsminer-m7d",
+      "type": "asic",
+      "brand": "MicroBT",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-03-08",
+        "Dimensions": "86x483x663 cm",
+        "Weight": "29500 kg",
+        "Noise": "75 dB"
+      }
+    },
+    {
+      "id": "f03ae99938d636c7924c6d5404c0e6491064ba01",
+      "name": "MicroBT WhatsMiner M7DS",
+      "url": "microbt-whatsminer-m7ds",
+      "type": "asic",
+      "brand": "MicroBT",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-03-08",
+        "Dimensions": "86x483x663 cm",
+        "Weight": "29500 kg",
+        "Noise": "75 dB"
       }
     },
     {
