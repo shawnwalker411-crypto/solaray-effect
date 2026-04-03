@@ -317,6 +317,191 @@
     }
   </style>
 
+
+  <style>
+    /* ===== readability + alignment refresh ===== */
+    html { font-size: 18px; }
+    body { font-size: 1rem; line-height: 1.65; }
+    .container { max-width: 1240px; padding: 2rem 1.25rem 4rem; }
+    header { max-width: 900px; margin: 0 auto 2rem; text-align: center; }
+    .page-title { font-size: clamp(2.4rem, 4.4vw, 4.1rem); margin-bottom: 0.75rem; }
+    .page-subtitle { font-size: 1.16rem; line-height: 1.7; max-width: 760px; margin: 0 auto 1.75rem; }
+
+    .zip-screen {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.4rem 1.3rem;
+      background: rgba(8, 26, 21, 0.72);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 22px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+    }
+    .zip-screen h2 { font-size: 2rem; margin-bottom: 0.7rem; }
+    .zip-screen p { font-size: 1.05rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .zip-form { gap: 0.8rem; }
+    .zip-input { width: 190px; font-size: 1.35rem; padding: 0.9rem 1rem; }
+    .zip-btn { min-width: 190px; font-size: 1.02rem; padding: 0.92rem 1.4rem; }
+    .zip-privacy { font-size: 0.88rem !important; }
+    .zip-error { font-size: 0.95rem; }
+
+    #forecast-content { max-width: 1080px; margin: 0 auto; }
+    #forecast-content > div,
+    #forecast-content > section { margin-left: auto; margin-right: auto; }
+
+    .forecast-screen { width: 100%; }
+    .verdict-location { font-size: 0.92rem; }
+    .change-zip-btn { font-size: 0.84rem; padding: 0.45rem 0.8rem; }
+
+    .verdict-banner,
+    .action-panel,
+    .sun-window,
+    .legend,
+    .best-window,
+    .stargazing-verdict,
+    .email-signup,
+    .feedback-lite,
+    .info-box {
+      border-radius: 18px;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.14);
+    }
+
+    .verdict-banner { padding: 1.9rem 1.5rem; margin-bottom: 1.25rem; }
+    .verdict-label { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.2; }
+    .verdict-detail { font-size: 1.08rem; line-height: 1.65; max-width: 720px; margin: 0 auto; }
+
+    .action-panel { padding: 1.45rem; margin-bottom: 1.5rem; }
+    .action-kicker { font-size: 0.82rem; margin-bottom: 0.75rem; text-align: center; }
+    .action-hero { font-size: 1.85rem; line-height: 1.28; text-align: center; margin-bottom: 0.5rem; }
+    .action-summary { font-size: 1.04rem; line-height: 1.65; text-align: center; max-width: 760px; margin: 0 auto 1.1rem; }
+    .action-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.95rem; }
+    .action-card { padding: 1rem 1rem 1.05rem; border-radius: 14px; }
+    .action-card .label { font-size: 0.78rem; margin-bottom: 0.5rem; }
+    .action-card .value { font-size: 1.12rem; line-height: 1.35; }
+    .action-card .note { font-size: 0.95rem; line-height: 1.6; }
+    .status-pill { font-size: 0.72rem; padding: 0.22rem 0.55rem; }
+    .insight-strip { justify-content: center; gap: 0.65rem; margin-top: 1.05rem; }
+    .insight-chip { font-size: 0.82rem; padding: 0.42rem 0.75rem; }
+
+    .sun-window {
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      padding: 1.05rem 1.15rem;
+      text-align: center;
+      margin-bottom: 1.45rem;
+    }
+    .sun-stat { min-width: 150px; }
+    .sun-stat .label { font-size: 0.76rem; }
+    .sun-stat .value { font-size: 1.15rem; }
+
+    .section-label {
+      font-size: 0.98rem;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 0.95rem;
+    }
+    .legend { justify-content: center; padding: 0.9rem 1rem; gap: 0.8rem; }
+    .legend-item { font-size: 0.84rem; }
+
+    .timeline { gap: 0.65rem; }
+    .hour-block {
+      grid-template-columns: 5.1rem 1fr auto;
+      gap: 0.8rem;
+      padding: 0.92rem 1rem;
+      border-radius: 14px;
+    }
+    .hour-time { font-size: 0.95rem; }
+    .bar-label { width: 3.4rem; font-size: 0.76rem; }
+    .bar-track { height: 10px; }
+    .rating-badge { font-size: 0.74rem; padding: 0.28rem 0.55rem; }
+    .best-window {
+      font-size: 1rem;
+      text-align: center;
+      padding: 1.05rem 1.2rem;
+      line-height: 1.6;
+      margin-top: 1.15rem;
+    }
+
+    .day-card {
+      grid-template-columns: 6.8rem 1fr auto;
+      gap: 1rem;
+      padding: 1rem 1.15rem;
+      border-radius: 14px;
+    }
+    .day-name { font-size: 1rem; }
+    .day-date { font-size: 0.82rem; }
+    .day-summary { font-size: 0.98rem; line-height: 1.55; }
+
+    .stargazing-section { margin-top: 2.6rem; }
+    .stargazing-verdict { padding: 1.6rem 1.3rem; }
+    .stargazing-verdict .verdict-label { font-size: clamp(1.6rem, 2.8vw, 2.2rem); }
+    .sky-details { gap: 1rem; }
+    .sky-card { padding: 1rem 1.05rem; border-radius: 14px; }
+    .sky-card .card-title { font-size: 0.8rem; }
+    .sky-card .card-value { font-size: 1.28rem; line-height: 1.35; }
+    .sky-card .card-detail { font-size: 0.96rem; line-height: 1.55; }
+    .planet-item, .event-item { padding: 0.9rem 1rem; border-radius: 14px; }
+    .planet-name { font-size: 1rem; }
+    .planet-info { font-size: 0.84rem; }
+    .event-date { font-size: 0.82rem; }
+    .event-name { font-size: 0.98rem; }
+    .event-desc { font-size: 0.88rem; line-height: 1.55; }
+    .event-alert { border-radius: 14px; padding: 1rem 1.05rem; }
+    .event-alert .alert-title { font-size: 1rem; }
+    .event-alert .alert-detail { font-size: 0.94rem; line-height: 1.55; }
+
+    .email-signup { padding: 1.8rem 1.35rem; }
+    .email-signup h3 { font-size: 1.4rem; margin-bottom: 0.55rem; }
+    .email-signup p { font-size: 1rem; line-height: 1.65; }
+    .email-input { width: min(360px, 100%); font-size: 1rem; padding: 0.85rem 1rem; }
+    .email-submit { font-size: 1rem; padding: 0.86rem 1.25rem; }
+    .email-note, .email-success { font-size: 0.92rem; }
+
+    .affiliate-section h3 { font-size: 1.28rem; text-align: center; }
+    .affiliate-sub { font-size: 0.82rem; margin-bottom: 0.7rem; }
+    .affiliate-grid { gap: 1rem; }
+    .aff-card { padding: 1.15rem; border-radius: 14px; }
+    .aff-card .aff-name { font-size: 1rem; }
+    .aff-card .aff-desc { font-size: 0.95rem; line-height: 1.6; }
+    .aff-card .aff-link { font-size: 0.9rem; }
+
+    .feedback-lite { padding: 1.2rem 1.15rem; }
+    .feedback-lite h3 { font-size: 1.18rem; }
+    .feedback-lite p { font-size: 1rem; line-height: 1.6; }
+    .feedback-btn, .feedback-send { font-size: 0.95rem; padding: 0.7rem 0.95rem; }
+    .feedback-textarea { font-size: 0.98rem; min-height: 110px; }
+    .feedback-status { font-size: 0.9rem; }
+
+    .info-box { font-size: 0.9rem; line-height: 1.75; padding: 1rem 1.05rem; }
+
+    @media (max-width: 768px) {
+      html { font-size: 17px; }
+      .container { padding: 1.25rem 0.9rem 3rem; }
+      .zip-screen { padding: 1.6rem 0.9rem; }
+      .page-title { font-size: clamp(2rem, 9vw, 2.8rem); }
+      .page-subtitle { font-size: 1rem; }
+      #forecast-content > div[style*="justify-content:space-between"] {
+        flex-direction: column;
+        align-items: center !important;
+        gap: 0.75rem;
+        text-align: center;
+      }
+      .action-hero { font-size: 1.45rem; }
+      .action-grid { grid-template-columns: 1fr; }
+      .sun-window { gap: 0.8rem; }
+      .sun-stat { min-width: 130px; }
+      .hour-block { grid-template-columns: 1fr; text-align: left; }
+      .hour-badge { text-align: left; }
+      .bar-label { width: 3rem; }
+      .day-card { grid-template-columns: 1fr; }
+      .sky-details { grid-template-columns: 1fr; }
+      .email-form, .feedback-row { flex-direction: column; }
+      .email-submit, .feedback-send, .feedback-btn, .zip-btn { width: 100%; }
+      .zip-input { width: 100%; max-width: 280px; }
+      .event-item { grid-template-columns: 1fr; gap: 0.45rem; }
+      .planet-item { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    }
+  </style>
+
 </head>
 (function() {
   'use strict';
@@ -682,6 +867,191 @@
     }
   </style>
 
+
+  <style>
+    /* ===== readability + alignment refresh ===== */
+    html { font-size: 18px; }
+    body { font-size: 1rem; line-height: 1.65; }
+    .container { max-width: 1240px; padding: 2rem 1.25rem 4rem; }
+    header { max-width: 900px; margin: 0 auto 2rem; text-align: center; }
+    .page-title { font-size: clamp(2.4rem, 4.4vw, 4.1rem); margin-bottom: 0.75rem; }
+    .page-subtitle { font-size: 1.16rem; line-height: 1.7; max-width: 760px; margin: 0 auto 1.75rem; }
+
+    .zip-screen {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.4rem 1.3rem;
+      background: rgba(8, 26, 21, 0.72);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 22px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+    }
+    .zip-screen h2 { font-size: 2rem; margin-bottom: 0.7rem; }
+    .zip-screen p { font-size: 1.05rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .zip-form { gap: 0.8rem; }
+    .zip-input { width: 190px; font-size: 1.35rem; padding: 0.9rem 1rem; }
+    .zip-btn { min-width: 190px; font-size: 1.02rem; padding: 0.92rem 1.4rem; }
+    .zip-privacy { font-size: 0.88rem !important; }
+    .zip-error { font-size: 0.95rem; }
+
+    #forecast-content { max-width: 1080px; margin: 0 auto; }
+    #forecast-content > div,
+    #forecast-content > section { margin-left: auto; margin-right: auto; }
+
+    .forecast-screen { width: 100%; }
+    .verdict-location { font-size: 0.92rem; }
+    .change-zip-btn { font-size: 0.84rem; padding: 0.45rem 0.8rem; }
+
+    .verdict-banner,
+    .action-panel,
+    .sun-window,
+    .legend,
+    .best-window,
+    .stargazing-verdict,
+    .email-signup,
+    .feedback-lite,
+    .info-box {
+      border-radius: 18px;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.14);
+    }
+
+    .verdict-banner { padding: 1.9rem 1.5rem; margin-bottom: 1.25rem; }
+    .verdict-label { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.2; }
+    .verdict-detail { font-size: 1.08rem; line-height: 1.65; max-width: 720px; margin: 0 auto; }
+
+    .action-panel { padding: 1.45rem; margin-bottom: 1.5rem; }
+    .action-kicker { font-size: 0.82rem; margin-bottom: 0.75rem; text-align: center; }
+    .action-hero { font-size: 1.85rem; line-height: 1.28; text-align: center; margin-bottom: 0.5rem; }
+    .action-summary { font-size: 1.04rem; line-height: 1.65; text-align: center; max-width: 760px; margin: 0 auto 1.1rem; }
+    .action-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.95rem; }
+    .action-card { padding: 1rem 1rem 1.05rem; border-radius: 14px; }
+    .action-card .label { font-size: 0.78rem; margin-bottom: 0.5rem; }
+    .action-card .value { font-size: 1.12rem; line-height: 1.35; }
+    .action-card .note { font-size: 0.95rem; line-height: 1.6; }
+    .status-pill { font-size: 0.72rem; padding: 0.22rem 0.55rem; }
+    .insight-strip { justify-content: center; gap: 0.65rem; margin-top: 1.05rem; }
+    .insight-chip { font-size: 0.82rem; padding: 0.42rem 0.75rem; }
+
+    .sun-window {
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      padding: 1.05rem 1.15rem;
+      text-align: center;
+      margin-bottom: 1.45rem;
+    }
+    .sun-stat { min-width: 150px; }
+    .sun-stat .label { font-size: 0.76rem; }
+    .sun-stat .value { font-size: 1.15rem; }
+
+    .section-label {
+      font-size: 0.98rem;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 0.95rem;
+    }
+    .legend { justify-content: center; padding: 0.9rem 1rem; gap: 0.8rem; }
+    .legend-item { font-size: 0.84rem; }
+
+    .timeline { gap: 0.65rem; }
+    .hour-block {
+      grid-template-columns: 5.1rem 1fr auto;
+      gap: 0.8rem;
+      padding: 0.92rem 1rem;
+      border-radius: 14px;
+    }
+    .hour-time { font-size: 0.95rem; }
+    .bar-label { width: 3.4rem; font-size: 0.76rem; }
+    .bar-track { height: 10px; }
+    .rating-badge { font-size: 0.74rem; padding: 0.28rem 0.55rem; }
+    .best-window {
+      font-size: 1rem;
+      text-align: center;
+      padding: 1.05rem 1.2rem;
+      line-height: 1.6;
+      margin-top: 1.15rem;
+    }
+
+    .day-card {
+      grid-template-columns: 6.8rem 1fr auto;
+      gap: 1rem;
+      padding: 1rem 1.15rem;
+      border-radius: 14px;
+    }
+    .day-name { font-size: 1rem; }
+    .day-date { font-size: 0.82rem; }
+    .day-summary { font-size: 0.98rem; line-height: 1.55; }
+
+    .stargazing-section { margin-top: 2.6rem; }
+    .stargazing-verdict { padding: 1.6rem 1.3rem; }
+    .stargazing-verdict .verdict-label { font-size: clamp(1.6rem, 2.8vw, 2.2rem); }
+    .sky-details { gap: 1rem; }
+    .sky-card { padding: 1rem 1.05rem; border-radius: 14px; }
+    .sky-card .card-title { font-size: 0.8rem; }
+    .sky-card .card-value { font-size: 1.28rem; line-height: 1.35; }
+    .sky-card .card-detail { font-size: 0.96rem; line-height: 1.55; }
+    .planet-item, .event-item { padding: 0.9rem 1rem; border-radius: 14px; }
+    .planet-name { font-size: 1rem; }
+    .planet-info { font-size: 0.84rem; }
+    .event-date { font-size: 0.82rem; }
+    .event-name { font-size: 0.98rem; }
+    .event-desc { font-size: 0.88rem; line-height: 1.55; }
+    .event-alert { border-radius: 14px; padding: 1rem 1.05rem; }
+    .event-alert .alert-title { font-size: 1rem; }
+    .event-alert .alert-detail { font-size: 0.94rem; line-height: 1.55; }
+
+    .email-signup { padding: 1.8rem 1.35rem; }
+    .email-signup h3 { font-size: 1.4rem; margin-bottom: 0.55rem; }
+    .email-signup p { font-size: 1rem; line-height: 1.65; }
+    .email-input { width: min(360px, 100%); font-size: 1rem; padding: 0.85rem 1rem; }
+    .email-submit { font-size: 1rem; padding: 0.86rem 1.25rem; }
+    .email-note, .email-success { font-size: 0.92rem; }
+
+    .affiliate-section h3 { font-size: 1.28rem; text-align: center; }
+    .affiliate-sub { font-size: 0.82rem; margin-bottom: 0.7rem; }
+    .affiliate-grid { gap: 1rem; }
+    .aff-card { padding: 1.15rem; border-radius: 14px; }
+    .aff-card .aff-name { font-size: 1rem; }
+    .aff-card .aff-desc { font-size: 0.95rem; line-height: 1.6; }
+    .aff-card .aff-link { font-size: 0.9rem; }
+
+    .feedback-lite { padding: 1.2rem 1.15rem; }
+    .feedback-lite h3 { font-size: 1.18rem; }
+    .feedback-lite p { font-size: 1rem; line-height: 1.6; }
+    .feedback-btn, .feedback-send { font-size: 0.95rem; padding: 0.7rem 0.95rem; }
+    .feedback-textarea { font-size: 0.98rem; min-height: 110px; }
+    .feedback-status { font-size: 0.9rem; }
+
+    .info-box { font-size: 0.9rem; line-height: 1.75; padding: 1rem 1.05rem; }
+
+    @media (max-width: 768px) {
+      html { font-size: 17px; }
+      .container { padding: 1.25rem 0.9rem 3rem; }
+      .zip-screen { padding: 1.6rem 0.9rem; }
+      .page-title { font-size: clamp(2rem, 9vw, 2.8rem); }
+      .page-subtitle { font-size: 1rem; }
+      #forecast-content > div[style*="justify-content:space-between"] {
+        flex-direction: column;
+        align-items: center !important;
+        gap: 0.75rem;
+        text-align: center;
+      }
+      .action-hero { font-size: 1.45rem; }
+      .action-grid { grid-template-columns: 1fr; }
+      .sun-window { gap: 0.8rem; }
+      .sun-stat { min-width: 130px; }
+      .hour-block { grid-template-columns: 1fr; text-align: left; }
+      .hour-badge { text-align: left; }
+      .bar-label { width: 3rem; }
+      .day-card { grid-template-columns: 1fr; }
+      .sky-details { grid-template-columns: 1fr; }
+      .email-form, .feedback-row { flex-direction: column; }
+      .email-submit, .feedback-send, .feedback-btn, .zip-btn { width: 100%; }
+      .zip-input { width: 100%; max-width: 280px; }
+      .event-item { grid-template-columns: 1fr; gap: 0.45rem; }
+      .planet-item { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    }
+  </style>
+
 </head>
 <body>
   <div id="site-nav"></div>
@@ -701,7 +1071,7 @@
   <div class="container">
     <header>
       <h1 class="page-title">&#9728; Sola Ray Solar Forecast</h1>
-      <p class="page-subtitle">Your daily solar assistant. Enter your zip code to see what to run today, when to hold back, and whether tonight is worth stepping outside.</p>
+      <p class="page-subtitle">A simple daily plan for solar owners. See what to run today, when to hold back, and whether tonight is worth stepping outside.</p>
     </header>
 
     <!-- ============================================
