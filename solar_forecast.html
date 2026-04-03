@@ -1,88 +1,2095 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sola Ray Solar Forecast</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.open-meteo.com https://nominatim.openstreetmap.org https://api.forecast.solar https://api.visibleplanets.dev https://aa.usno.navy.mil https://www.google-analytics.com https://analytics.google.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://app.kit.com;">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #0b2f26;
-  color: #e8f0f7;
-  margin: 0;
-}
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Sola Ray Solar Forecast &mdash; free solar decision assistant by zip code. See what to run today, when to hold back, and whether tonight is worth stepping outside.">
+  <meta name="keywords" content="solar forecast, what should I run today, home solar assistant, run laundry on solar, pool pump solar, thermostat solar, stargazing forecast, visible planets tonight, meteor shower tonight">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/solar_forecast.html">
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem 1.25rem;
-}
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.solarayeffect.com/solar_forecast.html">
+  <meta property="og:title" content="Sola Ray Solar Forecast &mdash; What Should You Run Today?">
+  <meta property="og:description" content="Free solar decision assistant by zip code. See what to run today, when to conserve, and tonight&rsquo;s sky conditions.">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
 
-h1 {
-  text-align: center;
-  font-size: 2.4rem;
-}
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/solar_forecast.html">
+  <meta name="twitter:title" content="Sola Ray Solar Forecast &mdash; Solar Decisions &amp; Stargazing by Zip Code">
+  <meta name="twitter:description" content="Free solar decision assistant. Find your best run window, whether to conserve, and what to watch tonight.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
 
-.subtitle {
-  text-align: center;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-}
+  <!-- Google tag (gtag.js) - Production only -->
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
+  </script>
 
-.card {
-  background: rgba(8,26,21,0.8);
-  border: 1px solid #00ced1;
-  border-radius: 10px;
-  padding: 1.2rem;
-  margin-bottom: 1.5rem;
-}
+  <title>Sola Ray Solar Forecast &mdash; Solar Decisions &amp; Stargazing by Zip Code | Sola Ray Effect</title>
 
-.action {
-  font-size: 1rem;
-}
+  <!-- Self-hosted fonts -->
+  <style>
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-sans-jp-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/noto-sans-jp-latin-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/noto-sans-jp-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Share Tech Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2"); }
+  </style>
+  <style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-teal-glow: rgba(0, 206, 209, 0.4);
+      --sola-gold: #D4AF37;
+      --sola-gold-glow: rgba(212, 175, 55, 0.3);
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --clear: #D4AF37;
+      --partial: #e08a2e;
+      --overcast: #5a6a7a;
+      --good: #00e676;
+      --fair: #D4AF37;
+      --poor: #ef4444;
+    }
 
-footer {
-  text-align: center;
-  padding: 2rem 1rem;
-}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-</style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+
+    /* ============================================
+       HAMBURGER MENU
+       ============================================ */
+    .hamburger-menu { position: fixed; top: 1rem; left: 1rem; z-index: 1000; }
+
+    .hamburger-btn {
+      background: var(--bg-card); border: 2px solid var(--sola-teal); color: var(--sola-teal);
+      width: 44px; height: 44px; border-radius: 8px; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      transition: all 0.3s ease; box-shadow: 0 0 10px var(--sola-teal-glow);
+    }
+    .hamburger-btn:hover { background: var(--sola-teal); color: #000; box-shadow: 0 0 20px var(--sola-teal-glow); }
+    .hamburger-btn .bun-top { width: 24px; height: 6px; background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%); border-radius: 10px 10px 0 0; transition: all 0.3s ease; }
+    .hamburger-btn .lettuce { width: 26px; height: 3px; background: #32CD32; border-radius: 1px; transition: all 0.3s ease; }
+    .hamburger-btn .patty { width: 24px; height: 4px; background: linear-gradient(180deg, #8B4513 0%, #654321 100%); border-radius: 2px; transition: all 0.3s ease; }
+    .hamburger-btn .cheese { width: 26px; height: 3px; background: #FFD700; border-radius: 1px; transform: skewX(-5deg); transition: all 0.3s ease; }
+    .hamburger-btn .bun-bottom { width: 24px; height: 5px; background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%); border-radius: 0 0 6px 6px; transition: all 0.3s ease; }
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+
+    /* ============================================
+       NAV DRAWER
+       ============================================ */
+    .nav-drawer {
+      position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; overflow-y: auto;
+      background: var(--bg-secondary); border-right: 2px solid var(--sola-teal); z-index: 999;
+      transition: left 0.3s ease; padding: 70px 1.5rem 1.5rem;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    .nav-drawer.open { left: 0; }
+    .nav-drawer h3 { color: var(--sola-gold); font-size: 1rem; padding-left: 50px; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(212, 175, 55, 0.3); letter-spacing: 2px; text-transform: uppercase; }
+    .nav-drawer a { display: block; color: var(--text-primary); text-decoration: none; padding: 0.5rem 1rem; margin-bottom: 0.3rem; border-radius: 6px; font-size: 1rem; transition: all 0.2s ease; border: 1px solid transparent; }
+    .nav-drawer a:hover { background: var(--bg-card); border-color: var(--sola-teal); color: var(--sola-teal); }
+    .nav-drawer a.active { background: rgba(0, 206, 209, 0.15); border-color: var(--sola-teal); color: #ffffff; }
+    .nav-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 998; }
+    .nav-overlay.show { display: block; }
+
+    /* ============================================
+       GLOSSARY DRAWER
+       ============================================ */
+    .glossary-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1001; }
+    .glossary-overlay.open { display: block; }
+    .glossary-drawer { position: fixed; top: 0; right: -380px; width: 380px; max-width: 90vw; height: 100vh; background: var(--bg-secondary); border-left: 2px solid var(--sola-gold); z-index: 1002; transition: right 0.3s ease; padding: 2rem; box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5); overflow-y: auto; }
+    .glossary-drawer.open { right: 0; }
+    .glossary-drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+    .glossary-drawer-title { color: var(--sola-gold); font-size: 1.3rem; margin: 0; }
+    .glossary-drawer-close { background: transparent; border: 1px solid var(--sola-teal); color: var(--sola-teal); width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-size: 1.2rem; transition: all 0.2s; }
+    .glossary-drawer-close:hover { background: var(--sola-teal); color: var(--sola-emerald); }
+    .glossary-drawer-def { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem; }
+    .glossary-drawer-tip { background: rgba(0, 206, 209, 0.1); border-left: 3px solid var(--sola-teal); padding: 0.75rem 1rem; border-radius: 0 6px 6px 0; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .glossary-drawer-link { display: inline-block; color: var(--sola-teal); text-decoration: none; margin-top: 1rem; }
+    .glossary-drawer-link:hover { color: var(--sola-gold); }
+
+    /* ============================================
+       PAGE HEADER
+       ============================================ */
+    .page-title { font-size: 2.2rem; background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; line-height: 1.3; }
+    .page-subtitle { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1.5rem; }
+
+    /* ============================================
+       ZIP INPUT SCREEN
+       ============================================ */
+    .zip-screen { text-align: center; padding: 3rem 1rem; }
+    .zip-screen h2 { color: var(--sola-gold); font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .zip-screen p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .zip-form { display: flex; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap; }
+    .zip-input { background: var(--bg-card); border: 2px solid var(--border-color); color: var(--text-primary); font-family: 'Share Tech Mono', monospace; font-size: 1.2rem; padding: 0.75rem 1rem; border-radius: 8px; width: 140px; text-align: center; transition: border-color 0.2s; }
+    .zip-input:focus { outline: none; border-color: var(--sola-teal); }
+    .zip-btn { background: var(--sola-teal); color: var(--sola-emerald); border: none; font-family: 'Noto Sans JP', sans-serif; font-weight: 700; font-size: 1rem; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .zip-btn:hover { background: var(--sola-gold); box-shadow: 0 0 15px var(--sola-gold-glow); }
+    .zip-privacy { color: var(--text-muted); font-size: 0.72rem; margin-top: 1rem; }
+    .zip-error { color: var(--poor); font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+    .change-zip-btn { background: none; border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-muted); cursor: pointer; font-size: 0.72rem; font-family: 'Share Tech Mono', monospace; padding: 0.3rem 0.65rem; transition: all 0.2s; }
+    .change-zip-btn:hover { border-color: var(--sola-teal); color: var(--sola-teal); }
+
+    /* ============================================
+       FORECAST SCREEN (hidden until zip entered)
+       ============================================ */
+    .forecast-screen { display: none; }
+
+    /* ---- Verdict Banner ---- */
+    .verdict-banner { text-align: center; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--border-color); background: var(--bg-card); }
+    .verdict-label { font-family: 'Noto Sans JP', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .verdict-label.great { color: var(--good); }
+    .verdict-label.fair { color: var(--fair); }
+    .verdict-label.poor { color: var(--poor); }
+    .verdict-detail { color: var(--text-secondary); font-size: 0.9rem; }
+    .verdict-location { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+    /* ---- Sun Window Bar ---- */
+    .sun-window { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.85rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 1.25rem; }
+    .sun-stat .label { font-size: 0.62rem; color: var(--text-muted); font-family: 'Share Tech Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; }
+    .sun-stat .value { font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; color: var(--sola-gold); font-weight: 700; margin-top: 0.1rem; }
+
+    /* ---- Section Labels ---- */
+    .section-label { font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem; margin-top: 1.5rem; }
+
+    /* ---- Legend ---- */
+    .legend { display: flex; flex-wrap: wrap; gap: 0.65rem; padding: 0.65rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 1rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.7rem; color: var(--text-muted); font-family: 'Share Tech Mono', monospace; }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ---- Hourly Timeline ---- */
+    .timeline { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.5rem; }
+    .hour-block { display: grid; grid-template-columns: 4rem 1fr auto; align-items: center; gap: 0.5rem; padding: 0.55rem 0.85rem; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid transparent; transition: border-color 0.2s; }
+    .hour-block.clear { border-left-color: var(--clear); }
+    .hour-block.partial { border-left-color: var(--partial); }
+    .hour-block.overcast { border-left-color: var(--overcast); }
+    .hour-time { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
+    .hour-bars { display: flex; flex-direction: column; gap: 0.28rem; }
+    .bar-row { display: flex; align-items: center; gap: 0.4rem; }
+    .bar-label { font-size: 0.6rem; color: var(--text-muted); font-family: 'Share Tech Mono', monospace; width: 2.8rem; text-align: right; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+    .bar-fill.cloud { background: var(--sola-teal); }
+    .bar-fill.ghi { background: var(--sola-gold); }
+    .hour-badge { text-align: right; }
+    .rating-badge { display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em; padding: 0.2rem 0.45rem; border-radius: 4px; text-transform: uppercase; white-space: nowrap; }
+    .rating-badge.run { background: rgba(0, 230, 118, 0.15); color: var(--good); }
+    .rating-badge.maybe { background: rgba(212, 175, 55, 0.15); color: var(--fair); }
+    .rating-badge.wait { background: rgba(239, 68, 68, 0.15); color: var(--poor); }
+
+    /* ---- Best Window Callout ---- */
+    .best-window { background: rgba(0, 206, 209, 0.08); border: 1px solid rgba(0, 206, 209, 0.25); border-radius: 8px; padding: 0.85rem 1rem; margin: 1rem 0 1.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--sola-teal); }
+
+    /* ---- 5-Day Outlook ---- */
+    .five-day { display: flex; flex-direction: column; gap: 0.5rem; }
+    .day-card { background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid transparent; border-radius: 8px; padding: 0.75rem 1rem; display: grid; grid-template-columns: 5.5rem 1fr auto; align-items: center; gap: 0.75rem; }
+    .day-card.clear { border-left-color: var(--clear); }
+    .day-card.partial { border-left-color: var(--partial); }
+    .day-card.overcast { border-left-color: var(--overcast); }
+    .day-name { font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; color: var(--text-primary); }
+    .day-date { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .day-summary { font-size: 0.78rem; color: var(--text-secondary); }
+
+    /* ============================================
+       STARGAZING SECTION
+       ============================================ */
+    .stargazing-section { margin-top: 2rem; }
+    .stargazing-verdict { text-align: center; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.25rem; border: 1px solid var(--border-color); background: var(--bg-card); }
+    .stargazing-verdict .verdict-label { font-size: 1.3rem; }
+    .sky-details { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .sky-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.85rem 1rem; }
+    .sky-card .card-title { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .sky-card .card-value { font-family: 'Noto Sans JP', sans-serif; font-size: 1.1rem; color: var(--text-primary); font-weight: 600; }
+    .sky-card .card-detail { font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .planet-list { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .planet-item { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0.85rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; }
+    .planet-name { font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; color: var(--text-primary); }
+    .planet-info { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-secondary); }
+    .event-alert { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 1rem; }
+    .event-alert .alert-title { font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem; color: var(--sola-gold); font-weight: 600; margin-bottom: 0.25rem; }
+    .event-alert .alert-detail { font-size: 0.8rem; color: var(--text-secondary); }
+    .upcoming-events { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .event-item { display: grid; grid-template-columns: 5rem 1fr; gap: 0.75rem; padding: 0.6rem 0.85rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; align-items: center; }
+    .event-date { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--sola-gold); }
+    .event-name { font-size: 0.8rem; color: var(--text-primary); }
+    .event-desc { font-size: 0.7rem; color: var(--text-secondary); }
+
+    /* ============================================
+       EMAIL SIGNUP
+       ============================================ */
+    .email-signup { background: var(--bg-card); border: 1px solid var(--sola-teal); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; text-align: center; }
+    .email-signup h3 { color: var(--sola-teal); font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .email-signup p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem; }
+    .email-form { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+    .email-input { background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); font-family: 'Roboto', sans-serif; font-size: 0.9rem; padding: 0.65rem 1rem; border-radius: 8px; width: 240px; transition: border-color 0.2s; }
+    .email-input:focus { outline: none; border-color: var(--sola-teal); }
+    .email-submit { background: var(--sola-gold); color: var(--sola-emerald); border: none; font-family: 'Noto Sans JP', sans-serif; font-weight: 700; font-size: 0.9rem; padding: 0.65rem 1.25rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .email-submit:hover { background: var(--sola-teal); box-shadow: 0 0 12px var(--sola-teal-glow); }
+    .email-success { color: var(--good); font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+    .email-note { color: var(--text-muted); font-size: 0.65rem; margin-top: 0.75rem; }
+
+    /* ============================================
+       AFFILIATE SECTION
+       ============================================ */
+    .affiliate-section { margin: 2rem 0; }
+    .affiliate-section h3 { color: var(--sola-gold); font-size: 1rem; margin-bottom: 0.75rem; }
+    .affiliate-sub { color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; margin-top: 1rem; }
+    .affiliate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
+    .aff-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; transition: border-color 0.2s; }
+    .aff-card:hover { border-color: var(--sola-teal); }
+    .aff-card .aff-name { font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 0.3rem; }
+    .aff-card .aff-desc { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.6rem; }
+    .aff-card .aff-link { color: var(--sola-teal); text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+    .aff-card .aff-link:hover { color: var(--sola-gold); }
+
+    /* ============================================
+       DATA SOURCES / INFO BOX
+       ============================================ */
+    .info-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.85rem 1rem; margin-top: 1.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-muted); line-height: 1.8; }
+    .info-box a { color: var(--sola-teal); text-decoration: none; }
+    .info-box a:hover { color: var(--sola-gold); }
+
+    /* ============================================
+       LOADING SPINNER
+       ============================================ */
+    .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 3rem 1rem; }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--border-color); border-top-color: var(--sola-teal); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    .loading-text { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--text-muted); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .page-title { font-size: 1.6rem; }
+      .sky-details { grid-template-columns: 1fr; }
+      .affiliate-grid { grid-template-columns: 1fr; }
+      .hour-block { grid-template-columns: 3.2rem 1fr auto; padding: 0.45rem 0.6rem; }
+      .day-card { grid-template-columns: 4.5rem 1fr auto; }
+      .event-item { grid-template-columns: 4.5rem 1fr; }
+    }
+  </style>
+
+
+  <style>
+    /* ===== readability + alignment refresh ===== */
+    html { font-size: 18px; }
+    body { font-size: 1rem; line-height: 1.65; }
+    .container { max-width: 1240px; padding: 2rem 1.25rem 4rem; }
+    header { max-width: 900px; margin: 0 auto 2rem; text-align: center; }
+    .page-title { font-size: clamp(2.4rem, 4.4vw, 4.1rem); margin-bottom: 0.75rem; }
+    .page-subtitle { font-size: 1.16rem; line-height: 1.7; max-width: 760px; margin: 0 auto 1.75rem; }
+
+    .zip-screen {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.4rem 1.3rem;
+      background: rgba(8, 26, 21, 0.72);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 22px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+    }
+    .zip-screen h2 { font-size: 2rem; margin-bottom: 0.7rem; }
+    .zip-screen p { font-size: 1.05rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .zip-form { gap: 0.8rem; }
+    .zip-input { width: 190px; font-size: 1.35rem; padding: 0.9rem 1rem; }
+    .zip-btn { min-width: 190px; font-size: 1.02rem; padding: 0.92rem 1.4rem; }
+    .zip-privacy { font-size: 0.88rem !important; }
+    .zip-error { font-size: 0.95rem; }
+
+    #forecast-content { max-width: 1080px; margin: 0 auto; }
+    #forecast-content > div,
+    #forecast-content > section { margin-left: auto; margin-right: auto; }
+
+    .forecast-screen { width: 100%; }
+    .verdict-location { font-size: 0.92rem; }
+    .change-zip-btn { font-size: 0.84rem; padding: 0.45rem 0.8rem; }
+
+    .verdict-banner,
+    .action-panel,
+    .sun-window,
+    .legend,
+    .best-window,
+    .stargazing-verdict,
+    .email-signup,
+    .feedback-lite,
+    .info-box {
+      border-radius: 18px;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.14);
+    }
+
+    .verdict-banner { padding: 1.9rem 1.5rem; margin-bottom: 1.25rem; }
+    .verdict-label { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.2; }
+    .verdict-detail { font-size: 1.08rem; line-height: 1.65; max-width: 720px; margin: 0 auto; }
+
+    .action-panel { padding: 1.45rem; margin-bottom: 1.5rem; }
+    .action-kicker { font-size: 0.82rem; margin-bottom: 0.75rem; text-align: center; }
+    .action-hero { font-size: 1.85rem; line-height: 1.28; text-align: center; margin-bottom: 0.5rem; }
+    .action-summary { font-size: 1.04rem; line-height: 1.65; text-align: center; max-width: 760px; margin: 0 auto 1.1rem; }
+    .action-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.95rem; }
+    .action-card { padding: 1rem 1rem 1.05rem; border-radius: 14px; }
+    .action-card .label { font-size: 0.78rem; margin-bottom: 0.5rem; }
+    .action-card .value { font-size: 1.12rem; line-height: 1.35; }
+    .action-card .note { font-size: 0.95rem; line-height: 1.6; }
+    .status-pill { font-size: 0.72rem; padding: 0.22rem 0.55rem; }
+    .insight-strip { justify-content: center; gap: 0.65rem; margin-top: 1.05rem; }
+    .insight-chip { font-size: 0.82rem; padding: 0.42rem 0.75rem; }
+
+    .sun-window {
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      padding: 1.05rem 1.15rem;
+      text-align: center;
+      margin-bottom: 1.45rem;
+    }
+    .sun-stat { min-width: 150px; }
+    .sun-stat .label { font-size: 0.76rem; }
+    .sun-stat .value { font-size: 1.15rem; }
+
+    .section-label {
+      font-size: 0.98rem;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 0.95rem;
+    }
+    .legend { justify-content: center; padding: 0.9rem 1rem; gap: 0.8rem; }
+    .legend-item { font-size: 0.84rem; }
+
+    .timeline { gap: 0.65rem; }
+    .hour-block {
+      grid-template-columns: 5.1rem 1fr auto;
+      gap: 0.8rem;
+      padding: 0.92rem 1rem;
+      border-radius: 14px;
+    }
+    .hour-time { font-size: 0.95rem; }
+    .bar-label { width: 3.4rem; font-size: 0.76rem; }
+    .bar-track { height: 10px; }
+    .rating-badge { font-size: 0.74rem; padding: 0.28rem 0.55rem; }
+    .best-window {
+      font-size: 1rem;
+      text-align: center;
+      padding: 1.05rem 1.2rem;
+      line-height: 1.6;
+      margin-top: 1.15rem;
+    }
+
+    .day-card {
+      grid-template-columns: 6.8rem 1fr auto;
+      gap: 1rem;
+      padding: 1rem 1.15rem;
+      border-radius: 14px;
+    }
+    .day-name { font-size: 1rem; }
+    .day-date { font-size: 0.82rem; }
+    .day-summary { font-size: 0.98rem; line-height: 1.55; }
+
+    .stargazing-section { margin-top: 2.6rem; }
+    .stargazing-verdict { padding: 1.6rem 1.3rem; }
+    .stargazing-verdict .verdict-label { font-size: clamp(1.6rem, 2.8vw, 2.2rem); }
+    .sky-details { gap: 1rem; }
+    .sky-card { padding: 1rem 1.05rem; border-radius: 14px; }
+    .sky-card .card-title { font-size: 0.8rem; }
+    .sky-card .card-value { font-size: 1.28rem; line-height: 1.35; }
+    .sky-card .card-detail { font-size: 0.96rem; line-height: 1.55; }
+    .planet-item, .event-item { padding: 0.9rem 1rem; border-radius: 14px; }
+    .planet-name { font-size: 1rem; }
+    .planet-info { font-size: 0.84rem; }
+    .event-date { font-size: 0.82rem; }
+    .event-name { font-size: 0.98rem; }
+    .event-desc { font-size: 0.88rem; line-height: 1.55; }
+    .event-alert { border-radius: 14px; padding: 1rem 1.05rem; }
+    .event-alert .alert-title { font-size: 1rem; }
+    .event-alert .alert-detail { font-size: 0.94rem; line-height: 1.55; }
+
+    .email-signup { padding: 1.8rem 1.35rem; }
+    .email-signup h3 { font-size: 1.4rem; margin-bottom: 0.55rem; }
+    .email-signup p { font-size: 1rem; line-height: 1.65; }
+    .email-input { width: min(360px, 100%); font-size: 1rem; padding: 0.85rem 1rem; }
+    .email-submit { font-size: 1rem; padding: 0.86rem 1.25rem; }
+    .email-note, .email-success { font-size: 0.92rem; }
+
+    .affiliate-section h3 { font-size: 1.28rem; text-align: center; }
+    .affiliate-sub { font-size: 0.82rem; margin-bottom: 0.7rem; }
+    .affiliate-grid { gap: 1rem; }
+    .aff-card { padding: 1.15rem; border-radius: 14px; }
+    .aff-card .aff-name { font-size: 1rem; }
+    .aff-card .aff-desc { font-size: 0.95rem; line-height: 1.6; }
+    .aff-card .aff-link { font-size: 0.9rem; }
+
+    .feedback-lite { padding: 1.2rem 1.15rem; }
+    .feedback-lite h3 { font-size: 1.18rem; }
+    .feedback-lite p { font-size: 1rem; line-height: 1.6; }
+    .feedback-btn, .feedback-send { font-size: 0.95rem; padding: 0.7rem 0.95rem; }
+    .feedback-textarea { font-size: 0.98rem; min-height: 110px; }
+    .feedback-status { font-size: 0.9rem; }
+
+    .info-box { font-size: 0.9rem; line-height: 1.75; padding: 1rem 1.05rem; }
+
+    @media (max-width: 768px) {
+      html { font-size: 17px; }
+      .container { padding: 1.25rem 0.9rem 3rem; }
+      .zip-screen { padding: 1.6rem 0.9rem; }
+      .page-title { font-size: clamp(2rem, 9vw, 2.8rem); }
+      .page-subtitle { font-size: 1rem; }
+      #forecast-content > div[style*="justify-content:space-between"] {
+        flex-direction: column;
+        align-items: center !important;
+        gap: 0.75rem;
+        text-align: center;
+      }
+      .action-hero { font-size: 1.45rem; }
+      .action-grid { grid-template-columns: 1fr; }
+      .sun-window { gap: 0.8rem; }
+      .sun-stat { min-width: 130px; }
+      .hour-block { grid-template-columns: 1fr; text-align: left; }
+      .hour-badge { text-align: left; }
+      .bar-label { width: 3rem; }
+      .day-card { grid-template-columns: 1fr; }
+      .sky-details { grid-template-columns: 1fr; }
+      .email-form, .feedback-row { flex-direction: column; }
+      .email-submit, .feedback-send, .feedback-btn, .zip-btn { width: 100%; }
+      .zip-input { width: 100%; max-width: 280px; }
+      .event-item { grid-template-columns: 1fr; gap: 0.45rem; }
+      .planet-item { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    }
+  </style>
+
 </head>
+(function() {
+  'use strict';
 
+  window.initSolaNightSky = function(lat, lon) {
+    if (typeof lat !== 'number' || typeof lon !== 'number') return;
+    fetchOvernightCloud(lat, lon);
+    fetchVisiblePlanets(lat, lon);
+    renderMoonPhase();
+    renderAstronomyEvents();
+  };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.open-meteo.com https://nominatim.openstreetmap.org https://api.forecast.solar https://api.visibleplanets.dev https://aa.usno.navy.mil https://www.google-analytics.com https://analytics.google.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://app.kit.com;">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Sola Ray Solar Forecast &mdash; free solar decision assistant by zip code. See what to run today, when to hold back, and whether tonight is worth stepping outside.">
+  <meta name="keywords" content="solar forecast, what should I run today, home solar assistant, run laundry on solar, pool pump solar, thermostat solar, stargazing forecast, visible planets tonight, meteor shower tonight">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/solar_forecast.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.solarayeffect.com/solar_forecast.html">
+  <meta property="og:title" content="Sola Ray Solar Forecast &mdash; What Should You Run Today?">
+  <meta property="og:description" content="Free solar decision assistant by zip code. See what to run today, when to conserve, and tonight&rsquo;s sky conditions.">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/solar_forecast.html">
+  <meta name="twitter:title" content="Sola Ray Solar Forecast &mdash; Solar Decisions &amp; Stargazing by Zip Code">
+  <meta name="twitter:description" content="Free solar decision assistant. Find your best run window, whether to conserve, and what to watch tonight.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+
+  <!-- Google tag (gtag.js) - Production only -->
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
+  </script>
+
+  <title>Sola Ray Solar Forecast &mdash; Solar Decisions &amp; Stargazing by Zip Code | Sola Ray Effect</title>
+
+  <!-- Self-hosted fonts -->
+  <style>
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-sans-jp-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/noto-sans-jp-latin-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/noto-sans-jp-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Share Tech Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2"); }
+  </style>
+  <style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-teal-glow: rgba(0, 206, 209, 0.4);
+      --sola-gold: #D4AF37;
+      --sola-gold-glow: rgba(212, 175, 55, 0.3);
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --clear: #D4AF37;
+      --partial: #e08a2e;
+      --overcast: #5a6a7a;
+      --good: #00e676;
+      --fair: #D4AF37;
+      --poor: #ef4444;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+
+    /* ============================================
+       HAMBURGER MENU
+       ============================================ */
+    .hamburger-menu { position: fixed; top: 1rem; left: 1rem; z-index: 1000; }
+
+    .hamburger-btn {
+      background: var(--bg-card); border: 2px solid var(--sola-teal); color: var(--sola-teal);
+      width: 44px; height: 44px; border-radius: 8px; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      transition: all 0.3s ease; box-shadow: 0 0 10px var(--sola-teal-glow);
+    }
+    .hamburger-btn:hover { background: var(--sola-teal); color: #000; box-shadow: 0 0 20px var(--sola-teal-glow); }
+    .hamburger-btn .bun-top { width: 24px; height: 6px; background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%); border-radius: 10px 10px 0 0; transition: all 0.3s ease; }
+    .hamburger-btn .lettuce { width: 26px; height: 3px; background: #32CD32; border-radius: 1px; transition: all 0.3s ease; }
+    .hamburger-btn .patty { width: 24px; height: 4px; background: linear-gradient(180deg, #8B4513 0%, #654321 100%); border-radius: 2px; transition: all 0.3s ease; }
+    .hamburger-btn .cheese { width: 26px; height: 3px; background: #FFD700; border-radius: 1px; transform: skewX(-5deg); transition: all 0.3s ease; }
+    .hamburger-btn .bun-bottom { width: 24px; height: 5px; background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%); border-radius: 0 0 6px 6px; transition: all 0.3s ease; }
+    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
+    .hamburger-btn.open .lettuce { opacity: 0; }
+    .hamburger-btn.open .patty { opacity: 0; }
+    .hamburger-btn.open .cheese { opacity: 0; }
+    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
+
+    /* ============================================
+       NAV DRAWER
+       ============================================ */
+    .nav-drawer {
+      position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; overflow-y: auto;
+      background: var(--bg-secondary); border-right: 2px solid var(--sola-teal); z-index: 999;
+      transition: left 0.3s ease; padding: 70px 1.5rem 1.5rem;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    .nav-drawer.open { left: 0; }
+    .nav-drawer h3 { color: var(--sola-gold); font-size: 1rem; padding-left: 50px; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(212, 175, 55, 0.3); letter-spacing: 2px; text-transform: uppercase; }
+    .nav-drawer a { display: block; color: var(--text-primary); text-decoration: none; padding: 0.5rem 1rem; margin-bottom: 0.3rem; border-radius: 6px; font-size: 1rem; transition: all 0.2s ease; border: 1px solid transparent; }
+    .nav-drawer a:hover { background: var(--bg-card); border-color: var(--sola-teal); color: var(--sola-teal); }
+    .nav-drawer a.active { background: rgba(0, 206, 209, 0.15); border-color: var(--sola-teal); color: #ffffff; }
+    .nav-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 998; }
+    .nav-overlay.show { display: block; }
+
+    /* ============================================
+       GLOSSARY DRAWER
+       ============================================ */
+    .glossary-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1001; }
+    .glossary-overlay.open, .glossary-overlay.show { display: block; }
+    .glossary-drawer { position: fixed; top: 0; right: -380px; width: 380px; max-width: 90vw; height: 100vh; background: var(--bg-secondary); border-left: 2px solid var(--sola-gold); z-index: 1002; transition: right 0.3s ease; padding: 2rem; box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5); overflow-y: auto; }
+    .glossary-drawer.open { right: 0; }
+    .glossary-drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+    .glossary-drawer-title { color: var(--sola-gold); font-size: 1.3rem; margin: 0; }
+    .glossary-drawer-close { background: transparent; border: 1px solid var(--sola-teal); color: var(--sola-teal); width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-size: 1.2rem; transition: all 0.2s; }
+    .glossary-drawer-close:hover { background: var(--sola-teal); color: var(--sola-emerald); }
+    #glossary-term-definition { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.1rem; }
+    .glossary-term-links { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; }
+    .glossary-pill { display:inline-flex; align-items:center; gap:0.35rem; border:1px solid rgba(0, 206, 209, 0.35); color:var(--sola-teal); text-decoration:none; padding:0.42rem 0.7rem; border-radius:999px; font-size:0.78rem; }
+    .glossary-pill:hover, .glossary-more-link:hover { color: var(--sola-gold); border-color: rgba(212,175,55,0.4); }
+    .glossary-term-actions { margin-top: 0.5rem; }
+    .glossary-more-link { display:inline-block; color:var(--sola-teal); text-decoration:none; font-size:0.88rem; }
+
+    /* ============================================
+       PAGE HEADER
+       ============================================ */
+    .page-title { font-size: 2.2rem; background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; line-height: 1.3; }
+    .page-subtitle { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1.5rem; }
+
+
+    /* ============================================
+       DAILY ACTION PLAN
+       ============================================ */
+    .action-panel { background: linear-gradient(135deg, rgba(0, 206, 209, 0.08), rgba(212, 175, 55, 0.08)); border: 1px solid rgba(0, 206, 209, 0.25); border-radius: 12px; padding: 1.1rem; margin-bottom: 1.5rem; }
+    .action-kicker { font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.55rem; }
+    .action-hero { font-family: 'Noto Sans JP', sans-serif; font-size: 1.2rem; color: var(--text-primary); font-weight: 700; margin-bottom: 0.35rem; }
+    .action-summary { color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 0.95rem; }
+    .action-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; }
+    .action-card { background: rgba(8, 26, 21, 0.72); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.85rem 0.9rem; }
+    .action-card .label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+    .action-card .value { font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; color: var(--text-primary); font-weight: 700; margin-bottom: 0.2rem; }
+    .action-card .note { font-size: 0.77rem; color: var(--text-secondary); line-height: 1.5; }
+    .status-pill { display:inline-block; margin-bottom:0.45rem; border-radius:999px; padding:0.15rem 0.5rem; font-family:'Share Tech Mono', monospace; font-size:0.62rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; }
+    .status-go { background: rgba(0, 230, 118, 0.15); color: var(--good); }
+    .status-flex { background: rgba(212, 175, 55, 0.16); color: var(--fair); }
+    .status-hold { background: rgba(239, 68, 68, 0.15); color: var(--poor); }
+    .insight-strip { display:flex; flex-wrap:wrap; gap:0.55rem; margin: 0.9rem 0 0; }
+    .insight-chip { border:1px solid rgba(212, 175, 55, 0.22); border-radius:999px; padding:0.35rem 0.65rem; font-size:0.72rem; color:var(--text-secondary); background:rgba(8,26,21,0.65); }
+
+    /* ============================================
+       LIGHT FEEDBACK
+       ============================================ */
+    .feedback-lite { background: var(--bg-card); border:1px solid var(--border-color); border-radius: 12px; padding: 1rem 1.1rem; margin: 2rem 0 1rem; }
+    .feedback-lite h3 { color: var(--sola-gold); font-size: 1rem; margin-bottom: 0.35rem; }
+    .feedback-lite p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem; }
+    .feedback-row { display:flex; flex-wrap:wrap; gap:0.55rem; margin-bottom:0.75rem; }
+    .feedback-btn, .feedback-send { background: transparent; border:1px solid var(--border-color); color: var(--text-primary); border-radius: 8px; padding: 0.58rem 0.8rem; cursor:pointer; font-size:0.82rem; }
+    .feedback-btn.active, .feedback-btn:hover, .feedback-send:hover { border-color: var(--sola-teal); color: var(--sola-teal); }
+    .feedback-textarea { width:100%; min-height:88px; resize:vertical; background: var(--bg-primary); color: var(--text-primary); border:1px solid var(--border-color); border-radius:8px; padding:0.75rem 0.8rem; font-family:'Roboto', sans-serif; font-size:0.88rem; margin-bottom:0.65rem; }
+    .feedback-send { background: var(--sola-gold); color: var(--sola-emerald); border:none; font-weight:700; }
+    .feedback-status { color: var(--text-muted); font-size: 0.75rem; }
+
+    /* ============================================
+       ZIP INPUT SCREEN
+       ============================================ */
+    .zip-screen { text-align: center; padding: 3rem 1rem; }
+    .zip-screen h2 { color: var(--sola-gold); font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .zip-screen p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .zip-form { display: flex; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap; }
+    .zip-input { background: var(--bg-card); border: 2px solid var(--border-color); color: var(--text-primary); font-family: 'Share Tech Mono', monospace; font-size: 1.2rem; padding: 0.75rem 1rem; border-radius: 8px; width: 140px; text-align: center; transition: border-color 0.2s; }
+    .zip-input:focus { outline: none; border-color: var(--sola-teal); }
+    .zip-btn { background: var(--sola-teal); color: var(--sola-emerald); border: none; font-family: 'Noto Sans JP', sans-serif; font-weight: 700; font-size: 1rem; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .zip-btn:hover { background: var(--sola-gold); box-shadow: 0 0 15px var(--sola-gold-glow); }
+    .zip-privacy { color: var(--text-muted); font-size: 0.72rem; margin-top: 1rem; }
+    .zip-error { color: var(--poor); font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+    .change-zip-btn { background: none; border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-muted); cursor: pointer; font-size: 0.72rem; font-family: 'Share Tech Mono', monospace; padding: 0.3rem 0.65rem; transition: all 0.2s; }
+    .change-zip-btn:hover { border-color: var(--sola-teal); color: var(--sola-teal); }
+
+    /* ============================================
+       FORECAST SCREEN (hidden until zip entered)
+       ============================================ */
+    .forecast-screen { display: none; }
+
+    /* ---- Verdict Banner ---- */
+    .verdict-banner { text-align: center; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--border-color); background: var(--bg-card); }
+    .verdict-label { font-family: 'Noto Sans JP', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .verdict-label.great { color: var(--good); }
+    .verdict-label.fair { color: var(--fair); }
+    .verdict-label.poor { color: var(--poor); }
+    .verdict-detail { color: var(--text-secondary); font-size: 0.9rem; }
+    .verdict-location { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+    /* ---- Sun Window Bar ---- */
+    .sun-window { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.85rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 1.25rem; }
+    .sun-stat .label { font-size: 0.62rem; color: var(--text-muted); font-family: 'Share Tech Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; }
+    .sun-stat .value { font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; color: var(--sola-gold); font-weight: 700; margin-top: 0.1rem; }
+
+    /* ---- Section Labels ---- */
+    .section-label { font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem; margin-top: 1.5rem; }
+
+    /* ---- Legend ---- */
+    .legend { display: flex; flex-wrap: wrap; gap: 0.65rem; padding: 0.65rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 1rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.7rem; color: var(--text-muted); font-family: 'Share Tech Mono', monospace; }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ---- Hourly Timeline ---- */
+    .timeline { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.5rem; }
+    .hour-block { display: grid; grid-template-columns: 4rem 1fr auto; align-items: center; gap: 0.5rem; padding: 0.55rem 0.85rem; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid transparent; transition: border-color 0.2s; }
+    .hour-block.clear { border-left-color: var(--clear); }
+    .hour-block.partial { border-left-color: var(--partial); }
+    .hour-block.overcast { border-left-color: var(--overcast); }
+    .hour-time { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
+    .hour-bars { display: flex; flex-direction: column; gap: 0.28rem; }
+    .bar-row { display: flex; align-items: center; gap: 0.4rem; }
+    .bar-label { font-size: 0.6rem; color: var(--text-muted); font-family: 'Share Tech Mono', monospace; width: 2.8rem; text-align: right; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+    .bar-fill.cloud { background: var(--sola-teal); }
+    .bar-fill.ghi { background: var(--sola-gold); }
+    .hour-badge { text-align: right; }
+    .rating-badge { display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em; padding: 0.2rem 0.45rem; border-radius: 4px; text-transform: uppercase; white-space: nowrap; }
+    .rating-badge.run { background: rgba(0, 230, 118, 0.15); color: var(--good); }
+    .rating-badge.maybe { background: rgba(212, 175, 55, 0.15); color: var(--fair); }
+    .rating-badge.wait { background: rgba(239, 68, 68, 0.15); color: var(--poor); }
+
+    /* ---- Best Window Callout ---- */
+    .best-window { background: rgba(0, 206, 209, 0.08); border: 1px solid rgba(0, 206, 209, 0.25); border-radius: 8px; padding: 0.85rem 1rem; margin: 1rem 0 1.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--sola-teal); }
+
+    /* ---- 5-Day Outlook ---- */
+    .five-day { display: flex; flex-direction: column; gap: 0.5rem; }
+    .day-card { background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid transparent; border-radius: 8px; padding: 0.75rem 1rem; display: grid; grid-template-columns: 5.5rem 1fr auto; align-items: center; gap: 0.75rem; }
+    .day-card.clear { border-left-color: var(--clear); }
+    .day-card.partial { border-left-color: var(--partial); }
+    .day-card.overcast { border-left-color: var(--overcast); }
+    .day-name { font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; color: var(--text-primary); }
+    .day-date { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .day-summary { font-size: 0.78rem; color: var(--text-secondary); }
+
+    /* ============================================
+       STARGAZING SECTION
+       ============================================ */
+    .stargazing-section { margin-top: 2rem; }
+    .stargazing-verdict { text-align: center; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.25rem; border: 1px solid var(--border-color); background: var(--bg-card); }
+    .stargazing-verdict .verdict-label { font-size: 1.3rem; }
+    .sky-details { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .sky-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.85rem 1rem; }
+    .sky-card .card-title { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .sky-card .card-value { font-family: 'Noto Sans JP', sans-serif; font-size: 1.1rem; color: var(--text-primary); font-weight: 600; }
+    .sky-card .card-detail { font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .planet-list { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .planet-item { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0.85rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; }
+    .planet-name { font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; color: var(--text-primary); }
+    .planet-info { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-secondary); }
+    .event-alert { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 1rem; }
+    .event-alert .alert-title { font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem; color: var(--sola-gold); font-weight: 600; margin-bottom: 0.25rem; }
+    .event-alert .alert-detail { font-size: 0.8rem; color: var(--text-secondary); }
+    .upcoming-events { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .event-item { display: grid; grid-template-columns: 5rem 1fr; gap: 0.75rem; padding: 0.6rem 0.85rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; align-items: center; }
+    .event-date { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--sola-gold); }
+    .event-name { font-size: 0.8rem; color: var(--text-primary); }
+    .event-desc { font-size: 0.7rem; color: var(--text-secondary); }
+
+    /* ============================================
+       EMAIL SIGNUP
+       ============================================ */
+    .email-signup { background: var(--bg-card); border: 1px solid var(--sola-teal); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; text-align: center; }
+    .email-signup h3 { color: var(--sola-teal); font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .email-signup p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem; }
+    .email-form { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+    .email-input { background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); font-family: 'Roboto', sans-serif; font-size: 0.9rem; padding: 0.65rem 1rem; border-radius: 8px; width: 240px; transition: border-color 0.2s; }
+    .email-input:focus { outline: none; border-color: var(--sola-teal); }
+    .email-submit { background: var(--sola-gold); color: var(--sola-emerald); border: none; font-family: 'Noto Sans JP', sans-serif; font-weight: 700; font-size: 0.9rem; padding: 0.65rem 1.25rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .email-submit:hover { background: var(--sola-teal); box-shadow: 0 0 12px var(--sola-teal-glow); }
+    .email-success { color: var(--good); font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+    .email-note { color: var(--text-muted); font-size: 0.65rem; margin-top: 0.75rem; }
+
+    /* ============================================
+       AFFILIATE SECTION
+       ============================================ */
+    .affiliate-section { margin: 2rem 0; }
+    .affiliate-section h3 { color: var(--sola-gold); font-size: 1rem; margin-bottom: 0.75rem; }
+    .affiliate-sub { color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; margin-top: 1rem; }
+    .affiliate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
+    .aff-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; transition: border-color 0.2s; }
+    .aff-card:hover { border-color: var(--sola-teal); }
+    .aff-card .aff-name { font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 0.3rem; }
+    .aff-card .aff-desc { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.6rem; }
+    .aff-card .aff-link { color: var(--sola-teal); text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+    .aff-card .aff-link:hover { color: var(--sola-gold); }
+
+    /* ============================================
+       DATA SOURCES / INFO BOX
+       ============================================ */
+    .info-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.85rem 1rem; margin-top: 1.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-muted); line-height: 1.8; }
+    .info-box a { color: var(--sola-teal); text-decoration: none; }
+    .info-box a:hover { color: var(--sola-gold); }
+
+    /* ============================================
+       LOADING SPINNER
+       ============================================ */
+    .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 3rem 1rem; }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--border-color); border-top-color: var(--sola-teal); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    .loading-text { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--text-muted); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .page-title { font-size: 1.6rem; }
+      .sky-details { grid-template-columns: 1fr; }
+      .affiliate-grid { grid-template-columns: 1fr; }
+      .hour-block { grid-template-columns: 3.2rem 1fr auto; padding: 0.45rem 0.6rem; }
+      .day-card { grid-template-columns: 4.5rem 1fr auto; }
+      .event-item { grid-template-columns: 4.5rem 1fr; }
+    }
+  </style>
+
+
+  <style>
+    /* ===== readability + alignment refresh ===== */
+    html { font-size: 18px; }
+    body { font-size: 1rem; line-height: 1.65; }
+    .container { max-width: 1240px; padding: 2rem 1.25rem 4rem; }
+    header { max-width: 900px; margin: 0 auto 2rem; text-align: center; }
+    .page-title { font-size: clamp(2.4rem, 4.4vw, 4.1rem); margin-bottom: 0.75rem; }
+    .page-subtitle { font-size: 1.16rem; line-height: 1.7; max-width: 760px; margin: 0 auto 1.75rem; }
+
+    .zip-screen {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.4rem 1.3rem;
+      background: rgba(8, 26, 21, 0.72);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 22px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+    }
+    .zip-screen h2 { font-size: 2rem; margin-bottom: 0.7rem; }
+    .zip-screen p { font-size: 1.05rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .zip-form { gap: 0.8rem; }
+    .zip-input { width: 190px; font-size: 1.35rem; padding: 0.9rem 1rem; }
+    .zip-btn { min-width: 190px; font-size: 1.02rem; padding: 0.92rem 1.4rem; }
+    .zip-privacy { font-size: 0.88rem !important; }
+    .zip-error { font-size: 0.95rem; }
+
+    #forecast-content { max-width: 1080px; margin: 0 auto; }
+    #forecast-content > div,
+    #forecast-content > section { margin-left: auto; margin-right: auto; }
+
+    .forecast-screen { width: 100%; }
+    .verdict-location { font-size: 0.92rem; }
+    .change-zip-btn { font-size: 0.84rem; padding: 0.45rem 0.8rem; }
+
+    .verdict-banner,
+    .action-panel,
+    .sun-window,
+    .legend,
+    .best-window,
+    .stargazing-verdict,
+    .email-signup,
+    .feedback-lite,
+    .info-box {
+      border-radius: 18px;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.14);
+    }
+
+    .verdict-banner { padding: 1.9rem 1.5rem; margin-bottom: 1.25rem; }
+    .verdict-label { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.2; }
+    .verdict-detail { font-size: 1.08rem; line-height: 1.65; max-width: 720px; margin: 0 auto; }
+
+    .action-panel { padding: 1.45rem; margin-bottom: 1.5rem; }
+    .action-kicker { font-size: 0.82rem; margin-bottom: 0.75rem; text-align: center; }
+    .action-hero { font-size: 1.85rem; line-height: 1.28; text-align: center; margin-bottom: 0.5rem; }
+    .action-summary { font-size: 1.04rem; line-height: 1.65; text-align: center; max-width: 760px; margin: 0 auto 1.1rem; }
+    .action-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.95rem; }
+    .action-card { padding: 1rem 1rem 1.05rem; border-radius: 14px; }
+    .action-card .label { font-size: 0.78rem; margin-bottom: 0.5rem; }
+    .action-card .value { font-size: 1.12rem; line-height: 1.35; }
+    .action-card .note { font-size: 0.95rem; line-height: 1.6; }
+    .status-pill { font-size: 0.72rem; padding: 0.22rem 0.55rem; }
+    .insight-strip { justify-content: center; gap: 0.65rem; margin-top: 1.05rem; }
+    .insight-chip { font-size: 0.82rem; padding: 0.42rem 0.75rem; }
+
+    .sun-window {
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      padding: 1.05rem 1.15rem;
+      text-align: center;
+      margin-bottom: 1.45rem;
+    }
+    .sun-stat { min-width: 150px; }
+    .sun-stat .label { font-size: 0.76rem; }
+    .sun-stat .value { font-size: 1.15rem; }
+
+    .section-label {
+      font-size: 0.98rem;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 0.95rem;
+    }
+    .legend { justify-content: center; padding: 0.9rem 1rem; gap: 0.8rem; }
+    .legend-item { font-size: 0.84rem; }
+
+    .timeline { gap: 0.65rem; }
+    .hour-block {
+      grid-template-columns: 5.1rem 1fr auto;
+      gap: 0.8rem;
+      padding: 0.92rem 1rem;
+      border-radius: 14px;
+    }
+    .hour-time { font-size: 0.95rem; }
+    .bar-label { width: 3.4rem; font-size: 0.76rem; }
+    .bar-track { height: 10px; }
+    .rating-badge { font-size: 0.74rem; padding: 0.28rem 0.55rem; }
+    .best-window {
+      font-size: 1rem;
+      text-align: center;
+      padding: 1.05rem 1.2rem;
+      line-height: 1.6;
+      margin-top: 1.15rem;
+    }
+
+    .day-card {
+      grid-template-columns: 6.8rem 1fr auto;
+      gap: 1rem;
+      padding: 1rem 1.15rem;
+      border-radius: 14px;
+    }
+    .day-name { font-size: 1rem; }
+    .day-date { font-size: 0.82rem; }
+    .day-summary { font-size: 0.98rem; line-height: 1.55; }
+
+    .stargazing-section { margin-top: 2.6rem; }
+    .stargazing-verdict { padding: 1.6rem 1.3rem; }
+    .stargazing-verdict .verdict-label { font-size: clamp(1.6rem, 2.8vw, 2.2rem); }
+    .sky-details { gap: 1rem; }
+    .sky-card { padding: 1rem 1.05rem; border-radius: 14px; }
+    .sky-card .card-title { font-size: 0.8rem; }
+    .sky-card .card-value { font-size: 1.28rem; line-height: 1.35; }
+    .sky-card .card-detail { font-size: 0.96rem; line-height: 1.55; }
+    .planet-item, .event-item { padding: 0.9rem 1rem; border-radius: 14px; }
+    .planet-name { font-size: 1rem; }
+    .planet-info { font-size: 0.84rem; }
+    .event-date { font-size: 0.82rem; }
+    .event-name { font-size: 0.98rem; }
+    .event-desc { font-size: 0.88rem; line-height: 1.55; }
+    .event-alert { border-radius: 14px; padding: 1rem 1.05rem; }
+    .event-alert .alert-title { font-size: 1rem; }
+    .event-alert .alert-detail { font-size: 0.94rem; line-height: 1.55; }
+
+    .email-signup { padding: 1.8rem 1.35rem; }
+    .email-signup h3 { font-size: 1.4rem; margin-bottom: 0.55rem; }
+    .email-signup p { font-size: 1rem; line-height: 1.65; }
+    .email-input { width: min(360px, 100%); font-size: 1rem; padding: 0.85rem 1rem; }
+    .email-submit { font-size: 1rem; padding: 0.86rem 1.25rem; }
+    .email-note, .email-success { font-size: 0.92rem; }
+
+    .affiliate-section h3 { font-size: 1.28rem; text-align: center; }
+    .affiliate-sub { font-size: 0.82rem; margin-bottom: 0.7rem; }
+    .affiliate-grid { gap: 1rem; }
+    .aff-card { padding: 1.15rem; border-radius: 14px; }
+    .aff-card .aff-name { font-size: 1rem; }
+    .aff-card .aff-desc { font-size: 0.95rem; line-height: 1.6; }
+    .aff-card .aff-link { font-size: 0.9rem; }
+
+    .feedback-lite { padding: 1.2rem 1.15rem; }
+    .feedback-lite h3 { font-size: 1.18rem; }
+    .feedback-lite p { font-size: 1rem; line-height: 1.6; }
+    .feedback-btn, .feedback-send { font-size: 0.95rem; padding: 0.7rem 0.95rem; }
+    .feedback-textarea { font-size: 0.98rem; min-height: 110px; }
+    .feedback-status { font-size: 0.9rem; }
+
+    .info-box { font-size: 0.9rem; line-height: 1.75; padding: 1rem 1.05rem; }
+
+    @media (max-width: 768px) {
+      html { font-size: 17px; }
+      .container { padding: 1.25rem 0.9rem 3rem; }
+      .zip-screen { padding: 1.6rem 0.9rem; }
+      .page-title { font-size: clamp(2rem, 9vw, 2.8rem); }
+      .page-subtitle { font-size: 1rem; }
+      #forecast-content > div[style*="justify-content:space-between"] {
+        flex-direction: column;
+        align-items: center !important;
+        gap: 0.75rem;
+        text-align: center;
+      }
+      .action-hero { font-size: 1.45rem; }
+      .action-grid { grid-template-columns: 1fr; }
+      .sun-window { gap: 0.8rem; }
+      .sun-stat { min-width: 130px; }
+      .hour-block { grid-template-columns: 1fr; text-align: left; }
+      .hour-badge { text-align: left; }
+      .bar-label { width: 3rem; }
+      .day-card { grid-template-columns: 1fr; }
+      .sky-details { grid-template-columns: 1fr; }
+      .email-form, .feedback-row { flex-direction: column; }
+      .email-submit, .feedback-send, .feedback-btn, .zip-btn { width: 100%; }
+      .zip-input { width: 100%; max-width: 280px; }
+      .event-item { grid-template-columns: 1fr; gap: 0.45rem; }
+      .planet-item { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    }
+  </style>
+
+</head>
 <body>
+  <div id="site-nav"></div>
 
-<div id="site-nav"></div>
+  <!-- Shared Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here...</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
+    </div>
+  </div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
 
-<div class="container">
+  <div class="container">
+    <header>
+      <h1 class="page-title">&#9728; Sola Ray Solar Forecast</h1>
+      <p class="page-subtitle">A simple daily plan for solar owners. See what to run today, when to hold back, and whether tonight is worth stepping outside.</p>
+    </header>
 
-<h1>☀ Solar Forecast</h1>
-<p class="subtitle">What should you run today?</p>
+    <!-- ============================================
+         ZIP CODE INPUT SCREEN
+         ============================================ -->
+    <div id="zip-screen" class="zip-screen">
+      <h2>&#9889; Enter Your Zip Code</h2>
+      <p>We&rsquo;ll turn the forecast into a simple plan: what to run, when to wait, and whether tonight is worth watching the sky.</p>
+      <div class="zip-form">
+        <input type="text" id="zip-input" class="zip-input" maxlength="5" placeholder="76021" inputmode="numeric" pattern="[0-9]*" aria-label="Enter your US zip code">
+        <button id="zip-btn" class="zip-btn" type="button">Get Forecast</button>
+      </div>
+      <p class="zip-privacy">We only use your zip to find your location. Nothing is stored on any server.</p>
+      <p class="zip-error" id="zip-error">Please enter a valid 5-digit US zip code.</p>
+    </div>
 
-<div class="card action">
-<strong>⚡ Today’s Plan</strong><br>
-Run laundry, pool pump, and charge devices during peak sun.
-</div>
+    <!-- ============================================
+         FORECAST SCREEN (shown after zip entered)
+         ============================================ -->
+    <div id="forecast-screen" class="forecast-screen">
 
-<div class="card">
-<strong>🌤 Solar Conditions</strong><br>
-Great solar production expected today.
-</div>
+      <!-- Loading State -->
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <span class="loading-text">Fetching your forecast&hellip;</span>
+      </div>
 
-<div class="card">
-<strong>🌙 Tonight</strong><br>
-Good stargazing conditions. Worth stepping outside.
-</div>
+      <!-- Forecast Content (hidden until data loads) -->
+      <div id="forecast-content" style="display:none;">
 
-</div>
+        <!-- Location & Change Zip -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <span id="location-name" class="verdict-location"></span>
+          <button class="change-zip-btn" id="change-zip-btn">Change Zip</button>
+        </div>
 
-<div id="site-footer"></div>
+        <!-- Today's Verdict Banner -->
+        <div class="verdict-banner" id="verdict-banner">
+          <div class="verdict-label" id="verdict-label">Loading&hellip;</div>
+          <div class="verdict-detail" id="verdict-detail"></div>
+        </div>
+
+        <div class="action-panel" id="action-plan">
+          <div class="action-kicker">Today&rsquo;s Action Plan</div>
+          <div class="action-hero" id="action-hero">Checking today&rsquo;s best moves&hellip;</div>
+          <div class="action-summary" id="action-summary">We&rsquo;ll tell you what to run, what to shift, and when to hold back.</div>
+          <div class="action-grid" id="action-grid"></div>
+          <div class="insight-strip" id="action-insights"></div>
+        </div>
+
+        <!-- Sun Window Bar -->
+        <div class="sun-window" id="sun-window">
+          <div class="sun-stat"><div class="label">Sunrise</div><div class="value" id="sunrise-val">&mdash;</div></div>
+          <div class="sun-stat"><div class="label">Sunset</div><div class="value" id="sunset-val">&mdash;</div></div>
+          <div class="sun-stat"><div class="label">Solar Hours</div><div class="value" id="solar-hours-val">&mdash;</div></div>
+          <div class="sun-stat"><div class="label">Solar Potential</div><div class="value" id="solar-potential-val">&mdash;</div></div>
+        </div>
+
+        <!-- Hourly Timeline -->
+        <div class="section-label">Why this is today&rsquo;s call</div>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot" style="background:var(--clear);"></span> Clear (0&ndash;25%)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--partial);"></span> Partial (26&ndash;60%)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--overcast);"></span> Overcast (61&ndash;100%)</div>
+        </div>
+        <div class="timeline" id="timeline"></div>
+
+        <!-- Best Window Callout -->
+        <div class="best-window" id="best-window">&#9889; Best window to run heavy loads: calculating&hellip;</div>
+
+        <!-- 5-Day Outlook -->
+        <div class="section-label">5-Day Solar Outlook</div>
+        <div class="five-day" id="five-day"></div>
+
+        <!-- ============================================
+             TONIGHT'S SKY - STARGAZING SECTION
+             ============================================ -->
+        <div class="stargazing-section">
+          <div class="section-label">&#x1F319; Tonight &mdash; Is it worth going outside?</div>
+
+          <!-- Stargazing Verdict -->
+          <div class="stargazing-verdict" id="stargazing-verdict">
+            <div class="verdict-label" id="sky-verdict-label">Loading&hellip;</div>
+            <div class="verdict-detail" id="sky-verdict-detail"></div>
+          </div>
+
+          <!-- Moon & Viewing Window -->
+          <div class="sky-details">
+            <div class="sky-card">
+              <div class="card-title">Moon Phase</div>
+              <div class="card-value" id="moon-phase-val">&mdash;</div>
+              <div class="card-detail" id="moon-illum-val"></div>
+            </div>
+            <div class="sky-card">
+              <div class="card-title">Best Viewing Window</div>
+              <div class="card-value" id="viewing-window-val">&mdash;</div>
+              <div class="card-detail" id="viewing-window-detail"></div>
+            </div>
+          </div>
+
+          <!-- Active Event Alert (shown only when active) -->
+          <div class="event-alert" id="event-alert" style="display:none;">
+            <div class="alert-title" id="event-alert-title"></div>
+            <div class="alert-detail" id="event-alert-detail"></div>
+          </div>
+
+          <!-- Visible Planets Tonight -->
+          <div class="section-label">Visible Planets Tonight</div>
+          <div class="planet-list" id="planet-list">
+            <div class="loading"><div class="spinner"></div><span class="loading-text">Scanning the sky&hellip;</span></div>
+          </div>
+
+          <!-- Upcoming Astronomy Events -->
+          <div class="section-label">Upcoming Sky Events</div>
+          <div class="upcoming-events" id="upcoming-events"></div>
+
+          <!-- Light Pollution Link -->
+          <div class="info-box">
+            &#x1F30C; <strong>Find darker skies near you:</strong>
+            <a href="https://www.lightpollutionmap.info/" target="_blank" rel="noopener">Light Pollution Map</a> &mdash;
+            less light pollution means better stargazing, more visible meteors, and fainter objects like galaxies and nebulae.
+          </div>
+        </div>
+
+        <!-- ============================================
+             EMAIL SIGNUP - SOLA RAY SKY ALERT
+             ============================================ -->
+        <div class="email-signup">
+          <h3>&#x1F4E8; Get Sola Ray&rsquo;s Sky Alert</h3>
+          <p>A simple daily note with your best run window, conserve warning, and tonight&rsquo;s sky call.</p>
+          <div class="email-form" id="email-form">
+            <input type="email" class="email-input" id="email-input" placeholder="you@example.com" aria-label="Email address">
+            <button class="email-submit" id="email-submit" type="button">Subscribe</button>
+          </div>
+          <p class="email-success" id="email-success">&#10003; You&rsquo;re in! Watch for your first Sky Alert tomorrow morning.</p>
+          <p class="email-note">Free forever &bull; No spam &bull; Unsubscribe anytime</p>
+        </div>
+
+        <!-- ============================================
+             SOLA RAY RECOMMENDS - AFFILIATE SECTION
+             ============================================ -->
+        <div class="affiliate-section">
+          <h3>&#9728; Sola Ray Recommends</h3>
+
+          <div class="affiliate-sub">For Solar Days</div>
+          <div class="affiliate-grid">
+            <div class="aff-card">
+              <div class="aff-name">Smart Plug &amp; Timer</div>
+              <div class="aff-desc">Schedule appliances to run during your best solar windows automatically.</div>
+              <a href="#" class="aff-link" target="_blank" rel="noopener">Shop on eBay &rarr;</a>
+            </div>
+            <div class="aff-card">
+              <div class="aff-name">Home Energy Monitor</div>
+              <div class="aff-desc">See exactly how much solar you&rsquo;re producing vs. consuming in real time.</div>
+              <a href="#" class="aff-link" target="_blank" rel="noopener">Shop on eBay &rarr;</a>
+            </div>
+            <div class="aff-card">
+              <div class="aff-name">Portable Power Station</div>
+              <div class="aff-desc">Store solar energy during the day, use it at night. Works with any panel setup.</div>
+              <a href="#" class="aff-link" target="_blank" rel="noopener">Shop on eBay &rarr;</a>
+            </div>
+          </div>
+
+          <div class="affiliate-sub">For Clear Nights</div>
+          <div class="affiliate-grid">
+            <div class="aff-card">
+              <div class="aff-name">Beginner Telescope</div>
+              <div class="aff-desc">See Saturn&rsquo;s rings and Jupiter&rsquo;s moons from your backyard.</div>
+              <a href="#" class="aff-link" target="_blank" rel="noopener">Shop on eBay &rarr;</a>
+            </div>
+            <div class="aff-card">
+              <div class="aff-name">Astronomy Binoculars</div>
+              <div class="aff-desc">Wide-field views of star clusters, comets, and the Milky Way. No setup needed.</div>
+              <a href="#" class="aff-link" target="_blank" rel="noopener">Shop on eBay &rarr;</a>
+            </div>
+            <div class="aff-card">
+              <div class="aff-name">Red LED Flashlight</div>
+              <div class="aff-desc">Preserves your night vision while reading star charts in the dark.</div>
+              <a href="#" class="aff-link" target="_blank" rel="noopener">Shop on eBay &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="feedback-lite" id="feedback-lite">
+          <h3>&#128172; Quick feedback</h3>
+          <p>Did this help you decide what to do with your solar today?</p>
+          <div class="feedback-row">
+            <button class="feedback-btn" type="button" data-feedback-vote="yes">&#128077; Yes</button>
+            <button class="feedback-btn" type="button" data-feedback-vote="somewhat">&#128528; Somewhat</button>
+            <button class="feedback-btn" type="button" data-feedback-vote="no">&#128078; No</button>
+          </div>
+          <textarea class="feedback-textarea" id="feedback-text" placeholder="What should this page tell you that it doesn&rsquo;t yet?"></textarea>
+          <button class="feedback-send" id="feedback-send" type="button">Send feedback</button>
+          <div class="feedback-status" id="feedback-status">Your Web3Forms access key can be dropped into the script if you want this live immediately.</div>
+        </div>
+
+        <!-- ============================================
+             GOOGLE ADSENSE (one tasteful unit)
+             ============================================ -->
+        <div style="margin: 2rem 0; text-align: center;">
+          <!-- AdSense unit placeholder - replace with your ad code -->
+          <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" data-ad-slot="XXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+        </div>
+
+        <!-- ============================================
+             DATA SOURCES CREDIT
+             ============================================ -->
+        <div class="info-box">
+          <strong>Forecast data powered by:</strong>
+          <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (weather models from Canadian Meteorological Centre, NOAA &amp; ECMWF) &bull;
+          <a href="https://forecast.solar/" target="_blank" rel="noopener">Forecast.Solar</a> (clear-sky baseline) &bull;
+          <a href="https://api.visibleplanets.dev/" target="_blank" rel="noopener">Visible Planets API</a> &bull;
+          <a href="https://aa.usno.navy.mil/" target="_blank" rel="noopener">U.S. Naval Observatory</a> (moon data) &bull;
+          <a href="https://nominatim.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> (geocoding)
+          <br>Last updated: <span id="last-updated">&mdash;</span>
+        </div>
+
+      </div><!-- /forecast-content -->
+    </div><!-- /forecast-screen -->
+  </div><!-- /container -->
+  <div id="site-footer"></div>
 
 <script src="/scripts/site-components.js"></script>
+<script src="/scripts/glossary-data.js"></script>
+<script src="/scripts/glossary-drawer.js"></script>
+
+<script>
+// ============================================
+// SOLA RAY SOLAR FORECAST - CORE ENGINE
+// ============================================
+(function() {
+  'use strict';
+
+  // --- DOM refs ---
+  var zipScreen = document.getElementById('zip-screen');
+  var forecastScreen = document.getElementById('forecast-screen');
+  var loadingEl = document.getElementById('loading');
+  var contentEl = document.getElementById('forecast-content');
+  var zipInput = document.getElementById('zip-input');
+  var zipBtn = document.getElementById('zip-btn');
+  var zipError = document.getElementById('zip-error');
+  var changeZipBtn = document.getElementById('change-zip-btn');
+
+  // --- State ---
+  var currentLat = null;
+  var currentLon = null;
+  var currentLocationName = '';
+
+  // --- Init: check localStorage for saved zip ---
+  var savedZip = localStorage.getItem('solaRayZip');
+  if (savedZip && /^\d{5}$/.test(savedZip)) {
+    zipInput.value = savedZip;
+    startForecast(savedZip);
+  }
+
+  // --- Events ---
+  zipBtn.addEventListener('click', function() {
+    var zip = zipInput.value.trim();
+    if (/^\d{5}$/.test(zip)) {
+      zipError.style.display = 'none';
+      localStorage.setItem('solaRayZip', zip);
+      startForecast(zip);
+    } else {
+      zipError.style.display = 'block';
+    }
+  });
+
+  zipInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') zipBtn.click();
+  });
+
+  changeZipBtn.addEventListener('click', function() {
+    forecastScreen.style.display = 'none';
+    zipScreen.style.display = 'block';
+    zipInput.value = '';
+    zipInput.focus();
+  });
+
+  // ============================================
+  // GEOCODE ZIP -> COORDINATES
+  // ============================================
+  function geocodeZip(zip) {
+    return fetch('https://nominatim.openstreetmap.org/search?postalcode=' + zip + '&country=US&format=json&limit=1', {
+      headers: { 'User-Agent': 'SolaRayEffect/1.0 (solarayeffect.com)' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data || data.length === 0) throw new Error('Zip not found');
+      return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon), name: data[0].display_name.split(',').slice(0, 2).join(',') };
+    });
+  }
+
+  // ============================================
+  // FETCH OPEN-METEO DATA
+  // ============================================
+  function fetchWeather(lat, lon) {
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+      '&hourly=cloud_cover,global_tilted_irradiance&daily=sunrise,sunset,cloud_cover_mean&timezone=auto&forecast_days=6';
+    return fetch(url).then(function(r) { return r.json(); });
+  }
+
+  // ============================================
+  // MAIN FORECAST FLOW
+  // ============================================
+  function startForecast(zip) {
+    zipScreen.style.display = 'none';
+    forecastScreen.style.display = 'block';
+    loadingEl.style.display = 'flex';
+    contentEl.style.display = 'none';
+
+    geocodeZip(zip)
+      .then(function(geo) {
+        currentLat = geo.lat;
+        currentLon = geo.lon;
+        currentLocationName = geo.name;
+        return fetchWeather(geo.lat, geo.lon);
+      })
+      .then(function(weather) {
+        processAndRender(weather);
+        if (window.initSolaNightSky) window.initSolaNightSky(currentLat, currentLon, currentLocationName);
+        loadingEl.style.display = 'none';
+        contentEl.style.display = 'block';
+        document.getElementById('last-updated').textContent = new Date().toLocaleString();
+      })
+      .catch(function(err) {
+        loadingEl.innerHTML = '<span class="loading-text" style="color:var(--poor);">Error: ' + err.message + '. Please try again.</span>';
+      });
+  }
+
+  // ============================================
+  // PROCESS & RENDER ALL SOLAR DATA
+  // ============================================
+  function processAndRender(w) {
+    var h = w.hourly;
+    var d = w.daily;
+
+    // Location name
+    document.getElementById('location-name').textContent = currentLocationName;
+
+    // --- Today's sunrise/sunset ---
+    var todaySunrise = new Date(d.sunrise[0]);
+    var todaySunset = new Date(d.sunset[0]);
+    var sunriseHour = todaySunrise.getHours();
+    var sunsetHour = todaySunset.getHours();
+    var solarHoursNum = ((todaySunset - todaySunrise) / 3600000).toFixed(1);
+
+    document.getElementById('sunrise-val').textContent = formatTime(todaySunrise);
+    document.getElementById('sunset-val').textContent = formatTime(todaySunset);
+    document.getElementById('solar-hours-val').textContent = solarHoursNum + 'h';
+
+    // --- Filter today's hourly data to daylight hours ---
+    var todayStr = d.sunrise[0].split('T')[0];
+    var dayHours = [];
+    for (var i = 0; i < h.time.length; i++) {
+      if (h.time[i].startsWith(todayStr)) {
+        var hr = parseInt(h.time[i].split('T')[1].split(':')[0]);
+        if (hr >= sunriseHour && hr <= sunsetHour) {
+          dayHours.push({
+            time: h.time[i],
+            hour: hr,
+            cloud: h.cloud_cover[i],
+            ghi: h.global_tilted_irradiance ? h.global_tilted_irradiance[i] : null
+          });
+        }
+      }
+    }
+
+    // --- Solar potential (avg inverse cloud as %) ---
+    var totalCloud = 0;
+    for (var j = 0; j < dayHours.length; j++) totalCloud += dayHours[j].cloud;
+    var avgCloud = dayHours.length > 0 ? totalCloud / dayHours.length : 100;
+    var solarPotential = Math.round(100 - avgCloud);
+    document.getElementById('solar-potential-val').textContent = solarPotential + '%';
+
+    // --- Verdict ---
+    renderVerdict(avgCloud, dayHours);
+    renderActionPlan(avgCloud, solarPotential, dayHours);
+
+    // --- Hourly timeline ---
+    renderTimeline(dayHours);
+
+    // --- Best window ---
+    renderBestWindow(dayHours);
+
+    // --- 5-day outlook ---
+    render5Day(d);
+  }
+
+
+  function getBestWindow(dayHours, maxCloud) {
+    var bestStart = -1, bestEnd = -1, curStart = -1, curLen = 0, maxLen = 0;
+    for (var i = 0; i < dayHours.length; i++) {
+      if (dayHours[i].cloud <= maxCloud) {
+        if (curStart === -1) curStart = i;
+        curLen++;
+        if (curLen > maxLen) { maxLen = curLen; bestStart = curStart; bestEnd = i; }
+      } else {
+        curStart = -1;
+        curLen = 0;
+      }
+    }
+    return { bestStart: bestStart, bestEnd: bestEnd, maxLen: maxLen };
+  }
+
+
+  // ============================================
+  // RENDER: TODAY'S VERDICT
+  // ============================================
+  function renderVerdict(avgCloud, dayHours) {
+    var label = document.getElementById('verdict-label');
+    var detail = document.getElementById('verdict-detail');
+    var best = getBestWindow(dayHours, 40);
+
+    if (avgCloud <= 30) {
+      label.textContent = '\u2600 Run the big stuff today';
+      label.className = 'verdict-label great';
+      detail.textContent = 'Strong solar day. This is a good day for laundry, pool equipment, EV charging, cooling the house early, and full-speed mining.';
+    } else if (avgCloud <= 60) {
+      label.textContent = '\u26C5 Pick your windows carefully';
+      label.className = 'verdict-label fair';
+      if (best.bestStart >= 0) {
+        detail.textContent = 'Usable solar, but timing matters. Aim for ' + formatHour(dayHours[best.bestStart].hour) + ' to ' + formatHour(dayHours[best.bestEnd].hour + 1) + ' for your heavier loads.';
+      } else {
+        detail.textContent = 'Mixed conditions today. Keep big loads flexible and avoid stacking too many appliances at once.';
+      }
+    } else {
+      label.textContent = '\u2601 Hold back and conserve';
+      label.className = 'verdict-label poor';
+      detail.textContent = 'Weak solar day. Save optional loads for a better window, reduce miner output, and keep HVAC settings efficient.';
+    }
+  }
+
+  // ============================================
+  // RENDER: ACTION PLAN
+  // ============================================
+  function renderActionPlan(avgCloud, solarPotential, dayHours) {
+    var hero = document.getElementById('action-hero');
+    var summary = document.getElementById('action-summary');
+    var grid = document.getElementById('action-grid');
+    var insights = document.getElementById('action-insights');
+    var best = getBestWindow(dayHours, 40);
+    var bestWindow = (best.bestStart >= 0)
+      ? formatHour(dayHours[best.bestStart].hour) + ' - ' + formatHour(dayHours[best.bestEnd].hour + 1)
+      : 'No strong window today';
+
+    var mode = 'hold';
+    if (solarPotential >= 70) mode = 'go';
+    else if (solarPotential >= 45) mode = 'flex';
+
+    if (mode === 'go') {
+      hero.textContent = 'Run the jobs you have been waiting on.';
+      summary.textContent = 'Today is a use-it day. Put your highest draw tasks inside the best solar window and you should not need to baby the system.';
+    } else if (mode === 'flex') {
+      hero.textContent = 'Be selective and use the good window.';
+      summary.textContent = 'Today is workable, but not all day. Front-load your biggest tasks into the best solar stretch and stay flexible outside it.';
+    } else {
+      hero.textContent = 'Keep only the priority loads running.';
+      summary.textContent = 'Today is more about protecting production than chasing convenience. Delay optional loads, reduce miner demand, and let the house coast when you can.';
+    }
+
+    var cards = [
+      buildActionCard('Laundry / Dishwasher',
+        mode === 'go' ? 'Yes, run them' : mode === 'flex' ? 'Run only in the best window' : 'Wait if you can',
+        mode === 'go' ? 'Good day to stack one or two heavy chores.' : mode === 'flex' ? 'Start after solar ramps up and avoid overlapping too many loads.' : 'Push this to a better day unless it is urgent.',
+        mode === 'go' ? 'go' : mode === 'flex' ? 'flex' : 'hold'
+      ),
+      buildActionCard('Pool Pump / Water',
+        mode === 'go' ? 'Run normal schedule' : mode === 'flex' ? 'Shorten or shift runtime' : 'Trim runtime',
+        mode === 'go' ? 'Great day for your normal pump window.' : mode === 'flex' ? 'Aim for midday circulation instead of morning or evening.' : 'Use the minimum effective run time today.',
+        mode === 'go' ? 'go' : 'flex'
+      ),
+      buildActionCard('EV / Battery',
+        mode === 'go' ? 'Charge in daylight' : mode === 'flex' ? 'Top off, do not fill' : 'Delay major charging',
+        mode === 'go' ? 'Best to charge during ' + bestWindow + '.' : mode === 'flex' ? 'Use the best window only and pause outside it.' : 'Save the big charge for tomorrow if possible.',
+        mode === 'go' ? 'go' : mode === 'flex' ? 'flex' : 'hold'
+      ),
+      buildActionCard('Mining / Flexible Loads',
+        mode === 'go' ? 'Full speed is fine' : mode === 'flex' ? 'Half speed outside the peak' : 'Throttle down or pause',
+        mode === 'go' ? 'Strong day for miners, shop tools, or other discretionary power use.' : mode === 'flex' ? 'Run hard during ' + bestWindow + ', then taper after.' : 'Keep miners efficient and avoid power-hungry extras.',
+        mode === 'go' ? 'go' : mode === 'flex' ? 'flex' : 'hold'
+      ),
+      buildActionCard('Thermostat Strategy',
+        mode === 'go' ? 'Pre-cool or pre-heat early' : mode === 'flex' ? 'Nudge settings now, coast later' : 'Conserve',
+        mode === 'go' ? 'Use midday solar to make the house comfortable before evening.' : mode === 'flex' ? 'Small early adjustment helps you avoid heavier draw later.' : 'Raise or lower the set point a bit to reduce demand until conditions improve.',
+        mode === 'go' ? 'go' : mode === 'flex' ? 'flex' : 'hold'
+      ),
+      buildActionCard('Best Solar Window',
+        bestWindow,
+        best.bestStart >= 0 ? 'This is the cleanest stretch to run your biggest loads.' : 'Keep usage light and opportunistic today.',
+        best.bestStart >= 0 ? 'go' : 'hold'
+      )
+    ];
+
+    grid.innerHTML = cards.join('');
+    insights.innerHTML =
+      '<span class="insight-chip">Solar potential: ' + solarPotential + '%</span>' +
+      '<span class="insight-chip">Best run window: ' + bestWindow + '</span>' +
+      '<span class="insight-chip">Use case: homes, pools, EVs, miners, HVAC</span>';
+  }
+
+  function buildActionCard(label, value, note, state) {
+    var statusText = state === 'go' ? 'Do it' : state === 'flex' ? 'Time it' : 'Hold';
+    var statusClass = state === 'go' ? 'status-go' : state === 'flex' ? 'status-flex' : 'status-hold';
+    return '<div class="action-card">' +
+      '<div class="label">' + label + '</div>' +
+      '<span class="status-pill ' + statusClass + '">' + statusText + '</span>' +
+      '<div class="value">' + value + '</div>' +
+      '<div class="note">' + note + '</div>' +
+    '</div>';
+  }
+
+  // ============================================
+  // RENDER: HOURLY TIMELINE
+  // ============================================
+  function renderTimeline(dayHours) {
+    var container = document.getElementById('timeline');
+    var html = '';
+    for (var i = 0; i < dayHours.length; i++) {
+      var dh = dayHours[i];
+      var cls = dh.cloud <= 25 ? 'clear' : dh.cloud <= 60 ? 'partial' : 'overcast';
+      var badge = dh.cloud <= 30 ? '<span class="rating-badge run">Run</span>' :
+                  dh.cloud <= 60 ? '<span class="rating-badge maybe">Maybe</span>' :
+                  '<span class="rating-badge wait">Wait</span>';
+      var cloudW = Math.max(dh.cloud, 2);
+      var ghiW = dh.ghi !== null ? Math.min(Math.round((dh.ghi / 1000) * 100), 100) : 0;
+      ghiW = Math.max(ghiW, 2);
+
+      html += '<div class="hour-block ' + cls + '">' +
+        '<div class="hour-time">' + formatHour(dh.hour) + '</div>' +
+        '<div class="hour-bars">' +
+          '<div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + cloudW + '%"></div></div></div>' +
+          '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill ghi" style="width:' + ghiW + '%"></div></div></div>' +
+        '</div>' +
+        '<div class="hour-badge">' + badge + '</div>' +
+      '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  // ============================================
+  // RENDER: BEST WINDOW CALLOUT
+  // ============================================
+  function renderBestWindow(dayHours) {
+    var el = document.getElementById('best-window');
+    var best = getBestWindow(dayHours, 40);
+    var bestStart = best.bestStart, bestEnd = best.bestEnd, maxLen = best.maxLen;
+    if (bestStart >= 0 && maxLen >= 2) {
+      el.textContent = '\u26A1 Best window to run heavy loads: ' + formatHour(dayHours[bestStart].hour) + ' \u2013 ' + formatHour(dayHours[bestEnd].hour + 1);
+    } else if (bestStart >= 0) {
+      el.textContent = '\u26A1 Limited solar windows today. Best hour: ' + formatHour(dayHours[bestStart].hour);
+    } else {
+      el.textContent = '\u26A1 No strong solar windows today \u2014 consider waiting for a clearer day.';
+    }
+  }
+
+  // ============================================
+  // RENDER: 5-DAY OUTLOOK
+  // ============================================
+  function render5Day(daily) {
+    var container = document.getElementById('five-day');
+    var html = '';
+    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    // Start from tomorrow (index 1) through day 5
+    for (var i = 1; i < Math.min(daily.sunrise.length, 6); i++) {
+      var dt = new Date(daily.sunrise[i]);
+      var cloud = daily.cloud_cover_mean[i];
+      var cls = cloud <= 25 ? 'clear' : cloud <= 60 ? 'partial' : 'overcast';
+      var badge = cloud <= 30 ? '<span class="rating-badge run">Great</span>' :
+                  cloud <= 60 ? '<span class="rating-badge maybe">Fair</span>' :
+                  '<span class="rating-badge wait">Poor</span>';
+      var summary = cloud <= 25 ? 'Mostly clear \u2014 run everything.' :
+                    cloud <= 40 ? 'Good solar with some clouds.' :
+                    cloud <= 60 ? 'Partly cloudy \u2014 plan around gaps.' :
+                    cloud <= 80 ? 'Mostly cloudy \u2014 limited solar.' :
+                    'Overcast \u2014 save heavy loads.';
+
+      html += '<div class="day-card ' + cls + '">' +
+        '<div><div class="day-name">' + dayNames[dt.getDay()] + '</div>' +
+        '<div class="day-date">' + monthNames[dt.getMonth()] + ' ' + dt.getDate() + '</div></div>' +
+        '<div class="day-summary">' + summary + '</div>' +
+        '<div>' + badge + '</div>' +
+      '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  // ============================================
+  // HELPERS
+  // ============================================
+  function formatTime(d) {
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var ampm = h >= 12 ? 'pm' : 'am';
+    h = h % 12 || 12;
+    return h + ':' + (m < 10 ? '0' : '') + m + ampm;
+  }
+
+  function formatHour(h) {
+    if (h === 0 || h === 24) return '12am';
+    if (h === 12) return '12pm';
+    return h > 12 ? (h - 12) + 'pm' : h + 'am';
+  }
+
+  // ============================================
+  // AUTO-REFRESH AT NOON
+  // ============================================
+  function scheduleNoonRefresh() {
+    var now = new Date();
+    var noon = new Date(now);
+    noon.setHours(12, 0, 0, 0);
+    if (now >= noon) noon.setDate(noon.getDate() + 1);
+    var ms = noon - now;
+    setTimeout(function() {
+      if (currentLat !== null) {
+        fetchWeather(currentLat, currentLon).then(function(weather) {
+          processAndRender(weather);
+          document.getElementById('last-updated').textContent = new Date().toLocaleString();
+        });
+      }
+      scheduleNoonRefresh();
+    }, ms);
+  }
+  scheduleNoonRefresh();
+
+})();
+</script>
+
+<script>
+// ============================================
+// TONIGHT'S SKY - STARGAZING ENGINE
+// ============================================
+(function() {
+  'use strict';
+
+  window.initSolaNightSky = function(lat, lon) {
+    if (typeof lat !== 'number' || typeof lon !== 'number') return;
+    fetchOvernightCloud(lat, lon);
+    fetchVisiblePlanets(lat, lon);
+    renderMoonPhase();
+    renderAstronomyEvents();
+  };
+
+  // ============================================
+  // OVERNIGHT CLOUD COVER -> STARGAZING VERDICT
+  // ============================================
+  function fetchOvernightCloud(lat, lon) {
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+      '&hourly=cloud_cover&timezone=auto&forecast_days=2';
+    fetch(url).then(function(r) { return r.json(); }).then(function(w) {
+      var now = new Date();
+      var nightHours = [];
+      for (var i = 0; i < w.hourly.time.length; i++) {
+        var t = new Date(w.hourly.time[i]);
+        var hr = t.getHours();
+        // Tonight: 8pm today through 5am tomorrow
+        var isTonight = (t.getDate() === now.getDate() && hr >= 20) ||
+                        (t.getDate() === now.getDate() + 1 && hr <= 5);
+        if (isTonight) {
+          nightHours.push({ hour: hr, cloud: w.hourly.cloud_cover[i], time: t });
+        }
+      }
+
+      if (nightHours.length === 0) {
+        document.getElementById('sky-verdict-label').textContent = 'No overnight data available';
+        return;
+      }
+
+      var totalCloud = 0;
+      for (var j = 0; j < nightHours.length; j++) totalCloud += nightHours[j].cloud;
+      var avgCloud = totalCloud / nightHours.length;
+
+      var vLabel = document.getElementById('sky-verdict-label');
+      var vDetail = document.getElementById('sky-verdict-detail');
+
+      if (avgCloud <= 25) {
+        vLabel.textContent = '\u2B50 Yes, step outside tonight';
+        vLabel.className = 'verdict-label great';
+        vDetail.textContent = 'Clear skies tonight. Great for casual skywatching, planets, and better telescope views.';
+      } else if (avgCloud <= 55) {
+        vLabel.textContent = '\u26C5 Worth a quick look';
+        vLabel.className = 'verdict-label fair';
+        vDetail.textContent = 'Not perfect, but you may still catch bright planets, the Moon, and short clear breaks.';
+      } else {
+        vLabel.textContent = '\u2601 Skip the sky tonight';
+        vLabel.className = 'verdict-label poor';
+        vDetail.textContent = 'Too much cloud cover tonight for most casual skywatching.';
+      }
+
+      // Best viewing window
+      var bestStart = -1, bestEnd = -1, curStart = -1, curLen = 0, maxLen = 0;
+      for (var k = 0; k < nightHours.length; k++) {
+        if (nightHours[k].cloud <= 40) {
+          if (curStart === -1) curStart = k;
+          curLen++;
+          if (curLen > maxLen) { maxLen = curLen; bestStart = curStart; bestEnd = k; }
+        } else { curStart = -1; curLen = 0; }
+      }
+
+      var winVal = document.getElementById('viewing-window-val');
+      var winDetail = document.getElementById('viewing-window-detail');
+      if (bestStart >= 0 && maxLen >= 2) {
+        winVal.textContent = fmtHr(nightHours[bestStart].hour) + ' \u2013 ' + fmtHr((nightHours[bestEnd].hour + 1) % 24);
+        winDetail.textContent = 'Clearest stretch tonight (' + maxLen + ' hours)';
+      } else if (bestStart >= 0) {
+        winVal.textContent = fmtHr(nightHours[bestStart].hour);
+        winDetail.textContent = 'Brief clear break expected';
+      } else {
+        winVal.textContent = 'None tonight';
+        winDetail.textContent = 'Cloud cover expected all night';
+      }
+    });
+  }
+
+  // ============================================
+  // MOON PHASE (pure math - no API needed)
+  // ============================================
+  function renderMoonPhase() {
+    var now = new Date();
+    // Synodic month calculation from known new moon (Jan 6 2000 18:14 UTC)
+    var knownNew = new Date(2000, 0, 6, 18, 14, 0);
+    var daysSince = (now - knownNew) / 86400000;
+    var synodicMonth = 29.53058867;
+    var phase = ((daysSince % synodicMonth) + synodicMonth) % synodicMonth;
+    var illumination = Math.round((1 - Math.cos(2 * Math.PI * phase / synodicMonth)) / 2 * 100);
+
+    var phaseName = '';
+    var phaseIcon = '';
+    if (phase < 1.85) { phaseName = 'New Moon'; phaseIcon = '\uD83C\uDF11'; }
+    else if (phase < 7.38) { phaseName = 'Waxing Crescent'; phaseIcon = '\uD83C\uDF12'; }
+    else if (phase < 9.23) { phaseName = 'First Quarter'; phaseIcon = '\uD83C\uDF13'; }
+    else if (phase < 14.76) { phaseName = 'Waxing Gibbous'; phaseIcon = '\uD83C\uDF14'; }
+    else if (phase < 16.61) { phaseName = 'Full Moon'; phaseIcon = '\uD83C\uDF15'; }
+    else if (phase < 22.14) { phaseName = 'Waning Gibbous'; phaseIcon = '\uD83C\uDF16'; }
+    else if (phase < 23.99) { phaseName = 'Last Quarter'; phaseIcon = '\uD83C\uDF17'; }
+    else { phaseName = 'Waning Crescent'; phaseIcon = '\uD83C\uDF18'; }
+
+    document.getElementById('moon-phase-val').textContent = phaseIcon + ' ' + phaseName;
+    document.getElementById('moon-illum-val').textContent = illumination + '% illuminated';
+
+    // For stargazing: darker = better
+    if (illumination > 70) {
+      document.getElementById('moon-illum-val').textContent += ' \u2014 bright moonlight will wash out faint objects';
+    } else if (illumination < 30) {
+      document.getElementById('moon-illum-val').textContent += ' \u2014 dark skies, great for deep-sky viewing';
+    }
+  }
+
+  // ============================================
+  // VISIBLE PLANETS TONIGHT
+  // ============================================
+  function fetchVisiblePlanets(lat, lon) {
+    fetch('https://api.visibleplanets.dev/v3?latitude=' + lat + '&longitude=' + lon)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var container = document.getElementById('planet-list');
+        if (!data.data || data.data.length === 0) {
+          container.innerHTML = '<div class="planet-item"><span class="planet-name">No planets visible right now</span><span class="planet-info">Check back after sunset</span></div>';
+          return;
+        }
+        var html = '';
+        for (var i = 0; i < data.data.length; i++) {
+          var p = data.data[i];
+          if (p.name === 'Earth') continue;
+          var alt = p.altitude ? p.altitude.toFixed(1) : '?';
+          var constellation = p.constellation || '';
+          var mag = p.magnitude !== undefined ? 'mag ' + p.magnitude.toFixed(1) : '';
+          html += '<div class="planet-item">' +
+            '<span class="planet-name">' + p.name + '</span>' +
+            '<span class="planet-info">' + alt + '\u00B0 alt' + (constellation ? ' in ' + constellation : '') + (mag ? ' \u00B7 ' + mag : '') + '</span>' +
+          '</div>';
+        }
+        container.innerHTML = html || '<div class="planet-item"><span class="planet-name">No planets above horizon</span><span class="planet-info">Check back after sunset</span></div>';
+      })
+      .catch(function() {
+        document.getElementById('planet-list').innerHTML = '<div class="planet-item"><span class="planet-name">Planet data unavailable</span><span class="planet-info">API may be temporarily offline</span></div>';
+      });
+  }
+
+  // ============================================
+  // ASTRONOMY EVENTS ENGINE (autonomous)
+  // ============================================
+  function renderAstronomyEvents() {
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    // --- Recurring annual events (month is 0-indexed) ---
+    var year = now.getFullYear();
+    var events = [
+      { start: new Date(year, 0, 2), end: new Date(year, 0, 5), name: 'Quadrantids Meteor Shower', desc: 'Up to 40 meteors/hour at peak. Look toward the northeast after midnight.', peak: new Date(year, 0, 3) },
+      { start: new Date(year, 3, 16), end: new Date(year, 3, 25), name: 'Lyrids Meteor Shower', desc: 'About 20 meteors/hour. Dust from Comet Thatcher \u2014 oldest recorded shower (687 BCE).', peak: new Date(year, 3, 22) },
+      { start: new Date(year, 3, 29), end: new Date(year, 4, 6), name: 'Eta Aquariids Meteor Shower', desc: 'Up to 50 meteors/hour. Debris from Halley\u0027s Comet.', peak: new Date(year, 4, 5) },
+      { start: new Date(year, 6, 17), end: new Date(year, 7, 24), name: 'Perseids Meteor Shower', desc: 'Up to 150 meteors/hour at peak! One of the best annual showers.', peak: new Date(year, 7, 12) },
+      { start: new Date(year, 9, 2), end: new Date(year, 10, 7), name: 'Orionids Meteor Shower', desc: 'About 20 fast meteors/hour. Also from Halley\u0027s Comet debris.', peak: new Date(year, 9, 21) },
+      { start: new Date(year, 10, 6), end: new Date(year, 10, 30), name: 'Leonids Meteor Shower', desc: 'About 15 meteors/hour. Known for occasional spectacular storms.', peak: new Date(year, 10, 17) },
+      { start: new Date(year, 11, 4), end: new Date(year, 11, 20), name: 'Geminids Meteor Shower', desc: 'Up to 120 bright, multi-colored meteors/hour. Best shower of the year.', peak: new Date(year, 11, 13) },
+      { start: new Date(year, 11, 17), end: new Date(year, 11, 26), name: 'Ursids Meteor Shower', desc: 'About 10 meteors/hour. Quiet end-of-year shower.', peak: new Date(year, 11, 22) },
+      // Solstices & Equinoxes (approximate, good enough)
+      { start: new Date(year, 2, 20), end: new Date(year, 2, 20), name: 'Spring Equinox', desc: 'Equal day and night. Start of astronomical spring in the Northern Hemisphere.' },
+      { start: new Date(year, 5, 20), end: new Date(year, 5, 21), name: 'Summer Solstice', desc: 'Longest day of the year in the Northern Hemisphere.' },
+      { start: new Date(year, 8, 22), end: new Date(year, 8, 23), name: 'Autumn Equinox', desc: 'Equal day and night. Start of astronomical fall in the Northern Hemisphere.' },
+      { start: new Date(year, 11, 21), end: new Date(year, 11, 21), name: 'Winter Solstice', desc: 'Shortest day, longest night \u2014 peak stargazing darkness.' }
+    ];
+
+    // --- One-off events for 2026 (update once per year) ---
+    if (year === 2026) {
+      events.push(
+        { start: new Date(2026, 1, 17), end: new Date(2026, 1, 17), name: 'Annular Solar Eclipse', desc: 'Ring of fire eclipse visible from Antarctica. Partial eclipse from southern regions.' },
+        { start: new Date(2026, 2, 3), end: new Date(2026, 2, 3), name: 'Total Lunar Eclipse', desc: 'Blood Moon visible from North America (best on West Coast), Asia, and Oceania.' },
+        { start: new Date(2026, 2, 8), end: new Date(2026, 2, 8), name: 'Venus-Saturn Conjunction', desc: 'Venus and Saturn appear within 1\u00B0 of each other in the evening sky.' },
+        { start: new Date(2026, 5, 9), end: new Date(2026, 5, 9), name: 'Venus-Jupiter Conjunction', desc: 'Venus and Jupiter meet in the evening sky \u2014 two brightest planets side by side.' },
+        { start: new Date(2026, 7, 12), end: new Date(2026, 7, 12), name: 'Total Solar Eclipse', desc: 'Path of totality crosses Greenland, Iceland, and northern Spain. Partial eclipse visible in North America.' },
+        { start: new Date(2026, 7, 28), end: new Date(2026, 7, 28), name: 'Partial Lunar Eclipse', desc: 'Deep partial lunar eclipse visible from the Americas, Europe, and Africa.' },
+        { start: new Date(2026, 9, 4), end: new Date(2026, 9, 4), name: 'Saturn at Opposition', desc: 'Saturn at its brightest and closest. Visible all night \u2014 great for telescopes.' },
+        { start: new Date(2026, 9, 6), end: new Date(2026, 9, 6), name: 'Moon Occults Jupiter', desc: 'The Moon passes in front of Jupiter \u2014 visible from eastern North America.' }
+      );
+    }
+
+    // --- Active event alert ---
+    var alertEl = document.getElementById('event-alert');
+    var alertTitle = document.getElementById('event-alert-title');
+    var alertDetail = document.getElementById('event-alert-detail');
+    var activeFound = false;
+
+    for (var a = 0; a < events.length; a++) {
+      if (today >= events[a].start && today <= events[a].end) {
+        var peakNote = '';
+        if (events[a].peak) {
+          var daysToP = Math.round((events[a].peak - today) / 86400000);
+          if (daysToP === 0) peakNote = ' \u2014 PEAKS TONIGHT!';
+          else if (daysToP === 1) peakNote = ' \u2014 peaks tomorrow night';
+          else if (daysToP > 0) peakNote = ' \u2014 peaks in ' + daysToP + ' days';
+        }
+        alertTitle.textContent = '\u2B50 ' + events[a].name + peakNote;
+        alertDetail.textContent = events[a].desc;
+        alertEl.style.display = 'block';
+        activeFound = true;
+        break;
+      }
+    }
+    if (!activeFound) alertEl.style.display = 'none';
+
+    // --- Upcoming events (next 3 future events) ---
+    var upcoming = [];
+    for (var u = 0; u < events.length; u++) {
+      if (events[u].start > today) upcoming.push(events[u]);
+    }
+    upcoming.sort(function(x, y) { return x.start - y.start; });
+    upcoming = upcoming.slice(0, 3);
+
+    var container = document.getElementById('upcoming-events');
+    if (upcoming.length === 0) {
+      container.innerHTML = '<div class="event-item"><span class="event-date">N/A</span><div><span class="event-name">No upcoming events found</span></div></div>';
+      return;
+    }
+    var html = '';
+    var mNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    for (var e = 0; e < upcoming.length; e++) {
+      var ev = upcoming[e];
+      var dateStr = mNames[ev.start.getMonth()] + ' ' + ev.start.getDate();
+      html += '<div class="event-item">' +
+        '<span class="event-date">' + dateStr + '</span>' +
+        '<div><div class="event-name">' + ev.name + '</div>' +
+        '<div class="event-desc">' + ev.desc + '</div></div>' +
+      '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  // --- Helper ---
+  function fmtHr(h) {
+    if (h === 0 || h === 24) return '12am';
+    if (h === 12) return '12pm';
+    return h > 12 ? (h - 12) + 'pm' : h + 'am';
+  }
+
+})();
+</script>
+
+
+<script>
+(function () {
+  'use strict';
+
+  // Keep shared nav/footer exact, but insert Solar Forecast link if the shared components have not been updated yet.
+  function ensureSolarForecastLink() {
+    var nav = document.getElementById('site-nav');
+    if (nav) {
+      var drawer = nav.querySelector('#nav-drawer');
+      if (drawer && !drawer.querySelector('a[href="solar_forecast.html"]')) {
+        var glossaryLink = drawer.querySelector('a[href="glossary.html"]');
+        var solarLink = document.createElement('a');
+        solarLink.href = 'solar_forecast.html';
+        solarLink.innerHTML = '&#9728; Solar Forecast';
+        if (glossaryLink) drawer.insertBefore(solarLink, glossaryLink);
+        else drawer.appendChild(solarLink);
+      }
+      var active = drawer ? drawer.querySelector('a[href="solar_forecast.html"]') : null;
+      if (active && window.location.pathname.split('/').pop() === 'solar_forecast.html') {
+        active.classList.add('active');
+      }
+    }
+
+    var footer = document.getElementById('site-footer');
+    if (footer && !footer.querySelector('a[href="solar_forecast.html"]')) {
+      var linksP = footer.querySelector('footer p:nth-of-type(3)');
+      if (linksP) {
+        linksP.insertAdjacentHTML('beforeend', ' &middot; <span style="white-space:nowrap;">&#9728; <a href="solar_forecast.html">Solar Forecast</a></span>');
+      }
+    }
+  }
+
+  var componentCheck = setInterval(function () {
+    ensureSolarForecastLink();
+    if (document.querySelector('#site-nav #nav-drawer') && document.querySelector('#site-footer footer')) {
+      clearInterval(componentCheck);
+    }
+  }, 250);
+  setTimeout(function(){ clearInterval(componentCheck); ensureSolarForecastLink(); }, 5000);
+
+  // Kit signup: set KIT_FORM_ACTION to your real endpoint and the form will start posting without touching markup again.
+  var KIT_FORM_ACTION = '';
+  var emailInput = document.getElementById('email-input');
+  var emailSubmit = document.getElementById('email-submit');
+  var emailSuccess = document.getElementById('email-success');
+  if (emailSubmit && emailInput) {
+    emailSubmit.addEventListener('click', function () {
+      var email = (emailInput.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        emailInput.focus();
+        return;
+      }
+
+      if (!KIT_FORM_ACTION) {
+        emailSuccess.style.display = 'block';
+        emailSuccess.textContent = 'Add your Kit form action in the script to make this live. The page UI is ready.';
+        return;
+      }
+
+      var payload = new FormData();
+      payload.append('email_address', email);
+
+      fetch(KIT_FORM_ACTION, { method: 'POST', body: payload, mode: 'cors' })
+        .then(function () {
+          emailSuccess.style.display = 'block';
+          emailSuccess.textContent = '\u2713 You\'re in. Watch for your first daily note tomorrow morning.';
+          emailInput.value = '';
+        })
+        .catch(function () {
+          emailSuccess.style.display = 'block';
+          emailSuccess.textContent = 'Signup could not be completed right now. Please try again.';
+        });
+    });
+  }
+
+  // Light feedback widget
+  var selectedVote = '';
+  var feedbackButtons = document.querySelectorAll('[data-feedback-vote]');
+  for (var i = 0; i < feedbackButtons.length; i++) {
+    feedbackButtons[i].addEventListener('click', function () {
+      selectedVote = this.getAttribute('data-feedback-vote');
+      for (var j = 0; j < feedbackButtons.length; j++) feedbackButtons[j].classList.remove('active');
+      this.classList.add('active');
+    });
+  }
+
+  var FEEDBACK_ACCESS_KEY = '';
+  var feedbackSend = document.getElementById('feedback-send');
+  var feedbackStatus = document.getElementById('feedback-status');
+  if (feedbackSend) {
+    feedbackSend.addEventListener('click', function () {
+      var note = document.getElementById('feedback-text').value.trim();
+      if (!selectedVote && !note) {
+        feedbackStatus.textContent = 'Choose a quick vote or leave a note first.';
+        return;
+      }
+      if (!FEEDBACK_ACCESS_KEY) {
+        feedbackStatus.textContent = 'Add your Web3Forms access key in the script to turn this live.';
+        return;
+      }
+
+      feedbackSend.disabled = true;
+      feedbackStatus.textContent = 'Sending...';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: FEEDBACK_ACCESS_KEY,
+          subject: 'Sola Ray Feedback — Solar Forecast',
+          from_name: 'Sola Ray Solar Forecast',
+          vote: selectedVote || 'note-only',
+          feedback: note,
+          source_page: 'solar_forecast.html'
+        })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        feedbackSend.disabled = false;
+        if (data && data.success) {
+          feedbackStatus.textContent = 'Thanks — feedback sent.';
+          document.getElementById('feedback-text').value = '';
+          for (var j = 0; j < feedbackButtons.length; j++) feedbackButtons[j].classList.remove('active');
+          selectedVote = '';
+        } else {
+          feedbackStatus.textContent = 'Feedback could not be sent right now.';
+        }
+      })
+      .catch(function () {
+        feedbackSend.disabled = false;
+        feedbackStatus.textContent = 'Feedback could not be sent right now.';
+      });
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
