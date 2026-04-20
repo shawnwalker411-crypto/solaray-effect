@@ -2837,6 +2837,9 @@
       // NATIVE 120V - Equihash (ZEC)
       { id: 'z9-mini', name: 'Antminer Z9 Mini', manufacturer: 'Bitmain', hashrate: 10, unit: 'kSol/s', power: 300, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Moderate (50-65 dB)', cooling: 'Room Temp', loki: false },
 
+      // X11 (DASH) - 120V
+      { id: 'd3', name: 'Antminer D3', manufacturer: 'Bitmain', hashrate: 19.3, unit: 'GH/s', power: 1200, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
+
       // SHA512256d (RXD)
       { id: 'rx0', name: 'IceRiver RX0', manufacturer: 'IceRiver', hashrate: 100, unit: 'GH/s', power: 120, algorithm: 'SHA512256d', coins: ['RXD'], category: null, voltage: '120V', noise: 'silent', noiseLabel: 'Silent (under 40 dB)', cooling: 'Room Temp', loki: false },
       { id: 'rx0-pro', name: 'IceRiver RX0 Pro', manufacturer: 'IceRiver', hashrate: 300, unit: 'GH/s', power: 350, algorithm: 'SHA512256d', coins: ['RXD'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
@@ -2908,6 +2911,7 @@
       { id: 'z15-pro', name: 'Antminer Z15 Pro', manufacturer: 'Bitmain', hashrate: 840, unit: 'kSol/s', power: 2560, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
       // X11 (DASH)
+      { id: 'd7', name: 'Antminer D7', manufacturer: 'Bitmain', hashrate: 1286, unit: 'GH/s', power: 3148, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'd9', name: 'Antminer D9', manufacturer: 'Bitmain', hashrate: 1770, unit: 'GH/s', power: 2839, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
 
       // SHA-256-XEC (eCash — same S19 hardware pointed at XEC pool)
@@ -2968,12 +2972,12 @@
       'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
       // DGB
       'SHA-256-DGB': { perUnit: 10, unit: 'TH/s', coin: 'DGB' },
-      // XEC — SHA-256, same hardware as BTC/BCH, small network ~ 50 PH/s
-      'SHA-256-XEC': { perUnit: 0.00058, unit: 'TH/s', coin: 'XEC' },
+      // XEC — SHA-256, ~52 PH/s network, 1,812,500 XEC/block, 616s blocks → ~4,800 XEC/TH/day
+      'SHA-256-XEC': { perUnit: 4800, unit: 'TH/s', coin: 'XEC' },
       // ALPH — Blake3 ASIC, network ~14 PH/s, reward 3.0 ALPH/block, 64s block time
       'Blake3': { perUnit: 0.00000021, unit: 'GH/s', coin: 'ALPH' },
-      // FB — SHA-256 standalone, 621 EH/s network, 25 FB/block, 30s block time
-      'SHA-256-FB': { perUnit: 0.0000000034, unit: 'TH/s', coin: 'FB' },
+      // FB — SHA-256 standalone, ~600 PH/s network, 25 FB/block, 45s blocks → ~0.00008 FB/TH/day
+      'SHA-256-FB': { perUnit: 0.00008, unit: 'TH/s', coin: 'FB' },
       // NEXA — NexaPow, ~4 NEXA/block, 2s block time
       'NexaPow': { perUnit: 0.000042, unit: 'GH/s', coin: 'NEXA' },
       // RXD — SHA512256d, 12500 RXD/block post-April 2026 halving, 300s block time
@@ -3348,12 +3352,12 @@
       'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
       // DGB: ~0.01 to ~50 DGB/TH/day (SHA-256, large block reward)
       'SHA-256-DGB': { min: 0.001, max: 100, coin: 'DGB', unit: 'TH' },
-      // XEC: small SHA-256 network ~50 PH/s, large unit denominations (millions of XEC)
-      'SHA-256-XEC': { min: 1e-5, max: 0.01, coin: 'XEC', unit: 'TH' },
+      // XEC: ~52 PH/s network, 1,812,500 XEC/block, 616s blocks → ~4,800 XEC/TH/day typical
+      'SHA-256-XEC': { min: 1000, max: 30000, coin: 'XEC', unit: 'TH' },
       // ALPH: Blake3, network ~14 PH/s, reward ~3 ALPH/block, 64s block time, per GH/s
       'Blake3': { min: 1e-9, max: 1e-4, coin: 'ALPH', unit: 'GH' },
-      // FB: 621 EH/s network, 25 FB/block, 30s block time — very low per TH/s
-      'SHA-256-FB': { min: 1e-12, max: 1e-6, coin: 'FB', unit: 'TH' },
+      // FB: ~600 PH/s network, 25 FB/block, 45s blocks → ~0.00008 FB/TH/day typical
+      'SHA-256-FB': { min: 0.00001, max: 0.001, coin: 'FB', unit: 'TH' },
       // NEXA: NexaPow, fast 2s blocks, ~4 NEXA/block, moderate network, per GH/s
       'NexaPow': { min: 1e-6, max: 0.01, coin: 'NEXA', unit: 'GH' },
       // RXD: SHA512256d, 300s blocks, 12500 RXD/block post-halving, per TH/s
