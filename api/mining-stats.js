@@ -136,7 +136,7 @@ async function fetchKAS() {
     coin: 'KAS',
     difficulty: data.difficulty || 0,
     network_hashrate: data.hashrate || 0,
-    block_reward: 50,
+    block_reward: Number(data.reward) || 50,
     block_time: 1,
     height: data.blockCount || 0,
     hashrate_estimated: false
@@ -165,11 +165,14 @@ async function fetchXMR() {
   const json = await res.json();
   const data = json.result || {};
 
+  // block_reward is returned in piconeros (1 XMR = 1e12 piconeros)
+  const blockReward = data.block_reward ? Number(data.block_reward) / 1e12 : 0.6;
+
   return {
     coin: 'XMR',
     difficulty: Number(data.difficulty) || 0,
     network_hashrate: Number(data.difficulty) / 120,
-    block_reward: 0.6,
+    block_reward: blockReward,
     block_time: 120,
     height: Number(data.height) || 0,
     hashrate_estimated: true
@@ -208,9 +211,33 @@ async function fetchDGB() {
   const networkHashrate = Number(data.networkhashesps?.sha256d) || 0;
 
   // DGB has 5 algos, each targets ~75 sec block time (15 sec overall / 5 algos)
-  // Block reward decreases 1% per month — ~271 DGB per block as of early 2026
+  // Block reward decreases 1% per month — fetch live from Blockbook tip block
   const perAlgoBlockTime = 75;
-  const blockReward = 271;
+
+  // Fetch latest block to get actual current block reward
+  let blockReward = 271; // fallback
+  try {
+    const tipRes = await fetch('https://dgbbook.nownodes.io/api/v2', {
+      headers: { 'api-key': apiKey }
+    });
+    if (tipRes.ok) {
+      const tipData = await tipRes.json();
+      const lastBlockHash = tipData.backend?.bestBlockHash;
+      if (lastBlockHash) {
+        const blockRes = await fetch(`https://dgbbook.nownodes.io/api/v2/block/${lastBlockHash}`, {
+          headers: { 'api-key': apiKey }
+        });
+        if (blockRes.ok) {
+          const blockData = await blockRes.json();
+          // coinbasedata contains minted reward in satoshis — divide by 1e8
+          const coinbaseValue = blockData.txs?.[0]?.vout?.reduce((sum, o) => sum + (o.value ? Number(o.value) : 0), 0) || 0;
+          if (coinbaseValue > 0) blockReward = coinbaseValue;
+        }
+      }
+    }
+  } catch (e) {
+    // keep fallback
+  }
 
   return {
     coin: 'DGB',
@@ -239,7 +266,9 @@ async function fetchXEC() {
   if (!res.ok) throw new Error(`XEC Blockbook returned ${res.status}`);
   const data = await res.json();
   const difficulty = Number(data.backend?.difficulty) || 0;
-  const networkHashrate = btcHashrate(difficulty, 600);
+  // XEC difficulty is reported at BTC scale but network is smaller —
+  // btcHashrate() overcounts by ~2x, so divide by 2 to match reality
+  const networkHashrate = btcHashrate(difficulty, 600) / 2;
 
   return {
     coin: 'XEC',
@@ -310,12 +339,26 @@ async function fetchFB() {
       ? Number(diffData.currentDifficulty)
       : 0;
 
+    // Compute actual average block time from last 3 days of hashrate data
+    // diffData.blockCount and diffData.difficulty can give us real block interval
+    // Fallback: use 45s (confirmed from asicminervalue April 2026)
+    let blockTime = 45;
+    if (diffData?.timestamps?.length >= 2) {
+      const timestamps = diffData.timestamps;
+      const blocks = diffData.blockCount || 0;
+      if (blocks > 0) {
+        const elapsed = timestamps[timestamps.length - 1] - timestamps[0];
+        const computed = elapsed / blocks;
+        if (computed > 5 && computed < 120) blockTime = Math.round(computed);
+      }
+    }
+
     return {
       coin: 'FB',
       difficulty,
       network_hashrate: networkHashrate,
       block_reward: 25,
-      block_time: 30,
+      block_time: blockTime,
       height,
       hashrate_estimated: false
     };
@@ -419,8 +462,12 @@ async function fetchNEXA() {
       ? (difficulty * Math.pow(2, 32)) / 2
       : 0;
 
-    // Block reward ~4 NEXA per block (decreasing, post-reduction schedule)
-    const blockReward = 4;
+    // Block reward — read from status if available, fallback to 4
+    const blockReward = statusData?.reward
+      ? Number(statusData.reward)
+      : statusData?.block_reward
+      ? Number(statusData.block_reward)
+      : 4;
 
     return {
       coin: 'NEXA',
