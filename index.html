@@ -3948,8 +3948,12 @@
       let miners = getFilteredMiners();
       
       if (algoFilter !== 'all') {
-        // SHA-256-BCH uses same miners as SHA-256 (BTC)
-        const filterAlgo = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? 'SHA-256' : algoFilter;
+        // SHA-256 variants all use same physical miners — remap to SHA-256 for dropdown
+        // Scrypt-QUAI uses same Scrypt hardware — remap to Scrypt
+        const sha256Variants = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI'];
+        const filterAlgo = sha256Variants.includes(algoFilter) ? 'SHA-256'
+          : algoFilter === 'Scrypt-QUAI' ? 'Scrypt'
+          : algoFilter;
         miners = miners.filter(m => m.algorithm === filterAlgo);
       }
       
@@ -4252,9 +4256,11 @@
         power = parseFloat(document.getElementById('config-power').value) || selectedMiner.power;
         cost = parseFloat(document.getElementById('miner-cost').value) || 0;
         
-        // Use algorithm filter to determine coin (for BCH vs BTC)
+        // Use algorithm filter to determine correct coin variant
+        // SHA-256 variants and Scrypt-QUAI override the miner's base algorithm
         const algoFilter = document.getElementById('algorithm-filter').value;
-        algorithm = (algoFilter === 'SHA-256-BCH' || algoFilter === 'SHA-256-DGB') ? algoFilter : selectedMiner.algorithm;
+        const algoOverrides = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'Scrypt-QUAI'];
+        algorithm = algoOverrides.includes(algoFilter) ? algoFilter : selectedMiner.algorithm;
       } else {
         // GPU/CPU mode - use manual input
         hashrate = parseFloat(document.getElementById('manual-hashrate').value);
