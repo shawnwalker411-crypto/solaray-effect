@@ -4499,7 +4499,7 @@
     // ============================================
     // LIVE PRICE TICKER (uses calculator price data)
     // ============================================
-    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR', 'RVN', 'DGB'];
+    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR', 'RVN', 'DGB', 'XEC', 'ALPH', 'FB', 'NEXA', 'RXD', 'QUAI'];
     
     function updateTicker() {
       const tickerTrack = document.getElementById('ticker-track');
@@ -4510,9 +4510,16 @@
       tickerCoins.forEach(symbol => {
         const price = PRICES[symbol];
         if (price !== undefined && price !== null) {
-          const priceFormatted = price >= 1 
-            ? price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
-            : price.toFixed(6);
+          let priceFormatted;
+          if (price >= 1) {
+            priceFormatted = price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+          } else if (price >= 0.0001) {
+            priceFormatted = price.toFixed(6);
+          } else if (price >= 0.00000001) {
+            priceFormatted = price.toPrecision(4);
+          } else {
+            priceFormatted = price.toExponential(2);
+          }
           
           html += `
             <div class="ticker-item">
