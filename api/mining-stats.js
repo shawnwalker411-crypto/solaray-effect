@@ -231,7 +231,7 @@ async function fetchDGB() {
           const blockData = await blockRes.json();
           // coinbasedata contains minted reward in satoshis — divide by 1e8
           const coinbaseValue = blockData.txs?.[0]?.vout?.reduce((sum, o) => sum + (o.value ? Number(o.value) : 0), 0) || 0;
-          if (coinbaseValue > 0) blockReward = coinbaseValue;
+          if (coinbaseValue > 0) blockReward = coinbaseValue / 1e8;
         }
       }
     }
