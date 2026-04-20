@@ -513,7 +513,7 @@ var SOLA_GLOSSARY = {
 
   "alephium": {
     title: "Alephium (ALPH)",
-    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1, DragonBall A40 series, DragonBall A11). Network hashrate is around 14 PH/s. Block time is 64 seconds. The DragonBall A11 can dual-mine ALPH and RXD simultaneously. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
+    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1, DragonBall A40 series, DragonBall A11). Network hashrate is around 75 PH/s. Block time is 64 seconds. The DragonBall A11 can dual-mine ALPH and RXD simultaneously. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
   },
 
   "blake3": {
