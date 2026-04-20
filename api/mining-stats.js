@@ -10,7 +10,8 @@ const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
-  'RVN','ZEC','XMR','DGB'
+  'RVN','ZEC','XMR','DGB',
+  'XEC','ALPH','FB','NEXA','RXD','QUAI'
 ];
 
 // Bitcoin-style hashrate formula
@@ -24,7 +25,9 @@ const COINGECKO_IDS = {
   BTC: 'bitcoin', BCH: 'bitcoin-cash', LTC: 'litecoin',
   KAS: 'kaspa', ETC: 'ethereum-classic', DOGE: 'dogecoin',
   ZEC: 'zcash', DASH: 'dash', RVN: 'ravencoin',
-  XMR: 'monero', DGB: 'digibyte'
+  XMR: 'monero', DGB: 'digibyte',
+  XEC: 'ecash', ALPH: 'alephium', FB: 'fractal-bitcoin',
+  NEXA: 'nexacoin', RXD: 'radiant', QUAI: 'quai-network'
 };
 
 async function fetchPricesFromCoinGecko() {
@@ -97,6 +100,12 @@ async function fetchCoinData(coin) {
     case 'KAS': return fetchKAS();
     case 'XMR': return fetchXMR();
     case 'DGB': return fetchDGB();
+    case 'XEC': return fetchXEC();
+    case 'ALPH': return fetchALPH();
+    case 'FB': return fetchFB();
+    case 'NEXA': return fetchNEXA();
+    case 'RXD': return fetchRXD();
+    case 'QUAI': return fetchQUAI();
     case 'BTC':
     case 'LTC':
     case 'DOGE':
@@ -214,6 +223,107 @@ async function fetchDGB() {
   };
 }
 
+/* ================= XEC (NOWNodes Blockbook) ================= */
+/* eCash uses SHA-256d — same Blockbook pattern as BCH                  */
+/* Block time: 600s, block reward: 3125000 XEC (note: XEC has 2 extra  */
+/* decimal places vs BTC, so 1 BCH block reward = 3,125,000 XEC)       */
+
+async function fetchXEC() {
+  const apiKey = process.env.NOWNODES_API_KEY;
+  if (!apiKey) throw new Error('Missing NOWNodes API key');
+
+  const res = await fetch('https://xec-blockbook.nownodes.io/api/v2', {
+    headers: { 'api-key': apiKey }
+  });
+
+  if (!res.ok) throw new Error(`XEC Blockbook returned ${res.status}`);
+  const data = await res.json();
+  const difficulty = Number(data.backend?.difficulty) || 0;
+  const networkHashrate = btcHashrate(difficulty, 600);
+
+  return {
+    coin: 'XEC',
+    difficulty,
+    network_hashrate: networkHashrate,
+    block_reward: 3125000,
+    block_time: 600,
+    height: Number(data.backend?.blocks) || 0,
+    hashrate_estimated: true
+  };
+}
+
+/* ================= ALPH (Alephium Explorer Backend API) ================= */
+/* Blake3 algorithm. Alephium is sharded — hashrate and difficulty are  */
+/* reported at the network level. Block time ~64s, reward dynamic.      */
+/* Using public explorer backend: backend.mainnet.alephium.org          */
+
+async function fetchALPH() {
+  try {
+    const [infoRes, hashrateRes] = await Promise.all([
+      fetch('https://backend.mainnet.alephium.org/infos/current-hashrate?timespan=10m'),
+      fetch('https://backend.mainnet.alephium.org/blockflow/blocks?fromTs=0&toTs=0')
+    ]);
+
+    // Get hashrate
+    const hashrateData = infoRes.ok ? await infoRes.json() : null;
+    const networkHashrate = hashrateData?.hashrate
+      ? Number(hashrateData.hashrate)
+      : 0;
+
+    // Get chain info for block height and reward
+    const chainRes = await fetch('https://backend.mainnet.alephium.org/infos/supply/circulating-alph');
+    const blockRes = await fetch('https://backend.mainnet.alephium.org/blocks?page=1&limit=1');
+    const blockData = blockRes.ok ? await blockRes.json() : null;
+    const latestBlock = blockData?.blocks?.[0];
+
+    return {
+      coin: 'ALPH',
+      difficulty: 0,
+      network_hashrate: networkHashrate,
+      block_reward: 3.0,
+      block_time: 64,
+      height: latestBlock?.height || 0,
+      hashrate_estimated: false
+    };
+  } catch (e) {
+    throw new Error(`ALPH fetch failed: ${e.message}`);
+  }
+}
+
+/* ================= FB (Fractal Bitcoin mempool explorer API) ================= */
+/* SHA-256 standalone mining. Block time: 30s (20x faster than BTC).   */
+/* Block reward: 25 FB per block (permissionless mining portion).       */
+/* API: mempool.fractalbitcoin.io/api                                   */
+
+async function fetchFB() {
+  try {
+    const res = await fetch('https://mempool.fractalbitcoin.io/api/v1/blocks/tip/height');
+    const height = res.ok ? Number(await res.text()) : 0;
+
+    const diffRes = await fetch('https://mempool.fractalbitcoin.io/api/v1/mining/hashrate/3d');
+    const diffData = diffRes.ok ? await diffRes.json() : null;
+
+    const networkHashrate = diffData?.currentHashrate
+      ? Number(diffData.currentHashrate)
+      : 0;
+    const difficulty = diffData?.currentDifficulty
+      ? Number(diffData.currentDifficulty)
+      : 0;
+
+    return {
+      coin: 'FB',
+      difficulty,
+      network_hashrate: networkHashrate,
+      block_reward: 25,
+      block_time: 30,
+      height,
+      hashrate_estimated: false
+    };
+  } catch (e) {
+    throw new Error(`FB fetch failed: ${e.message}`);
+  }
+}
+
 /* ================= NOWNODES BLOCKBOOK COINS (8 coins) ================= */
 
 async function fetchViaNowNodes(coin) {
@@ -282,4 +392,143 @@ async function fetchViaNowNodes(coin) {
     height: Number(data.backend?.blocks) || 0,
     hashrate_estimated: hashEstimated
   };
+}
+
+/* ================= NEXA (CoinExplorer REST API) ================= */
+/* NexaPow algorithm. Block time ~2s, block reward decreasing.         */
+/* API: coinexplorer.net/api/v1/NEXA                                   */
+/* Rate limit: ~1 req/sec on public tier.                               */
+
+async function fetchNEXA() {
+  try {
+    const [blockRes, supplyRes] = await Promise.all([
+      fetch('https://coinexplorer.net/api/v1/NEXA/blocks?limit=1'),
+      fetch('https://coinexplorer.net/api/v1/NEXA/status')
+    ]);
+
+    const blockData = blockRes.ok ? await blockRes.json() : null;
+    const statusData = supplyRes.ok ? await supplyRes.json() : null;
+
+    const latestBlock = blockData?.data?.[0] || blockData?.[0] || null;
+    const height = latestBlock?.height || statusData?.blockcount || 0;
+
+    // NEXA difficulty and hashrate from status
+    const difficulty = Number(statusData?.difficulty) || 0;
+    // NexaPow hashrate formula similar to SHA256d
+    const networkHashrate = difficulty > 0
+      ? (difficulty * Math.pow(2, 32)) / 2
+      : 0;
+
+    // Block reward ~4 NEXA per block (decreasing, post-reduction schedule)
+    const blockReward = 4;
+
+    return {
+      coin: 'NEXA',
+      difficulty,
+      network_hashrate: networkHashrate,
+      block_reward: blockReward,
+      block_time: 2,
+      height: Number(height) || 0,
+      hashrate_estimated: true
+    };
+  } catch (e) {
+    throw new Error(`NEXA fetch failed: ${e.message}`);
+  }
+}
+
+/* ================= RXD (Radiant Explorer API) ================= */
+/* SHA512256d algorithm. Block time: 5 minutes.                        */
+/* Block reward: 12,500 RXD (post-April 2026 halving).                 */
+/* API: explorer.radiantblockchain.org                                  */
+
+async function fetchRXD() {
+  try {
+    const res = await fetch('https://explorer.radiantblockchain.org/api/status');
+    if (!res.ok) throw new Error(`RXD explorer returned ${res.status}`);
+    const data = await res.json();
+
+    const difficulty = Number(data.info?.difficulty) || 0;
+    const height = Number(data.info?.blocks) || 0;
+
+    // SHA512256d hashrate approximation
+    // Uses 2^256 / difficulty / blockTime formula
+    const networkHashrate = difficulty > 0
+      ? (difficulty * Math.pow(2, 32)) / 300
+      : 0;
+
+    return {
+      coin: 'RXD',
+      difficulty,
+      network_hashrate: networkHashrate,
+      block_reward: 12500,
+      block_time: 300,
+      height,
+      hashrate_estimated: true
+    };
+  } catch (e) {
+    throw new Error(`RXD fetch failed: ${e.message}`);
+  }
+}
+
+/* ================= QUAI (Official Quai JSON-RPC — Cyprus-1 zone) ================= */
+/* Quai is a multi-shard network. Cyprus-1 is the primary zone.        */
+/* Serves both QUAI-SHA (SHA-256) and QUAI-Scrypt algorithm entries.   */
+/* Block time: ~1.1s per zone, block reward dynamic.                   */
+/* RPC endpoint: rpc.cyprus1.colosseum.quai.network                    */
+
+async function fetchQUAI() {
+  try {
+    const rpcUrl = 'https://rpc.cyprus1.colosseum.quai.network';
+
+    const [blockNumRes, blockRes] = await Promise.all([
+      fetch(rpcUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0', id: 1,
+          method: 'quai_blockNumber', params: []
+        })
+      }),
+      fetch(rpcUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0', id: 2,
+          method: 'quai_getBlockByNumber', params: ['latest', false]
+        })
+      })
+    ]);
+
+    const blockNumData = blockNumRes.ok ? await blockNumRes.json() : null;
+    const blockData = blockRes.ok ? await blockRes.json() : null;
+
+    const height = blockNumData?.result
+      ? parseInt(blockNumData.result, 16)
+      : 0;
+
+    const block = blockData?.result || {};
+    const difficulty = block.difficulty
+      ? parseInt(block.difficulty, 16)
+      : 0;
+
+    // Quai block reward is dynamic — ~5 QUAI per block as baseline
+    const blockReward = 5;
+
+    // Hashrate estimate from difficulty
+    const networkHashrate = difficulty > 0
+      ? (difficulty * Math.pow(2, 32)) / 1.1
+      : 0;
+
+    return {
+      coin: 'QUAI',
+      difficulty,
+      network_hashrate: networkHashrate,
+      block_reward: blockReward,
+      block_time: 1.1,
+      height,
+      hashrate_estimated: true
+    };
+  } catch (e) {
+    throw new Error(`QUAI fetch failed: ${e.message}`);
+  }
 }
