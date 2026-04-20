@@ -319,19 +319,38 @@ async function fetchALPH() {
     const blockData = blockRes.ok ? await blockRes.json() : null;
     const latestBlock = blockData?.blocks?.[0];
 
-    // Block reward is dynamic — fetch from latest block coinbaseReward if available
-    // Danube upgrade (July 2025) reduced block time from 64s to 8s
-    // and reward to ~0.1147 ALPH/block (time-based curve, slowly declining)
-    const blockReward = latestBlock?.coinbaseReward
-      ? Number(latestBlock.coinbaseReward) / 1e18  // ALPH uses 18 decimals
-      : 0.1147;
+    // Block reward from first transaction output (coinbase) in attoALPH (1e18)
+    // Need to fetch block transactions to get reward
+    let blockReward = 0.1433;  // fallback: April 2026 confirmed value
+    if (latestBlock?.hash) {
+      try {
+        const txRes = await fetch(
+          `https://backend.mainnet.alephium.org/blocks/${latestBlock.hash}/transactions?page=1&limit=1`
+        );
+        if (txRes.ok) {
+          const txData = await txRes.json();
+          const coinbaseTx = txData.find(tx => tx.coinbase) || txData[0];
+          if (coinbaseTx?.outputs?.[0]?.attoAlphAmount) {
+            blockReward = Number(coinbaseTx.outputs[0].attoAlphAmount) / 1e18;
+          }
+        }
+      } catch (e) {
+        // keep fallback
+      }
+    }
+
+    // hashRate is in each block in H/s (network-wide)
+    const networkHashrateFromBlock = latestBlock?.hashRate
+      ? Number(latestBlock.hashRate)
+      : 0;
+    const finalHashrate = networkHashrateFromBlock || networkHashrate;
 
     return {
       coin: 'ALPH',
       difficulty: 0,
-      network_hashrate: networkHashrate,
+      network_hashrate: finalHashrate,
       block_reward: blockReward,
-      block_time: 8,  // Danube upgrade July 2025: 64s → 8s
+      block_time: 0.5,  // Danube: 8s per chain / 16 chains = 0.5s effective network block time
       height: latestBlock?.height || 0,
       hashrate_estimated: false
     };
