@@ -7,8 +7,8 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Compare mining pools for Bitcoin, Litecoin, Kaspa, and Dogecoin. Pool fees, FPPS vs PPLNS payouts, and minimum thresholds for home miners.">
-  <meta name="keywords" content="bitcoin mining pools, best mining pool, pool fees comparison, FPPS vs PPLNS, Foundry pool, F2Pool, ViaBTC, Litecoin pool, Kaspa pool">
+  <meta name="description" content="Compare mining pools for Bitcoin, Litecoin, Kaspa, Alephium, eCash, Fractal Bitcoin, Nexa, Radiant, and Quai Network. Pool fees, FPPS vs PPLNS payouts, and minimum thresholds for home miners.">
+  <meta name="keywords" content="bitcoin mining pools, best mining pool, pool fees comparison, FPPS vs PPLNS, F2Pool, ViaBTC, Kryptex pool, Alephium pool, eCash pool, Fractal Bitcoin pool, Nexa pool, Radiant RXD pool, Quai Network pool">
   <meta name="author" content="Sola Ray Effect">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.solarayeffect.com/pools.html">
@@ -1024,6 +1024,11 @@
     .coin-tag-rvn { background: #38418222; color: #6b7dcc; }
     .coin-tag-erg { background: #ff574222; color: #ff5742; }
     .coin-tag-alph { background: #3a7af222; color: #3a7af2; }
+    .coin-tag-xec { background: #0074c222; color: #0074c2; }
+    .coin-tag-fb { background: #f7931a22; color: #f7931a; }
+    .coin-tag-nexa { background: #00c8aa22; color: #00c8aa; }
+    .coin-tag-rxd { background: #e8432322; color: #e84323; }
+    .coin-tag-quai { background: #9b59b622; color: #9b59b6; }
     
     .coin-note {
       color: var(--text-secondary);
@@ -1238,6 +1243,12 @@
         <option value="xmr">Monero (XMR)</option>
         <option value="dgb">DigiByte (DGB)</option>
         <option value="rvn">Ravencoin (RVN)</option>
+        <option value="xec">eCash (XEC)</option>
+        <option value="alph">Alephium (ALPH)</option>
+        <option value="fb">Fractal Bitcoin (FB)</option>
+        <option value="nexa">Nexa (NEXA)</option>
+        <option value="rxd">Radiant (RXD)</option>
+        <option value="quai">Quai Network (QUAI)</option>
       </select>
       
       <label for="payout-filter">Payout:</label>
@@ -2306,6 +2317,330 @@
       </div>
     </section>
     
+    <!-- ECASH SECTION -->
+    <section class="coin-section" data-coin="xec">
+      <div class="coin-header">
+        <span class="coin-icon">&#x20B8;</span>
+        <h2 class="coin-name">eCash (XEC)</h2>
+        <span class="coin-tag coin-tag-xec">SHA-256</span>
+      </div>
+      <p class="coin-note">SHA-256 algorithm. Same hardware as BTC. Small network (~50 PH/s) means higher per-TH yields. NOWNodes is the only shared RPC provider for XEC.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/xec" target="_blank" rel="noopener">Kryptex &#x2197;</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS+</span></td>
+              <td>Hourly</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>SHA-256 only. Hourly payouts. No registration required.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.viabtc.com/" target="_blank" rel="noopener">ViaBTC &#x2197;</a></td>
+              <td>2%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Registration required. Global servers.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.mining-dutch.nl/" target="_blank" rel="noopener">Mining-Dutch &#x2197;</a></td>
+              <td>~1.9%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
+              <td>European pool. Supports XEC alongside BCH and BTC.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://zpool.ca/" target="_blank" rel="noopener">Zpool &#x2197;</a></td>
+              <td>2%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>Varies</td>
+              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span></td>
+              <td>Auto-switching SHA-256 pool. Pays in BTC.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ALEPHIUM SECTION -->
+    <section class="coin-section" data-coin="alph">
+      <div class="coin-header">
+        <span class="coin-icon">&#x1F48E;</span>
+        <h2 class="coin-name">Alephium (ALPH)</h2>
+        <span class="coin-tag coin-tag-alph">Blake3</span>
+      </div>
+      <p class="coin-note">Blake3 algorithm. ASIC miners (Goldshell AL series, Bitmain AL1) dominate. ~14 PH/s network. Block time 64 seconds. Can dual-mine with ETC on some GPU setups.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.viabtc.com/" target="_blank" rel="noopener">ViaBTC &#x2197;</a></td>
+              <td>2%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Global pool. Registration required.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/alph" target="_blank" rel="noopener">Kryptex &#x2197;</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS+</span></td>
+              <td>Hourly</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Hourly payouts. No registration required.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://alephium.herominers.com/" target="_blank" rel="noopener">HeroMiners &#x2197;</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>1 ALPH</td>
+              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span><span class="region-tag">&#x1F1EA;&#x1F1FA;</span><span class="region-tag">&#x1F310;</span></td>
+              <td>Low fee. Global servers. No registration.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://alephium.f2pool.com/" target="_blank" rel="noopener">F2Pool &#x2197;</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>10 ALPH</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Large pool. Higher fee.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FRACTAL BITCOIN SECTION -->
+    <section class="coin-section" data-coin="fb">
+      <div class="coin-header">
+        <span class="coin-icon">&#x20BF;</span>
+        <h2 class="coin-name">Fractal Bitcoin (FB)</h2>
+        <span class="coin-tag coin-tag-fb">SHA-256</span>
+      </div>
+      <p class="coin-note">SHA-256 standalone mining. 621 EH/s network. 30-second blocks. 2 out of every 3 blocks are permissionless (point your SHA-256 ASIC directly). 1 in 3 blocks is merge-mined with BTC.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.viabtc.com/" target="_blank" rel="noopener">ViaBTC &#x2197;</a></td>
+              <td>2%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Supports standalone FB mining. Registration required.</td>
+            </tr>
+            <tr data-payouts="pps">
+              <td><a class="pool-link" href="https://pool.kryptex.com/fb" target="_blank" rel="noopener">Kryptex &#x2197;</a></td>
+              <td>1.5%</td>
+              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS+</span></td>
+              <td>Hourly</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Standalone FB mining. Hourly payouts. No registration.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool &#x2197;</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Large global pool. Supports standalone FB.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- NEXA SECTION -->
+    <section class="coin-section" data-coin="nexa">
+      <div class="coin-header">
+        <span class="coin-icon">&#x26A1;</span>
+        <h2 class="coin-name">Nexa (NEXA)</h2>
+        <span class="coin-tag coin-tag-nexa">NexaPow</span>
+      </div>
+      <p class="coin-note">NexaPow algorithm. 2-second block time. DragonBall A40 is the primary ASIC. Small but active mining community. CoinExplorer provides public REST API for chain stats.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://nexa.ekapool.com/" target="_blank" rel="noopener">EkaPool &#x2197;</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>500 NEXA</td>
+              <td><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
+              <td>European pool. No registration.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://nexa.herominers.com/" target="_blank" rel="noopener">HeroMiners &#x2197;</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>1000 NEXA</td>
+              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span><span class="region-tag">&#x1F1EA;&#x1F1FA;</span><span class="region-tag">&#x1F310;</span></td>
+              <td>Global servers. No registration required.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://nexa.coinminingpool.org/" target="_blank" rel="noopener">CoinMiningPool &#x2197;</a></td>
+              <td>0.9%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>2000 NEXA</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Low fee. Anonymous mining supported.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RADIANT SECTION -->
+    <section class="coin-section" data-coin="rxd">
+      <div class="coin-header">
+        <span class="coin-icon">&#x25C6;</span>
+        <h2 class="coin-name">Radiant (RXD)</h2>
+        <span class="coin-tag coin-tag-rxd">SHA512256d</span>
+      </div>
+      <p class="coin-note">SHA512256d algorithm. 5-minute blocks. Block reward halved to 12,500 RXD in April 2026. IceRiver RX0 and RX0 Pro are the primary ASICs. Small but growing hashrate.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://rxd.herominers.com/" target="_blank" rel="noopener">HeroMiners &#x2197;</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>5000 RXD</td>
+              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span><span class="region-tag">&#x1F1EA;&#x1F1FA;</span><span class="region-tag">&#x1F310;</span></td>
+              <td>Global servers. No registration required.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://radiant.coinminingpool.org/" target="_blank" rel="noopener">CoinMiningPool &#x2197;</a></td>
+              <td>0.9%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>10000 RXD</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Low fee. Anonymous mining. No registration.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://rxd.solopool.org/" target="_blank" rel="noopener">SoloPool.org &#x2197;</a></td>
+              <td>2%</td>
+              <td><span class="payout-tag payout-solo glossary-term" data-term="solo">Solo</span></td>
+              <td>Full block</td>
+              <td><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
+              <td>Solo mining. Keep full 12,500 RXD block reward.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- QUAI NETWORK SECTION -->
+    <section class="coin-section" data-coin="quai">
+      <div class="coin-header">
+        <span class="coin-icon">&#x2655;</span>
+        <h2 class="coin-name">Quai Network (QUAI)</h2>
+        <span class="coin-tag coin-tag-quai">SHA-256 / Scrypt</span>
+      </div>
+      <p class="coin-note">Multi-shard network. Cyprus-1 is the primary zone. SHA-256 ASICs (S19, S21) and Scrypt ASICs (L3++, L7) both mine QUAI on different zone chains. 1.1-second block time. Point your miner to the correct zone endpoint.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://k1pool.com/pool/quai" target="_blank" rel="noopener">K1Pool &#x2197;</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>50 QUAI</td>
+              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span><span class="region-tag">&#x1F1EA;&#x1F1FA;</span><span class="region-tag">&#x1F310;</span></td>
+              <td>Supports SHA-256 and Scrypt zone mining. Auto-switch available.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://quai.herominers.com/" target="_blank" rel="noopener">HeroMiners &#x2197;</a></td>
+              <td>1%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>25 QUAI</td>
+              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span><span class="region-tag">&#x1F1EA;&#x1F1FA;</span><span class="region-tag">&#x1F310;</span></td>
+              <td>Global servers. Both SHA-256 and Scrypt supported. No registration.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://quai.coinminingpool.org/" target="_blank" rel="noopener">CoinMiningPool &#x2197;</a></td>
+              <td>0.9%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>50 QUAI</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Low fee. Anonymous mining. SHA-256 and Scrypt zones.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://quai.f2pool.com/" target="_blank" rel="noopener">F2Pool &#x2197;</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Large global pool. Higher fee. Registration required.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- DISCLAIMER -->
     <div class="disclaimer">
       <h4>&#x26A0;&#xFE0F; Important Disclaimer</h4>

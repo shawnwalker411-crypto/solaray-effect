@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://api.solochance.org https://www.google-analytics.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://api.solochance.org https://www.google-analytics.com https://backend.mainnet.alephium.org https://mempool.fractalbitcoin.io https://coinexplorer.net https://explorer.radiantblockchain.org https://rpc.cyprus1.colosseum.quai.network; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
@@ -2836,6 +2836,16 @@
 
       // NATIVE 120V - Equihash (ZEC)
       { id: 'z9-mini', name: 'Antminer Z9 Mini', manufacturer: 'Bitmain', hashrate: 10, unit: 'kSol/s', power: 300, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Moderate (50-65 dB)', cooling: 'Room Temp', loki: false },
+
+      // SHA512256d (RXD)
+      { id: 'rx0', name: 'IceRiver RX0', manufacturer: 'IceRiver', hashrate: 100, unit: 'GH/s', power: 120, algorithm: 'SHA512256d', coins: ['RXD'], category: null, voltage: '120V', noise: 'silent', noiseLabel: 'Silent (under 40 dB)', cooling: 'Room Temp', loki: false },
+      { id: 'rx0-pro', name: 'IceRiver RX0 Pro', manufacturer: 'IceRiver', hashrate: 300, unit: 'GH/s', power: 350, algorithm: 'SHA512256d', coins: ['RXD'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+
+      // Blake3 (ALPH) - home-friendly unit
+      { id: 'al-box-iii', name: 'Goldshell AL-BOX III', manufacturer: 'Goldshell', hashrate: 1200, unit: 'GH/s', power: 600, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
+
+      // Scrypt-QUAI (L3++ on Quai Scrypt zone)
+      { id: 'l3pp-quai', name: 'Antminer L3++', manufacturer: 'Bitmain', hashrate: 580, unit: 'MH/s', power: 942, algorithm: 'Scrypt-QUAI', coins: ['QUAI'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
     ];
     
     // ============================================
@@ -2899,6 +2909,28 @@
       
       // X11 (DASH)
       { id: 'd9', name: 'Antminer D9', manufacturer: 'Bitmain', hashrate: 1770, unit: 'GH/s', power: 2839, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+
+      // SHA-256-XEC (eCash — same S19 hardware pointed at XEC pool)
+      { id: 's19-xec', name: 'Antminer S19', manufacturer: 'Bitmain', hashrate: 95, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-XEC', coins: ['XEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 's19-pro-xec', name: 'Antminer S19 Pro', manufacturer: 'Bitmain', hashrate: 110, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-XEC', coins: ['XEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+
+      // SHA-256-FB (Fractal Bitcoin — standalone SHA-256 mining)
+      { id: 's19-fb', name: 'Antminer S19', manufacturer: 'Bitmain', hashrate: 95, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-FB', coins: ['FB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 's21-fb', name: 'Antminer S21', manufacturer: 'Bitmain', hashrate: 200, unit: 'TH/s', power: 3500, algorithm: 'SHA-256-FB', coins: ['FB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+
+      // Blake3 (ALPH) - high-end unit
+      { id: 'al-max', name: 'Goldshell AL Max', manufacturer: 'Goldshell', hashrate: 8300, unit: 'GH/s', power: 3350, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+
+      // NexaPow (NEXA)
+      { id: 'dragonball-a40', name: 'DragonBall A40', manufacturer: 'DragonBall Miner', hashrate: 40, unit: 'GH/s', power: 1600, algorithm: 'NexaPow', coins: ['NEXA'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'dragonball-a40-pro', name: 'DragonBall A40 Pro', manufacturer: 'DragonBall Miner', hashrate: 60, unit: 'GH/s', power: 2200, algorithm: 'NexaPow', coins: ['NEXA'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+
+      // SHA-256-QUAI (Quai Network SHA-256 zone)
+      { id: 's19-quai-sha', name: 'Antminer S19', manufacturer: 'Bitmain', hashrate: 95, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-QUAI', coins: ['QUAI'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 's21-quai-sha', name: 'Antminer S21', manufacturer: 'Bitmain', hashrate: 200, unit: 'TH/s', power: 3500, algorithm: 'SHA-256-QUAI', coins: ['QUAI'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+
+      // Scrypt-QUAI (Quai Network Scrypt zone)
+      { id: 'l7-quai', name: 'Antminer L7 9500M', manufacturer: 'Bitmain', hashrate: 9500, unit: 'MH/s', power: 3425, algorithm: 'Scrypt-QUAI', coins: ['QUAI'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
     ];
     
     // Combined for "All" filter and browse table
@@ -2907,7 +2939,8 @@
     // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
     const DEFAULT_PRICES = { 
       BTC: 0, BCH: 0, LTC: 0, KAS: 0, ETC: 0, DOGE: 0,
-      ZEC: 0, DASH: 0, RVN: 0, XMR: 0, DGB: 0
+      ZEC: 0, DASH: 0, RVN: 0, XMR: 0, DGB: 0,
+      XEC: 0, ALPH: 0, FB: 0, NEXA: 0, RXD: 0, QUAI: 0
     };
     let PRICES = { ...DEFAULT_PRICES };
     let priceStatus = 'default'; // 'live', 'cached', 'default'
@@ -2924,7 +2957,7 @@
         perUnit: 0.00000122, unit: 'MH/s', coin: 'LTC',
         merged: { perUnit: 0.00459, coin: 'DOGE' }
       },
-      'KHeavyHash': { perUnit: 0.00564, unit: 'GH/s', coin: 'KAS' },
+      'KHeavyHash': { perUnit: 0.00646, unit: 'GH/s', coin: 'KAS' },
       'Etchash': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
       'X11': { perUnit: 0.0000853, unit: 'GH/s', coin: 'DASH' },
@@ -2934,7 +2967,21 @@
       // CPU Algorithms  
       'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
       // DGB
-      'SHA-256-DGB': { perUnit: 10, unit: 'TH/s', coin: 'DGB' }
+      'SHA-256-DGB': { perUnit: 10, unit: 'TH/s', coin: 'DGB' },
+      // XEC — SHA-256, same hardware as BTC/BCH, small network ~ 50 PH/s
+      'SHA-256-XEC': { perUnit: 0.00058, unit: 'TH/s', coin: 'XEC' },
+      // ALPH — Blake3 ASIC, network ~14 PH/s, reward 3.0 ALPH/block, 64s block time
+      'Blake3': { perUnit: 0.00000021, unit: 'GH/s', coin: 'ALPH' },
+      // FB — SHA-256 standalone, 621 EH/s network, 25 FB/block, 30s block time
+      'SHA-256-FB': { perUnit: 0.0000000034, unit: 'TH/s', coin: 'FB' },
+      // NEXA — NexaPow, ~4 NEXA/block, 2s block time
+      'NexaPow': { perUnit: 0.000042, unit: 'GH/s', coin: 'NEXA' },
+      // RXD — SHA512256d, 12500 RXD/block post-April 2026 halving, 300s block time
+      'SHA512256d': { perUnit: 0.0000052, unit: 'TH/s', coin: 'RXD' },
+      // QUAI-SHA — SHA-256 zone, ~5 QUAI/block, 1.1s block time
+      'SHA-256-QUAI': { perUnit: 0.000000082, unit: 'TH/s', coin: 'QUAI' },
+      // QUAI-Scrypt — Scrypt zone, same network as QUAI-SHA, per MH/s
+      'Scrypt-QUAI': { perUnit: 0.000012, unit: 'MH/s', coin: 'QUAI' }
     };
     
     // Mining stats status
@@ -2953,7 +3000,14 @@
         { value: 'Etchash', label: 'Etchash (ETC)' },
         { value: 'Equihash', label: 'Equihash (ZEC)' },
         { value: 'X11', label: 'X11 (DASH)' },
-        { value: 'SHA-256-DGB', label: 'SHA-256 (DGB)' }
+        { value: 'SHA-256-DGB', label: 'SHA-256 (DGB)' },
+        { value: 'SHA-256-XEC', label: 'SHA-256 (XEC)' },
+        { value: 'Blake3', label: 'Blake3 (ALPH)' },
+        { value: 'SHA-256-FB', label: 'SHA-256 (FB)' },
+        { value: 'NexaPow', label: 'NexaPow (NEXA)' },
+        { value: 'SHA512256d', label: 'SHA512256d (RXD)' },
+        { value: 'SHA-256-QUAI', label: 'SHA-256 (QUAI)' },
+        { value: 'Scrypt-QUAI', label: 'Scrypt (QUAI)' }
       ],
       GPU: [
         { value: 'Etchash-GPU', label: 'Etchash (ETC)', unit: 'MH/s' },
@@ -3045,7 +3099,13 @@
       DASH: 'dash',
       RVN: 'ravencoin',
       XMR: 'monero',
-      DGB: 'digibyte'
+      DGB: 'digibyte',
+      XEC: 'ecash',
+      ALPH: 'alephium',
+      FB: 'fractal-bitcoin',
+      NEXA: 'nexacoin',
+      RXD: 'radiant',
+      QUAI: 'quai-network'
     };
     
     async function fetchPrices() {
@@ -3070,6 +3130,12 @@
         PRICES.RVN = data.ravencoin?.usd || PRICES.RVN;
         PRICES.XMR = data.monero?.usd || PRICES.XMR;
         PRICES.DGB = data.digibyte?.usd || PRICES.DGB;
+        PRICES.XEC = data['ecash']?.usd || PRICES.XEC;
+        PRICES.ALPH = data['alephium']?.usd || PRICES.ALPH;
+        PRICES.FB = data['fractal-bitcoin']?.usd || PRICES.FB;
+        PRICES.NEXA = data['nexacoin']?.usd || PRICES.NEXA;
+        PRICES.RXD = data['radiant']?.usd || PRICES.RXD;
+        PRICES.QUAI = data['quai-network']?.usd || PRICES.QUAI;
         
         // Save to localStorage with timestamp
         const cacheData = {
@@ -3281,7 +3347,21 @@
       // ZEC: ~0.00005 to ~0.005 ZEC/kSol/day
       'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
       // DGB: ~0.01 to ~50 DGB/TH/day (SHA-256, large block reward)
-      'SHA-256-DGB': { min: 0.001, max: 100, coin: 'DGB', unit: 'TH' }
+      'SHA-256-DGB': { min: 0.001, max: 100, coin: 'DGB', unit: 'TH' },
+      // XEC: small SHA-256 network ~50 PH/s, large unit denominations (millions of XEC)
+      'SHA-256-XEC': { min: 1e-5, max: 0.01, coin: 'XEC', unit: 'TH' },
+      // ALPH: Blake3, network ~14 PH/s, reward ~3 ALPH/block, 64s block time, per GH/s
+      'Blake3': { min: 1e-9, max: 1e-4, coin: 'ALPH', unit: 'GH' },
+      // FB: 621 EH/s network, 25 FB/block, 30s block time — very low per TH/s
+      'SHA-256-FB': { min: 1e-12, max: 1e-6, coin: 'FB', unit: 'TH' },
+      // NEXA: NexaPow, fast 2s blocks, ~4 NEXA/block, moderate network, per GH/s
+      'NexaPow': { min: 1e-6, max: 0.01, coin: 'NEXA', unit: 'GH' },
+      // RXD: SHA512256d, 300s blocks, 12500 RXD/block post-halving, per TH/s
+      'SHA512256d': { min: 1e-7, max: 0.001, coin: 'RXD', unit: 'TH' },
+      // QUAI-SHA: Cyprus-1 zone, ~5 QUAI/block, 1.1s block time, per TH/s
+      'SHA-256-QUAI': { min: 1e-12, max: 1e-5, coin: 'QUAI', unit: 'TH' },
+      // QUAI-Scrypt: same network, per MH/s
+      'Scrypt-QUAI': { min: 1e-8, max: 0.001, coin: 'QUAI', unit: 'MH' }
     };
     
     // Track last known good rates for fallback
@@ -3476,7 +3556,100 @@
           console.log('DGB rate updated:', validation.rate, 'DGB/TH/day', validation.valid ? '\u2714' : '(fallback)');
         }
       }
-      
+
+      // XEC (SHA-256 via NOWNodes Blockbook)
+      // Small network ~50 PH/s. XEC has 2 extra decimals vs BTC (3,125,000 XEC = 1 BCH reward equivalent)
+      if (data.XEC && data.XEC.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.XEC.block_time || 600);
+        const dailyCoins = (data.XEC.block_reward || 3125000) * blocksPerDay;
+        const perTH = dailyCoins / (data.XEC.network_hashrate / 1e12);
+
+        const validation = validateAndUpdateRate('SHA-256-XEC', perTH, 'XEC');
+        if (validation.rate) {
+          REVENUE_RATES['SHA-256-XEC'].perUnit = validation.rate;
+          console.log('XEC rate updated:', validation.rate, 'XEC/TH/day', validation.valid ? '\u2714' : '(fallback)');
+        }
+      }
+
+      // ALPH (Blake3 via Alephium Explorer Backend API)
+      // Network hashrate in H/s, per GH/s. Reward ~3.0 ALPH/block, 64s block time
+      if (data.ALPH && data.ALPH.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.ALPH.block_time || 64);
+        const dailyCoins = (data.ALPH.block_reward || 3.0) * blocksPerDay;
+        const perGH = dailyCoins / (data.ALPH.network_hashrate / 1e9);
+
+        const validation = validateAndUpdateRate('Blake3', perGH, 'ALPH');
+        if (validation.rate) {
+          REVENUE_RATES['Blake3'].perUnit = validation.rate;
+          console.log('ALPH rate updated:', validation.rate, 'ALPH/GH/day', validation.valid ? '\u2714' : '(fallback)');
+        }
+      }
+
+      // FB (SHA-256 via Fractal mempool API)
+      // 621 EH/s network, 25 FB/block, 30s block time. Per TH/s very small number.
+      if (data.FB && data.FB.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.FB.block_time || 30);
+        const dailyCoins = (data.FB.block_reward || 25) * blocksPerDay;
+        const perTH = dailyCoins / (data.FB.network_hashrate / 1e12);
+
+        const validation = validateAndUpdateRate('SHA-256-FB', perTH, 'FB');
+        if (validation.rate) {
+          REVENUE_RATES['SHA-256-FB'].perUnit = validation.rate;
+          console.log('FB rate updated:', validation.rate, 'FB/TH/day', validation.valid ? '\u2714' : '(fallback)');
+        }
+      }
+
+      // NEXA (NexaPow via CoinExplorer REST API)
+      // Fast 2s blocks, ~4 NEXA/block. Network hashrate in H/s, per GH/s.
+      if (data.NEXA && data.NEXA.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.NEXA.block_time || 2);
+        const dailyCoins = (data.NEXA.block_reward || 4) * blocksPerDay;
+        const perGH = dailyCoins / (data.NEXA.network_hashrate / 1e9);
+
+        const validation = validateAndUpdateRate('NexaPow', perGH, 'NEXA');
+        if (validation.rate) {
+          REVENUE_RATES['NexaPow'].perUnit = validation.rate;
+          console.log('NEXA rate updated:', validation.rate, 'NEXA/GH/day', validation.valid ? '\u2714' : '(fallback)');
+        }
+      }
+
+      // RXD (SHA512256d via Radiant Explorer API)
+      // 12,500 RXD/block post-April 2026 halving, 300s block time. Per TH/s.
+      if (data.RXD && data.RXD.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.RXD.block_time || 300);
+        const dailyCoins = (data.RXD.block_reward || 12500) * blocksPerDay;
+        const perTH = dailyCoins / (data.RXD.network_hashrate / 1e12);
+
+        const validation = validateAndUpdateRate('SHA512256d', perTH, 'RXD');
+        if (validation.rate) {
+          REVENUE_RATES['SHA512256d'].perUnit = validation.rate;
+          console.log('RXD rate updated:', validation.rate, 'RXD/TH/day', validation.valid ? '\u2714' : '(fallback)');
+        }
+      }
+
+      // QUAI (JSON-RPC Cyprus-1 zone — serves both SHA-256-QUAI and Scrypt-QUAI)
+      // ~5 QUAI/block, 1.1s block time. SHA per TH/s, Scrypt per MH/s.
+      if (data.QUAI && data.QUAI.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.QUAI.block_time || 1.1);
+        const dailyCoins = (data.QUAI.block_reward || 5) * blocksPerDay;
+
+        // SHA-256-QUAI: per TH/s
+        const perTH = dailyCoins / (data.QUAI.network_hashrate / 1e12);
+        const valSHA = validateAndUpdateRate('SHA-256-QUAI', perTH, 'QUAI-SHA');
+        if (valSHA.rate) {
+          REVENUE_RATES['SHA-256-QUAI'].perUnit = valSHA.rate;
+          console.log('QUAI-SHA rate updated:', valSHA.rate, 'QUAI/TH/day', valSHA.valid ? '\u2714' : '(fallback)');
+        }
+
+        // Scrypt-QUAI: per MH/s
+        const perMH = dailyCoins / (data.QUAI.network_hashrate / 1e6);
+        const valScrypt = validateAndUpdateRate('Scrypt-QUAI', perMH, 'QUAI-Scrypt');
+        if (valScrypt.rate) {
+          REVENUE_RATES['Scrypt-QUAI'].perUnit = valScrypt.rate;
+          console.log('QUAI-Scrypt rate updated:', valScrypt.rate, 'QUAI/MH/day', valScrypt.valid ? '\u2714' : '(fallback)');
+        }
+      }
+
       // Show warning banner if any rates failed validation
       updateSanityWarningBanner();
     }
@@ -3586,7 +3759,14 @@
         'X11': ['DASH'],
         'KAWPOW': ['RVN'],
         'RandomX': ['XMR'],
-        'SHA-256-DGB': ['DGB']
+        'SHA-256-DGB': ['DGB'],
+        'SHA-256-XEC': ['XEC'],
+        'Blake3': ['ALPH'],
+        'SHA-256-FB': ['FB'],
+        'NexaPow': ['NEXA'],
+        'SHA512256d': ['RXD'],
+        'SHA-256-QUAI': ['QUAI'],
+        'Scrypt-QUAI': ['QUAI']
       };
       
       const coins = algoCoinMap[algorithm];
@@ -3651,7 +3831,14 @@
         'X11': 'DASH',
         'KAWPOW': 'RVN',
         'RandomX': 'XMR',
-        'SHA-256-DGB': 'DGB'
+        'SHA-256-DGB': 'DGB',
+        'SHA-256-XEC': 'XEC',
+        'Blake3': 'ALPH',
+        'SHA-256-FB': 'FB',
+        'NexaPow': 'NEXA',
+        'SHA512256d': 'RXD',
+        'SHA-256-QUAI': 'QUAI',
+        'Scrypt-QUAI': 'QUAI'
       };
       
       if (algoFilter === 'all') {
