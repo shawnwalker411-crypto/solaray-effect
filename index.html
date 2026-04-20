@@ -2984,7 +2984,7 @@
       // NEXA — NexaPow, ~4 NEXA/block, 2s block time
       'NexaPow': { perUnit: 2337662, unit: 'GH/s', coin: 'NEXA' },
       // RXD — SHA512256d, 12500 RXD/block post-April 2026 halving, 300s block time
-      'SHA512256d': { perUnit: 6188, unit: 'TH/s', coin: 'RXD' },
+      'SHA512256d': { perUnit: 6.188, unit: 'GH/s', coin: 'RXD' },
       // QUAI-SHA — SHA-256 zone, ~5 QUAI/block, 1.1s block time
       'SHA-256-QUAI': { perUnit: 1.058, unit: 'TH/s', coin: 'QUAI' },
       // QUAI-Scrypt — Scrypt zone, same network as QUAI-SHA, per MH/s
@@ -3359,11 +3359,11 @@
       // ALPH: Blake3, network ~75 PH/s, reward ~3 ALPH/block, 64s block time, per GH/s
       'Blake3': { min: 0.0005, max: 0.05, coin: 'ALPH', unit: 'GH' },
       // FB: ~600 PH/s network, 25 FB/block, 45s blocks → ~0.00008 FB/TH/day typical
-      'SHA-256-FB': { min: 1e-10, max: 1e-5, coin: 'FB', unit: 'TH' },
+      'SHA-256-FB': { min: 1e-10, max: 1e-3, coin: 'FB', unit: 'TH' },
       // NEXA: NexaPow, fast 2s blocks, ~4 NEXA/block, moderate network, per GH/s
       'NexaPow': { min: 10000, max: 100000000, coin: 'NEXA', unit: 'GH' },
       // RXD: SHA512256d, 300s blocks, 12500 RXD/block post-halving, per TH/s
-      'SHA512256d': { min: 500, max: 100000, coin: 'RXD', unit: 'TH' },
+      'SHA512256d': { min: 0.5, max: 100, coin: 'RXD', unit: 'GH' },
       // QUAI-SHA: Cyprus-1 zone, ~5 QUAI/block, 1.1s block time, per TH/s
       'SHA-256-QUAI': { min: 0.1, max: 10, coin: 'QUAI', unit: 'TH' },
       // QUAI-Scrypt: same network, per MH/s
@@ -3624,7 +3624,7 @@
       if (data.RXD && data.RXD.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.RXD.block_time || 286);
         const dailyCoins = (data.RXD.block_reward || 12500) * blocksPerDay;
-        const perTH = dailyCoins / (data.RXD.network_hashrate / 1e12);
+        const perTH = dailyCoins / (data.RXD.network_hashrate / 1e9); // GH/s (all RXD miners use GH/s)
 
         const validation = validateAndUpdateRate('SHA512256d', perTH, 'RXD');
         if (validation.rate) {
