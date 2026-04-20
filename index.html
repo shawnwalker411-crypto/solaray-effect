@@ -2976,19 +2976,19 @@
       // DGB
       'SHA-256-DGB': { perUnit: 10, unit: 'TH/s', coin: 'DGB' },
       // XEC — SHA-256, ~52 PH/s network, 1,812,500 XEC/block, 616s blocks → ~4,800 XEC/TH/day
-      'SHA-256-XEC': { perUnit: 4800, unit: 'TH/s', coin: 'XEC' },
+      'SHA-256-XEC': { perUnit: 6275, unit: 'TH/s', coin: 'XEC' },
       // ALPH — Blake3 ASIC, network ~14 PH/s, reward 3.0 ALPH/block, 64s block time
-      'Blake3': { perUnit: 0.000000054, unit: 'GH/s', coin: 'ALPH' },
+      'Blake3': { perUnit: 0.000000131, unit: 'GH/s', coin: 'ALPH' },
       // FB — SHA-256 standalone, ~600 PH/s network, 25 FB/block, 45s blocks → ~0.00008 FB/TH/day
-      'SHA-256-FB': { perUnit: 0.00008, unit: 'TH/s', coin: 'FB' },
+      'SHA-256-FB': { perUnit: 0.000000116, unit: 'TH/s', coin: 'FB' },
       // NEXA — NexaPow, ~4 NEXA/block, 2s block time
-      'NexaPow': { perUnit: 0.000042, unit: 'GH/s', coin: 'NEXA' },
+      'NexaPow': { perUnit: 2337662, unit: 'GH/s', coin: 'NEXA' },
       // RXD — SHA512256d, 12500 RXD/block post-April 2026 halving, 300s block time
-      'SHA512256d': { perUnit: 1925, unit: 'TH/s', coin: 'RXD' },
+      'SHA512256d': { perUnit: 6188, unit: 'TH/s', coin: 'RXD' },
       // QUAI-SHA — SHA-256 zone, ~5 QUAI/block, 1.1s block time
-      'SHA-256-QUAI': { perUnit: 0.000892, unit: 'TH/s', coin: 'QUAI' },
+      'SHA-256-QUAI': { perUnit: 1.058, unit: 'TH/s', coin: 'QUAI' },
       // QUAI-Scrypt — Scrypt zone, same network as QUAI-SHA, per MH/s
-      'Scrypt-QUAI': { perUnit: 0.000450, unit: 'MH/s', coin: 'QUAI' }
+      'Scrypt-QUAI': { perUnit: 0.000480, unit: 'MH/s', coin: 'QUAI' }
     };
     
     // Mining stats status
@@ -3355,17 +3355,17 @@
       // DGB: ~0.01 to ~50 DGB/TH/day (SHA-256, large block reward)
       'SHA-256-DGB': { min: 0.001, max: 100, coin: 'DGB', unit: 'TH' },
       // XEC: ~52 PH/s network, 1,812,500 XEC/block, 616s blocks → ~4,800 XEC/TH/day typical
-      'SHA-256-XEC': { min: 1000, max: 30000, coin: 'XEC', unit: 'TH' },
+      'SHA-256-XEC': { min: 1000, max: 50000, coin: 'XEC', unit: 'TH' },
       // ALPH: Blake3, network ~75 PH/s, reward ~3 ALPH/block, 64s block time, per GH/s
-      'Blake3': { min: 1e-8, max: 1e-6, coin: 'ALPH', unit: 'GH' },
+      'Blake3': { min: 1e-8, max: 1e-5, coin: 'ALPH', unit: 'GH' },
       // FB: ~600 PH/s network, 25 FB/block, 45s blocks → ~0.00008 FB/TH/day typical
-      'SHA-256-FB': { min: 0.00001, max: 0.001, coin: 'FB', unit: 'TH' },
+      'SHA-256-FB': { min: 1e-10, max: 1e-5, coin: 'FB', unit: 'TH' },
       // NEXA: NexaPow, fast 2s blocks, ~4 NEXA/block, moderate network, per GH/s
-      'NexaPow': { min: 1e-6, max: 0.01, coin: 'NEXA', unit: 'GH' },
+      'NexaPow': { min: 10000, max: 100000000, coin: 'NEXA', unit: 'GH' },
       // RXD: SHA512256d, 300s blocks, 12500 RXD/block post-halving, per TH/s
-      'SHA512256d': { min: 100, max: 50000, coin: 'RXD', unit: 'TH' },
+      'SHA512256d': { min: 500, max: 100000, coin: 'RXD', unit: 'TH' },
       // QUAI-SHA: Cyprus-1 zone, ~5 QUAI/block, 1.1s block time, per TH/s
-      'SHA-256-QUAI': { min: 0.0001, max: 0.01, coin: 'QUAI', unit: 'TH' },
+      'SHA-256-QUAI': { min: 0.1, max: 10, coin: 'QUAI', unit: 'TH' },
       // QUAI-Scrypt: same network, per MH/s
       'Scrypt-QUAI': { min: 0.00005, max: 0.005, coin: 'QUAI', unit: 'MH' }
     };
@@ -3580,8 +3580,8 @@
       // ALPH (Blake3 via Alephium Explorer Backend API)
       // Network hashrate in H/s, per GH/s. Reward ~3.0 ALPH/block, 64s block time
       if (data.ALPH && data.ALPH.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.ALPH.block_time || 64);
-        const dailyCoins = (data.ALPH.block_reward || 3.0) * blocksPerDay;
+        const blocksPerDay = 86400 / (data.ALPH.block_time || 8);
+        const dailyCoins = (data.ALPH.block_reward || 0.1147) * blocksPerDay;
         const perGH = dailyCoins / (data.ALPH.network_hashrate / 1e9);
 
         const validation = validateAndUpdateRate('Blake3', perGH, 'ALPH');
@@ -3608,8 +3608,8 @@
       // NEXA (NexaPow via CoinExplorer REST API)
       // Fast 2s blocks, ~4 NEXA/block. Network hashrate in H/s, per GH/s.
       if (data.NEXA && data.NEXA.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.NEXA.block_time || 2);
-        const dailyCoins = (data.NEXA.block_reward || 4) * blocksPerDay;
+        const blocksPerDay = 86400 / (data.NEXA.block_time || 120);
+        const dailyCoins = (data.NEXA.block_reward || 10000000) * blocksPerDay;
         const perGH = dailyCoins / (data.NEXA.network_hashrate / 1e9);
 
         const validation = validateAndUpdateRate('NexaPow', perGH, 'NEXA');
@@ -3622,7 +3622,7 @@
       // RXD (SHA512256d via Radiant Explorer API)
       // 12,500 RXD/block post-April 2026 halving, 300s block time. Per TH/s.
       if (data.RXD && data.RXD.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.RXD.block_time || 300);
+        const blocksPerDay = 86400 / (data.RXD.block_time || 286);
         const dailyCoins = (data.RXD.block_reward || 12500) * blocksPerDay;
         const perTH = dailyCoins / (data.RXD.network_hashrate / 1e12);
 
@@ -3639,7 +3639,7 @@
         const blocksPerDay = 86400 / (data.QUAI.block_time || 1.1);
         const dailyCoins = (data.QUAI.block_reward || 5) * blocksPerDay;
 
-        // SHA-256-QUAI: per TH/s
+        // SHA-256-QUAI: per TH/s — uses SHA zone hashrate from API (413 PH/s)
         const perTH = dailyCoins / (data.QUAI.network_hashrate / 1e12);
         const valSHA = validateAndUpdateRate('SHA-256-QUAI', perTH, 'QUAI-SHA');
         if (valSHA.rate) {
@@ -3647,8 +3647,10 @@
           console.log('QUAI-SHA rate updated:', valSHA.rate, 'QUAI/TH/day', valSHA.valid ? '\u2714' : '(fallback)');
         }
 
-        // Scrypt-QUAI: per MH/s
-        const perMH = dailyCoins / (data.QUAI.network_hashrate / 1e6);
+        // Scrypt-QUAI: uses separate Scrypt zone network hashrate (~818 GH/s = 818,000 MH/s)
+        // Scrypt zone is a different chain — do NOT use SHA zone hashrate here
+        const quaiScryptNetworkMH = 818000; // 818 GH/s confirmed April 2026
+        const perMH = dailyCoins / quaiScryptNetworkMH;
         const valScrypt = validateAndUpdateRate('Scrypt-QUAI', perMH, 'QUAI-Scrypt');
         if (valScrypt.rate) {
           REVENUE_RATES['Scrypt-QUAI'].perUnit = valScrypt.rate;
