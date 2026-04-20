@@ -2897,6 +2897,8 @@
       { id: 'antminer-ks5', name: 'Antminer KS5', manufacturer: 'Bitmain', hashrate: 20000, unit: 'GH/s', power: 3000, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'antminer-ks5-pro', name: 'Antminer KS5 Pro', manufacturer: 'Bitmain', hashrate: 21000, unit: 'GH/s', power: 3150, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'antminer-ks7', name: 'Antminer KS7', manufacturer: 'Bitmain', hashrate: 40000, unit: 'GH/s', power: 3080, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'dragonball-ks6-pro', name: 'DragonBall KS6 Pro', manufacturer: 'DragonBall Miner', hashrate: 10500, unit: 'GH/s', power: 3600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'dragonball-ks6-pro-plus', name: 'DragonBall KS6 Pro+', manufacturer: 'DragonBall Miner', hashrate: 11000, unit: 'GH/s', power: 3600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       
       // Etchash (ETC)
       { id: 'e9-pro', name: 'E9 Pro', manufacturer: 'Bitmain', hashrate: 3680, unit: 'MH/s', power: 2200, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
@@ -2924,10 +2926,14 @@
 
       // Blake3 (ALPH) - high-end unit
       { id: 'al-max', name: 'Goldshell AL Max', manufacturer: 'Goldshell', hashrate: 8300, unit: 'GH/s', power: 3350, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'dragonball-a11-alph', name: 'DragonBall A11', manufacturer: 'DragonBall Miner', hashrate: 1100, unit: 'GH/s', power: 2300, algorithm: 'Blake3', coins: ['ALPH', 'RXD'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
 
       // NexaPow (NEXA)
-      { id: 'dragonball-a40', name: 'DragonBall A40', manufacturer: 'DragonBall Miner', hashrate: 40, unit: 'GH/s', power: 1600, algorithm: 'NexaPow', coins: ['NEXA'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'dragonball-a40-pro', name: 'DragonBall A40 Pro', manufacturer: 'DragonBall Miner', hashrate: 60, unit: 'GH/s', power: 2200, algorithm: 'NexaPow', coins: ['NEXA'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'dragonball-a40', name: 'DragonBall A40', manufacturer: 'DragonBall Miner', hashrate: 3300, unit: 'GH/s', power: 1600, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      { id: 'dragonball-a40-pro', name: 'DragonBall A40 Pro', manufacturer: 'DragonBall Miner', hashrate: 3300, unit: 'GH/s', power: 1600, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+
+      // SHA512256d (RXD) - 240V
+      { id: 'dragonball-a11-rxd', name: 'DragonBall A11', manufacturer: 'DragonBall Miner', hashrate: 3000, unit: 'GH/s', power: 2300, algorithm: 'SHA512256d', coins: ['RXD', 'ALPH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
 
       // SHA-256-QUAI (Quai Network SHA-256 zone)
       { id: 's19-quai-sha', name: 'Antminer S19', manufacturer: 'Bitmain', hashrate: 95, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-QUAI', coins: ['QUAI'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
@@ -3008,7 +3014,6 @@
         { value: 'SHA-256-XEC', label: 'SHA-256 (XEC)' },
         { value: 'Blake3', label: 'Blake3 (ALPH)' },
         { value: 'SHA-256-FB', label: 'SHA-256 (FB)' },
-        { value: 'NexaPow', label: 'NexaPow (NEXA)' },
         { value: 'SHA512256d', label: 'SHA512256d (RXD)' },
         { value: 'SHA-256-QUAI', label: 'SHA-256 (QUAI)' },
         { value: 'Scrypt-QUAI', label: 'Scrypt (QUAI)' }
