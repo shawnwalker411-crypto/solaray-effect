@@ -2978,7 +2978,7 @@
       // XEC — SHA-256, ~52 PH/s network, 1,812,500 XEC/block, 616s blocks → ~4,800 XEC/TH/day
       'SHA-256-XEC': { perUnit: 6275, unit: 'TH/s', coin: 'XEC' },
       // ALPH — Blake3 ASIC, network ~14 PH/s, reward 3.0 ALPH/block, 64s block time
-      'Blake3': { perUnit: 0.000000131, unit: 'GH/s', coin: 'ALPH' },
+      'Blake3': { perUnit: 0.003003, unit: 'GH/s', coin: 'ALPH' },
       // FB — SHA-256 standalone, ~600 PH/s network, 25 FB/block, 45s blocks → ~0.00008 FB/TH/day
       'SHA-256-FB': { perUnit: 0.000000116, unit: 'TH/s', coin: 'FB' },
       // NEXA — NexaPow, ~4 NEXA/block, 2s block time
@@ -3357,7 +3357,7 @@
       // XEC: ~52 PH/s network, 1,812,500 XEC/block, 616s blocks → ~4,800 XEC/TH/day typical
       'SHA-256-XEC': { min: 1000, max: 50000, coin: 'XEC', unit: 'TH' },
       // ALPH: Blake3, network ~75 PH/s, reward ~3 ALPH/block, 64s block time, per GH/s
-      'Blake3': { min: 1e-8, max: 1e-5, coin: 'ALPH', unit: 'GH' },
+      'Blake3': { min: 0.0005, max: 0.05, coin: 'ALPH', unit: 'GH' },
       // FB: ~600 PH/s network, 25 FB/block, 45s blocks → ~0.00008 FB/TH/day typical
       'SHA-256-FB': { min: 1e-10, max: 1e-5, coin: 'FB', unit: 'TH' },
       // NEXA: NexaPow, fast 2s blocks, ~4 NEXA/block, moderate network, per GH/s
@@ -3580,8 +3580,8 @@
       // ALPH (Blake3 via Alephium Explorer Backend API)
       // Network hashrate in H/s, per GH/s. Reward ~3.0 ALPH/block, 64s block time
       if (data.ALPH && data.ALPH.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.ALPH.block_time || 8);
-        const dailyCoins = (data.ALPH.block_reward || 0.1147) * blocksPerDay;
+        const blocksPerDay = 86400 / (data.ALPH.block_time || 0.5);
+        const dailyCoins = (data.ALPH.block_reward || 0.1433) * blocksPerDay;
         const perGH = dailyCoins / (data.ALPH.network_hashrate / 1e9);
 
         const validation = validateAndUpdateRate('Blake3', perGH, 'ALPH');
