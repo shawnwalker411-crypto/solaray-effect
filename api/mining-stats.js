@@ -270,7 +270,7 @@ async function fetchXEC() {
     // difficulty * 2^32 / block_time gives H/s
     const networkHashrate = difficulty > 0
       ? (difficulty * Math.pow(2, 32)) / 600
-      : 75e15; // fallback: 75 PH/s (confirmed live April 2026)
+      : 71.73e15; // fallback: 71.73 PH/s (confirmed April 2026)
 
     return {
       coin: 'XEC',
@@ -287,7 +287,7 @@ async function fetchXEC() {
     return {
       coin: 'XEC',
       difficulty: 0,
-      network_hashrate: 75e15,
+      network_hashrate: 71.73e15,
       block_reward: 3125000,
       block_time: 600,
       height: 0,
@@ -314,18 +314,24 @@ async function fetchALPH() {
       ? Number(hashrateData.hashrate)
       : 0;
 
-    // Get chain info for block height and reward
-    const chainRes = await fetch('https://backend.mainnet.alephium.org/infos/supply/circulating-alph');
+    // Get latest block for reward and height
     const blockRes = await fetch('https://backend.mainnet.alephium.org/blocks?page=1&limit=1');
     const blockData = blockRes.ok ? await blockRes.json() : null;
     const latestBlock = blockData?.blocks?.[0];
+
+    // Block reward is dynamic — fetch from latest block coinbaseReward if available
+    // Danube upgrade (July 2025) reduced block time from 64s to 8s
+    // and reward to ~0.1147 ALPH/block (time-based curve, slowly declining)
+    const blockReward = latestBlock?.coinbaseReward
+      ? Number(latestBlock.coinbaseReward) / 1e18  // ALPH uses 18 decimals
+      : 0.1147;
 
     return {
       coin: 'ALPH',
       difficulty: 0,
       network_hashrate: networkHashrate,
-      block_reward: 3.0,
-      block_time: 64,
+      block_reward: blockReward,
+      block_time: 8,  // Danube upgrade July 2025: 64s → 8s
       height: latestBlock?.height || 0,
       hashrate_estimated: false
     };
@@ -481,15 +487,15 @@ async function fetchNEXA() {
     const blockReward = statusData?.reward
       ? Number(statusData.reward)
       : statusData?.block_reward
-      ? Number(statusData.block_reward)
-      : 4;
+      ? Number(statusData.reward) || Number(statusData.block_reward)
+      : 10000000;  // WhatToMine: 10,000,000 NEXA/block
 
     return {
       coin: 'NEXA',
       difficulty,
       network_hashrate: networkHashrate,
       block_reward: blockReward,
-      block_time: 2,
+      block_time: 120,  // WhatToMine: 2min block time
       height: Number(height) || 0,
       hashrate_estimated: true
     };
@@ -523,7 +529,7 @@ async function fetchRXD() {
       difficulty,
       network_hashrate: networkHashrate,
       block_reward: 12500,
-      block_time: 300,
+      block_time: 286,
       height,
       hashrate_estimated: true
     };
@@ -576,10 +582,10 @@ async function fetchQUAI() {
     // Quai block reward is dynamic — ~5 QUAI per block as baseline
     const blockReward = 5;
 
-    // Hashrate estimate from difficulty
-    const networkHashrate = difficulty > 0
-      ? (difficulty * Math.pow(2, 32)) / 1.1
-      : 0;
+    // QUAI difficulty scale does not match BTC's 2^32 formula —
+    // use confirmed SHA-zone network hashrate from hashrate.no (April 2026: ~413 PH/s)
+    // Scrypt zone is tracked separately in index.html via fixed ratio
+    const networkHashrate = 371e15; // 371 PH/s SHA zone (calibrated to WhatToMine April 2026: 116 QUAI/day at 110TH/s)
 
     return {
       coin: 'QUAI',
