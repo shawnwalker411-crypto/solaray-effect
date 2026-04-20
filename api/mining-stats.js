@@ -1,6 +1,7 @@
 // /api/mining-stats.js
 // Live mining network stats API \u2014 NOWNodes unified
-// 17 coins: BTC, LTC, DOGE, KAS, BCH, DASH, ETC, RVN, ZEC, XMR, DGB, XEC, ALPH, FB, NEXA, RXD, QUAI
+// All 12 algo-coin entries (DGB uses JSON-RPC for SHA-256 specific difficulty)
+// QUAI split into QUAI-SHA and QUAI-SCRYPT (separate WhatToMine endpoints per algorithm)
 // 1-hour cache
 
 let cache = {};
@@ -11,7 +12,8 @@ const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
   'RVN','ZEC','XMR','DGB',
-  'XEC','ALPH','FB','NEXA','RXD','QUAI'
+  'XEC','ALPH','FB','NEXA','RXD',
+  'QUAI-SHA','QUAI-SCRYPT'
 ];
 
 // Bitcoin-style hashrate formula
@@ -20,14 +22,16 @@ function btcHashrate(difficulty, blockTime) {
   return (difficulty * Math.pow(2, 32)) / blockTime;
 }
 
-// CoinGecko IDs for price lookups
+// CoinGecko IDs for price lookups.
+// QUAI-SHA and QUAI-SCRYPT resolve to the same price (same underlying coin).
 const COINGECKO_IDS = {
   BTC: 'bitcoin', BCH: 'bitcoin-cash', LTC: 'litecoin',
   KAS: 'kaspa', ETC: 'ethereum-classic', DOGE: 'dogecoin',
   ZEC: 'zcash', DASH: 'dash', RVN: 'ravencoin',
   XMR: 'monero', DGB: 'digibyte',
   XEC: 'ecash', ALPH: 'alephium', FB: 'fractal-bitcoin',
-  NEXA: 'nexacoin', RXD: 'radiant', QUAI: 'quai-network'
+  NEXA: 'nexacoin', RXD: 'radiant',
+  'QUAI-SHA': 'quai-network', 'QUAI-SCRYPT': 'quai-network'
 };
 
 async function fetchPricesFromCoinGecko() {
@@ -105,7 +109,8 @@ async function fetchCoinData(coin) {
     case 'FB': return fetchFB();
     case 'NEXA': return fetchNEXA();
     case 'RXD': return fetchRXD();
-    case 'QUAI': return fetchQUAI();
+    case 'QUAI-SHA': return fetchQUAI_SHA();
+    case 'QUAI-SCRYPT': return fetchQUAI_Scrypt();
     case 'BTC':
     case 'LTC':
     case 'DOGE':
@@ -251,26 +256,23 @@ async function fetchDGB() {
 }
 
 /* ================= XEC (Chronik public endpoint) ================= */
-/* eCash uses SHA-256d. Chronik is eCash's official public indexer.   */
-/* No API key required. Returns blockchainInfo with difficulty.       */
-/* Network hashrate derived from difficulty using ASERT formula.      */
-/* Fallback: use known-good default of 4500 XEC/TH/day.              */
+/* eCash uses SHA-256d. Blockchair publishes live eCash stats including */
+/* pre-computed 24-hour hashrate — no formula derivation needed.        */
+/* No API key required on the free tier.                                */
+/* Fallback: use known network size to produce accurate rate.           */
 
 async function fetchXEC() {
   try {
-    // Chronik blockchain-info endpoint — public, no auth required
-    const res = await fetch('https://chronik.be.cash/xec/blockchain-info');
-    if (!res.ok) throw new Error(`Chronik returned ${res.status}`);
-    const data = await res.json();
+    const res = await fetch('https://api.blockchair.com/ecash/stats');
+    if (!res.ok) throw new Error(`Blockchair returned ${res.status}`);
+    const payload = await res.json();
+    const data = payload.data || {};
 
-    // Chronik returns difficulty as a number directly
     const difficulty = Number(data.difficulty) || 0;
+    const networkHashrate = Number(data.hashrate_24h) || 0;
+    const height = Number(data.blocks) || 0;
 
-    // XEC uses ASERT DAA — hashrate formula identical to BTC SHA-256d
-    // difficulty * 2^32 / block_time gives H/s
-    const networkHashrate = difficulty > 0
-      ? (difficulty * Math.pow(2, 32)) / 600
-      : 71.73e15; // fallback: 71.73 PH/s (confirmed April 2026)
+    if (networkHashrate <= 0) throw new Error('Blockchair returned zero hashrate');
 
     return {
       coin: 'XEC',
@@ -278,16 +280,16 @@ async function fetchXEC() {
       network_hashrate: networkHashrate,
       block_reward: 3125000,
       block_time: 600,
-      height: Number(data.tipHeight) || 0,
-      hashrate_estimated: true
+      height,
+      hashrate_estimated: false
     };
   } catch (e) {
     // Full fallback — use known network size to produce accurate rate
-    // 75 PH/s network, 3125000 XEC/block, 600s blocks = ~4500 XEC/TH/day
+    // ~50 PH/s network, 3125000 XEC/block, 600s blocks = ~9000 XEC/TH/day
     return {
       coin: 'XEC',
       difficulty: 0,
-      network_hashrate: 71.73e15,
+      network_hashrate: 50e15,
       block_reward: 3125000,
       block_time: 600,
       height: 0,
@@ -297,61 +299,32 @@ async function fetchXEC() {
 }
 
 /* ================= ALPH (Alephium Explorer Backend API) ================= */
-/* Blake3 algorithm. Alephium is sharded — hashrate and difficulty are  */
-/* reported at the network level. Block time ~64s, reward dynamic.      */
-/* Using public explorer backend: backend.mainnet.alephium.org          */
+/* Blake3 algorithm. Alephium is sharded — the /blocks endpoint returns   */
+/* the network-wide hashRate directly on each latest block.               */
+/* Block time ~0.53s per-chain, reward ~0.143 ALPH (PoLW-adjusted).       */
+/* Using public explorer backend: backend.mainnet.alephium.org            */
 
 async function fetchALPH() {
   try {
-    const [infoRes, hashrateRes] = await Promise.all([
-      fetch('https://backend.mainnet.alephium.org/infos/current-hashrate?timespan=10m'),
-      fetch('https://backend.mainnet.alephium.org/blockflow/blocks?fromTs=0&toTs=0')
-    ]);
+    const res = await fetch('https://backend.mainnet.alephium.org/blocks?page=1&limit=1');
+    if (!res.ok) throw new Error(`Alephium backend returned ${res.status}`);
+    const data = await res.json();
 
-    // Get hashrate
-    const hashrateData = infoRes.ok ? await infoRes.json() : null;
-    const networkHashrate = hashrateData?.hashrate
-      ? Number(hashrateData.hashrate)
-      : 0;
+    const latestBlock = data?.blocks?.[0];
+    if (!latestBlock) throw new Error('Alephium backend returned no blocks');
 
-    // Get latest block for reward and height
-    const blockRes = await fetch('https://backend.mainnet.alephium.org/blocks?page=1&limit=1');
-    const blockData = blockRes.ok ? await blockRes.json() : null;
-    const latestBlock = blockData?.blocks?.[0];
+    const networkHashrate = Number(latestBlock.hashRate) || 0;
+    const height = Number(latestBlock.height) || 0;
 
-    // Block reward from first transaction output (coinbase) in attoALPH (1e18)
-    // Need to fetch block transactions to get reward
-    let blockReward = 0.1433;  // fallback: April 2026 confirmed value
-    if (latestBlock?.hash) {
-      try {
-        const txRes = await fetch(
-          `https://backend.mainnet.alephium.org/blocks/${latestBlock.hash}/transactions?page=1&limit=1`
-        );
-        if (txRes.ok) {
-          const txData = await txRes.json();
-          const coinbaseTx = txData.find(tx => tx.coinbase) || txData[0];
-          if (coinbaseTx?.outputs?.[0]?.attoAlphAmount) {
-            blockReward = Number(coinbaseTx.outputs[0].attoAlphAmount) / 1e18;
-          }
-        }
-      } catch (e) {
-        // keep fallback
-      }
-    }
-
-    // hashRate is in each block in H/s (network-wide)
-    const networkHashrateFromBlock = latestBlock?.hashRate
-      ? Number(latestBlock.hashRate)
-      : 0;
-    const finalHashrate = networkHashrateFromBlock || networkHashrate;
+    if (networkHashrate <= 0) throw new Error('Alephium returned zero hashrate');
 
     return {
       coin: 'ALPH',
       difficulty: 0,
-      network_hashrate: finalHashrate,
-      block_reward: blockReward,
-      block_time: 0.5,  // Danube: 8s per chain / 16 chains = 0.5s effective network block time
-      height: latestBlock?.height || 0,
+      network_hashrate: networkHashrate,
+      block_reward: 0.143,
+      block_time: 0.5336,
+      height,
       hashrate_estimated: false
     };
   } catch (e) {
@@ -360,8 +333,8 @@ async function fetchALPH() {
 }
 
 /* ================= FB (Fractal Bitcoin mempool explorer API) ================= */
-/* SHA-256 standalone mining. Block time: 30s (20x faster than BTC).   */
-/* Block reward: 25 FB per block (permissionless mining portion).       */
+/* SHA-256 standalone mining (permissionless lane).                     */
+/* Block time: 30 seconds. Block reward: 25 FB.                         */
 /* API: mempool.fractalbitcoin.io/api                                   */
 
 async function fetchFB() {
@@ -375,23 +348,17 @@ async function fetchFB() {
     const networkHashrate = diffData?.currentHashrate
       ? Number(diffData.currentHashrate)
       : 0;
-    const difficulty = diffData?.currentDifficulty
-      ? Number(diffData.currentDifficulty)
-      : 0;
 
-    // Compute actual average block time from last 3 days of hashrate data
-    // diffData.blockCount and diffData.difficulty can give us real block interval
-    // Fallback: use 45s (confirmed from asicminervalue April 2026)
-    let blockTime = 45;
-    if (diffData?.timestamps?.length >= 2) {
-      const timestamps = diffData.timestamps;
-      const blocks = diffData.blockCount || 0;
-      if (blocks > 0) {
-        const elapsed = timestamps[timestamps.length - 1] - timestamps[0];
-        const computed = elapsed / blocks;
-        if (computed > 5 && computed < 120) blockTime = Math.round(computed);
-      }
+    // The API's `currentDifficulty` field is a placeholder (returns 1).
+    // Real difficulty lives in the `difficulty[]` array — last entry is newest.
+    let difficulty = 0;
+    if (Array.isArray(diffData?.difficulty) && diffData.difficulty.length > 0) {
+      const latest = diffData.difficulty[diffData.difficulty.length - 1];
+      difficulty = Number(latest?.difficulty) || 0;
     }
+
+    // Fractal Bitcoin targets 30s blocks. Keep as fixed constant.
+    const blockTime = 30;
 
     return {
       coin: 'FB',
@@ -477,145 +444,136 @@ async function fetchViaNowNodes(coin) {
   };
 }
 
-/* ================= NEXA (CoinExplorer REST API) ================= */
-/* NexaPow algorithm. Block time ~2s, block reward decreasing.         */
-/* API: coinexplorer.net/api/v1/NEXA                                   */
-/* Rate limit: ~1 req/sec on public tier.                               */
+/* ================= NEXA (2Miners pool API) ================= */
+/* NexaPow algorithm. Block time ~125s, block reward 10,000,000 NEXA.   */
+/* 2Miners publishes network stats via public pool API, no auth needed. */
+/* API: nexa.2miners.com/api/stats                                      */
 
 async function fetchNEXA() {
   try {
-    const [blockRes, supplyRes] = await Promise.all([
-      fetch('https://coinexplorer.net/api/v1/NEXA/blocks?limit=1'),
-      fetch('https://coinexplorer.net/api/v1/NEXA/status')
-    ]);
+    const res = await fetch('https://nexa.2miners.com/api/stats');
+    if (!res.ok) throw new Error(`2Miners NEXA returned ${res.status}`);
+    const data = await res.json();
 
-    const blockData = blockRes.ok ? await blockRes.json() : null;
-    const statusData = supplyRes.ok ? await supplyRes.json() : null;
+    const node = Array.isArray(data?.nodes) ? data.nodes[0] : null;
+    if (!node) throw new Error('2Miners NEXA returned no node data');
 
-    const latestBlock = blockData?.data?.[0] || blockData?.[0] || null;
-    const height = latestBlock?.height || statusData?.blockcount || 0;
+    const difficulty = Number(node.difficulty) || 0;
+    const networkHashrate = Number(node.networkhashps) || 0;
+    const height = Number(node.height) || 0;
 
-    // NEXA difficulty and hashrate from status
-    const difficulty = Number(statusData?.difficulty) || 0;
-    // NexaPow hashrate formula similar to SHA256d
-    const networkHashrate = difficulty > 0
-      ? (difficulty * Math.pow(2, 32)) / 2
-      : 0;
-
-    // Block reward — read from status if available, fallback to 4
-    const blockReward = statusData?.reward
-      ? Number(statusData.reward)
-      : statusData?.block_reward
-      ? Number(statusData.reward) || Number(statusData.block_reward)
-      : 10000000;  // WhatToMine: 10,000,000 NEXA/block
+    if (networkHashrate <= 0) throw new Error('2Miners NEXA returned zero hashrate');
 
     return {
       coin: 'NEXA',
       difficulty,
       network_hashrate: networkHashrate,
-      block_reward: blockReward,
-      block_time: 120,  // WhatToMine: 2min block time
-      height: Number(height) || 0,
-      hashrate_estimated: true
+      block_reward: 10000000,
+      block_time: 125,
+      height,
+      hashrate_estimated: false
     };
   } catch (e) {
     throw new Error(`NEXA fetch failed: ${e.message}`);
   }
 }
 
-/* ================= RXD (Radiant Explorer API) ================= */
-/* SHA512256d algorithm. Block time: 5 minutes.                        */
-/* Block reward: 12,500 RXD (post-April 2026 halving).                 */
-/* API: explorer.radiantblockchain.org                                  */
+/* ================= RXD (WhatToMine public API) ================= */
+/* SHA512256d algorithm. Block time: ~280s. Reward: 12,500 RXD.         */
+/* The official Radiant explorer sits behind Cloudflare which blocks    */
+/* serverless calls, so we read network stats from WhatToMine instead.  */
+/* API: whattomine.com/coins/356.json (coin ID 356 = Radiant)           */
 
 async function fetchRXD() {
   try {
-    const res = await fetch('https://explorer.radiantblockchain.org/api/status');
-    if (!res.ok) throw new Error(`RXD explorer returned ${res.status}`);
+    const res = await fetch('https://whattomine.com/coins/356.json');
+    if (!res.ok) throw new Error(`WhatToMine RXD returned ${res.status}`);
     const data = await res.json();
 
-    const difficulty = Number(data.info?.difficulty) || 0;
-    const height = Number(data.info?.blocks) || 0;
+    const difficulty = Number(data.difficulty) || 0;
+    const networkHashrate = Number(data.nethash) || 0;
+    const height = Number(data.last_block) || 0;
+    const blockTime = Number(data.block_time) || 280;
+    const blockReward = Number(data.block_reward) || 12500;
 
-    // SHA512256d hashrate approximation
-    // Uses 2^256 / difficulty / blockTime formula
-    const networkHashrate = difficulty > 0
-      ? (difficulty * Math.pow(2, 32)) / 300
-      : 0;
+    if (networkHashrate <= 0) throw new Error('WhatToMine RXD returned zero hashrate');
 
     return {
       coin: 'RXD',
       difficulty,
       network_hashrate: networkHashrate,
-      block_reward: 12500,
-      block_time: 286,
+      block_reward: blockReward,
+      block_time: blockTime,
       height,
-      hashrate_estimated: true
+      hashrate_estimated: false
     };
   } catch (e) {
     throw new Error(`RXD fetch failed: ${e.message}`);
   }
 }
 
-/* ================= QUAI (Official Quai JSON-RPC — Cyprus-1 zone) ================= */
-/* Quai is a multi-shard network. Cyprus-1 is the primary zone.        */
-/* Serves both QUAI-SHA (SHA-256) and QUAI-Scrypt algorithm entries.   */
-/* Block time: ~1.1s per zone, block reward dynamic.                   */
-/* RPC endpoint: rpc.cyprus1.colosseum.quai.network                    */
+/* ================= QUAI (WhatToMine per-algorithm stats) ================= */
+/* Quai is a 13-chain sharded network. Its aggregate RPC difficulty does not */
+/* map cleanly to a single algorithm's hashrate, so we read per-algorithm    */
+/* network stats from WhatToMine instead.                                    */
+/*                                                                           */
+/*   QUAI-SHA:    WhatToMine coin 461 (SHA-256)                              */
+/*   QUAI-SCRYPT: WhatToMine coin 460 (Scrypt)                               */
+/*                                                                           */
+/* Both return the same QUAI token. Price lookup uses 'quai-network' slug.   */
 
-async function fetchQUAI() {
+async function fetchQUAI_SHA() {
   try {
-    const rpcUrl = 'https://rpc.cyprus1.colosseum.quai.network';
+    const res = await fetch('https://whattomine.com/coins/461.json');
+    if (!res.ok) throw new Error(`WhatToMine QUAI-SHA returned ${res.status}`);
+    const data = await res.json();
 
-    const [blockNumRes, blockRes] = await Promise.all([
-      fetch(rpcUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jsonrpc: '2.0', id: 1,
-          method: 'quai_blockNumber', params: []
-        })
-      }),
-      fetch(rpcUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jsonrpc: '2.0', id: 2,
-          method: 'quai_getBlockByNumber', params: ['latest', false]
-        })
-      })
-    ]);
+    const difficulty = Number(data.difficulty) || 0;
+    const networkHashrate = Number(data.nethash) || 0;
+    const height = Number(data.last_block) || 0;
+    const blockTime = Number(data.block_time) || 1.295;
+    const blockReward = Number(data.block_reward) || 4.79;
 
-    const blockNumData = blockNumRes.ok ? await blockNumRes.json() : null;
-    const blockData = blockRes.ok ? await blockRes.json() : null;
-
-    const height = blockNumData?.result
-      ? parseInt(blockNumData.result, 16)
-      : 0;
-
-    const block = blockData?.result || {};
-    const difficulty = block.difficulty
-      ? parseInt(block.difficulty, 16)
-      : 0;
-
-    // Quai block reward is dynamic — ~5 QUAI per block as baseline
-    const blockReward = 5;
-
-    // QUAI difficulty scale does not match BTC's 2^32 formula —
-    // use confirmed SHA-zone network hashrate from hashrate.no (April 2026: ~413 PH/s)
-    // Scrypt zone is tracked separately in index.html via fixed ratio
-    const networkHashrate = 371e15; // 371 PH/s SHA zone (calibrated to WhatToMine April 2026: 116 QUAI/day at 110TH/s)
+    if (networkHashrate <= 0) throw new Error('WhatToMine QUAI-SHA returned zero hashrate');
 
     return {
-      coin: 'QUAI',
+      coin: 'QUAI-SHA',
       difficulty,
       network_hashrate: networkHashrate,
       block_reward: blockReward,
-      block_time: 1.1,
+      block_time: blockTime,
       height,
-      hashrate_estimated: true
+      hashrate_estimated: false
     };
   } catch (e) {
-    throw new Error(`QUAI fetch failed: ${e.message}`);
+    throw new Error(`QUAI-SHA fetch failed: ${e.message}`);
+  }
+}
+
+async function fetchQUAI_Scrypt() {
+  try {
+    const res = await fetch('https://whattomine.com/coins/460.json');
+    if (!res.ok) throw new Error(`WhatToMine QUAI-SCRYPT returned ${res.status}`);
+    const data = await res.json();
+
+    const difficulty = Number(data.difficulty) || 0;
+    const networkHashrate = Number(data.nethash) || 0;
+    const height = Number(data.last_block) || 0;
+    const blockTime = Number(data.block_time) || 1.275;
+    const blockReward = Number(data.block_reward) || 4.83;
+
+    if (networkHashrate <= 0) throw new Error('WhatToMine QUAI-SCRYPT returned zero hashrate');
+
+    return {
+      coin: 'QUAI-SCRYPT',
+      difficulty,
+      network_hashrate: networkHashrate,
+      block_reward: blockReward,
+      block_time: blockTime,
+      height,
+      hashrate_estimated: false
+    };
+  } catch (e) {
+    throw new Error(`QUAI-SCRYPT fetch failed: ${e.message}`);
   }
 }
