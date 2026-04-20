@@ -1,6 +1,6 @@
 // /api/mining-stats.js
 // Live mining network stats API \u2014 NOWNodes unified
-// All 11 coins via NOWNodes paid tier (DGB uses JSON-RPC for SHA-256 specific difficulty)
+// 17 coins: BTC, LTC, DOGE, KAS, BCH, DASH, ETC, RVN, ZEC, XMR, DGB, XEC, ALPH, FB, NEXA, RXD, QUAI
 // 1-hour cache
 
 let cache = {};
