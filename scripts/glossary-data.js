@@ -289,7 +289,7 @@ var SOLA_GLOSSARY = {
 
   "algorithm": {
     title: "Algorithm",
-    definition: "The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin), Scrypt (Litecoin), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin)."
+    definition: "The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin, eCash, Fractal Bitcoin, Quai-SHA), Scrypt (Litecoin, Quai-Scrypt), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin), Blake3 (Alephium), NexaPow (Nexa), SHA512256d (Radiant)."
   },
 
   "difficulty": {
@@ -500,6 +500,55 @@ var SOLA_GLOSSARY = {
     title: "VRM (Voltage Regulator Module)",
     definition: "The component on an ASIC miner or Bitaxe board that converts input voltage down to the precise level the hashing chips need. VRMs generate significant heat under load. Adding small copper heatsinks to VRMs is a common upgrade on Bitaxe builds to improve stability and allow higher clock speeds.",
     ebay: "https://www.ebay.com/sch/i.html?_nkw=copper+heatsink+vrm&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_vrm&toolid=10001&mkevt=1"
+  },
+
+  /* ================================================
+     NEW COINS & ALGORITHMS (2026 expansion)
+     ================================================ */
+
+  "ecash": {
+    title: "eCash (XEC)",
+    definition: "A SHA-256 cryptocurrency that forked from Bitcoin Cash in 2021. Uses the same algorithm as Bitcoin so any SHA-256 ASIC can mine it. The network is much smaller than BTC or BCH (~50 PH/s), which means higher per-TH yields. XEC has 2 extra decimal places compared to BTC \u2014 one BCH-equivalent block reward equals 3,125,000 XEC. NOWNodes is the primary shared RPC provider."
+  },
+
+  "alephium": {
+    title: "Alephium (ALPH)",
+    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1). Network hashrate is around 14 PH/s. Block time is 64 seconds. Can be dual-mined with Ethereum Classic on compatible GPU setups. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
+  },
+
+  "blake3": {
+    title: "Blake3",
+    definition: "A fast cryptographic hash function used by the Alephium (ALPH) blockchain. Blake3 is significantly faster than SHA-256 and was originally GPU-friendly, but dedicated ASICs (Goldshell AL series, Bitmain AL1) now dominate the Alephium network. Not to be confused with Blake2 or Blake2b used by other coins."
+  },
+
+  "fractal-bitcoin": {
+    title: "Fractal Bitcoin (FB)",
+    definition: "A Bitcoin-compatible chain using SHA-256 with 30-second block times (20x faster than Bitcoin). Uses a hybrid mining model called Cadence Mining: 2 out of every 3 blocks are permissionless (any SHA-256 ASIC can mine directly), while 1 in 3 is merged-mined with Bitcoin. The site lists FB as standalone SHA-256 mining using the permissionless lane. Network is large (~621 EH/s) due to BTC merge miners, which lowers per-TH yield significantly."
+  },
+
+  "nexa": {
+    title: "Nexa (NEXA)",
+    definition: "A UTXO-based layer-1 blockchain with 2-second block times and near-zero fees. Uses the NexaPow algorithm, designed to reduce hardware stress. The primary ASIC is the DragonBall A40 series. Small but active community. CoinExplorer provides a public REST API for chain data."
+  },
+
+  "nexapow": {
+    title: "NexaPow",
+    definition: "The proof-of-work algorithm used by the Nexa (NEXA) blockchain. Designed to reduce strain on mining hardware compared to traditional SHA-256 while maintaining ASIC compatibility. The DragonBall A40 and A40 Pro are the main dedicated ASICs for this algorithm."
+  },
+
+  "radiant": {
+    title: "Radiant (RXD)",
+    definition: "A UTXO-based proof-of-work blockchain designed for high throughput and programmable digital assets. Uses the SHA512256d algorithm. 5-minute block time. Block reward halved from 25,000 to 12,500 RXD in April 2026. Maximum supply of 21 billion RXD. IceRiver RX0 and RX0 Pro are the primary dedicated ASICs."
+  },
+
+  "sha512256d": {
+    title: "SHA512256d",
+    definition: "The proof-of-work algorithm used by the Radiant (RXD) blockchain. Applies SHA-512 then truncates the output to 256 bits, repeated twice (double-hashing). Requires dedicated hardware \u2014 standard SHA-256 ASICs cannot mine it. IceRiver produces the only widely available ASICs for this algorithm."
+  },
+
+  "quai-network": {
+    title: "Quai Network (QUAI)",
+    definition: "A multi-shard, EVM-compatible proof-of-work network that achieves high throughput without sacrificing decentralization. Unique in supporting multiple mining algorithms across different zone chains simultaneously: SHA-256 ASICs and Scrypt ASICs mine different zones of the same network. Cyprus-1 is the primary zone. Block time is ~1.1 seconds per zone. Miners must point to the correct zone endpoint."
   }
 
 };
