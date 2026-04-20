@@ -513,12 +513,12 @@ var SOLA_GLOSSARY = {
 
   "alephium": {
     title: "Alephium (ALPH)",
-    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1). Network hashrate is around 14 PH/s. Block time is 64 seconds. Can be dual-mined with Ethereum Classic on compatible GPU setups. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
+    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1, DragonBall A40 series, DragonBall A11). Network hashrate is around 14 PH/s. Block time is 64 seconds. The DragonBall A11 can dual-mine ALPH and RXD simultaneously. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
   },
 
   "blake3": {
     title: "Blake3",
-    definition: "A fast cryptographic hash function used by the Alephium (ALPH) blockchain. Blake3 is significantly faster than SHA-256 and was originally GPU-friendly, but dedicated ASICs (Goldshell AL series, Bitmain AL1) now dominate the Alephium network. Not to be confused with Blake2 or Blake2b used by other coins."
+    definition: "A fast cryptographic hash function used by the Alephium (ALPH) blockchain. Blake3 is significantly faster than SHA-256 and was originally GPU-friendly, but dedicated ASICs now dominate — including the Goldshell AL series, Bitmain AL1, and DragonBall A11 (which dual-mines ALPH and RXD simultaneously). Not to be confused with Blake2 or Blake2b used by other coins."
   },
 
   "fractal-bitcoin": {
@@ -528,27 +528,33 @@ var SOLA_GLOSSARY = {
 
   "nexa": {
     title: "Nexa (NEXA)",
-    definition: "A UTXO-based layer-1 blockchain with 2-second block times and near-zero fees. Uses the NexaPow algorithm, designed to reduce hardware stress. The primary ASIC is the DragonBall A40 series. Small but active community. CoinExplorer provides a public REST API for chain data."
+    definition: "A UTXO-based layer-1 blockchain with 2-second block times and near-zero fees. Uses the NexaPow algorithm, designed to reduce hardware stress. No major ASIC miners confirmed for NexaPow as of April 2026. Check nexa.org for current hardware updates. Small but active community. CoinExplorer provides a public REST API for chain data."
   },
 
   "nexapow": {
     title: "NexaPow",
-    definition: "The proof-of-work algorithm used by the Nexa (NEXA) blockchain. Designed to reduce strain on mining hardware compared to traditional SHA-256 while maintaining ASIC compatibility. The DragonBall A40 and A40 Pro are the main dedicated ASICs for this algorithm."
+    definition: "The proof-of-work algorithm used by the Nexa (NEXA) blockchain. Designed to reduce strain on mining hardware compared to traditional SHA-256 while maintaining ASIC compatibility. No widely available dedicated ASIC confirmed for NexaPow as of April 2026. Monitor nexa.org for hardware announcements."
   },
 
   "radiant": {
     title: "Radiant (RXD)",
-    definition: "A UTXO-based proof-of-work blockchain designed for high throughput and programmable digital assets. Uses the SHA512256d algorithm. 5-minute block time. Block reward halved from 25,000 to 12,500 RXD in April 2026. Maximum supply of 21 billion RXD. IceRiver RX0 and RX0 Pro are the primary dedicated ASICs."
+    definition: "A UTXO-based proof-of-work blockchain designed for high throughput and programmable digital assets. Uses the SHA512256d algorithm. 5-minute block time. Block reward halved from 25,000 to 12,500 RXD in April 2026. Maximum supply of 21 billion RXD. Primary ASICs are the IceRiver RX0, RX0 Pro, and the DragonBall A11 (which dual-mines RXD and ALPH simultaneously)."
   },
 
   "sha512256d": {
     title: "SHA512256d",
-    definition: "The proof-of-work algorithm used by the Radiant (RXD) blockchain. Applies SHA-512 then truncates the output to 256 bits, repeated twice (double-hashing). Requires dedicated hardware \u2014 standard SHA-256 ASICs cannot mine it. IceRiver produces the only widely available ASICs for this algorithm."
+    definition: "The proof-of-work algorithm used by the Radiant (RXD) blockchain. Applies SHA-512 then truncates the output to 256 bits, repeated twice (double-hashing). Requires dedicated hardware \u2014 standard SHA-256 ASICs cannot mine it. IceRiver RX0/RX0 Pro and the DragonBall A11 (dual-miner) are the primary ASICs for this algorithm."
   },
 
   "quai-network": {
     title: "Quai Network (QUAI)",
     definition: "A multi-shard, EVM-compatible proof-of-work network that achieves high throughput without sacrificing decentralization. Unique in supporting multiple mining algorithms across different zone chains simultaneously: SHA-256 ASICs and Scrypt ASICs mine different zones of the same network. Cyprus-1 is the primary zone. Block time is ~1.1 seconds per zone. Miners must point to the correct zone endpoint."
+  },
+
+  "dragonball-miner": {
+    title: "DragonBall Miner",
+    definition: "A Chinese ASIC manufacturer specializing in alternative proof-of-work algorithms. Known for the A11 (dual-mines RXD and ALPH simultaneously at 3.2 TH/s + 1.2 TH/s, 2300W), the A40/A40 Pro/A21 series for NexaPow (NEXA), and the KS6 Pro/KS6 Pro+ for KHeavyHash (Kaspa at 10.5\u201311 TH/s, 3600W).",
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=dragonball+miner&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_dragonball&toolid=10001&mkevt=1"
   }
 
 };
