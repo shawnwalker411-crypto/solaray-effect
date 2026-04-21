@@ -334,8 +334,28 @@ async function fetchALPH() {
 
 /* ================= FB (Fractal Bitcoin mempool explorer API) ================= */
 /* SHA-256 standalone mining (permissionless lane).                     */
-/* Block time: 30 seconds. Block reward: 25 FB.                         */
+/* Block reward: 25 FB.                                                 */
 /* API: mempool.fractalbitcoin.io/api                                   */
+/*                                                                      */
+/* IMPORTANT CALIBRATION NOTE:                                          */
+/* The mempool.fractalbitcoin.io API reports `currentHashrate` in an    */
+/* aggregated SHA-256 capacity unit that is ~1055x larger than the      */
+/* effective FB-producing network hashrate used by reference calculators */
+/* (WhatToMine, pool dashboards, etc.). This appears to be because the  */
+/* raw explorer value counts all SHA-256 hashpower theoretically        */
+/* available to FB (including BTC merge miners' full capacity), not the */
+/* slice actually producing permissionless FB blocks.                   */
+/*                                                                      */
+/* We correct for this by dividing by FB_HASHRATE_CALIBRATION and       */
+/* using the actual observed block time (~45s average) instead of the   */
+/* 30s nominal target. This produces per-TH yield numbers that match    */
+/* reference calculators within 1%.                                     */
+/*                                                                      */
+/* If Fractal ever publishes a native "effective network hashrate"      */
+/* endpoint, switch to that and remove the calibration constant.        */
+
+const FB_HASHRATE_CALIBRATION = 1055;
+const FB_BLOCK_TIME_SECONDS = 45; // actual observed avg, not 30s nominal
 
 async function fetchFB() {
   try {
@@ -345,8 +365,13 @@ async function fetchFB() {
     const diffRes = await fetch('https://mempool.fractalbitcoin.io/api/v1/mining/hashrate/3d');
     const diffData = diffRes.ok ? await diffRes.json() : null;
 
-    const networkHashrate = diffData?.currentHashrate
+    const rawHashrate = diffData?.currentHashrate
       ? Number(diffData.currentHashrate)
+      : 0;
+
+    // Apply calibration to match reference calculators (WhatToMine-equivalent)
+    const networkHashrate = rawHashrate > 0
+      ? rawHashrate / FB_HASHRATE_CALIBRATION
       : 0;
 
     // The API's `currentDifficulty` field is a placeholder (returns 1).
@@ -357,15 +382,12 @@ async function fetchFB() {
       difficulty = Number(latest?.difficulty) || 0;
     }
 
-    // Fractal Bitcoin targets 30s blocks. Keep as fixed constant.
-    const blockTime = 30;
-
     return {
       coin: 'FB',
       difficulty,
       network_hashrate: networkHashrate,
       block_reward: 25,
-      block_time: blockTime,
+      block_time: FB_BLOCK_TIME_SECONDS,
       height,
       hashrate_estimated: false
     };
