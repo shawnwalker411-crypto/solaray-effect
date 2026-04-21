@@ -2975,8 +2975,8 @@
       'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
       // DGB
       'SHA-256-DGB': { perUnit: 10, unit: 'TH/s', coin: 'DGB' },
-      // XEC — SHA-256, ~52 PH/s network, 1,812,500 XEC/block, 616s blocks → ~4,800 XEC/TH/day
-      'SHA-256-XEC': { perUnit: 6275, unit: 'TH/s', coin: 'XEC' },
+      // XEC &mdash; SHA-256, ~51 PH/s network, 1,812,500 XEC/block post-halving, 600s blocks, live ~5,118 XEC/TH/day (refreshed 2026-04-20)
+      'SHA-256-XEC': { perUnit: 5118, unit: 'TH/s', coin: 'XEC' },
       // ALPH &mdash; Blake3 ASIC, network ~7.67 PH/s, reward 0.143 ALPH/block, 0.5336s block time (refreshed 2026-04-20)
       'Blake3': { perUnit: 0.003017, unit: 'GH/s', coin: 'ALPH' },
       // FB &mdash; SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration)
@@ -3354,8 +3354,8 @@
       'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
       // DGB: ~0.01 to ~50 DGB/TH/day (SHA-256, large block reward)
       'SHA-256-DGB': { min: 0.001, max: 100, coin: 'DGB', unit: 'TH' },
-      // XEC: Live ~8,763 XEC/TH/day (refreshed 2026-04-20, 5x tolerance)
-      'SHA-256-XEC': { min: 1750, max: 43800, coin: 'XEC', unit: 'TH' },
+      // XEC: Live ~5,118 XEC/TH/day post-halving (refreshed 2026-04-20, 5x tolerance)
+      'SHA-256-XEC': { min: 1024, max: 25590, coin: 'XEC', unit: 'TH' },
       // ALPH: Blake3, live ~0.003 ALPH/GH/day (refreshed 2026-04-20, 5x tolerance)
       'Blake3': { min: 0.0006, max: 0.016, coin: 'ALPH', unit: 'GH' },
       // FB: SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration, 5x tolerance)
