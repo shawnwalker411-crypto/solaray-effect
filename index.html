@@ -2979,8 +2979,8 @@
       'SHA-256-XEC': { perUnit: 6275, unit: 'TH/s', coin: 'XEC' },
       // ALPH &mdash; Blake3 ASIC, network ~7.67 PH/s, reward 0.143 ALPH/block, 0.5336s block time (refreshed 2026-04-20)
       'Blake3': { perUnit: 0.003017, unit: 'GH/s', coin: 'ALPH' },
-      // FB — SHA-256 standalone, ~600 PH/s network, 25 FB/block, 45s blocks → ~0.00008 FB/TH/day
-      'SHA-256-FB': { perUnit: 0.000000116, unit: 'TH/s', coin: 'FB' },
+      // FB &mdash; SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration)
+      'SHA-256-FB': { perUnit: 0.0694, unit: 'TH/s', coin: 'FB' },
       // NEXA &mdash; NexaPow, network ~3.16 TH/s, 10,000,000 NEXA/block, 125s block time (refreshed 2026-04-20)
       'NexaPow': { perUnit: 2187687, unit: 'GH/s', coin: 'NEXA' },
       // RXD — SHA512256d, 12500 RXD/block post-April 2026 halving, 300s block time
@@ -3358,8 +3358,8 @@
       'SHA-256-XEC': { min: 1750, max: 43800, coin: 'XEC', unit: 'TH' },
       // ALPH: Blake3, live ~0.003 ALPH/GH/day (refreshed 2026-04-20, 5x tolerance)
       'Blake3': { min: 0.0006, max: 0.016, coin: 'ALPH', unit: 'GH' },
-      // FB: SHA-256 standalone, live ~0.000105 FB/TH/day (refreshed 2026-04-20, 5x tolerance)
-      'SHA-256-FB': { min: 2.1e-5, max: 5.3e-4, coin: 'FB', unit: 'TH' },
+      // FB: SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration, 5x tolerance)
+      'SHA-256-FB': { min: 0.014, max: 0.35, coin: 'FB', unit: 'TH' },
       // NEXA: NexaPow, live ~2,194,000 NEXA/GH/day (refreshed 2026-04-20, 5x tolerance)
       'NexaPow': { min: 440000, max: 11000000, coin: 'NEXA', unit: 'GH' },
       // RXD: SHA512256d, live ~6.1 RXD/GH/day post-halving (refreshed 2026-04-20, 5x tolerance)
