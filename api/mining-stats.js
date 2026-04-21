@@ -278,19 +278,19 @@ async function fetchXEC() {
       coin: 'XEC',
       difficulty,
       network_hashrate: networkHashrate,
-      block_reward: 3125000,
+      block_reward: 1812500,
       block_time: 600,
       height,
       hashrate_estimated: false
     };
   } catch (e) {
     // Full fallback — use known network size to produce accurate rate
-    // ~50 PH/s network, 3125000 XEC/block, 600s blocks = ~9000 XEC/TH/day
+    // ~51 PH/s network, 1,812,500 XEC/block post-halving, 600s blocks = ~5,100 XEC/TH/day
     return {
       coin: 'XEC',
       difficulty: 0,
-      network_hashrate: 50e15,
-      block_reward: 3125000,
+      network_hashrate: 51e15,
+      block_reward: 1812500,
       block_time: 600,
       height: 0,
       hashrate_estimated: true
