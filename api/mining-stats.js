@@ -68,15 +68,22 @@ export default async function handler(req, res) {
 
   const results = {};
 
-  for (const c of coinsToFetch) {
+  /* Fetch all coins in parallel instead of sequentially.
+     Previously: for-await loop summed every external API call's latency,
+     which with 16 coins and slow explorers (WhatToMine, mempool.fractalbitcoin.io)
+     was producing response times in the 10-20 second range.
+     Parallel fetch caps total latency at the single slowest call.
+     Fetch prices in parallel too so the whole handler runs in one wave. */
+
+  const coinPromises = coinsToFetch.map(async (c) => {
     if (!COINS.includes(c)) {
       results[c] = { error: 'Unsupported coin' };
-      continue;
+      return;
     }
 
     if (!refresh && cache[c] && Date.now() - cache[c].timestamp < CACHE_DURATION) {
       results[c] = { ...cache[c], fromCache: true };
-      continue;
+      return;
     }
 
     try {
@@ -86,10 +93,14 @@ export default async function handler(req, res) {
     } catch (e) {
       results[c] = { error: e.message };
     }
-  }
+  });
 
-  // Fetch cached prices (runs alongside blockchain data)
-  const prices = await fetchPricesFromCoinGecko();
+  const pricesPromise = fetchPricesFromCoinGecko();
+
+  /* Wait for everything. Promise.all here is safe because every task
+     already has its own try/catch and writes errors into results[c]
+     rather than throwing. */
+  const [, prices] = await Promise.all([Promise.all(coinPromises), pricesPromise]);
 
   res.status(200).json({
     success: true,
