@@ -12,7 +12,7 @@ const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
   'RVN','ZEC','XMR','DGB',
-  'XEC','ALPH','FB','NEXA','RXD',
+  'XEC','ALPH','FB','RXD',
   'QUAI-SHA','QUAI-SCRYPT'
 ];
 
@@ -30,7 +30,7 @@ const COINGECKO_IDS = {
   ZEC: 'zcash', DASH: 'dash', RVN: 'ravencoin',
   XMR: 'monero', DGB: 'digibyte',
   XEC: 'ecash', ALPH: 'alephium', FB: 'fractal-bitcoin',
-  NEXA: 'nexacoin', RXD: 'radiant',
+  RXD: 'radiant',
   'QUAI-SHA': 'quai-network', 'QUAI-SCRYPT': 'quai-network'
 };
 
@@ -107,7 +107,6 @@ async function fetchCoinData(coin) {
     case 'XEC': return fetchXEC();
     case 'ALPH': return fetchALPH();
     case 'FB': return fetchFB();
-    case 'NEXA': return fetchNEXA();
     case 'RXD': return fetchRXD();
     case 'QUAI-SHA': return fetchQUAI_SHA();
     case 'QUAI-SCRYPT': return fetchQUAI_Scrypt();
@@ -464,40 +463,6 @@ async function fetchViaNowNodes(coin) {
     height: Number(data.backend?.blocks) || 0,
     hashrate_estimated: hashEstimated
   };
-}
-
-/* ================= NEXA (2Miners pool API) ================= */
-/* NexaPow algorithm. Block time ~125s, block reward 10,000,000 NEXA.   */
-/* 2Miners publishes network stats via public pool API, no auth needed. */
-/* API: nexa.2miners.com/api/stats                                      */
-
-async function fetchNEXA() {
-  try {
-    const res = await fetch('https://nexa.2miners.com/api/stats');
-    if (!res.ok) throw new Error(`2Miners NEXA returned ${res.status}`);
-    const data = await res.json();
-
-    const node = Array.isArray(data?.nodes) ? data.nodes[0] : null;
-    if (!node) throw new Error('2Miners NEXA returned no node data');
-
-    const difficulty = Number(node.difficulty) || 0;
-    const networkHashrate = Number(node.networkhashps) || 0;
-    const height = Number(node.height) || 0;
-
-    if (networkHashrate <= 0) throw new Error('2Miners NEXA returned zero hashrate');
-
-    return {
-      coin: 'NEXA',
-      difficulty,
-      network_hashrate: networkHashrate,
-      block_reward: 10000000,
-      block_time: 125,
-      height,
-      hashrate_estimated: false
-    };
-  } catch (e) {
-    throw new Error(`NEXA fetch failed: ${e.message}`);
-  }
 }
 
 /* ================= RXD (WhatToMine public API) ================= */
