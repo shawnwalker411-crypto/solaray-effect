@@ -1235,56 +1235,6 @@
     }
     
     /* ============================================
-       MANUAL INPUT SECTION (GPU/CPU)
-       ============================================ */
-    .manual-input-section {
-      background: var(--bg-card);
-      border: 2px solid var(--sola-teal);
-      border-radius: 10px;
-      padding: 1.25rem;
-      margin-top: 1rem;
-    }
-    
-    .manual-input-header {
-      margin-bottom: 1.5rem;
-    }
-    
-    .manual-input-header h3 {
-      font-family: 'Noto Sans JP', sans-serif;
-      color: var(--sola-teal);
-      font-size: 1.1rem;
-      margin-bottom: 0.25rem;
-    }
-    
-    .manual-input-note {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-    
-    .manual-input-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-    }
-    
-    .hashrate-input-row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .hashrate-input-row input {
-      flex: 1;
-    }
-    
-    .unit-label {
-      color: var(--sola-gold);
-      font-weight: 600;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-    
-    /* ============================================
        CALCULATE BUTTON
        ============================================ */
     .calculate-btn {
@@ -2085,14 +2035,6 @@
     </div>
     <div class="mine-right"><img src="data:image/png;base64,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" alt="doge" width="28" height="28"></div>
   </a>
-  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=xmr+monero+miner&amp;_sacat=179197&amp;customid=rail-monero&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
-    <div class="mine-left"><img src="data:image/png;base64,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" alt="xmr" width="28" height="28"></div>
-    <div class="mine-info">
-      <div class="mine-name">Monero Miners</div>
-      <div class="mine-hash">&#160;</div>
-    </div>
-    <div class="mine-right"><img src="data:image/png;base64,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" alt="xmr" width="28" height="28"></div>
-  </a>
   <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=ethereum+classic+miner&amp;_sacat=179197&amp;customid=rail-etc&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
     <div class="mine-left"><img src="data:image/png;base64,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" alt="etc" width="28" height="28"></div>
     <div class="mine-info">
@@ -2108,14 +2050,6 @@
       <div class="mine-hash">&#160;</div>
     </div>
     <div class="mine-right"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAJY0lEQVR4nH2WWWxc53mGn/8/26ycjRxxFSmSkiJqsyU7gWMlNuE4ceEmzUYFTQ0YcF2jDRAUBXrPsksQoE1RtGhgu0XTIhtAAbFiBE4cR1EaR5ZlRbIcu1oscREpLkNy9jlnZs45//l7UchN66bv1Xf1Pni/q0fwf0TrWSnEXPRf93MWjE2Hvn6sXqp8qFst71GqnkF1IunE67FMfCWZi1+MpWMvSvnUGa31+zp+PeL9sHlDiJPq7NlZ8+GH9/zB9uLaMzs3Fu8x3VUIy1gJhWWGqMCj2wkJuhbaLKKzo/TtHb7YO1p49ntPTPzbyVMnldYzhhCn1G8Enj07a05Pz4Vu7dn7RFT++uYvL91fvnqeXL8iM9inrPSI0DIuIt8TQaeFVkoLXB26ZV1ZrRu+nyGz7yhDxyZe71Zjf5Tb/zdX/jf0PaA+O2uK6bnQa/7LF9ula/+0/MrphMl6WNw7KgOdlZEfkigMYCcS6O46vreNV6nTqGnC0CGWitGTaUflxa3IZ5c5/si0K5zBpwrjfzl/t/s94N031ra//sWotvrt66efY3ifo3RsxKhtlMn3QmF4CGvXPrRME3mrqOYa7doOXqOOV2nRLEPH76E4kUf626q0qo0Dn3wcJXu/UPzA1+bvLhV6fsYQJ0+p2spXP6iV9/OlHz1rFcdiNL2CDOq3GRjrIZkfQSaLEBvRGElEZ1l4G5fwWg2aWx46AuUr3EaXZtWiuH+EdKIWlTdCJh77XNermSeG7vvHy/PzM4ZkZkq/Mz9jB9r41+qVHzq7RoV2/aLs1lYo7k4iEPitOqrVxApdYfmbol1pa2PwM7pc3k1238O4fpFqqUUUSdIZRfndFVrtjOztV7r2zrm4kYy++dKXH3NmZqa0FGIuGnzg3j+0GtcOEFwLlTlquKXb9A6YtBsBnh4jiB/Cl5Nuq5V9p1lLXCF/IkiMHRXJiePRrqk8dmEEI7OfViuJ21Ak0orthRKB6DW6lYUwGaxMHXpy+Gkh5iKx8fITSTFWfKd99fSoFVO6vBWTjtzEijl0/ARTn/ptSA0DhyIY7oCjYTEB7wq4DaWb0G1D4FPdjHj71RWEv4XtCLSdpzikIh05IjZ5/8LlH/hHzbDXfsxxb411altRlBuTUXsN2WPQaXboyn6Wz1+G9B3Mnpa0rd0JQ/bQbq8SsoGqX6fHbtGXaxLVa+SSkuMPZTn/UpNkJqLbaeG1eqRyqzo1vDW5//6eadM03M/4G0uayNButYUOOrRbNkJAZfkWy5dDEj0S2/45URirRzoItGH3NspVvIam3oSJ+/p49BOCTr1KLNkiXUhRWSvhJAw6TR8Riijc3pRWwvq0qaob99TvVETXQwRBBRUobBUgTIP+3ZLxQ0kCr0n28Od18dgXGhBvr1z4VmHn9eeFMFK0Kx3WlitUywXSVgvfNZBGHhUJIj8iaHbRwhDeVl2YxdRxM6hVRxulFtJUIlIK0zJQIRBqgi503Q5tL8fA42MCqiMwzsL5t7XZiJA2+IEmN5AmEY/oNkJMx2JrwydmSsy4Qcf1MeOW8JqKRKIyIING2Wl7Cq+phQoifB86LY3vaaQWuDs+dnGSdK9LFC3ptRs/Vu31y8JMxLUdC/CDiOFDQ0hVwZSCjTXYWu1gWAItJGGocZsI1w3ous20VL6vpA4JAmjWNF5d43c0nqtplBU7Ow6DB3JQuYmUFbFy4ZQRs10iHYhWS+rRD39Mj+/ZIXBd2r7Jz14RZJOabldSXleoQKMCUKHGD6QwfW01rJgZ27mjdKFXitqOwk4KtJZ43QAjvYv+7DaU1qhtBdw6d4PdQ0Udy0/U9n7kExSHtrIsvUVDm5z6riBrCdI9gnY7RAUaK2fTLkc6NeQI6VgVM1T2rb5Bp7i65Gph2wLaqEAjDY3bMNh/LI4MFuh6YBDyyJOH6Zk8LFLFjyQhsuFNlqsH+OG3q+QSkqFBSdPVCAlIsBNp9GZN54ppUWpaC+bmunlu5N7Yh22jpX3fJJ6J0a53UIbCiPdw8JCLW6nQ7drEY9fZlapi5HNE0Za9eS3OysU32L56icNHLCxT0qpHSEvTaWvSvT10uwLHQacLSX51s/sLubgcf6HSsqLhfSm5c8cl2Zch0gIdabSt+cmZOivLNmE35OaCgRGPuPz9JV7+q79m58Kfs2dkgQ9+PEmhXyANjZ0UmLaBHTfIDOTYWa4xcjAvKw2t1lfjL8ovj799YfGW+uXkPQUsqVWj4pMd7iOV0ki/xasvRCwvprj4usGVyxkWbjisXbzKkcPvMvVgguzuSexEknhaYqcNMgWTTKpL3/gwje02PRmhxo/kub0UXvlp+91LkjkRbZQyX91e98WxRwd0c7WCdCysTBZTBTxwPOLqhRbXLxo0bjf5yXdK7N3XwUqkaNU0OrAwrSxmIonlGHRqTZK9fQTKorFa4vCj43rrTkOsbye+cuqUUHJ+BuP3n7/2wvlz7TOpQsw89FB/uPbmKqFM0rd3CEHE/j2KI0fg4FGD4w+YSMei4zvoKEQLkHYWSYRleOQn99JoZyhfvcbB6fEwmdTmhdfcM0/+/c3vzc9gyJkptNZK9B575Jkzp3fKhbGCefTREbX55gqVLUXx4F56+gtIQyN0B8fpoH2FjHyibhX8EgYusewunP5jbCyFNBavcfi3Dqr8cNI89+O1St+9n3xGayVmptACYH4G4+Qp1HNf+tAJx7v+8vRnhxOGVuG5+QWz2jTYtb+fvsEkiWSALTzsmCaes4jnMhixQbymYPt2icrNGyRSIZPT94ZBKzRfe/F6p24eePypr73x07uM9yRq9iHMuX8n/MafnngwWHtr/r4T+cHhwwNq8+o2119bk81aKGQ8Tk8xSTwVw4lLDKlRfgND10jnbPqPTKj08AgblxaNt86tlfzC1O8+8RdvnJ2dxZybI/wf1vbrS19+/uk9C6+c/tt8Nvj0oROD9I73EXndaGe5SnPHg8gXTgISGUdnRntJDfUTaltWF9a5+fotymXxYuzo7/zJ57/0jcW7Q36jCN+FIi3++emJx5ubm3+czemPjoynnPxQilQ+iZ2MgSFRfkCnLSivVNhY2u52mtFZMzv4D7/3d7deQgf/3fX/mTfA7CySOZiDCNPhhT/76D3l6//xsbbrPUjUmYwnZc4wpAjCqOzY5pJhOK/GB/e98rmvXHyLyGcWJLMwN8f7VP8/AdP15SLZJD76AAAAAElFTkSuQmCC" alt="dgb" width="28" height="28"></div>
-  </a>
-  <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=raven+coin+miner&amp;_sacat=179197&amp;customid=rail-kawpow&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
-    <div class="mine-left"><span class="rail-emoji">&#x1F60E;</span></div>
-    <div class="mine-info">
-      <div class="mine-name">KAWPoW GPU Rigs</div>
-      <div class="mine-hash">&#160;</div>
-    </div>
-    <div class="mine-right"><span class="rail-emoji">&#x1F60E;</span></div>
   </a>
   <a class="mine-row" href="https://www.ebay.com/sch/i.html?_nkw=immersion+miner&amp;_sacat=179197&amp;customid=rail-immersion&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">
     <div class="mine-left"><span class="rail-emoji">&#x1F976;</span></div>
@@ -2286,8 +2220,6 @@
       <option value="BC2" data-unit="TH">BitcoinII (BC2) &ndash; SHA-256</option>
       <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
       <option value="DOGE" data-unit="MH">Dogecoin (DOGE) &ndash; Scrypt</option>
-      <option value="XMR" data-unit="KH">Monero (XMR) &ndash; RandomX</option>
-      <option value="RVN" data-unit="MH">Ravencoin (RVN) &ndash; KawPow</option>
       <option value="ETC" data-unit="MH">Ethereum Classic (ETC) &ndash; ETChash</option>
       <option value="ZEC" data-unit="KH">Zcash (ZEC) &ndash; Equihash</option>
       <option value="SC" data-unit="GH">Siacoin (SC) &ndash; Blake2b</option>
@@ -2423,8 +2355,6 @@
           <label for="mining-type-filter"><span class="glossary-term" data-term="mining-type">Mining Type</span></label>
           <select id="mining-type-filter" onchange="updateMiningType()">
             <option value="ASIC">ASIC</option>
-            <option value="GPU">GPU</option>
-            <option value="CPU">CPU</option>
           </select>
         </div>
         <div class="dropdown-group" id="voltage-group">
@@ -2455,31 +2385,6 @@
           <select id="miner-select">
             <option value="">-- Select Miner --</option>
           </select>
-        </div>
-      </div>
-      
-      <!-- GPU/CPU Manual Input Section (hidden by default) -->
-      <div class="manual-input-section" id="manual-input-section" style="display: none;">
-        <div class="manual-input-header">
-          <h3 id="manual-input-title">&#x21CF;&#xFE0F; GPU Mining Setup</h3>
-          <p class="manual-input-note">Enter your hardware specs from your mining software</p>
-        </div>
-        <div class="manual-input-grid">
-          <div class="config-group">
-            <label>Hashrate</label>
-            <div class="hashrate-input-row">
-              <input type="number" id="manual-hashrate" placeholder="0" min="0" step="0.01">
-              <span class="unit-label" id="manual-unit-label">MH/s</span>
-            </div>
-          </div>
-          <div class="config-group">
-            <label>Power (W)</label>
-            <input type="number" id="manual-power" placeholder="0" min="0">
-          </div>
-          <div class="config-group">
-            <label>Purchase Price ($)</label>
-            <input type="number" id="manual-cost" placeholder="0" value="0" min="0">
-          </div>
         </div>
       </div>
       
@@ -2710,7 +2615,6 @@
         <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=zcash+miner&amp;_sacat=179197&amp;customid=rail-zcash&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Zcash Miners</a>
         <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=kaspa+miner&amp;_sacat=179197&amp;customid=rail-kas&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">KAS Miners</a>
         <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=scrypt+miner&amp;_sacat=179197&amp;customid=rail-scrypt&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Scrypt Miners</a>
-        <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=monero+miner&amp;_sacat=179197&amp;customid=rail-xmr&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Monero Miners</a>
         <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=ethereum+classic+miner&amp;_sacat=179197&amp;customid=rail-etc&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">ETC Miners</a>
         <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=immersion+cooling+mining&amp;_sacat=179197&amp;customid=rail-immersion&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">Immersion Cool</a>
         <a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=asic+repair+service&amp;_sacat=179197&amp;customid=rail-repair&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener sponsored">ASIC Repair Service</a>
@@ -2932,7 +2836,7 @@
     // Prices & Rates - Updated via CoinGecko API, these are fallback defaults
     const DEFAULT_PRICES = { 
       BTC: 0, BCH: 0, LTC: 0, KAS: 0, ETC: 0, DOGE: 0,
-      ZEC: 0, DASH: 0, RVN: 0, XMR: 0, DGB: 0,
+      ZEC: 0, DASH: 0, DGB: 0,
       XEC: 0, ALPH: 0, FB: 0, RXD: 0, QUAI: 0, PPC: 0
     };
     let PRICES = { ...DEFAULT_PRICES };
@@ -2954,11 +2858,6 @@
       'Etchash': { perUnit: 0.0000663, unit: 'MH/s', coin: 'ETC' },
       'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
       'X11': { perUnit: 0.0000677, unit: 'GH/s', coin: 'DASH' },
-      // GPU Algorithms
-      'Etchash-GPU': { perUnit: 0.0000663, unit: 'MH/s', coin: 'ETC' },
-      'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
-      // CPU Algorithms  
-      'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
       // DGB
       'SHA-256-DGB': { perUnit: 8.52, unit: 'TH/s', coin: 'DGB' },
       // XEC &mdash; SHA-256, ~51 PH/s network, 1,812,500 XEC/block post-halving, 600s blocks, live ~5,118 XEC/TH/day (refreshed 2026-04-20)
@@ -3001,13 +2900,6 @@
         { value: 'SHA-256-QUAI', label: 'SHA-256 (QUAI)' },
         { value: 'Scrypt-QUAI', label: 'Scrypt (QUAI)' },
         { value: 'SHA-256-PPC', label: 'SHA-256 (PPC)' }
-      ],
-      GPU: [
-        { value: 'Etchash-GPU', label: 'Etchash (ETC)', unit: 'MH/s' },
-        { value: 'KAWPOW', label: 'KAWPOW (RVN)', unit: 'MH/s' }
-      ],
-      CPU: [
-        { value: 'RandomX', label: 'RandomX (XMR)', unit: 'KH/s' }
       ]
     };
     
@@ -3090,8 +2982,6 @@
       DOGE: 'dogecoin',
       ZEC: 'zcash',
       DASH: 'dash',
-      RVN: 'ravencoin',
-      XMR: 'monero',
       DGB: 'digibyte',
       XEC: 'ecash',
       ALPH: 'alephium',
@@ -3120,8 +3010,6 @@
         PRICES.DOGE = data.dogecoin?.usd || PRICES.DOGE;
         PRICES.ZEC = data.zcash?.usd || PRICES.ZEC;
         PRICES.DASH = data.dash?.usd || PRICES.DASH;
-        PRICES.RVN = data.ravencoin?.usd || PRICES.RVN;
-        PRICES.XMR = data.monero?.usd || PRICES.XMR;
         PRICES.DGB = data.digibyte?.usd || PRICES.DGB;
         PRICES.XEC = data['ecash']?.usd || PRICES.XEC;
         PRICES.ALPH = data['alephium']?.usd || PRICES.ALPH;
@@ -3333,10 +3221,6 @@
       'Etchash': { min: 1e-6, max: 50, coin: 'ETC', unit: 'MH' },
       // DASH: ~0.0001 to ~0.01 DASH/GH/day
       'X11': { min: 1e-6, max: 0.1, coin: 'DASH', unit: 'GH' },
-      // RVN: ~0.1 to ~10 RVN/MH/day
-      'KAWPOW': { min: 0.01, max: 100, coin: 'RVN', unit: 'MH' },
-      // XMR: ~0.00001 to ~0.001 XMR/KH/day
-      'RandomX': { min: 1e-7, max: 0.01, coin: 'XMR', unit: 'KH' },
       // ZEC: ~0.00005 to ~0.005 ZEC/kSol/day
       'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
       // DGB: ~0.01 to ~50 DGB/TH/day (SHA-256, large block reward)
@@ -3461,7 +3345,6 @@
         const validation = validateAndUpdateRate('Etchash', perMH, 'ETC');
         if (validation.rate) {
           REVENUE_RATES['Etchash'].perUnit = validation.rate;
-          REVENUE_RATES['Etchash-GPU'].perUnit = validation.rate;
           console.log('ETC rate updated:', validation.rate, 'ETC/MH/day', validation.valid ? '\u2714' : '(fallback)');
         }
       }
@@ -3489,33 +3372,6 @@
         if (validation.rate) {
           REVENUE_RATES['X11'].perUnit = validation.rate;
           console.log('DASH rate updated:', validation.rate, 'DASH/GH/day', validation.valid ? '\u2714' : '(fallback)');
-        }
-      }
-      
-      // RVN
-      if (data.RVN && data.RVN.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.RVN.block_time || 60);
-        const dailyCoins = (data.RVN.block_reward || 2500) * blocksPerDay;
-        const perMH = dailyCoins / (data.RVN.network_hashrate / 1e6);
-        
-        const validation = validateAndUpdateRate('KAWPOW', perMH, 'RVN');
-        if (validation.rate) {
-          REVENUE_RATES['KAWPOW'].perUnit = validation.rate;
-          console.log('RVN rate updated:', validation.rate, 'RVN/MH/day', validation.valid ? '\u2714' : '(fallback)');
-        }
-      }
-      
-      // XMR (RandomX - CPU mining)
-      if (data.XMR && data.XMR.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.XMR.block_time || 120);
-        const dailyCoins = (data.XMR.block_reward || 0.6) * blocksPerDay;
-        // Network hashrate is in H/s, we need per KH/s
-        const perKH = dailyCoins / (data.XMR.network_hashrate / 1e3);
-        
-        const validation = validateAndUpdateRate('RandomX', perKH, 'XMR');
-        if (validation.rate) {
-          REVENUE_RATES['RandomX'].perUnit = validation.rate;
-          console.log('XMR rate updated:', validation.rate, 'XMR/KH/day', validation.valid ? '\u2714' : '(fallback)');
         }
       }
       
@@ -3735,7 +3591,6 @@
     
     // ============================================
     // All coins now use direct APIs via /api/mining-stats
-    // Minerstat integration removed \u2014 ZEC/XMR moved to Blockchair, ALPH/SC/KDA removed
     
     // Display network stats for the calculated coin
     function displayNetworkStats(algorithm) {
@@ -3751,11 +3606,8 @@
         'Scrypt': ['LTC', 'DOGE'],
         'KHeavyHash': ['KAS'],
         'Etchash': ['ETC'],
-        'Etchash-GPU': ['ETC'],
         'Equihash': ['ZEC'],
         'X11': ['DASH'],
-        'KAWPOW': ['RVN'],
-        'RandomX': ['XMR'],
         'SHA-256-DGB': ['DGB'],
         'SHA-256-XEC': ['XEC'],
         'Blake3': ['ALPH'],
@@ -3823,11 +3675,8 @@
         'Scrypt': 'LTC',
         'KHeavyHash': 'KAS',
         'Etchash': 'ETC',
-        'Etchash-GPU': 'ETC',
         'Equihash': 'ZEC',
         'X11': 'DASH',
-        'KAWPOW': 'RVN',
-        'RandomX': 'XMR',
         'SHA-256-DGB': 'DGB',
         'SHA-256-XEC': 'XEC',
         'Blake3': 'ALPH',
@@ -3981,75 +3830,22 @@
     let currentMiningType = 'ASIC';
     
     function updateMiningType() {
-      const miningType = document.getElementById('mining-type-filter').value;
-      currentMiningType = miningType;
+      // ASIC is the only mining type now. Function kept as an init hook
+      // (called on page load) to populate the algorithm dropdown.
+      currentMiningType = 'ASIC';
       
-      const voltageGroup = document.getElementById('voltage-group');
-      const minerRow = document.getElementById('miner-row');
-      const minerInfo = document.getElementById('miner-info');
-      const manualSection = document.getElementById('manual-input-section');
       const algoSelect = document.getElementById('algorithm-filter');
       
-      if (miningType === 'ASIC') {
-        // Show ASIC-specific controls
-        voltageGroup.style.display = 'flex';
-        minerRow.style.display = 'grid';
-        manualSection.style.display = 'none';
-        
-        // Populate algorithm dropdown for ASIC
-        algoSelect.innerHTML = '';
-        ALGORITHM_CONFIG.ASIC.forEach(algo => {
-          const opt = document.createElement('option');
-          opt.value = algo.value;
-          opt.textContent = algo.label;
-          algoSelect.appendChild(opt);
-        });
-        
-        updateMinerDropdown();
-      } else {
-        // GPU or CPU - hide ASIC controls, show manual input
-        voltageGroup.style.display = 'none';
-        minerRow.style.display = 'none';
-        minerInfo.classList.remove('active');
-        minerInfo.classList.remove('loki-miner');
-        manualSection.style.display = 'block';
-        selectedMiner = null;
-        
-        // Update title
-        const title = document.getElementById('manual-input-title');
-        title.textContent = miningType === 'GPU' ? '\u{1F3AE} GPU Mining Setup' : '\u{1F4BB} CPU Mining Setup';
-        
-        // Populate algorithm dropdown for GPU/CPU
-        const algos = ALGORITHM_CONFIG[miningType];
-        algoSelect.innerHTML = '';
-        algos.forEach((algo, idx) => {
-          const opt = document.createElement('option');
-          opt.value = algo.value;
-          opt.textContent = algo.label;
-          algoSelect.appendChild(opt);
-        });
-        
-        // Update unit label based on first algorithm
-        if (algos.length > 0) {
-          document.getElementById('manual-unit-label').textContent = algos[0].unit;
-        }
-        
-        updateLivePriceDisplay();
-      }
-    }
-    
-    function updateManualUnit() {
-      const algoFilter = document.getElementById('algorithm-filter').value;
-      const miningType = document.getElementById('mining-type-filter').value;
+      // Populate algorithm dropdown for ASIC
+      algoSelect.innerHTML = '';
+      ALGORITHM_CONFIG.ASIC.forEach(algo => {
+        const opt = document.createElement('option');
+        opt.value = algo.value;
+        opt.textContent = algo.label;
+        algoSelect.appendChild(opt);
+      });
       
-      if (miningType === 'GPU' || miningType === 'CPU') {
-        const algos = ALGORITHM_CONFIG[miningType];
-        const selectedAlgo = algos.find(a => a.value === algoFilter);
-        if (selectedAlgo) {
-          document.getElementById('manual-unit-label').textContent = selectedAlgo.unit;
-        }
-        updateLivePriceDisplay();
-      }
+      updateMinerDropdown();
     }
     
     function selectMiner() {
@@ -4136,11 +3932,6 @@
       document.getElementById('dev-fee').value = '2';
       document.getElementById('dev-fee-wrapper').style.display = 'none';
       document.getElementById('results-panel').classList.remove('active');
-      // Reset manual input fields
-      document.getElementById('manual-hashrate').value = '';
-      document.getElementById('manual-power').value = '';
-      document.getElementById('manual-cost').value = '0';
-      document.getElementById('manual-input-section').style.display = 'none';
       document.getElementById('voltage-group').style.display = 'flex';
       document.getElementById('miner-row').style.display = 'grid';
       selectedMiner = null;
@@ -4240,41 +4031,23 @@
         var trackLabel = trackName ? trackName.options[trackName.selectedIndex].text : 'unknown';
         gtag('event', 'calculate_profitability', { miner: trackLabel });
       }
-      const miningType = document.getElementById('mining-type-filter').value;
       
       let hashrate, power, cost, algorithm;
       
-      if (miningType === 'ASIC') {
-        // ASIC mode - use selected miner
-        if (!selectedMiner) {
-          alert('Please select a miner first.');
-          return;
-        }
-        hashrate = parseFloat(document.getElementById('config-hashrate').value) || selectedMiner.hashrate;
-        power = parseFloat(document.getElementById('config-power').value) || selectedMiner.power;
-        cost = parseFloat(document.getElementById('miner-cost').value) || 0;
-        
-        // Use algorithm filter to determine correct coin variant
-        // SHA-256 variants and Scrypt-QUAI override the miner's base algorithm
-        const algoFilter = document.getElementById('algorithm-filter').value;
-        const algoOverrides = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC', 'Scrypt-QUAI'];
-        algorithm = algoOverrides.includes(algoFilter) ? algoFilter : selectedMiner.algorithm;
-      } else {
-        // GPU/CPU mode - use manual input
-        hashrate = parseFloat(document.getElementById('manual-hashrate').value);
-        power = parseFloat(document.getElementById('manual-power').value);
-        cost = parseFloat(document.getElementById('manual-cost').value) || 0;
-        algorithm = document.getElementById('algorithm-filter').value;
-        
-        if (!hashrate || hashrate <= 0) {
-          alert('Please enter your hashrate.');
-          return;
-        }
-        if (!power || power <= 0) {
-          alert('Please enter your power consumption.');
-          return;
-        }
+      // ASIC is the only mining type. Require a selected miner.
+      if (!selectedMiner) {
+        alert('Please select a miner first.');
+        return;
       }
+      hashrate = parseFloat(document.getElementById('config-hashrate').value) || selectedMiner.hashrate;
+      power = parseFloat(document.getElementById('config-power').value) || selectedMiner.power;
+      cost = parseFloat(document.getElementById('miner-cost').value) || 0;
+      
+      // Use algorithm filter to determine correct coin variant
+      // SHA-256 variants and Scrypt-QUAI override the miner's base algorithm
+      const algoFilter = document.getElementById('algorithm-filter').value;
+      const algoOverrides = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC', 'Scrypt-QUAI'];
+      algorithm = algoOverrides.includes(algoFilter) ? algoFilter : selectedMiner.algorithm;
       
       const solarHours = parseInt(document.getElementById('solar-hours').value) || 0;
       const freeHours = parseInt(document.getElementById('free-hours').value) || 0;
@@ -4516,7 +4289,7 @@
     // ============================================
     // LIVE PRICE TICKER (uses calculator price data)
     // ============================================
-    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR', 'RVN', 'DGB', 'XEC', 'ALPH', 'FB', 'RXD', 'QUAI', 'PPC'];
+    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'DGB', 'XEC', 'ALPH', 'FB', 'RXD', 'QUAI', 'PPC'];
     
     function updateTicker() {
       const tickerTrack = document.getElementById('ticker-track');
@@ -4697,14 +4470,7 @@
     // EVENT LISTENERS
     // ============================================
     document.getElementById('voltage-filter').addEventListener('change', updateMinerDropdown);
-    document.getElementById('algorithm-filter').addEventListener('change', function() {
-      const miningType = document.getElementById('mining-type-filter').value;
-      if (miningType === 'ASIC') {
-        updateMinerDropdown();
-      } else {
-        updateManualUnit();
-      }
-    });
+    document.getElementById('algorithm-filter').addEventListener('change', updateMinerDropdown);
     document.getElementById('miner-select').addEventListener('change', selectMiner);
     
     document.getElementById('solar-hours').addEventListener('input', updateTimeline);
@@ -4994,7 +4760,7 @@
   document.getElementById('sola-fb-email').addEventListener('input', function() {
     this.style.borderColor = '';
   });
-}
+})();
 </script>
 <script>
 (function() {
