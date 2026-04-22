@@ -2951,11 +2951,11 @@
         merged: { perUnit: 0.00532, coin: 'DOGE' }
       },
       'KHeavyHash': { perUnit: 0.00646, unit: 'GH/s', coin: 'KAS' },
-      'Etchash': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
+      'Etchash': { perUnit: 0.0000663, unit: 'MH/s', coin: 'ETC' },
       'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
       'X11': { perUnit: 0.0000677, unit: 'GH/s', coin: 'DASH' },
       // GPU Algorithms
-      'Etchash-GPU': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
+      'Etchash-GPU': { perUnit: 0.0000663, unit: 'MH/s', coin: 'ETC' },
       'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
       // CPU Algorithms  
       'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
@@ -3454,8 +3454,8 @@
       
       // ETC
       if (data.ETC && data.ETC.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.ETC.block_time || 14);
-        const dailyCoins = (data.ETC.block_reward || 2.56) * blocksPerDay;
+        const blocksPerDay = 86400 / (data.ETC.block_time || 13.46);
+        const dailyCoins = (data.ETC.block_reward || 1.99) * blocksPerDay;
         const perMH = dailyCoins / (data.ETC.network_hashrate / 1e6);
         
         const validation = validateAndUpdateRate('Etchash', perMH, 'ETC');
