@@ -148,8 +148,8 @@
     /* Hour timeline */
     /* ============================================
        HOURLY FORECAST
-       Desktop: vertical daylight arc (columns)
-       Mobile: horizontal rows (stacks)
+       Desktop: two-row heatmap (Sun / Cloud)
+       Mobile: horizontal rows with bars
        ============================================ */
 
     /* Shared row-mode styles (mobile default) */
@@ -169,39 +169,67 @@
     .bar-pct { font-size: 0.7rem; color: var(--text-secondary); width: 36px; text-align: right; flex-shrink: 0; }
     .hour-badge { font-size: 1.3rem; }
 
-    /* Arc mode (desktop only) */
-    .daylight-arc { display: none; }
+    /* Heatmap (desktop only) */
+    .heatmap { display: none; }
 
     @media (min-width: 600px) {
-      /* hide the mobile rows */
-      .timeline.as-arc { display: none; }
-      /* show the arc */
-      .daylight-arc { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; align-items: end; padding: 1rem 1rem 0.6rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; height: 260px; position: relative; }
-      .arc-col { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-end; height: 100%; min-width: 0; position: relative; }
-      .arc-bar { width: 100%; border-radius: 4px 4px 2px 2px; min-height: 4px; background: var(--overcast); transition: filter 0.15s ease; position: relative; }
-      .arc-bar.clear { background: linear-gradient(180deg, var(--sola-gold), #f97316); box-shadow: 0 0 8px rgba(212,175,55,0.25); }
-      .arc-bar.partial { background: linear-gradient(180deg, #fbbf24, #fb923c); }
-      .arc-bar.cloudy { background: linear-gradient(180deg, #94a3b8, #475569); }
-      .arc-bar.overcast { background: linear-gradient(180deg, #64748b, #334155); }
-      .arc-col:hover .arc-bar { filter: brightness(1.25); }
-      .arc-label { font-size: 0.65rem; color: var(--text-muted); text-align: center; margin-top: 6px; letter-spacing: 0.02em; font-family: 'Share Tech Mono', monospace; }
-      .arc-col:hover .arc-label { color: var(--sola-teal); }
-      .arc-tooltip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.92); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 10px; font-size: 0.72rem; color: var(--text-primary); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s ease; z-index: 10; }
-      .arc-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-top-color: rgba(0,0,0,0.92); }
-      .arc-col:hover .arc-tooltip { opacity: 1; }
-      .arc-legend { display: flex; justify-content: center; gap: 1.25rem; margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-muted); flex-wrap: wrap; }
-      .arc-legend-item { display: flex; align-items: center; gap: 0.4rem; }
-      .arc-legend-swatch { width: 12px; height: 12px; border-radius: 3px; }
-      .arc-legend-swatch.clear { background: linear-gradient(180deg, var(--sola-gold), #f97316); }
-      .arc-legend-swatch.partial { background: linear-gradient(180deg, #fbbf24, #fb923c); }
-      .arc-legend-swatch.cloudy { background: linear-gradient(180deg, #94a3b8, #475569); }
-      .arc-legend-swatch.overcast { background: linear-gradient(180deg, #64748b, #334155); }
+      /* hide the mobile rows when heatmap is active */
+      .timeline.as-heat { display: none; }
+
+      .heatmap { display: block; padding: 1rem 1.1rem 0.8rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; }
+      .heatmap-row { display: grid; grid-template-columns: 68px 1fr; align-items: center; gap: 0.75rem; margin-bottom: 6px; }
+      .heatmap-row:last-of-type { margin-bottom: 0; }
+      .heatmap-row-label { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; display: flex; align-items: center; gap: 0.35rem; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.03em; }
+      .heatmap-row-label .rl-icon { font-size: 1rem; }
+      .heatmap-cells { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; }
+      .hm-cell { height: 42px; border-radius: 6px; position: relative; transition: transform 0.12s ease, filter 0.12s ease; cursor: default; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.75); font-size: 0.68rem; font-weight: 700; font-family: 'Share Tech Mono', monospace; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+      .hm-cell:hover { transform: scale(1.08); filter: brightness(1.2); z-index: 2; }
+      /* Sun intensity gradient: dark teal -> teal -> gold -> bright gold */
+      .hm-cell.sun-0  { background: rgba(8,26,21,0.55); color: rgba(255,255,255,0.35); border: 1px solid rgba(136,153,168,0.12); }
+      .hm-cell.sun-1  { background: rgba(11,47,38,0.95); border: 1px solid rgba(0,206,209,0.18); }
+      .hm-cell.sun-2  { background: linear-gradient(135deg, rgba(0,139,139,0.6), rgba(0,206,209,0.45)); }
+      .hm-cell.sun-3  { background: linear-gradient(135deg, rgba(0,206,209,0.65), rgba(212,175,55,0.55)); }
+      .hm-cell.sun-4  { background: linear-gradient(135deg, rgba(212,175,55,0.85), rgba(249,115,22,0.7)); box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+      .hm-cell.sun-5  { background: linear-gradient(135deg, #D4AF37, #f97316); box-shadow: 0 0 14px rgba(212,175,55,0.4); color: #000; text-shadow: none; }
+      /* Cloud coverage gradient: gold (clear) -> grey -> slate (overcast) */
+      .hm-cell.cloud-0 { background: linear-gradient(135deg, rgba(253,230,138,0.75), rgba(212,175,55,0.55)); color: #000; text-shadow: none; }
+      .hm-cell.cloud-1 { background: linear-gradient(135deg, rgba(251,191,36,0.55), rgba(251,146,60,0.5)); color: #000; text-shadow: none; }
+      .hm-cell.cloud-2 { background: linear-gradient(135deg, rgba(148,163,184,0.55), rgba(100,116,139,0.55)); }
+      .hm-cell.cloud-3 { background: linear-gradient(135deg, rgba(100,116,139,0.75), rgba(71,85,105,0.75)); }
+      .hm-cell.cloud-4 { background: linear-gradient(135deg, rgba(71,85,105,0.9), rgba(51,65,85,0.9)); }
+      .hm-cell.now { outline: 2px solid var(--sola-teal); outline-offset: 1px; }
+      .hm-tooltip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.94); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 10px; font-size: 0.72rem; color: var(--text-primary); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s ease; z-index: 10; font-family: 'Roboto', sans-serif; font-weight: 400; text-shadow: none; }
+      .hm-tooltip strong { color: var(--sola-gold); }
+      .hm-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-top-color: rgba(0,0,0,0.94); }
+      .hm-cell:hover .hm-tooltip { opacity: 1; }
+
+      /* Hour axis along the bottom */
+      .heatmap-axis { display: grid; grid-template-columns: 68px 1fr; gap: 0.75rem; margin-top: 8px; }
+      .heatmap-axis-spacer {}
+      .heatmap-axis-labels { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; }
+      .heatmap-axis-labels .hm-label { font-size: 0.62rem; color: var(--text-muted); text-align: center; font-family: 'Share Tech Mono', monospace; }
+      .heatmap-axis-labels .hm-label.now { color: var(--sola-teal); font-weight: 700; }
+
+      /* Legend */
+      .heatmap-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid rgba(212,175,55,0.15); }
+      .hml-group { display: flex; align-items: center; gap: 0.45rem; font-size: 0.68rem; color: var(--text-muted); }
+      .hml-label { font-family: 'Share Tech Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary); margin-right: 0.2rem; }
+      .hml-scale { display: flex; gap: 2px; }
+      .hml-swatch { width: 16px; height: 12px; border-radius: 2px; }
+      .hml-swatch.sun-0 { background: rgba(8,26,21,0.55); border: 1px solid rgba(136,153,168,0.2); }
+      .hml-swatch.sun-2 { background: linear-gradient(135deg, rgba(0,139,139,0.6), rgba(0,206,209,0.45)); }
+      .hml-swatch.sun-3 { background: linear-gradient(135deg, rgba(0,206,209,0.65), rgba(212,175,55,0.55)); }
+      .hml-swatch.sun-4 { background: linear-gradient(135deg, rgba(212,175,55,0.85), rgba(249,115,22,0.7)); }
+      .hml-swatch.sun-5 { background: linear-gradient(135deg, #D4AF37, #f97316); }
+      .hml-swatch.cloud-0 { background: linear-gradient(135deg, rgba(253,230,138,0.75), rgba(212,175,55,0.55)); }
+      .hml-swatch.cloud-1 { background: linear-gradient(135deg, rgba(251,191,36,0.55), rgba(251,146,60,0.5)); }
+      .hml-swatch.cloud-2 { background: linear-gradient(135deg, rgba(148,163,184,0.55), rgba(100,116,139,0.55)); }
+      .hml-swatch.cloud-3 { background: linear-gradient(135deg, rgba(100,116,139,0.75), rgba(71,85,105,0.75)); }
+      .hml-swatch.cloud-4 { background: linear-gradient(135deg, rgba(71,85,105,0.9), rgba(51,65,85,0.9)); }
     }
 
     @media (max-width: 599px) {
-      /* mobile: hide the arc, show the rows */
-      .daylight-arc { display: none !important; }
-      .daylight-arc-legend { display: none !important; }
+      .heatmap { display: none !important; }
     }
 
     /* 5-day outlook */
@@ -731,43 +759,93 @@
       html +=   '<div class="dh-item"><div class="dh-label">Today</div><div class="dh-value">' + ratingLabel(today.rating) + '</div></div>';
       html += '</div>';
 
-      /* HOUR TIMELINE - arc on desktop, rows on mobile */
+      /* HOUR TIMELINE - heatmap on desktop, rows on mobile */
       html += '<div class="section-label">&#9728; Today &mdash; Hour by Hour</div>';
 
-      /* Arc (desktop) */
-      html += '<div class="daylight-arc">';
-      for (var ai = 0; ai < today.hours.length; ai++) {
-        var ah = today.hours[ai];
-        /* Arc color bucket: recycle cloud classes for visual parity with rows */
-        var arcClass = ah.cloudClass === 'clear' ? 'clear'
-          : ah.cloudClass === 'partial' ? 'partial'
-          : (ah.cloudPct >= 85 ? 'overcast' : 'cloudy');
-        /* Bar height scales with GHI. Minimum 4% so every daytime hour shows a sliver. */
-        var heightPct = Math.max(4, ah.ghiPct);
-        var hourShort = fmtHour(ah.time).replace(':00 ', '').toLowerCase(); /* "7am", "12pm" */
-        html += '<div class="arc-col">';
-        html +=   '<div class="arc-tooltip">' + fmtHour(ah.time) + '<br>Sun ' + ah.ghiPct + '% &middot; Cloud ' + ah.cloudPct + '%</div>';
-        html +=   '<div class="arc-bar ' + arcClass + '" style="height:' + heightPct + '%"></div>';
+      /* Determine current hour index (if in today's daytime range) */
+      var nowTs = Date.now();
+      var currentHourIdx = -1;
+      for (var ci = 0; ci < today.hours.length; ci++) {
+        var hT = new Date(today.hours[ci].time).getTime();
+        if (nowTs >= hT && nowTs < hT + 3600000) { currentHourIdx = ci; break; }
+      }
+
+      /* Bucket helpers: 6 sun levels, 5 cloud levels */
+      function sunBucket(pct) {
+        if (pct < 5) return 0;
+        if (pct < 15) return 1;
+        if (pct < 30) return 2;
+        if (pct < 50) return 3;
+        if (pct < 75) return 4;
+        return 5;
+      }
+      function cloudBucket(pct) {
+        if (pct <= 20) return 0;
+        if (pct <= 40) return 1;
+        if (pct <= 60) return 2;
+        if (pct <= 80) return 3;
+        return 4;
+      }
+
+      /* Heatmap (desktop) */
+      html += '<div class="heatmap">';
+
+      /* Sun row */
+      html += '<div class="heatmap-row">';
+      html +=   '<div class="heatmap-row-label"><span class="rl-icon">&#9728;</span>Sun</div>';
+      html +=   '<div class="heatmap-cells">';
+      for (var si = 0; si < today.hours.length; si++) {
+        var sh = today.hours[si];
+        var sBucket = sunBucket(sh.ghiPct);
+        var nowCls = (si === currentHourIdx) ? ' now' : '';
+        html += '<div class="hm-cell sun-' + sBucket + nowCls + '">';
+        html +=   sh.ghiPct + '<div class="hm-tooltip">' + fmtHour(sh.time) + '<br><strong>Sun</strong> ' + sh.ghiPct + '% &middot; <strong>Cloud</strong> ' + sh.cloudPct + '%</div>';
         html += '</div>';
       }
-      html += '</div>';
-      /* Arc label row (hour labels under the bars) */
-      html += '<div class="daylight-arc" style="height:auto;padding:0 1rem 0.6rem;background:transparent;border:none;">';
-      for (var li = 0; li < today.hours.length; li++) {
-        var hourShort2 = fmtHour(today.hours[li].time).replace(':00 ', '').toLowerCase();
-        html += '<div class="arc-col"><div class="arc-label">' + hourShort2 + '</div></div>';
-      }
-      html += '</div>';
-      /* Arc legend */
-      html += '<div class="arc-legend daylight-arc-legend">';
-      html +=   '<div class="arc-legend-item"><span class="arc-legend-swatch clear"></span>Clear</div>';
-      html +=   '<div class="arc-legend-item"><span class="arc-legend-swatch partial"></span>Partly Cloudy</div>';
-      html +=   '<div class="arc-legend-item"><span class="arc-legend-swatch cloudy"></span>Cloudy</div>';
-      html +=   '<div class="arc-legend-item"><span class="arc-legend-swatch overcast"></span>Overcast</div>';
+      html +=   '</div>';
       html += '</div>';
 
+      /* Cloud row */
+      html += '<div class="heatmap-row">';
+      html +=   '<div class="heatmap-row-label"><span class="rl-icon">&#9729;</span>Cloud</div>';
+      html +=   '<div class="heatmap-cells">';
+      for (var cci = 0; cci < today.hours.length; cci++) {
+        var ch = today.hours[cci];
+        var cBucket = cloudBucket(ch.cloudPct);
+        var nowCls2 = (cci === currentHourIdx) ? ' now' : '';
+        html += '<div class="hm-cell cloud-' + cBucket + nowCls2 + '">';
+        html +=   ch.cloudPct + '<div class="hm-tooltip">' + fmtHour(ch.time) + '<br><strong>Sun</strong> ' + ch.ghiPct + '% &middot; <strong>Cloud</strong> ' + ch.cloudPct + '%</div>';
+        html += '</div>';
+      }
+      html +=   '</div>';
+      html += '</div>';
+
+      /* Hour axis */
+      html += '<div class="heatmap-axis">';
+      html +=   '<div class="heatmap-axis-spacer"></div>';
+      html +=   '<div class="heatmap-axis-labels">';
+      for (var li = 0; li < today.hours.length; li++) {
+        var hourShort = fmtHour(today.hours[li].time).replace(':00 ', '').toLowerCase();
+        var nowLbl = (li === currentHourIdx) ? ' now' : '';
+        html += '<div class="hm-label' + nowLbl + '">' + hourShort + '</div>';
+      }
+      html +=   '</div>';
+      html += '</div>';
+
+      /* Legend */
+      html += '<div class="heatmap-legend">';
+      html +=   '<div class="hml-group"><span class="hml-label">&#9728; Sun</span><span class="hml-scale">';
+      html +=     '<span class="hml-swatch sun-0"></span><span class="hml-swatch sun-2"></span><span class="hml-swatch sun-3"></span><span class="hml-swatch sun-4"></span><span class="hml-swatch sun-5"></span>';
+      html +=   '</span><span>low &rarr; peak</span></div>';
+      html +=   '<div class="hml-group"><span class="hml-label">&#9729; Cloud</span><span class="hml-scale">';
+      html +=     '<span class="hml-swatch cloud-0"></span><span class="hml-swatch cloud-1"></span><span class="hml-swatch cloud-2"></span><span class="hml-swatch cloud-3"></span><span class="hml-swatch cloud-4"></span>';
+      html +=   '</span><span>clear &rarr; overcast</span></div>';
+      html += '</div>';
+
+      html += '</div>';  /* end .heatmap */
+
       /* Rows (mobile fallback) */
-      html += '<div class="timeline as-arc">';
+      html += '<div class="timeline as-heat">';
       for (var i = 0; i < today.hours.length; i++) {
         var h = today.hours[i];
         html += '<div class="hour-row ' + h.cloudClass + '">';
