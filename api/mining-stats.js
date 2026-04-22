@@ -408,8 +408,8 @@ async function fetchViaNowNodes(coin) {
     DOGE: 'https://dogebook.nownodes.io/api/v2',
     BCH: 'https://bchbook.nownodes.io/api/v2',
     DASH: 'https://dashbook.nownodes.io/api/v2',
-    RVN: 'https://rvnbook.nownodes.io/api/v2',
-    ETC: 'https://etcbook.nownodes.io/api/v2',
+    RVN: 'https://rvn-blockbook.nownodes.io/api/v2',
+    ETC: 'https://etc-blockbook.nownodes.io/api/v2',
     ZEC: 'https://zecbook.nownodes.io/api/v2'
   };
 
@@ -420,7 +420,7 @@ async function fetchViaNowNodes(coin) {
     BCH: 3.125,
     DASH: 0.44,
     RVN: 1250,
-    ETC: 2.56,
+    ETC: 1.99,
     ZEC: 1.25
   };
 
@@ -429,9 +429,9 @@ async function fetchViaNowNodes(coin) {
     LTC: 150,
     DOGE: 60,
     BCH: 600,
-    DASH: 150,
+    DASH: 156,
     RVN: 60,
-    ETC: 14,
+    ETC: 13.46,
     ZEC: 75
   };
 
@@ -443,16 +443,62 @@ async function fetchViaNowNodes(coin) {
   const difficulty = Number(data.backend?.difficulty) || 0;
 
   // Estimate hashrate from difficulty for coins that support it
-  // RVN and ETC use different difficulty schemes \u2014 skip estimation
+  // RVN and ETC use different difficulty schemes — skip estimation
   // ZEC uses Equihash which needs 2^13 factor instead of 2^32
   let networkHashrate = 0;
   let hashEstimated = false;
-  if (coin === 'ZEC') {
-    networkHashrate = (difficulty * Math.pow(2, 13)) / blockTimes[coin];
-    hashEstimated = true;
-  } else if (coin !== 'RVN' && coin !== 'ETC') {
-    networkHashrate = btcHashrate(difficulty, blockTimes[coin]);
-    hashEstimated = true;
+
+  // ZEC and DASH expose direct network hashrate via RPC getmininginfo —
+  // more accurate than difficulty-derived estimates. Try RPC first, fall back.
+  if (coin === 'ZEC' || coin === 'DASH') {
+    const rpcEndpoint = coin === 'ZEC'
+      ? 'https://zec.nownodes.io'
+      : 'https://dash.nownodes.io';
+    try {
+      const rpcRes = await fetch(rpcEndpoint, {
+        method: 'POST',
+        headers: {
+          'api-key': apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          jsonrpc: '1.0',
+          id: 'mining-stats',
+          method: 'getmininginfo',
+          params: []
+        })
+      });
+      const rpcData = await rpcRes.json();
+      // ZEC: networksolps (Sol/sec). DASH: networkhashps (H/sec).
+      const rpcHashrate = coin === 'ZEC'
+        ? Number(rpcData.result?.networksolps)
+        : Number(rpcData.result?.networkhashps);
+      if (rpcHashrate > 0) {
+        networkHashrate = rpcHashrate;
+        hashEstimated = false;
+      }
+    } catch (e) {
+      // RPC failed — fall through to difficulty-based estimate below
+    }
+  }
+
+  // Fall back to difficulty-derived estimate if RPC didn't give us a value
+  if (networkHashrate === 0) {
+    if (coin === 'ZEC') {
+      networkHashrate = (difficulty * Math.pow(2, 13)) / blockTimes[coin];
+      hashEstimated = true;
+    } else if (coin === 'ETC') {
+      // Ethereum-family: hashrate = difficulty / block_time (no 2^32 factor)
+      networkHashrate = difficulty / blockTimes[coin];
+      hashEstimated = true;
+    } else if (coin === 'RVN') {
+      // KAWPOW uses standard PoW difficulty: hashrate = difficulty * 2^32 / block_time
+      networkHashrate = btcHashrate(difficulty, blockTimes[coin]);
+      hashEstimated = true;
+    } else {
+      networkHashrate = btcHashrate(difficulty, blockTimes[coin]);
+      hashEstimated = true;
+    }
   }
 
   return {
