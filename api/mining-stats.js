@@ -12,7 +12,7 @@ const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
   'RVN','ZEC','XMR','DGB',
-  'XEC','ALPH','FB','RXD',
+  'XEC','ALPH','FB','RXD','PPC',
   'QUAI-SHA','QUAI-SCRYPT'
 ];
 
@@ -30,7 +30,7 @@ const COINGECKO_IDS = {
   ZEC: 'zcash', DASH: 'dash', RVN: 'ravencoin',
   XMR: 'monero', DGB: 'digibyte',
   XEC: 'ecash', ALPH: 'alephium', FB: 'fractal-bitcoin',
-  RXD: 'radiant',
+  RXD: 'radiant', PPC: 'peercoin',
   'QUAI-SHA': 'quai-network', 'QUAI-SCRYPT': 'quai-network'
 };
 
@@ -108,6 +108,7 @@ async function fetchCoinData(coin) {
     case 'ALPH': return fetchALPH();
     case 'FB': return fetchFB();
     case 'RXD': return fetchRXD();
+    case 'PPC': return fetchPPC();
     case 'QUAI-SHA': return fetchQUAI_SHA();
     case 'QUAI-SCRYPT': return fetchQUAI_Scrypt();
     case 'BTC':
@@ -496,6 +497,41 @@ async function fetchRXD() {
     };
   } catch (e) {
     throw new Error(`RXD fetch failed: ${e.message}`);
+  }
+}
+
+/* ================= PPC (WhatToMine public API) ================= */
+/* SHA-256 algorithm. Actual observed block time: ~45 minutes (2700s).  */
+/* Targeted block time is 10 minutes but current dynamics produce ~45.  */
+/* Variable block reward ~37 PPC (decreases as network grows).          */
+/* Peercoin uses the same SHA-256 hardware as BTC.                      */
+/* API: whattomine.com/coins/52.json (coin ID 52 = Peercoin)            */
+
+async function fetchPPC() {
+  try {
+    const res = await fetch('https://whattomine.com/coins/52.json');
+    if (!res.ok) throw new Error(`WhatToMine PPC returned ${res.status}`);
+    const data = await res.json();
+
+    const difficulty = Number(data.difficulty) || 0;
+    const networkHashrate = Number(data.nethash) || 0;
+    const height = Number(data.last_block) || 0;
+    const blockTime = Number(data.block_time) || 2700;
+    const blockReward = Number(data.block_reward) || 37;
+
+    if (networkHashrate <= 0) throw new Error('WhatToMine PPC returned zero hashrate');
+
+    return {
+      coin: 'PPC',
+      difficulty,
+      network_hashrate: networkHashrate,
+      block_reward: blockReward,
+      block_time: blockTime,
+      height,
+      hashrate_estimated: false
+    };
+  } catch (e) {
+    throw new Error(`PPC fetch failed: ${e.message}`);
   }
 }
 
