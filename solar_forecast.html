@@ -361,7 +361,7 @@
       forecastBody.innerHTML = '';
       var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + c.lat + '&longitude=' + c.lon
         + '&hourly=cloud_cover,shortwave_radiation'
-        + '&daily=sunrise,sunset,moonrise,moonset'
+        + '&daily=sunrise,sunset'
         + '&timezone=auto&forecast_days=6';
       fetch(url)
         .then(function(r){ if (!r.ok) throw new Error('fetch failed'); return r.json(); })
@@ -444,8 +444,6 @@
       var clouds = meteo.hourly.cloud_cover;
       var sunsets = meteo.daily.sunset;
       var sunrises = meteo.daily.sunrise;
-      var moonrises = meteo.daily.moonrise || [];
-      var moonsets = meteo.daily.moonset || [];
 
       var nights = [];
       for (var d = 0; d < sunsets.length - 1; d++) {
@@ -463,8 +461,6 @@
           date: sunsets[d].slice(0,10),
           sunset: sunsets[d],
           nextSunrise: sunrises[d+1],
-          moonrise: moonrises[d],
-          moonset: moonsets[d],
           avgCloud: avgCloud
         });
       }
@@ -743,8 +739,6 @@
         html +=     '<div class="sky-stat"><span class="sky-stat-label">Avg Cloud</span><span class="sky-stat-value">' + tonight.avgCloud + '%</span></div>';
         html +=     '<div class="sky-stat"><span class="sky-stat-label">Sunset</span><span class="sky-stat-value">' + fmtTime(tonight.sunset) + '</span></div>';
         html +=     '<div class="sky-stat"><span class="sky-stat-label">Sunrise</span><span class="sky-stat-value">' + fmtTime(tonight.nextSunrise) + '</span></div>';
-        if (tonight.moonrise) html += '<div class="sky-stat"><span class="sky-stat-label">Moonrise</span><span class="sky-stat-value">' + fmtTime(tonight.moonrise) + '</span></div>';
-        if (tonight.moonset) html += '<div class="sky-stat"><span class="sky-stat-label">Moonset</span><span class="sky-stat-value">' + fmtTime(tonight.moonset) + '</span></div>';
         html +=   '</div>';
         html += '</div>';
       }
