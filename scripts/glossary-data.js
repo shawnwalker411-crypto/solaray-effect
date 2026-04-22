@@ -289,7 +289,7 @@ var SOLA_GLOSSARY = {
 
   "algorithm": {
     title: "Algorithm",
-    definition: "The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin, eCash, Fractal Bitcoin, Peercoin, Quai-SHA), Scrypt (Litecoin, Quai-Scrypt), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin), Blake3 (Alephium), SHA512256d (Radiant)."
+    definition: "The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin, eCash, Fractal Bitcoin, Peercoin, Quai-SHA), Scrypt (Litecoin, Quai-Scrypt), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), Blake3 (Alephium), SHA512256d (Radiant)."
   },
 
   "difficulty": {
