@@ -289,7 +289,7 @@ var SOLA_GLOSSARY = {
 
   "algorithm": {
     title: "Algorithm",
-    definition: "The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin, eCash, Fractal Bitcoin, Quai-SHA), Scrypt (Litecoin, Quai-Scrypt), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin), Blake3 (Alephium), SHA512256d (Radiant)."
+    definition: "The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin, eCash, Fractal Bitcoin, Peercoin, Quai-SHA), Scrypt (Litecoin, Quai-Scrypt), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin), Blake3 (Alephium), SHA512256d (Radiant)."
   },
 
   "difficulty": {
@@ -539,6 +539,11 @@ var SOLA_GLOSSARY = {
   "quai-network": {
     title: "Quai Network (QUAI)",
     definition: "A multi-shard, EVM-compatible proof-of-work network that achieves high throughput without sacrificing decentralization. Unique in supporting multiple mining algorithms across different zone chains simultaneously: SHA-256 ASICs and Scrypt ASICs mine different zones of the same network. Cyprus-1 is the primary zone. Block time is ~1.1 seconds per zone. Miners must point to the correct zone endpoint."
+  },
+
+  "peercoin": {
+    title: "Peercoin (PPC)",
+    definition: "One of the first cryptocurrencies, launched in 2012 by Sunny King. Pioneered proof-of-stake and uses a hybrid PoW/PoS model: SHA-256 miners secure the chain while stakers earn additional rewards. Uses the same SHA-256 hardware as Bitcoin \u2014 any BTC ASIC can mine PPC. Block reward is variable (~37 PPC currently) and decreases as network hashrate grows. Observed block time is ~45 minutes despite a 10-minute target, reflecting the PoW/PoS dynamics. 1% annual PoS inflation cap."
   }
 
 };
