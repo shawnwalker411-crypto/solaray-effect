@@ -146,6 +146,13 @@
     .section-divider.night { background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); }
 
     /* Hour timeline */
+    /* ============================================
+       HOURLY FORECAST
+       Desktop: vertical daylight arc (columns)
+       Mobile: horizontal rows (stacks)
+       ============================================ */
+
+    /* Shared row-mode styles (mobile default) */
     .timeline { display: flex; flex-direction: column; gap: 0.5rem; }
     .hour-row { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 1rem; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-left: 4px solid var(--overcast); border-radius: 6px; }
     .hour-row.clear { border-left-color: var(--clear); }
@@ -161,6 +168,41 @@
     .bar-fill.sun { background: linear-gradient(90deg, var(--sola-gold), #f97316); }
     .bar-pct { font-size: 0.7rem; color: var(--text-secondary); width: 36px; text-align: right; flex-shrink: 0; }
     .hour-badge { font-size: 1.3rem; }
+
+    /* Arc mode (desktop only) */
+    .daylight-arc { display: none; }
+
+    @media (min-width: 600px) {
+      /* hide the mobile rows */
+      .timeline.as-arc { display: none; }
+      /* show the arc */
+      .daylight-arc { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; align-items: end; padding: 1rem 1rem 0.6rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; height: 260px; position: relative; }
+      .arc-col { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-end; height: 100%; min-width: 0; position: relative; }
+      .arc-bar { width: 100%; border-radius: 4px 4px 2px 2px; min-height: 4px; background: var(--overcast); transition: filter 0.15s ease; position: relative; }
+      .arc-bar.clear { background: linear-gradient(180deg, var(--sola-gold), #f97316); box-shadow: 0 0 8px rgba(212,175,55,0.25); }
+      .arc-bar.partial { background: linear-gradient(180deg, #fbbf24, #fb923c); }
+      .arc-bar.cloudy { background: linear-gradient(180deg, #94a3b8, #475569); }
+      .arc-bar.overcast { background: linear-gradient(180deg, #64748b, #334155); }
+      .arc-col:hover .arc-bar { filter: brightness(1.25); }
+      .arc-label { font-size: 0.65rem; color: var(--text-muted); text-align: center; margin-top: 6px; letter-spacing: 0.02em; font-family: 'Share Tech Mono', monospace; }
+      .arc-col:hover .arc-label { color: var(--sola-teal); }
+      .arc-tooltip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.92); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 10px; font-size: 0.72rem; color: var(--text-primary); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s ease; z-index: 10; }
+      .arc-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-top-color: rgba(0,0,0,0.92); }
+      .arc-col:hover .arc-tooltip { opacity: 1; }
+      .arc-legend { display: flex; justify-content: center; gap: 1.25rem; margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-muted); flex-wrap: wrap; }
+      .arc-legend-item { display: flex; align-items: center; gap: 0.4rem; }
+      .arc-legend-swatch { width: 12px; height: 12px; border-radius: 3px; }
+      .arc-legend-swatch.clear { background: linear-gradient(180deg, var(--sola-gold), #f97316); }
+      .arc-legend-swatch.partial { background: linear-gradient(180deg, #fbbf24, #fb923c); }
+      .arc-legend-swatch.cloudy { background: linear-gradient(180deg, #94a3b8, #475569); }
+      .arc-legend-swatch.overcast { background: linear-gradient(180deg, #64748b, #334155); }
+    }
+
+    @media (max-width: 599px) {
+      /* mobile: hide the arc, show the rows */
+      .daylight-arc { display: none !important; }
+      .daylight-arc-legend { display: none !important; }
+    }
 
     /* 5-day outlook */
     .five-day { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.6rem; }
@@ -689,9 +731,43 @@
       html +=   '<div class="dh-item"><div class="dh-label">Today</div><div class="dh-value">' + ratingLabel(today.rating) + '</div></div>';
       html += '</div>';
 
-      /* HOUR TIMELINE */
+      /* HOUR TIMELINE - arc on desktop, rows on mobile */
       html += '<div class="section-label">&#9728; Today &mdash; Hour by Hour</div>';
-      html += '<div class="timeline">';
+
+      /* Arc (desktop) */
+      html += '<div class="daylight-arc">';
+      for (var ai = 0; ai < today.hours.length; ai++) {
+        var ah = today.hours[ai];
+        /* Arc color bucket: recycle cloud classes for visual parity with rows */
+        var arcClass = ah.cloudClass === 'clear' ? 'clear'
+          : ah.cloudClass === 'partial' ? 'partial'
+          : (ah.cloudPct >= 85 ? 'overcast' : 'cloudy');
+        /* Bar height scales with GHI. Minimum 4% so every daytime hour shows a sliver. */
+        var heightPct = Math.max(4, ah.ghiPct);
+        var hourShort = fmtHour(ah.time).replace(':00 ', '').toLowerCase(); /* "7am", "12pm" */
+        html += '<div class="arc-col">';
+        html +=   '<div class="arc-tooltip">' + fmtHour(ah.time) + '<br>Sun ' + ah.ghiPct + '% &middot; Cloud ' + ah.cloudPct + '%</div>';
+        html +=   '<div class="arc-bar ' + arcClass + '" style="height:' + heightPct + '%"></div>';
+        html += '</div>';
+      }
+      html += '</div>';
+      /* Arc label row (hour labels under the bars) */
+      html += '<div class="daylight-arc" style="height:auto;padding:0 1rem 0.6rem;background:transparent;border:none;">';
+      for (var li = 0; li < today.hours.length; li++) {
+        var hourShort2 = fmtHour(today.hours[li].time).replace(':00 ', '').toLowerCase();
+        html += '<div class="arc-col"><div class="arc-label">' + hourShort2 + '</div></div>';
+      }
+      html += '</div>';
+      /* Arc legend */
+      html += '<div class="arc-legend daylight-arc-legend">';
+      html +=   '<div class="arc-legend-item"><span class="arc-legend-swatch clear"></span>Clear</div>';
+      html +=   '<div class="arc-legend-item"><span class="arc-legend-swatch partial"></span>Partly Cloudy</div>';
+      html +=   '<div class="arc-legend-item"><span class="arc-legend-swatch cloudy"></span>Cloudy</div>';
+      html +=   '<div class="arc-legend-item"><span class="arc-legend-swatch overcast"></span>Overcast</div>';
+      html += '</div>';
+
+      /* Rows (mobile fallback) */
+      html += '<div class="timeline as-arc">';
       for (var i = 0; i < today.hours.length; i++) {
         var h = today.hours[i];
         html += '<div class="hour-row ' + h.cloudClass + '">';
