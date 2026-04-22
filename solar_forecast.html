@@ -348,6 +348,19 @@
     });
 
     function resetZip() {
+      /* Actually reset: clear saved location, coords, and input value.
+         Without this, DOMContentLoaded would reload the saved zip on next
+         visit and the user could never change their location. */
+      try {
+        localStorage.removeItem('solarZip');
+        localStorage.removeItem('solarCoords');
+        localStorage.removeItem('solarLocName');
+      } catch(e) {}
+      coords = null;
+      var inp = document.getElementById('zip-input');
+      if (inp) { inp.value = ''; inp.focus(); }
+      var errEl = document.getElementById('zip-error');
+      if (errEl) errEl.style.display = 'none';
       document.getElementById('forecast-screen').style.display = 'none';
       document.getElementById('zip-screen').style.display = 'flex';
       document.getElementById('forecast-body').innerHTML = '';
