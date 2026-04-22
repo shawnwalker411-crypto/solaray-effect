@@ -7,8 +7,8 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Compare mining pools for Bitcoin, Litecoin, Kaspa, Alephium, eCash, Fractal Bitcoin, Radiant, and Quai Network. Pool fees, FPPS vs PPLNS payouts, and minimum thresholds for home miners.">
-  <meta name="keywords" content="bitcoin mining pools, best mining pool, pool fees comparison, FPPS vs PPLNS, F2Pool, ViaBTC, Kryptex pool, Alephium pool, eCash pool, Fractal Bitcoin pool, Radiant RXD pool, Quai Network pool">
+  <meta name="description" content="Compare mining pools for Bitcoin, Litecoin, Kaspa, Alephium, eCash, Fractal Bitcoin, Peercoin, Radiant, and Quai Network. Pool fees, FPPS vs PPLNS payouts, and minimum thresholds for home miners.">
+  <meta name="keywords" content="bitcoin mining pools, best mining pool, pool fees comparison, FPPS vs PPLNS, F2Pool, ViaBTC, Kryptex pool, Alephium pool, eCash pool, Fractal Bitcoin pool, Peercoin pool, Radiant RXD pool, Quai Network pool">
   <meta name="author" content="Sola Ray Effect">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.solarayeffect.com/pools.html">
@@ -1028,6 +1028,7 @@
     .coin-tag-fb { background: #f7931a22; color: #f7931a; }
     .coin-tag-rxd { background: #e8432322; color: #e84323; }
     .coin-tag-quai { background: #9b59b622; color: #9b59b6; }
+    .coin-tag-ppc { background: #3cb04422; color: #3cb044; }
     
     .coin-note {
       color: var(--text-secondary);
@@ -1247,6 +1248,7 @@
         <option value="fb">Fractal Bitcoin (FB)</option>
         <option value="rxd">Radiant (RXD)</option>
         <option value="quai">Quai Network (QUAI)</option>
+        <option value="ppc">Peercoin (PPC)</option>
       </select>
       
       <label for="payout-filter">Payout:</label>
@@ -2583,6 +2585,48 @@
               <td>Custom</td>
               <td><span class="region-tag">&#x1F310;</span></td>
               <td>Large global pool. Higher fee. Registration required.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PEERCOIN SECTION -->
+    <section class="coin-section" data-coin="ppc">
+      <div class="coin-header">
+        <span class="coin-icon">&#x269C;</span>
+        <h2 class="coin-name">Peercoin (PPC)</h2>
+        <span class="coin-tag coin-tag-ppc">SHA-256</span>
+      </div>
+      <p class="coin-note">SHA-256 algorithm. Same hardware as BTC. Hybrid PoW/PoS chain launched in 2012. Block reward is variable (~37 PPC). Observed block time is ~45 minutes. Pool selection is thin &mdash; few pools still actively support PPC, so verify status before pointing miners.</p>
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.mining-dutch.nl/pools/peercoin.php" target="_blank" rel="noopener">Mining-Dutch &#x2197;</a></td>
+              <td>~1.9%</td>
+              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
+              <td>European pool. Supports PPC alongside BTC, BCH, and XEC. Merge-mines BTC rewards.</td>
+            </tr>
+            <tr data-payouts="pplns">
+              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool &#x2197;</a></td>
+              <td>3%</td>
+              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS</span></td>
+              <td>Custom</td>
+              <td><span class="region-tag">&#x1F310;</span></td>
+              <td>Large global pool supporting 40+ PoW coins. Verify PPC is active on their site before connecting.</td>
             </tr>
           </tbody>
         </table>

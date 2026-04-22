@@ -2846,9 +2846,6 @@
 
       // Blake3 (ALPH) - home-friendly unit
       { id: 'al-box-iii', name: 'Goldshell AL-BOX III', manufacturer: 'Goldshell', hashrate: 1200, unit: 'GH/s', power: 600, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-
-      // Scrypt-QUAI (L3++ on Quai Scrypt zone)
-      { id: 'l3pp-quai', name: 'Antminer L3++', manufacturer: 'Bitmain', hashrate: 580, unit: 'MH/s', power: 942, algorithm: 'Scrypt-QUAI', coins: ['QUAI'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
     ];
     
     // ============================================
@@ -2916,13 +2913,9 @@
       { id: 'd7', name: 'Antminer D7', manufacturer: 'Bitmain', hashrate: 1286, unit: 'GH/s', power: 3148, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
       { id: 'd9', name: 'Antminer D9', manufacturer: 'Bitmain', hashrate: 1770, unit: 'GH/s', power: 2839, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
 
-      // SHA-256-XEC (eCash — same S19 hardware pointed at XEC pool)
-      { id: 's19-xec', name: 'Antminer S19', manufacturer: 'Bitmain', hashrate: 95, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-XEC', coins: ['XEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19-pro-xec', name: 'Antminer S19 Pro', manufacturer: 'Bitmain', hashrate: 110, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-XEC', coins: ['XEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-
-      // SHA-256-FB (Fractal Bitcoin — standalone SHA-256 mining)
-      { id: 's19-fb', name: 'Antminer S19', manufacturer: 'Bitmain', hashrate: 95, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-FB', coins: ['FB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's21-fb', name: 'Antminer S21', manufacturer: 'Bitmain', hashrate: 200, unit: 'TH/s', power: 3500, algorithm: 'SHA-256-FB', coins: ['FB'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
+      // SHA-256 variants (XEC, FB, QUAI-SHA) use the same physical SHA-256 miners as BTC.
+      // The calculator's algoOverrides logic routes to the correct coin rate when the user
+      // selects the variant from the algorithm filter. No separate catalog entries needed.
 
       // Blake3 (ALPH) - high-end unit
       { id: 'al-max', name: 'Goldshell AL Max', manufacturer: 'Goldshell', hashrate: 8300, unit: 'GH/s', power: 3350, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
@@ -2931,13 +2924,6 @@
 
       // SHA512256d (RXD) - 240V
       { id: 'dragonball-a11-rxd', name: 'DragonBall A11', manufacturer: 'DragonBall Miner', hashrate: 3000, unit: 'GH/s', power: 2300, algorithm: 'SHA512256d', coins: ['RXD', 'ALPH'], dualMining: { coin: 'ALPH', hashrate: 1100, unit: 'GH/s', algorithm: 'Blake3' }, category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-
-      // SHA-256-QUAI (Quai Network SHA-256 zone)
-      { id: 's19-quai-sha', name: 'Antminer S19', manufacturer: 'Bitmain', hashrate: 95, unit: 'TH/s', power: 3250, algorithm: 'SHA-256-QUAI', coins: ['QUAI'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's21-quai-sha', name: 'Antminer S21', manufacturer: 'Bitmain', hashrate: 200, unit: 'TH/s', power: 3500, algorithm: 'SHA-256-QUAI', coins: ['QUAI'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-
-      // Scrypt-QUAI (Quai Network Scrypt zone)
-      { id: 'l7-quai', name: 'Antminer L7 9500M', manufacturer: 'Bitmain', hashrate: 9500, unit: 'MH/s', power: 3425, algorithm: 'Scrypt-QUAI', coins: ['QUAI'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
     ];
     
     // Combined for "All" filter and browse table
@@ -2947,7 +2933,7 @@
     const DEFAULT_PRICES = { 
       BTC: 0, BCH: 0, LTC: 0, KAS: 0, ETC: 0, DOGE: 0,
       ZEC: 0, DASH: 0, RVN: 0, XMR: 0, DGB: 0,
-      XEC: 0, ALPH: 0, FB: 0, RXD: 0, QUAI: 0
+      XEC: 0, ALPH: 0, FB: 0, RXD: 0, QUAI: 0, PPC: 0
     };
     let PRICES = { ...DEFAULT_PRICES };
     let priceStatus = 'default'; // 'live', 'cached', 'default'
@@ -2959,34 +2945,36 @@
     let REVENUE_RATES = {
       // ASIC Algorithms
       'SHA-256': { perUnit: 0.00000043, unit: 'TH/s', coin: 'BTC' },
-      'SHA-256-BCH': { perUnit: 0.0000703, unit: 'TH/s', coin: 'BCH' },
+      'SHA-256-BCH': { perUnit: 0.0000778, unit: 'TH/s', coin: 'BCH' },
       'Scrypt': { 
         perUnit: 0.00000122, unit: 'MH/s', coin: 'LTC',
-        merged: { perUnit: 0.00459, coin: 'DOGE' }
+        merged: { perUnit: 0.00532, coin: 'DOGE' }
       },
       'KHeavyHash': { perUnit: 0.00646, unit: 'GH/s', coin: 'KAS' },
       'Etchash': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
-      'X11': { perUnit: 0.0000853, unit: 'GH/s', coin: 'DASH' },
+      'X11': { perUnit: 0.0000677, unit: 'GH/s', coin: 'DASH' },
       // GPU Algorithms
       'Etchash-GPU': { perUnit: 0.000108, unit: 'MH/s', coin: 'ETC' },
       'KAWPOW': { perUnit: 0.65, unit: 'MH/s', coin: 'RVN' },
       // CPU Algorithms  
       'RandomX': { perUnit: 0.0000658, unit: 'KH/s', coin: 'XMR' },
       // DGB
-      'SHA-256-DGB': { perUnit: 10, unit: 'TH/s', coin: 'DGB' },
+      'SHA-256-DGB': { perUnit: 8.52, unit: 'TH/s', coin: 'DGB' },
       // XEC &mdash; SHA-256, ~51 PH/s network, 1,812,500 XEC/block post-halving, 600s blocks, live ~5,118 XEC/TH/day (refreshed 2026-04-20)
       'SHA-256-XEC': { perUnit: 5118, unit: 'TH/s', coin: 'XEC' },
       // ALPH &mdash; Blake3 ASIC, network ~7.67 PH/s, reward 0.143 ALPH/block, 0.5336s block time (refreshed 2026-04-20)
       'Blake3': { perUnit: 0.003017, unit: 'GH/s', coin: 'ALPH' },
       // FB &mdash; SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration)
-      'SHA-256-FB': { perUnit: 0.0694, unit: 'TH/s', coin: 'FB' },
+      'SHA-256-FB': { perUnit: 0.0816, unit: 'TH/s', coin: 'FB' },
       // RXD — SHA512256d, 12500 RXD/block post-April 2026 halving, 300s block time
       'SHA512256d': { perUnit: 6.188, unit: 'GH/s', coin: 'RXD' },
       // QUAI-SHA &mdash; SHA-256 zone, ~5 QUAI/block, ~1.3s block time, live ~1.205 QUAI/TH/day (refreshed 2026-04-20)
       'SHA-256-QUAI': { perUnit: 1.205, unit: 'TH/s', coin: 'QUAI' },
       // QUAI-Scrypt &mdash; Scrypt zone, separate chain from SHA zone, live ~0.02033 QUAI/MH/day (refreshed 2026-04-20)
-      'Scrypt-QUAI': { perUnit: 0.02033, unit: 'MH/s', coin: 'QUAI' }
+      'Scrypt-QUAI': { perUnit: 0.02033, unit: 'MH/s', coin: 'QUAI' },
+      // PPC &mdash; SHA-256, ~37 PPC/block, ~45min actual block time (targeted 10min), live ~0.139 PPC/TH/day (WhatToMine 2026-04-22)
+      'SHA-256-PPC': { perUnit: 0.1392, unit: 'TH/s', coin: 'PPC' }
     };
     
     // Mining stats status
@@ -3011,7 +2999,8 @@
         { value: 'SHA-256-FB', label: 'SHA-256 (FB)' },
         { value: 'SHA512256d', label: 'SHA512256d (RXD)' },
         { value: 'SHA-256-QUAI', label: 'SHA-256 (QUAI)' },
-        { value: 'Scrypt-QUAI', label: 'Scrypt (QUAI)' }
+        { value: 'Scrypt-QUAI', label: 'Scrypt (QUAI)' },
+        { value: 'SHA-256-PPC', label: 'SHA-256 (PPC)' }
       ],
       GPU: [
         { value: 'Etchash-GPU', label: 'Etchash (ETC)', unit: 'MH/s' },
@@ -3108,7 +3097,8 @@
       ALPH: 'alephium',
       FB: 'fractal-bitcoin',
       RXD: 'radiant',
-      QUAI: 'quai-network'
+      QUAI: 'quai-network',
+      PPC: 'peercoin'
     };
     
     async function fetchPrices() {
@@ -3138,6 +3128,7 @@
         PRICES.FB = data['fractal-bitcoin']?.usd || PRICES.FB;
         PRICES.RXD = data['radiant']?.usd || PRICES.RXD;
         PRICES.QUAI = data['quai-network']?.usd || PRICES.QUAI;
+        PRICES.PPC = data['peercoin']?.usd || PRICES.PPC;
         
         // Save to localStorage with timestamp
         const cacheData = {
@@ -3361,7 +3352,9 @@
       // QUAI-SHA: Cyprus-1 zone, live ~1.2 QUAI/TH/day (refreshed 2026-04-20, 5x tolerance)
       'SHA-256-QUAI': { min: 0.24, max: 6.0, coin: 'QUAI', unit: 'TH' },
       // QUAI-Scrypt: Scrypt zone, live ~0.0203 QUAI/MH/day (refreshed 2026-04-20, 5x tolerance)
-      'Scrypt-QUAI': { min: 0.0041, max: 0.102, coin: 'QUAI', unit: 'MH' }
+      'Scrypt-QUAI': { min: 0.0041, max: 0.102, coin: 'QUAI', unit: 'MH' },
+      // PPC: SHA-256, variable reward + ~45min blocks, live ~0.139 PPC/TH/day (WhatToMine 2026-04-22, 10x tolerance)
+      'SHA-256-PPC': { min: 0.014, max: 1.4, coin: 'PPC', unit: 'TH' }
     };
     
     // Track last known good rates for fallback
@@ -3641,6 +3634,19 @@
         }
       }
 
+      // PPC (SHA-256 via WhatToMine)
+      // Variable block reward (~37 PPC), ~45min actual block time. Uses any SHA-256 ASIC. Per TH/s.
+      if (data.PPC && data.PPC.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.PPC.block_time || 2700);
+        const dailyCoins = (data.PPC.block_reward || 37) * blocksPerDay;
+        const perTH = dailyCoins / (data.PPC.network_hashrate / 1e12);
+        const validation = validateAndUpdateRate('SHA-256-PPC', perTH, 'PPC');
+        if (validation.rate) {
+          REVENUE_RATES['SHA-256-PPC'].perUnit = validation.rate;
+          console.log('PPC rate updated:', validation.rate, 'PPC/TH/day', validation.valid ? '\u2714' : '(fallback)');
+        }
+      }
+
       // Show warning banner if any rates failed validation
       updateSanityWarningBanner();
     }
@@ -3756,7 +3762,8 @@
         'SHA-256-FB': ['FB'],
         'SHA512256d': ['RXD'],
         'SHA-256-QUAI': ['QUAI'],
-        'Scrypt-QUAI': ['QUAI']
+        'Scrypt-QUAI': ['QUAI'],
+        'SHA-256-PPC': ['PPC']
       };
       
       const coins = algoCoinMap[algorithm];
@@ -3827,7 +3834,8 @@
         'SHA-256-FB': 'FB',
         'SHA512256d': 'RXD',
         'SHA-256-QUAI': 'QUAI',
-        'Scrypt-QUAI': 'QUAI'
+        'Scrypt-QUAI': 'QUAI',
+        'SHA-256-PPC': 'PPC'
       };
       
       if (algoFilter === 'all') {
@@ -3939,7 +3947,7 @@
       if (algoFilter !== 'all') {
         // SHA-256 variants all use same physical miners — remap to SHA-256 for dropdown
         // Scrypt-QUAI uses same Scrypt hardware — remap to Scrypt
-        const sha256Variants = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI'];
+        const sha256Variants = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC'];
         const filterAlgo = sha256Variants.includes(algoFilter) ? 'SHA-256'
           : algoFilter === 'Scrypt-QUAI' ? 'Scrypt'
           : algoFilter;
@@ -4249,7 +4257,7 @@
         // Use algorithm filter to determine correct coin variant
         // SHA-256 variants and Scrypt-QUAI override the miner's base algorithm
         const algoFilter = document.getElementById('algorithm-filter').value;
-        const algoOverrides = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'Scrypt-QUAI'];
+        const algoOverrides = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC', 'Scrypt-QUAI'];
         algorithm = algoOverrides.includes(algoFilter) ? algoFilter : selectedMiner.algorithm;
       } else {
         // GPU/CPU mode - use manual input
@@ -4508,7 +4516,7 @@
     // ============================================
     // LIVE PRICE TICKER (uses calculator price data)
     // ============================================
-    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR', 'RVN', 'DGB', 'XEC', 'ALPH', 'FB', 'RXD', 'QUAI'];
+    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'XMR', 'RVN', 'DGB', 'XEC', 'ALPH', 'FB', 'RXD', 'QUAI', 'PPC'];
     
     function updateTicker() {
       const tickerTrack = document.getElementById('ticker-track');
@@ -4555,7 +4563,7 @@
     // ============================================
     function calculateSunrisePick() {
       const algorithms = [
-        'SHA-256', 'SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI',
+        'SHA-256', 'SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC',
         'Scrypt', 'Scrypt-QUAI',
         'KHeavyHash', 'Etchash', 'Equihash', 'X11',
         'Blake3', 'SHA512256d'
@@ -4566,11 +4574,18 @@
         const rateInfo = REVENUE_RATES[algo];
         if (!rateInfo) return;
         
-        // SHA-256 variants (BCH, DGB, XEC, FB, QUAI) use the same SHA-256 ASIC miners as BTC.
-        // Catalog entries exist for XEC/FB/QUAI-SHA with specific algorithm tags, plus shared BTC miners
-        // alias via filterAlgo below.
-        const sha256Aliases = ['SHA-256-BCH', 'SHA-256-DGB'];
-        const filterAlgo = sha256Aliases.includes(algo) ? 'SHA-256' : algo;
+        // All SHA-256 variants (BCH, DGB, XEC, FB, QUAI, PPC) share the same physical SHA-256 ASICs as BTC.
+        // Scrypt-QUAI uses the same physical Scrypt ASICs as LTC/DOGE.
+        // Alias them to the underlying algorithm for miner selection; the rate lookup still uses the variant.
+        const sha256Aliases = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC'];
+        let filterAlgo;
+        if (sha256Aliases.includes(algo)) {
+          filterAlgo = 'SHA-256';
+        } else if (algo === 'Scrypt-QUAI') {
+          filterAlgo = 'Scrypt';
+        } else {
+          filterAlgo = algo;
+        }
         const miners = ALL_MINERS.filter(m => m.algorithm === filterAlgo && m.category !== 'lottery');
         if (miners.length === 0) return;
         
