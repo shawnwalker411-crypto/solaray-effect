@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com https://analytics.google.com https://api.open-meteo.com https://nominatim.openstreetmap.org https://api.forecast.solar; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free hourly solar forecast for home solar panel owners. Cloud cover, sun strength, and 5-day outlook by zip code. Know when to go full tilt or conserve.">
+  <meta name="keywords" content="solar forecast, home solar panel forecast, solar production forecast, cloud cover solar, solar panel output today, solar owner tool, rooftop solar forecast">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/solar_forecast.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.solarayeffect.com/solar_forecast.html">
+  <meta property="og:title" content="Solar Forecast &mdash; Know Your Sun Before You Spend It">
+  <meta property="og:description" content="Hourly solar forecast for home solar panel owners. Cloud cover, sun strength, and 5-day outlook by zip code. Free tool by Solaray Effect.">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/solar_forecast.html">
+  <meta name="twitter:title" content="Solar Forecast &mdash; Solaray Effect">
+  <meta name="twitter:description" content="Hourly solar forecast for home solar panel owners. Plan your day around the sun.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+
+  <!-- Google Analytics - Production only -->
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
+  </script>
+
+  <title>Solar Forecast &mdash; Know Your Sun Before You Spend It</title>
+
+  <!-- Self-hosted fonts -->
+  <style>
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-sans-jp-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/noto-sans-jp-latin-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/noto-sans-jp-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Orbitron"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/orbitron-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Share Tech Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2"); }
+  </style>
+
+  <style>
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-gold: #D4AF37;
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.9);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --good: #22c55e;
+      --fair: #D4AF37;
+      --poor: #ef4444;
+      --clear: #fde68a;
+      --partial: #fb923c;
+      --overcast: #475569;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background-color: var(--sola-emerald); background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='420' cy='320' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>"); background-repeat: repeat; background-size: 600px 600px; color: var(--text-primary); line-height: 1.7; min-height: 100vh; padding-bottom: 3rem; }
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    .container { max-width: 700px; margin: 0 auto; padding: 1.25rem 1rem 2rem; }
+    .page-title { font-family: 'Orbitron', sans-serif; text-align: center; font-size: 1.3rem; background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 4rem 0 0.5rem; line-height: 1.4; }
+    .page-subtitle { text-align: center; color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.75rem; }
+    /* Hamburger */
+    .hamburger-menu { position: fixed; top: 1rem; left: 1rem; z-index: 1000; }
+    .hamburger-btn { background: var(--bg-card); border: 2px solid var(--sola-teal); color: var(--sola-teal); width: 44px; height: 44px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; transition: all 0.3s ease; box-shadow: 0 0 10px rgba(0,206,209,0.4); }
+    .hamburger-btn:hover { background: var(--sola-teal); box-shadow: 0 0 20px rgba(0,206,209,0.4); }
+    .hamburger-btn .bun-top    { width:24px; height:6px; background:linear-gradient(180deg,#F4A460 0%,#DEB887 100%); border-radius:10px 10px 0 0; transition:all 0.3s ease; }
+    .hamburger-btn .lettuce    { width:26px; height:3px; background:#32CD32; border-radius:1px; transition:all 0.3s ease; }
+    .hamburger-btn .patty      { width:24px; height:4px; background:linear-gradient(180deg,#8B4513 0%,#654321 100%); border-radius:2px; transition:all 0.3s ease; }
+    .hamburger-btn .cheese     { width:26px; height:3px; background:#FFD700; border-radius:1px; transform:skewX(-5deg); transition:all 0.3s ease; }
+    .hamburger-btn .bun-bottom { width:24px; height:5px; background:linear-gradient(180deg,#DEB887 0%,#F4A460 100%); border-radius:0 0 6px 6px; transition:all 0.3s ease; }
+    .hamburger-btn.open .bun-top    { transform:rotate(45deg) translate(6px,8px); }
+    .hamburger-btn.open .lettuce    { opacity:0; }
+    .hamburger-btn.open .patty      { opacity:0; }
+    .hamburger-btn.open .cheese     { opacity:0; }
+    .hamburger-btn.open .bun-bottom { transform:rotate(-45deg) translate(6px,-8px); }
+    /* Nav Drawer */
+    .nav-drawer { position:fixed; top:0; left:-280px; width:280px; height:100vh; overflow-y:auto; background:var(--bg-secondary); border-right:2px solid var(--sola-teal); z-index:999; transition:left 0.3s ease; padding:70px 1.5rem 1.5rem; box-shadow:5px 0 30px rgba(0,0,0,0.5); }
+    .nav-drawer.open { left:0; }
+    .nav-drawer h3 { color:var(--sola-gold); font-size:1rem; padding-left:50px; margin-bottom:1.5rem; padding-bottom:0.5rem; border-bottom:1px solid rgba(212,175,55,0.3); letter-spacing:2px; text-transform:uppercase; }
+    .nav-drawer a, .nav-drawer .nav-disabled { display:block; color:var(--text-primary); text-decoration:none; padding:0.5rem 1rem; margin-bottom:0.3rem; border-radius:6px; font-size:1rem; transition:all 0.2s ease; border:1px solid transparent; }
+    .nav-drawer a:hover { background:var(--bg-card); border-color:var(--sola-teal); color:var(--sola-teal); }
+    .nav-drawer a.active { background:rgba(0,206,209,0.15); border-color:var(--sola-teal); color:#ffffff; }
+    .nav-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:998; }
+    .nav-overlay.show { display:block; }
+    /* Glossary Drawer */
+    .glossary-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:1000; }
+    .glossary-overlay.show { display:block; }
+    .glossary-drawer { position:fixed; top:0; right:-420px; width:420px; max-width:92vw; height:100vh; background:var(--bg-secondary); border-left:2px solid var(--sola-teal); z-index:1001; transition:right 0.25s ease; padding:1.5rem 1.5rem 1.25rem; overflow-y:auto; box-shadow:-10px 0 40px rgba(0,0,0,0.55); backdrop-filter:blur(8px); }
+    .glossary-drawer.open { right:0; }
+    .glossary-drawer-close { position:absolute; top:1rem; right:1rem; background:transparent; border:1px solid rgba(0,206,209,0.55); color:var(--sola-teal); width:36px; height:36px; border-radius:10px; cursor:pointer; font-size:1.35rem; line-height:1; display:inline-flex; align-items:center; justify-content:center; transition:all 0.2s ease; }
+    .glossary-drawer-close:hover { background:rgba(0,206,209,0.12); }
+    .glossary-drawer h3 { font-family:'Noto Sans JP',sans-serif; color:var(--sola-gold); font-size:1.35rem; margin:0.25rem 0 0.85rem; padding-right:2.5rem; }
+    .glossary-drawer p { color:var(--text-secondary); line-height:1.75; margin:0 0 1rem; font-size:0.98rem; }
+    .glossary-term { color:var(--sola-teal); border-bottom:1px dotted rgba(0,206,209,0.7); cursor:help; transition:color 0.15s ease; text-decoration:none; white-space:nowrap; }
+    .glossary-term:hover { color:var(--sola-gold); }
+    .glossary-term-actions { margin-top:1.25rem; padding-top:1rem; border-top:1px solid rgba(212,175,55,0.14); }
+    .glossary-more-link { color:var(--sola-teal); text-decoration:none; font-weight:600; }
+    .glossary-more-link:hover { color:var(--sola-gold); }
+    .glossary-term-links { display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:1rem; }
+    .glossary-pill { display:inline-flex; align-items:center; padding:0.4rem 0.75rem; border-radius:8px; text-decoration:none; font-weight:700; font-size:0.8rem; border:1px solid rgba(0,206,209,0.35); background:rgba(0,206,209,0.08); color:var(--sola-teal); transition:all 0.15s ease; }
+    .glossary-pill:hover { background:rgba(0,206,209,0.14); }
+    /* Zip Screen */
+    .zip-screen { display:flex; flex-direction:column; align-items:center; gap:1rem; padding:1rem 0 2rem; }
+    .zip-form { display:flex; gap:0.5rem; width:100%; max-width:300px; }
+    .zip-form input { flex:1; background:var(--bg-card); border:2px solid var(--sola-teal); border-radius:8px; color:var(--text-primary); font-family:'Share Tech Mono',monospace; font-size:1.2rem; letter-spacing:0.25em; padding:0.6rem 0.85rem; outline:none; text-align:center; }
+    .zip-form input:focus { border-color:var(--sola-gold); box-shadow:0 0 12px rgba(212,175,55,0.3); }
+    .zip-btn { background:var(--sola-teal); border:none; border-radius:8px; color:#0B2F26; cursor:pointer; font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.1em; padding:0.6rem 1rem; transition:all 0.2s ease; }
+    .zip-btn:hover { background:var(--sola-gold); box-shadow:0 0 14px rgba(212,175,55,0.4); }
+    .error-msg { color:#ef4444; font-size:0.82rem; font-family:'Share Tech Mono',monospace; display:none; text-align:center; }
+    /* Forecast Screen */
+    .forecast-screen { display:none; }
+    .location-bar { display:flex; align-items:center; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border-color); margin-bottom:1.25rem; }
+    .loc-name { font-family:'Orbitron',sans-serif; font-size:0.82rem; color:var(--sola-teal); }
+    .loc-meta { font-family:'Share Tech Mono',monospace; font-size:0.62rem; color:var(--text-muted); margin-top:0.15rem; }
+    .change-zip-btn { background:none; border:1px solid var(--border-color); border-radius:4px; color:var(--text-muted); cursor:pointer; font-size:0.7rem; font-family:'Share Tech Mono',monospace; padding:0.3rem 0.65rem; transition:all 0.2s ease; }
+    .change-zip-btn:hover { border-color:var(--sola-teal); color:var(--sola-teal); }
+    /* Section Labels */
+    .section-label { font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.18em; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.75rem; margin-top:1.5rem; }
+    /* Sun Window */
+    .sun-window { display:flex; flex-wrap:wrap; gap:1rem; padding:0.85rem 1rem; background:var(--bg-card); border:1px solid var(--border-color); border-radius:10px; margin-bottom:1.25rem; }
+    .sun-stat .label { font-size:0.62rem; color:var(--text-muted); font-family:'Share Tech Mono',monospace; text-transform:uppercase; letter-spacing:0.1em; }
+    .sun-stat .value { font-family:'Orbitron',sans-serif; font-size:0.92rem; color:var(--sola-gold); font-weight:700; margin-top:0.1rem; }
+    /* Legend */
+    .legend { display:flex; flex-wrap:wrap; gap:0.65rem; padding:0.65rem 1rem; background:var(--bg-card); border:1px solid var(--border-color); border-radius:8px; margin-bottom:1.25rem; }
+    .legend-item { display:flex; align-items:center; gap:0.35rem; font-size:0.65rem; color:var(--text-muted); font-family:'Share Tech Mono',monospace; }
+    .legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+    /* Timeline */
+    .timeline { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:0.5rem; width:100%; }
+    .hour-block { display:grid; grid-template-columns:4rem 1fr auto; align-items:center; gap:0.5rem; padding:0.55rem 0.85rem; border-radius:8px; background:var(--bg-card); border:1px solid var(--border-color); border-left:3px solid transparent; width:100%; box-sizing:border-box; }
+    .hour-block.clear    { border-left-color:var(--clear); }
+    .hour-block.partial  { border-left-color:var(--partial); }
+    .hour-block.overcast { border-left-color:var(--overcast); }
+    .hour-time { font-family:'Share Tech Mono',monospace; font-size:0.72rem; color:var(--text-muted); }
+    .hour-bars { display:flex; flex-direction:column; gap:0.28rem; }
+    .bar-row { display:flex; align-items:center; gap:0.4rem; }
+    .bar-label { font-size:0.58rem; color:var(--text-muted); font-family:'Share Tech Mono',monospace; width:3.8rem; flex-shrink:0; }
+    .bar-track { flex:1; background:rgba(255,255,255,0.06); border-radius:3px; height:5px; overflow:hidden; }
+    .bar-fill { height:100%; border-radius:3px; transition:width 0.5s ease; }
+    .bar-fill.cloud { background:linear-gradient(90deg,#60a5fa,#94a3b8); }
+    .bar-fill.sun   { background:linear-gradient(90deg,var(--sola-gold),#f97316); }
+    .bar-val { font-family:'Share Tech Mono',monospace; font-size:0.62rem; color:var(--text-secondary); width:2.8rem; text-align:right; flex-shrink:0; }
+    .hour-badge { text-align:right; font-size:1.4rem; line-height:1; display:flex; align-items:center; justify-content:flex-end; }
+    .rating-badge { display:inline-block; font-family:'Share Tech Mono',monospace; font-size:0.58rem; font-weight:600; letter-spacing:0.06em; padding:0.2rem 0.4rem; border-radius:4px; text-transform:uppercase; white-space:nowrap; }
+    .rating-badge.run   { background:rgba(34,197,94,0.15);  color:var(--good); }
+    .rating-badge.maybe { background:rgba(212,175,55,0.15); color:var(--fair); }
+    .rating-badge.wait  { background:rgba(239,68,68,0.15);  color:var(--poor); }
+    /* 5-Day Cards */
+    .five-day { display:flex; flex-direction:column; gap:0.5rem; }
+    .day-card { background:var(--bg-card); border:1px solid var(--border-color); border-left:3px solid transparent; border-radius:8px; padding:0.75rem 1rem; display:grid; grid-template-columns:5.5rem 1fr auto; align-items:center; gap:0.75rem; }
+    .day-card.clear    { border-left-color:var(--clear); }
+    .day-card.partial  { border-left-color:var(--partial); }
+    .day-card.overcast { border-left-color:var(--overcast); }
+    .day-name { font-family:'Orbitron',sans-serif; font-size:0.72rem; color:var(--text-primary); }
+    .day-date { font-family:'Share Tech Mono',monospace; font-size:0.6rem; color:var(--text-muted); margin-top:0.15rem; }
+    .day-potential { font-family:'Share Tech Mono',monospace; font-size:0.58rem; color:var(--text-muted); margin-top:0.25rem; }
+    /* Loading */
+    .loading { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; padding:3rem 1rem; }
+    .spinner { width:36px; height:36px; border:3px solid var(--border-color); border-top-color:var(--sola-teal); border-radius:50%; animation:spin 0.8s linear infinite; }
+    .loading-text { font-family:'Share Tech Mono',monospace; font-size:0.78rem; color:var(--text-muted); }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    /* Info Box */
+    .info-box { background:var(--bg-card); border:1px solid var(--border-color); border-radius:8px; padding:0.85rem 1rem; margin-top:1.5rem; font-family:'Share Tech Mono',monospace; font-size:0.65rem; color:var(--text-muted); line-height:1.8; }
+    .info-box a { color:var(--sola-teal); text-decoration:none; }
+    .info-box a:hover { color:var(--sola-gold); }
+    .info-box strong { color:var(--text-secondary); }
+
+    /* ============================================
+       RATING LEGEND (4 cards, matches 5-day style)
+       ============================================ */
+    .rating-legend { display:grid; grid-template-columns:repeat(4, 1fr); gap:0.75rem; margin-top:2rem; }
+    .legend-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:10px; padding:1rem 0.85rem; display:flex; flex-direction:column; gap:0.4rem; position:relative; overflow:hidden; }
+    .legend-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+    .legend-card.sunny::before { background:var(--clear); }
+    .legend-card.mostly-sunny::before { background:var(--fair); }
+    .legend-card.mostly-cloudy::before { background:var(--partial); }
+    .legend-card.cloudy::before { background:var(--overcast); }
+    .legend-card .l-icon { font-size:1.5rem; }
+    .legend-card .l-label { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:0.9rem; color:var(--text-primary); }
+    .legend-card .l-desc { font-size:0.72rem; color:var(--text-secondary); line-height:1.5; }
+    @media (max-width:720px) { .rating-legend { grid-template-columns:repeat(2, 1fr); } }
+    @media (max-width:420px) { .rating-legend { grid-template-columns:1fr; } }
+
+    /* ============================================
+       WHAT CAN I RUN? (featured appliance card)
+       ============================================ */
+    .run-card { background:linear-gradient(135deg, rgba(212,175,55,0.08), rgba(0,206,209,0.04)); border:1px solid rgba(212,175,55,0.35); border-radius:12px; padding:1.25rem 1.25rem 1.1rem; margin-top:1.5rem; }
+    .run-card-header { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.9rem; }
+    .run-card-icon { font-size:1.4rem; }
+    .run-card-title { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:1.05rem; color:var(--sola-gold); margin:0; }
+    .run-card-sub { font-size:0.75rem; color:var(--text-secondary); margin:-0.25rem 0 0.9rem; }
+    .appliance-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:0.6rem; }
+    .appliance-item { background:var(--bg-card); border:1px solid var(--border-color); border-radius:8px; padding:0.7rem 0.5rem; text-align:center; display:flex; flex-direction:column; gap:0.3rem; align-items:center; }
+    .appliance-item .a-icon { font-size:1.35rem; }
+    .appliance-item .a-label { font-size:0.7rem; color:var(--text-primary); font-weight:600; line-height:1.2; }
+    @media (max-width:720px) { .appliance-grid { grid-template-columns:repeat(3, 1fr); } }
+    @media (max-width:420px) { .appliance-grid { grid-template-columns:repeat(2, 1fr); } }
+
+    /* ============================================
+       MINING CROSS-LINK CALLOUT (subtle)
+       ============================================ */
+    .mining-link { margin-top:1.25rem; padding:0.75rem 1rem; background:rgba(0,206,209,0.05); border-left:3px solid var(--sola-teal); border-radius:0 8px 8px 0; font-size:0.82rem; color:var(--text-secondary); }
+    .mining-link a { color:var(--sola-teal); text-decoration:none; font-weight:600; }
+    .mining-link a:hover { color:var(--sola-gold); }
+  </style>
+</head>
+<body>
+
+  <!-- Shared Navigation -->
+  <div id="site-nav"></div>
+
+  <!-- Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here...</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
+    </div>
+  </div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
+
+  <div class="container">
+
+    <h1 class="page-title">&#9728; Solar Forecast</h1>
+    <p class="page-subtitle">Plan your day around the sun &mdash; from AC and EVs to pool pumps and miners.</p>
+
+    <!-- ── Zip Entry Screen ── -->
+    <div class="zip-screen" id="zip-screen">
+      <p style="font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-secondary);text-align:center;">Enter your zip code for hourly sun strength,<br>cloud cover, and 5-day solar outlook.</p>
+      <div class="zip-form">
+        <input type="text" id="zip-input" maxlength="5" inputmode="numeric" pattern="[0-9]{5}" placeholder="75001" autocomplete="postal-code" aria-label="Enter zip code" />
+        <button class="zip-btn" onclick="handleZip()">GO</button>
+      </div>
+      <div class="error-msg" id="zip-error">Invalid or unrecognized zip code &mdash; please try again.</div>
+    </div>
+
+    <!-- ── Forecast Screen ── -->
+    <div class="forecast-screen" id="forecast-screen">
+
+      <div class="location-bar">
+        <div>
+          <div class="loc-name" id="loc-name">&mdash;</div>
+          <div class="loc-meta" id="last-updated"></div>
+        </div>
+        <button class="change-zip-btn" onclick="resetZip()">&larr; Change Zip</button>
+      </div>
+
+      <!-- Loading indicator -->
+      <div class="loading" id="loading-indicator">
+        <div class="spinner"></div>
+        <div class="loading-text">Fetching solar data&hellip;</div>
+      </div>
+
+      <!-- Forecast content injected here by JS -->
+      <div id="forecast-body"></div>
+
+    </div><!-- end forecast-screen -->
+
+  </div><!-- end container -->
+
+  <!-- Shared Footer -->
+  <div id="site-footer"></div>
+
+  <!-- Glossary Scripts -->
+  <script src="scripts/glossary-data.js"></script>
+  <script src="scripts/glossary-drawer.js"></script>
+
+
+  <script>
+    var coords = null;
+
+    function handleZip() {
+      var raw = document.getElementById('zip-input').value.trim();
+      var errEl = document.getElementById('zip-error');
+      errEl.style.display = 'none';
+      if (!/^[0-9]{5}$/.test(raw)) {
+        errEl.style.display = 'block';
+        errEl.textContent = 'Please enter a valid 5-digit US zip code.';
+        return;
+      }
+      fetch('https://nominatim.openstreetmap.org/search?postalcode=' + raw + '&country=US&format=json&limit=1', { headers: { 'Accept-Language': 'en-US' } })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data || data.length === 0) {
+            errEl.style.display = 'block';
+            errEl.textContent = 'Zip code not found. Please try another.';
+            return;
+          }
+          coords = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+          var displayName = data[0].display_name.split(',').slice(0, 2).join(',').trim();
+          document.getElementById('loc-name').textContent = displayName + ' (' + raw + ')';
+          document.getElementById('zip-screen').style.display = 'none';
+          document.getElementById('forecast-screen').style.display = 'block';
+          try {
+            localStorage.setItem('solarZip', raw);
+            localStorage.setItem('solarCoords', JSON.stringify(coords));
+            localStorage.setItem('solarLocName', displayName + ' (' + raw + ')');
+          } catch(e) {}
+          loadForecast(coords);
+        })
+        .catch(function() {
+          errEl.style.display = 'block';
+          errEl.textContent = 'Network error. Check your connection and try again.';
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var inp = document.getElementById('zip-input');
+      if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleZip(); });
+      try {
+        var sc = localStorage.getItem('solarCoords');
+        var sn = localStorage.getItem('solarLocName');
+        var sz = localStorage.getItem('solarZip');
+        if (sc && sn) {
+          coords = JSON.parse(sc);
+          if (inp) inp.value = sz || '';
+          document.getElementById('loc-name').textContent = sn;
+          document.getElementById('zip-screen').style.display = 'none';
+          document.getElementById('forecast-screen').style.display = 'block';
+          loadForecast(coords);
+        }
+      } catch(e) {}
+    });
+
+    function resetZip() {
+      document.getElementById('forecast-screen').style.display = 'none';
+      document.getElementById('zip-screen').style.display = 'flex';
+      document.getElementById('forecast-body').innerHTML = '';
+      showLoading(false);
+    }
+
+    function loadForecast(c) {
+      showLoading(true);
+      document.getElementById('forecast-body').innerHTML = '';
+      var meteoUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + c.lat + '&longitude=' + c.lon + '&hourly=cloud_cover,shortwave_radiation&daily=sunrise,sunset&timezone=auto&forecast_days=7';
+      var clearUrl = 'https://api.forecast.solar/estimate/clearsky/' + c.lat + '/' + c.lon + '/35/180/1';
+      var meteoP = fetch(meteoUrl).then(function(r) { if (!r.ok) throw new Error('fail'); return r.json(); });
+      var clearP = fetch(clearUrl).then(function(r) { if (!r.ok) return null; return r.json(); }).catch(function() { return null; });
+      Promise.all([meteoP, clearP]).then(function(res) {
+        var processed = processData(res[0], res[1]);
+        renderForecast(processed);
+        var now = new Date();
+        document.getElementById('last-updated').textContent = 'Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        scheduleNoonRefresh(c);
+      }).catch(function() {
+        document.getElementById('forecast-body').innerHTML = '<p style="color:#ef4444;font-family:Share Tech Mono,monospace;font-size:0.82rem;padding:2rem 0;">Failed to load forecast. Please try again.</p>';
+        showLoading(false);
+      });
+    }
+
+    function processData(meteo, clearSky) {
+      var times = meteo.hourly.time, clouds = meteo.hourly.cloud_cover, ghi = meteo.hourly.shortwave_radiation;
+      var sunrise = meteo.daily.sunrise, sunset = meteo.daily.sunset;
+      var csWatts = {};
+      if (clearSky && clearSky.result && clearSky.result.watts) {
+        var w = clearSky.result.watts;
+        for (var ts in w) csWatts[ts.slice(0,16)] = w[ts];
+      }
+      var GHI_MAX = 1000, days = {};
+      for (var i = 0; i < times.length; i++) {
+        var t = times[i], dateStr = t.slice(0,10), hourStr = t.slice(0,16), dayIdx = -1;
+        for (var d = 0; d < sunrise.length; d++) { if (sunrise[d].startsWith(dateStr)) { dayIdx = d; break; } }
+        if (dayIdx === -1) continue;
+        var srT = new Date(sunrise[dayIdx]).getTime(), ssT = new Date(sunset[dayIdx]).getTime(), hT = new Date(t).getTime();
+        if (hT < srT || hT > ssT) continue;
+        if (!days[dateStr]) days[dateStr] = { date: dateStr, sunrise: sunrise[dayIdx], sunset: sunset[dayIdx], hours: [] };
+        var cp = clouds[i] || 0, gv = ghi[i] || 0, gp = Math.min(100, Math.round((gv / GHI_MAX) * 100));
+        /* 4-bucket hybrid rating: cloud cover drives the label, GHI nudges edge cases. */
+        var rating;
+        if (cp <= 25 && gv >= 600) rating = 'sunny';
+        else if ((cp <= 50 && gv >= 350) || (cp <= 25)) rating = 'mostly-sunny';
+        else if (cp <= 75 || gv >= 150) rating = 'mostly-cloudy';
+        else rating = 'cloudy';
+        var cc = cp <= 25 ? 'clear' : cp <= 60 ? 'partial' : 'overcast';
+        var sl = gv >= 600 ? 'Full Sun' : gv >= 350 ? 'Good Sun' : gv >= 150 ? 'Partial Sun' : 'Weak Sun';
+        var cl = cp <= 25 ? 'Clear Sky' : cp <= 60 ? 'Partly Cloudy' : 'Overcast';
+        days[dateStr].hours.push({ time: t, cloudPct: cp, ghiVal: gv, ghiPct: gp, rating: rating, cloudClass: cc, sunLabel: sl, cloudLabel: cl });
+      }
+      var dayArr = [];
+      for (var key in days) dayArr.push(days[key]);
+      dayArr = dayArr.slice(0,6);
+      for (var j = 0; j < dayArr.length; j++) {
+        var hrs = dayArr[j].hours, tc = 0, tg = 0;
+        for (var k = 0; k < hrs.length; k++) { tc += hrs[k].cloudPct; tg += hrs[k].ghiVal; }
+        dayArr[j].avgCloud = hrs.length ? Math.round(tc / hrs.length) : 0;
+        dayArr[j].avgGHI   = hrs.length ? Math.round(tg / hrs.length) : 0;
+        dayArr[j].avgGHIPct = Math.min(100, Math.round((dayArr[j].avgGHI / GHI_MAX) * 100));
+        var ac = dayArr[j].avgCloud, ag = dayArr[j].avgGHI;
+        /* 4-bucket hybrid for daily average: cloud cover drives label, GHI nudges edges. */
+        if (ac <= 25 && ag >= 500) dayArr[j].dayRating = 'sunny';
+        else if ((ac <= 50 && ag >= 300) || (ac <= 25)) dayArr[j].dayRating = 'mostly-sunny';
+        else if (ac <= 75 || ag >= 120) dayArr[j].dayRating = 'mostly-cloudy';
+        else dayArr[j].dayRating = 'cloudy';
+        dayArr[j].dayCC = ac <= 25 ? 'clear' : ac <= 60 ? 'partial' : 'overcast';
+      }
+      return dayArr;
+    }
+
+    function renderForecast(days) {
+      showLoading(false);
+      if (!days || days.length === 0) {
+        document.getElementById('forecast-body').innerHTML = '<p style="color:#ef4444;font-size:0.82rem;padding:2rem 0;">No data for this location.</p>';
+        return;
+      }
+      var today = days[0], five = days.slice(1,6), html = '';
+      html += '<div class="sun-window">';
+      html += '<div class="sun-stat"><div class="label">&#9728; Sunrise</div><div class="value">' + fmtTime(today.sunrise) + '</div></div>';
+      html += '<div class="sun-stat"><div class="label">&#9790; Sunset</div><div class="value">'  + fmtTime(today.sunset)  + '</div></div>';
+      html += '<div class="sun-stat"><div class="label">&#9729; Avg Cloud</div><div class="value">' + today.avgCloud + '%</div></div>';
+      html += '<div class="sun-stat"><div class="label">Avg Sun</div><div class="value">' + cloudIcon(today.avgCloud) + '</div></div>';
+      html += '</div>';
+      html += '<div class="legend"><div class="legend-item"><div class="legend-dot" style="background:var(--clear)"></div>0&ndash;25% = Clear</div><div class="legend-item"><div class="legend-dot" style="background:var(--partial)"></div>26&ndash;60% = Partly Cloudy</div><div class="legend-item"><div class="legend-dot" style="background:var(--overcast)"></div>61%+ = Overcast</div></div>';
+      html += '<div class="section-label">&#9728; Today &mdash; Hour by Hour</div><div class="timeline">';
+      for (var i = 0; i < today.hours.length; i++) {
+        var h = today.hours[i];
+        html += '<div class="hour-block ' + h.cloudClass + '"><div class="hour-time">' + fmtHour(h.time) + '</div>';
+        html += '<div class="hour-bars"><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + h.cloudPct + '%"></div></div></div>';
+        html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + h.ghiPct + '%"></div></div></div>';
+        html += '<div class="hour-badge">' + cloudIcon(h.cloudPct) + '</div></div>';
+      }
+      html += '</div><div id="five-day-section"></div>';
+      html += '<div class="rating-legend">';
+      html += '<div class="legend-card sunny"><div class="l-icon">&#9728;</div><div class="l-label">Sunny</div><div class="l-desc">Strong direct sun, low clouds. Panels near peak output. Good day to run anything.</div></div>';
+      html += '<div class="legend-card mostly-sunny"><div class="l-icon">&#127780;</div><div class="l-label">Mostly Sunny</div><div class="l-desc">Solid solar production with some clouds. Most loads fine, skip the heaviest.</div></div>';
+      html += '<div class="legend-card mostly-cloudy"><div class="l-icon">&#9925;</div><div class="l-label">Mostly Cloudy</div><div class="l-desc">Panels producing but well below peak. Modest loads only.</div></div>';
+      html += '<div class="legend-card cloudy"><div class="l-icon">&#9729;</div><div class="l-label">Cloudy</div><div class="l-desc">Minimal solar. Battery backup or grid top-up likely needed for heavy loads.</div></div>';
+      html += '</div>';
+      html += '<div class="run-card">';
+      html += '<div class="run-card-header"><span class="run-card-icon">&#9889;</span><h3 class="run-card-title">What can I run on a Sunny day?</h3></div>';
+      html += '<p class="run-card-sub">With peak solar, you can run heavy loads directly off the array &mdash; no grid draw, no battery drain.</p>';
+      html += '<div class="appliance-grid">';
+      html += '<div class="appliance-item"><span class="a-icon">&#10052;</span><span class="a-label">Central AC</span></div>';
+      html += '<div class="appliance-item"><span class="a-icon">&#128664;</span><span class="a-label">EV Charging</span></div>';
+      html += '<div class="appliance-item"><span class="a-icon">&#127946;</span><span class="a-label">Pool Pump</span></div>';
+      html += '<div class="appliance-item"><span class="a-icon">&#128296;</span><span class="a-label">Power Tools</span></div>';
+      html += '<div class="appliance-item"><span class="a-icon">&#128085;</span><span class="a-label">Clothes Dryer</span></div>';
+      html += '<div class="appliance-item"><span class="a-icon">&#127869;</span><span class="a-label">Dishwasher</span></div>';
+      html += '<div class="appliance-item"><span class="a-icon">&#9935;</span><span class="a-label">Crypto Miners</span></div>';
+      html += '<div class="appliance-item"><span class="a-icon">&#128187;</span><span class="a-label">Server Rigs</span></div>';
+      html += '</div></div>';
+      html += '<div class="mining-link">Running ASIC miners on solar? See our <a href="solar_mining.html">Solar Mining Guide &rarr;</a> for setup details and real-world numbers.</div>';
+      html += '<div class="info-box">Data: <a href="https://open-meteo.com" target="_blank">Open-Meteo</a> &amp; <a href="https://forecast.solar" target="_blank">Forecast.Solar</a>. Updates at page load &amp; noon.</div>';
+      document.getElementById('forecast-body').innerHTML = html;
+      renderFiveDay(five);
+    }
+
+    function renderFiveDay(days) {
+      var el = document.getElementById('five-day-section');
+      if (!el || !days || !days.length) return;
+      var html = '<div class="section-label" style="margin-top:1.5rem;">&#9729; 5-Day Solar Outlook</div><div class="five-day">';
+      for (var i = 0; i < days.length; i++) {
+        var d = days[i];
+        html += '<div class="day-card ' + d.dayCC + '">';
+        html += '<div><div class="day-name">' + fmtDayName(d.date) + '</div><div class="day-date">' + fmtDayDate(d.date) + '</div></div>';
+        html += '<div><div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + d.avgCloud + '%"></div></div></div>';
+        html += '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + d.avgGHIPct + '%"></div></div></div>';
+        html += '<div class="day-potential">' + potentialLabel(d.dayRating) + '</div></div>';
+        html += '<div>' + cloudIcon(d.avgCloud) + '</div></div>';
+      }
+      html += '</div>';
+      el.innerHTML = html;
+    }
+
+    function fmtTime(iso) { if (!iso) return '--'; return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+    function fmtHour(iso) { var d = new Date(iso), h = d.getHours(); return (h % 12 || 12) + ':00 ' + (h >= 12 ? 'PM' : 'AM'); }
+    function fmtDayName(ds) { return new Date(ds + 'T12:00:00').toLocaleDateString([], { weekday: 'short' }).toUpperCase(); }
+    function fmtDayDate(ds) { return new Date(ds + 'T12:00:00').toLocaleDateString([], { month: 'short', day: 'numeric' }); }
+    function sunLabel(ghi) { return ghi >= 600 ? 'Full Sun' : ghi >= 350 ? 'Good Sun' : ghi >= 150 ? 'Partial Sun' : 'Weak Sun'; }
+    function potentialLabel(r) {
+      if (r === 'sunny') return '&#9728; Sunny';
+      if (r === 'mostly-sunny') return '&#127780; Mostly Sunny';
+      if (r === 'mostly-cloudy') return '&#9925; Mostly Cloudy';
+      return '&#9729; Cloudy';
+    }
+    function cloudIcon(pct) {
+      if (pct === 0)      return '☀️';
+      if (pct <= 25)      return '🌤️';
+      if (pct <= 50)      return '⛅';
+      if (pct <= 75)      return '🌥️';
+      return '☁️';
+    }
+    function badge(r) { return ''; }
+    function showLoading(show) { var el = document.getElementById('loading-indicator'); if (el) el.style.display = show ? 'flex' : 'none'; }
+    function scheduleNoonRefresh(c) {
+      var now = new Date(), noon = new Date(now);
+      noon.setHours(12,0,0,0);
+      if (now >= noon) noon.setDate(noon.getDate() + 1);
+      setTimeout(function() { loadForecast(c); }, noon - now);
+    }
+  </script>
+
+  <!-- Shared Components Loader -->
+  <script src="/scripts/site-components.js"></script>
+
+</body>
+</html>
