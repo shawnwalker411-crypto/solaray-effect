@@ -7,8 +7,8 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Compare mining pools for Bitcoin, Litecoin, Kaspa, Alephium, eCash, Fractal Bitcoin, Nexa, Radiant, and Quai Network. Pool fees, FPPS vs PPLNS payouts, and minimum thresholds for home miners.">
-  <meta name="keywords" content="bitcoin mining pools, best mining pool, pool fees comparison, FPPS vs PPLNS, F2Pool, ViaBTC, Kryptex pool, Alephium pool, eCash pool, Fractal Bitcoin pool, Nexa pool, Radiant RXD pool, Quai Network pool">
+  <meta name="description" content="Compare mining pools for Bitcoin, Litecoin, Kaspa, Alephium, eCash, Fractal Bitcoin, Radiant, and Quai Network. Pool fees, FPPS vs PPLNS payouts, and minimum thresholds for home miners.">
+  <meta name="keywords" content="bitcoin mining pools, best mining pool, pool fees comparison, FPPS vs PPLNS, F2Pool, ViaBTC, Kryptex pool, Alephium pool, eCash pool, Fractal Bitcoin pool, Radiant RXD pool, Quai Network pool">
   <meta name="author" content="Sola Ray Effect">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.solarayeffect.com/pools.html">
@@ -1026,7 +1026,6 @@
     .coin-tag-alph { background: #3a7af222; color: #3a7af2; }
     .coin-tag-xec { background: #0074c222; color: #0074c2; }
     .coin-tag-fb { background: #f7931a22; color: #f7931a; }
-    .coin-tag-nexa { background: #00c8aa22; color: #00c8aa; }
     .coin-tag-rxd { background: #e8432322; color: #e84323; }
     .coin-tag-quai { background: #9b59b622; color: #9b59b6; }
     
@@ -1246,7 +1245,6 @@
         <option value="xec">eCash (XEC)</option>
         <option value="alph">Alephium (ALPH)</option>
         <option value="fb">Fractal Bitcoin (FB)</option>
-        <option value="nexa">Nexa (NEXA)</option>
         <option value="rxd">Radiant (RXD)</option>
         <option value="quai">Quai Network (QUAI)</option>
       </select>
@@ -2382,7 +2380,7 @@
         <h2 class="coin-name">Alephium (ALPH)</h2>
         <span class="coin-tag coin-tag-alph">Blake3</span>
       </div>
-      <p class="coin-note">Blake3 algorithm. ASIC miners (Goldshell AL series, Bitmain AL1, DragonBall A40 series, DragonBall A11) dominate. ~75 PH/s network. Block time 64 seconds. The DragonBall A11 dual-mines ALPH and RXD simultaneously.</p>
+      <p class="coin-note">Blake3 algorithm. ASIC miners (Goldshell AL series, Bitmain AL1) dominate. ~14 PH/s network. Block time 64 seconds. Can dual-mine with ETC on some GPU setups.</p>
       <div class="table-wrapper">
         <table class="pool-table">
           <thead>
@@ -2483,56 +2481,6 @@
       </div>
     </section>
 
-    <!-- NEXA SECTION -->
-    <section class="coin-section" data-coin="nexa">
-      <div class="coin-header">
-        <span class="coin-icon">&#x26A1;</span>
-        <h2 class="coin-name">Nexa (NEXA)</h2>
-        <span class="coin-tag coin-tag-nexa">NexaPow</span>
-      </div>
-      <p class="coin-note">NexaPow algorithm. 2-second block time. No major ASIC miners confirmed for NexaPow as of April 2026 &mdash; check nexa.org for current hardware. Small but active mining community. CoinExplorer provides public REST API for chain stats.</p>
-      <div class="table-wrapper">
-        <table class="pool-table">
-          <thead>
-            <tr>
-              <th>Pool</th>
-              <th>Fee</th>
-              <th>Payout</th>
-              <th>Min. Payout</th>
-              <th>Regions</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://nexa.ekapool.com/" target="_blank" rel="noopener">EkaPool &#x2197;</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>500 NEXA</td>
-              <td><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
-              <td>European pool. No registration.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://nexa.herominers.com/" target="_blank" rel="noopener">HeroMiners &#x2197;</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>1000 NEXA</td>
-              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span><span class="region-tag">&#x1F1EA;&#x1F1FA;</span><span class="region-tag">&#x1F310;</span></td>
-              <td>Global servers. No registration required.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://nexa.coinminingpool.org/" target="_blank" rel="noopener">CoinMiningPool &#x2197;</a></td>
-              <td>0.9%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>2000 NEXA</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Low fee. Anonymous mining supported.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
     <!-- RADIANT SECTION -->
     <section class="coin-section" data-coin="rxd">
       <div class="coin-header">
@@ -2540,7 +2488,7 @@
         <h2 class="coin-name">Radiant (RXD)</h2>
         <span class="coin-tag coin-tag-rxd">SHA512256d</span>
       </div>
-      <p class="coin-note">SHA512256d algorithm. 5-minute blocks. Block reward halved to 12,500 RXD in April 2026. IceRiver RX0/RX0 Pro and DragonBall A11 (dual-mines RXD+ALPH) are the primary ASICs. Small but growing hashrate.</p>
+      <p class="coin-note">SHA512256d algorithm. 5-minute blocks. Block reward halved to 12,500 RXD in April 2026. IceRiver RX0 and RX0 Pro are the primary ASICs. Small but growing hashrate.</p>
       <div class="table-wrapper">
         <table class="pool-table">
           <thead>
