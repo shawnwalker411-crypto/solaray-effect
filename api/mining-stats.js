@@ -1,6 +1,6 @@
 // /api/mining-stats.js
 // Live mining network stats API \u2014 NOWNodes unified
-// All 12 algo-coin entries (DGB uses JSON-RPC for SHA-256 specific difficulty)
+// All 16 algo-coin entries (DGB uses JSON-RPC for SHA-256 specific difficulty)
 // QUAI split into QUAI-SHA and QUAI-SCRYPT (separate WhatToMine endpoints per algorithm)
 // 1-hour cache
 
@@ -11,7 +11,7 @@ const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
-  'RVN','ZEC','XMR','DGB',
+  'ZEC','DGB',
   'XEC','ALPH','FB','RXD','PPC',
   'QUAI-SHA','QUAI-SCRYPT'
 ];
@@ -27,8 +27,8 @@ function btcHashrate(difficulty, blockTime) {
 const COINGECKO_IDS = {
   BTC: 'bitcoin', BCH: 'bitcoin-cash', LTC: 'litecoin',
   KAS: 'kaspa', ETC: 'ethereum-classic', DOGE: 'dogecoin',
-  ZEC: 'zcash', DASH: 'dash', RVN: 'ravencoin',
-  XMR: 'monero', DGB: 'digibyte',
+  ZEC: 'zcash', DASH: 'dash',
+  DGB: 'digibyte',
   XEC: 'ecash', ALPH: 'alephium', FB: 'fractal-bitcoin',
   RXD: 'radiant', PPC: 'peercoin',
   'QUAI-SHA': 'quai-network', 'QUAI-SCRYPT': 'quai-network'
@@ -102,7 +102,6 @@ export default async function handler(req, res) {
 async function fetchCoinData(coin) {
   switch (coin) {
     case 'KAS': return fetchKAS();
-    case 'XMR': return fetchXMR();
     case 'DGB': return fetchDGB();
     case 'XEC': return fetchXEC();
     case 'ALPH': return fetchALPH();
@@ -116,7 +115,6 @@ async function fetchCoinData(coin) {
     case 'DOGE':
     case 'BCH':
     case 'DASH':
-    case 'RVN':
     case 'ETC':
     case 'ZEC':
       return fetchViaNowNodes(coin);
@@ -145,42 +143,6 @@ async function fetchKAS() {
     block_time: 1,
     height: data.blockCount || 0,
     hashrate_estimated: false
-  };
-}
-
-/* ================= XMR (NOWNodes Monero JSON-RPC) ================= */
-
-async function fetchXMR() {
-  const apiKey = process.env.NOWNODES_API_KEY;
-  if (!apiKey) throw new Error('Missing NOWNodes API key');
-
-  const res = await fetch('https://xmr.nownodes.io/json_rpc', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'api-key': apiKey
-    },
-    body: JSON.stringify({
-      jsonrpc: '2.0',
-      id: '0',
-      method: 'get_info'
-    })
-  });
-
-  const json = await res.json();
-  const data = json.result || {};
-
-  // block_reward is returned in piconeros (1 XMR = 1e12 piconeros)
-  const blockReward = data.block_reward ? Number(data.block_reward) / 1e12 : 0.6;
-
-  return {
-    coin: 'XMR',
-    difficulty: Number(data.difficulty) || 0,
-    network_hashrate: Number(data.difficulty) / 120,
-    block_reward: blockReward,
-    block_time: 120,
-    height: Number(data.height) || 0,
-    hashrate_estimated: true
   };
 }
 
@@ -396,7 +358,7 @@ async function fetchFB() {
   }
 }
 
-/* ================= NOWNODES BLOCKBOOK COINS (8 coins) ================= */
+/* ================= NOWNODES BLOCKBOOK COINS (7 coins) ================= */
 
 async function fetchViaNowNodes(coin) {
   const apiKey = process.env.NOWNODES_API_KEY;
@@ -408,7 +370,6 @@ async function fetchViaNowNodes(coin) {
     DOGE: 'https://dogebook.nownodes.io/api/v2',
     BCH: 'https://bchbook.nownodes.io/api/v2',
     DASH: 'https://dashbook.nownodes.io/api/v2',
-    RVN: 'https://rvn-blockbook.nownodes.io/api/v2',
     ETC: 'https://etc-blockbook.nownodes.io/api/v2',
     ZEC: 'https://zecbook.nownodes.io/api/v2'
   };
@@ -419,7 +380,6 @@ async function fetchViaNowNodes(coin) {
     DOGE: 10000,
     BCH: 3.125,
     DASH: 0.44,
-    RVN: 1250,
     ETC: 1.99,
     ZEC: 1.25
   };
@@ -430,7 +390,6 @@ async function fetchViaNowNodes(coin) {
     DOGE: 60,
     BCH: 600,
     DASH: 156,
-    RVN: 60,
     ETC: 13.46,
     ZEC: 75
   };
@@ -443,7 +402,7 @@ async function fetchViaNowNodes(coin) {
   const difficulty = Number(data.backend?.difficulty) || 0;
 
   // Estimate hashrate from difficulty for coins that support it
-  // RVN and ETC use different difficulty schemes — skip estimation
+  // ETC uses Ethash difficulty (no 2^32 factor)
   // ZEC uses Equihash which needs 2^13 factor instead of 2^32
   let networkHashrate = 0;
   let hashEstimated = false;
@@ -490,10 +449,6 @@ async function fetchViaNowNodes(coin) {
     } else if (coin === 'ETC') {
       // Ethereum-family: hashrate = difficulty / block_time (no 2^32 factor)
       networkHashrate = difficulty / blockTimes[coin];
-      hashEstimated = true;
-    } else if (coin === 'RVN') {
-      // KAWPOW uses standard PoW difficulty: hashrate = difficulty * 2^32 / block_time
-      networkHashrate = btcHashrate(difficulty, blockTimes[coin]);
       hashEstimated = true;
     } else {
       networkHashrate = btcHashrate(difficulty, blockTimes[coin]);
