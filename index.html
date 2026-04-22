@@ -1590,6 +1590,34 @@
       color: #ff5252;
     }
     
+    /* Data age badge states &mdash; shared indicator for mining-stats + prices */
+    .price-indicator.age-fresh {
+      background: rgba(0, 230, 118, 0.15);
+      color: #00e676;
+    }
+    
+    .price-indicator.age-mild {
+      background: rgba(255, 193, 7, 0.15);
+      color: #ffc107;
+    }
+    
+    .price-indicator.age-stale {
+      background: rgba(255, 152, 0, 0.20);
+      color: #ff9800;
+      font-weight: 600;
+    }
+    
+    .price-indicator.age-very-stale {
+      background: rgba(255, 82, 82, 0.20);
+      color: #ff5252;
+      font-weight: 600;
+    }
+    
+    .price-indicator.age-dead {
+      background: rgba(120, 120, 120, 0.25);
+      color: #999;
+    }
+    
     .network-stats {
       margin-top: 1rem;
       padding: 0.75rem 1rem;
@@ -2555,6 +2583,7 @@
         <p class="price-note" id="price-note">Prices: awaiting live data</p>
         <span class="price-indicator default" id="price-indicator">&#x1F534; Prices Unavailable</span>
         <span class="price-indicator default" id="mining-stats-indicator">&#x1F534; Default Estimates</span>
+        <span class="price-indicator age-dead" id="data-age-badge" title="Age of the older of mining-stats and price feeds">&#9203; Awaiting data</span>
       </div>
       
       <div class="network-stats" id="network-stats" style="display: none;">
@@ -3083,6 +3112,64 @@
       if (typeof updateLivePriceDisplay === 'function') {
         updateLivePriceDisplay();
       }
+      
+      // Refresh the shared data-age badge
+      updateDataAgeBadge();
+    }
+    
+    // ============================================
+    // DATA AGE BADGE
+    // Shared indicator that tracks the older of the two live feeds
+    // (mining-stats and CoinGecko prices). Thresholds:
+    //   < 2 min      -> fresh
+    //   2-15 min     -> mild warning
+    //   15-60 min    -> stale (stronger warning)
+    //   60-360 min   -> very stale (try refresh)
+    //   >= 360 min   -> dead (live info not available)
+    // ============================================
+    function updateDataAgeBadge() {
+      const badge = document.getElementById('data-age-badge');
+      if (!badge) return;
+      
+      // Collect feed ages in minutes. null entries mean "never fetched yet".
+      const now = Date.now();
+      const feedTimes = [
+        lastPriceUpdate ? lastPriceUpdate.getTime() : null,
+        lastMiningStatsUpdate ? lastMiningStatsUpdate.getTime() : null
+      ];
+      
+      // If neither feed has ever succeeded, show dead state.
+      const validTimes = feedTimes.filter(t => t !== null);
+      if (validTimes.length === 0) {
+        badge.className = 'price-indicator age-dead';
+        badge.innerHTML = '\u231B Awaiting data';
+        return;
+      }
+      
+      // Use the OLDEST successful fetch -- the badge is honest about the stalest feed.
+      const oldestTime = Math.min.apply(null, validTimes);
+      const ageMin = Math.floor((now - oldestTime) / 60000);
+      
+      let stateClass, html;
+      if (ageMin < 2) {
+        stateClass = 'age-fresh';
+        html = '\u2713 Live';
+      } else if (ageMin < 15) {
+        stateClass = 'age-mild';
+        html = '\u26A0 ' + ageMin + 'm old';
+      } else if (ageMin < 60) {
+        stateClass = 'age-stale';
+        html = '\u26A0 ' + ageMin + 'm old';
+      } else if (ageMin < 360) {
+        stateClass = 'age-very-stale';
+        html = '\u26A0 Try refresh';
+      } else {
+        stateClass = 'age-dead';
+        html = 'Live Info Not Available';
+      }
+      
+      badge.className = 'price-indicator ' + stateClass;
+      badge.innerHTML = html;
     }
     
     function getTimeAgo(date) {
@@ -3568,6 +3655,9 @@
         indicator.innerHTML = '\u{1F534} Default Estimates';
         indicator.className = 'price-indicator default';
       }
+      
+      // Refresh the shared data-age badge
+      updateDataAgeBadge();
     }
     
     async function initMiningStats() {
@@ -4489,6 +4579,11 @@
     initMiningStats(); // Fetch live difficulty data on page load
     // All coins now fetched via /api/mining-stats direct APIs
     initPriceInput(); // Enable custom price input for what-if scenarios
+    
+    // Data-age badge: render once at init and tick every 15 seconds so the
+    // displayed age increases over time even when no new fetch has happened.
+    updateDataAgeBadge();
+    setInterval(updateDataAgeBadge, 15000);
 
     // Pre-select miner if linked from miners.html catalog
     (function() {
