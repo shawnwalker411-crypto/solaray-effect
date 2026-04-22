@@ -1016,12 +1016,10 @@
     .coin-tag-etc { background: #3ab83a22; color: #3ab83a; }
     .coin-tag-zec { background: #f4b72822; color: #f4b728; }
     .coin-tag-dash { background: #008de422; color: #008de4; }
-    .coin-tag-xmr { background: #ff680022; color: #ff6800; }
     .coin-tag-dgb { background: #006ad222; color: #006ad2; }
     .coin-tag-ckb { background: #3cc68a22; color: #3cc68a; }
     .coin-tag-sc { background: #20ee8222; color: #20ee82; }
     .coin-tag-kda { background: #ed098f22; color: #ed098f; }
-    .coin-tag-rvn { background: #38418222; color: #6b7dcc; }
     .coin-tag-erg { background: #ff574222; color: #ff5742; }
     .coin-tag-alph { background: #3a7af222; color: #3a7af2; }
     .coin-tag-xec { background: #0074c222; color: #0074c2; }
@@ -1240,9 +1238,7 @@
         <option value="etc">Ethereum Classic (ETC)</option>
         <option value="zec">Zcash (ZEC)</option>
         <option value="dash">Dash (DASH)</option>
-        <option value="xmr">Monero (XMR)</option>
         <option value="dgb">DigiByte (DGB)</option>
-        <option value="rvn">Ravencoin (RVN)</option>
         <option value="xec">eCash (XEC)</option>
         <option value="alph">Alephium (ALPH)</option>
         <option value="fb">Fractal Bitcoin (FB)</option>
@@ -2071,105 +2067,6 @@
       </div>
     </section>
     
-    <!-- MONERO SECTION -->
-    <section class="coin-section" data-coin="xmr">
-      <div class="coin-header">
-        <span class="coin-icon">&#x271;</span>
-        <h2 class="coin-name">Monero (XMR)</h2>
-        <span class="coin-tag coin-tag-xmr">RandomX</span>
-      </div>
-      <p class="coin-note">Privacy coin. RandomX algorithm is CPU-optimized and ASIC-resistant.</p>
-      <div class="table-wrapper">
-        <table class="pool-table">
-          <thead>
-            <tr>
-              <th>Pool</th>
-              <th>Fee</th>
-              <th>Payout</th>
-              <th>Min. Payout</th>
-              <th>Regions</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://supportxmr.com/" target="_blank" rel="noopener">SupportXMR &#x2197;</a></td>
-              <td>0.6%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>0.1 XMR</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Large community pool.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://moneroocean.stream/" target="_blank" rel="noopener">MoneroOcean &#x2197;</a></td>
-              <td>0%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>0.003 XMR</td>
-              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
-              <td>Algo switching for max profit. Pays in XMR.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://p2pool.io/" target="_blank" rel="noopener">P2Pool &#x2197;</a></td>
-              <td>0%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>Varies</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Decentralized. Run your own node.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://xmr.herominers.com/" target="_blank" rel="noopener">HeroMiners &#x2197;</a></td>
-              <td>0.9%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>0.01 XMR</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Low threshold. Exchange support.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://nanopool.org/xmr" target="_blank" rel="noopener">Nanopool &#x2197;</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>0.1 XMR</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Legacy pool.</td>
-            </tr>
-                      <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://www.dxpool.com/" target="_blank" rel="noopener">DxPool &#x2197;</a></td>
-              <td>Varies</td>
-              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS</span></td>
-              <td>Varies</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>XMR + XTM merged mining.</td>
-            </tr>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool &#x2197;</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS</span></td>
-              <td>0.01 XMR</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Daily payouts. Registration required.</td>
-            </tr>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://pool.kryptex.com/xmr" target="_blank" rel="noopener">Kryptex &#x2197;</a></td>
-              <td>1.5%</td>
-              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS+</span></td>
-              <td>0.01 XMR</td>
-              <td><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
-              <td>Hourly payouts. Auto-exchange available.</td>
-            </tr>
-                      <tr data-payouts="solo">
-              <td><a class="pool-link" href="https://xmr.solopool.org/" target="_blank" rel="noopener">SoloPool.org &#x2197;</a></td>
-              <td>2%</td>
-              <td><span class="payout-tag payout-solo glossary-term" data-term="solo">Solo</span></td>
-              <td>Full block</td>
-              <td><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
-              <td>European solo pool. No registration.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    
-    
     <!-- DIGIBYTE SECTION -->
     <section class="coin-section" data-coin="dgb">
       <div class="coin-header">
@@ -2230,87 +2127,6 @@
               <td>Varies</td>
               <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span></td>
               <td>US-based. Payout in any coin.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <!-- RAVENCOIN SECTION -->
-    <section class="coin-section" data-coin="rvn">
-      <div class="coin-header">
-        <span class="coin-icon">R</span>
-        <h2 class="coin-name">Ravencoin (RVN)</h2>
-        <span class="coin-tag coin-tag-rvn">KAWPOW</span>
-      </div>
-      <p class="coin-note">GPU-mineable (ASIC-resistant). KAWPOW algorithm. Block reward: 2,500 RVN. 1-minute blocks. Can dual-mine with other GPU coins.</p>
-      <div class="table-wrapper">
-        <table class="pool-table">
-          <thead>
-            <tr>
-              <th>Pool</th>
-              <th>Fee</th>
-              <th>Payout</th>
-              <th>Min. Payout</th>
-              <th>Regions</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://rvn.2miners.com/" target="_blank" rel="noopener">2Miners &#x2197;</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>10 RVN</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Largest RVN pool (~50%+ of network). Reliable payouts.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://hiveon.net/ravencoin" target="_blank" rel="noopener">Hiveon &#x2197;</a></td>
-              <td>0%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPS+</span></td>
-              <td>10 RVN</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Zero fee. High luck ratio. HiveOS integration.</td>
-            </tr>
-            <tr data-payouts="pplns">
-              <td><a class="pool-link" href="https://rvn.nanopool.org/" target="_blank" rel="noopener">Nanopool &#x2197;</a></td>
-              <td>1%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span></td>
-              <td>10 RVN</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>No registration. Wallet-only setup. Beginner friendly.</td>
-            </tr>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">F2Pool &#x2197;</a></td>
-              <td>3%</td>
-              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS</span></td>
-              <td>100 RVN</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Large pool. Higher fee but guaranteed per-share pay.</td>
-            </tr>
-            <tr data-payouts="pplns pps solo">
-              <td><a class="pool-link" href="https://www.ravenminer.com/" target="_blank" rel="noopener">Ravenminer &#x2197;</a></td>
-              <td>0.5%</td>
-              <td><span class="payout-tag payout-pplns glossary-term" data-term="pplns">PPLNS</span><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS+</span><span class="payout-tag payout-solo glossary-term" data-term="solo">Solo</span></td>
-              <td>5 RVN</td>
-              <td><span class="region-tag">&#x1F1FA;&#x1F1F8;</span><span class="region-tag">&#x1F1EA;&#x1F1FA;</span><span class="region-tag">&#x1F310;</span></td>
-              <td>Lowest fee. Multiple payout modes. No registration.</td>
-            </tr>
-            <tr data-payouts="pps">
-              <td><a class="pool-link" href="https://pool.kryptex.com/rvn" target="_blank" rel="noopener">Kryptex &#x2197;</a></td>
-              <td>1.5%</td>
-              <td><span class="payout-tag payout-pps glossary-term" data-term="pps">PPS+</span></td>
-              <td>10 RVN</td>
-              <td><span class="region-tag">&#x1F1EA;&#x1F1FA;</span></td>
-              <td>One-click mining app. Great for beginners.</td>
-            </tr>
-            <tr data-payouts="solo">
-              <td><a class="pool-link" href="https://rvn.solopool.org/" target="_blank" rel="noopener">SoloPool.org &#x2197;</a></td>
-              <td>2%</td>
-              <td><span class="payout-tag payout-solo glossary-term" data-term="solo">Solo</span></td>
-              <td>0.01 RVN</td>
-              <td><span class="region-tag">&#x1F310;</span></td>
-              <td>Solo mining pool. Keep full block reward (2,500 RVN) if you hit.</td>
             </tr>
           </tbody>
         </table>
@@ -3230,7 +3046,7 @@
   document.getElementById('sola-fb-email').addEventListener('input', function() {
     this.style.borderColor = '';
   });
-}
+})();
 </script>
 
   <!-- Shared Components Loader -->

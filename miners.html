@@ -872,6 +872,7 @@
         <option value="SHA-256-XEC">SHA-256 (XEC)</option>
         <option value="SHA-256-FB">SHA-256 (FB)</option>
         <option value="SHA-256-QUAI">SHA-256 (QUAI)</option>
+        <option value="SHA-256-PPC">SHA-256 (PPC)</option>
         <option value="Scrypt">Scrypt (LTC/DOGE)</option>
         <option value="Scrypt-QUAI">Scrypt (QUAI)</option>
         <option value="KHeavyHash">KHeavyHash (KAS)</option>
@@ -3726,7 +3727,12 @@
         }
         
         // Algorithm filter
-        if (algoFilter !== 'all' && algo !== algoFilter) show = false;
+        // Generic SHA-256 coin variants (BCH, DGB, XEC, FB, PPC) all share the
+        // same BTC-capable ASIC hardware, so they resolve to the SHA-256 tag.
+        // QUAI variants keep exact match because they have dedicated sections.
+        var sha256Aliases = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-PPC'];
+        var effectiveAlgoFilter = sha256Aliases.indexOf(algoFilter) !== -1 ? 'SHA-256' : algoFilter;
+        if (effectiveAlgoFilter !== 'all' && algo !== effectiveAlgoFilter) show = false;
         
         // Search filter
         if (searchFilter && searchText.indexOf(searchFilter) === -1) show = false;
@@ -4034,7 +4040,7 @@
   document.getElementById('sola-fb-email').addEventListener('input', function() {
     this.style.borderColor = '';
   });
-}
+})();
 </script>
 
   <!-- Shared Components Loader -->
