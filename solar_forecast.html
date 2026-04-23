@@ -140,7 +140,7 @@
     @media (max-width: 520px) { .day-header-card { grid-template-columns: repeat(2, 1fr); } }
 
     /* Section labels */
-    .section-label { font-family: 'Noto Sans JP', sans-serif; font-weight: 700; color: var(--sola-gold); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 2rem 0 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section-label { font-family: 'Noto Sans JP', sans-serif; font-weight: 700; color: var(--sola-gold); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 2rem 0 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
     .section-label.night { color: #a5b4fc; }
     .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent); margin: 2.5rem 0 0; }
     .section-divider.night { background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); }
@@ -177,7 +177,7 @@
       .timeline.as-chart { display: none; }
 
       .sunchart { display: block; padding: 1.25rem 1.25rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; }
-      .sunchart-label { text-align: center; color: var(--text-muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 0.5rem; font-family: 'Share Tech Mono', monospace; }
+      .sunchart-label { text-align: center; color: var(--sola-gold); font-size: 1.25rem; font-weight: 700; text-transform: none; letter-spacing: 0.02em; margin-bottom: 0.75rem; font-family: 'Noto Sans JP', sans-serif; text-shadow: 0 0 14px rgba(212,175,55,0.35); }
       .sunchart-svg { width: 100%; height: auto; display: block; }
       .sunchart-bar { transition: filter 0.12s ease; cursor: default; }
       .sunchart-bar-group:hover .sunchart-bar { filter: brightness(1.25); }
@@ -755,7 +755,7 @@
       var barStartX = 60 + Math.floor((barAreaWidth - totalBars) / 2);
 
       html += '<div class="sunchart">';
-      html += '<div class="sunchart-label">Today&rsquo;s Sun</div>';
+      html += '<div class="sunchart-label">&#9728; Solar Forecast</div>';
       html += '<div class="sunchart-wrap">';
       html += '<svg class="sunchart-svg" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Half sun meter showing ' + avgCloud + ' percent cloud cover today, plus hourly sun strength bars from sunrise to sunset">';
 
@@ -784,7 +784,7 @@
       html += '<g clip-path="url(#halfsun-clip)">';
       html +=   '<rect x="60" y="20" width="480" height="125" fill="url(#sun-fill)" opacity="0.95"/>';
       if (cloudOverlayWidth > 0) {
-        html += '<rect x="60" y="20" width="' + cloudOverlayWidth + '" height="125" fill="url(#cloud-fill)" opacity="0.92"/>';
+        html += '<rect x="60" y="20" width="' + cloudOverlayWidth + '" height="115" fill="url(#cloud-fill)" opacity="0.92"/>';
       }
       html += '</g>';
 
