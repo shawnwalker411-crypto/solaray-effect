@@ -169,67 +169,27 @@
     .bar-pct { font-size: 0.7rem; color: var(--text-secondary); width: 36px; text-align: right; flex-shrink: 0; }
     .hour-badge { font-size: 1.3rem; }
 
-    /* Heatmap (desktop only) */
-    .heatmap { display: none; }
+    /* Sun-meter + hourly bars chart (desktop only) */
+    .sunchart { display: none; }
 
     @media (min-width: 600px) {
-      /* hide the mobile rows when heatmap is active */
-      .timeline.as-heat { display: none; }
+      /* hide the mobile rows when chart is active */
+      .timeline.as-chart { display: none; }
 
-      .heatmap { display: block; padding: 1rem 1.1rem 0.8rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; }
-      .heatmap-row { display: grid; grid-template-columns: 68px 1fr; align-items: center; gap: 0.75rem; margin-bottom: 6px; }
-      .heatmap-row:last-of-type { margin-bottom: 0; }
-      .heatmap-row-label { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; display: flex; align-items: center; gap: 0.35rem; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.03em; }
-      .heatmap-row-label .rl-icon { font-size: 1rem; }
-      .heatmap-cells { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; }
-      .hm-cell { height: 42px; border-radius: 6px; position: relative; transition: transform 0.12s ease, filter 0.12s ease; cursor: default; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.75); font-size: 0.68rem; font-weight: 700; font-family: 'Share Tech Mono', monospace; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-      .hm-cell:hover { transform: scale(1.08); filter: brightness(1.2); z-index: 2; }
-      /* Sun intensity gradient: dark teal -> teal -> gold -> bright gold */
-      .hm-cell.sun-0  { background: rgba(8,26,21,0.55); color: rgba(255,255,255,0.35); border: 1px solid rgba(136,153,168,0.12); }
-      .hm-cell.sun-1  { background: rgba(11,47,38,0.95); border: 1px solid rgba(0,206,209,0.18); }
-      .hm-cell.sun-2  { background: linear-gradient(135deg, rgba(0,139,139,0.6), rgba(0,206,209,0.45)); }
-      .hm-cell.sun-3  { background: linear-gradient(135deg, rgba(0,206,209,0.65), rgba(212,175,55,0.55)); }
-      .hm-cell.sun-4  { background: linear-gradient(135deg, rgba(212,175,55,0.85), rgba(249,115,22,0.7)); box-shadow: 0 0 10px rgba(212,175,55,0.2); }
-      .hm-cell.sun-5  { background: linear-gradient(135deg, #D4AF37, #f97316); box-shadow: 0 0 14px rgba(212,175,55,0.4); color: #000; text-shadow: none; }
-      /* Cloud coverage gradient: gold (clear) -> grey -> slate (overcast) */
-      .hm-cell.cloud-0 { background: linear-gradient(135deg, rgba(253,230,138,0.75), rgba(212,175,55,0.55)); color: #000; text-shadow: none; }
-      .hm-cell.cloud-1 { background: linear-gradient(135deg, rgba(251,191,36,0.55), rgba(251,146,60,0.5)); color: #000; text-shadow: none; }
-      .hm-cell.cloud-2 { background: linear-gradient(135deg, rgba(148,163,184,0.55), rgba(100,116,139,0.55)); }
-      .hm-cell.cloud-3 { background: linear-gradient(135deg, rgba(100,116,139,0.75), rgba(71,85,105,0.75)); }
-      .hm-cell.cloud-4 { background: linear-gradient(135deg, rgba(71,85,105,0.9), rgba(51,65,85,0.9)); }
-      .hm-cell.now { outline: 2px solid var(--sola-teal); outline-offset: 1px; }
-      .hm-tooltip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.94); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 10px; font-size: 0.72rem; color: var(--text-primary); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s ease; z-index: 10; font-family: 'Roboto', sans-serif; font-weight: 400; text-shadow: none; }
-      .hm-tooltip strong { color: var(--sola-gold); }
-      .hm-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-top-color: rgba(0,0,0,0.94); }
-      .hm-cell:hover .hm-tooltip { opacity: 1; }
-
-      /* Hour axis along the bottom */
-      .heatmap-axis { display: grid; grid-template-columns: 68px 1fr; gap: 0.75rem; margin-top: 8px; }
-      .heatmap-axis-spacer {}
-      .heatmap-axis-labels { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; }
-      .heatmap-axis-labels .hm-label { font-size: 0.62rem; color: var(--text-muted); text-align: center; font-family: 'Share Tech Mono', monospace; }
-      .heatmap-axis-labels .hm-label.now { color: var(--sola-teal); font-weight: 700; }
-
-      /* Legend */
-      .heatmap-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid rgba(212,175,55,0.15); }
-      .hml-group { display: flex; align-items: center; gap: 0.45rem; font-size: 0.68rem; color: var(--text-muted); }
-      .hml-label { font-family: 'Share Tech Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary); margin-right: 0.2rem; }
-      .hml-scale { display: flex; gap: 2px; }
-      .hml-swatch { width: 16px; height: 12px; border-radius: 2px; }
-      .hml-swatch.sun-0 { background: rgba(8,26,21,0.55); border: 1px solid rgba(136,153,168,0.2); }
-      .hml-swatch.sun-2 { background: linear-gradient(135deg, rgba(0,139,139,0.6), rgba(0,206,209,0.45)); }
-      .hml-swatch.sun-3 { background: linear-gradient(135deg, rgba(0,206,209,0.65), rgba(212,175,55,0.55)); }
-      .hml-swatch.sun-4 { background: linear-gradient(135deg, rgba(212,175,55,0.85), rgba(249,115,22,0.7)); }
-      .hml-swatch.sun-5 { background: linear-gradient(135deg, #D4AF37, #f97316); }
-      .hml-swatch.cloud-0 { background: linear-gradient(135deg, rgba(253,230,138,0.75), rgba(212,175,55,0.55)); }
-      .hml-swatch.cloud-1 { background: linear-gradient(135deg, rgba(251,191,36,0.55), rgba(251,146,60,0.5)); }
-      .hml-swatch.cloud-2 { background: linear-gradient(135deg, rgba(148,163,184,0.55), rgba(100,116,139,0.55)); }
-      .hml-swatch.cloud-3 { background: linear-gradient(135deg, rgba(100,116,139,0.75), rgba(71,85,105,0.75)); }
-      .hml-swatch.cloud-4 { background: linear-gradient(135deg, rgba(71,85,105,0.9), rgba(51,65,85,0.9)); }
+      .sunchart { display: block; padding: 1.25rem 1.25rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; }
+      .sunchart-label { text-align: center; color: var(--text-muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 0.5rem; font-family: 'Share Tech Mono', monospace; }
+      .sunchart-svg { width: 100%; height: auto; display: block; }
+      .sunchart-bar { transition: filter 0.12s ease; cursor: default; }
+      .sunchart-bar-group:hover .sunchart-bar { filter: brightness(1.25); }
+      .sunchart-bar-group:hover .sunchart-bar-label { fill: var(--sola-teal); }
+      .sunchart-tip { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.94); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 10px; font-size: 0.72rem; color: var(--text-primary); white-space: nowrap; z-index: 10; pointer-events: none; }
+      .sunchart-wrap { position: relative; }
+      .sunchart-hover-readout { text-align: center; color: var(--text-secondary); font-size: 0.78rem; margin-top: 0.5rem; font-family: 'Share Tech Mono', monospace; min-height: 1.1rem; }
+      .sunchart-hover-readout strong { color: var(--sola-gold); }
     }
 
     @media (max-width: 599px) {
-      .heatmap { display: none !important; }
+      .sunchart { display: none !important; }
     }
 
     /* 5-day outlook */
@@ -759,7 +719,7 @@
       html +=   '<div class="dh-item"><div class="dh-label">Today</div><div class="dh-value">' + ratingLabel(today.rating) + '</div></div>';
       html += '</div>';
 
-      /* HOUR TIMELINE - heatmap on desktop, rows on mobile */
+      /* HOUR TIMELINE - SVG sun meter + bar chart on desktop, rows on mobile */
       html += '<div class="section-label">&#9728; Today &mdash; Hour by Hour</div>';
 
       /* Determine current hour index (if in today's daytime range) */
@@ -770,82 +730,113 @@
         if (nowTs >= hT && nowTs < hT + 3600000) { currentHourIdx = ci; break; }
       }
 
-      /* Bucket helpers: 6 sun levels, 5 cloud levels */
-      function sunBucket(pct) {
-        if (pct < 5) return 0;
-        if (pct < 15) return 1;
-        if (pct < 30) return 2;
-        if (pct < 50) return 3;
-        if (pct < 75) return 4;
-        return 5;
+      /* Build the SVG sun-meter + hourly bars.
+         Layout (viewBox 600x260):
+           y 20-140   = half-sun dome clipped to semicircle, gold fill + grey cloud overlay from left
+           y 140-175  = horizon spacer + bar-% labels
+           y 175-235  = bars (40px max height) anchored to baseline at 235
+           y 235-255  = hour labels + sunrise/sunset markers                           */
+
+      var avgCloud = today.avgCloud || 0;
+      var avgCloudBlurb = avgCloud <= 20 ? 'MOSTLY CLEAR DAY'
+        : avgCloud <= 50 ? 'PARTLY CLOUDY DAY'
+        : avgCloud <= 75 ? 'MOSTLY CLOUDY DAY'
+        : 'OVERCAST DAY';
+      /* Cloud-overlay extends from left edge (x=60) by avgCloud% of the 480-wide dome. */
+      var cloudOverlayWidth = Math.round(480 * (avgCloud / 100));
+      var cloudSplitX = 60 + cloudOverlayWidth;
+      var numHours = today.hours.length;
+      /* Bar width = (480 - (numHours-1)*gap) / numHours, gap=4 */
+      var barGap = 4;
+      var barAreaWidth = 480;
+      var barWidth = Math.max(6, Math.floor((barAreaWidth - (numHours - 1) * barGap) / numHours));
+      /* Re-center the bar block horizontally if there's leftover */
+      var totalBars = barWidth * numHours + barGap * (numHours - 1);
+      var barStartX = 60 + Math.floor((barAreaWidth - totalBars) / 2);
+
+      html += '<div class="sunchart">';
+      html += '<div class="sunchart-label">Today&rsquo;s Sun</div>';
+      html += '<div class="sunchart-wrap">';
+      html += '<svg class="sunchart-svg" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Half sun meter showing ' + avgCloud + ' percent cloud cover today, plus hourly sun strength bars from sunrise to sunset">';
+
+      /* Defs: gradients + clip */
+      html += '<defs>';
+      html +=   '<clipPath id="halfsun-clip"><path d="M 60 140 A 240 120 0 0 1 540 140 Z"/></clipPath>';
+      html +=   '<linearGradient id="sun-fill" x1="0" y1="0" x2="0" y2="1">';
+      html +=     '<stop offset="0%" stop-color="#FCD34D"/>';
+      html +=     '<stop offset="100%" stop-color="#F97316"/>';
+      html +=   '</linearGradient>';
+      html +=   '<linearGradient id="cloud-fill" x1="0" y1="0" x2="0" y2="1">';
+      html +=     '<stop offset="0%" stop-color="#64748b"/>';
+      html +=     '<stop offset="100%" stop-color="#334155"/>';
+      html +=   '</linearGradient>';
+      html +=   '<linearGradient id="bar-grad" x1="0" y1="1" x2="0" y2="0">';
+      html +=     '<stop offset="0%" stop-color="#0F6E56"/>';
+      html +=     '<stop offset="50%" stop-color="#D4AF37"/>';
+      html +=     '<stop offset="100%" stop-color="#F97316"/>';
+      html +=   '</linearGradient>';
+      html += '</defs>';
+
+      /* Horizon line */
+      html += '<rect x="60" y="140" width="480" height="4" fill="#D4AF37" opacity="0.35"/>';
+
+      /* Half-sun with cloud overlay */
+      html += '<g clip-path="url(#halfsun-clip)">';
+      html +=   '<rect x="60" y="20" width="480" height="125" fill="url(#sun-fill)" opacity="0.95"/>';
+      if (cloudOverlayWidth > 0) {
+        html += '<rect x="60" y="20" width="' + cloudOverlayWidth + '" height="125" fill="url(#cloud-fill)" opacity="0.92"/>';
       }
-      function cloudBucket(pct) {
-        if (pct <= 20) return 0;
-        if (pct <= 40) return 1;
-        if (pct <= 60) return 2;
-        if (pct <= 80) return 3;
-        return 4;
+      html += '</g>';
+
+      /* Dome outline */
+      html += '<path d="M 60 140 A 240 120 0 0 1 540 140" stroke="#D4AF37" stroke-width="2" fill="none" opacity="0.6"/>';
+
+      /* Cloud/sun split marker (only if there is a split) */
+      if (avgCloud > 0 && avgCloud < 100) {
+        html += '<line x1="' + cloudSplitX + '" y1="40" x2="' + cloudSplitX + '" y2="155" stroke="#e8f0f7" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.8"/>';
       }
 
-      /* Heatmap (desktop) */
-      html += '<div class="heatmap">';
+      /* Center text */
+      html += '<text x="300" y="90" text-anchor="middle" fill="#e8f0f7" font-size="18" font-weight="700" font-family="Share Tech Mono, monospace" style="text-shadow: 0 1px 4px rgba(0,0,0,0.85);">' + avgCloud + '% CLOUD COVER</text>';
+      html += '<text x="300" y="110" text-anchor="middle" fill="#e8f0f7" font-size="11" font-weight="400" font-family="Share Tech Mono, monospace" opacity="0.92" style="text-shadow: 0 1px 3px rgba(0,0,0,0.85);">' + avgCloudBlurb + '</text>';
 
-      /* Sun row */
-      html += '<div class="heatmap-row">';
-      html +=   '<div class="heatmap-row-label"><span class="rl-icon">&#9728;</span>Sun</div>';
-      html +=   '<div class="heatmap-cells">';
-      for (var si = 0; si < today.hours.length; si++) {
-        var sh = today.hours[si];
-        var sBucket = sunBucket(sh.ghiPct);
-        var nowCls = (si === currentHourIdx) ? ' now' : '';
-        html += '<div class="hm-cell sun-' + sBucket + nowCls + '">';
-        html +=   sh.ghiPct + '<div class="hm-tooltip">' + fmtHour(sh.time) + '<br><strong>Sun</strong> ' + sh.ghiPct + '% &middot; <strong>Cloud</strong> ' + sh.cloudPct + '%</div>';
-        html += '</div>';
+      /* Bars + bar-top labels + hour labels */
+      var barsBaselineY = 235;
+      var barMaxHeight = 48;
+      for (var bi = 0; bi < numHours; bi++) {
+        var bh = today.hours[bi];
+        var sunPct = bh.ghiPct;
+        var barH = Math.max(2, Math.round((sunPct / 100) * barMaxHeight));
+        var barX = barStartX + bi * (barWidth + barGap);
+        var barY = barsBaselineY - barH;
+        var isNow = (bi === currentHourIdx);
+        var labelColor = isNow ? '#00CED1' : '#8899a8';
+        var labelWeight = isNow ? '700' : '400';
+
+        html += '<g class="sunchart-bar-group" data-hour="' + fmtHour(bh.time) + '" data-sun="' + sunPct + '" data-cloud="' + bh.cloudPct + '">';
+        /* invisible hit target spanning full column */
+        html +=   '<rect class="sunchart-hit" x="' + barX + '" y="175" width="' + barWidth + '" height="' + (barsBaselineY - 175 + 18) + '" fill="transparent"/>';
+        /* bar itself */
+        html +=   '<rect class="sunchart-bar" x="' + barX + '" y="' + barY + '" width="' + barWidth + '" height="' + barH + '" fill="url(#bar-grad)" rx="2"/>';
+        /* % label above bar */
+        html +=   '<text class="sunchart-bar-label" x="' + (barX + barWidth/2) + '" y="' + (barY - 4) + '" text-anchor="middle" fill="' + labelColor + '" font-size="9" font-weight="' + labelWeight + '" font-family="Share Tech Mono, monospace">' + sunPct + '</text>';
+        /* hour label below baseline */
+        var hourLbl = fmtHour(bh.time).replace(':00 ', '').toLowerCase();
+        html +=   '<text x="' + (barX + barWidth/2) + '" y="250" text-anchor="middle" fill="' + labelColor + '" font-size="9" font-weight="' + labelWeight + '" font-family="Share Tech Mono, monospace">' + hourLbl + '</text>';
+        html += '</g>';
       }
-      html +=   '</div>';
+
+      /* Sunrise/sunset anchors */
+      html += '<text x="60" y="260" text-anchor="start" fill="#5a6a7a" font-size="9" font-family="Share Tech Mono, monospace">SUNRISE ' + fmtTime(today.sunrise).toUpperCase() + '</text>';
+      html += '<text x="540" y="260" text-anchor="end" fill="#5a6a7a" font-size="9" font-family="Share Tech Mono, monospace">SUNSET ' + fmtTime(today.sunset).toUpperCase() + '</text>';
+
+      html += '</svg>';
+      html += '<div class="sunchart-hover-readout" id="sunchart-readout">Hover a bar for hour detail</div>';
       html += '</div>';
-
-      /* Cloud row */
-      html += '<div class="heatmap-row">';
-      html +=   '<div class="heatmap-row-label"><span class="rl-icon">&#9729;</span>Cloud</div>';
-      html +=   '<div class="heatmap-cells">';
-      for (var cci = 0; cci < today.hours.length; cci++) {
-        var ch = today.hours[cci];
-        var cBucket = cloudBucket(ch.cloudPct);
-        var nowCls2 = (cci === currentHourIdx) ? ' now' : '';
-        html += '<div class="hm-cell cloud-' + cBucket + nowCls2 + '">';
-        html +=   ch.cloudPct + '<div class="hm-tooltip">' + fmtHour(ch.time) + '<br><strong>Sun</strong> ' + ch.ghiPct + '% &middot; <strong>Cloud</strong> ' + ch.cloudPct + '%</div>';
-        html += '</div>';
-      }
-      html +=   '</div>';
       html += '</div>';
-
-      /* Hour axis */
-      html += '<div class="heatmap-axis">';
-      html +=   '<div class="heatmap-axis-spacer"></div>';
-      html +=   '<div class="heatmap-axis-labels">';
-      for (var li = 0; li < today.hours.length; li++) {
-        var hourShort = fmtHour(today.hours[li].time).replace(':00 ', '').toLowerCase();
-        var nowLbl = (li === currentHourIdx) ? ' now' : '';
-        html += '<div class="hm-label' + nowLbl + '">' + hourShort + '</div>';
-      }
-      html +=   '</div>';
-      html += '</div>';
-
-      /* Legend */
-      html += '<div class="heatmap-legend">';
-      html +=   '<div class="hml-group"><span class="hml-label">&#9728; Sun</span><span class="hml-scale">';
-      html +=     '<span class="hml-swatch sun-0"></span><span class="hml-swatch sun-2"></span><span class="hml-swatch sun-3"></span><span class="hml-swatch sun-4"></span><span class="hml-swatch sun-5"></span>';
-      html +=   '</span><span>low &rarr; peak</span></div>';
-      html +=   '<div class="hml-group"><span class="hml-label">&#9729; Cloud</span><span class="hml-scale">';
-      html +=     '<span class="hml-swatch cloud-0"></span><span class="hml-swatch cloud-1"></span><span class="hml-swatch cloud-2"></span><span class="hml-swatch cloud-3"></span><span class="hml-swatch cloud-4"></span>';
-      html +=   '</span><span>clear &rarr; overcast</span></div>';
-      html += '</div>';
-
-      html += '</div>';  /* end .heatmap */
 
       /* Rows (mobile fallback) */
-      html += '<div class="timeline as-heat">';
+      html += '<div class="timeline as-chart">';
       for (var i = 0; i < today.hours.length; i++) {
         var h = today.hours[i];
         html += '<div class="hour-row ' + h.cloudClass + '">';
@@ -971,6 +962,20 @@
       html += '<div class="data-credits">Data: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>. Moon phase calculated locally. Seasonal sky highlights updated manually.</div>';
 
       forecastBody.innerHTML = html;
+
+      /* Wire up hover readout for the sun-chart bars */
+      var readout = document.getElementById('sunchart-readout');
+      if (readout) {
+        var groups = forecastBody.querySelectorAll('.sunchart-bar-group');
+        groups.forEach(function(g){
+          g.addEventListener('mouseenter', function(){
+            readout.innerHTML = g.getAttribute('data-hour') + ' &middot; <strong>Sun</strong> ' + g.getAttribute('data-sun') + '% &middot; <strong>Cloud</strong> ' + g.getAttribute('data-cloud') + '%';
+          });
+          g.addEventListener('mouseleave', function(){
+            readout.textContent = 'Hover a bar for hour detail';
+          });
+        });
+      }
     }
 
     /* ========================================
