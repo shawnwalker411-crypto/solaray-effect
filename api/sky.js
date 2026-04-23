@@ -64,7 +64,6 @@ module.exports = async function handler(req, res) {
     planets: skyResult.status === 'fulfilled' ? skyResult.value.planets : [],
     moon: skyResult.status === 'fulfilled' ? skyResult.value.moon : null,
     sun: skyResult.status === 'fulfilled' ? skyResult.value.sun : null,
-    _debug_solsys_raw: skyResult.status === 'fulfilled' ? skyResult.value._debug_raw : null,
     apod: apodResult.status === 'fulfilled' ? apodResult.value : null,
     asteroids: neowsResult.status === 'fulfilled' ? neowsResult.value : [],
     spaceWeather: donkiResult.status === 'fulfilled' ? donkiResult.value : [],
