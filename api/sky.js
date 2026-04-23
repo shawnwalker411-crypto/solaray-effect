@@ -113,7 +113,7 @@ async function fetchSolarSystemPositions(lat, lon) {
   url.searchParams.set('lat', lat.toString());
   url.searchParams.set('lon', lon.toString());
   url.searchParams.set('elev', '1');
-  url.searchParams.set('datatime', datatime);
+  url.searchParams.set('datetime', datatime);
   url.searchParams.set('zone', tzOffset.toString());
 
   const res = await fetch(url.toString(), {
