@@ -130,24 +130,18 @@ async function fetchSolarSystemPositions(lat, lon) {
 
   const json = await res.json();
 
-  // DEBUG: stash raw response so we can see the shape
-  return { planets: [], moon: null, sun: null, _debug_raw: json };
-
-  // Response shape: { bodies: [{ id, name, ra, dec, az, alt, ... }, ...] }
-  // OR { ra, dec, az, alt } objects per body — actual shape may vary
-  // The API returns an array of bodies with their positions
-  const bodies = Array.isArray(json) ? json
-    : Array.isArray(json.bodies) ? json.bodies
-    : Array.isArray(json.data) ? json.data
-    : [];
+  // Real shape (confirmed): { positions: [{name, ra, dec, az, alt}, ...], location: {...}, time_info: {...} }
+  // Names come in French; we map them to English for display
+  const bodies = Array.isArray(json.positions) ? json.positions : [];
 
   const planets = [];
   let moon = null;
   let sun = null;
 
-  // Body IDs we care about
-  const targetIds = ['sun', 'moon', 'mercure', 'venus', 'mars', 'jupiter', 'saturne', 'uranus', 'neptune'];
-  const idMap = {
+  // French name -> English mapping
+  const nameMap = {
+    'soleil': 'Sun',
+    'lune': 'Moon',
     'mercure': 'Mercury',
     'venus': 'Venus',
     'mars': 'Mars',
@@ -155,32 +149,36 @@ async function fetchSolarSystemPositions(lat, lon) {
     'saturne': 'Saturn',
     'uranus': 'Uranus',
     'neptune': 'Neptune',
-    'sun': 'Sun',
-    'moon': 'Moon'
+    'pluton': 'Pluto'
+  };
+  // Which French keys map to which payload bucket
+  const bucketMap = {
+    'soleil': 'sun',
+    'lune': 'moon'
   };
 
   for (const body of bodies) {
-    const bodyId = (body.id || '').toLowerCase();
-    if (!targetIds.includes(bodyId)) continue;
+    const frenchName = (body.name || '').toLowerCase();
+    if (!nameMap[frenchName]) continue;
 
-    // Altitude/azimuth come in DMS format string OR decimal degrees object
-    // Check for a few possible shapes
-    const altDeg = parseAltAz(body.alt || body.altitude);
-    const azDeg = parseAltAz(body.az || body.azimuth);
+    const altDeg = parseDMS(body.alt);
+    const azDeg = parseDMS(body.az);
 
     const item = {
-      id: bodyId,
-      name: idMap[bodyId] || body.englishName || body.name || bodyId,
+      id: frenchName,
+      name: nameMap[frenchName],
       altitude: Number.isFinite(altDeg) ? Math.round(altDeg * 10) / 10 : null,
       azimuth: Number.isFinite(azDeg) ? Math.round(azDeg * 10) / 10 : null,
-      magnitude: null, // Solar System OpenData doesn't provide magnitude — we'll use known values client-side
-      constellation: null, // Not provided by this API
-      aboveHorizon: Number.isFinite(altDeg) && altDeg > 0
+      magnitude: null, // not provided by this API
+      constellation: null, // not provided by this API
+      aboveHorizon: Number.isFinite(altDeg) && altDeg > 0,
+      rightAscension: body.ra || null,
+      declination: body.dec || null
     };
 
-    if (bodyId === 'moon') {
+    if (bucketMap[frenchName] === 'moon') {
       moon = item;
-    } else if (bodyId === 'sun') {
+    } else if (bucketMap[frenchName] === 'sun') {
       sun = item;
     } else {
       planets.push(item);
@@ -190,37 +188,23 @@ async function fetchSolarSystemPositions(lat, lon) {
   return { planets, moon, sun };
 }
 
-/* Parse altitude/azimuth from "DD°MM'SS\"" strings or decimal/object forms */
-function parseAltAz(value) {
+/* Parse DMS strings like "48°26'22\"" or "-23°02'08\"" into decimal degrees */
+function parseDMS(value) {
   if (value === null || value === undefined) return null;
   if (typeof value === 'number') return value;
-  if (typeof value === 'object') {
-    // Could be { degrees: ..., minutes: ..., seconds: ... }
-    if (Number.isFinite(value.degrees)) {
-      const sign = value.degrees < 0 ? -1 : 1;
-      const d = Math.abs(value.degrees);
-      const m = Number.isFinite(value.minutes) ? value.minutes : 0;
-      const s = Number.isFinite(value.seconds) ? value.seconds : 0;
-      return sign * (d + m / 60 + s / 3600);
-    }
-  }
-  if (typeof value === 'string') {
-    // Try to parse "DD°MM'SS\"" or "DD MM SS" or just decimal
-    const decimal = parseFloat(value);
-    if (Number.isFinite(decimal) && !value.includes('°') && !value.includes("'")) {
-      return decimal;
-    }
-    // Parse DMS pattern
-    const match = value.match(/(-?\d+(?:\.\d+)?)[^\d-]+(\d+(?:\.\d+)?)[^\d-]+(\d+(?:\.\d+)?)/);
-    if (match) {
-      const d = parseFloat(match[1]);
-      const m = parseFloat(match[2]);
-      const s = parseFloat(match[3]);
-      const sign = d < 0 ? -1 : 1;
-      return sign * (Math.abs(d) + m / 60 + s / 3600);
-    }
-  }
-  return null;
+  if (typeof value !== 'string') return null;
+
+  // Match: optional minus, degrees, optional minutes, optional seconds
+  // Example: -23°02'08"  or  303°38'30"
+  const match = value.match(/(-?)\s*(\d+)\s*[°d]?\s*(\d+)?\s*['′m]?\s*([\d.]+)?/);
+  if (!match) return null;
+
+  const sign = match[1] === '-' ? -1 : 1;
+  const d = parseFloat(match[2]) || 0;
+  const m = parseFloat(match[3]) || 0;
+  const s = parseFloat(match[4]) || 0;
+
+  return sign * (d + m / 60 + s / 3600);
 }
 
 /* ============================================================
