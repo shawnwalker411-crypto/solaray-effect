@@ -1,6 +1,6 @@
 // /api/sky.js
 // Sola's Nightscape data aggregator
-// Fans out to AstronomyAPI + NASA APOD + NeoWs + DONKI, caches for 1 hour
+// Fans out to Solar System OpenData + NASA APOD + NeoWs + DONKI, caches for 1 hour
 // Browser calls /api/sky?lat=32.8&lon=-97.1 and gets one combined JSON payload
 
 const fs = require('fs');
@@ -13,7 +13,6 @@ const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
    MAIN HANDLER
    ============================================================ */
 module.exports = async function handler(req, res) {
-  // Validate inputs
   const lat = parseFloat(req.query.lat);
   const lon = parseFloat(req.query.lon);
 
@@ -30,7 +29,6 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  // Check cache (cache key includes location, rounded to 1 decimal so nearby zips share cache)
   const cacheKey = `sky_${lat.toFixed(1)}_${lon.toFixed(1)}`;
   const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
 
@@ -47,13 +45,13 @@ module.exports = async function handler(req, res) {
         }
       }
     } catch (e) {
-      // cache read failed — fall through to fresh fetch
+      // cache read failed - proceed to fresh fetch
     }
   }
 
   // Fan out to all 4 APIs in parallel
-  const [planetsResult, apodResult, neowsResult, donkiResult] = await Promise.allSettled([
-    fetchAstronomyPlanets(lat, lon),
+  const [skyResult, apodResult, neowsResult, donkiResult] = await Promise.allSettled([
+    fetchSolarSystemPositions(lat, lon),
     fetchAPOD(),
     fetchNeoWs(),
     fetchDONKI()
@@ -63,21 +61,20 @@ module.exports = async function handler(req, res) {
     success: true,
     location: { lat, lon },
     fetched_at: new Date().toISOString(),
-    planets: planetsResult.status === 'fulfilled' ? planetsResult.value.planets : [],
-    moon: planetsResult.status === 'fulfilled' ? planetsResult.value.moon : null,
-    sun: planetsResult.status === 'fulfilled' ? planetsResult.value.sun : null,
+    planets: skyResult.status === 'fulfilled' ? skyResult.value.planets : [],
+    moon: skyResult.status === 'fulfilled' ? skyResult.value.moon : null,
+    sun: skyResult.status === 'fulfilled' ? skyResult.value.sun : null,
     apod: apodResult.status === 'fulfilled' ? apodResult.value : null,
     asteroids: neowsResult.status === 'fulfilled' ? neowsResult.value : [],
     spaceWeather: donkiResult.status === 'fulfilled' ? donkiResult.value : [],
     errors: {
-      astronomyapi: planetsResult.status === 'rejected' ? planetsResult.reason?.message || 'Failed' : null,
+      solsys: skyResult.status === 'rejected' ? skyResult.reason?.message || 'Failed' : null,
       apod: apodResult.status === 'rejected' ? apodResult.reason?.message || 'Failed' : null,
       neows: neowsResult.status === 'rejected' ? neowsResult.reason?.message || 'Failed' : null,
       donki: donkiResult.status === 'rejected' ? donkiResult.reason?.message || 'Failed' : null
     }
   };
 
-  // Save to cache (best-effort, don't fail the response if write fails)
   try {
     fs.writeFileSync(cacheFile, JSON.stringify({
       timestamp: Date.now(),
@@ -91,82 +88,95 @@ module.exports = async function handler(req, res) {
 };
 
 /* ============================================================
-   ASTRONOMYAPI - Planet positions for tonight
+   SOLAR SYSTEM OPENDATA - Planet positions for tonight
+   API: https://api.le-systeme-solaire.net/rest/positions
    Returns: planets[], moon, sun
    ============================================================ */
-async function fetchAstronomyPlanets(lat, lon) {
-  const appId = process.env.ASTRONOMY_APP_ID;
-  const appSecret = process.env.ASTRONOMY_APP_SECRET;
-  if (!appId || !appSecret) {
-    throw new Error('Missing ASTRONOMY_APP_ID or ASTRONOMY_APP_SECRET');
+async function fetchSolarSystemPositions(lat, lon) {
+  const token = process.env.SOLSYS_TOKEN;
+  if (!token) {
+    throw new Error('Missing SOLSYS_TOKEN');
   }
 
-  // Build basic auth header
-  const authString = Buffer.from(`${appId}:${appSecret}`).toString('base64');
-
-  // Tonight = today at local sunset-ish (use 21:00 UTC as a reasonable evening reference)
-  // The API uses ISO date format YYYY-MM-DD for the from/to fields
+  // Tonight at evening reference time (21:00 local, approximated via lon offset)
+  // The API expects datatime in YYYY-MM-DDTHH:MM format in UTC, with a separate zon offset
   const now = new Date();
-  const today = now.toISOString().slice(0, 10);
+  const yyyy = now.getUTCFullYear();
+  const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
+  const dd = String(now.getUTCDate()).padStart(2, '0');
+  const datatime = `${yyyy}-${mm}-${dd}T03:00`; // 03:00 UTC ~ evening US
 
-  // Build query params
-  // We ask for positions of all major bodies at tonight's date
-  // Body IDs: sun, moon, mercury, venus, mars, jupiter, saturn, uranus, neptune, pluto
-  const url = new URL('https://api.astronomyapi.com/api/v2/bodies/positions');
-  url.searchParams.set('latitude', lat.toString());
-  url.searchParams.set('longitude', lon.toString());
-  url.searchParams.set('elevation', '1');
-  url.searchParams.set('from_date', today);
-  url.searchParams.set('to_date', today);
-  url.searchParams.set('time', '21:00:00');
+  // Approximate timezone offset from longitude (15 degrees per hour)
+  const tzOffset = Math.round(lon / 15);
+
+  const url = new URL('https://api.le-systeme-solaire.net/rest/positions');
+  url.searchParams.set('lat', lat.toString());
+  url.searchParams.set('lon', lon.toString());
+  url.searchParams.set('elev', '1');
+  url.searchParams.set('datatime', datatime);
+  url.searchParams.set('zon', tzOffset.toString());
 
   const res = await fetch(url.toString(), {
     headers: {
-      'Authorization': `Basic ${authString}`
+      'Authorization': `Bearer ${token}`
     }
   });
 
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`AstronomyAPI returned ${res.status}: ${text.slice(0, 200)}`);
+    throw new Error(`SolarSystem API returned ${res.status}: ${text.slice(0, 200)}`);
   }
 
   const json = await res.json();
-  const rows = json?.data?.table?.rows || [];
+
+  // Response shape: { bodies: [{ id, name, ra, dec, az, alt, ... }, ...] }
+  // OR { ra, dec, az, alt } objects per body — actual shape may vary
+  // The API returns an array of bodies with their positions
+  const bodies = Array.isArray(json) ? json
+    : Array.isArray(json.bodies) ? json.bodies
+    : Array.isArray(json.data) ? json.data
+    : [];
 
   const planets = [];
   let moon = null;
   let sun = null;
 
-  for (const row of rows) {
-    const body = row.entry || {};
-    const cell = row.cells?.[0] || {};
-    const altDeg = parseFloat(cell.position?.horizontal?.altitude?.degrees);
-    const azDeg = parseFloat(cell.position?.horizontal?.azimuth?.degrees);
-    const magnitude = cell.extraInfo?.magnitude !== undefined
-      ? parseFloat(cell.extraInfo.magnitude)
-      : null;
-    const phase = cell.extraInfo?.phase || null;
-    const constellation = cell.position?.constellation?.name || null;
-    const distanceKm = cell.distance?.fromEarth?.km
-      ? parseFloat(cell.distance.fromEarth.km)
-      : null;
+  // Body IDs we care about
+  const targetIds = ['sun', 'moon', 'mercure', 'venus', 'mars', 'jupiter', 'saturne', 'uranus', 'neptune'];
+  const idMap = {
+    'mercure': 'Mercury',
+    'venus': 'Venus',
+    'mars': 'Mars',
+    'jupiter': 'Jupiter',
+    'saturne': 'Saturn',
+    'uranus': 'Uranus',
+    'neptune': 'Neptune',
+    'sun': 'Sun',
+    'moon': 'Moon'
+  };
+
+  for (const body of bodies) {
+    const bodyId = (body.id || '').toLowerCase();
+    if (!targetIds.includes(bodyId)) continue;
+
+    // Altitude/azimuth come in DMS format string OR decimal degrees object
+    // Check for a few possible shapes
+    const altDeg = parseAltAz(body.alt || body.altitude);
+    const azDeg = parseAltAz(body.az || body.azimuth);
 
     const item = {
-      id: body.id,
-      name: body.name,
+      id: bodyId,
+      name: idMap[bodyId] || body.englishName || body.name || bodyId,
       altitude: Number.isFinite(altDeg) ? Math.round(altDeg * 10) / 10 : null,
       azimuth: Number.isFinite(azDeg) ? Math.round(azDeg * 10) / 10 : null,
-      magnitude: Number.isFinite(magnitude) ? Math.round(magnitude * 100) / 100 : null,
-      constellation,
-      distanceKm,
-      aboveHorizon: Number.isFinite(altDeg) && altDeg > 0,
-      phase
+      magnitude: null, // Solar System OpenData doesn't provide magnitude — we'll use known values client-side
+      constellation: null, // Not provided by this API
+      aboveHorizon: Number.isFinite(altDeg) && altDeg > 0
     };
 
-    if (body.id === 'moon') {
+    if (bodyId === 'moon') {
       moon = item;
-    } else if (body.id === 'sun') {
+    } else if (bodyId === 'sun') {
       sun = item;
     } else {
       planets.push(item);
@@ -176,9 +186,41 @@ async function fetchAstronomyPlanets(lat, lon) {
   return { planets, moon, sun };
 }
 
+/* Parse altitude/azimuth from "DD°MM'SS\"" strings or decimal/object forms */
+function parseAltAz(value) {
+  if (value === null || value === undefined) return null;
+  if (typeof value === 'number') return value;
+  if (typeof value === 'object') {
+    // Could be { degrees: ..., minutes: ..., seconds: ... }
+    if (Number.isFinite(value.degrees)) {
+      const sign = value.degrees < 0 ? -1 : 1;
+      const d = Math.abs(value.degrees);
+      const m = Number.isFinite(value.minutes) ? value.minutes : 0;
+      const s = Number.isFinite(value.seconds) ? value.seconds : 0;
+      return sign * (d + m / 60 + s / 3600);
+    }
+  }
+  if (typeof value === 'string') {
+    // Try to parse "DD°MM'SS\"" or "DD MM SS" or just decimal
+    const decimal = parseFloat(value);
+    if (Number.isFinite(decimal) && !value.includes('°') && !value.includes("'")) {
+      return decimal;
+    }
+    // Parse DMS pattern
+    const match = value.match(/(-?\d+(?:\.\d+)?)[^\d-]+(\d+(?:\.\d+)?)[^\d-]+(\d+(?:\.\d+)?)/);
+    if (match) {
+      const d = parseFloat(match[1]);
+      const m = parseFloat(match[2]);
+      const s = parseFloat(match[3]);
+      const sign = d < 0 ? -1 : 1;
+      return sign * (Math.abs(d) + m / 60 + s / 3600);
+    }
+  }
+  return null;
+}
+
 /* ============================================================
    NASA APOD - Astronomy Picture of the Day
-   Returns: { title, explanation, url, hdurl, media_type, copyright, date }
    ============================================================ */
 async function fetchAPOD() {
   const apiKey = process.env.NASA_API_KEY || 'DEMO_KEY';
@@ -204,12 +246,10 @@ async function fetchAPOD() {
 
 /* ============================================================
    NASA NeoWs - Near-Earth asteroids this week
-   Returns: array of { name, diameterMeters, missDistanceKm, velocityKmh, closeApproachDate, hazardous }
    ============================================================ */
 async function fetchNeoWs() {
   const apiKey = process.env.NASA_API_KEY || 'DEMO_KEY';
 
-  // NeoWs feed accepts max 7-day range
   const start = new Date();
   const end = new Date();
   end.setDate(end.getDate() + 7);
@@ -249,14 +289,12 @@ async function fetchNeoWs() {
     }
   }
 
-  // Sort by closest approach (smallest miss distance first), top 10
   flat.sort((a, b) => a.missDistanceKm - b.missDistanceKm);
   return flat.slice(0, 10);
 }
 
 /* ============================================================
    NASA DONKI - Space weather notifications (last 3 days)
-   Returns: array of { type, time, summary, link }
    ============================================================ */
 async function fetchDONKI() {
   const apiKey = process.env.NASA_API_KEY || 'DEMO_KEY';
@@ -267,7 +305,6 @@ async function fetchDONKI() {
   const startStr = start.toISOString().slice(0, 10);
   const endStr = end.toISOString().slice(0, 10);
 
-  // Fetch in parallel: Solar Flares, Geomagnetic Storms, Coronal Mass Ejections
   const [flrRes, gstRes, cmeRes] = await Promise.allSettled([
     fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${startStr}&endDate=${endStr}&api_key=${apiKey}`),
     fetch(`https://api.nasa.gov/DONKI/GST?startDate=${startStr}&endDate=${endStr}&api_key=${apiKey}`),
@@ -276,7 +313,6 @@ async function fetchDONKI() {
 
   const events = [];
 
-  // Solar Flares
   if (flrRes.status === 'fulfilled' && flrRes.value.ok) {
     try {
       const flrs = await flrRes.value.json();
@@ -296,7 +332,6 @@ async function fetchDONKI() {
     } catch (e) { /* skip */ }
   }
 
-  // Geomagnetic Storms (these can drive aurora)
   if (gstRes.status === 'fulfilled' && gstRes.value.ok) {
     try {
       const gsts = await gstRes.value.json();
@@ -308,7 +343,7 @@ async function fetchDONKI() {
             class: kp ? `Kp ${kp}` : null,
             time: g.startTime || null,
             summary: kp
-              ? `Geomagnetic storm in progress (Kp ${kp}) — aurora possible at lower latitudes`
+              ? `Geomagnetic storm in progress (Kp ${kp}) - aurora possible at lower latitudes`
               : 'Geomagnetic storm detected',
             link: g.link || null
           });
@@ -317,7 +352,6 @@ async function fetchDONKI() {
     } catch (e) { /* skip */ }
   }
 
-  // Coronal Mass Ejections
   if (cmeRes.status === 'fulfilled' && cmeRes.value.ok) {
     try {
       const cmes = await cmeRes.value.json();
@@ -338,7 +372,6 @@ async function fetchDONKI() {
     } catch (e) { /* skip */ }
   }
 
-  // Sort by time, newest first, cap at 8
   events.sort((a, b) => {
     const tA = a.time ? new Date(a.time).getTime() : 0;
     const tB = b.time ? new Date(b.time).getTime() : 0;
