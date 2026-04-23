@@ -64,6 +64,7 @@ module.exports = async function handler(req, res) {
     planets: skyResult.status === 'fulfilled' ? skyResult.value.planets : [],
     moon: skyResult.status === 'fulfilled' ? skyResult.value.moon : null,
     sun: skyResult.status === 'fulfilled' ? skyResult.value.sun : null,
+    _debug_solsys_raw: skyResult.status === 'fulfilled' ? skyResult.value._debug_raw : null,
     apod: apodResult.status === 'fulfilled' ? apodResult.value : null,
     asteroids: neowsResult.status === 'fulfilled' ? neowsResult.value : [],
     spaceWeather: donkiResult.status === 'fulfilled' ? donkiResult.value : [],
@@ -128,6 +129,9 @@ async function fetchSolarSystemPositions(lat, lon) {
   }
 
   const json = await res.json();
+
+  // DEBUG: stash raw response so we can see the shape
+  return { planets: [], moon: null, sun: null, _debug_raw: json };
 
   // Response shape: { bodies: [{ id, name, ra, dec, az, alt, ... }, ...] }
   // OR { ra, dec, az, alt } objects per body — actual shape may vary
