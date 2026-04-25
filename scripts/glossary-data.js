@@ -544,6 +544,65 @@ var SOLA_GLOSSARY = {
   "peercoin": {
     title: "Peercoin (PPC)",
     definition: "One of the first cryptocurrencies, launched in 2012 by Sunny King. Pioneered proof-of-stake and uses a hybrid PoW/PoS model: SHA-256 miners secure the chain while stakers earn additional rewards. Uses the same SHA-256 hardware as Bitcoin \u2014 any BTC ASIC can mine PPC. Block reward is variable (~37 PPC currently) and decreases as network hashrate grows. Observed block time is ~45 minutes despite a 10-minute target, reflecting the PoW/PoS dynamics. 1% annual PoS inflation cap."
+  },
+
+  /* ================================================
+     SOLAR & SKY TERMS — Definition Only
+     ================================================ */
+
+  "ghi": {
+    title: "GHI (Global Horizontal Irradiance)",
+    definition: "The total solar power hitting a flat horizontal surface, measured in watts per square meter (W/m\u00b2). This is the number that determines how much your solar panels can produce. Peak GHI on a clear day at noon is roughly 1,000 W/m\u00b2. The forecast page shows GHI as a percentage of that peak, so 70% means you're getting about 700 W/m\u00b2."
+  },
+
+  "cloud-cover": {
+    title: "Cloud Cover",
+    definition: "The percentage of sky covered by clouds at a given moment. Direct effect on solar production: heavy clouds can drop panel output by 70-90%. Light cirrus clouds may only cut output 10-20%. The forecast aggregates hourly cloud cover into a daily average for the rating system."
+  },
+
+  "solar-noon": {
+    title: "Solar Noon",
+    definition: "The moment the sun is at its highest point in the sky, halfway between sunrise and sunset. This is when GHI peaks and your panels produce the most power. Solar noon usually doesn't match clock noon \u2014 it shifts based on your longitude within your time zone and the time of year."
+  },
+
+  "moon-phase": {
+    title: "Moon Phase",
+    definition: "Where the moon is in its 29.5-day cycle around Earth. The eight named phases are New, Waxing Crescent, First Quarter, Waxing Gibbous, Full, Waning Gibbous, Last Quarter, and Waning Crescent. For stargazing, New Moon is best (darkest sky) and Full Moon is worst (the moon washes out faint stars)."
+  },
+
+  "moon-illumination": {
+    title: "Moon Illumination",
+    definition: "The percentage of the moon's visible face that is lit by the sun. New Moon = 0%, Full Moon = 100%, Quarter Moons = 50%. Lower illumination means a darker night sky, which lets faint objects like the Milky Way and distant galaxies show up. Above ~60% illumination, only bright stars and planets stay easily visible."
+  },
+
+  "constellation": {
+    title: "Constellation",
+    definition: "An officially recognized pattern of stars in a specific region of the sky. There are 88 constellations in modern astronomy. Well-known examples include Orion (winter), Leo (spring), Scorpius (summer), and Andromeda (autumn). Constellations are useful as navigation landmarks for finding planets, galaxies, and meteor shower radiants."
+  },
+
+  "milky-way": {
+    title: "Milky Way",
+    definition: "The galaxy that contains our solar system. From Earth, it appears as a faint cloudy band stretching across the sky \u2014 that's the disk of the galaxy seen edge-on. The brightest part runs through Sagittarius and Scorpius (visible in summer). Requires dark skies; light pollution from cities makes it nearly invisible."
+  },
+
+  "meteor-shower": {
+    title: "Meteor Shower",
+    definition: "An annual event when Earth passes through the dust trail left behind by a comet. The dust burns up in the atmosphere as bright streaks (\"shooting stars\"). Major showers produce 20-100+ meteors per hour at peak. Best viewing is usually after midnight in a dark, open area. The Perseids (August), Orionids (October), and Lyrids (April) are commonly visible from the U.S."
+  },
+
+  "naked-eye": {
+    title: "Naked Eye",
+    definition: "What you can see in the sky without binoculars or a telescope. Includes the Moon, the Sun, the five brightest planets (Mercury, Venus, Mars, Jupiter, Saturn), thousands of stars, the Milky Way (under dark skies), the Andromeda Galaxy (faint), and meteor showers. \"Naked-eye objects\" is shorthand for sights anyone can find with no equipment."
+  },
+
+  "deep-sky-objects": {
+    title: "Deep-Sky Objects",
+    definition: "Anything in the night sky beyond our solar system other than individual stars: galaxies, nebulae, and star clusters. Most require binoculars or a telescope. The Andromeda Galaxy and the Orion Nebula are among the few visible to the naked eye, and only under dark skies. Light pollution and the moon both wash these out."
+  },
+
+  "light-pollution": {
+    title: "Light Pollution",
+    definition: "Artificial light from streetlights, buildings, and signs that brightens the night sky and makes faint stars invisible. Suburban skies typically lose 80-95% of stars compared to a true dark site. The forecast page's stargazing rating assumes you're somewhere with reasonably dark skies \u2014 if you're in a city, even a \"perfect\" cloud-and-moon night may still wash out deep-sky objects."
   }
 
 };
