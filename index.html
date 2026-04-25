@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Free ASIC mining profitability calculator. Enter your miner, power cost, and solar hours to see daily profits for BTC, LTC, KAS, and DOGE.">
+  <meta name="description" content="Free ASIC mining profitability calculator. Enter your miner, power cost, and solar hours to see daily profits for BTC, LTC, DOGE, KAS, BCH, and 11 more coins.">
   <meta name="keywords" content="bitcoin mining calculator, ASIC miner profitability, solar mining, crypto mining calculator, S19 profit, home mining, free electricity mining">
   <meta name="author" content="Sola Ray Effect">
   <meta name="robots" content="index, follow">
@@ -3497,7 +3497,7 @@
       // Small network ~50 PH/s. XEC has 2 extra decimals vs BTC (3,125,000 XEC = 1 BCH reward equivalent)
       if (data.XEC && data.XEC.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.XEC.block_time || 600);
-        const dailyCoins = (data.XEC.block_reward || 3125000) * blocksPerDay;
+        const dailyCoins = (data.XEC.block_reward || 1812500) * blocksPerDay;
         const perTH = dailyCoins / (data.XEC.network_hashrate / 1e12);
 
         const validation = validateAndUpdateRate('SHA-256-XEC', perTH, 'XEC');
@@ -3524,7 +3524,7 @@
       // FB (SHA-256 via Fractal mempool API)
       // 621 EH/s network, 25 FB/block, 30s block time. Per TH/s very small number.
       if (data.FB && data.FB.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.FB.block_time || 30);
+        const blocksPerDay = 86400 / (data.FB.block_time || 45);
         const dailyCoins = (data.FB.block_reward || 25) * blocksPerDay;
         const perTH = dailyCoins / (data.FB.network_hashrate / 1e12);
 
