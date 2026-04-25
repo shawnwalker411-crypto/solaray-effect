@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Page Not Found | Sola Ray Effect</title>
+  <!-- Google Analytics (production only) -->
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -86,18 +102,19 @@
 </head>
 <body>
   <div class="container">
-    <div class="sun">&#x2714;&#xFE0F;</div>
+    <div class="sun">&#x2600;&#xFE0F;</div>
     <h1>404</h1>
     <h2>This page got lost in the mine</h2>
-    <p>The page you're looking for doesn't exist or has been moved. Let's get you back to calculating profits.</p>
+    <p>The page you&rsquo;re looking for doesn&rsquo;t exist or has been moved. Let&rsquo;s get you back to calculating profits.</p>
     <div class="links">
-      <a href="/" class="primary">&#x21CF;&#xFE0F; Calculator</a>
+      <a href="/" class="primary">&#x1F9EE; Calculator</a>
       <a href="/miners.html">Miners</a>
       <a href="/pools.html">Pools</a>
       <a href="/aftermarket_firmware.html">Firmware</a>
       <a href="/electrical_setup.html">Electrical</a>
       <a href="/remote_management.html">Remote Mgmt</a>
       <a href="/solar_mining.html">Solar Mining</a>
+      <a href="/solar_forecast.html">Solar Forecast</a>
       <a href="/lottery_mining.html">Lottery Mining</a>
       <a href="/glossary.html">Glossary</a>
       <a href="/datavault.html">Data Vault</a>
