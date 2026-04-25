@@ -296,9 +296,145 @@
     footer { text-align: center; padding: 2rem 1rem; margin-top: 2rem; border-top: 1px solid rgba(0,206,209,0.2); color: #8899aa; }
     footer a { color: #00CED1; text-decoration: none; }
     footer a:hover { color: #D4AF37; }
+
+    /* ============================================
+       GLOSSARY DRAWER (matches site convention)
+       ============================================ */
+    .glossary-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 420px;
+      max-width: 92vw;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 2px solid var(--sola-teal);
+      z-index: 1001;
+      transition: right 0.25s ease;
+      padding: 1.5rem 1.5rem 1.25rem;
+      overflow-y: auto;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+    }
+    .glossary-drawer.open { right: 0; }
+    .glossary-drawer-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: 1px solid rgba(0, 206, 209, 0.55);
+      color: var(--sola-teal);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.35rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 18px rgba(0, 206, 209, 0.12);
+    }
+    .glossary-drawer-close:hover {
+      background: rgba(0, 206, 209, 0.12);
+      border-color: var(--sola-teal);
+    }
+    .glossary-drawer h3 {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--sola-gold);
+      font-size: 1.35rem;
+      margin: 0.25rem 0 0.85rem;
+      padding-right: 2.5rem;
+      letter-spacing: 0.5px;
+    }
+    .glossary-drawer p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin: 0 0 1rem;
+      font-size: 0.98rem;
+    }
+    .glossary-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 1000;
+    }
+    .glossary-overlay.show { display: block; }
+    .glossary-term {
+      color: var(--sola-teal);
+      border-bottom: 1px dotted rgba(0, 206, 209, 0.7);
+      cursor: help;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+    }
+    .glossary-term:hover {
+      color: var(--sola-gold);
+      border-color: rgba(212, 175, 55, 0.8);
+    }
+    .glossary-term-actions {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.14);
+    }
+    .glossary-more-link {
+      color: var(--sola-teal);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .glossary-more-link:hover { color: var(--sola-gold); }
+    .glossary-term-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+    .glossary-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .glossary-pill:hover {
+      transform: translateY(-1px);
+      background: rgba(0, 206, 209, 0.14);
+      border-color: rgba(0, 206, 209, 0.55);
+      color: var(--sola-teal);
+      text-decoration: none;
+    }
+    .glossary-pill-official {
+      border-color: rgba(0, 206, 209, 0.35);
+      background: rgba(0, 206, 209, 0.08);
+      color: var(--sola-teal);
+    }
+    @media (max-width: 600px) {
+      .glossary-drawer { width: 100%; right: -100%; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Glossary Drawer -->
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here...</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
+    </div>
+  </div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
 
   <div id="main-content">
 
@@ -311,7 +447,7 @@
 
     <!-- ZIP ENTRY -->
     <div class="zip-screen" id="zip-screen">
-      <p class="zip-intro">Enter your 5-digit US zip code for hourly sun strength, cloud cover, 5-day solar outlook, tonight&rsquo;s sky, and moon phase.</p>
+      <p class="zip-intro">Enter your 5-digit US zip code for hourly sun strength, <span class="glossary-term" data-term="cloud-cover">cloud cover</span>, 5-day solar outlook, tonight&rsquo;s sky, and <span class="glossary-term" data-term="moon-phase">moon phase</span>.</p>
       <div class="zip-form">
         <input type="text" id="zip-input" maxlength="5" inputmode="numeric" pattern="[0-9]{5}" placeholder="75001" autocomplete="postal-code" aria-label="Enter zip code">
         <button class="zip-btn" id="zip-go-btn" type="button">GO</button>
@@ -588,8 +724,8 @@
       return 'Poor Viewing';
     }
     function skyRatingDesc(r) {
-      if (r === 'perfect') return 'Dark clear skies. Faint stars, Milky Way, and deep-sky objects should all be visible.';
-      if (r === 'good') return 'Clear enough for planets, bright stars, and constellations. Faint stuff washed out by moon or haze.';
+      if (r === 'perfect') return 'Dark clear skies. Faint stars, <span class="glossary-term" data-term="milky-way">Milky Way</span>, and <span class="glossary-term" data-term="deep-sky-objects">deep-sky objects</span> should all be visible.';
+      if (r === 'good') return 'Clear enough for planets, bright stars, and <span class="glossary-term" data-term="constellation">constellations</span>. Faint stuff washed out by moon or haze.';
       if (r === 'fair') return 'Partial clouds. The moon and brightest planets still show through.';
       return 'Too cloudy to see much. Save the telescope for another night.';
     }
@@ -677,19 +813,19 @@
         return [
           { icon: '&#11088;', text: '<strong>Leo</strong> rises in the east after dark &mdash; look for the backwards question mark.' },
           { icon: '&#127776;', text: '<strong>Jupiter</strong> shines bright in the evening sky most of spring.' },
-          { icon: '&#128393;', text: '<strong>Lyrid meteor shower</strong> peaks around April 22 &mdash; best viewing after midnight.' }
+          { icon: '&#128393;', text: '<strong>Lyrid <span class="glossary-term" data-term="meteor-shower">meteor shower</span></strong> peaks around April 22 &mdash; best viewing after midnight.' }
         ];
       } else if (m >= 5 && m <= 7) {
         return [
           { icon: '&#11088;', text: '<strong>Milky Way</strong> arches across the southern sky on clear summer nights.' },
           { icon: '&#127776;', text: '<strong>Scorpius</strong> and <strong>Sagittarius</strong> host the galactic center.' },
-          { icon: '&#128393;', text: '<strong>Perseid meteor shower</strong> peaks around August 12 &mdash; one of the year&rsquo;s best.' }
+          { icon: '&#128393;', text: '<strong>Perseid <span class="glossary-term" data-term="meteor-shower">meteor shower</span></strong> peaks around August 12 &mdash; one of the year&rsquo;s best.' }
         ];
       } else {
         return [
-          { icon: '&#11088;', text: '<strong>Andromeda Galaxy</strong> is visible to the naked eye under dark skies.' },
+          { icon: '&#11088;', text: '<strong>Andromeda Galaxy</strong> is visible to the <span class="glossary-term" data-term="naked-eye">naked eye</span> under dark skies.' },
           { icon: '&#127776;', text: '<strong>Jupiter and Saturn</strong> are evening standouts during autumn months.' },
-          { icon: '&#128393;', text: '<strong>Orionid meteor shower</strong> peaks around October 21.' }
+          { icon: '&#128393;', text: '<strong>Orionid <span class="glossary-term" data-term="meteor-shower">meteor shower</span></strong> peaks around October 21.' }
         ];
       }
     }
@@ -919,7 +1055,7 @@
         html +=   '<div class="moon-panel">';
         html +=     '<div class="moon-glyph">' + moon.glyph + '</div>';
         html +=     '<div class="moon-phase-name">' + moon.name + '</div>';
-        html +=     '<div class="moon-illum">' + moon.illumination + '% illuminated</div>';
+        html +=     '<div class="moon-illum">' + moon.illumination + '% <span class="glossary-term" data-term="moon-illumination">illuminated</span></div>';
         html +=   '</div>';
         html +=   '<div class="sky-stats">';
         html +=     '<div class="sky-stat"><span class="sky-stat-label">Avg Cloud</span><span class="sky-stat-value">' + tonight.avgCloud + '%</span></div>';
@@ -959,7 +1095,7 @@
       /* What's up tonight */
       html += '<div class="section-label night">&#128302; What&rsquo;s Up This Season</div>';
       html += '<div class="whats-up">';
-      html +=   '<div class="whats-up-title">Notable sights for the naked eye</div>';
+      html +=   '<div class="whats-up-title">Notable sights for the <span class="glossary-term" data-term="naked-eye">naked eye</span></div>';
       var items = whatsUpItems();
       for (var w = 0; w < items.length; w++) {
         html += '<div class="whats-up-row">';
@@ -1014,6 +1150,10 @@
   </script>
 
   </div>
+
+  <!-- Shared Glossary System -->
+  <script src="/scripts/glossary-data.js"></script>
+  <script src="/scripts/glossary-drawer.js"></script>
 
 </body>
 </html>
