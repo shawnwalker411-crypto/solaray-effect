@@ -55,6 +55,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.solarayeffect.com/solar_forecast.html</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.solarayeffect.com/lottery_mining.html</loc>
     <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
