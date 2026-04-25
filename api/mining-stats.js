@@ -135,25 +135,81 @@ async function fetchCoinData(coin) {
 }
 
 /* ================= KAS (NOWNodes Kaspa REST) ================= */
+/* Post-Crescendo (May 2025): 10 BPS, block_time = 0.1s.                */
+/*                                                                      */
+/* /info/network    -> returns difficulty (number) + blockCount (string) */
+/*                    Does NOT return hashrate.                         */
+/* /info/hashrate   -> returns {"hashrate": <TH/s as number>}            */
+/* /info/blockreward -> returns {"blockreward": <KAS as number>}         */
+/*                                                                      */
+/* Verified live against NOWNodes 2026-04-25.                           */
+/*                                                                      */
+/* Strategy:                                                            */
+/*   1. Fetch all 3 endpoints in parallel.                              */
+/*   2. Use /info/hashrate value if available (most accurate).          */
+/*   3. Fall back to difficulty / 0.1 if hashrate endpoint fails.       */
+/*   4. Sanity-clamp final hashrate to 50-2000 PH/s (real Kaspa range). */
+/*   5. Set hashrate_estimated honestly based on data source.           */
+
+const KAS_BLOCK_TIME_SECONDS = 0.1;       // Post-Crescendo 10 BPS
+const KAS_BLOCK_REWARD_FALLBACK = 2.91;   // Current dynamic subsidy as of 2026-04
+const KAS_HASHRATE_MIN = 50e15;           // 50 PH/s sanity floor
+const KAS_HASHRATE_MAX = 2000e15;         // 2 EH/s sanity ceiling
 
 async function fetchKAS() {
   const apiKey = process.env.NOWNODES_API_KEY;
   if (!apiKey) throw new Error('Missing NOWNodes API key');
 
-  const res = await fetch('https://kas.nownodes.io/info/network', {
-    headers: { 'api-key': apiKey }
-  });
+  const headers = { 'api-key': apiKey };
+  const base = 'https://kas.nownodes.io';
 
-  const data = await res.json();
+  const [networkRes, hashrateRes, rewardRes] = await Promise.allSettled([
+    fetch(`${base}/info/network`, { headers }).then(r => r.json()),
+    fetch(`${base}/info/hashrate`, { headers }).then(r => r.json()),
+    fetch(`${base}/info/blockreward`, { headers }).then(r => r.json())
+  ]);
+
+  const networkData = networkRes.status === 'fulfilled' ? networkRes.value : {};
+  const difficulty = Number(networkData.difficulty) || 0;
+  const height = Number(networkData.blockCount) || 0;
+
+  let networkHashrate = 0;
+  let hashrateEstimated = true;
+
+  if (hashrateRes.status === 'fulfilled') {
+    const liveHashrateTHs = Number(hashrateRes.value?.hashrate);
+    if (Number.isFinite(liveHashrateTHs) && liveHashrateTHs > 0) {
+      networkHashrate = liveHashrateTHs * 1e12;
+      hashrateEstimated = false;
+    }
+  }
+
+  if (networkHashrate === 0 && difficulty > 0) {
+    networkHashrate = difficulty / KAS_BLOCK_TIME_SECONDS;
+    hashrateEstimated = true;
+  }
+
+  if (networkHashrate < KAS_HASHRATE_MIN || networkHashrate > KAS_HASHRATE_MAX) {
+    networkHashrate = 400e15;
+    hashrateEstimated = true;
+  }
+
+  let blockReward = KAS_BLOCK_REWARD_FALLBACK;
+  if (rewardRes.status === 'fulfilled') {
+    const liveReward = Number(rewardRes.value?.blockreward);
+    if (Number.isFinite(liveReward) && liveReward > 0 && liveReward < 60) {
+      blockReward = liveReward;
+    }
+  }
 
   return {
     coin: 'KAS',
-    difficulty: data.difficulty || 0,
-    network_hashrate: data.hashrate || 0,
-    block_reward: Number(data.reward) || 50,
-    block_time: 1,
-    height: data.blockCount || 0,
-    hashrate_estimated: false
+    difficulty,
+    network_hashrate: networkHashrate,
+    block_reward: blockReward,
+    block_time: KAS_BLOCK_TIME_SECONDS,
+    height,
+    hashrate_estimated: hashrateEstimated
   };
 }
 
