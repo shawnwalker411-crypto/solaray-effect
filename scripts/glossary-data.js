@@ -508,12 +508,12 @@ var SOLA_GLOSSARY = {
 
   "ecash": {
     title: "eCash (XEC)",
-    definition: "A SHA-256 cryptocurrency that forked from Bitcoin Cash in 2021. Uses the same algorithm as Bitcoin so any SHA-256 ASIC can mine it. The network is much smaller than BTC or BCH (~50 PH/s), which means higher per-TH yields. XEC has 2 extra decimal places compared to BTC \u2014 one BCH-equivalent block reward equals 3,125,000 XEC. NOWNodes is the primary shared RPC provider."
+    definition: "A SHA-256 cryptocurrency that forked from Bitcoin Cash in 2021. Uses the same algorithm as Bitcoin so any SHA-256 ASIC can mine it. The network is much smaller than BTC or BCH (~50 PH/s), which means higher per-TH yields. XEC has 2 extra decimal places compared to BTC \u2014 one BCH-equivalent block reward equals 1,812,500 XEC. NOWNodes is the primary shared RPC provider."
   },
 
   "alephium": {
     title: "Alephium (ALPH)",
-    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1). Network hashrate is around 14 PH/s. Block time is 64 seconds. Can be dual-mined with Ethereum Classic on compatible GPU setups. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
+    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1). Network hashrate is around 9 PH/s. Block time is about 0.5 seconds, achieved through a sharded BlockFlow architecture that processes multiple chains in parallel. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
   },
 
   "blake3": {
@@ -523,7 +523,7 @@ var SOLA_GLOSSARY = {
 
   "fractal-bitcoin": {
     title: "Fractal Bitcoin (FB)",
-    definition: "A Bitcoin-compatible chain using SHA-256 with 30-second block times (20x faster than Bitcoin). Uses a hybrid mining model called Cadence Mining: 2 out of every 3 blocks are permissionless (any SHA-256 ASIC can mine directly), while 1 in 3 is merged-mined with Bitcoin. The site lists FB as standalone SHA-256 mining using the permissionless lane. Network is large (~621 EH/s) due to BTC merge miners, which lowers per-TH yield significantly."
+    definition: "A Bitcoin-compatible chain using SHA-256, designed for faster block times than Bitcoin (nominal 30 seconds, though observed averages run higher and vary). Any SHA-256 ASIC can mine it directly \u2014 no special hardware required. Network hashrate for permissionless mining sits around 0.7 EH/s, which is much smaller than Bitcoin's overall network. That smaller scale gives meaningful per-TH yield for ASICs that participate. Use a dedicated FB pool rather than pointing your miner at a Bitcoin pool."
   },
 
   "radiant": {
