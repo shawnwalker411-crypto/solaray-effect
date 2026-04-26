@@ -246,6 +246,17 @@
     .mining-link { padding: 0.85rem 1rem; background: rgba(0,206,209,0.05); border-left: 3px solid var(--sola-teal); border-radius: 0 8px 8px 0; font-size: 0.85rem; color: var(--text-secondary); margin-top: 1.25rem; }
     .mining-link a { font-weight: 600; text-decoration: none; }
 
+    /* Affiliate: shoppable tile (Slot 1 - inherits .appliance-item, adds hover) */
+    .appliance-shop { display: block; text-decoration: none; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease; }
+    .appliance-shop:hover { border-color: var(--sola-gold); background: rgba(212,175,55,0.06); transform: translateY(-1px); }
+    .appliance-shop .a-arrow { color: var(--sola-gold); margin-left: 0.2rem; font-weight: 700; }
+
+    /* Affiliate: shop callout (Slots 2 & 3) */
+    .shop-link { padding: 0.85rem 1rem; background: rgba(212,175,55,0.05); border-left: 3px solid var(--sola-gold); border-radius: 0 8px 8px 0; font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.75rem; }
+    .shop-link a { color: var(--sola-gold); font-weight: 600; text-decoration: none; }
+    .shop-link a:hover { text-decoration: underline; }
+    .sky-shop-link { background: rgba(212,175,55,0.04); margin-top: 1rem; }
+
     /* STARGAZING SECTION */
     .sky-header { background: linear-gradient(135deg, var(--bg-night), rgba(10,15,35,0.6)); border: 1px solid var(--border-night); border-radius: 12px; padding: 1.5rem 1.25rem; margin-bottom: 1rem; }
     .sky-header-title { font-family: 'Noto Sans JP', sans-serif; font-weight: 700; font-size: 1.3rem; color: #c7d2fe; margin-bottom: 1rem; text-align: center; text-shadow: 0 0 12px rgba(139,92,246,0.45); }
@@ -1295,13 +1306,16 @@
       html +=     '<div class="appliance-item"><span class="a-icon">&#128296;</span><span class="a-label">Power Tools</span></div>';
       html +=     '<div class="appliance-item"><span class="a-icon">&#128085;</span><span class="a-label">Clothes Dryer</span></div>';
       html +=     '<div class="appliance-item"><span class="a-icon">&#127869;</span><span class="a-label">Dishwasher</span></div>';
-      html +=     '<div class="appliance-item"><span class="a-icon">&#9935;</span><span class="a-label">Crypto Miners</span></div>';
+      html +=     '<a class="appliance-item appliance-shop" href="https://www.ebay.com/sch/i.html?_nkw=Antminer+ASIC&_sacat=179197&customid=solar-miners&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored"><span class="a-icon">&#9935;</span><span class="a-label">Crypto Miners <span class="a-arrow">&rarr;</span></span></a>';
       html +=     '<div class="appliance-item"><span class="a-icon">&#128187;</span><span class="a-label">Server Rigs</span></div>';
       html +=   '</div>';
       html += '</div>';
 
       /* MINING CROSS-LINK */
       html += '<div class="mining-link">Running ASIC miners on solar? See our <a href="solar_mining.html">Solar Mining Guide &rarr;</a> for setup details and real-world numbers.</div>';
+
+      /* AFFILIATE: ASIC SHOPPING */
+      html += '<div class="shop-link">Shopping for an ASIC? <a href="https://www.ebay.com/sch/i.html?_nkw=Antminer+Bitmain+ASIC+miner&_sacat=179197&customid=solar-asic&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Browse solar-friendly miners on eBay &rarr;</a></div>';
 
       /* ============ NIGHT SECTION ============ */
       html += '<div class="section-divider night"></div>';
@@ -1364,6 +1378,9 @@
         html += '</div>';
       }
       html += '</div>';
+
+      /* AFFILIATE: STARGAZING GEAR */
+      html += '<div class="shop-link sky-shop-link">Want to see this yourself? <a href="https://www.ebay.com/sch/i.html?_nkw=telescope+binoculars+astronomy&_sacat=28179&customid=solar-telescope&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Browse beginner telescopes &amp; binoculars on eBay &rarr;</a></div>';
 
       /* Data credits */
       html += '<div class="data-credits">Data: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>. Moon phase calculated locally. Seasonal sky highlights updated manually.</div>';
