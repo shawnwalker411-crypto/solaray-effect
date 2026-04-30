@@ -16,7 +16,7 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.solarayeffect.com/electrical_setup.html">
-  <meta property="og:title" content="Home Mining Electrical Guide | The Sola Ray Effect">
+  <meta property="og:title" content="Electrical Setup for Home Mining | Sola Ray Effect">
   <meta property="og:description" content="Home mining electrical guide: 120V vs 240V circuits, breaker requirements, PDU setups, and safety basics for ASIC miners.">
   <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
@@ -43,7 +43,7 @@
       gtag("config", "G-M6F5T8Y2P6");
     })();
   </script>
-  <title>Home Mining Electrical Guide &mdash; 120V vs 240V Wiring &amp; Safety | The Sola Ray Effect</title>
+  <title>Home Mining Electrical Guide &mdash; 120V vs 240V Wiring &amp; Safety</title>
   <!-- Self-hosted fonts -->
   <style>
     @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
@@ -791,11 +791,21 @@
     }
     
     .legal-checkbox-row input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       margin-top: 2px;
       accent-color: var(--sola-teal);
       cursor: pointer;
+      border: 2px solid var(--sola-teal);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    
+    .legal-checkbox-hint {
+      color: var(--sola-teal);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
     }
     
     .legal-checkbox-row label {
@@ -929,13 +939,14 @@
         <p>You expressly assume all risks associated with using this educational content to inform electrical decisions. You acknowledge that electrical work is inherently dangerous and that professional consultation is strongly recommended.</p>
       </div>
       <div class="legal-modal-footer">
+        <p class="legal-checkbox-hint">&#9888; Check the box below to enable the &ldquo;I Agree &amp; Continue&rdquo; button.</p>
         <div class="legal-checkbox-row">
           <input type="checkbox" id="legal-checkbox">
           <label for="legal-checkbox">I have read, understand, and agree to the above terms. I am at least 18 years old and accept full responsibility for my electrical decisions.</label>
         </div>
         <div class="legal-btn-row">
           <button class="legal-btn legal-btn-decline" id="legal-decline">I Do Not Agree</button>
-          <button class="legal-btn legal-btn-agree" id="legal-agree" disabled>I Agree & Continue</button>
+          <button class="legal-btn legal-btn-agree" id="legal-agree" disabled>I Agree &amp; Continue</button>
         </div>
       </div>
     </div>
