@@ -14,9 +14,11 @@
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.solarayeffect.com/solar_forecast.html">
-  <meta property="og:title" content="Solar Forecast &amp; Stargazing &mdash; The Sola Ray Effect">
+  <meta property="og:title" content="Solar Forecast &amp; Stargazing | The Sola Ray Effect">
   <meta property="og:description" content="Daytime solar forecast plus tonight&rsquo;s sky outlook. One page, both sides of the day.">
   <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
 
   <script>
     (function () {
@@ -34,7 +36,7 @@
     })();
   </script>
 
-  <title>Solar Forecast &amp; Stargazing &mdash; The Sola Ray Effect</title>
+  <title>Solar Forecast &amp; Stargazing | The Sola Ray Effect</title>
 
   <style>
     @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
@@ -159,7 +161,7 @@
     /* Hour timeline */
     /* ============================================
        HOURLY FORECAST
-       Desktop: two-row heatmap (Sun / Cloud)
+       Desktop: two-row heatmap (Solar / Cloud)
        Mobile: horizontal rows with bars
        ============================================ */
 
@@ -1261,7 +1263,7 @@
         html +=   '<div class="hour-time">' + fmtHour(h.time) + '</div>';
         html +=   '<div class="hour-bars">';
         html +=     '<div class="bar-row"><span class="bar-label">Cloud</span><div class="bar-track"><div class="bar-fill cloud" style="width:' + h.cloudPct + '%"></div></div><span class="bar-pct">' + h.cloudPct + '%</span></div>';
-        html +=     '<div class="bar-row"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill sun" style="width:' + h.ghiPct + '%"></div></div><span class="bar-pct">' + h.ghiPct + '%</span></div>';
+        html +=     '<div class="bar-row"><span class="bar-label">Solar</span><div class="bar-track"><div class="bar-fill sun" style="width:' + h.ghiPct + '%"></div></div><span class="bar-pct">' + h.ghiPct + '%</span></div>';
         html +=   '</div>';
         html +=   '<div class="hour-badge">' + cloudIconEntity(h.cloudPct) + '</div>';
         html += '</div>';
@@ -1393,7 +1395,7 @@
         var groups = forecastBody.querySelectorAll('.sunchart-bar-group');
         groups.forEach(function(g){
           g.addEventListener('mouseenter', function(){
-            readout.innerHTML = g.getAttribute('data-hour') + ' &middot; <strong>Sun</strong> ' + g.getAttribute('data-sun') + '% &middot; <strong>Cloud</strong> ' + g.getAttribute('data-cloud') + '%';
+            readout.innerHTML = g.getAttribute('data-hour') + ' &middot; <strong>Solar</strong> ' + g.getAttribute('data-sun') + '% &middot; <strong>Cloud</strong> ' + g.getAttribute('data-cloud') + '%';
           });
           g.addEventListener('mouseleave', function(){
             readout.textContent = 'Hover a bar for hour detail';
