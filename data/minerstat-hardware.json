@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-04-01T09:20:23.892Z",
+  "fetched_at": "2026-05-01T09:56:31.212Z",
   "source": "minerstat/v2/hardware",
-  "note": "May be incomplete depending on MinerStat plan.",
-  "entry_count": 795,
+  "note": "Free tier may be incomplete. Supplemental use only -- the manually curated catalog in miners.html is primary.",
+  "entry_count": 798,
   "data": [
     {
       "id": "61188f24396807ba7ca38919a158766de935852e",
@@ -43362,6 +43362,48 @@
         }
       },
       "specs": null
+    },
+    {
+      "id": "3eaf3c4852eb47b67a2e8e02b825b3f492db6d59",
+      "name": "Bitdeer SealMiner A4 Pro Air",
+      "url": "bitdeer-sealminer-a4-pro-air",
+      "type": "asic",
+      "brand": "Bitdeer",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-05-02",
+        "Dimensions": "197x365x292 cm",
+        "Weight": "15500 kg",
+        "Noise": "75 dB"
+      }
+    },
+    {
+      "id": "c38cf60fc9ea6fac08ffbfbbe3aea4bf4c88c858",
+      "name": "Bitdeer SealMiner A4 Pro Hydro",
+      "url": "bitdeer-sealminer-a4-pro-hydro",
+      "type": "asic",
+      "brand": "Bitdeer",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-05-02",
+        "Dimensions": "482x665x86 cm",
+        "Weight": "20500 kg",
+        "Noise": "50 dB"
+      }
+    },
+    {
+      "id": "d7e94e1f1485e03015d366e46ad19ce7e0857d3a",
+      "name": "Bitdeer SealMiner A4 Ultra Hydro",
+      "url": "bitdeer-sealminer-a4-ultra-hydro",
+      "type": "asic",
+      "brand": "Bitdeer",
+      "algorithms": null,
+      "specs": {
+        "Release": "2026-05-02",
+        "Dimensions": "482x665x86 cm",
+        "Weight": "20500 kg",
+        "Noise": "50 dB"
+      }
     },
     {
       "id": "484ba3dc1194775bae24d1e54e0286e3292a4bdd",
