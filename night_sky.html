@@ -1335,6 +1335,65 @@
     }
 
     /* ============================================
+       PHASE 3 RENDER &mdash; outlook panel
+       7-night outlook strip + best-night callout + Sola tip
+       ============================================ */
+    function renderOutlook() {
+      var panel = $('outlook-panel');
+      if (!panel) return;
+
+      var summaries = buildNightlySummaries(state.data);
+      var best = pickBestNight(summaries);
+      var tip = getSolaTip();
+
+      var html = '';
+
+      /* Best night callout (only if there&rsquo;s a clear winner that&rsquo;s actually decent) */
+      if (best && best.summary.rating.key !== 'skip' && best.summary.rating.key !== 'poor') {
+        var bn = best.summary;
+        var dayName = bn.date.toLocaleDateString('en-US', { weekday: 'long' });
+        var dateStr = bn.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        html += '<section class="section" style="border-color:var(--sola-gold);background:linear-gradient(135deg,rgba(212,175,55,0.10),var(--bg-card));">';
+        html += '<h2 class="section-title" style="color:var(--sola-gold);">&#11088; Your Best Night This Week</h2>';
+        html += '<div style="font-size:1.1rem;color:var(--text-primary);margin-bottom:0.4rem;"><strong>' + dayName + ' (' + dateStr + ')</strong> &mdash; ' + bn.rating.label + '</div>';
+        html += '<div style="color:var(--text-secondary);font-size:0.9rem;">' + bn.avgCloud + '% avg cloud cover, ' + bn.moon.illumination + '% moon illumination. ' + bn.rating.tip + '</div>';
+        html += '</section>';
+      }
+
+      /* 7-night outlook */
+      if (summaries.length) {
+        html += '<section class="section">';
+        html += '<h2 class="section-title">&#128197; 7-Night Outlook</h2>';
+        html += '<div class="night-outlook">';
+        summaries.forEach(function(s, idx) {
+          var isBest = best && best.idx === idx;
+          var dayName = s.date.toLocaleDateString('en-US', { weekday: 'short' });
+          var dateNum = s.date.getDate();
+          html += '<div class="night-card' + (isBest ? ' best-night' : '') + '">';
+          html += '<div class="night-day">' + dayName + '</div>';
+          html += '<div class="night-date">' + dateNum + '</div>';
+          html += '<div style="margin:0.4rem 0;font-size:1.4rem;line-height:1;">' + s.moon.glyph + '</div>';
+          html += '<div style="font-size:0.7rem;color:var(--text-muted);">' + s.avgCloud + '% cloud</div>';
+          html += '<div style="margin-top:0.4rem;"><span class="rating-badge rating-' + s.rating.key + '" style="font-size:0.65rem;padding:0.15rem 0.45rem;">' + s.rating.label + '</span></div>';
+          html += '</div>';
+        });
+        html += '</div>';
+        html += '</section>';
+      }
+
+      /* Sola&rsquo;s tip */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#128161; Sola&rsquo;s Tip of the Night</h2>';
+      html += '<div class="sola-voice">';
+      html += '<div class="sola-avatar">&#9728;&#65039;</div>';
+      html += '<div class="sola-text">' + tip + '</div>';
+      html += '</div>';
+      html += '</section>';
+
+      panel.innerHTML = html;
+    }
+
+    /* ============================================
        PHASE 6 &mdash; CLOSER PANEL
        Renders three sections from data already fetched in
        state.skyData (no extra API calls):
