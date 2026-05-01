@@ -1041,6 +1041,92 @@
     };
 
     /* ============================================
+       CONSTELLATION OF THE SEASON
+       Each month points to the constellation that dominates the
+       evening sky from the Northern Hemisphere. Content focuses on
+       what beginners can actually find with naked eyes.
+       ============================================ */
+    var CONSTELLATIONS_BY_MONTH = {
+      0: { /* January */
+        name: 'Orion',
+        find: 'Look south-southeast around 9pm. Three bright stars in a perfect short line are Orion&rsquo;s Belt &mdash; impossible to mistake.',
+        signature: 'Below the belt, find the fuzzy Orion Nebula &mdash; one of the few deep-sky objects visible to the naked eye. Above and below the belt are Betelgeuse (orange-red, top-left shoulder) and Rigel (blue-white, bottom-right foot).',
+        story: 'The Hunter, with his belt, sword, club, and shield. Easiest constellation to find in winter and the gateway to amateur astronomy for most people.'
+      },
+      1: { /* February */
+        name: 'Orion',
+        find: 'Look high in the south around 9pm. Three bright stars in a perfect short line are Orion&rsquo;s Belt.',
+        signature: 'Follow the belt down-left to find Sirius, the brightest star in the night sky. Follow it up-right to find the orange-red star cluster of the Pleiades.',
+        story: 'Still the king of the winter sky. February evenings put Orion at his highest, perfect for picking out the nebula and surrounding bright stars.'
+      },
+      2: { /* March */
+        name: 'Leo',
+        find: 'Look east around 9pm for a backwards question mark of stars (called the Sickle). That&rsquo;s the head and mane of Leo the Lion.',
+        signature: 'Regulus is the bright star at the bottom of the Sickle &mdash; one of the brightest stars in the spring sky. The triangle of stars to the east is Leo&rsquo;s hindquarters.',
+        story: 'Spring&rsquo;s headline constellation. Leo rising in the east signals winter is over and the Milky Way starts pulling away from evening view.'
+      },
+      3: { /* April */
+        name: 'Le\u006f &amp; Bo\u006ftes',
+        find: 'Leo dominates the south around 9pm (look for the backwards question mark). To the east, find the bright orange star Arcturus &mdash; that&rsquo;s the kite-shape of Bo\u006ftes the Herdsman.',
+        signature: 'Arcturus is the fourth-brightest star in the night sky and unmistakably orange. Use the curve of the Big Dipper&rsquo;s handle to "arc to Arcturus."',
+        story: 'Spring transition. The winter giants are gone; the summer Milky Way is still hours away. Bo\u006ftes and Leo carry the evening sky.'
+      },
+      4: { /* May */
+        name: 'Bo\u006ftes &amp; Virgo',
+        find: 'Look high in the east-southeast around 10pm. Arcturus (bright orange) marks Bo\u006ftes. Below and to the right, the bluish star Spica marks Virgo.',
+        signature: 'The phrase is "arc to Arcturus, speed on to Spica." Follow the curve of the Big Dipper&rsquo;s handle through Arcturus and continue the same arc to find Spica.',
+        story: 'Spring evenings. Bo\u006ftes the Herdsman drives his hunting dogs across the sky. Virgo is the second-largest constellation but mostly faint &mdash; Spica is her one bright anchor.'
+      },
+      5: { /* June */
+        name: 'Scorpius &amp; the Summer Triangle',
+        find: 'Scorpius rises low in the south by 11pm &mdash; look for the bright red star Antares (the heart of the scorpion). Overhead, three bright stars form the Summer Triangle: Vega, Deneb, and Altair.',
+        signature: 'Antares is one of the most obviously red stars in the sky &mdash; the name literally means "rival of Mars." Vega is the second-brightest star you&rsquo;ll see overhead.',
+        story: 'The summer Milky Way starts climbing the sky. June nights are short but the stars are spectacular &mdash; the heart of our galaxy is now visible.'
+      },
+      6: { /* July */
+        name: 'Sagittarius &amp; the Milky Way',
+        find: 'Look low in the south around 11pm. The brightest part of the Milky Way passes through here. Sagittarius looks like a teapot &mdash; once you see it, you can&rsquo;t unsee it.',
+        signature: 'The "steam" rising from the teapot&rsquo;s spout is the densest, brightest part of the Milky Way &mdash; you&rsquo;re looking straight at the center of our galaxy, 26,000 light-years away.',
+        story: 'Peak Milky Way season. From a dark site, July nights show our galaxy&rsquo;s core like a dim cloud arching overhead. The single best month to drive to dark skies.'
+      },
+      7: { /* August */
+        name: 'Cygnus &amp; the Summer Triangle',
+        find: 'Look straight up around 10pm. The Summer Triangle (Vega, Deneb, Altair) is directly overhead. Cygnus the Swan flies down through the middle of the Milky Way.',
+        signature: 'Cygnus is also called the Northern Cross &mdash; once you see it as a cross, the swan vanishes and the cross is all you see. Deneb is the swan&rsquo;s tail.',
+        story: 'Late summer prime time. The Perseids peak this month and the Milky Way still arches overhead. Bring bug spray and a folding chair.'
+      },
+      8: { /* September */
+        name: 'Cygnus &amp; Cassiopeia',
+        find: 'Cygnus is high overhead at 9pm. Looking northeast, find five bright stars in a clear W shape &mdash; that&rsquo;s Cassiopeia the Queen.',
+        signature: 'Cassiopeia&rsquo;s W is one of the most reliable constellations &mdash; visible all year from most of the US, and unmistakable. Use it to find Polaris and the Andromeda Galaxy.',
+        story: 'Transition month. Summer constellations are still overhead but the autumn cast is rising in the east. Cassiopeia rules the season.'
+      },
+      9: { /* October */
+        name: 'Pegasus &amp; Andromeda',
+        find: 'Look east around 9pm for the Great Square of Pegasus &mdash; four moderately bright stars marking a near-perfect square. From the upper-left corner, two arcs of stars form the constellation Andromeda.',
+        signature: 'In Andromeda, find the Andromeda Galaxy (M31) &mdash; a fuzzy patch visible to the naked eye from a dark site. It&rsquo;s 2.5 million light-years away. The most distant thing your unaided eye can see.',
+        story: 'Autumn arrives. The Andromeda Galaxy is the headline target &mdash; binoculars reveal it as a cigar-shaped smudge, the closest large galaxy to our own.'
+      },
+      10: { /* November */
+        name: 'Pleiades &amp; Taurus',
+        find: 'Look east around 9pm. A small bright cluster of stars (looks like a tiny dipper) is the Pleiades. Below them, a sideways V shape marks the face of Taurus the Bull, with the bright orange star Aldebaran as his eye.',
+        signature: 'The Pleiades look like six stars to the naked eye, but binoculars reveal fifty. Aldebaran is unmistakably orange and the brightest star in Taurus.',
+        story: 'Winter constellations begin their return. Orion follows the Pleiades up the eastern sky a few hours later. November nights are long and stars are clear.'
+      },
+      11: { /* December */
+        name: 'Orion (rising)',
+        find: 'Look east around 9pm. Three bright stars in a perfect short line mark Orion&rsquo;s Belt as the Hunter rises into the winter sky. The Pleiades are higher up to the right.',
+        signature: 'Below the belt is the Orion Nebula &mdash; one of very few nebulae visible to the naked eye. Surrounding bright stars include Sirius (rising later, brightest star in the sky) and Aldebaran.',
+        story: 'The winter sky returns to evening view. The Geminids peak mid-month, raining meteors out of Gemini next to Orion. Best stargazing month of the year for many people.'
+      }
+    };
+
+    function getCurrentConstellation() {
+      var month = new Date().getMonth();
+      return CONSTELLATIONS_BY_MONTH[month];
+    }
+
+    /* ============================================
        BUILD TONIGHT WINDOW
        Pulls hourly data 7pm tonight to 5am tomorrow
        ============================================ */
@@ -1623,6 +1709,29 @@
 
       var sky = state.skyData;
       var html = '';
+
+      /* ===== CONSTELLATION OF THE SEASON ===== */
+      var con = getCurrentConstellation();
+      if (con) {
+        var monthName = new Date().toLocaleDateString('en-US', { month: 'long' });
+        html += '<section class="section">';
+        html += '<h2 class="section-title">&#10024; Constellation This Month: ' + con.name + '</h2>';
+        html += '<div style="margin-bottom:0.85rem;color:var(--text-secondary);font-size:0.85rem;">' + monthName + ' &middot; from a Northern Hemisphere viewing location</div>';
+        html += '<div style="display:flex;flex-direction:column;gap:0.7rem;">';
+        html += '<div style="padding:0.7rem 0.9rem;background:var(--bg-card-solid);border-left:3px solid var(--sola-teal);border-radius:0 6px 6px 0;">';
+        html += '<div style="font-weight:700;color:var(--sola-teal);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">How to Find It</div>';
+        html += '<div style="color:var(--text-primary);font-size:0.92rem;">' + con.find + '</div>';
+        html += '</div>';
+        html += '<div style="padding:0.7rem 0.9rem;background:var(--bg-card-solid);border-left:3px solid var(--sola-gold);border-radius:0 6px 6px 0;">';
+        html += '<div style="font-weight:700;color:var(--sola-gold);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">What to Look For</div>';
+        html += '<div style="color:var(--text-primary);font-size:0.92rem;">' + con.signature + '</div>';
+        html += '</div>';
+        html += '<div style="padding:0.7rem 0.9rem;background:var(--bg-card-solid);border-left:3px solid var(--text-muted);border-radius:0 6px 6px 0;">';
+        html += '<div style="color:var(--text-secondary);font-size:0.88rem;font-style:italic;">' + con.story + '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</section>';
+      }
 
       /* ===== ASTEROIDS ===== */
       html += '<section class="section">';
