@@ -2,6 +2,9 @@
 // Sola's Nightscape data aggregator
 // Fans out to Solar System OpenData + NASA APOD + NeoWs + DONKI, caches for 1 hour
 // Browser calls /api/sky?lat=32.8&lon=-97.1 and gets one combined JSON payload
+//
+// V2 ADDITION: ?action=satellites&lat=&lon= returns ISS/Hubble/Tiangong passes
+// from N2YO. Cached separately, 1 hour TTL.
 
 const fs = require('fs');
 const path = require('path');
@@ -13,6 +16,11 @@ const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
    MAIN HANDLER
    ============================================================ */
 module.exports = async function handler(req, res) {
+  // Route by ?action= parameter; default = original aggregator behavior
+  if (req.query.action === 'satellites') {
+    return handleSatellites(req, res);
+  }
+
   const lat = parseFloat(req.query.lat);
   const lon = parseFloat(req.query.lon);
 
@@ -365,4 +373,135 @@ async function fetchDONKI() {
     return tB - tA;
   });
   return events.slice(0, 8);
+}
+
+/* ============================================================
+   V2 ADDITION: SATELLITE PASSES (N2YO)
+   GET /api/sky?action=satellites&lat=X&lon=Y
+   Returns visual passes for ISS, Hubble, Tiangong over the next 2 days.
+   Cached 1 hour per location to stay under N2YO rate limit (100 visualpasses/hour).
+   ============================================================ */
+
+const N2YO_SATELLITES = [
+  { id: 25544, name: 'ISS' },         // International Space Station
+  { id: 20580, name: 'Hubble' },      // Hubble Space Telescope
+  { id: 48274, name: 'Tiangong' }     // Chinese Space Station (CSS)
+];
+
+async function handleSatellites(req, res) {
+  const lat = parseFloat(req.query.lat);
+  const lon = parseFloat(req.query.lon);
+
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+    return res.status(400).json({
+      success: false,
+      error: 'Missing or invalid lat/lon query parameters'
+    });
+  }
+  if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+    return res.status(400).json({
+      success: false,
+      error: 'lat/lon out of range'
+    });
+  }
+
+  // Per-location cache
+  const cacheKey = `sat_${lat.toFixed(1)}_${lon.toFixed(1)}`;
+  const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
+
+  if (req.query.refresh !== '1') {
+    try {
+      if (fs.existsSync(cacheFile)) {
+        const cached = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+        if (Date.now() - cached.timestamp < CACHE_DURATION_MS) {
+          return res.status(200).json({
+            ...cached.payload,
+            fromCache: true,
+            cacheAge: Math.round((Date.now() - cached.timestamp) / 1000)
+          });
+        }
+      }
+    } catch (e) {
+      // cache miss, proceed
+    }
+  }
+
+  const apiKey = process.env.N2YO_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({
+      success: false,
+      error: 'Missing N2YO_API_KEY env var'
+    });
+  }
+
+  // Fetch all 3 satellites in parallel
+  const results = await Promise.allSettled(
+    N2YO_SATELLITES.map(sat => fetchN2YOPasses(sat, lat, lon, apiKey))
+  );
+
+  const passes = [];
+  const errors = {};
+
+  results.forEach((result, idx) => {
+    const satName = N2YO_SATELLITES[idx].name;
+    if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+      passes.push(...result.value);
+    } else {
+      errors[satName] = result.reason ? (result.reason.message || 'Failed') : 'Unknown error';
+    }
+  });
+
+  // Sort all passes chronologically
+  passes.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
+
+  const payload = {
+    success: true,
+    location: { lat, lon },
+    fetched_at: new Date().toISOString(),
+    passes,
+    errors: Object.keys(errors).length ? errors : null
+  };
+
+  try {
+    fs.writeFileSync(cacheFile, JSON.stringify({
+      timestamp: Date.now(),
+      payload
+    }));
+  } catch (e) {
+    // ignore cache write failures
+  }
+
+  return res.status(200).json(payload);
+}
+
+/* Fetch visual passes for a single satellite from N2YO.
+   Endpoint: /visualpasses/{id}/{lat}/{lon}/{alt}/{days}/{min_visibility}
+   Returns array of normalized pass objects, or throws on error. */
+async function fetchN2YOPasses(sat, lat, lon, apiKey) {
+  // 2 days lookahead, minimum 60 seconds visible
+  const url = `https://api.n2yo.com/rest/v1/satellite/visualpasses/${sat.id}/${lat}/${lon}/0/2/60/&apiKey=${apiKey}`;
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`N2YO returned ${response.status} for ${sat.name}`);
+  }
+
+  const data = await response.json();
+  const rawPasses = Array.isArray(data.passes) ? data.passes : [];
+
+  // Normalize to our standard shape
+  return rawPasses.map(p => ({
+    name: sat.name,
+    satid: sat.id,
+    start: new Date(p.startUTC * 1000).toISOString(),
+    startCompass: p.startAzCompass || null,
+    end: new Date(p.endUTC * 1000).toISOString(),
+    endCompass: p.endAzCompass || null,
+    maxElevation: typeof p.maxEl === 'number' ? Math.round(p.maxEl) : null,
+    duration: typeof p.duration === 'number' ? p.duration : null,
+    magnitude: typeof p.mag === 'number' ? p.mag : null,
+    direction: (p.startAzCompass && p.endAzCompass)
+      ? `${p.startAzCompass} to ${p.endAzCompass}`
+      : null
+  }));
 }
