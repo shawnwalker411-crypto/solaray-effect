@@ -697,7 +697,8 @@
       lon: null,
       city: null,
       data: null,
-      skyData: null
+      skyData: null,
+      satellites: null
     };
 
     /* ============================================
@@ -968,6 +969,30 @@
     }
 
     /* ============================================
+       FETCH SATELLITE PASSES &mdash; sky.js satellite endpoint
+       Returns ISS, Hubble, Tiangong visual passes for next 2 days.
+       Soft-fails: returns null on error.
+       ============================================ */
+    function fetchSatellitePasses(lat, lon) {
+      var url = '/api/sky?action=satellites&lat=' + lat + '&lon=' + lon;
+      return fetch(url)
+        .then(function(r) {
+          if (!r.ok) throw new Error('Satellite API returned ' + r.status);
+          return r.json();
+        })
+        .then(function(data) {
+          if (!data || !data.success || !Array.isArray(data.passes)) {
+            throw new Error('Satellite data unavailable');
+          }
+          return data.passes;
+        })
+        .catch(function(err) {
+          if (window.console) console.warn('Satellite data unavailable:', err.message);
+          return null;
+        });
+    }
+
+    /* ============================================
        AZIMUTH TO COMPASS DIRECTION
        ============================================ */
     function azimuthToCompass(deg) {
@@ -1232,6 +1257,7 @@
           state.zip = null;
           state.data = null;
           state.skyData = null;
+          state.satellites = null;
           panel.innerHTML = '';
           var outlook = $('outlook-panel');
           if (outlook) outlook.innerHTML = '';
@@ -1390,7 +1416,71 @@
       html += '</div>';
       html += '</section>';
 
+      /* Satellite passes (ISS, Hubble, Tiangong) */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#128752; Satellite Passes Next 48 Hours</h2>';
+      html += renderSatellitesContent(state.satellites);
+      html += '</section>';
+
       panel.innerHTML = html;
+    }
+
+    /* ===== SATELLITE PASS RENDERING ===== */
+    function renderSatellitesContent(passes) {
+      if (!Array.isArray(passes)) {
+        return '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
+          'Satellite tracking is loading separately and isn&rsquo;t ready right now. ' +
+          'Check passes at <a href="https://www.heavens-above.com/" target="_blank" rel="noopener">Heavens-Above</a> ' +
+          'or <a href="https://spotthestation.nasa.gov/" target="_blank" rel="noopener">NASA Spot the Station</a>.' +
+          '</div>';
+      }
+
+      if (!passes.length) {
+        return '<div style="color:var(--text-secondary);font-size:0.9rem;padding:0.5rem 0;">No bright satellite passes from your location in the next 48 hours.</div>';
+      }
+
+      /* Show top 8 chronologically; passes already sorted by sky.js */
+      var top = passes.slice(0, 8);
+      var now = new Date();
+      var tomorrow = new Date(now.getTime() + 86400000);
+
+      var html = '<div class="pass-list">';
+      top.forEach(function(p) {
+        var startD = new Date(p.start);
+        var startTime = formatTime(p.start);
+        var dayLabel = startD.toDateString() === now.toDateString() ? 'Tonight' :
+                       startD.toDateString() === tomorrow.toDateString() ? 'Tomorrow' :
+                       startD.toLocaleDateString('en-US', { weekday: 'short' });
+        var durationMin = p.duration ? Math.round(p.duration / 60) : null;
+
+        /* N2YO returns 100000 when magnitude can't be determined */
+        var magStr = '';
+        if (typeof p.magnitude === 'number' && p.magnitude < 99999) {
+          magStr = ' &middot; mag ' + p.magnitude.toFixed(1);
+        }
+
+        var elevStr = '';
+        if (typeof p.maxElevation === 'number') {
+          elevStr = ' &middot; ' + p.maxElevation + '&deg; max';
+        }
+
+        html += '<div class="pass-item">';
+        html += '<div>';
+        html += '<div class="pass-name">&#128752; ' + p.name + '</div>';
+        html += '<div class="pass-detail">' + dayLabel + ' &middot; ' + (p.direction || 'see N2YO');
+        if (durationMin) html += ' &middot; ' + durationMin + ' min';
+        html += elevStr + magStr;
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="pass-time">' + startTime + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '<div style="margin-top:0.75rem;font-size:0.75rem;color:var(--text-muted);">';
+      html += 'Times shown are local. Lower magnitude = brighter (the ISS averages around &minus;3, brighter than any star). ';
+      html += 'Look in the start direction at the listed time and watch for a steady (non-blinking) light moving across the sky.';
+      html += '</div>';
+      return html;
     }
 
     /* ============================================
@@ -1622,16 +1712,18 @@
           state.lon = loc.lon;
           state.city = loc.city;
           try { localStorage.setItem(STORAGE_KEY, zip); } catch (e) {}
-          /* Fetch weather and sky data in parallel.
-             fetchSkyData soft-fails to null, so weather alone is enough to render the page. */
+          /* Fetch weather, sky data, and satellite passes in parallel.
+             All three soft-fail to null, so weather alone is enough to render the page. */
           return Promise.all([
             fetchWeather(loc.lat, loc.lon),
-            fetchSkyData(loc.lat, loc.lon)
+            fetchSkyData(loc.lat, loc.lon),
+            fetchSatellitePasses(loc.lat, loc.lon)
           ]);
         })
         .then(function(results) {
           state.data = results[0];
           state.skyData = results[1]; /* may be null if sky.js failed */
+          state.satellites = results[2]; /* may be null if satellite endpoint failed */
           hide($('zip-screen'));
           renderTonight();
           renderOutlook();
