@@ -386,86 +386,60 @@
     .hour-cloud { font-size: 0.85rem; font-weight: 700; margin-top: 0.2rem; }
 
     /* ============================================
-       CLOUD BAR CHART (replaces .hourly-strip cells)
-       Vertical bars: tall = clear, short = cloudy.
-       Color: white = clear, black = cloudy. So "tall white"
-       at a glance means a great hour to step outside.
+       MOON METER + HOURLY BAR CHART
+       Cloned from solar_forecast.html for visual parity. Same SVG
+       structure, same hover behavior, same mobile fallback rows.
+       Only differences: night palette colors and night-window data.
        ============================================ */
-    .cloud-bar-chart {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 4px;
-      height: 180px;
-      padding: 0.5rem 0.25rem 0;
-      margin-top: 0.5rem;
-      overflow-x: auto;
-    }
-    .cloud-bar-col {
-      flex: 1 1 0;
-      min-width: 36px;
-      max-width: 70px;
-      display: flex;
-      flex-direction: column;
+    /* Mobile-fallback row layout (matches solar_forecast.html .timeline rows). */
+    .mooncloud-rows { margin-top: 0.5rem; }
+    .mooncloud-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 32px;
       align-items: center;
-      justify-content: flex-end;
-      height: 100%;
+      gap: 0.6rem;
+      padding: 0.5rem 0.6rem;
+      background: var(--bg-card-solid);
+      border: 1px solid rgba(212,175,55,0.10);
+      border-left: 3px solid rgba(232,240,247,0.18);
+      border-radius: 6px;
+      margin-bottom: 0.35rem;
     }
-    .cloud-bar-value {
-      font-size: 0.72rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.25rem;
-      font-weight: 600;
-      white-space: nowrap;
+    .mooncloud-row.clear { border-left-color: #e8f0f7; }
+    .mooncloud-row.fair { border-left-color: #cbd5e1; }
+    .mooncloud-row.partial { border-left-color: #94a3b8; }
+    .mooncloud-row.overcast { border-left-color: #475569; }
+    .mooncloud-time { font-weight: 700; color: var(--text-primary); font-size: 0.9rem; }
+    .mooncloud-bars { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+    .mc-bar-row { display: flex; align-items: center; gap: 0.5rem; }
+    .mc-bar-label { font-size: 0.7rem; color: var(--text-muted); width: 50px; flex-shrink: 0; }
+    .mc-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .mc-bar-fill { height: 100%; border-radius: 3px; }
+    .mc-bar-fill.cloud { background: linear-gradient(90deg, #475569, #1e293b); }
+    .mc-bar-fill.clear { background: linear-gradient(90deg, #cbd5e1, #f8fafc); }
+    .mc-bar-pct { font-size: 0.7rem; color: var(--text-secondary); width: 36px; text-align: right; flex-shrink: 0; }
+    .mooncloud-badge { font-size: 1.3rem; }
+
+    /* Moon-meter + hourly bars chart (desktop only) */
+    .moonchart { display: none; }
+
+    @media (min-width: 600px) {
+      /* hide the mobile rows when chart is active */
+      .mooncloud-rows.as-chart { display: none; }
+
+      .moonchart { display: block; padding: 1.25rem 1.25rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; margin-top: 0.5rem; }
+      .moonchart-label { text-align: center; color: var(--sola-teal); font-size: 1.25rem; font-weight: 700; text-transform: none; letter-spacing: 0.02em; margin-bottom: 0.75rem; font-family: 'Noto Sans JP', sans-serif; text-shadow: 0 0 14px rgba(0,206,209,0.35); }
+      .moonchart-svg { width: 100%; height: auto; display: block; }
+      .moonchart-bar { transition: filter 0.12s ease; cursor: default; }
+      .moonchart-bar-group:hover .moonchart-bar { filter: brightness(1.25); }
+      .moonchart-bar-group:hover .moonchart-bar-label { fill: var(--sola-teal); }
+      .moonchart-wrap { position: relative; }
+      .moonchart-hover-readout { text-align: center; color: var(--text-secondary); font-size: 0.78rem; margin-top: 0.5rem; font-family: 'Share Tech Mono', monospace; min-height: 1.1rem; }
+      .moonchart-hover-readout strong { color: var(--sola-teal); }
     }
-    .cloud-bar-fill {
-      width: 100%;
-      max-width: 42px;
-      min-height: 4px;
-      border-radius: 4px 4px 2px 2px;
-      box-shadow: 0 0 6px rgba(232, 240, 247, 0.15);
-      transition: filter 0.15s ease;
-    }
-    .cloud-bar-col:hover .cloud-bar-fill {
-      filter: brightness(1.25);
-    }
-    .cloud-bar-time {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 0.4rem;
-      white-space: nowrap;
-    }
-    .cloud-bar-bookends {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 0.25rem;
-      margin-top: 0.4rem;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-    }
-    .cloud-bar-bookends .bookend-label {
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      margin-right: 0.4rem;
-    }
-    .cloud-bar-caption {
-      text-align: center;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-      font-style: italic;
-    }
-    @media (max-width: 600px) {
-      .cloud-bar-chart { height: 150px; gap: 3px; }
-      .cloud-bar-col { min-width: 28px; }
-      .cloud-bar-value { font-size: 0.65rem; }
-      .cloud-bar-time { font-size: 0.65rem; }
-      .cloud-bar-bookends { font-size: 0.62rem; }
-      .cloud-bar-bookends .bookend-label { font-size: 0.55rem; }
+
+    @media (max-width: 599px) {
+      .moonchart { display: none !important; }
     }
 
     /* ============================================
@@ -1523,35 +1497,143 @@
       html += '</div>'; /* end flex */
       html += '</section>';
 
-      /* Hourly cloud bar chart &mdash; tall white = clear, short dark = cloudy.
-         Sunset/sunrise bookends below mirror the solar_forecast.html chart. */
+      /* Moon-meter + hourly bar chart &mdash; cloned from solar_forecast.html.
+         Same SVG structure (viewBox 600x260). Differences:
+           - Dome filled with pale-moonlight gradient instead of sun gradient
+           - Bar gradient: emerald -> grey -> moon-white (vs solar's emerald -> gold -> orange)
+           - Outline color: teal (night accent) instead of gold (solar accent)
+           - Hours: sunset -> sunrise (night window) vs solar's sunrise -> sunset
+           - Bar value: clearness % (100 - cloud) so tall = clear viewing
+         Mobile fallback: row layout (.mooncloud-rows.as-chart) shown under 600px. */
       html += '<section class="section">';
       html += '<h2 class="section-title">&#9729;&#65039; Clouds Hour-by-Hour Tonight</h2>';
-      html += '<div class="cloud-bar-chart">';
+
+      /* Determine current hour index inside the night window (if applicable) */
+      var nowTs = Date.now();
+      var currentHourIdx = -1;
+      for (var ci = 0; ci < windowHours.length; ci++) {
+        var hT = new Date(windowHours[ci].time).getTime();
+        if (nowTs >= hT && nowTs < hT + 3600000) { currentHourIdx = ci; break; }
+      }
+
+      /* Layout (viewBox 600x260):
+           y 20-140   = half-moon dome clipped to semicircle, pale fill + cloud overlay from left
+           y 140-175  = horizon spacer + bar-% labels
+           y 175-235  = bars (60px max height) anchored to baseline at 235
+           y 235-255  = hour labels + sunset/sunrise markers */
+      var mcAvgCloudBlurb = avgCloud <= 20 ? 'MOSTLY CLEAR NIGHT'
+        : avgCloud <= 50 ? 'PARTLY CLOUDY NIGHT'
+        : avgCloud <= 75 ? 'MOSTLY CLOUDY NIGHT'
+        : 'OVERCAST NIGHT';
+      /* Cloud overlay extends from left edge (x=60) by avgCloud% of the 480-wide dome. */
+      var mcCloudOverlayWidth = Math.round(480 * (avgCloud / 100));
+      var mcCloudSplitX = 60 + mcCloudOverlayWidth;
+      var mcNumHours = windowHours.length;
+      var mcBarGap = 4;
+      var mcBarAreaWidth = 480;
+      var mcBarWidth = Math.max(6, Math.floor((mcBarAreaWidth - (mcNumHours - 1) * mcBarGap) / mcNumHours));
+      var mcTotalBars = mcBarWidth * mcNumHours + mcBarGap * (mcNumHours - 1);
+      var mcBarStartX = 60 + Math.floor((mcBarAreaWidth - mcTotalBars) / 2);
+
+      html += '<div class="moonchart">';
+      html += '<div class="moonchart-label">&#127769; Night Sky Forecast</div>';
+      html += '<div class="moonchart-wrap">';
+      html += '<svg class="moonchart-svg" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Half moon meter showing ' + avgCloud + ' percent cloud cover tonight, plus hourly clearness bars from sunset to sunrise">';
+
+      /* Defs: gradients + clip */
+      html += '<defs>';
+      html +=   '<clipPath id="halfmoon-clip"><path d="M 60 140 A 240 120 0 0 1 540 140 Z"/></clipPath>';
+      html +=   '<linearGradient id="moon-fill" x1="0" y1="0" x2="0" y2="1">';
+      html +=     '<stop offset="0%" stop-color="#f8fafc"/>';
+      html +=     '<stop offset="100%" stop-color="#cbd5e1"/>';
+      html +=   '</linearGradient>';
+      html +=   '<linearGradient id="nightcloud-fill" x1="0" y1="0" x2="0" y2="1">';
+      html +=     '<stop offset="0%" stop-color="#475569"/>';
+      html +=     '<stop offset="100%" stop-color="#1e293b"/>';
+      html +=   '</linearGradient>';
+      html +=   '<linearGradient id="moonbar-grad" x1="0" y1="1" x2="0" y2="0">';
+      html +=     '<stop offset="0%" stop-color="#0F6E56"/>';
+      html +=     '<stop offset="50%" stop-color="#7d8590"/>';
+      html +=     '<stop offset="100%" stop-color="#e8f0f7"/>';
+      html +=   '</linearGradient>';
+      html += '</defs>';
+
+      /* Horizon line */
+      html += '<rect x="60" y="140" width="480" height="4" fill="#00CED1" opacity="0.35"/>';
+
+      /* Half-moon with cloud overlay */
+      html += '<g clip-path="url(#halfmoon-clip)">';
+      html +=   '<rect x="60" y="20" width="480" height="125" fill="url(#moon-fill)" opacity="0.95"/>';
+      if (mcCloudOverlayWidth > 0) {
+        html += '<rect x="60" y="20" width="' + mcCloudOverlayWidth + '" height="115" fill="url(#nightcloud-fill)" opacity="0.92"/>';
+      }
+      html += '</g>';
+
+      /* Dome outline */
+      html += '<path d="M 60 140 A 240 120 0 0 1 540 140" stroke="#00CED1" stroke-width="2" fill="none" opacity="0.6"/>';
+
+      /* Cloud/clear split marker (only if there is a split) */
+      if (avgCloud > 0 && avgCloud < 100) {
+        html += '<line x1="' + mcCloudSplitX + '" y1="40" x2="' + mcCloudSplitX + '" y2="155" stroke="#e8f0f7" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.8"/>';
+      }
+
+      /* Center text */
+      html += '<text x="300" y="90" text-anchor="middle" fill="#e8f0f7" font-size="18" font-weight="700" font-family="Share Tech Mono, monospace" style="text-shadow: 0 1px 4px rgba(0,0,0,0.85);">' + avgCloud + '% CLOUD COVER</text>';
+      html += '<text x="300" y="110" text-anchor="middle" fill="#e8f0f7" font-size="11" font-weight="400" font-family="Share Tech Mono, monospace" opacity="0.92" style="text-shadow: 0 1px 3px rgba(0,0,0,0.85);">' + mcAvgCloudBlurb + '</text>';
+
+      /* Bars + bar-top labels + hour labels */
+      var mcBaselineY = 235;
+      var mcBarMaxHeight = 48;
+      for (var bi = 0; bi < mcNumHours; bi++) {
+        var bh = windowHours[bi];
+        var clearPct = Math.round(100 - Math.max(0, Math.min(100, bh.cloud)));
+        var barH = Math.max(2, Math.round((clearPct / 100) * mcBarMaxHeight));
+        var barX = mcBarStartX + bi * (mcBarWidth + mcBarGap);
+        var barY = mcBaselineY - barH;
+        var isNow = (bi === currentHourIdx);
+        var labelColor = isNow ? '#00CED1' : '#8899a8';
+        var labelWeight = isNow ? '700' : '400';
+
+        html += '<g class="moonchart-bar-group" data-hour="' + formatHour(bh.time) + '" data-clear="' + clearPct + '" data-cloud="' + Math.round(bh.cloud) + '">';
+        /* invisible hit target spanning full column */
+        html +=   '<rect class="moonchart-hit" x="' + barX + '" y="175" width="' + mcBarWidth + '" height="' + (mcBaselineY - 175 + 18) + '" fill="transparent"/>';
+        /* bar itself */
+        html +=   '<rect class="moonchart-bar" x="' + barX + '" y="' + barY + '" width="' + mcBarWidth + '" height="' + barH + '" fill="url(#moonbar-grad)" rx="2"/>';
+        /* clearness % label above bar */
+        html +=   '<text class="moonchart-bar-label" x="' + (barX + mcBarWidth/2) + '" y="' + (barY - 4) + '" text-anchor="middle" fill="' + labelColor + '" font-size="9" font-weight="' + labelWeight + '" font-family="Share Tech Mono, monospace">' + clearPct + '</text>';
+        /* hour label below baseline */
+        var hourLbl = formatHour(bh.time).replace(':00 ', '').toLowerCase();
+        html +=   '<text x="' + (barX + mcBarWidth/2) + '" y="250" text-anchor="middle" fill="' + labelColor + '" font-size="9" font-weight="' + labelWeight + '" font-family="Share Tech Mono, monospace">' + hourLbl + '</text>';
+        html += '</g>';
+      }
+
+      /* Sunset/sunrise anchors (reverse of solar's sunrise/sunset because this is the night window) */
+      html += '<text x="60" y="260" text-anchor="start" fill="#5a6a7a" font-size="9" font-family="Share Tech Mono, monospace">SUNSET ' + formatTime(twilights.sunset).toUpperCase() + '</text>';
+      html += '<text x="540" y="260" text-anchor="end" fill="#5a6a7a" font-size="9" font-family="Share Tech Mono, monospace">SUNRISE ' + formatTime(twilights.sunrise).toUpperCase() + '</text>';
+
+      html += '</svg>';
+      html += '<div class="moonchart-hover-readout" id="moonchart-readout">Hover a bar for hour detail</div>';
+      html += '</div>';
+      html += '</div>';
+
+      /* Mobile fallback rows (visible under 600px). Mirrors solar_forecast.html .timeline rows. */
+      html += '<div class="mooncloud-rows as-chart">';
       windowHours.forEach(function(h) {
-        var cloudPct = Math.max(0, Math.min(100, h.cloud));
-        var clearPct = 100 - cloudPct;
-        /* Bar height: minimum 4% so a fully-overcast hour still shows a sliver.
-           Otherwise scales linearly with clearness. */
-        var barHeightPct = Math.max(4, Math.round(clearPct * 0.95) + 4);
-        /* Bar color: black-ish at fully cloudy, moon-white at fully clear.
-           Linear interpolation from rgb(20,20,30) to rgb(255,255,255). */
-        var t = clearPct / 100;
-        var r = Math.round(20 + (255 - 20) * t);
-        var g = Math.round(20 + (255 - 20) * t);
-        var b = Math.round(30 + (255 - 30) * t);
-        html += '<div class="cloud-bar-col" title="' + Math.round(cloudPct) + '% cloud at ' + formatHour(h.time) + '">';
-        html += '<div class="cloud-bar-value">' + Math.round(cloudPct) + '%</div>';
-        html += '<div class="cloud-bar-fill" style="height:' + barHeightPct + '%;background:rgb(' + r + ',' + g + ',' + b + ');"></div>';
-        html += '<div class="cloud-bar-time">' + formatHour(h.time) + '</div>';
+        var cp = Math.round(Math.max(0, Math.min(100, h.cloud)));
+        var clearP = 100 - cp;
+        var rowClass = cp <= 20 ? 'clear' : cp <= 50 ? 'fair' : cp <= 75 ? 'partial' : 'overcast';
+        var icon = cp <= 20 ? '&#127769;' : cp <= 50 ? '&#9729;&#65039;' : cp <= 75 ? '&#9729;' : '&#9928;';
+        html += '<div class="mooncloud-row ' + rowClass + '">';
+        html +=   '<div class="mooncloud-time">' + formatHour(h.time) + '</div>';
+        html +=   '<div class="mooncloud-bars">';
+        html +=     '<div class="mc-bar-row"><span class="mc-bar-label">Cloud</span><div class="mc-bar-track"><div class="mc-bar-fill cloud" style="width:' + cp + '%"></div></div><span class="mc-bar-pct">' + cp + '%</span></div>';
+        html +=     '<div class="mc-bar-row"><span class="mc-bar-label">Clear</span><div class="mc-bar-track"><div class="mc-bar-fill clear" style="width:' + clearP + '%"></div></div><span class="mc-bar-pct">' + clearP + '%</span></div>';
+        html +=   '</div>';
+        html +=   '<div class="mooncloud-badge">' + icon + '</div>';
         html += '</div>';
       });
       html += '</div>';
-      html += '<div class="cloud-bar-bookends">';
-      html += '<div><span class="bookend-label">Sunset</span>' + formatTime(twilights.sunset) + '</div>';
-      html += '<div><span class="bookend-label">Sunrise</span>' + formatTime(twilights.sunrise) + '</div>';
-      html += '</div>';
-      html += '<div class="cloud-bar-caption">Tall &amp; bright = clear viewing. Short &amp; dark = cloudy. Hover a bar for details.</div>';
+
       html += '</section>';
 
       /* Visible planets */
@@ -1631,6 +1713,20 @@
       html += '</section>';
 
       panel.innerHTML = html;
+
+      /* Wire up the moon-chart bar hover readout (mirrors solar_forecast.html) */
+      var moonReadout = document.getElementById('moonchart-readout');
+      if (moonReadout) {
+        var mcGroups = panel.querySelectorAll('.moonchart-bar-group');
+        mcGroups.forEach(function(g) {
+          g.addEventListener('mouseenter', function() {
+            moonReadout.innerHTML = g.getAttribute('data-hour') + ' &middot; <strong>Clear</strong> ' + g.getAttribute('data-clear') + '% &middot; <strong>Cloud</strong> ' + g.getAttribute('data-cloud') + '%';
+          });
+          g.addEventListener('mouseleave', function() {
+            moonReadout.textContent = 'Hover a bar for hour detail';
+          });
+        });
+      }
 
       /* Wire up the change-zip button */
       var changeBtn = $('change-zip-btn');
