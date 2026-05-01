@@ -20,6 +20,9 @@ module.exports = async function handler(req, res) {
   if (req.query.action === 'satellites') {
     return handleSatellites(req, res);
   }
+  if (req.query.action === 'aurora') {
+    return handleAurora(req, res);
+  }
 
   const lat = parseFloat(req.query.lat);
   const lon = parseFloat(req.query.lon);
@@ -487,6 +490,13 @@ async function fetchN2YOPasses(sat, lat, lon, apiKey) {
   }
 
   const data = await response.json();
+
+  // N2YO returns { error: "..." } on bad key, rate limit, etc.
+  // It returns { info: {...}, passes: [...] } on success (passes may be empty).
+  if (data.error) {
+    throw new Error(`N2YO error for ${sat.name}: ${data.error}`);
+  }
+
   const rawPasses = Array.isArray(data.passes) ? data.passes : [];
 
   // Normalize to our standard shape
@@ -504,4 +514,165 @@ async function fetchN2YOPasses(sat, lat, lon, apiKey) {
       ? `${p.startAzCompass} to ${p.endAzCompass}`
       : null
   }));
+}
+
+/* ============================================================
+   V2 ADDITION: AURORA FORECAST (NOAA SWPC)
+   GET /api/sky?action=aurora&lat=X
+   Returns current Kp index, peak Kp in next 24 hours, and aurora
+   visibility assessment based on user's latitude.
+   No API key needed. Cached 1 hour globally (data is location-agnostic
+   in fetch; visibility is computed per-request from cached Kp data).
+   ============================================================ */
+
+async function handleAurora(req, res) {
+  const lat = parseFloat(req.query.lat);
+  if (!Number.isFinite(lat)) {
+    return res.status(400).json({
+      success: false,
+      error: 'Missing or invalid lat query parameter'
+    });
+  }
+  if (lat < -90 || lat > 90) {
+    return res.status(400).json({
+      success: false,
+      error: 'lat out of range'
+    });
+  }
+
+  // Global cache key (Kp data is the same for everyone, only visibility calc is per-lat)
+  const cacheFile = path.join(CACHE_DIR, 'aurora_kp.json');
+  let kpEntries = null;
+
+  if (req.query.refresh !== '1') {
+    try {
+      if (fs.existsSync(cacheFile)) {
+        const cached = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+        if (Date.now() - cached.timestamp < CACHE_DURATION_MS) {
+          kpEntries = cached.entries;
+        }
+      }
+    } catch (e) {
+      // cache miss, proceed
+    }
+  }
+
+  if (!kpEntries) {
+    try {
+      const response = await fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json');
+      if (!response.ok) throw new Error(`NOAA SWPC returned ${response.status}`);
+      const raw = await response.json();
+      if (!Array.isArray(raw)) throw new Error('NOAA SWPC returned non-array');
+
+      // Normalize
+      kpEntries = raw.map(r => ({
+        time: r.time_tag,
+        kp: typeof r.kp === 'number' ? r.kp : parseFloat(r.kp),
+        observed: r.observed || null,        // 'observed' | 'estimated' | 'predicted'
+        noaaScale: r.noaa_scale || null      // null | 'G1' | 'G2' | ... 'G5'
+      })).filter(e => Number.isFinite(e.kp));
+
+      try {
+        fs.writeFileSync(cacheFile, JSON.stringify({
+          timestamp: Date.now(),
+          entries: kpEntries
+        }));
+      } catch (e) {
+        // ignore cache write failures
+      }
+    } catch (err) {
+      return res.status(200).json({
+        success: false,
+        error: err.message || 'Failed to fetch NOAA SWPC data'
+      });
+    }
+  }
+
+  // Find current Kp (most recent observed/estimated entry)
+  const now = Date.now();
+  const past = kpEntries.filter(e => new Date(e.time).getTime() <= now);
+  const current = past.length ? past[past.length - 1] : null;
+
+  // Find peak Kp in next 24 hours (predicted entries)
+  const next24Cutoff = now + 24 * 60 * 60 * 1000;
+  const next24 = kpEntries.filter(e => {
+    const t = new Date(e.time).getTime();
+    return t > now && t <= next24Cutoff;
+  });
+  const peak = next24.reduce((max, e) => (!max || e.kp > max.kp ? e : max), null);
+
+  // Find any active or upcoming storm (NOAA G-scale)
+  const stormWindow = kpEntries.filter(e => {
+    const t = new Date(e.time).getTime();
+    return t >= now - 6 * 60 * 60 * 1000 && t <= next24Cutoff && e.noaaScale;
+  });
+
+  // Compute aurora visibility for user's latitude based on Kp.
+  // Reference: aurora southern boundary moves equatorward as Kp rises.
+  // Approximate magnetic latitude thresholds (geomagnetic, not geographic):
+  //   Kp 0 -> 67N, Kp 3 -> 60N, Kp 5 -> 55N, Kp 6 -> 51N, Kp 7 -> 47N, Kp 8 -> 43N, Kp 9 -> 39N
+  // Using geographic lat as a rough proxy; accurate enough for "yes/no/maybe" guidance.
+  const peakKp = peak ? peak.kp : (current ? current.kp : 0);
+  const auroraSouthernBoundary = kpToSouthernLatitude(peakKp);
+  const userAbsLat = Math.abs(lat);
+  const visibilityMargin = userAbsLat - auroraSouthernBoundary;
+
+  let visibility, summary;
+  if (visibilityMargin >= 5) {
+    visibility = 'likely';
+    summary = `At Kp ${peakKp.toFixed(1)}, aurora should be visible from your latitude (${lat.toFixed(1)}°). Look toward the pole-facing horizon.`;
+  } else if (visibilityMargin >= 0) {
+    visibility = 'possible';
+    summary = `At Kp ${peakKp.toFixed(1)}, aurora might be visible low on the pole-facing horizon from your latitude (${lat.toFixed(1)}°). Get to a dark site away from city lights.`;
+  } else if (visibilityMargin >= -8) {
+    visibility = 'edge';
+    summary = `At Kp ${peakKp.toFixed(1)}, aurora is right at the edge of visibility from your latitude (${lat.toFixed(1)}°). A stronger spike could push it into your sky &mdash; watch for updates.`;
+  } else {
+    visibility = 'unlikely';
+    summary = `At Kp ${peakKp.toFixed(1)}, aurora is unlikely from your latitude (${lat.toFixed(1)}°). Would need a strong geomagnetic storm (Kp 6+) to reach you.`;
+  }
+
+  const payload = {
+    success: true,
+    location: { lat },
+    fetched_at: new Date().toISOString(),
+    current: current ? {
+      time: current.time,
+      kp: current.kp,
+      observed: current.observed,
+      noaaScale: current.noaaScale
+    } : null,
+    peak24h: peak ? {
+      time: peak.time,
+      kp: peak.kp,
+      noaaScale: peak.noaaScale
+    } : null,
+    activeStorms: stormWindow.map(s => ({
+      time: s.time,
+      kp: s.kp,
+      scale: s.noaaScale
+    })),
+    visibility,           // 'likely' | 'possible' | 'edge' | 'unlikely'
+    summary,
+    auroraSouthernBoundary
+  };
+
+  return res.status(200).json(payload);
+}
+
+/* Kp index to approximate southern visible latitude (degrees North).
+   Source: NOAA SWPC Aurora Tutorial.
+   This is the geographic latitude (rough proxy for magnetic) at which
+   aurora becomes visible on the northern horizon under dark, clear skies. */
+function kpToSouthernLatitude(kp) {
+  if (kp <= 0) return 67;
+  if (kp <= 1) return 66;
+  if (kp <= 2) return 64;
+  if (kp <= 3) return 62;
+  if (kp <= 4) return 58;
+  if (kp <= 5) return 55;
+  if (kp <= 6) return 51;
+  if (kp <= 7) return 47;
+  if (kp <= 8) return 43;
+  return 39;
 }
