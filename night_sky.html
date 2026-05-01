@@ -698,7 +698,8 @@
       city: null,
       data: null,
       skyData: null,
-      satellites: null
+      satellites: null,
+      meteorShowers: null
     };
 
     /* ============================================
@@ -993,6 +994,28 @@
     }
 
     /* ============================================
+       FETCH METEOR SHOWERS &mdash; static yearly dataset
+       Soft-fails: returns null on error.
+       ============================================ */
+    function fetchMeteorShowers() {
+      return fetch('/data/meteor-showers.json')
+        .then(function(r) {
+          if (!r.ok) throw new Error('Meteor showers data returned ' + r.status);
+          return r.json();
+        })
+        .then(function(data) {
+          if (!data || !Array.isArray(data.showers)) {
+            throw new Error('Invalid meteor showers data');
+          }
+          return data.showers;
+        })
+        .catch(function(err) {
+          if (window.console) console.warn('Meteor showers unavailable:', err.message);
+          return null;
+        });
+    }
+
+    /* ============================================
        AZIMUTH TO COMPASS DIRECTION
        ============================================ */
     function azimuthToCompass(deg) {
@@ -1258,6 +1281,7 @@
           state.data = null;
           state.skyData = null;
           state.satellites = null;
+          state.meteorShowers = null;
           panel.innerHTML = '';
           var outlook = $('outlook-panel');
           if (outlook) outlook.innerHTML = '';
@@ -1422,6 +1446,12 @@
       html += renderSatellitesContent(state.satellites);
       html += '</section>';
 
+      /* Meteor showers active in next 30 days */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#9732; Meteor Showers</h2>';
+      html += renderMeteorShowersContent(state.meteorShowers);
+      html += '</section>';
+
       panel.innerHTML = html;
     }
 
@@ -1479,6 +1509,101 @@
       html += '<div style="margin-top:0.75rem;font-size:0.75rem;color:var(--text-muted);">';
       html += 'Times shown are local. Lower magnitude = brighter (the ISS averages around &minus;3, brighter than any star). ';
       html += 'Look in the start direction at the listed time and watch for a steady (non-blinking) light moving across the sky.';
+      html += '</div>';
+      return html;
+    }
+
+    /* ===== METEOR SHOWER RENDERING =====
+       Auto-shows showers active in the next 30 days.
+       "Active" = today is between window_start and window_end.
+       "Upcoming" = window_start is within next 30 days.
+       Sorted by peak date ascending. */
+    function renderMeteorShowersContent(showers) {
+      if (!Array.isArray(showers)) {
+        return '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
+          'Meteor shower calendar isn&rsquo;t loaded right now. ' +
+          'See the full year at <a href="https://www.imo.net/resources/calendar/" target="_blank" rel="noopener">International Meteor Organization</a>.' +
+          '</div>';
+      }
+
+      var now = new Date();
+      var horizon = new Date(now.getTime() + 30 * 86400000);
+
+      /* Filter to showers active now or starting within 30 days */
+      var relevant = showers.filter(function(s) {
+        var winStart = new Date(s.window_start);
+        var winEnd = new Date(s.window_end);
+        var isActive = now >= winStart && now <= winEnd;
+        var isUpcoming = winStart > now && winStart <= horizon;
+        return isActive || isUpcoming;
+      });
+
+      /* Sort by peak date */
+      relevant.sort(function(a, b) {
+        return new Date(a.peak).getTime() - new Date(b.peak).getTime();
+      });
+
+      if (!relevant.length) {
+        /* Find the next upcoming shower beyond the 30-day horizon for context */
+        var nextShower = showers
+          .filter(function(s) { return new Date(s.window_start) > now; })
+          .sort(function(a, b) { return new Date(a.window_start).getTime() - new Date(b.window_start).getTime(); })[0];
+
+        var html = '<div style="color:var(--text-secondary);font-size:0.9rem;padding:0.25rem 0;">';
+        html += 'No major meteor showers active in the next 30 days. ';
+        if (nextShower) {
+          var peakD = new Date(nextShower.peak);
+          html += 'The <strong style="color:var(--text-primary);">' + nextShower.name + '</strong> peak ';
+          html += 'is coming up on ' + peakD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) + '.';
+        }
+        html += '</div>';
+        return html;
+      }
+
+      var html = '<div class="event-list">';
+      relevant.forEach(function(s) {
+        var peakD = new Date(s.peak);
+        var winStart = new Date(s.window_start);
+        var winEnd = new Date(s.window_end);
+        var isActive = now >= winStart && now <= winEnd;
+        var daysToPeak = Math.round((peakD.getTime() - now.getTime()) / 86400000);
+
+        /* Status label */
+        var statusLabel;
+        if (isActive && daysToPeak === 0) {
+          statusLabel = '<span style="color:var(--rating-perfect);font-weight:700;">PEAK TONIGHT</span>';
+        } else if (isActive && daysToPeak > 0 && daysToPeak <= 7) {
+          statusLabel = '<span style="color:var(--sola-gold);font-weight:700;">ACTIVE &middot; peaks in ' + daysToPeak + ' day' + (daysToPeak === 1 ? '' : 's') + '</span>';
+        } else if (isActive && daysToPeak > 7) {
+          statusLabel = '<span style="color:var(--sola-teal);">Active &middot; peak ' + peakD.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + '</span>';
+        } else if (isActive && daysToPeak < 0) {
+          statusLabel = '<span style="color:var(--text-muted);">Active &middot; past peak (' + Math.abs(daysToPeak) + ' days ago)</span>';
+        } else {
+          /* Upcoming */
+          var daysToStart = Math.round((winStart.getTime() - now.getTime()) / 86400000);
+          statusLabel = '<span style="color:var(--text-secondary);">Begins in ' + daysToStart + ' day' + (daysToStart === 1 ? '' : 's') + ' &middot; peaks ' + peakD.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + '</span>';
+        }
+
+        /* ZHR rating descriptor */
+        var rateDesc;
+        if (s.zhr >= 100) rateDesc = 'Very strong &mdash; up to ' + s.zhr + ' meteors/hour at peak under perfect conditions';
+        else if (s.zhr >= 50) rateDesc = 'Strong &mdash; up to ' + s.zhr + ' meteors/hour at peak';
+        else if (s.zhr >= 20) rateDesc = 'Moderate &mdash; up to ' + s.zhr + ' meteors/hour at peak';
+        else rateDesc = 'Modest &mdash; about ' + s.zhr + ' meteors/hour at peak';
+
+        html += '<div class="event-item">';
+        html += '<div class="event-date">' + statusLabel + '</div>';
+        html += '<div class="event-title">&#9732; ' + s.name + '</div>';
+        html += '<div class="event-desc">';
+        html += rateDesc + '. ';
+        if (s.best_viewing) html += s.best_viewing + '. ';
+        if (s.notes) html += '<span style="color:var(--text-muted);">' + s.notes + '</span>';
+        html += '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '<div style="margin-top:0.75rem;font-size:0.75rem;color:var(--text-muted);">';
+      html += 'ZHR (Zenithal Hourly Rate) is the maximum count per hour under perfect conditions with the radiant directly overhead. Real counts are usually lower &mdash; expect roughly half ZHR from a dark site, much less from suburbs.';
       html += '</div>';
       return html;
     }
@@ -1712,18 +1837,20 @@
           state.lon = loc.lon;
           state.city = loc.city;
           try { localStorage.setItem(STORAGE_KEY, zip); } catch (e) {}
-          /* Fetch weather, sky data, and satellite passes in parallel.
-             All three soft-fail to null, so weather alone is enough to render the page. */
+          /* Fetch weather, sky data, satellite passes, and meteor showers in parallel.
+             All four soft-fail to null, so weather alone is enough to render the page. */
           return Promise.all([
             fetchWeather(loc.lat, loc.lon),
             fetchSkyData(loc.lat, loc.lon),
-            fetchSatellitePasses(loc.lat, loc.lon)
+            fetchSatellitePasses(loc.lat, loc.lon),
+            fetchMeteorShowers()
           ]);
         })
         .then(function(results) {
           state.data = results[0];
           state.skyData = results[1]; /* may be null if sky.js failed */
           state.satellites = results[2]; /* may be null if satellite endpoint failed */
+          state.meteorShowers = results[3]; /* may be null if data file failed */
           hide($('zip-screen'));
           renderTonight();
           renderOutlook();
