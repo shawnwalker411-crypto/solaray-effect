@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://apod.nasa.gov https://www.nasa.gov; font-src 'self'; connect-src 'self' https://api.open-meteo.com https://nominatim.openstreetmap.org https://api.nasa.gov https://www.google-analytics.com; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free night sky forecast and stargazing planner. Tonight&rsquo;s sky rating, moon phase, visible planets, ISS &amp; satellite passes, what to wear, and upcoming sky events by zip code.">
+  <meta name="keywords" content="night sky forecast, stargazing forecast, moon phase tonight, visible planets tonight, ISS pass times, satellite tracker, what to wear stargazing, sky events tonight, dark sky forecast">
+  <meta name="author" content="Sola Ray Effect">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solarayeffect.com/night_sky.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.solarayeffect.com/night_sky.html">
+  <meta property="og:title" content="Night Sky Tonight | The Sola Ray Effect">
+  <meta property="og:description" content="Tonight&rsquo;s stargazing forecast by zip code. Sky rating, moon, planets, satellites, what to wear, and upcoming events &mdash; all in one place.">
+  <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.solarayeffect.com/night_sky.html">
+  <meta name="twitter:title" content="Night Sky Tonight | The Sola Ray Effect">
+  <meta name="twitter:description" content="Tonight&rsquo;s stargazing forecast by zip code. Sky rating, moon, planets, satellites, what to wear, and upcoming events &mdash; all in one place.">
+  <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
+
+  <!-- Google Analytics (production only) -->
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
+      if (!isProd) return;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-M6F5T8Y2P6");
+    })();
+  </script>
+
+  <title>Night Sky Tonight &mdash; Stargazing Forecast by Zip Code | The Sola Ray Effect</title>
+
+  <!-- Self-hosted fonts -->
+  <style>
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-sans-jp-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/noto-sans-jp-latin-700-normal.woff2") format("woff2"); }
+  </style>
+
+  <!-- Page Styles -->
+  <style>
+    /* ============================================
+       DESIGN TOKENS &mdash; matches site brand
+       ============================================ */
+    :root {
+      --sola-teal: #00CED1;
+      --sola-teal-dark: #008B8B;
+      --sola-teal-glow: rgba(0, 206, 209, 0.4);
+      --sola-teal-bright: #00E5E8;
+      --sola-gold: #D4AF37;
+      --sola-gold-dark: #DAA520;
+      --sola-gold-glow: rgba(255, 215, 0, 0.3);
+      --sola-emerald: #0B2F26;
+      --bg-primary: #0B2F26;
+      --bg-secondary: rgba(8, 26, 21, 0.92);
+      --bg-card: rgba(8, 26, 21, 0.78);
+      --bg-card-solid: #0F2C26;
+      --text-primary: #e8f0f7;
+      --text-secondary: #8899a8;
+      --text-muted: #5a6a7a;
+      --profit: #00e676;
+      --loss: #ff5252;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --border-gold: rgba(255, 215, 0, 0.3);
+
+      /* Night sky &mdash; page accents */
+      --night-deep: #0a0f2c;
+      --night-mid: #1a1f4a;
+      --night-violet: #2d1b69;
+      --star-bright: #fef3c7;
+      --moon-cream: #fffbeb;
+      --rating-perfect: #4ade80;
+      --rating-good: #a3e635;
+      --rating-fair: #facc15;
+      --rating-poor: #fb923c;
+      --rating-skip: #ef4444;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--sola-emerald);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/></g></svg>");
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-size: 600px 600px;
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
+    a { color: var(--sola-teal); text-decoration: none; }
+    a:hover { color: var(--sola-gold); }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    header.page-header {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+      background: linear-gradient(180deg, rgba(45, 27, 105, 0.18) 0%, transparent 100%);
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0.5rem 0;
+    }
+
+    .page-header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 620px;
+      margin: 0.5rem auto 0;
+    }
+
+    /* ============================================
+       SECTIONS / CARDS
+       ============================================ */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      color: var(--sola-gold);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      letter-spacing: 0.02em;
+    }
+
+    /* ============================================
+       ZIP CODE INPUT &mdash; entry point
+       ============================================ */
+    .zip-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 2.5rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-top: 1rem;
+    }
+    .zip-intro {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      text-align: center;
+      max-width: 520px;
+      margin: 0;
+    }
+    .zip-form {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .zip-form input {
+      padding: 0.65rem 0.9rem;
+      background: var(--bg-card-solid);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 1rem;
+      width: 140px;
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+    .zip-form input:focus {
+      outline: none;
+      border-color: var(--sola-teal);
+      box-shadow: 0 0 8px var(--sola-teal-glow);
+    }
+    .zip-btn {
+      padding: 0.65rem 1.5rem;
+      background: linear-gradient(135deg, var(--sola-teal), var(--sola-teal-dark));
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-family: inherit;
+      letter-spacing: 0.05em;
+    }
+    .zip-btn:hover { opacity: 0.9; }
+    .zip-error {
+      color: var(--loss);
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      min-height: 1rem;
+    }
+
+    /* Location bar (after zip submitted) */
+    .location-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin: 0 auto 1.25rem;
+      padding: 0.5rem 0.75rem 0.5rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+    }
+    .location-bar-wrap { text-align: center; }
+    .loc-label { color: var(--text-muted); font-size: 0.8rem; }
+    .loc-name { color: var(--sola-teal); font-weight: 700; font-size: 1.05rem; }
+    .change-zip-btn {
+      background: transparent;
+      border: 1px solid rgba(0, 206, 209, 0.4);
+      color: var(--sola-teal);
+      border-radius: 6px;
+      padding: 0.4rem 0.85rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-family: inherit;
+    }
+    .change-zip-btn:hover { background: rgba(0, 206, 209, 0.1); }
+
+    /* Loading spinner */
+    .loading-wrap { text-align: center; padding: 2rem 1rem; }
+    .spinner {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border: 2px solid rgba(0, 206, 209, 0.25);
+      border-top-color: var(--sola-teal);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 0.75rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============================================
+       SOLA AVATAR / VOICE BLOCKS
+       ============================================ */
+    .sola-voice {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 1rem 1.1rem;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(0, 206, 209, 0.04));
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .sola-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sola-gold), #f97316);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.35);
+    }
+    .sola-text {
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .sola-text strong { color: var(--sola-gold); }
+
+    /* ============================================
+       SKY RATING BADGE (used by Phase 2)
+       ============================================ */
+    .rating-badge {
+      display: inline-block;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .rating-perfect { background: rgba(74, 222, 128, 0.18); color: var(--rating-perfect); border: 1px solid rgba(74, 222, 128, 0.4); }
+    .rating-good    { background: rgba(163, 230, 53, 0.18); color: var(--rating-good);    border: 1px solid rgba(163, 230, 53, 0.4); }
+    .rating-fair    { background: rgba(250, 204, 21, 0.18); color: var(--rating-fair);    border: 1px solid rgba(250, 204, 21, 0.4); }
+    .rating-poor    { background: rgba(251, 146, 60, 0.18); color: var(--rating-poor);    border: 1px solid rgba(251, 146, 60, 0.4); }
+    .rating-skip    { background: rgba(239, 68, 68, 0.18);  color: var(--rating-skip);    border: 1px solid rgba(239, 68, 68, 0.4); }
+
+    /* ============================================
+       MOON PANEL (Phase 2)
+       ============================================ */
+    .moon-panel {
+      text-align: center;
+      padding: 0.85rem;
+      background: rgba(10, 15, 44, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 10px;
+    }
+    .moon-glyph {
+      font-size: 3.2rem;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+      filter: drop-shadow(0 0 12px rgba(255, 251, 235, 0.4));
+    }
+    .moon-phase-name { font-weight: 700; color: var(--moon-cream); font-size: 0.95rem; }
+    .moon-illum { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .moon-rise-set { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem; }
+
+    /* ============================================
+       HOURLY STRIP (Phase 2)
+       ============================================ */
+    .hourly-strip {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 0.5rem 0.25rem;
+      margin-top: 0.5rem;
+    }
+    .hour-cell {
+      flex: 0 0 auto;
+      min-width: 52px;
+      text-align: center;
+      padding: 0.5rem 0.3rem;
+      border-radius: 6px;
+      background: var(--bg-card-solid);
+      border: 1px solid rgba(212, 175, 55, 0.12);
+    }
+    .hour-time { font-size: 0.72rem; color: var(--text-muted); }
+    .hour-cloud { font-size: 0.85rem; font-weight: 700; margin-top: 0.2rem; }
+
+    /* ============================================
+       7-NIGHT OUTLOOK (Phase 3)
+       ============================================ */
+    .night-outlook {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 0.5rem;
+    }
+    .night-card {
+      background: var(--bg-card-solid);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 8px;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+    }
+    .night-card.best-night {
+      border-color: var(--sola-gold);
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.3);
+    }
+    .night-day { font-size: 0.75rem; color: var(--text-muted); }
+    .night-date { font-weight: 700; color: var(--text-primary); font-size: 0.95rem; margin-top: 0.15rem; }
+
+    /* ============================================
+       SATELLITE / ISS PASS LIST (Phase 3)
+       ============================================ */
+    .pass-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .pass-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.85rem;
+      background: var(--bg-card-solid);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    .pass-name { font-weight: 700; color: var(--sola-teal); }
+    .pass-time { color: var(--text-primary); }
+    .pass-detail { color: var(--text-muted); font-size: 0.8rem; }
+
+    /* ============================================
+       UPCOMING EVENTS PANEL (Phase 4)
+       ============================================ */
+    .event-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .event-item {
+      padding: 0.75rem 1rem;
+      background: var(--bg-card-solid);
+      border-left: 3px solid var(--sola-gold);
+      border-radius: 0 6px 6px 0;
+    }
+    .event-date { font-size: 0.75rem; color: var(--sola-gold); font-weight: 700; letter-spacing: 0.05em; }
+    .event-title { font-weight: 700; color: var(--text-primary); margin-top: 0.2rem; }
+    .event-desc { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.3rem; }
+
+    /* ============================================
+       APOD PANEL (Phase 4)
+       ============================================ */
+    .apod-panel { text-align: center; }
+    .apod-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 0.75rem;
+    }
+    .apod-title { color: var(--sola-gold); font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+    .apod-explanation { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.55; text-align: left; }
+
+    /* ============================================
+       BRIDGE PANEL TO MINING (Phase 4)
+       ============================================ */
+    .bridge-panel {
+      background: linear-gradient(135deg, rgba(0, 206, 209, 0.08), rgba(212, 175, 55, 0.06));
+      border: 1px solid rgba(0, 206, 209, 0.25);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .bridge-panel a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--sola-teal);
+      color: #000;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .bridge-panel a:hover { background: var(--sola-teal-bright); color: #000; }
+
+    /* ============================================
+       MOBILE AFFILIATE STRIP (Phase 4)
+       ============================================ */
+    .mobile-affiliate-strip {
+      margin: 1.5rem 0;
+      padding: 0.75rem 0;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .strip-header { text-align: center; margin-bottom: 0.5rem; }
+    .strip-label {
+      color: rgba(212, 175, 55, 0.5);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .strip-title {
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .strip-scroll {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 4px 8px;
+      justify-content: center;
+    }
+    .strip-btn {
+      display: inline-block;
+      padding: 6px 10px;
+      background: rgba(0, 206, 209, 0.06);
+      border: 1px solid rgba(0, 206, 209, 0.15);
+      border-radius: 6px;
+      color: rgba(232, 240, 247, 0.85);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .strip-btn:active { background: rgba(0, 206, 209, 0.15); }
+    .strip-footer {
+      text-align: center;
+      margin-top: 0.4rem;
+      color: rgba(232, 240, 247, 0.6);
+      font-size: 0.5rem;
+      line-height: 1.3;
+      padding: 0 1rem;
+    }
+
+    /* ============================================
+       GLOSSARY DRAWER (shared system)
+       ============================================ */
+    .glossary-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 420px;
+      max-width: 92vw;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 2px solid var(--sola-teal);
+      z-index: 1001;
+      transition: right 0.25s ease;
+      padding: 1.5rem 1.5rem 1.25rem;
+      overflow-y: auto;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+    }
+    .glossary-drawer.open { right: 0; }
+    .glossary-drawer-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: 1px solid rgba(0, 206, 209, 0.55);
+      color: var(--sola-teal);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.35rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .glossary-drawer-close:hover { background: rgba(0, 206, 209, 0.12); }
+    .glossary-drawer h3 {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--sola-gold);
+      font-size: 1.35rem;
+      margin: 0.25rem 0 0.85rem;
+      padding-right: 2.5rem;
+    }
+    .glossary-drawer p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin: 0 0 1rem;
+      font-size: 0.98rem;
+    }
+    .glossary-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 1000;
+    }
+    .glossary-overlay.show { display: block; }
+    .glossary-term {
+      color: var(--sola-teal);
+      border-bottom: 1px dotted rgba(0, 206, 209, 0.7);
+      cursor: help;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .glossary-term:hover {
+      color: var(--sola-gold);
+      border-color: rgba(212, 175, 55, 0.8);
+    }
+    .glossary-term-actions {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.14);
+    }
+    .glossary-more-link {
+      color: var(--sola-teal);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 600px) {
+      .container { padding: 0.75rem; }
+      .page-header h1 { font-size: 1.4rem; }
+      .glossary-drawer { width: 100%; right: -100%; }
+      .section { padding: 1rem 1rem; }
+      .zip-form input { width: 120px; }
+    }
+
+    /* ============================================
+       JSON-LD WebApplication schema is in <head>
+       ============================================ */
+  </style>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sola Ray Effect Night Sky Forecast","url":"https://www.solarayeffect.com/night_sky.html","description":"Free night sky forecast and stargazing planner. Tonight's sky rating, moon phase, visible planets, ISS and satellite passes, what to wear, and upcoming sky events by US zip code.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"The Sola Ray Effect","url":"https://www.solarayeffect.com/","logo":{"@type":"ImageObject","url":"https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg"}}}</script>
+</head>
+<body>
+
+  <!-- Shared Navigation (loaded from /Components/nav.html) -->
+  <div id="site-nav"></div>
+
+  <!-- Glossary Drawer (markup; populated by glossary-drawer.js) -->
+  <div class="glossary-drawer" id="glossary-drawer" aria-hidden="true">
+    <button class="glossary-drawer-close" id="glossary-close" aria-label="Close glossary">&times;</button>
+    <h3 id="glossary-term-title">Term</h3>
+    <p id="glossary-term-definition">Definition goes here&hellip;</p>
+    <div id="glossary-term-links" class="glossary-term-links"></div>
+    <div class="glossary-term-actions">
+      <a class="glossary-more-link" href="glossary.html">Open full glossary &rarr;</a>
+    </div>
+  </div>
+  <div class="glossary-overlay" id="glossary-overlay" aria-hidden="true"></div>
+
+  <main>
+  <div class="container">
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Tonight&rsquo;s Night Sky</h1>
+      <p>Stargazing forecast by zip code. Sky rating, moon, planets, satellite passes, what to wear, and upcoming sky events &mdash; all in one place.</p>
+    </header>
+
+    <!-- Zip code entry (Phase 2 wires this up) -->
+    <section class="zip-screen" id="zip-screen">
+      <p class="zip-intro">Enter your 5-digit US zip code to see tonight&rsquo;s sky for your location.</p>
+      <form class="zip-form" id="zip-form" autocomplete="off">
+        <input type="text" id="zip-input" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="76148">
+        <button type="submit" class="zip-btn">View Tonight</button>
+      </form>
+      <div class="zip-error" id="zip-error"></div>
+    </section>
+
+    <!-- Tonight Panel placeholder (built in Phase 2) -->
+    <div id="tonight-panel"></div>
+
+    <!-- 7-night outlook + satellites placeholder (built in Phase 3) -->
+    <div id="outlook-panel"></div>
+
+    <!-- Events / APOD / bridge / affiliate placeholder (built in Phase 4) -->
+    <div id="closer-panel"></div>
+
+  </div>
+  </main>
+
+  <!-- Shared Footer (loaded from /Components/footer.html) -->
+  <div id="site-footer"></div>
+
+  <!-- ============================================
+       PHASE 2 SCRIPT &mdash; Tonight Panel
+       ============================================ -->
+  <script>
+  (function() {
+    'use strict';
+
+    /* ============================================
+       CONSTANTS & STATE
+       ============================================ */
+    var STORAGE_KEY = 'sre_night_zip';
+    var state = {
+      zip: null,
+      lat: null,
+      lon: null,
+      city: null,
+      data: null
+    };
+
+    /* ============================================
+       DOM HELPERS
+       ============================================ */
+    function $(id) { return document.getElementById(id); }
+    function show(el) { if (el) el.style.display = ''; }
+    function hide(el) { if (el) el.style.display = 'none'; }
+
+    /* ============================================
+       MOON PHASE CALCULATION
+       Returns { name, glyph, illumination (0-100) }
+       ============================================ */
+    function getMoonPhase(dateObj) {
+      var d = new Date(dateObj);
+      /* Days since known new moon: Jan 6, 2000 18:14 UTC */
+      var lp = 2551443; /* lunar period in seconds */
+      var newMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
+      var phaseSec = ((d.getTime() - newMoon2000.getTime()) / 1000) % lp;
+      if (phaseSec < 0) phaseSec += lp;
+      var phase = phaseSec / lp; /* 0 to 1 */
+      var illum = Math.round((1 - Math.cos(2 * Math.PI * phase)) / 2 * 100);
+      var name, glyph;
+      if (phase < 0.03 || phase > 0.97)      { name = 'New Moon';        glyph = '&#127761;'; }
+      else if (phase < 0.22)                  { name = 'Waxing Crescent'; glyph = '&#127762;'; }
+      else if (phase < 0.28)                  { name = 'First Quarter';   glyph = '&#127763;'; }
+      else if (phase < 0.47)                  { name = 'Waxing Gibbous';  glyph = '&#127764;'; }
+      else if (phase < 0.53)                  { name = 'Full Moon';       glyph = '&#127765;'; }
+      else if (phase < 0.72)                  { name = 'Waning Gibbous';  glyph = '&#127766;'; }
+      else if (phase < 0.78)                  { name = 'Last Quarter';    glyph = '&#127767;'; }
+      else                                     { name = 'Waning Crescent'; glyph = '&#127768;'; }
+      return { name: name, glyph: glyph, illumination: illum };
+    }
+
+    /* ============================================
+       SKY RATING
+       Combines avg cloud cover + moon illum
+       ============================================ */
+    function skyRating(avgCloud, moonIllum) {
+      if (avgCloud <= 20 && moonIllum <= 35) return { key: 'perfect', label: 'Perfect',          tip: 'Dark, clear skies. Faint stars, the Milky Way, and deep-sky objects should all be visible.' };
+      if (avgCloud <= 30 && moonIllum <= 60) return { key: 'good',    label: 'Good',             tip: 'Clear enough for planets, bright stars, and constellations. Faint stuff washed out by moon or haze.' };
+      if (avgCloud <= 60)                       return { key: 'fair',    label: 'Fair',             tip: 'Partial clouds. The moon and brightest planets still show through.' };
+      if (avgCloud <= 85)                       return { key: 'poor',    label: 'Poor',             tip: 'Mostly cloudy. Maybe glimpses of the moon or Venus, but not much else.' };
+      return                                          { key: 'skip',    label: 'Skip Tonight',     tip: 'Heavy cloud cover. Pour a coffee, watch a movie, try again tomorrow.' };
+    }
+
+    /* ============================================
+       FORMAT HELPERS
+       ============================================ */
+    function formatTime(isoStr) {
+      if (!isoStr) return '&mdash;';
+      var d = new Date(isoStr);
+      var h = d.getHours();
+      var m = d.getMinutes();
+      var ampm = h >= 12 ? 'pm' : 'am';
+      h = h % 12; if (h === 0) h = 12;
+      return h + ':' + (m < 10 ? '0' + m : m) + ampm;
+    }
+    function formatHour(isoStr) {
+      var d = new Date(isoStr);
+      var h = d.getHours();
+      var ampm = h >= 12 ? 'p' : 'a';
+      h = h % 12; if (h === 0) h = 12;
+      return h + ampm;
+    }
+
+    /* ============================================
+       VISIBLE PLANETS &mdash; simplified almanac
+       Returns an array of planet objects visible tonight at the user&apos;s latitude.
+       This uses a simplified model based on date &mdash; good for "is it up tonight"
+       guidance, not for telescope pointing. The 7-day cache means data refreshes
+       weekly, which is fine for naked-eye visibility.
+       ============================================ */
+    function getVisiblePlanets(dateObj) {
+      /* For v1, use a date-driven lookup. The full ephemeris calculation is
+         heavy and not worth the bytes for "naked eye visibility tonight."
+         This data is updated periodically based on actual sky almanacs. */
+      var month = dateObj.getMonth(); /* 0-11 */
+      var planetsByMonth = {
+        0:  [ /* January */
+          { name: 'Jupiter',  visibility: 'Up most of the night, very bright in the south.' },
+          { name: 'Venus',    visibility: 'Brilliant evening star, low in the southwest after sunset.' },
+          { name: 'Saturn',   visibility: 'Sets a few hours after sunset in the west.' },
+          { name: 'Mars',     visibility: 'Rises late evening, bright orange in the east.' }
+        ],
+        1:  [ /* February */
+          { name: 'Jupiter',  visibility: 'High in the south at sunset, sets after midnight.' },
+          { name: 'Venus',    visibility: 'Evening star, brightening in the west.' },
+          { name: 'Mars',     visibility: 'Up all night, bright in the east at sunset.' }
+        ],
+        2:  [ /* March */
+          { name: 'Jupiter',  visibility: 'Sets in the west a few hours after sunset.' },
+          { name: 'Venus',    visibility: 'Brilliant evening star, high in the west.' },
+          { name: 'Mars',     visibility: 'High overhead, dimming as it pulls away from Earth.' }
+        ],
+        3:  [ /* April */
+          { name: 'Venus',    visibility: 'Evening star, very high in the west after sunset.' },
+          { name: 'Mars',     visibility: 'Up most of the night, dimmer than winter.' }
+        ],
+        4:  [ /* May */
+          { name: 'Venus',    visibility: 'Reaches greatest brilliance in the western evening sky.' },
+          { name: 'Mars',     visibility: 'Sets before midnight, fading in brightness.' },
+          { name: 'Saturn',   visibility: 'Rises after midnight in the east.' }
+        ],
+        5:  [ /* June */
+          { name: 'Venus',    visibility: 'Bright evening star, dropping toward the western horizon.' },
+          { name: 'Saturn',   visibility: 'Rises around midnight, up the rest of the night.' },
+          { name: 'Jupiter',  visibility: 'Rises before dawn in the east.' }
+        ],
+        6:  [ /* July */
+          { name: 'Saturn',   visibility: 'Up most of the night, low in the south.' },
+          { name: 'Jupiter',  visibility: 'Rises in the east a few hours before sunrise.' },
+          { name: 'Venus',    visibility: 'Low in the west right after sunset, then gone.' }
+        ],
+        7:  [ /* August */
+          { name: 'Saturn',   visibility: 'Up nearly all night &mdash; great viewing.' },
+          { name: 'Jupiter',  visibility: 'Rises around midnight, very bright by dawn.' },
+          { name: 'Mars',     visibility: 'Returns to morning sky before sunrise.' }
+        ],
+        8:  [ /* September */
+          { name: 'Saturn',   visibility: 'High in the south at midnight, up all night.' },
+          { name: 'Jupiter',  visibility: 'Rises in the evening, dominant by midnight.' },
+          { name: 'Venus',    visibility: 'Bright morning star before sunrise in the east.' }
+        ],
+        9:  [ /* October */
+          { name: 'Jupiter',  visibility: 'Up most of the night, very bright in the east at sunset.' },
+          { name: 'Saturn',   visibility: 'High overhead at sunset, sets after midnight.' },
+          { name: 'Venus',    visibility: 'Brilliant morning star in the eastern dawn sky.' }
+        ],
+        10: [ /* November */
+          { name: 'Jupiter',  visibility: 'Up all night, dominant in the eastern sky.' },
+          { name: 'Saturn',   visibility: 'Sets before midnight in the west.' },
+          { name: 'Venus',    visibility: 'Morning star, low in the east before sunrise.' },
+          { name: 'Mars',     visibility: 'Rises late, brightening as it nears opposition.' }
+        ],
+        11: [ /* December */
+          { name: 'Jupiter',  visibility: 'High in the south at sunset, sets after midnight.' },
+          { name: 'Mars',     visibility: 'Bright in the east at sunset, up most of the night.' },
+          { name: 'Venus',    visibility: 'Morning star low in the east before sunrise.' }
+        ]
+      };
+      return planetsByMonth[month] || [];
+    }
+
+    /* ============================================
+       WHAT TO WEAR &mdash; Sola&rsquo;s voice
+       Inputs: tempF, windMph, dewPointF, humidity, isClearSky
+       Returns array of advice strings.
+       ============================================ */
+    function whatToWear(tempF, windMph, dewPointF, humidity, isClearSky) {
+      var tips = [];
+      var feelsLike = tempF - (windMph > 5 ? Math.round(windMph * 0.4) : 0);
+      var dewSpread = Math.abs(tempF - dewPointF);
+
+      /* Core clothing */
+      if (tempF >= 75) {
+        tips.push('Shorts and a t-shirt. Maybe bug spray.');
+      } else if (tempF >= 60) {
+        tips.push('Long sleeves or a light hoodie. Comfortable temp for sitting outside.');
+      } else if (tempF >= 45) {
+        tips.push('Jacket and long pants. A beanie if there&rsquo;s any wind.');
+      } else if (tempF >= 32) {
+        tips.push('Insulated coat, hat, gloves. Layer up &mdash; standing still gets cold fast.');
+      } else {
+        tips.push('Bundle up like you mean it. Heavy coat, hat, gloves, two layers on the legs. Hand warmers help.');
+      }
+
+      /* Wind chill */
+      if (windMph >= 10 && tempF < 60) {
+        tips.push('Wind picks up after sunset (' + windMph + ' mph) &mdash; feels like ' + feelsLike + '&deg;F. Set up behind a fence or building if you can.');
+      }
+
+      /* Dew warning */
+      if (dewSpread <= 4 && isClearSky) {
+        tips.push('Dew point is close to air temp &mdash; gear and eyepieces will fog up. Keep a microfiber cloth handy and tuck optics in your jacket between views.');
+      }
+
+      /* Frost warning */
+      if (tempF <= 36 && humidity > 70) {
+        tips.push('Frost likely on car windows and folding chairs. Wipe down before you sit.');
+      }
+
+      /* Bugs */
+      if (tempF >= 55 && humidity > 60) {
+        tips.push('Mosquitoes are still active. Bug spray or a citronella candle goes a long way.');
+      }
+
+      /* Hot ground */
+      if (tempF >= 85) {
+        tips.push('Even after sunset the ground holds heat. A folding chair beats sitting on concrete.');
+      }
+
+      /* Cold ground */
+      if (tempF <= 50) {
+        tips.push('Cold ground steals heat fast. Sit on a foam pad or folding chair, not the bare grass.');
+      }
+
+      /* Always */
+      tips.push('Red-light flashlight only &mdash; white light kills your night vision for 20 minutes.');
+
+      return tips;
+    }
+
+    /* ============================================
+       GEOCODE ZIP &mdash; Nominatim (free, no key)
+       ============================================ */
+    function geocodeZip(zip) {
+      var url = 'https://nominatim.openstreetmap.org/search?postalcode=' +
+                encodeURIComponent(zip) + '&country=US&format=json&limit=1';
+      return fetch(url, { headers: { 'Accept': 'application/json' } })
+        .then(function(r) {
+          if (!r.ok) throw new Error('Geocode failed');
+          return r.json();
+        })
+        .then(function(arr) {
+          if (!arr || !arr.length) throw new Error('Zip code not found');
+          var hit = arr[0];
+          var displayParts = (hit.display_name || '').split(',');
+          var cityGuess = displayParts[0] || zip;
+          return {
+            lat: parseFloat(hit.lat),
+            lon: parseFloat(hit.lon),
+            city: cityGuess.trim()
+          };
+        });
+    }
+
+    /* ============================================
+       FETCH WEATHER &mdash; Open-Meteo (free, no key)
+       ============================================ */
+    function fetchWeather(lat, lon) {
+      var url = 'https://api.open-meteo.com/v1/forecast' +
+                '?latitude=' + lat + '&longitude=' + lon +
+                '&hourly=cloud_cover,temperature_2m,wind_speed_10m,relative_humidity_2m,dew_point_2m' +
+                '&daily=sunrise,sunset' +
+                '&temperature_unit=fahrenheit' +
+                '&wind_speed_unit=mph' +
+                '&timezone=auto' +
+                '&forecast_days=8';
+      return fetch(url)
+        .then(function(r) {
+          if (!r.ok) throw new Error('Weather fetch failed');
+          return r.json();
+        });
+    }
+
+    /* ============================================
+       BUILD TONIGHT WINDOW
+       Pulls hourly data 7pm tonight to 5am tomorrow
+       ============================================ */
+    function buildTonightWindow(weather) {
+      var hourly = weather.hourly;
+      if (!hourly || !hourly.time) return null;
+
+      var times = hourly.time;
+      var clouds = hourly.cloud_cover;
+      var temps = hourly.temperature_2m;
+      var winds = hourly.wind_speed_10m;
+      var humid = hourly.relative_humidity_2m;
+      var dewpt = hourly.dew_point_2m;
+
+      var now = new Date();
+      var todayStr = now.toISOString().split('T')[0];
+      var tomorrow = new Date(now); tomorrow.setDate(tomorrow.getDate() + 1);
+      var tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+      var windowHours = [];
+      for (var i = 0; i < times.length; i++) {
+        var ts = times[i];
+        var dateStr = ts.split('T')[0];
+        var hour = parseInt(ts.split('T')[1].split(':')[0], 10);
+        /* Tonight: 7pm-11pm today, 12am-5am tomorrow */
+        var inTonight = (dateStr === todayStr && hour >= 19) ||
+                        (dateStr === tomorrowStr && hour <= 5);
+        if (inTonight) {
+          windowHours.push({
+            time: ts,
+            hour: hour,
+            cloud: clouds[i],
+            temp: temps[i],
+            wind: winds[i],
+            humidity: humid[i],
+            dewPoint: dewpt[i]
+          });
+        }
+      }
+      return windowHours;
+    }
+
+    /* ============================================
+       SUN / TWILIGHT TIMES
+       Open-Meteo gives sunrise/sunset; we calculate
+       civil/nautical/astronomical twilight as offsets.
+       Approximate offsets: civil = +30min, nautical = +60min, astro = +90min from sunset.
+       ============================================ */
+    function getTwilights(weather) {
+      var daily = weather.daily;
+      if (!daily || !daily.sunset) return null;
+      var sunset = new Date(daily.sunset[0]);
+      var sunrise = new Date(daily.sunrise[1]); /* tomorrow&apos;s sunrise */
+      function offsetMin(d, mins) { return new Date(d.getTime() + mins * 60000); }
+      return {
+        sunset: sunset,
+        civilDark: offsetMin(sunset, 30),
+        nauticalDark: offsetMin(sunset, 60),
+        astroDark: offsetMin(sunset, 90),
+        astroDawn: offsetMin(sunrise, -90),
+        nauticalDawn: offsetMin(sunrise, -60),
+        civilDawn: offsetMin(sunrise, -30),
+        sunrise: sunrise
+      };
+    }
+
+    /* ============================================
+       RENDER &mdash; Tonight panel
+       ============================================ */
+    function renderTonight() {
+      var panel = $('tonight-panel');
+      if (!panel) return;
+
+      var weather = state.data;
+      var windowHours = buildTonightWindow(weather);
+      if (!windowHours || !windowHours.length) {
+        panel.innerHTML = '<section class="section"><p style="color:var(--text-secondary);">Could not pull tonight&rsquo;s forecast for this location.</p></section>';
+        return;
+      }
+
+      var avgCloud = Math.round(windowHours.reduce(function(s, h) { return s + h.cloud; }, 0) / windowHours.length);
+      var moon = getMoonPhase(new Date());
+      var rating = skyRating(avgCloud, moon.illumination);
+      var twilights = getTwilights(weather);
+      var planets = getVisiblePlanets(new Date());
+
+      /* Pick the 10pm-ish hour for "what to wear" */
+      var refHour = windowHours.find(function(h) { return h.hour === 22; }) || windowHours[Math.floor(windowHours.length / 2)];
+      var isClear = avgCloud <= 30;
+      var clothingTips = whatToWear(
+        Math.round(refHour.temp),
+        Math.round(refHour.wind),
+        Math.round(refHour.dewPoint),
+        Math.round(refHour.humidity),
+        isClear
+      );
+
+      var html = '';
+
+      /* Location bar */
+      html += '<div class="location-bar-wrap">';
+      html += '<div class="location-bar">';
+      html += '<span class="loc-label">Tonight in</span>';
+      html += '<span class="loc-name">' + state.city + '</span>';
+      html += '<button class="change-zip-btn" id="change-zip-btn">Change zip</button>';
+      html += '</div></div>';
+
+      /* Main rating section */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#127769; Tonight&rsquo;s Sky</h2>';
+      html += '<div style="display:flex;gap:1.25rem;flex-wrap:wrap;align-items:flex-start;">';
+
+      /* Rating + tip + twilight column */
+      html += '<div style="flex:2;min-width:240px;">';
+      html += '<div style="margin-bottom:0.75rem;"><span class="rating-badge rating-' + rating.key + '">' + rating.label + '</span></div>';
+      html += '<p style="color:var(--text-secondary);font-size:0.95rem;margin-bottom:1rem;">' + rating.tip + '</p>';
+      html += '<div style="font-size:0.85rem;color:var(--text-muted);line-height:1.7;">';
+      html += '<div><strong style="color:var(--text-primary);">Sunset</strong> ' + formatTime(twilights.sunset) + ' &middot; <strong style="color:var(--text-primary);">Astronomical Dark</strong> ' + formatTime(twilights.astroDark) + '</div>';
+      html += '<div><strong style="color:var(--text-primary);">Astronomical Dawn</strong> ' + formatTime(twilights.astroDawn) + ' &middot; <strong style="color:var(--text-primary);">Sunrise</strong> ' + formatTime(twilights.sunrise) + '</div>';
+      html += '<div style="margin-top:0.4rem;font-size:0.8rem;color:var(--text-muted);">Avg cloud cover tonight: ' + avgCloud + '%</div>';
+      html += '</div>';
+      html += '</div>';
+
+      /* Moon panel */
+      html += '<div style="flex:1;min-width:160px;">';
+      html += '<div class="moon-panel">';
+      html += '<div class="moon-glyph">' + moon.glyph + '</div>';
+      html += '<div class="moon-phase-name">' + moon.name + '</div>';
+      html += '<div class="moon-illum">' + moon.illumination + '% <span class="glossary-term" data-term="moon-illumination">illuminated</span></div>';
+      html += '</div>';
+      html += '</div>';
+
+      html += '</div>'; /* end flex */
+      html += '</section>';
+
+      /* Hourly cloud strip */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#9729;&#65039; Clouds Hour-by-Hour Tonight</h2>';
+      html += '<div class="hourly-strip">';
+      windowHours.forEach(function(h) {
+        var cloudColor = h.cloud <= 25 ? 'var(--rating-perfect)' :
+                         h.cloud <= 50 ? 'var(--rating-good)' :
+                         h.cloud <= 75 ? 'var(--rating-fair)' :
+                         'var(--rating-poor)';
+        html += '<div class="hour-cell">';
+        html += '<div class="hour-time">' + formatHour(h.time) + '</div>';
+        html += '<div class="hour-cloud" style="color:' + cloudColor + '">' + Math.round(h.cloud) + '%</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '</section>';
+
+      /* Visible planets */
+      if (planets.length) {
+        html += '<section class="section">';
+        html += '<h2 class="section-title">&#129680; Planets You Can See Tonight</h2>';
+        html += '<div style="display:flex;flex-direction:column;gap:0.5rem;">';
+        planets.forEach(function(p) {
+          html += '<div style="padding:0.6rem 0.85rem;background:var(--bg-card-solid);border-left:3px solid var(--sola-teal);border-radius:0 6px 6px 0;">';
+          html += '<div style="font-weight:700;color:var(--sola-teal);font-size:0.95rem;">' + p.name + '</div>';
+          html += '<div style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.15rem;">' + p.visibility + '</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+        html += '</section>';
+      }
+
+      /* What to wear &mdash; Sola voice */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#129507; What to Wear Tonight</h2>';
+      html += '<div style="margin-bottom:0.75rem;color:var(--text-secondary);font-size:0.9rem;">';
+      html += 'Conditions around 10pm: <strong style="color:var(--text-primary);">' + Math.round(refHour.temp) + '&deg;F</strong>, ';
+      html += 'wind ' + Math.round(refHour.wind) + ' mph, ';
+      html += 'humidity ' + Math.round(refHour.humidity) + '%, ';
+      html += 'dew point ' + Math.round(refHour.dewPoint) + '&deg;F.';
+      html += '</div>';
+      html += '<div class="sola-voice">';
+      html += '<div class="sola-avatar">&#9728;&#65039;</div>';
+      html += '<div class="sola-text">';
+      clothingTips.forEach(function(tip, idx) {
+        html += '<div style="margin-bottom:' + (idx < clothingTips.length - 1 ? '0.55rem' : '0') + ';">' + tip + '</div>';
+      });
+      html += '</div>';
+      html += '</div>';
+      html += '</section>';
+
+      panel.innerHTML = html;
+
+      /* Wire up the change-zip button */
+      var changeBtn = $('change-zip-btn');
+      if (changeBtn) {
+        changeBtn.addEventListener('click', function() {
+          state.zip = null;
+          state.data = null;
+          panel.innerHTML = '';
+          var outlook = $('outlook-panel');
+          if (outlook) outlook.innerHTML = '';
+          var closer = $('closer-panel');
+          if (closer) closer.innerHTML = '';
+          show($('zip-screen'));
+          $('zip-input').focus();
+        });
+      }
+    }
+
+    /* ============================================
+       PHASE 3 &mdash; 7-NIGHT OUTLOOK
+       Builds nightly summaries: per-night avg cloud, moon, rating
+       ============================================ */
+    function buildNightlySummaries(weather) {
+      var hourly = weather.hourly;
+      if (!hourly || !hourly.time) return [];
+
+      var times = hourly.time;
+      var clouds = hourly.cloud_cover;
+
+      /* Group by "viewing night" = 7pm tonight + 12-5am tomorrow */
+      var nights = {};
+      for (var i = 0; i < times.length; i++) {
+        var ts = times[i];
+        var d = new Date(ts);
+        var hour = d.getHours();
+        var dayDate = new Date(d);
+        /* If hour is between 0-5am, attribute to PREVIOUS day's night */
+        if (hour <= 5) dayDate.setDate(dayDate.getDate() - 1);
+        /* Only include 7pm-5am hours */
+        if (hour < 19 && hour > 5) continue;
+        var key = dayDate.toISOString().split('T')[0];
+        if (!nights[key]) nights[key] = { date: new Date(dayDate), clouds: [] };
+        nights[key].clouds.push(clouds[i]);
+      }
+
+      /* Build sorted array */
+      var keys = Object.keys(nights).sort();
+      var summaries = [];
+      for (var k = 0; k < keys.length && summaries.length < 7; k++) {
+        var n = nights[keys[k]];
+        if (!n.clouds.length) continue;
+        var avg = Math.round(n.clouds.reduce(function(s, c) { return s + c; }, 0) / n.clouds.length);
+        /* Get moon phase for that night (use 11pm of that date) */
+        var moonRef = new Date(n.date);
+        moonRef.setHours(23, 0, 0, 0);
+        var moon = getMoonPhase(moonRef);
+        var rating = skyRating(avg, moon.illumination);
+        summaries.push({
+          date: n.date,
+          avgCloud: avg,
+          moon: moon,
+          rating: rating
+        });
+      }
+      return summaries;
+    }
+
+    function pickBestNight(summaries) {
+      if (!summaries.length) return null;
+      /* Score: lower cloud + lower moon = better. Weight cloud heavier. */
+      var scored = summaries.map(function(s, idx) {
+        return {
+          idx: idx,
+          score: (s.avgCloud * 1.5) + (s.moon.illumination * 0.5),
+          summary: s
+        };
+      });
+      scored.sort(function(a, b) { return a.score - b.score; });
+      return scored[0];
+    }
+
+    /* ============================================
+       PHASE 3 &mdash; SOLA&rsquo;S ROTATING TIP
+       One tip per page load, picked by date so it&rsquo;s
+       stable within a day but rotates daily.
+       ============================================ */
+    var SOLA_TIPS = [
+      'Red-light flashlight only when you&rsquo;re reading or moving around. White light kills your night vision for 20 minutes &mdash; every time.',
+      'Give your eyes 20 to 30 minutes in the dark before you decide a night is &ldquo;not worth it.&rdquo; Adapted eyes see ten times more stars.',
+      'The Pleiades cluster looks like six stars to the naked eye. Through binoculars, you&rsquo;ll see fifty. Most people skip the binos and miss the show.',
+      'Look slightly off to the side of a faint object instead of directly at it. Your peripheral vision picks up dim light better. It&rsquo;s called averted vision.',
+      'Cold ground steals heat through a folding chair faster than you&rsquo;d think. Throw a blanket over the chair before you sit.',
+      'Mars looks orange-red, Venus is brilliant white, Jupiter is steady cream-white, Saturn is yellowish. Color is the easiest way to tell planets apart.',
+      'Stars twinkle. Planets don&rsquo;t (much). If a bright dot near the horizon is rock-steady, it&rsquo;s probably a planet.',
+      'Clear nights are also free-electricity nights for solar miners. If you&rsquo;re up watching the sky, your panels worked overtime today.',
+      'A folding camp chair, a thermos, and a phone on red-screen mode is a complete stargazing kit. You don&rsquo;t need a telescope to start.',
+      'The Milky Way is brightest in the summer in the northern hemisphere. Look south, away from city lights, after midnight in July or August.',
+      'If your zip is in a Bortle 6 or worse zone, drive 30 minutes to a darker site once. The difference will surprise you.',
+      'The moon is best seen when it&rsquo;s NOT full &mdash; quarter phases show shadows along the terminator line, where craters pop in 3D.',
+      'Dew is the silent enemy of optics. If your eyepieces fog, tuck them inside your jacket between views. Body heat dries them out.',
+      'A satellite moves in a straight line at constant speed across the sky in 1 to 6 minutes. A meteor is a flash, gone in under a second.',
+      'The ISS is the third-brightest object in the sky after the sun and moon. If you see what looks like a fast-moving plane with no blinking lights, that&rsquo;s probably it.'
+    ];
+
+    function getSolaTip() {
+      var dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+      return SOLA_TIPS[dayOfYear % SOLA_TIPS.length];
+    }
+
+    /* ============================================
+       PHASE 3 &mdash; SATELLITE PASSES
+       Calls /api/sky.js?action=satellites&amp;lat=X&amp;lon=Y
+       Expected response shape:
+       {
+         success: true,
+         passes: [
+           { name: 'ISS',         start: '2026-05-01T22:14:00Z', duration: 240, magnitude: -3.4, direction: 'SW to NE' },
+           { name: 'Tiangong',    start: '...', duration: 180, magnitude: -1.2, direction: 'W to E' },
+           { name: 'Hubble',      ... },
+           { name: 'Starlink-12', ... }
+         ]
+       }
+       Falls back gracefully if API not yet built.
+       ============================================ */
+    function fetchSatellitePasses(lat, lon) {
+      var url = '/api/sky.js?action=satellites&lat=' + lat + '&lon=' + lon;
+      return fetch(url)
+        .then(function(r) {
+          if (!r.ok) throw new Error('Satellite API returned ' + r.status);
+          return r.json();
+        })
+        .then(function(data) {
+          if (!data || !data.success || !Array.isArray(data.passes)) {
+            throw new Error('Satellite data unavailable');
+          }
+          return data.passes;
+        });
+    }
+
+    /* ============================================
+       PHASE 3 RENDER &mdash; outlook panel
+       ============================================ */
+    function renderOutlook() {
+      var panel = $('outlook-panel');
+      if (!panel) return;
+
+      var summaries = buildNightlySummaries(state.data);
+      var best = pickBestNight(summaries);
+      var tip = getSolaTip();
+
+      var html = '';
+
+      /* Best night callout (only if there&rsquo;s a clear winner that&rsquo;s actually decent) */
+      if (best && best.summary.rating.key !== 'skip' && best.summary.rating.key !== 'poor') {
+        var bn = best.summary;
+        var dayName = bn.date.toLocaleDateString('en-US', { weekday: 'long' });
+        var dateStr = bn.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        html += '<section class="section" style="border-color:var(--sola-gold);background:linear-gradient(135deg,rgba(212,175,55,0.10),var(--bg-card));">';
+        html += '<h2 class="section-title" style="color:var(--sola-gold);">&#11088; Your Best Night This Week</h2>';
+        html += '<div style="font-size:1.1rem;color:var(--text-primary);margin-bottom:0.4rem;"><strong>' + dayName + ' (' + dateStr + ')</strong> &mdash; ' + bn.rating.label + '</div>';
+        html += '<div style="color:var(--text-secondary);font-size:0.9rem;">' + bn.avgCloud + '% avg cloud cover, ' + bn.moon.illumination + '% moon illumination. ' + bn.rating.tip + '</div>';
+        html += '</section>';
+      }
+
+      /* 7-night outlook */
+      if (summaries.length) {
+        html += '<section class="section">';
+        html += '<h2 class="section-title">&#128197; 7-Night Outlook</h2>';
+        html += '<div class="night-outlook">';
+        summaries.forEach(function(s, idx) {
+          var isBest = best && best.idx === idx;
+          var dayName = s.date.toLocaleDateString('en-US', { weekday: 'short' });
+          var dateNum = s.date.getDate();
+          html += '<div class="night-card' + (isBest ? ' best-night' : '') + '">';
+          html += '<div class="night-day">' + dayName + '</div>';
+          html += '<div class="night-date">' + dateNum + '</div>';
+          html += '<div style="margin:0.4rem 0;font-size:1.4rem;line-height:1;">' + s.moon.glyph + '</div>';
+          html += '<div style="font-size:0.7rem;color:var(--text-muted);">' + s.avgCloud + '% cloud</div>';
+          html += '<div style="margin-top:0.4rem;"><span class="rating-badge rating-' + s.rating.key + '" style="font-size:0.65rem;padding:0.15rem 0.45rem;">' + s.rating.label + '</span></div>';
+          html += '</div>';
+        });
+        html += '</div>';
+        html += '</section>';
+      }
+
+      /* Sola&rsquo;s tip */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#128161; Sola&rsquo;s Tip of the Night</h2>';
+      html += '<div class="sola-voice">';
+      html += '<div class="sola-avatar">&#9728;&#65039;</div>';
+      html += '<div class="sola-text">' + tip + '</div>';
+      html += '</div>';
+      html += '</section>';
+
+      /* Satellite passes &mdash; loading state, will populate from API */
+      html += '<section class="section" id="satellite-section">';
+      html += '<h2 class="section-title">&#128752; Satellite Passes Tonight</h2>';
+      html += '<div id="satellite-content"><div class="loading-wrap" style="padding:1rem;"><div class="spinner"></div><div style="color:var(--text-secondary);font-size:0.85rem;">Checking ISS, Tiangong, Hubble, and Starlink&hellip;</div></div></div>';
+      html += '</section>';
+
+      panel.innerHTML = html;
+
+      /* Now async-load satellite data */
+      fetchSatellitePasses(state.lat, state.lon)
+        .then(function(passes) {
+          renderSatellitePasses(passes);
+        })
+        .catch(function(err) {
+          renderSatelliteFallback();
+        });
+    }
+
+    function renderSatellitePasses(passes) {
+      var content = $('satellite-content');
+      if (!content) return;
+
+      if (!passes.length) {
+        content.innerHTML = '<div style="color:var(--text-secondary);font-size:0.9rem;padding:0.5rem 0;">No bright satellite passes in the next 48 hours from your location.</div>';
+        return;
+      }
+
+      var html = '<div class="pass-list">';
+      passes.slice(0, 8).forEach(function(p) {
+        var startStr = formatTime(p.start);
+        var dateD = new Date(p.start);
+        var now = new Date();
+        var dayLabel = dateD.toDateString() === now.toDateString() ? 'Tonight' :
+                       dateD.toDateString() === new Date(now.getTime() + 86400000).toDateString() ? 'Tomorrow' :
+                       dateD.toLocaleDateString('en-US', { weekday: 'short' });
+        var durationMin = Math.round((p.duration || 0) / 60);
+        html += '<div class="pass-item">';
+        html += '<div>';
+        html += '<div class="pass-name">' + p.name + '</div>';
+        html += '<div class="pass-detail">' + dayLabel + ' &middot; ' + (p.direction || 'see N2YO') + ' &middot; ' + durationMin + ' min';
+        if (typeof p.magnitude === 'number') html += ' &middot; mag ' + p.magnitude.toFixed(1);
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="pass-time">' + startStr + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '<div style="margin-top:0.75rem;font-size:0.75rem;color:var(--text-muted);">Times are local. Lower magnitude = brighter (the ISS averages around &minus;3, brighter than any star).</div>';
+      content.innerHTML = html;
+    }
+
+    function renderSatelliteFallback() {
+      var content = $('satellite-content');
+      if (!content) return;
+      content.innerHTML =
+        '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
+        'Live satellite tracking is loading separately and isn&rsquo;t ready yet for this location. ' +
+        'In the meantime, you can check passes at <a href="https://www.heavens-above.com/" target="_blank" rel="noopener">Heavens-Above</a> ' +
+        'or <a href="https://www.n2yo.com/" target="_blank" rel="noopener">N2YO</a>.' +
+        '</div>';
+    }
+
+    /* ============================================
+       PHASE 4 &mdash; UPCOMING SKY EVENTS
+       Calls /api/sky.js?action=events
+       Server-side fetches In-the-Sky.org RSS, parses, returns
+       next 30 days of events.
+
+       Expected response shape:
+       {
+         success: true,
+         events: [
+           { date: '2026-05-05', title: 'Eta Aquariid meteor shower peak', description: '...', url: 'https://...' },
+           ...
+         ]
+       }
+       ============================================ */
+    function fetchUpcomingEvents() {
+      return fetch('/api/sky.js?action=events')
+        .then(function(r) {
+          if (!r.ok) throw new Error('Events API returned ' + r.status);
+          return r.json();
+        })
+        .then(function(data) {
+          if (!data || !data.success || !Array.isArray(data.events)) {
+            throw new Error('Events data unavailable');
+          }
+          return data.events;
+        });
+    }
+
+    /* ============================================
+       PHASE 4 &mdash; NASA APOD
+       Calls /api/sky.js?action=apod
+       Server-side proxies NASA APOD API to keep the key safe.
+
+       Expected response shape:
+       {
+         success: true,
+         apod: {
+           title: 'The Pleiades Star Cluster',
+           explanation: '...',
+           url: 'https://apod.nasa.gov/apod/image/...',
+           hdurl: '...',
+           media_type: 'image' | 'video',
+           date: '2026-05-01',
+           copyright: 'optional'
+         }
+       }
+       ============================================ */
+    function fetchAPOD() {
+      return fetch('/api/sky.js?action=apod')
+        .then(function(r) {
+          if (!r.ok) throw new Error('APOD API returned ' + r.status);
+          return r.json();
+        })
+        .then(function(data) {
+          if (!data || !data.success || !data.apod) {
+            throw new Error('APOD unavailable');
+          }
+          return data.apod;
+        });
+    }
+
+    /* ============================================
+       PHASE 4 RENDER &mdash; closer panel
+       Events feed + APOD + bridge + affiliate strip
+       ============================================ */
+    function renderCloser() {
+      var panel = $('closer-panel');
+      if (!panel) return;
+
+      var html = '';
+
+      /* Upcoming events &mdash; loading state */
+      html += '<section class="section" id="events-section">';
+      html += '<h2 class="section-title">&#128197; Upcoming Sky Events</h2>';
+      html += '<div id="events-content"><div class="loading-wrap" style="padding:1rem;"><div class="spinner"></div><div style="color:var(--text-secondary);font-size:0.85rem;">Pulling upcoming meteor showers, eclipses, and conjunctions&hellip;</div></div></div>';
+      html += '</section>';
+
+      /* APOD &mdash; loading state */
+      html += '<section class="section" id="apod-section">';
+      html += '<h2 class="section-title">&#128250; NASA Picture of the Day</h2>';
+      html += '<div id="apod-content"><div class="loading-wrap" style="padding:1rem;"><div class="spinner"></div><div style="color:var(--text-secondary);font-size:0.85rem;">Loading today&rsquo;s image&hellip;</div></div></div>';
+      html += '</section>';
+
+      /* Mining bridge */
+      html += '<div class="bridge-panel">';
+      html += '<div style="font-size:1rem;color:var(--sola-gold);font-weight:700;margin-bottom:0.4rem;">&#9889; Clear Nights Are Free-Electricity Nights</div>';
+      html += '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.5;">';
+      html += 'If you&rsquo;re up watching the sky tonight, your solar panels worked overtime today. ';
+      html += 'See how home miners turn that free power into Bitcoin.';
+      html += '</div>';
+      html += '<a href="index.html">Open the Mining Calculator &rarr;</a>';
+      html += '</div>';
+
+      /* eBay affiliate strip &mdash; stargazing gear */
+      html += '<div class="mobile-affiliate-strip">';
+      html += '<div class="strip-header">';
+      html += '<div class="strip-label">Sola Ray Effect</div>';
+      html += '<div class="strip-title">Stargazing Gear &middot; eBay</div>';
+      html += '</div>';
+      html += '<div class="strip-scroll">';
+      html += '<a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=red+light+headlamp+astronomy&customid=night-headlamp&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Red Headlamps</a>';
+      html += '<a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=astronomy+binoculars+10x50&customid=night-binoculars&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Binoculars 10x50</a>';
+      html += '<a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=beginner+telescope&customid=night-telescope&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Beginner Telescopes</a>';
+      html += '<a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=zero+gravity+chair&customid=night-chair&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Zero-Gravity Chairs</a>';
+      html += '<a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=insulated+thermos&customid=night-thermos&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Thermoses</a>';
+      html += '<a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=foam+sleeping+pad&customid=night-foampad&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Foam Pads</a>';
+      html += '<a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=pocket+star+chart&customid=night-starchart&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Star Charts</a>';
+      html += '<a class="strip-btn" href="https://www.ebay.com/sch/i.html?_nkw=bug+spray+citronella+candle&customid=night-bugspray&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&toolid=10001&mkevt=1" target="_blank" rel="noopener sponsored">Bug Spray</a>';
+      html += '</div>';
+      html += '<div class="strip-footer">Affiliate links &middot; eBay &middot; Verify item details before purchasing. We are not responsible for incorrect orders or unsuitable products.</div>';
+      html += '</div>';
+
+      panel.innerHTML = html;
+
+      /* Async-load events */
+      fetchUpcomingEvents()
+        .then(function(events) {
+          renderEvents(events);
+        })
+        .catch(function(err) {
+          renderEventsFallback();
+        });
+
+      /* Async-load APOD */
+      fetchAPOD()
+        .then(function(apod) {
+          renderAPOD(apod);
+        })
+        .catch(function(err) {
+          renderAPODFallback();
+        });
+    }
+
+    function renderEvents(events) {
+      var content = $('events-content');
+      if (!content) return;
+
+      if (!events.length) {
+        content.innerHTML = '<div style="color:var(--text-secondary);font-size:0.9rem;padding:0.5rem 0;">No major sky events in the next 30 days. Quiet stretch &mdash; good time to learn the constellations.</div>';
+        return;
+      }
+
+      var html = '<div class="event-list">';
+      events.slice(0, 8).forEach(function(ev) {
+        var d = new Date(ev.date);
+        var dateLabel = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        html += '<div class="event-item">';
+        html += '<div class="event-date">' + dateLabel + '</div>';
+        html += '<div class="event-title">' + ev.title + '</div>';
+        if (ev.description) {
+          html += '<div class="event-desc">' + ev.description + '</div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+      content.innerHTML = html;
+    }
+
+    function renderEventsFallback() {
+      var content = $('events-content');
+      if (!content) return;
+      content.innerHTML =
+        '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
+        'Live events feed is loading separately and isn&rsquo;t ready yet. ' +
+        'In the meantime, check <a href="https://in-the-sky.org/newscal.php" target="_blank" rel="noopener">In-the-Sky.org</a> ' +
+        'or <a href="https://www.timeanddate.com/astronomy/sights-to-see.html" target="_blank" rel="noopener">timeanddate.com</a> ' +
+        'for the next 30 days of meteor showers, conjunctions, and eclipses.' +
+        '</div>';
+    }
+
+    function renderAPOD(apod) {
+      var content = $('apod-content');
+      if (!content) return;
+
+      var html = '<div class="apod-panel">';
+      if (apod.media_type === 'image') {
+        html += '<img class="apod-image" src="' + apod.url + '" alt="' + (apod.title || 'NASA Astronomy Picture of the Day') + '" loading="lazy">';
+      } else if (apod.media_type === 'video') {
+        html += '<div style="padding:1rem;background:var(--bg-card-solid);border-radius:8px;margin-bottom:0.75rem;color:var(--text-secondary);font-size:0.9rem;">';
+        html += 'Today&rsquo;s NASA pick is a video. <a href="' + apod.url + '" target="_blank" rel="noopener">Watch it on NASA &rarr;</a>';
+        html += '</div>';
+      }
+      html += '<div class="apod-title">' + (apod.title || 'NASA Astronomy Picture of the Day') + '</div>';
+      if (apod.explanation) {
+        var shortExp = apod.explanation.length > 400 ?
+                       apod.explanation.substring(0, 400) + '&hellip;' :
+                       apod.explanation;
+        html += '<div class="apod-explanation">' + shortExp + '</div>';
+      }
+      html += '<div style="margin-top:0.6rem;font-size:0.75rem;color:var(--text-muted);">';
+      html += 'Source: <a href="https://apod.nasa.gov/apod/" target="_blank" rel="noopener">NASA APOD</a>';
+      if (apod.copyright) html += ' &middot; &copy; ' + apod.copyright;
+      html += '</div>';
+      html += '</div>';
+
+      content.innerHTML = html;
+    }
+
+    function renderAPODFallback() {
+      var content = $('apod-content');
+      if (!content) return;
+      content.innerHTML =
+        '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
+        'Today&rsquo;s NASA Picture of the Day is loading separately and isn&rsquo;t ready yet. ' +
+        'See it directly at <a href="https://apod.nasa.gov/apod/" target="_blank" rel="noopener">apod.nasa.gov</a>.' +
+        '</div>';
+    }
+
+    /* ============================================
+       MAIN FLOW
+       ============================================ */
+    function loadForZip(zip) {
+      var panel = $('tonight-panel');
+      panel.innerHTML = '<div class="loading-wrap"><div class="spinner"></div><div style="color:var(--text-secondary);">Looking up the sky over ' + zip + '&hellip;</div></div>';
+
+      geocodeZip(zip)
+        .then(function(loc) {
+          state.zip = zip;
+          state.lat = loc.lat;
+          state.lon = loc.lon;
+          state.city = loc.city;
+          try { localStorage.setItem(STORAGE_KEY, zip); } catch (e) {}
+          return fetchWeather(loc.lat, loc.lon);
+        })
+        .then(function(weather) {
+          state.data = weather;
+          hide($('zip-screen'));
+          renderTonight();
+          renderOutlook();
+          renderCloser();
+        })
+        .catch(function(err) {
+          panel.innerHTML = '';
+          $('zip-error').textContent = err.message || 'Could not load forecast for that zip.';
+          show($('zip-screen'));
+        });
+    }
+
+    /* ============================================
+       INIT
+       ============================================ */
+    function init() {
+      var form = $('zip-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var zip = ($('zip-input').value || '').trim();
+          $('zip-error').textContent = '';
+          if (!/^\d{5}$/.test(zip)) {
+            $('zip-error').textContent = 'Enter a valid 5-digit US zip code.';
+            return;
+          }
+          loadForZip(zip);
+        });
+      }
+
+      /* Auto-load saved zip */
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved && /^\d{5}$/.test(saved)) {
+          $('zip-input').value = saved;
+          loadForZip(saved);
+        }
+      } catch (e) {}
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
+
+  <!-- Shared Glossary System -->
+  <script src="/scripts/glossary-data.js"></script>
+  <script src="/scripts/glossary-drawer.js"></script>
+
+  <!-- Component Loader (LAST script before </body>) -->
+  <script src="/scripts/site-components.js"></script>
+</body>
+</html>
