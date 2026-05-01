@@ -1261,8 +1261,11 @@
       html += '<div class="location-bar">';
       html += '<span class="loc-label">Tonight in</span>';
       html += '<span class="loc-name">' + state.city + '</span>';
+      html += '<button class="change-zip-btn" id="share-link-btn" title="Copy a shareable link to this view">&#128279; Share</button>';
       html += '<button class="change-zip-btn" id="change-zip-btn">Change zip</button>';
-      html += '</div></div>';
+      html += '</div>';
+      html += '<div id="share-feedback" style="margin-top:0.4rem;font-size:0.8rem;color:var(--rating-perfect);min-height:1rem;"></div>';
+      html += '</div>';
 
       /* Main rating section */
       html += '<section class="section">';
@@ -1404,7 +1407,73 @@
           if (closer) closer.innerHTML = '';
           show($('zip-screen'));
           $('zip-input').focus();
+          /* Reset URL so the next session doesn&rsquo;t auto-load the previous zip */
+          try {
+            var cleanUrl = window.location.pathname;
+            window.history.replaceState({}, '', cleanUrl);
+          } catch (e) {}
         });
+      }
+
+      /* Wire up the share button */
+      var shareBtn = $('share-link-btn');
+      if (shareBtn) {
+        shareBtn.addEventListener('click', function() {
+          var feedback = $('share-feedback');
+          if (!state.zip) return;
+          var shareUrl = window.location.origin + window.location.pathname + '?zip=' + state.zip;
+          /* Use Clipboard API if available; fall back to a temporary textarea */
+          var done = function() {
+            if (feedback) {
+              feedback.textContent = '\u2713 Link copied! Paste it anywhere to share tonight\u2019s sky for ' + state.city + '.';
+              setTimeout(function() { if (feedback) feedback.textContent = ''; }, 4000);
+            }
+          };
+          var fail = function() {
+            if (feedback) {
+              feedback.style.color = 'var(--loss)';
+              feedback.textContent = 'Could not copy automatically. Link: ' + shareUrl;
+              setTimeout(function() {
+                if (feedback) {
+                  feedback.textContent = '';
+                  feedback.style.color = 'var(--rating-perfect)';
+                }
+              }, 8000);
+            }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(shareUrl).then(done).catch(function() {
+              /* Fallback for older browsers / restricted contexts */
+              fallbackCopy(shareUrl, done, fail);
+            });
+          } else {
+            fallbackCopy(shareUrl, done, fail);
+          }
+          /* Also update the URL in the address bar so a refresh keeps the same zip */
+          try {
+            window.history.replaceState({}, '', shareUrl);
+          } catch (e) {}
+        });
+      }
+    }
+
+    /* Manual textarea-based clipboard fallback for environments without
+       navigator.clipboard (older mobile browsers, non-HTTPS contexts). */
+    function fallbackCopy(text, onSuccess, onFail) {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) onSuccess(); else onFail();
+      } catch (e) {
+        onFail();
       }
     }
 
@@ -2104,14 +2173,26 @@
         });
       }
 
-      /* Auto-load saved zip */
+      /* Determine which zip to auto-load.
+         Priority: URL param ?zip=NNNNN > localStorage saved zip > none */
+      var urlZip = null;
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var fromUrl = (params.get('zip') || '').trim();
+        if (/^\d{5}$/.test(fromUrl)) urlZip = fromUrl;
+      } catch (e) {}
+
+      var savedZip = null;
       try {
         var saved = localStorage.getItem(STORAGE_KEY);
-        if (saved && /^\d{5}$/.test(saved)) {
-          $('zip-input').value = saved;
-          loadForZip(saved);
-        }
+        if (saved && /^\d{5}$/.test(saved)) savedZip = saved;
       } catch (e) {}
+
+      var autoZip = urlZip || savedZip;
+      if (autoZip) {
+        $('zip-input').value = autoZip;
+        loadForZip(autoZip);
+      }
     }
 
     if (document.readyState === 'loading') {
