@@ -386,6 +386,89 @@
     .hour-cloud { font-size: 0.85rem; font-weight: 700; margin-top: 0.2rem; }
 
     /* ============================================
+       CLOUD BAR CHART (replaces .hourly-strip cells)
+       Vertical bars: tall = clear, short = cloudy.
+       Color: white = clear, black = cloudy. So "tall white"
+       at a glance means a great hour to step outside.
+       ============================================ */
+    .cloud-bar-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 4px;
+      height: 180px;
+      padding: 0.5rem 0.25rem 0;
+      margin-top: 0.5rem;
+      overflow-x: auto;
+    }
+    .cloud-bar-col {
+      flex: 1 1 0;
+      min-width: 36px;
+      max-width: 70px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+    }
+    .cloud-bar-value {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .cloud-bar-fill {
+      width: 100%;
+      max-width: 42px;
+      min-height: 4px;
+      border-radius: 4px 4px 2px 2px;
+      box-shadow: 0 0 6px rgba(232, 240, 247, 0.15);
+      transition: filter 0.15s ease;
+    }
+    .cloud-bar-col:hover .cloud-bar-fill {
+      filter: brightness(1.25);
+    }
+    .cloud-bar-time {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      white-space: nowrap;
+    }
+    .cloud-bar-bookends {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.25rem;
+      margin-top: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    .cloud-bar-bookends .bookend-label {
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      margin-right: 0.4rem;
+    }
+    .cloud-bar-caption {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    @media (max-width: 600px) {
+      .cloud-bar-chart { height: 150px; gap: 3px; }
+      .cloud-bar-col { min-width: 28px; }
+      .cloud-bar-value { font-size: 0.65rem; }
+      .cloud-bar-time { font-size: 0.65rem; }
+      .cloud-bar-bookends { font-size: 0.62rem; }
+      .cloud-bar-bookends .bookend-label { font-size: 0.55rem; }
+    }
+
+    /* ============================================
        7-NIGHT OUTLOOK (Phase 3)
        ============================================ */
     .night-outlook {
@@ -1440,21 +1523,35 @@
       html += '</div>'; /* end flex */
       html += '</section>';
 
-      /* Hourly cloud strip */
+      /* Hourly cloud bar chart &mdash; tall white = clear, short dark = cloudy.
+         Sunset/sunrise bookends below mirror the solar_forecast.html chart. */
       html += '<section class="section">';
       html += '<h2 class="section-title">&#9729;&#65039; Clouds Hour-by-Hour Tonight</h2>';
-      html += '<div class="hourly-strip">';
+      html += '<div class="cloud-bar-chart">';
       windowHours.forEach(function(h) {
-        var cloudColor = h.cloud <= 25 ? 'var(--rating-perfect)' :
-                         h.cloud <= 50 ? 'var(--rating-good)' :
-                         h.cloud <= 75 ? 'var(--rating-fair)' :
-                         'var(--rating-poor)';
-        html += '<div class="hour-cell">';
-        html += '<div class="hour-time">' + formatHour(h.time) + '</div>';
-        html += '<div class="hour-cloud" style="color:' + cloudColor + '">' + Math.round(h.cloud) + '%</div>';
+        var cloudPct = Math.max(0, Math.min(100, h.cloud));
+        var clearPct = 100 - cloudPct;
+        /* Bar height: minimum 4% so a fully-overcast hour still shows a sliver.
+           Otherwise scales linearly with clearness. */
+        var barHeightPct = Math.max(4, Math.round(clearPct * 0.95) + 4);
+        /* Bar color: black-ish at fully cloudy, moon-white at fully clear.
+           Linear interpolation from rgb(20,20,30) to rgb(255,255,255). */
+        var t = clearPct / 100;
+        var r = Math.round(20 + (255 - 20) * t);
+        var g = Math.round(20 + (255 - 20) * t);
+        var b = Math.round(30 + (255 - 30) * t);
+        html += '<div class="cloud-bar-col" title="' + Math.round(cloudPct) + '% cloud at ' + formatHour(h.time) + '">';
+        html += '<div class="cloud-bar-value">' + Math.round(cloudPct) + '%</div>';
+        html += '<div class="cloud-bar-fill" style="height:' + barHeightPct + '%;background:rgb(' + r + ',' + g + ',' + b + ');"></div>';
+        html += '<div class="cloud-bar-time">' + formatHour(h.time) + '</div>';
         html += '</div>';
       });
       html += '</div>';
+      html += '<div class="cloud-bar-bookends">';
+      html += '<div><span class="bookend-label">Sunset</span>' + formatTime(twilights.sunset) + '</div>';
+      html += '<div><span class="bookend-label">Sunrise</span>' + formatTime(twilights.sunrise) + '</div>';
+      html += '</div>';
+      html += '<div class="cloud-bar-caption">Tall &amp; bright = clear viewing. Short &amp; dark = cloudy. Hover a bar for details.</div>';
       html += '</section>';
 
       /* Visible planets */
