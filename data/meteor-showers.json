@@ -1,0 +1,108 @@
+{
+  "_comment": "Major annual meteor showers visible from the Northern Hemisphere. Update yearly with current peak dates from the IMO calendar (https://www.imo.net/resources/calendar/). 'peak' is in YYYY-MM-DD format for the current year. 'window_start' and 'window_end' bracket the active period when meteors are still visible above background rates.",
+  "year": 2026,
+  "source": "International Meteor Organization (IMO) 2026 calendar",
+  "last_updated": "2026-05-01",
+  "showers": [
+    {
+      "name": "Quadrantids",
+      "peak": "2026-01-04",
+      "window_start": "2025-12-28",
+      "window_end": "2026-01-12",
+      "zhr": 110,
+      "radiant": "Bo\u00f6tes",
+      "best_viewing": "Pre-dawn hours, look northeast",
+      "notes": "One of the strongest annual showers but the peak is short \u2014 only 6 hours of high activity. Cold January nights make this one for the dedicated."
+    },
+    {
+      "name": "Lyrids",
+      "peak": "2026-04-22",
+      "window_start": "2026-04-16",
+      "window_end": "2026-04-25",
+      "zhr": 18,
+      "radiant": "Lyra",
+      "best_viewing": "Late evening through pre-dawn, look east-northeast",
+      "notes": "Modest but reliable. Known for occasional bright fireballs. First good shower of spring."
+    },
+    {
+      "name": "Eta Aquariids",
+      "peak": "2026-05-06",
+      "window_start": "2026-04-19",
+      "window_end": "2026-05-28",
+      "zhr": 50,
+      "radiant": "Aquarius",
+      "best_viewing": "Pre-dawn hours, look east",
+      "notes": "Debris from Halley's Comet. Better from southern latitudes but still rewarding from the southern US. Look in the hour before sunrise."
+    },
+    {
+      "name": "Southern Delta Aquariids",
+      "peak": "2026-07-30",
+      "window_start": "2026-07-12",
+      "window_end": "2026-08-23",
+      "zhr": 25,
+      "radiant": "Aquarius",
+      "best_viewing": "After midnight, look south",
+      "notes": "Warm-weather shower with a long, broad peak. Good warm-up act for the Perseids."
+    },
+    {
+      "name": "Perseids",
+      "peak": "2026-08-13",
+      "window_start": "2026-07-17",
+      "window_end": "2026-08-24",
+      "zhr": 100,
+      "radiant": "Perseus",
+      "best_viewing": "After midnight through pre-dawn, look northeast",
+      "notes": "The big one. Warm August nights, reliable 60-100 meteors per hour at peak, often with bright fireballs. The shower most people have actually seen."
+    },
+    {
+      "name": "Draconids",
+      "peak": "2026-10-08",
+      "window_start": "2026-10-06",
+      "window_end": "2026-10-10",
+      "zhr": 10,
+      "radiant": "Draco",
+      "best_viewing": "Early evening, look high in the north",
+      "notes": "Unusual evening shower (most are pre-dawn). Modest most years but capable of brief outbursts of hundreds per hour."
+    },
+    {
+      "name": "Orionids",
+      "peak": "2026-10-22",
+      "window_start": "2026-10-02",
+      "window_end": "2026-11-07",
+      "zhr": 20,
+      "radiant": "Orion",
+      "best_viewing": "After midnight through pre-dawn, look east",
+      "notes": "Also from Halley's Comet. Fast meteors, often leaving trails. Steady performer through late October."
+    },
+    {
+      "name": "Leonids",
+      "peak": "2026-11-17",
+      "window_start": "2026-11-06",
+      "window_end": "2026-11-30",
+      "zhr": 15,
+      "radiant": "Leo",
+      "best_viewing": "After midnight, look east",
+      "notes": "Modest most years but historically capable of meteor storms (1833, 1966, 2001). Famous for fast, bright meteors."
+    },
+    {
+      "name": "Geminids",
+      "peak": "2026-12-14",
+      "window_start": "2026-12-04",
+      "window_end": "2026-12-20",
+      "zhr": 150,
+      "radiant": "Gemini",
+      "best_viewing": "Mid-evening through pre-dawn, look east-northeast",
+      "notes": "The strongest annual shower. Active early enough that you don't have to stay up until dawn. Multi-colored meteors. Worth bundling up for."
+    },
+    {
+      "name": "Ursids",
+      "peak": "2026-12-22",
+      "window_start": "2026-12-17",
+      "window_end": "2026-12-26",
+      "zhr": 10,
+      "radiant": "Ursa Minor",
+      "best_viewing": "After midnight, look north",
+      "notes": "Modest end-of-year shower. Often overlooked because it falls right after the Geminids."
+    }
+  ]
+}
