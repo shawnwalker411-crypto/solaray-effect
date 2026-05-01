@@ -670,7 +670,8 @@
       lat: null,
       lon: null,
       city: null,
-      data: null
+      data: null,
+      skyData: null
     };
 
     /* ============================================
@@ -918,6 +919,54 @@
     }
 
     /* ============================================
+       FETCH SKY DATA &mdash; sky.js aggregator
+       Returns combined payload: planets, moon, sun, apod, asteroids, spaceWeather.
+       Soft-fails: returns null on error so the page can still render with weather only.
+       ============================================ */
+    function fetchSkyData(lat, lon) {
+      var url = '/api/sky?lat=' + lat + '&lon=' + lon;
+      return fetch(url)
+        .then(function(r) {
+          if (!r.ok) throw new Error('Sky API returned ' + r.status);
+          return r.json();
+        })
+        .then(function(data) {
+          if (!data || !data.success) throw new Error('Sky API returned error');
+          return data;
+        })
+        .catch(function(err) {
+          /* Soft fail: log but return null so the page degrades gracefully */
+          if (window.console) console.warn('Sky data unavailable:', err.message);
+          return null;
+        });
+    }
+
+    /* ============================================
+       AZIMUTH TO COMPASS DIRECTION
+       ============================================ */
+    function azimuthToCompass(deg) {
+      if (deg === null || deg === undefined) return '';
+      var dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+      var idx = Math.round((deg % 360) / 45) % 8;
+      return dirs[idx];
+    }
+
+    /* ============================================
+       PLANET BRIGHTNESS / TIPS by name
+       Used to add helpful color/visibility notes to ephemeris data.
+       ============================================ */
+    var PLANET_TIPS = {
+      'Mercury': 'Tricky to spot &mdash; only visible briefly near sunrise or sunset, low to the horizon.',
+      'Venus':   'Brilliant white &mdash; the brightest planet. Hard to miss when up.',
+      'Mars':    'Orange-red. Steady glow, no twinkle.',
+      'Jupiter': 'Cream-white, very bright. Often the brightest object after the moon.',
+      'Saturn':  'Yellowish, moderately bright. Through binoculars you can sometimes see the rings.',
+      'Uranus':  'Just barely naked-eye visible &mdash; needs dark skies and a good chart.',
+      'Neptune': 'Not visible without a telescope.',
+      'Pluto':   'Telescope only.'
+    };
+
+    /* ============================================
        BUILD TONIGHT WINDOW
        Pulls hourly data 7pm tonight to 5am tomorrow
        ============================================ */
@@ -1002,7 +1051,14 @@
       var moon = getMoonPhase(new Date());
       var rating = skyRating(avgCloud, moon.illumination);
       var twilights = getTwilights(weather);
-      var planets = getVisiblePlanets(new Date());
+
+      /* Planets: prefer real ephemeris from sky.js, fall back to month lookup */
+      var planetsRender = null;
+      if (state.skyData && Array.isArray(state.skyData.planets) && state.skyData.planets.length) {
+        planetsRender = { type: 'live', list: state.skyData.planets };
+      } else {
+        planetsRender = { type: 'fallback', list: getVisiblePlanets(new Date()) };
+      }
 
       /* Pick the 10pm-ish hour for "what to wear" */
       var refHour = windowHours.find(function(h) { return h.hour === 22; }) || windowHours[Math.floor(windowHours.length / 2)];
@@ -1071,11 +1127,48 @@
       html += '</section>';
 
       /* Visible planets */
-      if (planets.length) {
+      if (planetsRender.type === 'live') {
+        /* Real ephemeris: filter to those above horizon and worth showing,
+           sort by altitude descending (highest = easiest to see) */
+        var visible = planetsRender.list.filter(function(p) {
+          if (!p.aboveHorizon) return false;
+          /* Skip Uranus/Neptune/Pluto unless very dark sky &mdash; not naked-eye for most users */
+          if (p.name === 'Uranus' || p.name === 'Neptune' || p.name === 'Pluto') return false;
+          return true;
+        });
+        visible.sort(function(a, b) { return (b.altitude || 0) - (a.altitude || 0); });
+
+        if (visible.length) {
+          html += '<section class="section">';
+          html += '<h2 class="section-title">&#129680; Planets You Can See Tonight</h2>';
+          html += '<div style="display:flex;flex-direction:column;gap:0.5rem;">';
+          visible.forEach(function(p) {
+            var compass = azimuthToCompass(p.azimuth);
+            var altDesc = p.altitude > 60 ? 'high overhead' :
+                          p.altitude > 30 ? 'well above the horizon' :
+                          p.altitude > 10 ? 'low in the sky' :
+                          'very low, near the horizon';
+            var tip = PLANET_TIPS[p.name] || '';
+            html += '<div style="padding:0.6rem 0.85rem;background:var(--bg-card-solid);border-left:3px solid var(--sola-teal);border-radius:0 6px 6px 0;">';
+            html += '<div style="font-weight:700;color:var(--sola-teal);font-size:0.95rem;">' + p.name + '</div>';
+            html += '<div style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.15rem;">';
+            html += Math.round(p.altitude) + '&deg; up';
+            if (compass) html += ' in the ' + compass.toLowerCase();
+            html += ' &mdash; ' + altDesc + '.';
+            if (tip) html += ' <span style="color:var(--text-muted);font-size:0.82rem;">' + tip + '</span>';
+            html += '</div>';
+            html += '</div>';
+          });
+          html += '</div>';
+          html += '<div style="margin-top:0.6rem;font-size:0.75rem;color:var(--text-muted);">Positions calculated for your location at evening reference time. &deg; up = degrees above the horizon (90&deg; = directly overhead).</div>';
+          html += '</section>';
+        }
+      } else if (planetsRender.list.length) {
+        /* Fallback: month-based lookup, no altitude data */
         html += '<section class="section">';
         html += '<h2 class="section-title">&#129680; Planets You Can See Tonight</h2>';
         html += '<div style="display:flex;flex-direction:column;gap:0.5rem;">';
-        planets.forEach(function(p) {
+        planetsRender.list.forEach(function(p) {
           html += '<div style="padding:0.6rem 0.85rem;background:var(--bg-card-solid);border-left:3px solid var(--sola-teal);border-radius:0 6px 6px 0;">';
           html += '<div style="font-weight:700;color:var(--sola-teal);font-size:0.95rem;">' + p.name + '</div>';
           html += '<div style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.15rem;">' + p.visibility + '</div>';
@@ -1112,6 +1205,7 @@
         changeBtn.addEventListener('click', function() {
           state.zip = null;
           state.data = null;
+          state.skyData = null;
           panel.innerHTML = '';
           var outlook = $('outlook-panel');
           if (outlook) outlook.innerHTML = '';
@@ -1215,237 +1309,55 @@
     }
 
     /* ============================================
-       PHASE 3 &mdash; SATELLITE PASSES
-       Calls /api/sky.js?action=satellites&amp;lat=X&amp;lon=Y
-       Expected response shape:
-       {
-         success: true,
-         passes: [
-           { name: 'ISS',         start: '2026-05-01T22:14:00Z', duration: 240, magnitude: -3.4, direction: 'SW to NE' },
-           { name: 'Tiangong',    start: '...', duration: 180, magnitude: -1.2, direction: 'W to E' },
-           { name: 'Hubble',      ... },
-           { name: 'Starlink-12', ... }
-         ]
-       }
-       Falls back gracefully if API not yet built.
-       ============================================ */
-    function fetchSatellitePasses(lat, lon) {
-      var url = '/api/sky.js?action=satellites&lat=' + lat + '&lon=' + lon;
-      return fetch(url)
-        .then(function(r) {
-          if (!r.ok) throw new Error('Satellite API returned ' + r.status);
-          return r.json();
-        })
-        .then(function(data) {
-          if (!data || !data.success || !Array.isArray(data.passes)) {
-            throw new Error('Satellite data unavailable');
-          }
-          return data.passes;
-        });
-    }
-
-    /* ============================================
-       PHASE 3 RENDER &mdash; outlook panel
-       ============================================ */
-    function renderOutlook() {
-      var panel = $('outlook-panel');
-      if (!panel) return;
-
-      var summaries = buildNightlySummaries(state.data);
-      var best = pickBestNight(summaries);
-      var tip = getSolaTip();
-
-      var html = '';
-
-      /* Best night callout (only if there&rsquo;s a clear winner that&rsquo;s actually decent) */
-      if (best && best.summary.rating.key !== 'skip' && best.summary.rating.key !== 'poor') {
-        var bn = best.summary;
-        var dayName = bn.date.toLocaleDateString('en-US', { weekday: 'long' });
-        var dateStr = bn.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        html += '<section class="section" style="border-color:var(--sola-gold);background:linear-gradient(135deg,rgba(212,175,55,0.10),var(--bg-card));">';
-        html += '<h2 class="section-title" style="color:var(--sola-gold);">&#11088; Your Best Night This Week</h2>';
-        html += '<div style="font-size:1.1rem;color:var(--text-primary);margin-bottom:0.4rem;"><strong>' + dayName + ' (' + dateStr + ')</strong> &mdash; ' + bn.rating.label + '</div>';
-        html += '<div style="color:var(--text-secondary);font-size:0.9rem;">' + bn.avgCloud + '% avg cloud cover, ' + bn.moon.illumination + '% moon illumination. ' + bn.rating.tip + '</div>';
-        html += '</section>';
-      }
-
-      /* 7-night outlook */
-      if (summaries.length) {
-        html += '<section class="section">';
-        html += '<h2 class="section-title">&#128197; 7-Night Outlook</h2>';
-        html += '<div class="night-outlook">';
-        summaries.forEach(function(s, idx) {
-          var isBest = best && best.idx === idx;
-          var dayName = s.date.toLocaleDateString('en-US', { weekday: 'short' });
-          var dateNum = s.date.getDate();
-          html += '<div class="night-card' + (isBest ? ' best-night' : '') + '">';
-          html += '<div class="night-day">' + dayName + '</div>';
-          html += '<div class="night-date">' + dateNum + '</div>';
-          html += '<div style="margin:0.4rem 0;font-size:1.4rem;line-height:1;">' + s.moon.glyph + '</div>';
-          html += '<div style="font-size:0.7rem;color:var(--text-muted);">' + s.avgCloud + '% cloud</div>';
-          html += '<div style="margin-top:0.4rem;"><span class="rating-badge rating-' + s.rating.key + '" style="font-size:0.65rem;padding:0.15rem 0.45rem;">' + s.rating.label + '</span></div>';
-          html += '</div>';
-        });
-        html += '</div>';
-        html += '</section>';
-      }
-
-      /* Sola&rsquo;s tip */
-      html += '<section class="section">';
-      html += '<h2 class="section-title">&#128161; Sola&rsquo;s Tip of the Night</h2>';
-      html += '<div class="sola-voice">';
-      html += '<div class="sola-avatar">&#9728;&#65039;</div>';
-      html += '<div class="sola-text">' + tip + '</div>';
-      html += '</div>';
-      html += '</section>';
-
-      /* Satellite passes &mdash; loading state, will populate from API */
-      html += '<section class="section" id="satellite-section">';
-      html += '<h2 class="section-title">&#128752; Satellite Passes Tonight</h2>';
-      html += '<div id="satellite-content"><div class="loading-wrap" style="padding:1rem;"><div class="spinner"></div><div style="color:var(--text-secondary);font-size:0.85rem;">Checking ISS, Tiangong, Hubble, and Starlink&hellip;</div></div></div>';
-      html += '</section>';
-
-      panel.innerHTML = html;
-
-      /* Now async-load satellite data */
-      fetchSatellitePasses(state.lat, state.lon)
-        .then(function(passes) {
-          renderSatellitePasses(passes);
-        })
-        .catch(function(err) {
-          renderSatelliteFallback();
-        });
-    }
-
-    function renderSatellitePasses(passes) {
-      var content = $('satellite-content');
-      if (!content) return;
-
-      if (!passes.length) {
-        content.innerHTML = '<div style="color:var(--text-secondary);font-size:0.9rem;padding:0.5rem 0;">No bright satellite passes in the next 48 hours from your location.</div>';
-        return;
-      }
-
-      var html = '<div class="pass-list">';
-      passes.slice(0, 8).forEach(function(p) {
-        var startStr = formatTime(p.start);
-        var dateD = new Date(p.start);
-        var now = new Date();
-        var dayLabel = dateD.toDateString() === now.toDateString() ? 'Tonight' :
-                       dateD.toDateString() === new Date(now.getTime() + 86400000).toDateString() ? 'Tomorrow' :
-                       dateD.toLocaleDateString('en-US', { weekday: 'short' });
-        var durationMin = Math.round((p.duration || 0) / 60);
-        html += '<div class="pass-item">';
-        html += '<div>';
-        html += '<div class="pass-name">' + p.name + '</div>';
-        html += '<div class="pass-detail">' + dayLabel + ' &middot; ' + (p.direction || 'see N2YO') + ' &middot; ' + durationMin + ' min';
-        if (typeof p.magnitude === 'number') html += ' &middot; mag ' + p.magnitude.toFixed(1);
-        html += '</div>';
-        html += '</div>';
-        html += '<div class="pass-time">' + startStr + '</div>';
-        html += '</div>';
-      });
-      html += '</div>';
-      html += '<div style="margin-top:0.75rem;font-size:0.75rem;color:var(--text-muted);">Times are local. Lower magnitude = brighter (the ISS averages around &minus;3, brighter than any star).</div>';
-      content.innerHTML = html;
-    }
-
-    function renderSatelliteFallback() {
-      var content = $('satellite-content');
-      if (!content) return;
-      content.innerHTML =
-        '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
-        'Live satellite tracking is loading separately and isn&rsquo;t ready yet for this location. ' +
-        'In the meantime, you can check passes at <a href="https://www.heavens-above.com/" target="_blank" rel="noopener">Heavens-Above</a> ' +
-        'or <a href="https://www.n2yo.com/" target="_blank" rel="noopener">N2YO</a>.' +
-        '</div>';
-    }
-
-    /* ============================================
-       PHASE 4 &mdash; UPCOMING SKY EVENTS
-       Calls /api/sky.js?action=events
-       Server-side fetches In-the-Sky.org RSS, parses, returns
-       next 30 days of events.
-
-       Expected response shape:
-       {
-         success: true,
-         events: [
-           { date: '2026-05-05', title: 'Eta Aquariid meteor shower peak', description: '...', url: 'https://...' },
-           ...
-         ]
-       }
-       ============================================ */
-    function fetchUpcomingEvents() {
-      return fetch('/api/sky.js?action=events')
-        .then(function(r) {
-          if (!r.ok) throw new Error('Events API returned ' + r.status);
-          return r.json();
-        })
-        .then(function(data) {
-          if (!data || !data.success || !Array.isArray(data.events)) {
-            throw new Error('Events data unavailable');
-          }
-          return data.events;
-        });
-    }
-
-    /* ============================================
-       PHASE 4 &mdash; NASA APOD
-       Calls /api/sky.js?action=apod
-       Server-side proxies NASA APOD API to keep the key safe.
-
-       Expected response shape:
-       {
-         success: true,
-         apod: {
-           title: 'The Pleiades Star Cluster',
-           explanation: '...',
-           url: 'https://apod.nasa.gov/apod/image/...',
-           hdurl: '...',
-           media_type: 'image' | 'video',
-           date: '2026-05-01',
-           copyright: 'optional'
-         }
-       }
-       ============================================ */
-    function fetchAPOD() {
-      return fetch('/api/sky.js?action=apod')
-        .then(function(r) {
-          if (!r.ok) throw new Error('APOD API returned ' + r.status);
-          return r.json();
-        })
-        .then(function(data) {
-          if (!data || !data.success || !data.apod) {
-            throw new Error('APOD unavailable');
-          }
-          return data.apod;
-        });
-    }
-
-    /* ============================================
-       PHASE 4 RENDER &mdash; closer panel
-       Events feed + APOD + bridge + affiliate strip
+       PHASE 6 &mdash; CLOSER PANEL
+       Renders three sections from data already fetched in
+       state.skyData (no extra API calls):
+         1. Asteroid Close Approaches (NeoWs data)
+         2. NASA Picture of the Day (APOD data)
+         3. Space Weather (DONKI data, includes aurora alerts)
+       Falls back to friendly external links if state.skyData is null.
        ============================================ */
     function renderCloser() {
       var panel = $('closer-panel');
       if (!panel) return;
 
+      var sky = state.skyData;
       var html = '';
 
-      /* Upcoming events &mdash; loading state */
-      html += '<section class="section" id="events-section">';
-      html += '<h2 class="section-title">&#128197; Upcoming Sky Events</h2>';
-      html += '<div id="events-content"><div class="loading-wrap" style="padding:1rem;"><div class="spinner"></div><div style="color:var(--text-secondary);font-size:0.85rem;">Pulling upcoming meteor showers, eclipses, and conjunctions&hellip;</div></div></div>';
+      /* ===== ASTEROIDS ===== */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#9732; Asteroids Passing Close This Week</h2>';
+      if (sky && Array.isArray(sky.asteroids) && sky.asteroids.length) {
+        html += renderAsteroidsContent(sky.asteroids);
+      } else {
+        html += renderAsteroidsFallback();
+      }
       html += '</section>';
 
-      /* APOD &mdash; loading state */
-      html += '<section class="section" id="apod-section">';
+      /* ===== APOD ===== */
+      html += '<section class="section">';
       html += '<h2 class="section-title">&#128250; NASA Picture of the Day</h2>';
-      html += '<div id="apod-content"><div class="loading-wrap" style="padding:1rem;"><div class="spinner"></div><div style="color:var(--text-secondary);font-size:0.85rem;">Loading today&rsquo;s image&hellip;</div></div></div>';
+      if (sky && sky.apod && (sky.apod.url || sky.apod.title)) {
+        html += renderAPODContent(sky.apod);
+      } else {
+        html += renderAPODFallback();
+      }
       html += '</section>';
 
-      /* Mining bridge */
+      /* ===== SPACE WEATHER ===== */
+      html += '<section class="section">';
+      html += '<h2 class="section-title">&#9889; Space Weather (Last 3 Days)</h2>';
+      if (sky && Array.isArray(sky.spaceWeather) && sky.spaceWeather.length) {
+        html += renderSpaceWeatherContent(sky.spaceWeather);
+      } else if (sky && Array.isArray(sky.spaceWeather)) {
+        /* Empty array = data fetched, nothing happening &mdash; that&rsquo;s good news */
+        html += '<div style="color:var(--text-secondary);font-size:0.9rem;padding:0.25rem 0;">Quiet sun &mdash; no major flares, storms, or coronal mass ejections in the last 3 days. Auroras unlikely outside polar latitudes.</div>';
+      } else {
+        html += renderSpaceWeatherFallback();
+      }
+      html += '</section>';
+
+      /* ===== MINING BRIDGE ===== */
       html += '<div class="bridge-panel">';
       html += '<div style="font-size:1rem;color:var(--sola-gold);font-weight:700;margin-bottom:0.4rem;">&#9889; Clear Nights Are Free-Electricity Nights</div>';
       html += '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.5;">';
@@ -1455,7 +1367,7 @@
       html += '<a href="index.html">Open the Mining Calculator &rarr;</a>';
       html += '</div>';
 
-      /* eBay affiliate strip &mdash; stargazing gear */
+      /* ===== eBay AFFILIATE STRIP ===== */
       html += '<div class="mobile-affiliate-strip">';
       html += '<div class="strip-header">';
       html += '<div class="strip-label">Sola Ray Effect</div>';
@@ -1475,80 +1387,73 @@
       html += '</div>';
 
       panel.innerHTML = html;
-
-      /* Async-load events */
-      fetchUpcomingEvents()
-        .then(function(events) {
-          renderEvents(events);
-        })
-        .catch(function(err) {
-          renderEventsFallback();
-        });
-
-      /* Async-load APOD */
-      fetchAPOD()
-        .then(function(apod) {
-          renderAPOD(apod);
-        })
-        .catch(function(err) {
-          renderAPODFallback();
-        });
     }
 
-    function renderEvents(events) {
-      var content = $('events-content');
-      if (!content) return;
-
-      if (!events.length) {
-        content.innerHTML = '<div style="color:var(--text-secondary);font-size:0.9rem;padding:0.5rem 0;">No major sky events in the next 30 days. Quiet stretch &mdash; good time to learn the constellations.</div>';
-        return;
-      }
+    /* ===== ASTEROID RENDERING ===== */
+    function renderAsteroidsContent(asteroids) {
+      /* Sort by closest approach first; show top 5 */
+      var sorted = asteroids.slice().sort(function(a, b) {
+        return (a.missDistanceKm || Infinity) - (b.missDistanceKm || Infinity);
+      });
+      var top = sorted.slice(0, 5);
 
       var html = '<div class="event-list">';
-      events.slice(0, 8).forEach(function(ev) {
-        var d = new Date(ev.date);
-        var dateLabel = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      top.forEach(function(a) {
+        var dateStr = '';
+        if (a.closeApproachDate) {
+          var d = new Date(a.closeApproachDate);
+          if (!isNaN(d.getTime())) {
+            dateStr = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+          } else {
+            dateStr = a.closeApproachDate;
+          }
+        }
+        var lunarStr = a.missDistanceLunar ? a.missDistanceLunar.toFixed(1) + ' lunar distances' : '';
+        var sizeStr = a.diameterMeters ? a.diameterMeters.toLocaleString() + ' m wide' : '';
+        var hazardBadge = a.hazardous
+          ? '<span style="display:inline-block;margin-left:0.5rem;padding:0.1rem 0.45rem;background:rgba(239,68,68,0.18);color:var(--rating-skip);border:1px solid rgba(239,68,68,0.4);border-radius:999px;font-size:0.65rem;font-weight:700;letter-spacing:0.05em;">PHA</span>'
+          : '';
         html += '<div class="event-item">';
-        html += '<div class="event-date">' + dateLabel + '</div>';
-        html += '<div class="event-title">' + ev.title + '</div>';
-        if (ev.description) {
-          html += '<div class="event-desc">' + ev.description + '</div>';
+        html += '<div class="event-date">' + dateStr + '</div>';
+        html += '<div class="event-title">' + a.name + hazardBadge + '</div>';
+        html += '<div class="event-desc">';
+        if (sizeStr) html += sizeStr + ' &middot; ';
+        if (lunarStr) html += 'misses by ' + lunarStr;
+        if (a.velocityKmh) html += ' &middot; ' + Math.round(a.velocityKmh).toLocaleString() + ' km/h';
+        html += '</div>';
+        if (a.url) {
+          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + a.url + '" target="_blank" rel="noopener">Details on NASA JPL &rarr;</a></div>';
         }
         html += '</div>';
       });
       html += '</div>';
-      content.innerHTML = html;
+      html += '<div style="margin-top:0.75rem;font-size:0.75rem;color:var(--text-muted);">A lunar distance is about 384,000 km. The moon is 1.0 lunar distance away. PHA = Potentially Hazardous Asteroid (close + large enough to track). None of these are predicted to hit Earth.</div>';
+      return html;
     }
 
-    function renderEventsFallback() {
-      var content = $('events-content');
-      if (!content) return;
-      content.innerHTML =
-        '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
-        'Live events feed is loading separately and isn&rsquo;t ready yet. ' +
-        'In the meantime, check <a href="https://in-the-sky.org/newscal.php" target="_blank" rel="noopener">In-the-Sky.org</a> ' +
-        'or <a href="https://www.timeanddate.com/astronomy/sights-to-see.html" target="_blank" rel="noopener">timeanddate.com</a> ' +
-        'for the next 30 days of meteor showers, conjunctions, and eclipses.' +
+    function renderAsteroidsFallback() {
+      return '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
+        'Asteroid data is loading separately and isn&rsquo;t ready right now. ' +
+        'See close approaches at <a href="https://cneos.jpl.nasa.gov/ca/" target="_blank" rel="noopener">NASA JPL CNEOS</a>.' +
         '</div>';
     }
 
-    function renderAPOD(apod) {
-      var content = $('apod-content');
-      if (!content) return;
-
+    /* ===== APOD RENDERING ===== */
+    function renderAPODContent(apod) {
       var html = '<div class="apod-panel">';
-      if (apod.media_type === 'image') {
+      var media = apod.mediaType || apod.media_type;
+      if (media === 'image' && apod.url) {
         html += '<img class="apod-image" src="' + apod.url + '" alt="' + (apod.title || 'NASA Astronomy Picture of the Day') + '" loading="lazy">';
-      } else if (apod.media_type === 'video') {
+      } else if (media === 'video' && apod.url) {
         html += '<div style="padding:1rem;background:var(--bg-card-solid);border-radius:8px;margin-bottom:0.75rem;color:var(--text-secondary);font-size:0.9rem;">';
         html += 'Today&rsquo;s NASA pick is a video. <a href="' + apod.url + '" target="_blank" rel="noopener">Watch it on NASA &rarr;</a>';
         html += '</div>';
       }
       html += '<div class="apod-title">' + (apod.title || 'NASA Astronomy Picture of the Day') + '</div>';
       if (apod.explanation) {
-        var shortExp = apod.explanation.length > 400 ?
-                       apod.explanation.substring(0, 400) + '&hellip;' :
-                       apod.explanation;
+        var shortExp = apod.explanation.length > 400
+          ? apod.explanation.substring(0, 400) + '&hellip;'
+          : apod.explanation;
         html += '<div class="apod-explanation">' + shortExp + '</div>';
       }
       html += '<div style="margin-top:0.6rem;font-size:0.75rem;color:var(--text-muted);">';
@@ -1556,17 +1461,65 @@
       if (apod.copyright) html += ' &middot; &copy; ' + apod.copyright;
       html += '</div>';
       html += '</div>';
-
-      content.innerHTML = html;
+      return html;
     }
 
     function renderAPODFallback() {
-      var content = $('apod-content');
-      if (!content) return;
-      content.innerHTML =
-        '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
-        'Today&rsquo;s NASA Picture of the Day is loading separately and isn&rsquo;t ready yet. ' +
+      return '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
+        'Today&rsquo;s NASA Picture of the Day isn&rsquo;t loaded right now. ' +
         'See it directly at <a href="https://apod.nasa.gov/apod/" target="_blank" rel="noopener">apod.nasa.gov</a>.' +
+        '</div>';
+    }
+
+    /* ===== SPACE WEATHER RENDERING ===== */
+    function renderSpaceWeatherContent(events) {
+      /* Group by type for cleaner display */
+      var html = '';
+
+      /* Highlight any geomagnetic storms first &mdash; aurora-relevant */
+      var storms = events.filter(function(e) { return e.type === 'Geomagnetic Storm'; });
+      if (storms.length) {
+        var topStorm = storms[0];
+        html += '<div style="padding:0.85rem 1rem;background:linear-gradient(135deg,rgba(74,222,128,0.10),rgba(0,206,209,0.06));border:1px solid rgba(74,222,128,0.35);border-radius:8px;margin-bottom:0.85rem;">';
+        html += '<div style="font-weight:700;color:var(--rating-perfect);margin-bottom:0.3rem;">&#127775; Geomagnetic Storm in Progress</div>';
+        html += '<div style="color:var(--text-primary);font-size:0.9rem;">' + topStorm.summary + '</div>';
+        if (topStorm.link) {
+          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + topStorm.link + '" target="_blank" rel="noopener">Track this storm &rarr;</a></div>';
+        }
+        html += '</div>';
+      }
+
+      html += '<div class="event-list">';
+      events.slice(0, 6).forEach(function(e) {
+        var dateStr = '';
+        if (e.time) {
+          var d = new Date(e.time);
+          if (!isNaN(d.getTime())) {
+            dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ' + formatTime(e.time);
+          }
+        }
+        var typeIcon = e.type === 'Solar Flare' ? '&#9728;&#65039;' :
+                       e.type === 'Geomagnetic Storm' ? '&#127775;' :
+                       e.type === 'Coronal Mass Ejection' ? '&#128165;' :
+                       '&#10024;';
+        html += '<div class="event-item">';
+        html += '<div class="event-date">' + dateStr + (e.class ? ' &middot; ' + e.class : '') + '</div>';
+        html += '<div class="event-title">' + typeIcon + ' ' + e.type + '</div>';
+        html += '<div class="event-desc">' + e.summary + '</div>';
+        if (e.link) {
+          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + e.link + '" target="_blank" rel="noopener">More on NASA DONKI &rarr;</a></div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '<div style="margin-top:0.75rem;font-size:0.75rem;color:var(--text-muted);">Geomagnetic storms (Kp 5 and up) can push auroras south of their normal range. Solar flares and CMEs are what cause them, usually 1-3 days after a sun event.</div>';
+      return html;
+    }
+
+    function renderSpaceWeatherFallback() {
+      return '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
+        'Space weather data is loading separately and isn&rsquo;t ready right now. ' +
+        'For aurora forecasts, see <a href="https://www.swpc.noaa.gov/products/aurora-30-minute-forecast" target="_blank" rel="noopener">NOAA Space Weather</a>.' +
         '</div>';
     }
 
@@ -1584,10 +1537,16 @@
           state.lon = loc.lon;
           state.city = loc.city;
           try { localStorage.setItem(STORAGE_KEY, zip); } catch (e) {}
-          return fetchWeather(loc.lat, loc.lon);
+          /* Fetch weather and sky data in parallel.
+             fetchSkyData soft-fails to null, so weather alone is enough to render the page. */
+          return Promise.all([
+            fetchWeather(loc.lat, loc.lon),
+            fetchSkyData(loc.lat, loc.lon)
+          ]);
         })
-        .then(function(weather) {
-          state.data = weather;
+        .then(function(results) {
+          state.data = results[0];
+          state.skyData = results[1]; /* may be null if sky.js failed */
           hide($('zip-screen'));
           renderTonight();
           renderOutlook();
