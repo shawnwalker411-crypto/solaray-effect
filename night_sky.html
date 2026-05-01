@@ -1150,6 +1150,41 @@
     }
 
     /* ============================================
+       LOCAL DATE KEY
+       Returns YYYY-MM-DD from a Date in the user&rsquo;s LOCAL timezone.
+       Replaces toISOString().split('T')[0], which returns UTC and breaks
+       night-grouping for users west of UTC (anyone in the Americas).
+       ============================================ */
+    function localDateKey(d) {
+      var y = d.getFullYear();
+      var m = d.getMonth() + 1;
+      var day = d.getDate();
+      return y + '-' + (m < 10 ? '0' + m : m) + '-' + (day < 10 ? '0' + day : day);
+    }
+
+    /* ============================================
+       TRUNCATE TO SENTENCE
+       Returns a substring of `text` no longer than `maxLen` characters,
+       broken at the last sentence boundary (. ? !) before maxLen.
+       Falls back to the last word boundary if no sentence boundary is
+       found in the candidate window. Used for APOD blurbs so we don&rsquo;t
+       cut off mid-word like "&hellip;known to some as Markari&hellip;".
+       ============================================ */
+    function truncateToSentence(text, maxLen) {
+      if (!text || text.length <= maxLen) return text;
+      var slice = text.substring(0, maxLen);
+      /* Look for last sentence-ending punctuation */
+      var lastPeriod = Math.max(slice.lastIndexOf('. '), slice.lastIndexOf('? '), slice.lastIndexOf('! '));
+      if (lastPeriod > maxLen * 0.5) {
+        return slice.substring(0, lastPeriod + 1);
+      }
+      /* Fallback: cut at last whole word */
+      var lastSpace = slice.lastIndexOf(' ');
+      if (lastSpace > 0) return slice.substring(0, lastSpace);
+      return slice;
+    }
+
+    /* ============================================
        BUILD TONIGHT WINDOW
        Pulls hourly data 7pm tonight to 5am tomorrow
        ============================================ */
@@ -1165,9 +1200,9 @@
       var dewpt = hourly.dew_point_2m;
 
       var now = new Date();
-      var todayStr = now.toISOString().split('T')[0];
+      var todayStr = localDateKey(now);
       var tomorrow = new Date(now); tomorrow.setDate(tomorrow.getDate() + 1);
-      var tomorrowStr = tomorrow.toISOString().split('T')[0];
+      var tomorrowStr = localDateKey(tomorrow);
 
       var windowHours = [];
       for (var i = 0; i < times.length; i++) {
@@ -1499,7 +1534,7 @@
         if (hour <= 5) dayDate.setDate(dayDate.getDate() - 1);
         /* Only include 7pm-5am hours */
         if (hour < 19 && hour > 5) continue;
-        var key = dayDate.toISOString().split('T')[0];
+        var key = localDateKey(dayDate);
         if (!nights[key]) nights[key] = { date: new Date(dayDate), clouds: [] };
         nights[key].clouds.push(clouds[i]);
       }
@@ -2042,7 +2077,7 @@
       html += '<div class="apod-title">' + (apod.title || 'NASA Astronomy Picture of the Day') + '</div>';
       if (apod.explanation) {
         var shortExp = apod.explanation.length > 400
-          ? apod.explanation.substring(0, 400) + '&hellip;'
+          ? truncateToSentence(apod.explanation, 400) + '&hellip;'
           : apod.explanation;
         html += '<div class="apod-explanation">' + shortExp + '</div>';
       }
