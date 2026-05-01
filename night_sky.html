@@ -699,7 +699,8 @@
       data: null,
       skyData: null,
       satellites: null,
-      meteorShowers: null
+      meteorShowers: null,
+      aurora: null
     };
 
     /* ============================================
@@ -1011,6 +1012,28 @@
         })
         .catch(function(err) {
           if (window.console) console.warn('Meteor showers unavailable:', err.message);
+          return null;
+        });
+    }
+
+    /* ============================================
+       FETCH AURORA &mdash; sky.js aurora endpoint
+       Returns current Kp, peak forecast, active storms, and visibility for user lat.
+       Soft-fails: returns null on error.
+       ============================================ */
+    function fetchAurora(lat) {
+      var url = '/api/sky?action=aurora&lat=' + lat;
+      return fetch(url)
+        .then(function(r) {
+          if (!r.ok) throw new Error('Aurora API returned ' + r.status);
+          return r.json();
+        })
+        .then(function(data) {
+          if (!data || !data.success) throw new Error('Aurora data unavailable');
+          return data;
+        })
+        .catch(function(err) {
+          if (window.console) console.warn('Aurora data unavailable:', err.message);
           return null;
         });
     }
@@ -1338,6 +1361,11 @@
         html += '</section>';
       }
 
+      /* Aurora visibility for user's latitude */
+      if (state.aurora) {
+        html += renderAuroraSection(state.aurora);
+      }
+
       /* What to wear &mdash; Sola voice */
       html += '<section class="section">';
       html += '<h2 class="section-title">&#129507; What to Wear Tonight</h2>';
@@ -1368,6 +1396,7 @@
           state.skyData = null;
           state.satellites = null;
           state.meteorShowers = null;
+          state.aurora = null;
           panel.innerHTML = '';
           var outlook = $('outlook-panel');
           if (outlook) outlook.innerHTML = '';
@@ -1694,15 +1723,98 @@
       return html;
     }
 
-    /* ============================================
-       PHASE 6 &mdash; CLOSER PANEL
-       Renders three sections from data already fetched in
-       state.skyData (no extra API calls):
-         1. Asteroid Close Approaches (NeoWs data)
-         2. NASA Picture of the Day (APOD data)
-         3. Space Weather (DONKI data, includes aurora alerts)
-       Falls back to friendly external links if state.skyData is null.
-       ============================================ */
+    /* ===== AURORA RENDERING =====
+       Returns full <section> markup. Visibility-driven styling:
+       - 'likely' = green border (you can see it from your latitude)
+       - 'possible' = teal border (worth trying)
+       - 'edge' = gold border (long shot but possible)
+       - 'unlikely' = standard border (informational only)
+       Active storm callout shown when geomagnetic storm in progress. */
+    function renderAuroraSection(auroraData) {
+      var visBorderColor = {
+        likely: 'var(--rating-perfect)',
+        possible: 'var(--sola-teal)',
+        edge: 'var(--sola-gold)',
+        unlikely: 'var(--border-color)'
+      }[auroraData.visibility] || 'var(--border-color)';
+
+      var visBgGradient = {
+        likely: 'linear-gradient(135deg,rgba(74,222,128,0.10),var(--bg-card))',
+        possible: 'linear-gradient(135deg,rgba(0,206,209,0.08),var(--bg-card))',
+        edge: 'linear-gradient(135deg,rgba(212,175,55,0.08),var(--bg-card))',
+        unlikely: 'var(--bg-card)'
+      }[auroraData.visibility] || 'var(--bg-card)';
+
+      var visEmoji = {
+        likely: '&#127775;',
+        possible: '&#127775;',
+        edge: '&#127770;',
+        unlikely: '&#127769;'
+      }[auroraData.visibility] || '&#127770;';
+
+      var html = '<section class="section" style="border-color:' + visBorderColor + ';background:' + visBgGradient + ';">';
+      html += '<h2 class="section-title">' + visEmoji + ' Aurora Forecast Tonight</h2>';
+
+      /* Active storm callout (highest priority info) */
+      if (auroraData.activeStorms && auroraData.activeStorms.length) {
+        var topStorm = auroraData.activeStorms.reduce(function(max, s) {
+          return (!max || s.kp > max.kp) ? s : max;
+        }, null);
+        if (topStorm) {
+          html += '<div style="padding:0.7rem 0.95rem;background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.4);border-radius:8px;margin-bottom:0.85rem;">';
+          html += '<div style="font-weight:700;color:var(--rating-perfect);font-size:0.9rem;">&#9889; Geomagnetic Storm in Progress &mdash; ' + (topStorm.scale || ('Kp ' + topStorm.kp.toFixed(1))) + '</div>';
+          html += '<div style="color:var(--text-primary);font-size:0.85rem;margin-top:0.25rem;">Auroras may be pushed unusually far south. Worth checking even from mid-latitudes.</div>';
+          html += '</div>';
+        }
+      }
+
+      /* Visibility summary */
+      var visLabel = {
+        likely:   'Likely Visible',
+        possible: 'Possibly Visible',
+        edge:     'Edge of Visibility',
+        unlikely: 'Unlikely'
+      }[auroraData.visibility] || 'Unknown';
+
+      html += '<div style="margin-bottom:0.85rem;">';
+      html += '<span class="rating-badge" style="background:' + visBorderColor + '20;color:' + visBorderColor + ';border:1px solid ' + visBorderColor + '60;">' + visLabel + '</span>';
+      html += '</div>';
+
+      html += '<div style="color:var(--text-primary);font-size:0.92rem;line-height:1.5;margin-bottom:0.85rem;">' + auroraData.summary + '</div>';
+
+      /* Kp data row */
+      html += '<div style="display:flex;flex-wrap:wrap;gap:1.25rem;font-size:0.85rem;color:var(--text-secondary);">';
+
+      if (auroraData.current) {
+        var curKp = typeof auroraData.current.kp === 'number' ? auroraData.current.kp.toFixed(1) : '&mdash;';
+        var curLabel = auroraData.current.observed === 'observed' ? 'observed' :
+                       auroraData.current.observed === 'estimated' ? 'estimated' : 'reported';
+        html += '<div><strong style="color:var(--text-primary);">Current Kp:</strong> ' + curKp + ' <span style="color:var(--text-muted);font-size:0.8rem;">(' + curLabel + ')</span></div>';
+      }
+
+      if (auroraData.peak24h) {
+        var peakKp = typeof auroraData.peak24h.kp === 'number' ? auroraData.peak24h.kp.toFixed(1) : '&mdash;';
+        var peakD = new Date(auroraData.peak24h.time);
+        var peakStr = !isNaN(peakD.getTime()) ? formatTime(auroraData.peak24h.time) : '';
+        html += '<div><strong style="color:var(--text-primary);">Peak Next 24h:</strong> Kp ' + peakKp;
+        if (peakStr) html += ' <span style="color:var(--text-muted);font-size:0.8rem;">around ' + peakStr + '</span>';
+        html += '</div>';
+      }
+
+      if (typeof auroraData.auroraSouthernBoundary === 'number') {
+        html += '<div><strong style="color:var(--text-primary);">Aurora Southern Edge:</strong> ' + auroraData.auroraSouthernBoundary + '&deg;N</div>';
+      }
+
+      html += '</div>';
+
+      html += '<div style="margin-top:0.85rem;font-size:0.75rem;color:var(--text-muted);">';
+      html += 'Kp 0&ndash;3 = quiet. Kp 4 = unsettled. Kp 5+ = G1 minor storm or stronger. Each step pushes auroras further south. ';
+      html += 'Data: <a href="https://www.swpc.noaa.gov/products/planetary-k-index" target="_blank" rel="noopener">NOAA Space Weather Prediction Center</a>.';
+      html += '</div>';
+
+      html += '</section>';
+      return html;
+    }
     function renderCloser() {
       var panel = $('closer-panel');
       if (!panel) return;
@@ -1946,13 +2058,14 @@
           state.lon = loc.lon;
           state.city = loc.city;
           try { localStorage.setItem(STORAGE_KEY, zip); } catch (e) {}
-          /* Fetch weather, sky data, satellite passes, and meteor showers in parallel.
-             All four soft-fail to null, so weather alone is enough to render the page. */
+          /* Fetch weather, sky data, satellite passes, meteor showers, and aurora in parallel.
+             All five soft-fail to null, so weather alone is enough to render the page. */
           return Promise.all([
             fetchWeather(loc.lat, loc.lon),
             fetchSkyData(loc.lat, loc.lon),
             fetchSatellitePasses(loc.lat, loc.lon),
-            fetchMeteorShowers()
+            fetchMeteorShowers(),
+            fetchAurora(loc.lat)
           ]);
         })
         .then(function(results) {
@@ -1960,6 +2073,7 @@
           state.skyData = results[1]; /* may be null if sky.js failed */
           state.satellites = results[2]; /* may be null if satellite endpoint failed */
           state.meteorShowers = results[3]; /* may be null if data file failed */
+          state.aurora = results[4]; /* may be null if aurora endpoint failed */
           hide($('zip-screen'));
           renderTonight();
           renderOutlook();
