@@ -461,6 +461,50 @@ async function fetchViaNowNodes(coin) {
     ZEC: 75
   };
 
+  /* ETC: read live difficulty/height from the JSON-RPC node (etc.nownodes.io)
+     instead of the Blockbook indexer. Blockbook's /api/v2 root returns a
+     status page where backend.difficulty reflects the indexer's backing node
+     state, which can lag the real chain significantly. JSON-RPC's
+     eth_getBlockByNumber("latest") is the documented source for current
+     block data. If the JSON-RPC call fails for any reason we fall through
+     to the original Blockbook code path below. */
+  if (coin === 'ETC') {
+    try {
+      const rpcRes = await fetch('https://etc.nownodes.io', {
+        method: 'POST',
+        headers: {
+          'api-key': apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          method: 'eth_getBlockByNumber',
+          params: ['latest', false],
+          id: 1
+        })
+      });
+      const rpcData = await rpcRes.json();
+      const diffHex = rpcData.result?.difficulty;
+      const heightHex = rpcData.result?.number;
+      if (diffHex && heightHex) {
+        const difficulty = Number(BigInt(diffHex));
+        const height = Number(BigInt(heightHex));
+        const networkHashrate = difficulty / blockTimes.ETC;
+        return {
+          coin: 'ETC',
+          difficulty,
+          network_hashrate: networkHashrate,
+          block_reward: blockRewards.ETC,
+          block_time: blockTimes.ETC,
+          height,
+          hashrate_estimated: false
+        };
+      }
+    } catch (e) {
+      // JSON-RPC failed; fall through to Blockbook fallback below
+    }
+  }
+
   const res = await fetch(endpoints[coin], {
     headers: { 'api-key': apiKey }
   });
