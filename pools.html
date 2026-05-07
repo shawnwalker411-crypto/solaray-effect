@@ -1200,6 +1200,79 @@
     
     <p style="text-align:center;color:var(--text-secondary);max-width:760px;margin:0 auto 1.25rem;">After picking a pool, <a href="index.html">run your miner through the calculator</a> to see daily and monthly earnings at that pool's fee structure and your power cost.</p>
     
+    <!-- Pool Profiles Quick Access Tiles -->
+    <style>
+      .pool-tiles-box {
+        background: rgba(0, 206, 209, 0.04);
+        border: 1px solid rgba(0, 206, 209, 0.2);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 0 auto 2rem;
+        max-width: 1100px;
+      }
+      .pool-tiles-heading {
+        text-align: center;
+        color: var(--sola-gold);
+        font-size: 1.1rem;
+        margin: 0 0 0.35rem;
+        font-weight: 700;
+      }
+      .pool-tiles-sub {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        margin: 0 0 1.25rem;
+      }
+      .pool-tiles-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+      }
+      .pool-tile {
+        display: block;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(0, 206, 209, 0.25);
+        border-radius: 6px;
+        padding: 0.85rem 0.6rem;
+        text-align: center;
+        text-decoration: none;
+        color: var(--text-primary, #e8f0f7);
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.15s ease;
+      }
+      .pool-tile:hover {
+        background: rgba(0, 206, 209, 0.08);
+        border-color: var(--sola-teal);
+        color: var(--sola-teal);
+        transform: translateY(-1px);
+      }
+      .pool-tile-sub {
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 400;
+        color: var(--text-secondary);
+        margin-top: 0.2rem;
+      }
+      @media (max-width: 768px) {
+        .pool-tiles-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+    </style>
+    <div class="pool-tiles-box">
+      <h3 class="pool-tiles-heading">Pool Profiles &mdash; Jump to Details</h3>
+      <p class="pool-tiles-sub">Tap any pool below to read its profile at the bottom of this page.</p>
+      <div class="pool-tiles-grid">
+        <a class="pool-tile" href="#profile-f2pool">F2Pool<span class="pool-tile-sub">Since 2013</span></a>
+        <a class="pool-tile" href="#profile-antpool">Antpool<span class="pool-tile-sub">Bitmain, since 2014</span></a>
+        <a class="pool-tile" href="#profile-viabtc">ViaBTC<span class="pool-tile-sub">PPS+, PPLNS, SOLO</span></a>
+        <a class="pool-tile" href="#profile-luxor">Luxor<span class="pool-tile-sub">US-based, SOC 2</span></a>
+        <a class="pool-tile" href="#profile-braiins">Braiins Pool<span class="pool-tile-sub">Oldest, since 2010</span></a>
+        <a class="pool-tile" href="#profile-mining-dutch">Mining-Dutch<span class="pool-tile-sub">Multi-algo, 500+ coins</span></a>
+        <a class="pool-tile" href="#profile-solopool">SoloPool.org<span class="pool-tile-sub">Pure solo mining</span></a>
+        <a class="pool-tile" href="#profile-kryptex">Kryptex<span class="pool-tile-sub">PPS+, auto-exchange</span></a>
+      </div>
+    </div>
+    
     <!-- Why Geography Matters -->
     <div class="info-box">
       <h4>&#x1F30E; Why Geography Matters</h4>
@@ -2452,6 +2525,127 @@
     </section>
 
     <!-- DISCLAIMER -->
+    <!-- Pool Profiles Section (linked from top tile box) -->
+    <style>
+      .pool-profiles-section {
+        margin: 3rem 0 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid rgba(0, 206, 209, 0.2);
+      }
+      .pool-profiles-heading {
+        text-align: center;
+        color: var(--sola-gold);
+        font-size: 1.6rem;
+        margin: 0 0 0.5rem;
+      }
+      .pool-profiles-intro {
+        text-align: center;
+        color: var(--text-secondary);
+        max-width: 760px;
+        margin: 0 auto 2rem;
+      }
+      .pool-profile-card {
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(0, 206, 209, 0.25);
+        border-left: 4px solid var(--sola-teal);
+        border-radius: 6px;
+        padding: 1.5rem;
+        margin: 0 auto 1.25rem;
+        max-width: 1000px;
+        scroll-margin-top: 80px;
+      }
+      .pool-profile-card h3 {
+        color: var(--sola-teal);
+        font-size: 1.35rem;
+        margin: 0 0 0.75rem;
+      }
+      .pool-profile-card p {
+        color: var(--text-primary, #e8f0f7);
+        line-height: 1.65;
+        margin: 0 0 0.85rem;
+      }
+      .pool-profile-link {
+        display: inline-block;
+        margin-top: 0.5rem;
+        padding: 0.5rem 0.85rem;
+        background: rgba(0, 206, 209, 0.1);
+        border: 1px solid var(--sola-teal);
+        border-radius: 4px;
+        color: var(--sola-teal);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.15s ease;
+      }
+      .pool-profile-link:hover {
+        background: var(--sola-teal);
+        color: #000;
+      }
+      .pool-back-to-top {
+        display: block;
+        text-align: center;
+        margin: 1.5rem auto 0;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        text-decoration: none;
+      }
+      .pool-back-to-top:hover { color: var(--sola-teal); }
+    </style>
+    <section class="pool-profiles-section">
+      <h2 class="pool-profiles-heading">Pool Profiles</h2>
+      <p class="pool-profiles-intro">Quick reference on the 8 pools most relevant to home miners. Always verify current fees on the official site &mdash; rates change.</p>
+
+      <article class="pool-profile-card" id="profile-f2pool">
+        <h3>F2Pool</h3>
+        <p>F2Pool launched in 2013 and is one of the oldest mining pools still running, supporting BTC and 40+ other Proof-of-Work coins including LTC, ETC, ETHW, ZEC, DASH, KAS, <span class="glossary-term" data-term="alephium">ALPH</span>, BCH, and DigiByte. Bitcoin miners get three payout choices: PPS+, <span class="glossary-term" data-term="fpps">FPPS</span>, and <span class="glossary-term" data-term="pplns">PPLNS</span>, with fees that vary by method (PPLNS at 2%, FPPS at 4% as of this writing). Default BTC minimum payout is 0.005 BTC, customizable in account settings. Daily automatic payouts. Strong merged-mining built in &mdash; mining BTC also earns <span class="glossary-term" data-term="fractal-bitcoin">FB (Fractal Bitcoin)</span>, HTR, NMC, ELA, and NAT automatically at no extra cost. Globally distributed servers across North America, Europe, Asia, Africa, and Latin America.</p>
+        <a class="pool-profile-link" href="https://www.f2pool.com/" target="_blank" rel="noopener">Visit F2Pool &rarr;</a>
+      </article>
+
+      <article class="pool-profile-card" id="profile-antpool">
+        <h3>Antpool</h3>
+        <p>Antpool was launched in 2014 by Bitmain &mdash; the same company that makes Antminer hardware &mdash; and is one of the largest BTC pools by network <span class="glossary-term" data-term="hashrate">hashrate</span>. Two payout options: <span class="glossary-term" data-term="fpps">FPPS</span> (2.5% fee) and <span class="glossary-term" data-term="pplns">PPLNS</span> (1.5% fee). BTC minimum payout is 0.005 BTC, processed once daily at 00:00 UTC. Beyond Bitcoin, Antpool supports BCH, LTC, ETC, ETHW, ZEC, DASH, RVN, DGB (both <span class="glossary-term" data-term="sha256">SHA-256</span> and Scrypt), CKB, HNS, and Kadena. Direct <span class="glossary-term" data-term="firmware">firmware</span> integration with Antminer rigs makes onboarding straightforward for Bitmain hardware owners. No KYC required for retail-scale mining. Multi-region servers across North America, Europe, and Asia.</p>
+        <a class="pool-profile-link" href="https://www.antpool.com/home?lang=en" target="_blank" rel="noopener">Visit Antpool &rarr;</a>
+      </article>
+
+      <article class="pool-profile-card" id="profile-viabtc">
+        <h3>ViaBTC</h3>
+        <p>ViaBTC has been operating since 2016 and offers more flexibility than most pools &mdash; three payout methods on a single account: PPS+, <span class="glossary-term" data-term="pplns">PPLNS</span>, and <span class="glossary-term" data-term="solo">SOLO</span>. Bitcoin minimum payout is 0.001 BTC, the lowest among the major pools. Supports BTC, BCH, LTC, KAS, ETC, ZEC, DASH, CKB, and HNS. Strong merged-mining setup: BTC mining also earns <span class="glossary-term" data-term="fractal-bitcoin">FB (Fractal Bitcoin)</span>, Namecoin, SYS, and ELA at no extra cost. Built-in revenue sharing lets you split mined coins between sub-accounts automatically. Auto-withdrawal between 10:00 and 18:00 HKT daily with zero fees. Used by over 1 million miners across 130+ countries. Includes a built-in profit calculator and transaction accelerator.</p>
+        <a class="pool-profile-link" href="https://www.viabtc.com/" target="_blank" rel="noopener">Visit ViaBTC &rarr;</a>
+      </article>
+
+      <article class="pool-profile-card" id="profile-luxor">
+        <h3>Luxor</h3>
+        <p>Luxor is a US-based pool launched in 2018 and is SOC 2 Type 2 certified &mdash; meaning audited security controls, important if compliance matters to you. <span class="glossary-term" data-term="fpps">FPPS</span> is the primary payout method, with transparent BTC pricing. Pool <span class="glossary-term" data-term="hashrate">hashrate</span> exceeds 40 EH/s, with over 35,000 BTC paid to miners across 113 countries. Daily, weekly, or monthly payout cadence available. Luxor also makes <span class="glossary-term" data-term="luxos">LuxOS firmware</span> (covered on our firmware page), which carries a 2.8% <span class="glossary-term" data-term="devfee">dev fee</span> that's waived when mining on Luxor Pool. Beyond BTC, Luxor supports KAS and several Scrypt coins. Real-time API access for power users. Strong fit for North American miners who value compliance and transparent reporting.</p>
+        <a class="pool-profile-link" href="https://luxor.tech/mining" target="_blank" rel="noopener">Visit Luxor &rarr;</a>
+      </article>
+
+      <article class="pool-profile-card" id="profile-braiins">
+        <h3>Braiins Pool</h3>
+        <p>Braiins Pool &mdash; formerly Slush Pool &mdash; has been running since 2010, making it the oldest Bitcoin mining pool still in operation. Standard fee is 2.5% <span class="glossary-term" data-term="fpps">FPPS</span>, but it drops to <strong>0% if you're mining with <span class="glossary-term" data-term="braiins-os">Braiins OS+ firmware</span></strong>. BTC-only pool. Pioneered <span class="glossary-term" data-term="stratum">Stratum</span> V2, which encrypts the miner-to-pool connection and lets miners build their own block templates. First pool to offer Lightning Network payouts (February 2024) &mdash; no minimum, no fees, processed daily. Operates independently from Prague, Czech Republic, and has never accepted venture capital. Over 1.3 million BTC mined across 15+ years. Strongest fit for home miners running Braiins OS+ who want zero fees and Lightning-fast withdrawals.</p>
+        <a class="pool-profile-link" href="https://braiins.com/pool" target="_blank" rel="noopener">Visit Braiins Pool &rarr;</a>
+      </article>
+
+      <article class="pool-profile-card" id="profile-mining-dutch">
+        <h3>Mining-Dutch</h3>
+        <p>Mining-Dutch is a Netherlands-based multi-<span class="glossary-term" data-term="algorithm">algorithm</span> pool operating since 2014, supporting hundreds of coins across <span class="glossary-term" data-term="sha256">SHA-256</span>, Scrypt, X11, Equihash, RandomX, KawPow, Ghostrider, Yescrypt, Verthash, Skein, and 20+ more algorithms. Six payout modes available: D-PPS (Dynamic <span class="glossary-term" data-term="pps">PPS</span>), PROP, A-PROP, <span class="glossary-term" data-term="pplns">PPLNS</span>, <span class="glossary-term" data-term="solo">SOLO</span>, and PARTY &mdash; far more flexibility than most pools offer. Standard fee 2% on BTC/BCH, 1.9% on LC2, 1.5% on all other coins. Auto-exchange feature converts mined coins to BTC, LTC, DOGE, USDT, and others (1.5% conversion fee). Multiport support lets your miner switch coins on the same port based on profitability every 20 seconds. PARTY mode lets miners team up to share solo block rewards. Servers in Amsterdam, Paris, Canada, and Singapore. Strong fit for home miners chasing rare altcoins or running profit-switching setups.</p>
+        <a class="pool-profile-link" href="https://www.mining-dutch.nl/?page=about" target="_blank" rel="noopener">Visit Mining-Dutch &rarr;</a>
+      </article>
+
+      <article class="pool-profile-card" id="profile-solopool">
+        <h3>SoloPool.org</h3>
+        <p>SoloPool.org runs pure <span class="glossary-term" data-term="solo-mining">solo mining</span> for <span class="glossary-term" data-term="asic">ASIC</span> and GPU coins &mdash; if your miner finds a block, you keep the entire <span class="glossary-term" data-term="block-reward">block reward</span> minus a flat pool fee. No shared payouts, no <span class="glossary-term" data-term="pplns">PPLNS</span> variance. Currently supports 12 coins: Bitcoin, Bitcoin Cash, <span class="glossary-term" data-term="ecash">eCash (XEC)</span>, <span class="glossary-term" data-term="fractal-bitcoin">Fractal Bitcoin</span>, DigiByte (SHA-256), Litecoin and Dogecoin (with merged mining), Ethereum Classic, Kaspa, Monero, Ravencoin, and Zcash. Fully compatible with NiceHash and MiningRigRentals for hashrate rentals. Best fit for miners who want <span class="glossary-term" data-term="lottery">lottery</span>-style upside on smaller-network altcoins where solo block-finding odds are realistic. Inactive miner stats reset after 30 days.</p>
+        <a class="pool-profile-link" href="https://solopool.org/" target="_blank" rel="noopener">Visit SoloPool.org &rarr;</a>
+      </article>
+
+      <article class="pool-profile-card" id="profile-kryptex">
+        <h3>Kryptex</h3>
+        <p>Kryptex runs primarily on the PPS+ payout scheme &mdash; you get paid for every share regardless of whether the pool finds a block (called &ldquo;100% luck&rdquo;). Many coins also offer a <span class="glossary-term" data-term="solo">SOLO</span> option for <span class="glossary-term" data-term="lottery">lottery</span>-style mining. Supports 28+ cryptocurrencies including BTC, BCH, BSV, <span class="glossary-term" data-term="fractal-bitcoin">FB</span>, <span class="glossary-term" data-term="quai-network">QUAI</span> (<span class="glossary-term" data-term="sha256">SHA-256</span>, Scrypt, and KawPow variants), DGB, LTC, KAS, ZEC, ETC, ETHW, OCTA, <span class="glossary-term" data-term="radiant">RXD</span>, <span class="glossary-term" data-term="alephium">ALPH</span>, IRON, RVN, ERG, CFX, NEXA, XMR, and XTM (Tari). Servers in Europe. Auto-exchange available on nearly every coin &mdash; mine anything, get paid in BTC, ETH, USDT, dollars, rubles, or even Amazon eGift cards. ASIC Manager tool auto-detects miners on your network and configures them in one click. Built-in monitoring bot via Telegram. Most beginner-friendly of the 8 pools listed here, with strong support for both <span class="glossary-term" data-term="asic">ASIC</span> and GPU mining.</p>
+        <a class="pool-profile-link" href="https://pool.kryptex.com/" target="_blank" rel="noopener">Visit Kryptex &rarr;</a>
+      </article>
+
+      <a class="pool-back-to-top" href="#top">&uarr; Back to top</a>
+    </section>
+
     <div class="disclaimer">
       <h4>&#x26A0;&#xFE0F; Important Disclaimer</h4>
       <p>Pool fees, payout methods, minimum thresholds, and server locations change frequently. <strong>Always verify current terms on the official pool website before connecting your miners.</strong> The Sola Ray Effect is not affiliated with any pool listed. Mining cryptocurrency involves risk of loss. This is not financial advice.</p>
