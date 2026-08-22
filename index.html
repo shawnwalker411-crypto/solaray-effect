@@ -3686,8 +3686,9 @@
       // ZEC (Equihash)
       // network_hashrate is expected to be in Sol/s
       if (data.ZEC && data.ZEC.network_hashrate > 0) {
-        // Blockchair provides hashrate_24h directly
-        // ZEC: block_time ~75s, block_reward 1.25 (post-Nov 2024 halving, miner portion)
+        // ZEC: block_time ~75s. block_reward now comes LIVE from the API
+        // (getblocksubsidy -> miner share). Fallback 1.25 = the miner's current
+        // take-home per block, used only if the live value is missing.
         const blocksPerDay = 86400 / (data.ZEC.block_time || 75);
         const dailyCoins = (data.ZEC.block_reward || 1.25) * blocksPerDay;
         // Hashrate in Sol/s, we need per kSol/s
@@ -4798,6 +4799,10 @@
     renderBrowseTable();
     initPrices(); // Fetch live prices on page load
     initMiningStats(); // Fetch live difficulty data on page load
+    // Auto-refresh mining stats every 2 minutes so difficulty + block reward do
+    // not go stale mid-session. Previously this fetched ONCE at load and never
+    // again, so the "Xm old" badge just climbed. Prices already refresh every 60s.
+    setInterval(fetchMiningStats, 120000);
     // All coins now fetched via /api/mining-stats direct APIs
     initPriceInput(); // Enable custom price input for what-if scenarios
     
