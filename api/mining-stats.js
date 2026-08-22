@@ -6,7 +6,10 @@
 
 let cache = {};
 let priceCache = { prices: null, timestamp: 0 };
-const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes (default) — was 1 hour, far too stale for a profitability calc
+// Per-coin cache overrides. Mining network stats move fast; ZEC gets the shortest window.
+const CACHE_DURATIONS = { ZEC: 2 * 60 * 1000 }; // ZEC: 2 minutes
+function getCacheDuration(coin) { return CACHE_DURATIONS[coin] || CACHE_DURATION; }
 const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 
 const COINS = [
@@ -81,7 +84,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    if (!refresh && cache[c] && Date.now() - cache[c].timestamp < CACHE_DURATION) {
+    if (!refresh && cache[c] && Date.now() - cache[c].timestamp < getCacheDuration(c)) {
       results[c] = { ...cache[c], fromCache: true };
       return;
     }
@@ -121,13 +124,13 @@ async function fetchCoinData(coin) {
     case 'PPC': return fetchPPC();
     case 'QUAI-SHA': return fetchQUAI_SHA();
     case 'QUAI-SCRYPT': return fetchQUAI_Scrypt();
+    case 'ZEC': return fetchZEC();
     case 'BTC':
     case 'LTC':
     case 'DOGE':
     case 'BCH':
     case 'DASH':
     case 'ETC':
-    case 'ZEC':
       return fetchViaNowNodes(coin);
     default:
       throw new Error('Unsupported coin');
@@ -423,6 +426,73 @@ async function fetchFB() {
   } catch (e) {
     throw new Error(`FB fetch failed: ${e.message}`);
   }
+}
+
+/* ================= ZEC (NOWNodes Zcash JSON-RPC, direct) ================= */
+/* Equihash. Reads live from the Zcash node RPC only — NO Blockbook hop.      */
+/*                                                                            */
+/*   getmininginfo   -> difficulty, networksolps (network Sol/s), blocks       */
+/*   getblocksubsidy -> live block reward. We use the MINER's share (what      */
+/*                      actually hits the wallet), so the number reflects real  */
+/*                      earnings and self-updates at every halving — no more    */
+/*                      hardcoded reward to maintain.                          */
+/*                                                                            */
+/* block_time is the protocol target (75s, post-Blossom) — a fixed constant.  */
+
+const ZEC_BLOCK_TIME_SECONDS = 75;
+// Miner's take-home per block right now (post-Nov-2024 halving). Used ONLY if
+// the live getblocksubsidy call fails — the live value is preferred.
+const ZEC_MINER_REWARD_FALLBACK = 1.25;
+
+async function fetchZEC() {
+  const apiKey = process.env.NOWNODES_API_KEY;
+  if (!apiKey) throw new Error('Missing NOWNodes API key');
+
+  const rpc = (method, params = []) => fetch('https://zec.nownodes.io', {
+    method: 'POST',
+    headers: { 'api-key': apiKey, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '1.0', id: 'zec-mining', method, params })
+  }).then(r => r.json());
+
+  // One call gives difficulty + height + network Sol/s; the other gives the
+  // live block reward. Run them together.
+  const [miningRes, subsidyRes] = await Promise.allSettled([
+    rpc('getmininginfo'),
+    rpc('getblocksubsidy')      // no height arg => current chain height
+  ]);
+
+  // --- difficulty / network Sol/s / height (required) ---
+  if (miningRes.status !== 'fulfilled' || !miningRes.value || miningRes.value.error) {
+    throw new Error('ZEC getmininginfo failed');
+  }
+  const mi = miningRes.value.result || {};
+  const difficulty = Number(mi.difficulty) || 0;
+  const height = Number(mi.blocks) || 0;
+  // Equihash network speed is solutions/sec (networksolps). networkhashps is
+  // deprecated in current Zcash, so it's only a last-ditch fallback.
+  const networkHashrate = Number(mi.networksolps) || Number(mi.networkhashps) || 0;
+
+  // --- live block reward = the MINER's share (not the gross subsidy) ---
+  // getblocksubsidy returns `miner` after the ~20% dev-fund/lockbox is removed.
+  let blockReward = ZEC_MINER_REWARD_FALLBACK;
+  if (subsidyRes.status === 'fulfilled' && subsidyRes.value && !subsidyRes.value.error) {
+    const s = subsidyRes.value.result || {};
+    const minerShare = Number(s.miner);
+    // Sanity clamp — the real miner reward sits comfortably inside this band.
+    if (Number.isFinite(minerShare) && minerShare >= 0.1 && minerShare <= 10) {
+      blockReward = minerShare;
+    }
+  }
+
+  return {
+    coin: 'ZEC',
+    difficulty,
+    network_hashrate: networkHashrate,
+    block_reward: blockReward,
+    block_time: ZEC_BLOCK_TIME_SECONDS,
+    height,
+    hashrate_estimated: false
+  };
 }
 
 /* ================= NOWNODES BLOCKBOOK COINS (7 coins) ================= */
