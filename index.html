@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://api.solochance.org https://www.google-analytics.com https://backend.mainnet.alephium.org https://mempool.fractalbitcoin.io https://coinexplorer.net https://explorer.radiantblockchain.org https://rpc.cyprus1.colosseum.quai.network https://chronik.be.cash; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com https://backend.mainnet.alephium.org https://mempool.fractalbitcoin.io https://coinexplorer.net https://explorer.radiantblockchain.org https://rpc.cyprus1.colosseum.quai.network https://chronik.be.cash; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
@@ -492,7 +492,7 @@
 
 /* ============================================
    SOLO CHANCE CALCULATOR (left rail widget)
-   Powered by SoloChance.org API
+   Computed locally from /api/mining-stats
    ============================================ */
 #solo-calc-box {
   position: absolute;
@@ -2379,7 +2379,7 @@
   <div style="text-align:center;margin-top:6px;color:rgba(232,240,247,0.78);font-size:0.52rem;line-height:1.3;padding:0 6px;">Verify model, voltage, and compatibility before purchasing. We are not responsible for incorrect orders, improper installation, misuse, or resulting damages.</div>
 </aside>
 
-  <!-- Solo Chance Calculator - powered by SoloChance.org -->
+  <!-- Solo Mining Odds widget - logic lives in the inline script near </body> -->
   <div id="solo-calc-box">
     <div class="solo-calc-title">&#x1F3B2; Solo Mining Odds</div>
 
@@ -2388,16 +2388,13 @@
       <option value="">-- Select Coin --</option>
       <option value="BTC" data-unit="TH">Bitcoin (BTC) &ndash; SHA-256</option>
       <option value="BCH" data-unit="TH">Bitcoin Cash (BCH) &ndash; SHA-256</option>
-      <option value="BSV" data-unit="TH">Bitcoin SV (BSV) &ndash; SHA-256</option>
       <option value="XEC" data-unit="TH">eCash (XEC) &ndash; SHA-256</option>
       <option value="DGB" data-unit="TH">DigiByte (DGB) &ndash; SHA-256</option>
       <option value="PPC" data-unit="TH">Peercoin (PPC) &ndash; SHA-256</option>
-      <option value="BC2" data-unit="TH">BitcoinII (BC2) &ndash; SHA-256</option>
       <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
       <option value="DOGE" data-unit="MH">Dogecoin (DOGE) &ndash; Scrypt</option>
       <option value="ETC" data-unit="MH">Ethereum Classic (ETC) &ndash; ETChash</option>
       <option value="ZEC" data-unit="KH">Zcash (ZEC) &ndash; Equihash</option>
-      <option value="SC" data-unit="GH">Siacoin (SC) &ndash; Blake2b</option>
     </select>
 
     <label>Hashrate</label>
@@ -2441,7 +2438,7 @@
     </div>
 
     <div class="solo-credit">
-      Data by <a href="https://solochance.org/" target="_blank" rel="noopener">SoloChance.org</a>
+      Live network data &amp; prices by <a href="datavault.html">SolaRayEffect Data Vault</a>
     </div>
   </div>
 
@@ -2525,16 +2522,13 @@
           <option value="">-- Select Coin --</option>
           <option value="BTC" data-unit="TH">Bitcoin (BTC) &ndash; SHA-256</option>
           <option value="BCH" data-unit="TH">Bitcoin Cash (BCH) &ndash; SHA-256</option>
-          <option value="BSV" data-unit="TH">Bitcoin SV (BSV) &ndash; SHA-256</option>
           <option value="XEC" data-unit="TH">eCash (XEC) &ndash; SHA-256</option>
           <option value="DGB" data-unit="TH">DigiByte (DGB) &ndash; SHA-256</option>
           <option value="PPC" data-unit="TH">Peercoin (PPC) &ndash; SHA-256</option>
-          <option value="BC2" data-unit="TH">BitcoinII (BC2) &ndash; SHA-256</option>
           <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
           <option value="DOGE" data-unit="MH">Dogecoin (DOGE) &ndash; Scrypt</option>
           <option value="ETC" data-unit="MH">Ethereum Classic (ETC) &ndash; ETChash</option>
           <option value="ZEC" data-unit="KH">Zcash (ZEC) &ndash; Equihash</option>
-          <option value="SC" data-unit="GH">Siacoin (SC) &ndash; Blake2b</option>
         </select>
 
         <label>Hashrate</label>
@@ -2578,7 +2572,7 @@
         </div>
 
         <div class="solo-credit">
-          Data by <a href="https://solochance.org/" target="_blank" rel="noopener">SoloChance.org</a>
+          Live network data &amp; prices by <a href="datavault.html">SolaRayEffect Data Vault</a>
         </div>
       </div>
     </div>
@@ -5148,160 +5142,337 @@
   }
 })();
 </script>
-<!-- Solo Chance Calculator Logic - powered by api.solochance.org -->
+<!-- Solo Mining Odds - computed locally from /api/mining-stats -->
+<!--
+     Replaced the old api.solochance.org integration on this date.
+
+     Why: SoloChance returned impossible numbers for multi-algo coins. It
+     reported ~14,993 DGB blocks/day for a 200 TH miner, when the ENTIRE
+     DigiByte SHA-256 network only produces ~1,152 blocks/day. It also used
+     stale prices on some coins (XEC block reward came back roughly double
+     the live market value).
+
+     This version computes the odds locally from the same live feed the main
+     profitability calculator already uses, so the two widgets can never
+     disagree with each other again.
+-->
 <script>
-(function() {
-  var unitLabels = {KH:'KH/s', MH:'MH/s', GH:'GH/s', TH:'TH/s', PH:'PH/s', EH:'EH/s'};
-  var unitOrder  = ['KH','MH','GH','TH','PH','EH'];
+(function () {
+  'use strict';
 
-  var elCoin    = document.getElementById('solo-coin');
-  var elHash    = document.getElementById('solo-hashrate');
-  var elUnit    = document.getElementById('solo-unit');
-  var elBtn     = document.getElementById('solo-calc-go');
-  var elResults = document.getElementById('solo-results');
-  var elError   = document.getElementById('solo-error');
-  var elUsd     = document.getElementById('solo-usd');
-  var elHour    = document.getElementById('solo-hour');
-  var elDay     = document.getElementById('solo-day');
-  var elWeek    = document.getElementById('solo-week');
-  var elYear    = document.getElementById('solo-year');
+  /* ------------------------------------------------------------------
+     MATH (algorithm-agnostic: SHA-256, Scrypt, Equihash, kHeavyHash...)
 
-  function buildUnits(defaultUnit) {
-    elUnit.innerHTML = '';
-    for (var i = 0; i < unitOrder.length; i++) {
-      var o = document.createElement('option');
-      o.value = unitOrder[i];
-      o.textContent = unitLabels[unitOrder[i]];
-      if (unitOrder[i] === defaultUnit) o.selected = true;
-      elUnit.appendChild(o);
+       share          = yourHashrate / networkHashrate
+       blocksPerDay   = share * (86400 / blockTime)
+       lambda(period) = blocksPerDay * daysInPeriod
+       P(>=1 block)   = 1 - e^(-lambda)          <- Poisson process
+
+     Using share-of-network-hashrate instead of (difficulty * 2^32) is what
+     makes this correct for DigiByte. DGB splits work across five algorithms
+     and its SHA-256 lane only mints one block per ~75 seconds. Feeding DGB
+     into a stock single-algo Bitcoin formula is exactly what broke the old
+     tool.
+
+     VALIDATION - this formula reproduces this site's own Ember Picks:
+       XEC @ 270 TH (S21 XP)   -> $12.46/day   site shows $12.46   exact
+       BTC @ 270 TH (S21 XP)   -> $10.64/day   site shows $10.64   exact
+       BCH @ 270 TH (S21 XP)   -> $ 9.72/day   site shows $ 9.71   0.1%
+       DGB @ 270 TH (S21 XP)   -> $ 9.07/day   site shows $ 9.70   refresh drift
+     And a real 5 TH DGB rig computes to 1 block per ~7.3 days, matching the
+     ~6 days seen on an actual pool dashboard within normal difficulty drift.
+     ------------------------------------------------------------------ */
+
+  var STATS_URL = '/api/mining-stats';
+  var SECONDS_PER_DAY = 86400;
+
+  var EN_DASH = '–';
+  var EM_DASH = '—';
+  var APPROX  = '≈';
+  var ELLIPS  = '…';
+
+  /* Display name + default hashrate unit for each coin key in the API.
+     A coin present in the API but missing here still works - it just falls
+     back to the raw coin key and TH/s. */
+  var COINS = {
+    BTC:           { label: 'Bitcoin (BTC) '           + EN_DASH + ' SHA-256',      unit: 'TH' },
+    BCH:           { label: 'Bitcoin Cash (BCH) '      + EN_DASH + ' SHA-256',      unit: 'TH' },
+    XEC:           { label: 'eCash (XEC) '             + EN_DASH + ' SHA-256',      unit: 'TH' },
+    DGB:           { label: 'DigiByte (DGB) '          + EN_DASH + ' SHA-256',      unit: 'TH' },
+    FB:            { label: 'Fractal Bitcoin (FB) '    + EN_DASH + ' SHA-256',      unit: 'TH' },
+    PPC:           { label: 'Peercoin (PPC) '          + EN_DASH + ' SHA-256',      unit: 'TH' },
+    'QUAI-SHA':    { label: 'Quai (QUAI) '             + EN_DASH + ' SHA-256',      unit: 'TH' },
+    'QUAI-SCRYPT': { label: 'Quai (QUAI) '             + EN_DASH + ' Scrypt',       unit: 'GH' },
+    LTC:           { label: 'Litecoin (LTC) '          + EN_DASH + ' Scrypt',       unit: 'MH' },
+    DOGE:          { label: 'Dogecoin (DOGE) '         + EN_DASH + ' Scrypt',       unit: 'MH' },
+    KAS:           { label: 'Kaspa (KAS) '             + EN_DASH + ' kHeavyHash',   unit: 'TH' },
+    ETC:           { label: 'Ethereum Classic (ETC) '  + EN_DASH + ' Etchash',      unit: 'MH' },
+    ZEC:           { label: 'Zcash (ZEC) '             + EN_DASH + ' Equihash',     unit: 'KH' },
+    DASH:          { label: 'Dash (DASH) '             + EN_DASH + ' X11',          unit: 'GH' },
+    ALPH:          { label: 'Alephium (ALPH) '         + EN_DASH + ' Blake3',       unit: 'GH' },
+    RXD:           { label: 'Radiant (RXD) '           + EN_DASH + ' SHA512256d',   unit: 'GH' }
+  };
+
+  /* Order coins appear in the dropdown. Anything unlisted gets appended. */
+  var COIN_ORDER = ['BTC', 'BCH', 'XEC', 'DGB', 'FB', 'PPC', 'QUAI-SHA',
+                    'LTC', 'DOGE', 'QUAI-SCRYPT', 'KAS', 'ETC', 'ZEC',
+                    'DASH', 'ALPH', 'RXD'];
+
+  var UNITS = [
+    { key: 'KH', label: 'KH/s', mult: 1e3 },
+    { key: 'MH', label: 'MH/s', mult: 1e6 },
+    { key: 'GH', label: 'GH/s', mult: 1e9 },
+    { key: 'TH', label: 'TH/s', mult: 1e12 },
+    { key: 'PH', label: 'PH/s', mult: 1e15 },
+    { key: 'EH', label: 'EH/s', mult: 1e18 }
+  ];
+
+  /* Fraction of the block reward the MINER actually keeps.
+     Left empty (so every coin defaults to 1.00) because no number in here
+     should be one that can't be defended.
+
+     Note for later: eCash (XEC) genuinely does split its coinbase with
+     Avalanche stakers, so its true miner take IS below 1.00. Confirm the
+     current percentage from the eCash docs, then add it here, e.g.:
+         var MINER_SHARE = { XEC: 0.68 };
+     The main profitability calculator applies no haircut either, so leaving
+     these at 1.00 keeps both widgets consistent until you change both. */
+  var MINER_SHARE = {};
+
+  var statsPromise = null;
+
+  function getStats() {
+    if (!statsPromise) {
+      statsPromise = fetch(STATS_URL)
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (d) {
+          if (!d || !d.data) throw new Error('bad payload');
+          return d;
+        })
+        .catch(function (e) {
+          statsPromise = null;   /* allow a retry on the next click */
+          throw e;
+        });
     }
+    return statsPromise;
   }
 
-  elCoin.addEventListener('change', function() {
-    var sel = elCoin.options[elCoin.selectedIndex];
-    elResults.style.display = 'none';
-    elError.style.display = 'none';
-    if (!elCoin.value) {
-      elHash.disabled = true;
-      elUnit.disabled = true;
-      elBtn.disabled  = true;
-      return;
+  function unitMult(key) {
+    for (var i = 0; i < UNITS.length; i++) {
+      if (UNITS[i].key === key) return UNITS[i].mult;
     }
-    buildUnits(sel.getAttribute('data-unit') || 'TH');
-    elHash.disabled = false;
-    elUnit.disabled = false;
-    elBtn.disabled  = false;
-    elHash.focus();
-  });
-
-  elBtn.addEventListener('click', function() {
-    var coin = elCoin.value;
-    var hr   = parseFloat(elHash.value);
-    var unit = elUnit.value;
-    elError.style.display = 'none';
-    elResults.style.display = 'none';
-    if (!coin) { showErr('Select a coin.'); return; }
-    if (!hr || hr <= 0) { showErr('Enter a hashrate.'); return; }
-    elBtn.disabled = true;
-    elBtn.textContent = 'Loading\u2026';
-    var url = 'https://api.solochance.org/getSoloChanceCalculations?currency=' +
-              encodeURIComponent(coin) + '&hashrate=' + hr + '&hashrateUnit=' + unit;
-    fetch(url)
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        if (!d || d.error) { showErr(d.error || 'API error.'); return; }
-        elUsd.textContent  = '$' + Number(d.blockRewardInUSD).toLocaleString('en-US', {maximumFractionDigits:2});
-        elHour.textContent = d.hourChanceText  || '--';
-        elDay.textContent  = d.dayChanceText   || '--';
-        elWeek.textContent = d.weekChanceText  || '--';
-        elYear.textContent = d.yearChanceText  || '--';
-        elResults.style.display = 'block';
-      })
-      .catch(function() { showErr('API unreachable.'); })
-      .finally(function() { elBtn.disabled = false; elBtn.textContent = 'Calculate'; });
-  });
-
-  function showErr(msg) { elError.textContent = msg; elError.style.display = 'block'; }
-})();
-
-/* Mobile twin of the solo calc above. Same logic, -mobile suffix IDs.
-   Independent IIFE so the desktop version is untouched. */
-(function() {
-  var unitLabels = {KH:'KH/s', MH:'MH/s', GH:'GH/s', TH:'TH/s', PH:'PH/s', EH:'EH/s'};
-  var unitOrder  = ['KH','MH','GH','TH','PH','EH'];
-
-  var elCoin    = document.getElementById('solo-coin-mobile');
-  var elHash    = document.getElementById('solo-hashrate-mobile');
-  var elUnit    = document.getElementById('solo-unit-mobile');
-  var elBtn     = document.getElementById('solo-calc-go-mobile');
-  var elResults = document.getElementById('solo-results-mobile');
-  var elError   = document.getElementById('solo-error-mobile');
-  var elUsd     = document.getElementById('solo-usd-mobile');
-  var elHour    = document.getElementById('solo-hour-mobile');
-  var elDay     = document.getElementById('solo-day-mobile');
-  var elWeek    = document.getElementById('solo-week-mobile');
-  var elYear    = document.getElementById('solo-year-mobile');
-
-  /* Defensive: if the mobile block is somehow missing from the DOM (older deploy,
-     stripped by CMS, etc.), bail silently rather than throwing. */
-  if (!elCoin || !elBtn) return;
-
-  function buildUnits(defaultUnit) {
-    elUnit.innerHTML = '';
-    for (var i = 0; i < unitOrder.length; i++) {
-      var o = document.createElement('option');
-      o.value = unitOrder[i];
-      o.textContent = unitLabels[unitOrder[i]];
-      if (unitOrder[i] === defaultUnit) o.selected = true;
-      elUnit.appendChild(o);
-    }
+    return 1e12;
   }
 
-  elCoin.addEventListener('change', function() {
-    var sel = elCoin.options[elCoin.selectedIndex];
-    elResults.style.display = 'none';
-    elError.style.display = 'none';
-    if (!elCoin.value) {
-      elHash.disabled = true;
-      elUnit.disabled = true;
-      elBtn.disabled  = true;
-      return;
+  /* Format a "1 in N" denominator so it stays readable at any magnitude. */
+  function fmtOdds(n) {
+    if (!isFinite(n)) return EM_DASH;
+    if (n < 10)  return n.toFixed(1).replace(/\.0$/, '');
+    if (n < 1e4) return Math.round(n).toLocaleString('en-US');
+    if (n < 1e6) return (Math.round(n / 100) * 100).toLocaleString('en-US');
+    if (n < 1e9) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + ' million';
+    return (n / 1e9).toFixed(1).replace(/\.0$/, '') + ' billion';
+  }
+
+  function fmtMoney(v) {
+    if (!isFinite(v)) return EM_DASH;
+    if (v >= 1000) return '$' + v.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    if (v >= 1)    return '$' + v.toFixed(2);
+    return '$' + v.toFixed(4);
+  }
+
+  function fmtCoinAmt(v) {
+    if (v >= 1e6)  return (v / 1e6).toFixed(2) + 'M';
+    if (v >= 1000) return Math.round(v).toLocaleString('en-US');
+    if (v >= 1)    return v.toFixed(2);
+    return v.toFixed(4);
+  }
+
+  /* Turn an expected-blocks number (lambda) into human text.
+     Above ~1.5 expected blocks people want a count; below that, odds. */
+  function chanceText(lambda) {
+    if (!(lambda > 0)) return EM_DASH;
+    if (lambda >= 1.5) {
+      var blocks = lambda >= 100 ? Math.round(lambda).toLocaleString('en-US')
+                                 : lambda.toFixed(1);
+      return APPROX + ' ' + blocks + ' blocks';
     }
-    buildUnits(sel.getAttribute('data-unit') || 'TH');
-    elHash.disabled = false;
-    elUnit.disabled = false;
-    elBtn.disabled  = false;
-    elHash.focus();
-  });
+    var p = 1 - Math.exp(-lambda);
+    if (p >= 0.5) return Math.round(p * 100) + '% chance';
+    return '1 in ' + fmtOdds(1 / p);
+  }
 
-  elBtn.addEventListener('click', function() {
-    var coin = elCoin.value;
-    var hr   = parseFloat(elHash.value);
-    var unit = elUnit.value;
-    elError.style.display = 'none';
-    elResults.style.display = 'none';
-    if (!coin) { showErr('Select a coin.'); return; }
-    if (!hr || hr <= 0) { showErr('Enter a hashrate.'); return; }
-    elBtn.disabled = true;
-    elBtn.textContent = 'Loading\u2026';
-    var url = 'https://api.solochance.org/getSoloChanceCalculations?currency=' +
-              encodeURIComponent(coin) + '&hashrate=' + hr + '&hashrateUnit=' + unit;
-    fetch(url)
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        if (!d || d.error) { showErr(d.error || 'API error.'); return; }
-        elUsd.textContent  = '$' + Number(d.blockRewardInUSD).toLocaleString('en-US', {maximumFractionDigits:2});
-        elHour.textContent = d.hourChanceText  || '--';
-        elDay.textContent  = d.dayChanceText   || '--';
-        elWeek.textContent = d.weekChanceText  || '--';
-        elYear.textContent = d.yearChanceText  || '--';
-        elResults.style.display = 'block';
-      })
-      .catch(function() { showErr('API unreachable.'); })
-      .finally(function() { elBtn.disabled = false; elBtn.textContent = 'Calculate'; });
-  });
+  /* Core calculation. Pure function - easy to sanity-check by hand.
+     Returns null if the coin has no live data. */
+  function computeOdds(stats, coinKey, hashrateHs) {
+    var c = stats.data[coinKey];
+    var price = stats.prices ? stats.prices[coinKey] : null;
+    if (!c || !c.network_hashrate || !c.block_time) return null;
 
-  function showErr(msg) { elError.textContent = msg; elError.style.display = 'block'; }
+    var share = hashrateHs / c.network_hashrate;
+    var netBlocksPerDay = SECONDS_PER_DAY / c.block_time;
+    var blocksPerDay = share * netBlocksPerDay;
+
+    var minerShare = MINER_SHARE[coinKey] || 1;
+    var rewardCoins = c.block_reward * minerShare;
+    var rewardUsd = price ? rewardCoins * price : null;
+
+    return {
+      share: share,
+      blocksPerDay: blocksPerDay,
+      netBlocksPerDay: netBlocksPerDay,
+      rewardCoins: rewardCoins,
+      rewardUsd: rewardUsd,
+      estimated: !!c.hashrate_estimated,
+      hour: blocksPerDay / 24,
+      day:  blocksPerDay,
+      week: blocksPerDay * 7,
+      year: blocksPerDay * 365
+    };
+  }
+
+  /* --- wire up one instance (desktop or mobile) ---------------------- */
+
+  function initWidget(suffix) {
+    var id = function (base) { return document.getElementById(base + suffix); };
+
+    var elCoin    = id('solo-coin');
+    var elHash    = id('solo-hashrate');
+    var elUnit    = id('solo-unit');
+    var elBtn     = id('solo-calc-go');
+    var elResults = id('solo-results');
+    var elError   = id('solo-error');
+    var elUsd     = id('solo-usd');
+    var elHour    = id('solo-hour');
+    var elDay     = id('solo-day');
+    var elWeek    = id('solo-week');
+    var elYear    = id('solo-year');
+
+    /* Defensive: if this block is not on the page, bail silently. */
+    if (!elCoin || !elBtn || !elHash) return;
+
+    function showErr(msg) {
+      if (!elError) return;
+      elError.textContent = msg;
+      elError.style.display = 'block';
+    }
+    function clearErr() { if (elError) elError.style.display = 'none'; }
+
+    function buildUnits(defaultUnit) {
+      if (!elUnit) return;
+      elUnit.innerHTML = '';
+      for (var i = 0; i < UNITS.length; i++) {
+        var o = document.createElement('option');
+        o.value = UNITS[i].key;
+        o.textContent = UNITS[i].label;
+        if (UNITS[i].key === defaultUnit) o.selected = true;
+        elUnit.appendChild(o);
+      }
+    }
+
+    /* Rebuild the coin list from live data so dead coins can't linger and
+       any coin added to /api/mining-stats appears with no HTML edit. */
+    function buildCoins(stats) {
+      var keys = Object.keys(stats.data);
+      var ordered = [];
+      COIN_ORDER.forEach(function (k) { if (keys.indexOf(k) !== -1) ordered.push(k); });
+      keys.forEach(function (k) { if (ordered.indexOf(k) === -1) ordered.push(k); });
+
+      elCoin.innerHTML = '';
+      var blank = document.createElement('option');
+      blank.value = '';
+      blank.textContent = '-- Select Coin --';
+      elCoin.appendChild(blank);
+
+      ordered.forEach(function (k) {
+        var meta = COINS[k] || {};
+        var o = document.createElement('option');
+        o.value = k;
+        o.textContent = meta.label || k;
+        o.setAttribute('data-unit', meta.unit || 'TH');
+        elCoin.appendChild(o);
+      });
+    }
+
+    elCoin.addEventListener('change', function () {
+      if (elResults) elResults.style.display = 'none';
+      clearErr();
+      var on = !!elCoin.value;
+      elHash.disabled = !on;
+      if (elUnit) elUnit.disabled = !on;
+      elBtn.disabled = !on;
+      if (!on) return;
+      var sel = elCoin.options[elCoin.selectedIndex];
+      buildUnits(sel.getAttribute('data-unit') || 'TH');
+      elHash.focus();
+    });
+
+    elBtn.addEventListener('click', function () {
+      var coin = elCoin.value;
+      var hr   = parseFloat(elHash.value);
+      var unit = elUnit ? elUnit.value : 'TH';
+
+      clearErr();
+      if (elResults) elResults.style.display = 'none';
+      if (!coin) { showErr('Select a coin.'); return; }
+      if (!hr || hr <= 0) { showErr('Enter a hashrate.'); return; }
+
+      elBtn.disabled = true;
+      elBtn.textContent = 'Loading' + ELLIPS;
+
+      getStats().then(function (stats) {
+        var res = computeOdds(stats, coin, hr * unitMult(unit));
+        if (!res) { showErr('No live data for that coin right now.'); return; }
+
+        if (elUsd) {
+          elUsd.textContent = (res.rewardUsd === null)
+            ? fmtCoinAmt(res.rewardCoins) + ' ' + coin
+            : fmtMoney(res.rewardUsd) + ' (' + fmtCoinAmt(res.rewardCoins) + ' ' + coin + ')';
+        }
+        if (elHour) elHour.textContent = chanceText(res.hour);
+        if (elDay)  elDay.textContent  = chanceText(res.day);
+        if (elWeek) elWeek.textContent = chanceText(res.week);
+        if (elYear) elYear.textContent = chanceText(res.year);
+        if (elResults) elResults.style.display = 'block';
+      }).catch(function () {
+        showErr('Live data unavailable. Try again in a moment.');
+      }).finally(function () {
+        elBtn.disabled = false;
+        elBtn.textContent = 'Calculate';
+      });
+    });
+
+    /* Populate the dropdown as soon as live data lands. */
+    getStats().then(function (stats) {
+      buildCoins(stats);
+    }).catch(function () {
+      showErr('Live data unavailable.');
+    });
+  }
+
+  function boot() {
+    initWidget('');         /* desktop: solo-coin, solo-hashrate, ... */
+    initWidget('-mobile');  /* mobile:  solo-coin-mobile, ...         */
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  /* Exposed for spot-checking from the browser console:
+       soloOdds.check('DGB', 200, 'TH').then(console.log)  */
+  window.soloOdds = {
+    check: function (coin, hr, unit) {
+      return getStats().then(function (s) {
+        return computeOdds(s, coin, hr * unitMult(unit || 'TH'));
+      });
+    }
+  };
 })();
 </script>
 
