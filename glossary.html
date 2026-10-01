@@ -560,6 +560,11 @@
         <div class="term-name"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki Kit</a></div>
         <div class="term-def">Hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. Lets home miners use powerful equipment without electrical upgrades.</div>
       </div>
+
+      <div class="term" id="psu-bypass">
+        <div class="term-name"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">PSU Bypass (LuxOS)</a></div>
+        <div class="term-def">A LuxOS firmware setting (added February 2026) that lets an Antminer run on a power supply it would normally reject, such as a 120V unit. Does the same job as a Loki board in software. Still requires a 120V-compatible PSU and a dedicated circuit; support depends on the control board.</div>
+      </div>
       
       <div class="term" id="psu">
         <div class="term-name">PSU (Power Supply Unit)</div>
@@ -583,7 +588,7 @@
       
       <div class="term" id="hash-board">
         <div class="term-name">Hash Board</div>
-        <div class="term-def">The circuit board inside an ASIC miner that contains the mining chips. Most full-size ASICs have 3 hash boards. When running a <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> on 120V, only one hash board operates to stay within the power limit.</div>
+        <div class="term-def">The circuit board inside an ASIC miner that contains the mining chips. Most full-size ASICs have 3 hash boards. When running a <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> or <a href="aftermarket_firmware.html#psu-bypass" style="color: var(--sola-teal);">LuxOS PSU Bypass</a> on 120V, only one hash board operates to stay within the power limit.</div>
       </div>
       
       <div class="term" id="overclocking">
@@ -714,7 +719,7 @@
       
       <div class="term" id="voltage">
         <div class="term-name">120V vs 240V</div>
-        <div class="term-def">Standard US outlets are 120V (15-20A). Dryers and ovens use 240V. Most industrial ASICs need 240V but can run on 120V with a <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> or modifications. 240V is more efficient (less heat loss in wiring).</div>
+        <div class="term-def">Standard US outlets are 120V (15-20A). Dryers and ovens use 240V. Most industrial ASICs need 240V but can run on 120V with a <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a>, <a href="aftermarket_firmware.html#psu-bypass" style="color: var(--sola-teal);">LuxOS PSU Bypass</a>, or modifications. 240V is more efficient (less heat loss in wiring).</div>
       </div>
       
       <div class="term" id="circuit-capacity">
@@ -736,7 +741,7 @@
       
       <div class="term" id="nema-5-15">
         <div class="term-name">NEMA 5-15 / 5-20</div>
-        <div class="term-def">Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki</a>-modified miners plug into these.</div>
+        <div class="term-def">Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most 120V-converted miners (<a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> or <a href="aftermarket_firmware.html#psu-bypass" style="color: var(--sola-teal);">LuxOS PSU Bypass</a>) plug into these.</div>
         <div class="term-tip">&#x1F4A1; The "5" means 120V grounded, the number after the dash is the amperage rating.</div>
       </div>
       

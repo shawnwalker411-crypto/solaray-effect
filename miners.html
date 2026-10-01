@@ -807,7 +807,7 @@
       color: #D4AF37;
     }
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Home Miner Catalog - ASIC Mining Hardware for Residential Setups","description":"Complete catalog of 69 ASIC cryptocurrency miners for home mining, including SHA-256 Bitcoin miners, Scrypt Litecoin/Dogecoin miners, KHeavyHash Kaspa miners, and more. Filtered by voltage (120V, 240V, Loki Kit) and algorithm.","url":"https://www.solarayeffect.com/miners.html","numberOfItems":69,"itemListElement":[{"@type":"ListItem","position":1,"name":"Antminer S21 200T - 200 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":2,"name":"Antminer S21 Pro 234T - 234 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":3,"name":"Antminer S19 Pro 110T - 110 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":4,"name":"Antminer L7 9500M - 9500 MH/s Scrypt Litecoin/Dogecoin Miner (240V)"},{"@type":"ListItem","position":5,"name":"Antminer KS5 - 20000 GH/s KHeavyHash Kaspa Miner (240V)"},{"@type":"ListItem","position":6,"name":"Bitaxe Ultra - 0.5 TH/s Solo Lottery Bitcoin Miner (120V)"},{"@type":"ListItem","position":7,"name":"IceRiver KS0 Ultra - 400 GH/s Kaspa Miner (120V)"},{"@type":"ListItem","position":8,"name":"Goldshell Mini-DOGE III - 760 MH/s Scrypt Miner (120V)"},{"@type":"ListItem","position":9,"name":"Antminer L3++ - 596 MH/s Scrypt Litecoin/Dogecoin Miner (120V)"},{"@type":"ListItem","position":10,"name":"S19 Pro 110T Loki Kit - 44 TH/s on 120V household power"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Home Miner Catalog - ASIC Mining Hardware for Residential Setups","description":"Complete catalog of 69 ASIC cryptocurrency miners for home mining, including SHA-256 Bitcoin miners, Scrypt Litecoin/Dogecoin miners, KHeavyHash Kaspa miners, and more. Filtered by voltage (120V, 240V, 120V conversion via Loki Kit or PSU Bypass) and algorithm.","url":"https://www.solarayeffect.com/miners.html","numberOfItems":69,"itemListElement":[{"@type":"ListItem","position":1,"name":"Antminer S21 200T - 200 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":2,"name":"Antminer S21 Pro 234T - 234 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":3,"name":"Antminer S19 Pro 110T - 110 TH/s SHA-256 Bitcoin Miner (240V)"},{"@type":"ListItem","position":4,"name":"Antminer L7 9500M - 9500 MH/s Scrypt Litecoin/Dogecoin Miner (240V)"},{"@type":"ListItem","position":5,"name":"Antminer KS5 - 20000 GH/s KHeavyHash Kaspa Miner (240V)"},{"@type":"ListItem","position":6,"name":"Bitaxe Ultra - 0.5 TH/s Solo Lottery Bitcoin Miner (120V)"},{"@type":"ListItem","position":7,"name":"IceRiver KS0 Ultra - 400 GH/s Kaspa Miner (120V)"},{"@type":"ListItem","position":8,"name":"Goldshell Mini-DOGE III - 760 MH/s Scrypt Miner (120V)"},{"@type":"ListItem","position":9,"name":"Antminer L3++ - 596 MH/s Scrypt Litecoin/Dogecoin Miner (120V)"},{"@type":"ListItem","position":10,"name":"S19 Pro 110T Loki Kit - 44 TH/s on 120V household power"}]}</script>
 </head>
 <body>
 
@@ -845,7 +845,7 @@
       </div>
       <div class="legend-item">
         <div class="legend-dot loki"></div>
-        <span class="legend-text"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;"><span class="glossary-term" data-term="loki-kit">Loki Kit</span></a> &#x2014; 240V miner on 120V (reduced power)</span>
+        <span class="legend-text"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;"><span class="glossary-term" data-term="loki-kit">Loki Kit</span></a> or <a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;"><span class="glossary-term" data-term="psu-bypass">PSU Bypass</span></a> &#x2014; 240V miner on 120V (reduced power)</span>
       </div>
       <div class="legend-item">
         <div class="legend-dot lottery"></div>
@@ -860,7 +860,7 @@
         <option value="all">All Voltages</option>
         <option value="120V">120V Only</option>
         <option value="240V">240V Only</option>
-        <option value="loki">Loki Kit</option>
+        <option value="loki">120V Conversion (Loki / PSU Bypass)</option>
       </select>
       
       <label><span class="glossary-term" data-term="algorithm">Algorithm</span>:</label>
@@ -996,10 +996,10 @@
             <a href="https://www.amazon.com/s?k=bitaxe+hex" target="_blank" rel="noopener" class="glossary-pill glossary-pill-amazon" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop Amazon</a>
           </div>
         </div>
-        <div class="miner-card" data-id="t17-40t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="t17 40t (loki) bitmain btc bch dgb" onclick="goToCalculator('t17-40t-loki')">
+        <div class="miner-card" data-id="t17-40t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="t17 40t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('t17-40t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">T17 40T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">T17 40T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1018,10 +1018,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+t17+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_t17_40t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="s17-56t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s17 56t (loki) bitmain btc bch dgb" onclick="goToCalculator('s17-56t-loki')">
+        <div class="miner-card" data-id="s17-56t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s17 56t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s17-56t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S17 56T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S17 56T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1040,10 +1040,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s17+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s17_56t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="t17p-64t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="t17+ 64t (loki) bitmain btc bch dgb" onclick="goToCalculator('t17p-64t-loki')">
+        <div class="miner-card" data-id="t17p-64t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="t17+ 64t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('t17p-64t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">T17+ 64T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">T17+ 64T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1062,10 +1062,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+t17%2B%2B+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_t17p_64t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="s17p-73t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s17+ 73t (loki) bitmain btc bch dgb" onclick="goToCalculator('s17p-73t-loki')">
+        <div class="miner-card" data-id="s17p-73t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s17+ 73t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s17p-73t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S17+ 73T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S17+ 73T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1084,10 +1084,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s17%2B%2B+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s17p_73t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="s19j-90t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j 90t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19j-90t-loki')">
+        <div class="miner-card" data-id="s19j-90t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j 90t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19j-90t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19J 90T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19J 90T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1106,10 +1106,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19j+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19j_90t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s19-82t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 82t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19-82t-loki')">
+<div class="miner-card" data-id="s19-82t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 82t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19-82t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19 82T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19 82T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1128,10 +1128,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19_82t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="s19j-100t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j 100t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19j-100t-loki')">
+        <div class="miner-card" data-id="s19j-100t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j 100t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19j-100t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19J 100T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19J 100T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1150,10 +1150,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19j+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19j_100t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="s19-86t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 86t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19-86t-loki')">
+        <div class="miner-card" data-id="s19-86t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 86t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19-86t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19 86T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19 86T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1172,10 +1172,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19_86t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="s19j-104t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j 104t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19j-104t-loki')">
+        <div class="miner-card" data-id="s19j-104t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j 104t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19j-104t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19J 104T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19J 104T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1194,10 +1194,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19j+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19j_104t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s19-90t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 90t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19-90t-loki')">
+<div class="miner-card" data-id="s19-90t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 90t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19-90t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19 90T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19 90T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1216,10 +1216,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19_90t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s19j-pro-96t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j pro 96t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19j-pro-96t-loki')">
+<div class="miner-card" data-id="s19j-pro-96t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j pro 96t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19j-pro-96t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19J Pro 96T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19J Pro 96T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1238,10 +1238,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19j+pro+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19j_pro_96t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="s19-95t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 95t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19-95t-loki')">
+        <div class="miner-card" data-id="s19-95t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 95t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19-95t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19 95T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19 95T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1260,10 +1260,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19_95t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s19-pro-100t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 pro 100t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19-pro-100t-loki')">
+<div class="miner-card" data-id="s19-pro-100t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 pro 100t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19-pro-100t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19 Pro 100T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19 Pro 100T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1304,10 +1304,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+t17&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_t17_40t&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-        <div class="miner-card" data-id="s19j-pro-100t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j pro 100t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19j-pro-100t-loki')">
+        <div class="miner-card" data-id="s19j-pro-100t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j pro 100t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19j-pro-100t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19J Pro 100T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19J Pro 100T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1326,10 +1326,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19j+pro+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19j_pro_100t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s19j-pro-104t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j pro 104t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19j-pro-104t-loki')">
+<div class="miner-card" data-id="s19j-pro-104t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19j pro 104t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19j-pro-104t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19J Pro 104T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19J Pro 104T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1348,10 +1348,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19j+pro+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19j_pro_104t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s19-pro-110t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 pro 110t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19-pro-110t-loki')">
+<div class="miner-card" data-id="s19-pro-110t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19 pro 110t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19-pro-110t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19 Pro 110T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19 Pro 110T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1370,10 +1370,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19+pro+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19_pro_110t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s19k-pro-120t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19k pro 120t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19k-pro-120t-loki')">
+<div class="miner-card" data-id="s19k-pro-120t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19k pro 120t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19k-pro-120t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19K Pro 120T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19K Pro 120T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1392,10 +1392,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s19k+pro+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s19k_pro_120t_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s19k-pro-136t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19k pro 136t (loki) bitmain btc bch dgb" onclick="goToCalculator('s19k-pro-136t-loki')">
+<div class="miner-card" data-id="s19k-pro-136t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s19k pro 136t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s19k-pro-136t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S19K Pro 136T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S19K Pro 136T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -1480,10 +1480,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+s17%2B%2B&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_s17p_73t&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="s21-200t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s21 200t (loki) bitmain btc bch dgb" onclick="goToCalculator('s21-200t-loki')">
+<div class="miner-card" data-id="s21-200t-loki" data-voltage="120V" data-algo="SHA-256" data-loki="true" data-category="null" data-search="s21 200t (loki) bitmain btc bch dgb 120v psu bypass" onclick="goToCalculator('s21-200t-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">S21 200T (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">S21 200T (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -2347,10 +2347,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=volcminer+d1+mini&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_volcminer_d1_mini&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="l7-9050-loki" data-voltage="120V" data-algo="Scrypt" data-loki="true" data-category="null" data-search="l7 9050m (loki) bitmain ltc, doge" onclick="goToCalculator('l7-9050-loki')">
+<div class="miner-card" data-id="l7-9050-loki" data-voltage="120V" data-algo="Scrypt" data-loki="true" data-category="null" data-search="l7 9050m (loki) bitmain ltc, doge 120v psu bypass" onclick="goToCalculator('l7-9050-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">L7 9050M (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">L7 9050M (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -2369,10 +2369,10 @@
             <a href="https://www.ebay.com/sch/i.html?_nkw=antminer+l7+loki&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=miners_l7_9050_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" class="glossary-pill" style="font-size:0.68rem;padding:3px 8px;text-decoration:none;">Shop eBay</a>
           </div>
         </div>
-<div class="miner-card" data-id="l7-9500-loki" data-voltage="120V" data-algo="Scrypt" data-loki="true" data-category="null" data-search="l7 9500m (loki) bitmain ltc / doge" onclick="goToCalculator('l7-9500-loki')">
+<div class="miner-card" data-id="l7-9500-loki" data-voltage="120V" data-algo="Scrypt" data-loki="true" data-category="null" data-search="l7 9500m (loki) bitmain ltc / doge 120v psu bypass" onclick="goToCalculator('l7-9500-loki')">
           <div class="miner-card-header">
-            <span class="miner-name">L7 9500M (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>)</span>
-            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> 120V</span>
+            <span class="miner-name">L7 9500M (120V)</span>
+            <span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>
           </div>
           <div class="miner-row2">
             <span class="miner-manufacturer">Bitmain</span>
@@ -3690,7 +3690,7 @@
     <!-- Disclaimer -->
     <div class="disclaimer">
       <h4>&#x26A0;&#xFE0F; Important Notes</h4>
-      <p>Miners listed are compatible with home setups (single-phase 120V or 240V). Specs are manufacturer defaults &#x2014; actual performance varies with <span class="glossary-term" data-term="firmware">firmware</span>, ambient temperature, and configuration. <strong><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;"><span class="glossary-term" data-term="loki-kit">Loki Kit</span></a></strong> miners require aftermarket firmware (LuxOS, VNish) and run at ~40% of rated <span class="glossary-term" data-term="hashrate">hashrate</span>. <strong><span class="glossary-term" data-term="lottery">Lottery miners</span></strong> are for fun &#x2014; extremely unlikely to find blocks solo. Always verify current specs before purchasing.</p>
+      <p>Miners listed are compatible with home setups (single-phase 120V or 240V). Specs are manufacturer defaults &#x2014; actual performance varies with <span class="glossary-term" data-term="firmware">firmware</span>, ambient temperature, and configuration. <strong><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;"><span class="glossary-term" data-term="loki-kit">Loki Kit</span></a></strong> or <strong><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;"><span class="glossary-term" data-term="psu-bypass">LuxOS PSU Bypass</span></a></strong> 120V miners require aftermarket firmware (LuxOS, VNish; PSU Bypass is LuxOS only) and run at ~40% of rated <span class="glossary-term" data-term="hashrate">hashrate</span>. <strong><span class="glossary-term" data-term="lottery">Lottery miners</span></strong> are for fun &#x2014; extremely unlikely to find blocks solo. Always verify current specs before purchasing.</p>
     </div>
   </div>
   <!-- Shared Footer (loaded from /Components/footer.html) -->

@@ -7,8 +7,8 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Run an Antminer S19 or S21 safely at home. 120V vs 240V circuits, breaker sizing, the NEC 80% rule, smart PDU picks and Loki Kit underclocking explained step by step.">
-  <meta name="keywords" content="bitcoin miner electrical, 240V mining, ASIC power requirements, mining PDU, Loki Kit, home mining electrical, miner circuit breaker">
+  <meta name="description" content="Run an Antminer S19 or S21 safely at home. 120V vs 240V circuits, breaker sizing, the NEC 80% rule, smart PDU picks and 120V options (Loki Kit or LuxOS PSU Bypass) explained step by step.">
+  <meta name="keywords" content="bitcoin miner electrical, 240V mining, ASIC power requirements, mining PDU, Loki Kit, PSU Bypass, home mining electrical, miner circuit breaker">
   <meta name="author" content="SolaRayEffect.com">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.solarayeffect.com/electrical_setup.html">
@@ -17,14 +17,14 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.solarayeffect.com/electrical_setup.html">
   <meta property="og:title" content="How to Wire an ASIC Miner at Home &mdash; 120V vs 240V, Breakers &amp; Safety &mdash; SolaRayEffect.com">
-  <meta property="og:description" content="Run an Antminer S19 or S21 safely at home. 120V vs 240V circuits, breaker sizing, the NEC 80% rule, smart PDU picks and Loki Kit underclocking explained.">
+  <meta property="og:description" content="Run an Antminer S19 or S21 safely at home. 120V vs 240V circuits, breaker sizing, the NEC 80% rule, smart PDU picks and 120V Loki Kit or PSU Bypass options explained.">
   <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://www.solarayeffect.com/electrical_setup.html">
   <meta name="twitter:title" content="How to Wire an ASIC Miner at Home &mdash; 120V vs 240V, Breakers &amp; Safety &mdash; SolaRayEffect.com">
-  <meta name="twitter:description" content="Run an Antminer safely at home. 120V vs 240V circuits, breaker sizing, the NEC 80% rule, smart PDU picks and Loki Kit underclocking explained.">
+  <meta name="twitter:description" content="Run an Antminer safely at home. 120V vs 240V circuits, breaker sizing, the NEC 80% rule, smart PDU picks and 120V Loki Kit or PSU Bypass options explained.">
   <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
   <!-- Google tag (gtag.js) - Production only -->
@@ -1003,7 +1003,7 @@
       
       <h3 style="color: var(--sola-gold); margin-bottom: 0.5rem;"><span class="glossary-term" data-term="nema515">NEMA 5-15 / 5-20</span></h3>
       <p style="margin-bottom: 0.25rem;">Standard 120V, 15&#x2013;20A.</p>
-      <p style="margin-bottom: 0.25rem;">Suitable only for <strong><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;">Loki Kit</a>&#x2013;equipped miners</strong> or miners with <strong>maximum 1,500W continuous draw</strong>, meeting the <strong>80% rule</strong>.</p>
+      <p style="margin-bottom: 0.25rem;">Suitable only for <strong><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;">Loki Kit</a> or <a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;">LuxOS PSU Bypass</a> 120V miners</strong> or miners with <strong>maximum 1,500W continuous draw</strong>, meeting the <strong>80% rule</strong>.</p>
       <p>Dedicated circuit required. Not suitable for stock ASICs.</p>
       <ul style="color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 1.5rem;">
         <li>15A circuit &#x2192; 12A continuous &#x2192; <strong>~1,440W max</strong></li>
@@ -1060,24 +1060,30 @@
     
     <!-- The 120V Option -->
     <section class="section">
-      <h2 class="section-title">&#x1F7E3; The 120V Solution: <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;">Loki Kit</a></h2>
+      <h2 class="section-title">&#x1F7E3; The 120V Solution: <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;">Loki Kit</a> or <a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;">LuxOS PSU Bypass</a></h2>
       <p>Don't have 240V where you want to mine? There's a workaround.</p>
       
       <div class="loki-highlight">
         <h4>&#x1F52E; What is a <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki Kit</a>?</h4>
-        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">A <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> replaces your miner's power supply with one that runs on 120V. Combined with aftermarket firmware to underclock/undervolt, you can run industrial miners on regular household outlets.</p>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">A <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> is a small board that lets a single hash board run on a 120V-compatible power supply. Combined with aftermarket firmware to underclock/undervolt, you can run industrial miners on regular household outlets.</p>
         <p style="color: var(--text-secondary); margin: 0;"><strong>Trade-off:</strong> Lower hashrate (~40-60% of stock) but uses regular outlets you already have.</p>
+      </div>
+
+      <div class="loki-highlight">
+        <h4>&#x1F527; Newer Option: LuxOS PSU Bypass</h4>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Since February 2026, LuxOS firmware can skip the miner&rsquo;s power supply check with a setting instead of a Loki board. You still need a 120V-compatible power supply (such as the Bitmain APW3++) and the same reduced-power setup on a dedicated circuit.</p>
+        <p style="color: var(--text-secondary); margin: 0;"><strong>Check first:</strong> support depends on your control board. <a href="aftermarket_firmware.html#psu-bypass" style="color: var(--sola-teal);">Compare Loki vs PSU Bypass &#x2192;</a></p>
       </div>
       
       <div class="warning-box">
         <p><strong>&#x26A0;&#xFE0F; PSU Change May Be Required:</strong> Depending on your miner and <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a>, you may need to replace the stock PSU with a 120V-compatible power supply. Check your <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> requirements.</p>
       </div>
       
-      <p><strong>Requirements for <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> mining:</strong></p>
+      <p><strong>Requirements for 120V mining (Loki or PSU Bypass):</strong></p>
       <ul class="checklist">
         <li>Compatible miner (S19, S19 Pro, S19J Pro, etc.)</li>
         <li>A miner with a <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> may require a PSU change (120V compatible)</li>
-        <li>Aftermarket firmware (Vnish, Braiins, LuxOS)</li>
+        <li>Aftermarket firmware (Vnish, Braiins, LuxOS) &mdash; PSU Bypass requires LuxOS</li>
         <li>Dedicated 20A circuit (don't share with other devices)</li>
         <li>Good ventilation (still produces heat)</li>
       </ul>
@@ -1162,7 +1168,7 @@
           <td>240V / 15A or 120V</td>
         </tr>
         <tr class="section-header">
-          <td colspan="4">&#x1F52E; <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;">Loki Kit</a> Miners (120V Compatible)</td>
+          <td colspan="4">&#x1F52E; 120V Conversion Miners (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;">Loki Kit</a> or <a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;">PSU Bypass</a>)</td>
         </tr>
         <tr class="loki-row">
           <td><span class="loki-label"><a href="https://www.ebay.com/sch/i.html?_nkw=s19+pro+with+loki+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19pro_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: inherit;">S19 Pro + Loki</a></span> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
