@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Pick the right firmware for your Antminer S19, S19j Pro, KS5 or Loki rig. Real dev fees, auto-tuning power, 120V underclocking support and shutdown safety for Braiins OS+, LuxOS and VNish.">
+  <meta name="description" content="Pick the right firmware for your Antminer S19, S19j Pro, KS5, Loki or PSU Bypass 120V rig. Real dev fees, auto-tuning power, 120V underclocking support and shutdown safety for Braiins OS+, LuxOS and VNish.">
   <meta name="keywords" content="ASIC firmware, Braiins OS, LuxOS, miner firmware, autotuning, underclocking, overclocking, bitcoin miner firmware">
   <meta name="author" content="SolaRayEffect.com">
   <meta name="robots" content="index, follow">
@@ -17,14 +17,14 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.solarayeffect.com/aftermarket_firmware.html">
   <meta property="og:title" content="Best ASIC Miner Firmware 2026 &mdash; Braiins OS+ vs LuxOS vs VNish &mdash; SolaRayEffect.com">
-  <meta property="og:description" content="Pick the right firmware for your Antminer S19, S19j Pro, KS5 or Loki rig. Real dev fees, auto-tuning power, 120V underclocking and shutdown safety compared.">
+  <meta property="og:description" content="Pick the right firmware for your Antminer S19, S19j Pro, KS5, Loki or PSU Bypass 120V rig. Real dev fees, auto-tuning power, 120V underclocking and shutdown safety compared.">
   <meta property="og:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://www.solarayeffect.com/aftermarket_firmware.html">
   <meta name="twitter:title" content="Best ASIC Miner Firmware 2026 &mdash; Braiins OS+ vs LuxOS vs VNish &mdash; SolaRayEffect.com">
-  <meta name="twitter:description" content="Pick the right firmware for your Antminer S19, S19j Pro, KS5 or Loki rig. Real dev fees, auto-tuning, 120V underclocking and shutdown safety compared.">
+  <meta name="twitter:description" content="Pick the right firmware for your Antminer S19, S19j Pro, KS5, Loki or PSU Bypass 120V rig. Real dev fees, auto-tuning, 120V underclocking and shutdown safety compared.">
   <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   
   <!-- Google tag (gtag.js) - Production only -->
@@ -600,7 +600,7 @@
     
     <header>
       <h1>ASIC Firmware Guide &mdash; Braiins OS+, LuxOS & VNish Compared for Home Miners</h1>
-      <p style="color: var(--text-secondary);">Required for <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki Kit</a> 120V Mining</p>
+      <p style="color: var(--text-secondary);">Required for <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki Kit</a> and <a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">LuxOS PSU Bypass</a> 120V Mining</p>
     </header>
     <p class="affiliate-disclosure" style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 1rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
     
@@ -632,6 +632,7 @@
           <li>Clean web interface</li>
           <li>Actively maintained</li>
           <li>Good for S19K Pro and S21</li>
+          <li><a href="aftermarket_firmware.html#psu-bypass" style="color: var(--sola-teal);">PSU Bypass</a> for 120V custom builds (added Feb 2026)</li>
         </ul>
         <p><a href="https://luxor.tech/luxos" target="_blank" rel="noopener">luxor.tech/luxos &#x2192;</a></p>
       </div>
@@ -677,7 +678,7 @@
         <tr>
           <td>LuxOS</td>
           <td>2.8%</td>
-          <td><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>/Urlacher builds</td>
+          <td><a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a>/Urlacher &amp; <a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">PSU Bypass</a> builds</td>
           <td>Luxor Pool</td>
         </tr>
         <tr>
@@ -724,6 +725,26 @@
       <p>LuxOS supports remote management through its API and web UI, but <code>poweroff</code> over SSH leaves the miner completely stuck off with no remote recovery path. If you're on LuxOS and need to shut down on a schedule, use a smart PDU to cut and restore power rather than any SSH shutdown command. See our <a href="remote_management.html#power-240v" style="color: var(--sola-teal);">240V Power Control guide</a> for recommended hardware.</p>
     </section>
 
+    <section class="section" id="psu-bypass">
+      <h2 class="section-title">Two Ways to Run on 120V &mdash; Loki Board vs LuxOS PSU Bypass</h2>
+      <p>An Antminer checks which power supply is connected. If it&rsquo;s not a model it expects &mdash; like a 120V supply &mdash; it won&rsquo;t run. For years the only fix was a Loki board. Since February 2026, LuxOS has a firmware setting that does the same job.</p>
+      <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -0.5rem; padding: 0 0.5rem;">
+      <table class="comparison-table" style="font-size: 0.85rem;">
+        <tr><th></th><th>Loki Board</th><th>LuxOS PSU Bypass</th></tr>
+        <tr><td>What it is</td><td>Small hardware board</td><td>Setting inside LuxOS firmware</td></tr>
+        <tr><td>Extra cost</td><td>Board purchase</td><td>None beyond LuxOS (2.8% dev fee, waived on Luxor Pool)</td></tr>
+        <tr><td>Install</td><td>Wiring / control board changes</td><td>Turn on in LuxOS, then reboot</td></tr>
+        <tr><td>Firmware</td><td>LuxOS or VNish</td><td>LuxOS only</td></tr>
+        <tr><td>120V power supply needed</td><td>Yes (e.g. Bitmain APW3++)</td><td>Yes (e.g. Bitmain APW3++)</td></tr>
+        <tr><td>Reversible</td><td>Remove the board</td><td>Turn the setting off</td></tr>
+      </table>
+      </div>
+      <p style="margin-top: 1rem;">Luxor&rsquo;s changelog for February 11, 2026 lists: &ldquo;Added option to bypass the PSU for custom builds.&rdquo; It is set with the <code>psuset</code> command (<code>bypass_enabled</code>) and only takes effect after a reboot. See <a href="https://docs.luxor.tech/firmware/changelog" target="_blank" rel="noopener">Luxor changelog</a> and <a href="https://docs.luxor.tech/firmware/api/luxminer/psuset" target="_blank" rel="noopener">psuset docs</a>.</p>
+      <div class="warning-box">
+        <p>&#x26A0;&#xFE0F; <strong>Check your control board first.</strong> Luxor&rsquo;s docs do not list which models support PSU Bypass. Third-party guides report it works on S19 and S21 series with Amlogic control boards and does <strong>not</strong> currently work on CVITEK (CV1835) boards. Either path still runs the miner at reduced power on a dedicated 120V/20A circuit &mdash; see the <a href="electrical_setup.html" style="color: var(--sola-teal);">Electrical Setup guide</a>. Bypassing the PSU check does not bypass electrical limits.</p>
+      </div>
+    </section>
+
     <section class="section">
       <h2 class="section-title">For <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki Kit</a> Users</h2>
       <p>If you're running a <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki Kit</a> setup on 120V, you'll need firmware that supports:</p>
@@ -760,8 +781,7 @@
         if (link && typeof gtag === 'function') {
           gtag('event', 'firmware_link_click', { link_url: link.href, link_text: link.textContent.trim() });
         }
-      }););
-      }
+      });
     });
   </script>
 
