@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-09-01T13:27:49.953Z",
+  "fetched_at": "2026-10-01T15:24:43.533Z",
   "source": "minerstat/v2/hardware",
   "note": "Free tier may be incomplete. Supplemental use only -- the manually curated catalog in miners.html is primary.",
   "entry_count": 20,
@@ -194,46 +194,6 @@
       }
     },
     {
-      "id": "9c693d1979dc33cfa0e0d0070d0828a1a6e5c01b",
-      "name": "DragonBall Miner A11",
-      "brand": "DragonBall Miner",
-      "type": "asic",
-      "specs": {
-        "Release": "Sep 2024",
-        "Size": "360 x 185 x 290mm",
-        "Weight": "14500g",
-        "Noise level": "75dB",
-        "Fan(s)": "2",
-        "Cooling": "Air",
-        "Power": "2300W",
-        "Interface": "Ethernet",
-        "Temperature": "5 - 40 °C",
-        "Humidity": "10 - 90 %"
-      },
-      "algorithms": {
-        "Blake3": {
-          "speed": 1200000000000,
-          "power": 2300
-        },
-        "SHA512256d": {
-          "speed": 3200000000000,
-          "power": 2300
-        },
-        "Ethash": {
-          "speed": 1500000000,
-          "power": 2500
-        },
-        "Etchash": {
-          "speed": 1500000000,
-          "power": 2500
-        },
-        "SHA-256": {
-          "speed": 72000000000000,
-          "power": 3400
-        }
-      }
-    },
-    {
       "id": "98fcc378d7f5adda37f271debf5d7a4d1cdd37b9",
       "name": "Innosilicon A11",
       "brand": "Innosilicon",
@@ -262,6 +222,46 @@
         "Blake3": {
           "speed": 1200000000000,
           "power": 2300
+        }
+      }
+    },
+    {
+      "id": "9c693d1979dc33cfa0e0d0070d0828a1a6e5c01b",
+      "name": "DragonBall Miner A11",
+      "brand": "DragonBall Miner",
+      "type": "asic",
+      "specs": {
+        "Release": "Sep 2024",
+        "Size": "360 x 185 x 290mm",
+        "Weight": "14500g",
+        "Noise level": "75dB",
+        "Fan(s)": "2",
+        "Cooling": "Air",
+        "Power": "2300W",
+        "Interface": "Ethernet",
+        "Temperature": "5 - 40 °C",
+        "Humidity": "10 - 90 %"
+      },
+      "algorithms": {
+        "Blake3": {
+          "speed": 1200000000000,
+          "power": 2300
+        },
+        "SHA512256d": {
+          "speed": 3200000000000,
+          "power": 2300
+        },
+        "Etchash": {
+          "speed": 1500000000,
+          "power": 2500
+        },
+        "Ethash": {
+          "speed": 1500000000,
+          "power": 2500
+        },
+        "SHA-256": {
+          "speed": 72000000000000,
+          "power": 3400
         }
       }
     },
