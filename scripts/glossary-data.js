@@ -188,7 +188,7 @@ var SOLA_GLOSSARY = {
 
   "nema515": {
     title: "NEMA 5-15 / 5-20",
-    definition: "Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most Loki-modified miners plug into these. The \"5\" means 120V grounded, the number after the dash is the amperage rating."
+    definition: "Standard 120V household outlets. The 5-15 (15A) is the common 3-prong outlet in every room. The 5-20 (20A) has one sideways slot and is typically in kitchens and garages. Most 120V-converted miners (Loki Kit or LuxOS PSU Bypass) plug into these. The \"5\" means 120V grounded, the number after the dash is the amperage rating."
   },
 
   "nema620": {
@@ -231,7 +231,7 @@ var SOLA_GLOSSARY = {
 
   "voltage": {
     title: "120V vs 240V",
-    definition: "Standard US outlets are 120V (15-20A). Dryers and ovens use 240V. Most industrial ASICs need 240V but can run on 120V with a Loki Kit or modifications. 240V is more efficient (less heat loss in wiring)."
+    definition: "Standard US outlets are 120V (15-20A). Dryers and ovens use 240V. Most industrial ASICs need 240V but can run on 120V with a Loki Kit, LuxOS PSU Bypass, or modifications. 240V is more efficient (less heat loss in wiring)."
   },
 
   /* ================================================
@@ -275,7 +275,7 @@ var SOLA_GLOSSARY = {
 
   "aftermarket-firmware": {
     title: "Aftermarket Firmware",
-    definition: "Third-party firmware (LuxOS, VNish, BraiinsOS) that replaces the manufacturer's software on ASIC miners. Benefits include underclocking/overclocking, better efficiency tuning, and Loki Kit compatibility."
+    definition: "Third-party firmware (LuxOS, VNish, BraiinsOS) that replaces the manufacturer's software on ASIC miners. Benefits include underclocking/overclocking, better efficiency tuning, and 120V setups (Loki Kit or LuxOS PSU Bypass)."
   },
 
   /* ================================================
@@ -383,6 +383,12 @@ var SOLA_GLOSSARY = {
     title: "Loki Kit",
     definition: "A hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. The kit runs only one hash board at reduced power (~1200W), providing roughly 40% of full hashrate. Requires aftermarket firmware like LuxOS or VNish.",
     official: "/aftermarket_firmware.html#loki-vendors"
+  },
+
+  "psu-bypass": {
+    title: "PSU Bypass (LuxOS)",
+    definition: "A LuxOS firmware setting (added February 2026) that lets an Antminer run on a power supply it would normally reject, such as a 120V unit. Does the same job as a Loki board in software. Still requires a 120V-compatible PSU and a dedicated circuit; support depends on the control board.",
+    official: "/aftermarket_firmware.html#psu-bypass"
   },
 
   "raspberry-pi": {
