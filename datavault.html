@@ -2509,31 +2509,49 @@ async function fetchBlockchainData(chartName, endpoint, timespan = '1year') {
  */
 async function fetchPriceData(days = 365) {
   const loadingEl = document.getElementById('price-loading');
+  const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${days}`;
+  const cacheKey = 'sre_btc_price_' + days;
 
-  try {
-    const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${days}`;
-    const response = await fetch(url);
+  // CoinGecko's free API sometimes rate-limits; retry twice before giving up
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      if (attempt > 0) await new Promise(r => setTimeout(r, attempt * 2500));
+      const response = await fetch(url);
 
-    if (!response.ok) throw new Error(`CoinGecko returned ${response.status}`);
+      if (!response.ok) throw new Error(`CoinGecko returned ${response.status}`);
 
-    const data = await response.json();
+      const data = await response.json();
 
-    // Convert from [timestamp_ms, price] to {x: unix_seconds, y: price}
-    const formatted = data.prices.map(p => ({
-      x: p[0] / 1000,
-      y: p[1]
-    }));
+      // Convert from [timestamp_ms, price] to {x: unix_seconds, y: price}
+      const formatted = data.prices.map(p => ({
+        x: p[0] / 1000,
+        y: p[1]
+      }));
 
-    chartData.price.full = formatted;
+      chartData.price.full = formatted;
+      try { localStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), d: formatted })); } catch (e) {}
 
-    if (loadingEl) loadingEl.style.display = 'none';
-    return formatted;
+      if (loadingEl) loadingEl.style.display = 'none';
+      return formatted;
 
-  } catch (error) {
-    console.error('Error fetching price:', error);
-    showFetchError(loadingEl);
-    return null;
+    } catch (error) {
+      console.warn('Price fetch attempt ' + (attempt + 1) + ' failed:', error);
+    }
   }
+
+  // All attempts failed: fall back to this visitor's last good copy, if any
+  try {
+    const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (cached && Array.isArray(cached.d) && cached.d.length) {
+      chartData.price.full = cached.d;
+      if (loadingEl) loadingEl.style.display = 'none';
+      return cached.d;
+    }
+  } catch (e) {}
+
+  console.error('Error fetching price: all attempts failed');
+  showFetchError(loadingEl);
+  return null;
 }
 
 /**
