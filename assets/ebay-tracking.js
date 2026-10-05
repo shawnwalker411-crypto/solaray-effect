@@ -10,7 +10,7 @@
      - link_text:   visible text of the link (truncated to 80 chars)
 
    Uses event delegation on document — works for links added dynamically
-   after page load. Requires GA4 gtag() to already be initialized.
+   after page load. Requires the GA4 tag (window.dataLayer) to be on the page.
    ════════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -51,15 +51,22 @@
     if (!linkText) linkText = 'unknown';
     if (linkText.length > 80) linkText = linkText.substring(0, 80);
 
-    // Fire GA4 event if gtag is available
-    if (typeof gtag === 'function') {
-      gtag('event', 'ebay_click', {
+    // Fire GA4 event. The site's gtag() is defined inside a private
+    // wrapper, so push straight to the shared dataLayer instead.
+    // dataLayer only exists on the live site (production-only tag).
+    if (window.dataLayer) {
+      sendToGA('event', 'ebay_click', {
         page_path: window.location.pathname,
         rail_id: railId,
         destination: link.href,
         link_text: linkText
       });
     }
+  }
+
+  // Same format gtag() uses: pushes the real arguments object
+  function sendToGA() {
+    window.dataLayer.push(arguments);
   }
 
   function getHostname(url) {
