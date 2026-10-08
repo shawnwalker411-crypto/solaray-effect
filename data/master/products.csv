@@ -1,27 +1,27 @@
-product,store,search_term,customid,rail_side,proposed_pages,status,notes
-Lottery Miners Up to 4.5 TH/s,ebay,lottery miner,rail-lottery,left (miners),"index, miners, lottery_mining",keep,
-Antminer S19 Up to 140 TH/s,ebay,Antminer S19,rail-s19,left (miners),"index, miners, pools, aftermarket_firmware, electrical_setup",keep,
-Antminer S21 Up to 200 TH/s,ebay,Antminer S21,rail-s21,left (miners),"index, miners, pools",keep,
-WhatsMiner Up to 186 TH/s,ebay,WhatsMiner,rail-whatsminer,left (miners),"index, miners, pools",keep,
-Zcash Miners,ebay,antminer equihash zec zcash,rail-zcash,left (miners),"index, miners, pools",keep,
-KAS Miners Up to 21 TH/s,ebay,KAS miner,rail-kas,left (miners),"index, miners, pools",keep,
-"Scrypt Miners Up to 9,500 MH/s",ebay,scrypt miner,rail-scrypt,left (miners),"index, miners, pools",keep,
-Ethereum Classic,ebay,ethereum classic miner,rail-etc,left (miners),"index, miners, pools",keep,
-DigiByte Solo,ebay,asic sha-256 solo,rail-dgb,left (miners),"index, miners, pools",keep,
-Immersion Cool Rigs,ebay,immersion miner,rail-immersion,left (miners),,remove,
-ASIC Repair Service,ebay,asic repair service,rail-repair,left (miners),"index, miners, aftermarket_firmware",keep,
-Crypto Wallets,ebay,crypto hardware wallet,rail-wallets,left (miners),"index, lottery_mining, glossary",keep,
-Miners ASIC • USB • Lottery,amazon,bitcoin crypto miner,,right (gear),"index, miners",keep,Amazon - goes live when your tag is added in one setting
-Miner PSU Bitmain APW Series,amazon,bitmain psu,,right (gear),"index, electrical_setup, aftermarket_firmware",keep,Amazon - goes live when your tag is added in one setting
-240V PDUs Power Distribution,amazon,240V PDU,,right (gear),"index, electrical_setup, remote_management",keep,Amazon - goes live when your tag is added in one setting
-Romex Wire 12/2 • 10/2,amazon,Romex 12/2 10/2,,right (gear),"index, electrical_setup",keep,Amazon - goes live when your tag is added in one setting
-Ethernet Switches,amazon,ethernet switch,,right (gear),"index, remote_management",keep,Amazon - goes live when your tag is added in one setting
-WiFi Adapters Wireless Ethernet,amazon,wifi ethernet adapter,,right (gear),"index, remote_management",keep,Amazon - goes live when your tag is added in one setting
-Rig Frames Racks • Shelving,amazon,mining rig frame rack,,right (gear),"index, electrical_setup, solar_mining",keep,Amazon - goes live when your tag is added in one setting
-Power Splitters C14 to C13,amazon,IEC C14 to 2X C13 Splitter Power Cord - 200~250V 12AWG 20A to Dual 14AWG 15A Heavy Duty,,right (gear),"index, electrical_setup",keep,Amazon - goes live when your tag is added in one setting
-Noise Shrouds Sound Reduction,amazon,antminer shrouds,,right (gear),"index, solar_mining, electrical_setup",keep,Amazon - goes live when your tag is added in one setting
-Cooling Fans,amazon,AC Infinity CLOUDLINE,,right (gear),"index, solar_mining, lottery_mining",keep,Amazon - goes live when your tag is added in one setting
-Ducts Air Flow 6″ Aluminum Flex,amazon,Flexible 6-Inch Aluminum Ducting,,right (gear),"index, solar_mining",keep,Amazon - goes live when your tag is added in one setting
-SD Cards Firmware Flashing,amazon,sd cards,,right (gear),"index, remote_management",keep,Amazon - goes live when your tag is added in one setting
-Crypto Flare Shirts • Hats,amazon,crypto shirts and hats,,right (gear),index,keep,Amazon - goes live when your tag is added in one setting
-Crypto Wallets,amazon,crypto hardware wallet,,right (gear),"index, lottery_mining, glossary",keep,Amazon - goes live when your tag is added in one setting
+order,store,product,short_name,sub,upto,search_term,customid,icon_left,icon_right,pages,status,notes
+10,ebay,Lottery Miners,Lottery Miners,,lottery,lottery miner,rail-lottery,img:btc,&#x1F3B0;,index miners lottery_mining glossary,keep,
+20,ebay,Antminer S19,Antminer S19,,name:S19,Antminer S19,rail-s19,img:btc,img:btc,index miners pools aftermarket_firmware electrical_setup solar_mining remote_management,keep,
+30,ebay,Antminer S21,Antminer S21,,name:S21,Antminer S21,rail-s21,img:btc,img:btc,index miners pools electrical_setup solar_mining,keep,
+40,ebay,WhatsMiner,WhatsMiner,,name:Whatsminer,WhatsMiner,rail-whatsminer,img:btc,img:btc,index miners pools,keep,
+50,ebay,Zcash Miners,Zcash Miners,,algo:Equihash,antminer equihash zec zcash,rail-zcash,img:zec,img:zec,index miners pools,keep,
+60,ebay,KAS Miners,KAS Miners,,algo:KHeavyHash,KAS miner,rail-kas,img:kas,img:kas,index miners pools,keep,
+70,ebay,Scrypt Miners,Scrypt Miners,,algo:Scrypt,scrypt miner,rail-scrypt,img:ltc,img:doge,index miners pools,keep,
+80,ebay,Ethereum Classic,ETC Miners,,algo:Etchash,ethereum classic miner,rail-etc,img:etc,img:etc,index miners pools,keep,
+90,ebay,DigiByte Solo,DigiByte Solo,Any SHA-256 ASIC,,sha256 asic miner,rail-dgb,img:dgb,img:dgb,index miners pools lottery_mining,keep,
+100,ebay,ASIC Repair Service,ASIC Repair Service,,,asic repair service,rail-repair,&#x1F527;,&#x1F527;,index miners aftermarket_firmware remote_management,keep,
+110,ebay,Crypto Wallets,Crypto Wallets,,,crypto hardware wallet,rail-wallets,img:wallet,img:wallet,index lottery_mining glossary,keep,
+210,amazon,Miners,Miners,ASIC &#x2022; USB &#x2022; Lottery,,bitcoin crypto miner,,&#x26CF;&#xFE0F;,&#x26CF;&#xFE0F;,index miners lottery_mining glossary,keep,
+220,amazon,Miner PSU,Miner PSU,Bitmain APW Series,,bitmain psu,,&#x1F50C;,&#x1F50C;,index miners electrical_setup aftermarket_firmware,keep,
+230,amazon,240V PDUs,240V PDUs,Power Distribution,,240V PDU,,&#x1F5F2;,&#x1F5F2;,index electrical_setup remote_management solar_mining,keep,
+240,amazon,Romex Wire,Romex Wire,12/2 &#x2022; 10/2,,Romex 12/2 10/2,,&#x1F9F5;,&#x1F9F5;,index electrical_setup solar_mining,keep,
+250,amazon,Ethernet Switches,Ethernet Switches,,,ethernet switch,,&#x1F310;,&#x1F310;,index remote_management aftermarket_firmware,keep,
+260,amazon,WiFi Adapters,WiFi Adapters,Wireless Ethernet,,wifi ethernet adapter,,&#x1F4F6;,&#x1F4F6;,index remote_management,keep,
+270,amazon,Rig Frames,Rig Frames,Racks &#x2022; Shelving,,mining rig frame rack,,&#x1F9F1;,&#x1F9F1;,index electrical_setup solar_mining,keep,
+280,amazon,Power Splitters,Power Splitters,C14 to C13,,IEC C14 to 2X C13 Splitter Power Cord - 200~250V 12AWG 20A to Dual 14AWG 15A Heavy Duty,,&#x1F500;,&#x1F500;,index electrical_setup,keep,
+290,amazon,Noise Shrouds,Noise Shrouds,Sound Reduction,,antminer shrouds,,&#x1F507;,&#x1F507;,index miners electrical_setup solar_mining,keep,
+300,amazon,Cooling Fans,Cooling Fans,,,AC Infinity CLOUDLINE,,&#x1F4A8;,&#x1F4A8;,index solar_mining lottery_mining,keep,
+310,amazon,Ducts Air Flow,Ducts Air Flow,6&#x2033; Aluminum Flex,,Flexible 6-Inch Aluminum Ducting,,&#x1F300;,&#x1F300;,index solar_mining,keep,
+320,amazon,SD Cards,SD Cards,Firmware Flashing,,sd cards,,&#x1F4BE;,&#x1F4BE;,index remote_management aftermarket_firmware,keep,
+330,amazon,Crypto Flare,Crypto Flare,Shirts &#x2022; Hats,,crypto shirts and hats,,&#x1F455;,&#x1F9E2;,index glossary,keep,
+340,amazon,Crypto Wallets,Crypto Wallets,,,crypto hardware wallet,,img:wallet,img:wallet,index lottery_mining glossary pools,keep,
+999,ebay,Immersion Cool Rigs,Immersion Cool,,,immersion miner,rail-immersion,&#x1F976;,&#x1F976;,,remove,No immersion rigs on this site
