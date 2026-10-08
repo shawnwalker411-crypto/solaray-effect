@@ -13,7 +13,7 @@ const MASTER = join(ROOT, 'data', 'master');
 const EBAY_CAMPID = '5339142622';
 const GA_ID = 'G-M6F5T8Y2P6';
 // Pages already rebuilt from the master lists (add each page as its step finishes).
-const LOCKED_PAGES = ['index.html', 'miners.html'];
+const LOCKED_PAGES = ['index.html', 'miners.html', 'pools.html'];
 const CSP_REQUIRED = ['https://www.googletagmanager.com', 'https://*.google-analytics.com'];
 
 const blocks = [];
@@ -209,6 +209,12 @@ for (const f of [...pages, ...comps]) {
 
   if (f.startsWith('Components/')) continue;
 
+  // The pools page must hold exactly one table row per live pool (built by generate.mjs).
+  if (f === 'pools.html') {
+    const rows = (html.match(/<a class="pool-link" /g) || []).length;
+    const livePools = pools.filter((p) => ['keep', 'add'].includes(p.status)).length;
+    if (rows !== livePools) block(`pools.html: ${rows} pool rows but the master list has ${livePools} live pools (did the generator run?)`);
+  }
   // The catalog must hold exactly one card per live miner (built by generate.mjs).
   if (f === 'miners.html') {
     const cards = (html.match(/<div class="miner-card" /g) || []).length;
