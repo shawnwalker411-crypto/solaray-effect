@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com https://backend.mainnet.alephium.org https://mempool.fractalbitcoin.io https://coinexplorer.net https://explorer.radiantblockchain.org https://rpc.cyprus1.colosseum.quai.network https://chronik.be.cash https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.g.doubleclick.net; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com https://backend.mainnet.alephium.org https://mempool.fractalbitcoin.io https://coinexplorer.net https://rpc.cyprus1.colosseum.quai.network https://chronik.be.cash https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.g.doubleclick.net; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
   <!-- SEO Meta Tags -->
@@ -2388,9 +2388,9 @@
       <option value="">-- Select Coin --</option>
       <option value="BTC" data-unit="TH">Bitcoin (BTC) &ndash; SHA-256</option>
       <option value="BCH" data-unit="TH">Bitcoin Cash (BCH) &ndash; SHA-256</option>
+      <option value="BSV" data-unit="TH">Bitcoin SV (BSV) &ndash; SHA-256</option>
       <option value="XEC" data-unit="TH">eCash (XEC) &ndash; SHA-256</option>
       <option value="DGB" data-unit="TH">DigiByte (DGB) &ndash; SHA-256</option>
-      <option value="PPC" data-unit="TH">Peercoin (PPC) &ndash; SHA-256</option>
       <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
       <option value="DOGE" data-unit="MH">Dogecoin (DOGE) &ndash; Scrypt</option>
       <option value="ETC" data-unit="MH">Ethereum Classic (ETC) &ndash; ETChash</option>
@@ -2522,10 +2522,10 @@
           <option value="">-- Select Coin --</option>
           <option value="BTC" data-unit="TH">Bitcoin (BTC) &ndash; SHA-256</option>
           <option value="BCH" data-unit="TH">Bitcoin Cash (BCH) &ndash; SHA-256</option>
+      <option value="BSV" data-unit="TH">Bitcoin SV (BSV) &ndash; SHA-256</option>
           <option value="XEC" data-unit="TH">eCash (XEC) &ndash; SHA-256</option>
           <option value="DGB" data-unit="TH">DigiByte (DGB) &ndash; SHA-256</option>
-          <option value="PPC" data-unit="TH">Peercoin (PPC) &ndash; SHA-256</option>
-          <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
+              <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
           <option value="DOGE" data-unit="MH">Dogecoin (DOGE) &ndash; Scrypt</option>
           <option value="ETC" data-unit="MH">Ethereum Classic (ETC) &ndash; ETChash</option>
           <option value="ZEC" data-unit="KH">Zcash (ZEC) &ndash; Equihash</option>
@@ -2951,7 +2951,7 @@
     const DEFAULT_PRICES = { 
       BTC: 0, BCH: 0, LTC: 0, KAS: 0, ETC: 0, DOGE: 0,
       ZEC: 0, DASH: 0, DGB: 0,
-      XEC: 0, ALPH: 0, FB: 0, RXD: 0, QUAI: 0, PPC: 0
+      XEC: 0, ALPH: 0, FB: 0, QUAI: 0, BSV: 0
     };
     let PRICES = { ...DEFAULT_PRICES };
     let priceStatus = 'default'; // 'live', 'cached', 'default'
@@ -2980,14 +2980,12 @@
       'Blake3': { perUnit: 0.003017, unit: 'GH/s', coin: 'ALPH' },
       // FB &mdash; SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration)
       'SHA-256-FB': { perUnit: 0.0816, unit: 'TH/s', coin: 'FB' },
-      // RXD — SHA512256d, 12500 RXD/block post-April 2026 halving, 300s block time
-      'SHA512256d': { perUnit: 6.188, unit: 'GH/s', coin: 'RXD' },
       // QUAI-SHA &mdash; SHA-256 zone, ~5 QUAI/block, ~1.3s block time, live ~1.205 QUAI/TH/day (refreshed 2026-04-20)
       'SHA-256-QUAI': { perUnit: 1.205, unit: 'TH/s', coin: 'QUAI' },
       // QUAI-Scrypt &mdash; Scrypt zone, separate chain from SHA zone, live ~0.02033 QUAI/MH/day (refreshed 2026-04-20)
       'Scrypt-QUAI': { perUnit: 0.02033, unit: 'MH/s', coin: 'QUAI' },
-      // PPC &mdash; SHA-256, ~37 PPC/block, ~45min actual block time (targeted 10min), live ~0.139 PPC/TH/day (WhatToMine 2026-04-22)
-      'SHA-256-PPC': { perUnit: 0.1392, unit: 'TH/s', coin: 'PPC' }
+      // BSV &mdash; SHA-256, 3.125 BSV/block since April 2024 halving, 600s blocks, live ~0.00202 BSV/TH/day (WhatsOnChain 2026-10-07)
+      'SHA-256-BSV': { perUnit: 0.00202, unit: 'TH/s', coin: 'BSV' }
     };
     
     // Mining stats status
@@ -3001,6 +2999,7 @@
         { value: 'all', label: 'All Algorithms' },
         { value: 'SHA-256', label: 'SHA-256 (BTC)' },
         { value: 'SHA-256-BCH', label: 'SHA-256 (BCH)' },
+        { value: 'SHA-256-BSV', label: 'SHA-256 (BSV)' },
         { value: 'Scrypt', label: 'Scrypt (LTC+DOGE)' },
         { value: 'KHeavyHash', label: 'KHeavyHash (KAS)' },
         { value: 'Etchash', label: 'Etchash (ETC)' },
@@ -3010,10 +3009,8 @@
         { value: 'SHA-256-XEC', label: 'SHA-256 (XEC)' },
         { value: 'Blake3', label: 'Blake3 (ALPH)' },
         { value: 'SHA-256-FB', label: 'SHA-256 (FB)' },
-        { value: 'SHA512256d', label: 'SHA512256d (RXD)' },
         { value: 'SHA-256-QUAI', label: 'SHA-256 (QUAI)' },
-        { value: 'Scrypt-QUAI', label: 'Scrypt (QUAI)' },
-        { value: 'SHA-256-PPC', label: 'SHA-256 (PPC)' }
+        { value: 'Scrypt-QUAI', label: 'Scrypt (QUAI)' }
       ]
     };
     
@@ -3100,9 +3097,8 @@
       XEC: 'ecash',
       ALPH: 'alephium',
       FB: 'fractal-bitcoin',
-      RXD: 'radiant',
       QUAI: 'quai-network',
-      PPC: 'peercoin'
+      BSV: 'bitcoin-cash-sv'
     };
     
     async function fetchPrices() {
@@ -3128,9 +3124,8 @@
         PRICES.XEC = data['ecash']?.usd || PRICES.XEC;
         PRICES.ALPH = data['alephium']?.usd || PRICES.ALPH;
         PRICES.FB = data['fractal-bitcoin']?.usd || PRICES.FB;
-        PRICES.RXD = data['radiant']?.usd || PRICES.RXD;
         PRICES.QUAI = data['quai-network']?.usd || PRICES.QUAI;
-        PRICES.PPC = data['peercoin']?.usd || PRICES.PPC;
+        PRICES.BSV = data['bitcoin-cash-sv']?.usd || PRICES.BSV;
         
         // Save to localStorage with timestamp
         const cacheData = {
@@ -3403,14 +3398,12 @@
       'Blake3': { min: 0.0006, max: 0.016, coin: 'ALPH', unit: 'GH' },
       // FB: SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration, 5x tolerance)
       'SHA-256-FB': { min: 0.014, max: 0.35, coin: 'FB', unit: 'TH' },
-      // RXD: SHA512256d, live ~6.1 RXD/GH/day post-halving (refreshed 2026-04-20, 5x tolerance)
-      'SHA512256d': { min: 1.2, max: 30.5, coin: 'RXD', unit: 'GH' },
       // QUAI-SHA: Cyprus-1 zone, live ~1.2 QUAI/TH/day (refreshed 2026-04-20, 5x tolerance)
       'SHA-256-QUAI': { min: 0.24, max: 6.0, coin: 'QUAI', unit: 'TH' },
       // QUAI-Scrypt: Scrypt zone, live ~0.0203 QUAI/MH/day (refreshed 2026-04-20, 5x tolerance)
       'Scrypt-QUAI': { min: 0.0041, max: 0.102, coin: 'QUAI', unit: 'MH' },
-      // PPC: SHA-256, variable reward + ~45min blocks, live ~0.139 PPC/TH/day (WhatToMine 2026-04-22, 10x tolerance)
-      'SHA-256-PPC': { min: 0.014, max: 1.4, coin: 'PPC', unit: 'TH' }
+      // BSV: SHA-256, live ~0.00202 BSV/TH/day (WhatsOnChain 2026-10-07, 5x tolerance)
+      'SHA-256-BSV': { min: 0.0004, max: 0.0101, coin: 'BSV', unit: 'TH' }
     };
     
     // Track last known good rates for fallback
@@ -3534,6 +3527,19 @@
         }
       }
       
+      // BSV (SHA-256 via WhatsOnChain). Same hardware as BTC/BCH. Per TH/s.
+      if (data.BSV && data.BSV.network_hashrate > 0) {
+        const blocksPerDay = 86400 / (data.BSV.block_time || 600);
+        const dailyCoins = (data.BSV.block_reward || 3.125) * blocksPerDay;
+        const perTH = dailyCoins / (data.BSV.network_hashrate / 1e12);
+        
+        const validation = validateAndUpdateRate('SHA-256-BSV', perTH, 'BSV');
+        if (validation.rate) {
+          REVENUE_RATES['SHA-256-BSV'].perUnit = validation.rate;
+          console.log('BSV rate updated:', validation.rate, 'BSV/TH/day', validation.valid ? '\u2714' : '(fallback)');
+        }
+      }
+      
       // DASH
       if (data.DASH && data.DASH.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.DASH.block_time || 150);
@@ -3621,20 +3627,6 @@
         }
       }
 
-      // RXD (SHA512256d via Radiant Explorer API)
-      // 12,500 RXD/block post-April 2026 halving, 300s block time. Per TH/s.
-      if (data.RXD && data.RXD.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.RXD.block_time || 286);
-        const dailyCoins = (data.RXD.block_reward || 12500) * blocksPerDay;
-        const perTH = dailyCoins / (data.RXD.network_hashrate / 1e9); // GH/s (all RXD miners use GH/s)
-
-        const validation = validateAndUpdateRate('SHA512256d', perTH, 'RXD');
-        if (validation.rate) {
-          REVENUE_RATES['SHA512256d'].perUnit = validation.rate;
-          console.log('RXD rate updated:', validation.rate, 'RXD/TH/day', validation.valid ? '\u2714' : '(fallback)');
-        }
-      }
-
       // QUAI-SHA (SHA-256 zone via WhatToMine, returned as data["QUAI-SHA"])
       // ~5 QUAI/block, ~1.3s block time. Per TH/s.
       const quaiSHAData = data["QUAI-SHA"];
@@ -3660,19 +3652,6 @@
         if (valScrypt.rate) {
           REVENUE_RATES['Scrypt-QUAI'].perUnit = valScrypt.rate;
           console.log('QUAI-Scrypt rate updated:', valScrypt.rate, 'QUAI/MH/day', valScrypt.valid ? '\u2714' : '(fallback)');
-        }
-      }
-
-      // PPC (SHA-256 via WhatToMine)
-      // Variable block reward (~37 PPC), ~45min actual block time. Uses any SHA-256 ASIC. Per TH/s.
-      if (data.PPC && data.PPC.network_hashrate > 0) {
-        const blocksPerDay = 86400 / (data.PPC.block_time || 2700);
-        const dailyCoins = (data.PPC.block_reward || 37) * blocksPerDay;
-        const perTH = dailyCoins / (data.PPC.network_hashrate / 1e12);
-        const validation = validateAndUpdateRate('SHA-256-PPC', perTH, 'PPC');
-        if (validation.rate) {
-          REVENUE_RATES['SHA-256-PPC'].perUnit = validation.rate;
-          console.log('PPC rate updated:', validation.rate, 'PPC/TH/day', validation.valid ? '\u2714' : '(fallback)');
         }
       }
 
@@ -3788,10 +3767,9 @@
         'SHA-256-XEC': ['XEC'],
         'Blake3': ['ALPH'],
         'SHA-256-FB': ['FB'],
-        'SHA512256d': ['RXD'],
         'SHA-256-QUAI': ['QUAI'],
         'Scrypt-QUAI': ['QUAI'],
-        'SHA-256-PPC': ['PPC']
+        'SHA-256-BSV': ['BSV']
       };
       
       const coins = algoCoinMap[algorithm];
@@ -3857,10 +3835,9 @@
         'SHA-256-XEC': 'XEC',
         'Blake3': 'ALPH',
         'SHA-256-FB': 'FB',
-        'SHA512256d': 'RXD',
         'SHA-256-QUAI': 'QUAI',
         'Scrypt-QUAI': 'QUAI',
-        'SHA-256-PPC': 'PPC'
+        'SHA-256-BSV': 'BSV'
       };
       
       if (algoFilter === 'all') {
@@ -3972,7 +3949,7 @@
       if (algoFilter !== 'all') {
         // SHA-256 variants all use same physical miners — remap to SHA-256 for dropdown
         // Scrypt-QUAI uses same Scrypt hardware — remap to Scrypt
-        const sha256Variants = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC'];
+        const sha256Variants = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-BSV'];
         const filterAlgo = sha256Variants.includes(algoFilter) ? 'SHA-256'
           : algoFilter === 'Scrypt-QUAI' ? 'Scrypt'
           : algoFilter;
@@ -4222,7 +4199,7 @@
       // Use algorithm filter to determine correct coin variant
       // SHA-256 variants and Scrypt-QUAI override the miner's base algorithm
       const algoFilter = document.getElementById('algorithm-filter').value;
-      const algoOverrides = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC', 'Scrypt-QUAI'];
+      const algoOverrides = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-BSV', 'Scrypt-QUAI'];
       algorithm = algoOverrides.includes(algoFilter) ? algoFilter : selectedMiner.algorithm;
       
       const solarHours = parseInt(document.getElementById('solar-hours').value) || 0;
@@ -4278,7 +4255,7 @@
         dailyRevenue += dailyMergedCrypto * mergedCoinPrice * (1 - totalFees / 100);
       }
       
-      // Handle dual mining (hardware-level, e.g. DragonBall A11 = ALPH + RXD).
+      // Handle dual mining (hardware-level: one machine with two chip types on two algorithms).
       // Only applies to ASIC mode where selectedMiner exists and has a dualMining field.
       // Uses the dual chip's OWN hashrate (not a ratio) against the secondary algorithm's rate.
       let dailyDualCrypto = 0;
@@ -4322,7 +4299,7 @@
       
       // Format crypto output - show dual mining, merged mining, or single coin
       if (selectedMiner && selectedMiner.dualMining && dailyDualCrypto > 0) {
-        // Dual mining (e.g. DragonBall A11 = ALPH + RXD from separate chips)
+        // Dual mining (two coins from separate chips)
         document.getElementById('daily-crypto').textContent = `${dailyCrypto.toFixed(8)} ${rateInfo.coin} + ${dailyDualCrypto.toFixed(4)} ${dualCoin}`;
         document.getElementById('monthly-crypto').textContent = `${monthly(dailyCrypto).toFixed(6)} ${rateInfo.coin} + ${monthly(dailyDualCrypto).toFixed(1)} ${dualCoin}`;
         document.getElementById('yearly-crypto').textContent = `${yearly(dailyCrypto).toFixed(4)} ${rateInfo.coin} + ${Math.round(yearly(dailyDualCrypto)).toLocaleString()} ${dualCoin}`;
@@ -4465,7 +4442,7 @@
     // ============================================
     // LIVE PRICE TICKER (uses calculator price data)
     // ============================================
-    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'DGB', 'XEC', 'ALPH', 'FB', 'RXD', 'QUAI', 'PPC'];
+    const tickerCoins = ['BTC', 'LTC', 'DOGE', 'KAS', 'ETC', 'ZEC', 'DASH', 'BCH', 'DGB', 'XEC', 'ALPH', 'FB', 'QUAI', 'BSV'];
     
     function updateTicker() {
       const tickerTrack = document.getElementById('ticker-track');
@@ -4512,10 +4489,10 @@
     // ============================================
     function calculateSunrisePick() {
       const algorithms = [
-        'SHA-256', 'SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC',
+        'SHA-256', 'SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-BSV',
         'Scrypt', 'Scrypt-QUAI',
         'KHeavyHash', 'Etchash', 'Equihash', 'X11',
-        'Blake3', 'SHA512256d'
+        'Blake3'
       ];
       const results = [];
       
@@ -4523,10 +4500,10 @@
         const rateInfo = REVENUE_RATES[algo];
         if (!rateInfo) return;
         
-        // All SHA-256 variants (BCH, DGB, XEC, FB, QUAI, PPC) share the same physical SHA-256 ASICs as BTC.
+        // All SHA-256 variants (BCH, BSV, DGB, XEC, FB, QUAI) share the same physical SHA-256 ASICs as BTC.
         // Scrypt-QUAI uses the same physical Scrypt ASICs as LTC/DOGE.
         // Alias them to the underlying algorithm for miner selection; the rate lookup still uses the variant.
-        const sha256Aliases = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-PPC'];
+        const sha256Aliases = ['SHA-256-BCH', 'SHA-256-DGB', 'SHA-256-XEC', 'SHA-256-FB', 'SHA-256-QUAI', 'SHA-256-BSV'];
         let filterAlgo;
         if (sha256Aliases.includes(algo)) {
           filterAlgo = 'SHA-256';
@@ -5072,15 +5049,14 @@
   var ELLIPS  = '…';
 
   /* Display name + default hashrate unit for each coin key in the API.
-     A coin present in the API but missing here still works - it just falls
-     back to the raw coin key and TH/s. */
+     A coin present in the API but missing here is NOT shown in the dropdown. */
   var COINS = {
     BTC:           { label: 'Bitcoin (BTC) '           + EN_DASH + ' SHA-256',      unit: 'TH' },
     BCH:           { label: 'Bitcoin Cash (BCH) '      + EN_DASH + ' SHA-256',      unit: 'TH' },
+    BSV:           { label: 'Bitcoin SV (BSV) '        + EN_DASH + ' SHA-256',      unit: 'TH' },
     XEC:           { label: 'eCash (XEC) '             + EN_DASH + ' SHA-256',      unit: 'TH' },
     DGB:           { label: 'DigiByte (DGB) '          + EN_DASH + ' SHA-256',      unit: 'TH' },
     FB:            { label: 'Fractal Bitcoin (FB) '    + EN_DASH + ' SHA-256',      unit: 'TH' },
-    PPC:           { label: 'Peercoin (PPC) '          + EN_DASH + ' SHA-256',      unit: 'TH' },
     'QUAI-SHA':    { label: 'Quai (QUAI) '             + EN_DASH + ' SHA-256',      unit: 'TH' },
     'QUAI-SCRYPT': { label: 'Quai (QUAI) '             + EN_DASH + ' Scrypt',       unit: 'GH' },
     LTC:           { label: 'Litecoin (LTC) '          + EN_DASH + ' Scrypt',       unit: 'MH' },
@@ -5089,14 +5065,13 @@
     ETC:           { label: 'Ethereum Classic (ETC) '  + EN_DASH + ' Etchash',      unit: 'MH' },
     ZEC:           { label: 'Zcash (ZEC) '             + EN_DASH + ' Equihash',     unit: 'KH' },
     DASH:          { label: 'Dash (DASH) '             + EN_DASH + ' X11',          unit: 'GH' },
-    ALPH:          { label: 'Alephium (ALPH) '         + EN_DASH + ' Blake3',       unit: 'GH' },
-    RXD:           { label: 'Radiant (RXD) '           + EN_DASH + ' SHA512256d',   unit: 'GH' }
+    ALPH:          { label: 'Alephium (ALPH) '         + EN_DASH + ' Blake3',       unit: 'GH' }
   };
 
-  /* Order coins appear in the dropdown. Anything unlisted gets appended. */
-  var COIN_ORDER = ['BTC', 'BCH', 'XEC', 'DGB', 'FB', 'PPC', 'QUAI-SHA',
+  /* Order coins appear in the dropdown. Only coins listed in COINS above are shown. */
+  var COIN_ORDER = ['BTC', 'BCH', 'BSV', 'XEC', 'DGB', 'FB', 'QUAI-SHA',
                     'LTC', 'DOGE', 'QUAI-SCRYPT', 'KAS', 'ETC', 'ZEC',
-                    'DASH', 'ALPH', 'RXD'];
+                    'DASH', 'ALPH'];
 
   var UNITS = [
     { key: 'KH', label: 'KH/s', mult: 1e3 },
@@ -5259,7 +5234,7 @@
       var keys = Object.keys(stats.data);
       var ordered = [];
       COIN_ORDER.forEach(function (k) { if (keys.indexOf(k) !== -1) ordered.push(k); });
-      keys.forEach(function (k) { if (ordered.indexOf(k) === -1) ordered.push(k); });
+      keys.forEach(function (k) { if (ordered.indexOf(k) === -1 && COINS[k]) ordered.push(k); });
 
       elCoin.innerHTML = '';
       var blank = document.createElement('option');
