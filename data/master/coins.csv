@@ -1,0 +1,23 @@
+symbol,name,algorithm,price_feed_id,status,notes
+BTC,Bitcoin,SHA-256,bitcoin,keep,
+BCH,Bitcoin Cash,SHA-256,bitcoin-cash,keep,
+BSV,Bitcoin SV,SHA-256,bitcoin-cash-sv,add,New coin. Same SHA-256 miners as Bitcoin. Live data source to be set up in step 3.
+XEC,eCash,SHA-256,ecash,keep,
+FB,Fractal Bitcoin,SHA-256,fractal-bitcoin,keep,
+DGB,DigiByte,SHA-256,digibyte,keep,Site mines the SHA-256 version
+QUAI-SHA,Quai (SHA-256 zone),SHA-256,quai-network,keep,
+QUAI-SCRYPT,Quai (Scrypt zone),Scrypt,quai-network,keep,
+LTC,Litecoin,Scrypt,litecoin,keep,Merge-mined with DOGE
+DOGE,Dogecoin,Scrypt,dogecoin,keep,Merge-mined with LTC
+KAS,Kaspa,kHeavyHash,kaspa,keep,
+ETC,Ethereum Classic,Etchash,ethereum-classic,keep,
+ZEC,Zcash,Equihash,zcash,keep,Zcash machines never removed
+DASH,Dash,X11,dash,keep,
+ALPH,Alephium,Blake3,alephium,keep,
+CKB,Nervos,Eaglesong,nervos-network,add,New coin. Needs Goldshell CK Box miner (specs to verify in step 8) and a live data source in step 3.
+RXD,Radiant,SHA512256d,radiant,remove,"Fringe: about $2.5K/day trading, 1 exchange"
+PPC,Peercoin,SHA-256,peercoin,remove,Fringe: about $1.7K/day trading
+KMD,Komodo,Equihash,komodo,info,Shown on miner cards only; not in calculator
+BELLS,Bellscoin,Scrypt,bellscoin,info,Merge-mined with LTC/DOGE; cards only
+PEP,Pepecoin,Scrypt,pepecoin-network,info,Merge-mined with LTC/DOGE; cards only
+ZEN,Horizen,Equihash,zencash,remove,PoW mining ended 2025 (migrated to Base L3)
