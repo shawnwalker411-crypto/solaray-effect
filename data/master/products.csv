@@ -12,7 +12,7 @@ order,store,product,short_name,sub,upto,search_term,customid,icon_left,icon_righ
 110,ebay,Crypto Wallets,Crypto Wallets,,,crypto hardware wallet,rail-wallets,img:wallet,img:wallet,index lottery_mining glossary,keep,
 210,amazon,Miners,Miners,ASIC &#x2022; USB &#x2022; Lottery,,bitcoin crypto miner,,&#x26CF;&#xFE0F;,&#x26CF;&#xFE0F;,index miners lottery_mining glossary,keep,
 220,amazon,Miner PSU,Miner PSU,Bitmain APW Series,,bitmain psu,,&#x1F50C;,&#x1F50C;,index miners electrical_setup aftermarket_firmware,keep,
-230,amazon,240V PDUs,240V PDUs,Power Distribution,,240V PDU,,&#x1F5F2;,&#x1F5F2;,index electrical_setup remote_management solar_mining,keep,
+230,amazon,240V PDUs,240V PDUs,Power Distribution,,240V PDU,,&#x26A1;&#xFE0F;,&#x26A1;&#xFE0F;,index electrical_setup remote_management solar_mining,keep,
 240,amazon,Romex Wire,Romex Wire,12/2 &#x2022; 10/2,,Romex 12/2 10/2,,&#x1F9F5;,&#x1F9F5;,index electrical_setup solar_mining,keep,
 250,amazon,Ethernet Switches,Ethernet Switches,,,ethernet switch,,&#x1F310;,&#x1F310;,index remote_management aftermarket_firmware,keep,
 260,amazon,WiFi Adapters,WiFi Adapters,Wireless Ethernet,,wifi ethernet adapter,,&#x1F4F6;,&#x1F4F6;,index remote_management,keep,
