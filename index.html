@@ -2934,145 +2934,15 @@
   </div>
   </main>
 
+  <script src="/data/generated/miners.js"></script>
   <script>
     // ============================================
-    // MINER DATABASE - 120V (Native + Loki)
+    // MINER DATABASE
+    // Built at deploy from data/master/miners.csv (build/generate.mjs).
+    // To add, fix or remove a miner, edit the master list - not this page.
     // ============================================
-    const MINERS_120V = [
-      // LOTTERY - SHA-256
-      { id: 'bitaxe-ultra', name: 'Bitaxe Ultra', manufacturer: 'Open Source', hashrate: 0.5, unit: 'TH/s', power: 15, algorithm: 'SHA-256', coins: ['BTC'], category: 'lottery', voltage: '120V', noise: 'silent', noiseLabel: 'Silent (0-30 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'bitaxe-hex', name: 'Bitaxe Hex', manufacturer: 'Open Source', hashrate: 3, unit: 'TH/s', power: 90, algorithm: 'SHA-256', coins: ['BTC'], category: 'lottery', voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'nerdminer', name: 'NerdMiner', manufacturer: 'Open Source', hashrate: 0.00005, unit: 'TH/s', power: 1, algorithm: 'SHA-256', coins: ['BTC'], category: 'lottery', voltage: '120V', noise: 'silent', noiseLabel: 'Silent (0-30 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'compac-f', name: 'Compac F', manufacturer: 'Skot', hashrate: 0.3, unit: 'TH/s', power: 7, algorithm: 'SHA-256', coins: ['BTC'], category: 'lottery', voltage: '120V', noise: 'silent', noiseLabel: 'Silent (0-30 dB)', cooling: 'Room Temp', loki: false },
-      
-      // LOKI - SHA-256 (40% of original hashrate, 1200W)
-      { id: 's19-82t-loki', name: 'S19 82T (120V)', manufacturer: 'Bitmain', hashrate: 33, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      { id: 's19-90t-loki', name: 'S19 90T (120V)', manufacturer: 'Bitmain', hashrate: 36, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      { id: 's19-pro-100t-loki', name: 'S19 Pro 100T (120V)', manufacturer: 'Bitmain', hashrate: 40, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      { id: 's19-pro-110t-loki', name: 'S19 Pro 110T (120V)', manufacturer: 'Bitmain', hashrate: 44, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      { id: 's19j-pro-96t-loki', name: 'S19J Pro 96T (120V)', manufacturer: 'Bitmain', hashrate: 38, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      { id: 's19j-pro-104t-loki', name: 'S19J Pro 104T (120V)', manufacturer: 'Bitmain', hashrate: 42, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      { id: 's19k-pro-120t-loki', name: 'S19K Pro 120T (120V)', manufacturer: 'Bitmain', hashrate: 48, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      { id: 's19k-pro-136t-loki', name: 'S19K Pro 136T (120V)', manufacturer: 'Bitmain', hashrate: 56, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      { id: 's21-200t-loki', name: 'S21 200T (120V)', manufacturer: 'Bitmain', hashrate: 80, unit: 'TH/s', power: 1200, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      
-      // NATIVE 120V - Scrypt
-      { id: 'mini-doge', name: 'Mini-DOGE', manufacturer: 'GoldShell', hashrate: 185, unit: 'MH/s', power: 233, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'mini-doge-pro', name: 'Mini-DOGE Pro', manufacturer: 'GoldShell', hashrate: 205, unit: 'MH/s', power: 220, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'mini-doge-iii', name: 'Mini-DOGE III', manufacturer: 'GoldShell', hashrate: 760, unit: 'MH/s', power: 500, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'l3', name: 'Antminer L3', manufacturer: 'Bitmain', hashrate: 250, unit: 'MH/s', power: 400, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'l3-plus', name: 'Antminer L3+', manufacturer: 'Bitmain', hashrate: 504, unit: 'MH/s', power: 800, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'l3-plusplus', name: 'Antminer L3++', manufacturer: 'Bitmain', hashrate: 596, unit: 'MH/s', power: 942, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: false },
-      
-      // LOKI - Scrypt
-      { id: 'l7-9500-loki', name: 'L7 9500M (Loki)', manufacturer: 'Bitmain', hashrate: 3800, unit: 'MH/s', power: 1200, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: true },
-      
-      // NATIVE 120V - KHeavyHash (IceRiver compact/home miners)
-      { id: 'ks0', name: 'KS0', manufacturer: 'IceRiver', hashrate: 100, unit: 'GH/s', power: 65, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'ks0-pro', name: 'KS0 Pro', manufacturer: 'IceRiver', hashrate: 200, unit: 'GH/s', power: 100, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'ks0-ultra', name: 'KS0 Ultra', manufacturer: 'IceRiver', hashrate: 400, unit: 'GH/s', power: 100, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'ks1', name: 'KS1', manufacturer: 'IceRiver', hashrate: 1000, unit: 'GH/s', power: 600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'ks2', name: 'KS2', manufacturer: 'IceRiver', hashrate: 2000, unit: 'GH/s', power: 1200, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'ks2-lite', name: 'KS2 Lite', manufacturer: 'IceRiver', hashrate: 2000, unit: 'GH/s', power: 500, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'ks7-lite', name: 'KS7 Lite', manufacturer: 'IceRiver', hashrate: 4200, unit: 'GH/s', power: 500, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
-      // NATIVE 120V - KHeavyHash (Goldshell compact/home miners)
-      { id: 'ka-box', name: 'KA Box', manufacturer: 'Goldshell', hashrate: 1180, unit: 'GH/s', power: 400, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'ka-box-pro', name: 'KA Box Pro', manufacturer: 'Goldshell', hashrate: 1600, unit: 'GH/s', power: 600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-      
-      // NATIVE 120V - Etchash (ETC)
-      { id: 'ipollo-v1-mini', name: 'iPollo V1 Mini', manufacturer: 'iPollo', hashrate: 130, unit: 'MH/s', power: 240, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-
-      // NATIVE 120V - Equihash (ZEC)
-      { id: 'z9-mini', name: 'Antminer Z9 Mini', manufacturer: 'Bitmain', hashrate: 10, unit: 'kSol/s', power: 300, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Moderate (50-65 dB)', cooling: 'Room Temp', loki: false },
-
-      // X11 (DASH) - 120V
-      { id: 'd3', name: 'Antminer D3', manufacturer: 'Bitmain', hashrate: 19.3, unit: 'GH/s', power: 1200, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '120V', noise: 'vacuum', noiseLabel: 'Loud (50-70 dB)', cooling: 'Room Temp', loki: false },
-
-      // SHA512256d (RXD)
-      { id: 'rx0', name: 'IceRiver RX0', manufacturer: 'IceRiver', hashrate: 100, unit: 'GH/s', power: 120, algorithm: 'SHA512256d', coins: ['RXD'], category: null, voltage: '120V', noise: 'silent', noiseLabel: 'Silent (under 40 dB)', cooling: 'Room Temp', loki: false },
-      { id: 'rx0-pro', name: 'IceRiver RX0 Pro', manufacturer: 'IceRiver', hashrate: 300, unit: 'GH/s', power: 350, algorithm: 'SHA512256d', coins: ['RXD'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-
-      // Blake3 (ALPH) - home-friendly unit
-      { id: 'al-box-iii', name: 'Goldshell AL-BOX III', manufacturer: 'Goldshell', hashrate: 1200, unit: 'GH/s', power: 600, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '120V', noise: 'fan', noiseLabel: 'Fan (30-50 dB)', cooling: 'Room Temp', loki: false },
-    ];
-    
-    // ============================================
-    // MINER DATABASE - 240V (Full Power)
-    // ============================================
-    const MINERS_240V = [
-      // SHA-256
-      { id: 's19-82t', name: 'Antminer S19 82T', manufacturer: 'Bitmain', hashrate: 82, unit: 'TH/s', power: 2829, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19-86t', name: 'Antminer S19 86T', manufacturer: 'Bitmain', hashrate: 86, unit: 'TH/s', power: 2967, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19-90t', name: 'Antminer S19 90T', manufacturer: 'Bitmain', hashrate: 90, unit: 'TH/s', power: 3100, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19-95t', name: 'Antminer S19 95T', manufacturer: 'Bitmain', hashrate: 95, unit: 'TH/s', power: 3250, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19-pro-100t', name: 'Antminer S19 Pro 100T', manufacturer: 'Bitmain', hashrate: 100, unit: 'TH/s', power: 3050, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19-pro-110t', name: 'Antminer S19 Pro 110T', manufacturer: 'Bitmain', hashrate: 110, unit: 'TH/s', power: 3250, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19j-90t', name: 'Antminer S19J 90T', manufacturer: 'Bitmain', hashrate: 90, unit: 'TH/s', power: 3250, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19j-100t', name: 'Antminer S19J 100T', manufacturer: 'Bitmain', hashrate: 100, unit: 'TH/s', power: 3100, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19j-104t', name: 'Antminer S19J 104T', manufacturer: 'Bitmain', hashrate: 104, unit: 'TH/s', power: 3068, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19j-pro-96t', name: 'Antminer S19J Pro 96T', manufacturer: 'Bitmain', hashrate: 96, unit: 'TH/s', power: 2832, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19j-pro-100t', name: 'Antminer S19J Pro 100T', manufacturer: 'Bitmain', hashrate: 100, unit: 'TH/s', power: 2950, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19j-pro-104t', name: 'Antminer S19J Pro 104T', manufacturer: 'Bitmain', hashrate: 104, unit: 'TH/s', power: 3068, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19k-pro-120t', name: 'Antminer S19K Pro 120T', manufacturer: 'Bitmain', hashrate: 120, unit: 'TH/s', power: 2760, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19k-pro-136t', name: 'Antminer S19K Pro 136T', manufacturer: 'Bitmain', hashrate: 136, unit: 'TH/s', power: 3264, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19-xp-140t', name: 'Antminer S19 XP 140T', manufacturer: 'Bitmain', hashrate: 140, unit: 'TH/s', power: 3010, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's19j-xp-151t', name: 'Antminer S19J XP 151T', manufacturer: 'Bitmain', hashrate: 151, unit: 'TH/s', power: 3247, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's21-200t', name: 'Antminer S21 200T', manufacturer: 'Bitmain', hashrate: 200, unit: 'TH/s', power: 3500, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's21-pro-234t', name: 'Antminer S21 Pro 234T', manufacturer: 'Bitmain', hashrate: 234, unit: 'TH/s', power: 3510, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 's21-xp-270t', name: 'Antminer S21 XP 270T', manufacturer: 'Bitmain', hashrate: 270, unit: 'TH/s', power: 3645, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      // Whatsminer SHA-256
-      { id: 'm30s-pp-112t', name: 'Whatsminer M30S++ 112T', manufacturer: 'MicroBT', hashrate: 112, unit: 'TH/s', power: 3472, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'm50-118t', name: 'Whatsminer M50 118T', manufacturer: 'MicroBT', hashrate: 118, unit: 'TH/s', power: 3306, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'm50s-126t', name: 'Whatsminer M50S 126T', manufacturer: 'MicroBT', hashrate: 126, unit: 'TH/s', power: 3276, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'm50s-pp-140t', name: 'Whatsminer M50S++ 140T', manufacturer: 'MicroBT', hashrate: 140, unit: 'TH/s', power: 3080, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'm60-170t', name: 'Whatsminer M60 170T', manufacturer: 'MicroBT', hashrate: 170, unit: 'TH/s', power: 3383, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'm60s-186t', name: 'Whatsminer M60S 186T', manufacturer: 'MicroBT', hashrate: 186, unit: 'TH/s', power: 3441, algorithm: 'SHA-256', coins: ['BTC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      
-      // Scrypt
-      { id: 'l7-9050', name: 'Antminer L7 9050M', manufacturer: 'Bitmain', hashrate: 9050, unit: 'MH/s', power: 3260, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'l7-9500', name: 'Antminer L7 9500M', manufacturer: 'Bitmain', hashrate: 9500, unit: 'MH/s', power: 3425, algorithm: 'Scrypt', coins: ['LTC', 'DOGE'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      
-      // KHeavyHash (IceRiver industrial miners)
-      { id: 'ks3', name: 'KS3', manufacturer: 'IceRiver', hashrate: 8000, unit: 'GH/s', power: 3200, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'ks3m', name: 'KS3M', manufacturer: 'IceRiver', hashrate: 6000, unit: 'GH/s', power: 3400, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'ks5l', name: 'KS5L', manufacturer: 'IceRiver', hashrate: 12000, unit: 'GH/s', power: 3400, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'ks5m', name: 'KS5M', manufacturer: 'IceRiver', hashrate: 15000, unit: 'GH/s', power: 3400, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      // KHeavyHash (Bitmain Antminer KS series)
-      { id: 'antminer-ks3', name: 'Antminer KS3', manufacturer: 'Bitmain', hashrate: 9400, unit: 'GH/s', power: 3500, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'antminer-ks5', name: 'Antminer KS5', manufacturer: 'Bitmain', hashrate: 20000, unit: 'GH/s', power: 3000, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'antminer-ks5-pro', name: 'Antminer KS5 Pro', manufacturer: 'Bitmain', hashrate: 21000, unit: 'GH/s', power: 3150, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'antminer-ks7', name: 'Antminer KS7', manufacturer: 'Bitmain', hashrate: 40000, unit: 'GH/s', power: 3080, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'dragonball-ks6-pro', name: 'DragonBall KS6 Pro', manufacturer: 'DragonBall Miner', hashrate: 10500, unit: 'GH/s', power: 3600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'dragonball-ks6-pro-plus', name: 'DragonBall KS6 Pro+', manufacturer: 'DragonBall Miner', hashrate: 11000, unit: 'GH/s', power: 3600, algorithm: 'KHeavyHash', coins: ['KAS'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      
-      // Etchash (ETC)
-      { id: 'e9-pro', name: 'E9 Pro', manufacturer: 'Bitmain', hashrate: 3680, unit: 'MH/s', power: 2200, algorithm: 'Etchash', coins: ['ETC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      
-      // Equihash (ZEC)
-      { id: 'a9-zmaster', name: 'Innosilicon A9 ZMaster', manufacturer: 'Innosilicon', hashrate: 50, unit: 'kSol/s', power: 620, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Loud (65-75 dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'z11e', name: 'Antminer Z11e', manufacturer: 'Bitmain', hashrate: 70, unit: 'kSol/s', power: 1390, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'a9-plus-zmaster', name: 'Innosilicon A9+ ZMaster', manufacturer: 'Innosilicon', hashrate: 120, unit: 'kSol/s', power: 1550, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'z11', name: 'Antminer Z11', manufacturer: 'Bitmain', hashrate: 135, unit: 'kSol/s', power: 1418, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'a9pp-zmaster', name: 'Innosilicon A9++ ZMaster', manufacturer: 'Innosilicon', hashrate: 140, unit: 'kSol/s', power: 1550, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'z15', name: 'Antminer Z15', manufacturer: 'Bitmain', hashrate: 420, unit: 'kSol/s', power: 1510, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'z15-pro', name: 'Antminer Z15 Pro', manufacturer: 'Bitmain', hashrate: 840, unit: 'kSol/s', power: 2560, algorithm: 'Equihash', coins: ['ZEC'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      
-      // X11 (DASH)
-      { id: 'd7', name: 'Antminer D7', manufacturer: 'Bitmain', hashrate: 1286, unit: 'GH/s', power: 3148, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'd9', name: 'Antminer D9', manufacturer: 'Bitmain', hashrate: 1770, unit: 'GH/s', power: 2839, algorithm: 'X11', coins: ['DASH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-
-      // SHA-256 variants (XEC, FB, QUAI-SHA) use the same physical SHA-256 miners as BTC.
-      // The calculator's algoOverrides logic routes to the correct coin rate when the user
-      // selects the variant from the algorithm filter. No separate catalog entries needed.
-
-      // Blake3 (ALPH) - high-end unit
-      { id: 'al-max', name: 'Goldshell AL Max', manufacturer: 'Goldshell', hashrate: 8300, unit: 'GH/s', power: 3350, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'dragonball-a11-alph', name: 'DragonBall A11 (ALPH)', manufacturer: 'DragonBall Miner', hashrate: 1100, unit: 'GH/s', power: 2300, algorithm: 'Blake3', coins: ['ALPH', 'RXD'], dualMining: { coin: 'RXD', hashrate: 3000, unit: 'GH/s', algorithm: 'SHA512256d' }, category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-      { id: 'dragonball-a40', name: 'DragonBall A40', manufacturer: 'DragonBall Miner', hashrate: 3300, unit: 'GH/s', power: 1600, algorithm: 'Blake3', coins: ['ALPH'], category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-
-      // SHA512256d (RXD) - 240V
-      { id: 'dragonball-a11-rxd', name: 'DragonBall A11 (RXD)', manufacturer: 'DragonBall Miner', hashrate: 3000, unit: 'GH/s', power: 2300, algorithm: 'SHA512256d', coins: ['RXD', 'ALPH'], dualMining: { coin: 'ALPH', hashrate: 1100, unit: 'GH/s', algorithm: 'Blake3' }, category: null, voltage: '240V', noise: 'lawnmower', noiseLabel: 'Very Loud (75+ dB)', cooling: 'Needs Ventilation', loki: false },
-    ];
+    const MINERS_120V = (window.SRE_MINERS || []).filter(m => m.voltage === '120V');
+    const MINERS_240V = (window.SRE_MINERS || []).filter(m => m.voltage === '240V');
     
     // Combined for "All" filter and browse table
     const ALL_MINERS = [...MINERS_120V, ...MINERS_240V];
@@ -4810,7 +4680,17 @@
       var params = new URLSearchParams(window.location.search);
       var minerId = params.get('miner');
       if (minerId) {
-        selectMinerFromTable(minerId);
+        var retired = window.SRE_RETIRED_MINERS || {};
+        if (!ALL_MINERS.some(function (m) { return m.id === minerId; }) && retired[minerId]) {
+          var note = document.createElement('div');
+          note.id = 'retired-miner-msg';
+          note.style.cssText = 'text-align:center;padding:1rem;margin:1rem 0;background:rgba(255,170,0,0.08);border:1px solid rgba(255,170,0,0.25);border-radius:8px;color:#8899a8;';
+          note.textContent = 'The ' + retired[minerId] + ' is no longer listed on SolaRayEffect.com. Pick a current miner below or browse the Miner Catalog.';
+          var info = document.getElementById('miner-info');
+          info.parentNode.insertBefore(note, info);
+        } else {
+          selectMinerFromTable(minerId);
+        }
       }
     })();
   </script>
