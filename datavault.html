@@ -1858,21 +1858,20 @@ body {
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <script>
-/* \u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090
-   SOLA'S ARRAY \u2014 DATA VAULT CHART ENGINE
-   solas-charts.js
+/* ===============================================================
+   SOLA'S ARRAY - DATA VAULT CHART ENGINE
    All chart logic, API calls, and data rendering for datavault.html
    Charts: 11 panels covering BTC network, market, and mining data
    APIs: Blockchain.com (free), CoinGecko (free tier)
    Charts: Chart.js with chartjs-adapter-date-fns
-   \u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090 */
+   =============================================================== */
 
-// \u2500\u2500\u2500 CHART.JS GLOBAL CONFIG \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// --- CHART.JS GLOBAL CONFIG ------------------------------------
 Chart.defaults.color = '#6b7d8f';
 Chart.defaults.borderColor = '#1e2a38';
 Chart.defaults.font.family = "'Roboto', sans-serif";
 
-// \u2500\u2500\u2500 TERMINAL COLORS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// --- TERMINAL COLORS -------------------------------------------
 const COLORS = {
   cyan:   '#00d4ff',
   green:  '#00ff88',
@@ -1885,7 +1884,7 @@ const COLORS = {
   dark:   '#0d1117'
 };
 
-// \u2500\u2500\u2500 DATA STORAGE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// --- DATA STORAGE ----------------------------------------------
 const chartData = {
   hashrate:     { full: [], chart: null },
   difficulty:   { full: [], chart: null },
@@ -1899,7 +1898,7 @@ const chartData = {
   hashprice:    { full: [], chart: null }
 };
 
-// \u2500\u2500\u2500 LOADING MESSAGES \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// --- LOADING MESSAGES ------------------------
 const LOADING_MESSAGES = [
   'Accessing mainframe...',
   'Decrypting data...',
@@ -1914,7 +1913,7 @@ const LOADING_MESSAGES = [
   'Linking to relay station...'
 ];
 
-// \u2500\u2500\u2500 BOOT SEQUENCE MESSAGES \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// --- BOOT SEQUENCE MESSAGES ------------------------------------
 const BOOT_MESSAGES = [
   'DATA VAULT v4.7.7',
   'Initializing secure connection...',
@@ -1932,15 +1931,13 @@ const BOOT_MESSAGES = [
    ================================================================ */
 
 /**
- * Format hashrate from GH/s (Blockchain.com native unit)
- * into human-readable ZH/s, EH/s, PH/s, TH/s
+ * Format hashrate. Blockchain.com's hash-rate chart reports TH/s
+ * (its API states unit "Hash Rate TH/s"). 1 EH/s = 1,000,000 TH/s.
  */
 function formatHashrate(value) {
-  if (value >= 1e12) return (value / 1e12).toFixed(2) + ' ZH/s';
-  if (value >= 1e9)  return (value / 1e9).toFixed(2) + ' EH/s';
-  if (value >= 1e6)  return (value / 1e6).toFixed(2) + ' PH/s';
-  if (value >= 1e3)  return (value / 1e3).toFixed(2) + ' TH/s';
-  return value.toFixed(2) + ' GH/s';
+  if (value >= 1e6) return (value / 1e6).toLocaleString('en-US', { maximumFractionDigits: 0 }) + ' EH/s';
+  if (value >= 1e3) return (value / 1e3).toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' PH/s';
+  return value.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' TH/s';
 }
 
 function formatDifficulty(value) {
@@ -2054,50 +2051,6 @@ function calcDifficultyAdjustments(diffData) {
   return adjustments;
 }
 
-/**
- * Calculate hashprice: (daily BTC revenue * BTC price) / network hashrate in TH/s
- * hashprice = $/TH/day
- */
-function calcHashprice(revenueData, priceData, hashrateData) {
-  if (!revenueData?.length || !priceData?.length || !hashrateData?.length) return [];
-
-  const hashprice = [];
-  // Build a price lookup by day (rounded to day)
-  const priceLookup = {};
-  priceData.forEach(p => {
-    const dayKey = Math.floor(p.x / 86400);
-    priceLookup[dayKey] = p.y;
-  });
-
-  const hashrateLookup = {};
-  hashrateData.forEach(h => {
-    const dayKey = Math.floor(h.x / 86400);
-    hashrateLookup[dayKey] = h.y;
-  });
-
-  revenueData.forEach(r => {
-    const dayKey = Math.floor(r.x / 86400);
-    const price = priceLookup[dayKey];
-    const hashrate = hashrateLookup[dayKey];
-
-    if (price && hashrate && hashrate > 0) {
-      // Revenue is in BTC, hashrate is in GH/s from Blockchain.com
-      // Convert hashrate from GH/s to TH/s: divide by 1000
-      const hashrateTH = hashrate * 1000; // GH/s * 1000 = TH/s \u2014 wait, no
-      // Actually: 1 TH/s = 1000 GH/s, so TH/s = GH/s / 1000
-      const hashrateTHs = hashrate / 1000;
-      // But network hashrate is enormous, we need per-TH share
-      // hashprice = (daily_revenue_btc * btc_price) / (network_hashrate_in_TH)
-      const dailyRevenueUSD = r.y * price;
-      const hp = dailyRevenueUSD / hashrateTHs;
-      if (isFinite(hp) && hp > 0) {
-        hashprice.push({ x: r.x, y: hp });
-      }
-    }
-  });
-
-  return hashprice;
-}
 
 /* ================================================================
    SECTION 3: CHART CREATION
@@ -2521,7 +2474,24 @@ async function fetchPriceData(days = 365) {
     }
   }
 
-  // All attempts failed: fall back to this visitor's last good copy, if any
+  // CoinGecko unavailable: use Blockchain.com's daily BTC market price instead
+  try {
+    const bc = await fetch(`https://api.blockchain.info/charts/market-price?timespan=${days}days&format=json&cors=true`);
+    if (bc.ok) {
+      const j = await bc.json();
+      const formatted = (j.values || []).filter(v => v.y > 0).map(v => ({ x: v.x, y: v.y }));
+      if (formatted.length) {
+        chartData.price.full = formatted;
+        try { localStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), d: formatted })); } catch (e) {}
+        if (loadingEl) loadingEl.style.display = 'none';
+        return formatted;
+      }
+    }
+  } catch (e) {
+    console.warn('Blockchain.com price fallback failed:', e);
+  }
+
+  // All sources failed: fall back to this visitor's last good copy, if any
   try {
     const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
     if (cached && Array.isArray(cached.d) && cached.d.length) {
@@ -2875,7 +2845,7 @@ function updateRefreshTimestamp() {
  * Load all data from APIs and build/update all charts
  */
 async function loadAllData() {
-  // \u2500\u2500 Wave 1: Core data (hashrate, difficulty, price) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+  // -- Wave 1: Core data (hashrate, difficulty, price) ----------
   // These are needed by other charts (overlay, hashprice)
   const [hashrateData, difficultyData, priceData] = await Promise.all([
     fetchBlockchainData('hashrate', 'hash-rate'),
@@ -2883,7 +2853,7 @@ async function loadAllData() {
     fetchPriceData()
   ]);
 
-  // \u2500\u2500 Wave 2: Secondary data (mempool, blocktime, fees, revenue) \u2500\u2500
+  // -- Wave 2: Secondary data (mempool, blocktime, fees, revenue) --
   const [mempoolData, blocktimeData, feesData, revenueData] = await Promise.all([
     fetchBlockchainData('mempool', 'mempool-size'),
     fetchBlockchainData('blocktime', 'median-confirmation-time'),
@@ -2891,7 +2861,7 @@ async function loadAllData() {
     fetchBlockchainData('revenue', 'miners-revenue')
   ]);
 
-  // \u2500\u2500 Build Charts \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+  // -- Build Charts ---------------------------------------------
 
   // 1. Hashrate
   if (hashrateData) {
@@ -2975,7 +2945,7 @@ async function loadAllData() {
   }
 
   // 10. Hashprice
-  if (revenueData && priceData && hashrateData) {
+  if (revenueData && hashrateData) {
     destroyChart('hashprice');
     // Calculate hashprice from miner revenue (USD), and network hashrate
     // hashprice = daily_revenue_usd / network_hashrate_TH
@@ -2989,10 +2959,8 @@ async function loadAllData() {
       const dayKey = Math.floor(r.x / 86400);
       const hr = hrLookup[dayKey];
       if (hr && hr > 0) {
-        // Revenue is in USD (from miners-revenue endpoint)
-        // Hashrate from API is in GH/s. Convert to TH/s: GH/s / 1000
-        const hashrateTH = hr / 1000;
-        const hp = r.y / hashrateTH;
+        // Revenue is USD/day (miners-revenue); hashrate is already TH/s (hash-rate)
+        const hp = r.y / hr;
         if (isFinite(hp) && hp > 0) {
           hashpriceValues.push({ x: r.x, y: hp });
         }
@@ -3068,7 +3036,7 @@ function initRefreshButton() {
    ================================================================ */
 
 /**
- * Master init \u2014 runs on page load
+ * Master init - runs on page load
  * 1. Boot sequence animation
  * 2. Load all data
  * 3. Set up event listeners
@@ -3085,7 +3053,7 @@ async function init() {
   initRefreshButton();
 }
 
-// \u2500\u2500\u2500 START \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// --- START -----------------------------------------------------
 document.addEventListener('DOMContentLoaded', init);
 
 </script>
