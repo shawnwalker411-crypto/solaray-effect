@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node build/check.mjs && node build/generate.mjs",
+  "buildCommand": "node build/generate.mjs && node build/check.mjs",
   "outputDirectory": ".",
   "redirects": [
     {
