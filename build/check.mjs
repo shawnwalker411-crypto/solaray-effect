@@ -172,15 +172,22 @@ for (const p of poolSections) {
 }
 for (const p of pools) if (live(p) && !liveSections.has(p.coin_section)) block(`pool ${p.pool} [${p.coin_section}]: no live section for it in pool_sections.csv`);
 
-// ---------- Products ----------
+// ---------- Settings + products (shop rails) ----------
+const settings = Object.fromEntries(load('settings.csv').map((r) => [r.setting, r.value]));
+for (const k of ['amazon_tag', 'ebay_campid', 'rail_pages', 'rail_min_items']) if (!settings[k]) block(`settings.csv: missing ${k}`);
+if (settings.ebay_campid && settings.ebay_campid !== EBAY_CAMPID) block(`settings.csv: ebay_campid ${settings.ebay_campid} does not match ${EBAY_CAMPID}`);
+const railPages = (settings.rail_pages || '').split(/\s+/).filter(Boolean);
+for (const pg of ['night_sky', 'solar_forecast']) if (railPages.includes(pg)) block(`settings.csv: no shop rails allowed on ${pg}`);
 for (const p of products) {
   const id = `product "${p.product}"`;
   if (!['keep', 'add', 'remove'].includes(p.status)) block(`${id}: unknown status "${p.status}"`);
   if (!live(p)) continue;
-  for (const f of ['product', 'store', 'search_term']) if (!p[f]) block(`${id}: missing ${f}`);
-  if (p.store === 'ebay' && !p.customid) block(`${id}: eBay item needs a customid (click label)`);
+  for (const f of ['product', 'short_name', 'store', 'search_term', 'icon_left', 'icon_right', 'pages', 'order']) if (!p[f]) block(`${id}: missing ${f}`);
   if (!['ebay', 'amazon'].includes(p.store)) block(`${id}: store must be ebay or amazon`);
+  if (p.store === 'ebay' && !p.customid) block(`${id}: eBay item needs a customid (click label)`);
   if (/immersion|hydro/i.test(p.product + p.search_term)) block(`${id}: immersion/hydro products are not allowed`);
+  for (const pg of p.pages.split(/\s+/).filter(Boolean)) if (!railPages.includes(pg)) block(`${id}: page "${pg}" is not in settings rail_pages`);
+  for (const ic of [p.icon_left, p.icon_right]) if (ic.startsWith('img:') && !existsSync(join(ROOT, 'assets', 'rail', ic.slice(4) + '.png'))) block(`${id}: icon file assets/rail/${ic.slice(4)}.png is missing`);
 }
 
 // ---------- Pages ----------
