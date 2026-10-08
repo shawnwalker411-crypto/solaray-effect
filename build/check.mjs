@@ -57,11 +57,12 @@ const miners = load('miners.csv');
 const coins = load('coins.csv');
 const pools = load('pools.csv');
 const products = load('products.csv');
+const poolSections = load('pool_sections.csv');
 
 const live = (r) => ['keep', 'add', 'verify'].includes(r.status);
 
 // ---------- Coins ----------
-const COIN_STATUS = ['keep', 'add', 'info', 'remove']; // info = shown on miner cards, not in calculator
+const COIN_STATUS = ['keep', 'add', 'info', 'watch', 'remove']; // info = shown on miner cards only; watch = kept on file, not shown anywhere
 const coinSet = new Set();
 for (const c of coins) {
   const id = `coin ${c.symbol || '(blank)'}`;
@@ -138,7 +139,7 @@ for (const m of miners.filter((x) => x.status === 'merge'))
   if (!m.equivalent && !m.notes) report(`miner ${m.id}: merge row has no note saying which miner it merges into`);
 
 // ---------- Pools ----------
-const POOL_STATUS = ['keep', 'add', 'verify', 'remove'];
+const POOL_STATUS = ['keep', 'add', 'verify', 'watch', 'remove'];
 const sectionSym = (s) => (s.match(/\(([A-Z0-9]+)\)/) || [])[1];
 for (const p of pools) {
   const id = `pool ${p.pool || '(blank)'} [${p.coin_section}]`;
@@ -152,6 +153,24 @@ for (const p of pools) {
   else if (sym && !known(liveCoins)) block(`${id}: coin ${sym} is removed but pool is still listed`);
   if (p.status === 'verify') report(`${id}: payout/minimum still to verify on the pool site`);
 }
+
+// ---------- Pool page sections ----------
+const liveSections = new Set();
+const seenSections = new Set();
+for (const p of poolSections) {
+  const id = `pool section "${p.section || '(blank)'}"`;
+  if (!['keep', 'add', 'watch', 'remove'].includes(p.status)) block(`${id}: unknown status "${p.status}"`);
+  if (seenSections.has(p.section)) block(`${id}: duplicate section`);
+  seenSections.add(p.section);
+  if (!live(p)) continue;
+  liveSections.add(p.section);
+  for (const f of ['section', 'data_coin', 'icon', 'tag', 'tag_class', 'note', 'order']) if (!p[f]) block(`${id}: missing ${f}`);
+  for (const link of p.shop_links.split(';').filter(Boolean)) {
+    const [label, term, cid] = link.split('|');
+    if (!label || !term || !cid) block(`${id}: shop link "${link}" must be label|search|customid`);
+  }
+}
+for (const p of pools) if (live(p) && !liveSections.has(p.coin_section)) block(`pool ${p.pool} [${p.coin_section}]: no live section for it in pool_sections.csv`);
 
 // ---------- Products ----------
 for (const p of products) {
