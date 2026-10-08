@@ -293,3 +293,7 @@ footer a:hover {
 /* Wide tables scroll inside their own box on phones instead of the whole page. */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1rem 0; }
 .table-wrap > table { margin: 0; }
+
+/* Links with no color of their own use the site teal (gold on hover). */
+a { color: #00CED1; }
+a:hover { color: #D4AF37; }
