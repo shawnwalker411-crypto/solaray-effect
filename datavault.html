@@ -5,22 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://api.blockchain.info https://api.coingecko.com https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.g.doubleclick.net; media-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <!-- Google tag (gtag.js) - Production only -->
-  <script>
-    (function () {
-      var host = window.location.hostname;
-      var isProd = (host === "solarayeffect.com" || host === "www.solarayeffect.com");
-      if (!isProd) return;
-      var s = document.createElement("script");
-      s.async = true;
-      s.src = "https://www.googletagmanager.com/gtag/js?id=G-M6F5T8Y2P6";
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag("js", new Date());
-      gtag("config", "G-M6F5T8Y2P6");
-    })();
-  </script>
+  <!-- Google Analytics: shared file /assets/analytics.js -->
+  <script src="/assets/analytics.js"></script>
   <title>Live Bitcoin Mining Stats: Hashrate, Difficulty &amp; Fees</title>
   <meta name="description" content="Real-time Bitcoin network data: hashrate, difficulty, transaction fees, mempool size, miner revenue, halving countdown, and BTC market price.">
   <meta name="keywords" content="bitcoin network difficulty, mining hashrate chart, bitcoin difficulty history, mining data dashboard, bitcoin mempool, bitcoin transaction fees, miner revenue, halving countdown, bitcoin hashprice">
