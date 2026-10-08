@@ -244,11 +244,12 @@ for (const f of [...pages, ...comps]) {
 
   // Analytics + security policy
   const csp = (html.match(/http-equiv=["']Content-Security-Policy["'][^>]*content="([^"]+)"/i) || [])[1];
-  if (html.includes(GA_ID) && csp) {
+  const hasGA = html.includes('<script src="/assets/analytics.js"></script>');
+  if (!hasGA) block(`${f}: missing the shared Analytics file /assets/analytics.js`);
+  if (hasGA && csp) {
     const miss = CSP_REQUIRED.filter((d) => !csp.includes(d));
     if (miss.length) block(`${f}: security policy is missing ${miss.join(' + ')} (Analytics hits may be blocked)`);
   }
-  if (!html.includes(GA_ID) && f !== '404.html') report(`${f}: no Google Analytics tag`);
 
   // Raw emoji in page text (report until fonts step)
   const emojiLines = lines.filter((l) => EMOJI.test(l)).length;
