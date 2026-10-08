@@ -289,3 +289,7 @@ footer a {
 footer a:hover {
       color: #D4AF37;
     }
+
+/* Wide tables scroll inside their own box on phones instead of the whole page. */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1rem 0; }
+.table-wrap > table { margin: 0; }
