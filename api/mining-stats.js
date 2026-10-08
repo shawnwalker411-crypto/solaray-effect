@@ -1,6 +1,6 @@
 // /api/mining-stats.js
 // Live mining network stats API \u2014 NOWNodes unified
-// All 16 algo-coin entries (DGB uses JSON-RPC for SHA-256 specific difficulty)
+// All 17 algo-coin entries (DGB uses JSON-RPC for SHA-256 specific difficulty)
 // QUAI split into QUAI-SHA and QUAI-SCRYPT (separate WhatToMine endpoints per algorithm)
 // 1-hour cache
 
@@ -15,7 +15,7 @@ const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
   'ZEC','DGB',
-  'XEC','ALPH','FB','RXD','PPC',
+  'XEC','ALPH','FB','RXD','PPC','BSV',
   'QUAI-SHA','QUAI-SCRYPT'
 ];
 
@@ -34,6 +34,7 @@ const COINGECKO_IDS = {
   DGB: 'digibyte',
   XEC: 'ecash', ALPH: 'alephium', FB: 'fractal-bitcoin',
   RXD: 'radiant', PPC: 'peercoin',
+  BSV: 'bitcoin-cash-sv',
   'QUAI-SHA': 'quai-network', 'QUAI-SCRYPT': 'quai-network'
 };
 
@@ -122,6 +123,7 @@ async function fetchCoinData(coin) {
     case 'FB': return fetchFB();
     case 'RXD': return fetchRXD();
     case 'PPC': return fetchPPC();
+    case 'BSV': return fetchBSV();
     case 'QUAI-SHA': return fetchQUAI_SHA();
     case 'QUAI-SCRYPT': return fetchQUAI_Scrypt();
     case 'ZEC': return fetchZEC();
@@ -714,6 +716,48 @@ async function fetchPPC() {
     };
   } catch (e) {
     throw new Error(`PPC fetch failed: ${e.message}`);
+  }
+}
+
+/* ================= BSV (WhatsOnChain public API) ================= */
+/* SHA-256, same hardware as BTC/BCH. Target block time 600s.           */
+/* Reward 3.125 BSV since the April 2024 halving (block 840,000); next  */
+/* halving at block 1,050,000. Verified on-chain 2026-10-07: block      */
+/* 970,100 coinbase paid 3.1261 BSV (3.125 subsidy + fees).             */
+/* API: api.whatsonchain.com/v1/bsv/main/chain/info (no key needed).    */
+
+const BSV_BLOCK_TIME = 600;
+const BSV_HASHRATE_MIN = 10e15;    // 10 PH/s sanity floor
+const BSV_HASHRATE_MAX = 10e18;    // 10 EH/s sanity ceiling
+
+function bsvBlockReward(height) {
+  const halvings = Math.floor(height / 210000);
+  return 50 / Math.pow(2, halvings);
+}
+
+async function fetchBSV() {
+  try {
+    const res = await fetch('https://api.whatsonchain.com/v1/bsv/main/chain/info');
+    if (!res.ok) throw new Error(`WhatsOnChain returned ${res.status}`);
+    const data = await res.json();
+    const difficulty = Number(data.difficulty) || 0;
+    const height = Number(data.blocks) || 0;
+    if (difficulty <= 0 || height <= 0) throw new Error('WhatsOnChain returned no difficulty');
+    const networkHashrate = btcHashrate(difficulty, BSV_BLOCK_TIME);
+    if (networkHashrate < BSV_HASHRATE_MIN || networkHashrate > BSV_HASHRATE_MAX) {
+      throw new Error(`BSV hashrate ${networkHashrate} outside sanity range`);
+    }
+    return {
+      coin: 'BSV',
+      difficulty,
+      network_hashrate: networkHashrate,
+      block_reward: bsvBlockReward(height),
+      block_time: BSV_BLOCK_TIME,
+      height,
+      hashrate_estimated: true
+    };
+  } catch (e) {
+    throw new Error(`BSV fetch failed: ${e.message}`);
   }
 }
 
