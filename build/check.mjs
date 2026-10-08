@@ -190,9 +190,8 @@ for (const f of [...pages, ...comps]) {
   // Analytics + security policy
   const csp = (html.match(/http-equiv=["']Content-Security-Policy["'][^>]*content="([^"]+)"/i) || [])[1];
   if (html.includes(GA_ID) && csp) {
-    // REPORT until step 7 (one shared security policy); then switch to block().
     const miss = CSP_REQUIRED.filter((d) => !csp.includes(d));
-    if (miss.length) report(`${f}: security policy is missing ${miss.join(' + ')} (Analytics hits may be blocked)`);
+    if (miss.length) block(`${f}: security policy is missing ${miss.join(' + ')} (Analytics hits may be blocked)`);
   }
   if (!html.includes(GA_ID) && f !== '404.html') report(`${f}: no Google Analytics tag`);
 
