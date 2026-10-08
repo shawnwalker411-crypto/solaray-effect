@@ -55,7 +55,7 @@ var SOLA_GLOSSARY = {
 
   "antminer-s19-pro": {
     title: "Antminer S19 Pro",
-    definition: "Bitmain's flagship SHA-256 Bitcoin miner. Produces ~110 TH/s at ~3,250W. One of the most widely deployed miners for home and small-scale operations.",
+    definition: "A widely used Bitmain SHA-256 Bitcoin miner (the newer S21 and S23 series are more efficient). Produces ~110 TH/s at ~3,250W. One of the most widely deployed miners for home and small-scale operations.",
     ebay: "https://www.ebay.com/sch/i.html?_nkw=antminer+s19+pro&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_s19pro&toolid=10001&mkevt=1",
     amazon: "https://www.amazon.com/s?k=antminer+s19+pro"
   },
@@ -69,14 +69,14 @@ var SOLA_GLOSSARY = {
 
   "antminer-l3plus": {
     title: "Antminer L3++",
-    definition: "Bitmain's Scrypt algorithm miner used for Litecoin and Dogecoin. Produces ~580 MH/s at ~942W. Widely available on the secondary market.",
+    definition: "Bitmain's Scrypt algorithm miner used for Litecoin and Dogecoin. Produces ~596 MH/s at ~1,050W. Widely available on the secondary market.",
     ebay: "https://www.ebay.com/sch/i.html?_nkw=antminer+l3%2B%2B&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_l3plus&toolid=10001&mkevt=1",
     amazon: "https://www.amazon.com/s?k=antminer+l3%2B%2B"
   },
 
   "antminer-ks5": {
     title: "Antminer KS5",
-    definition: "Bitmain's KHeavyHash algorithm miner designed for Kaspa (KAS). Produces ~20 TH/s at ~3,400W.",
+    definition: "Bitmain's KHeavyHash algorithm miner designed for Kaspa (KAS). Produces ~20 TH/s at ~3,000W.",
     ebay: "https://www.ebay.com/sch/i.html?_nkw=antminer+ks5&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=gl_ks5&toolid=10001&mkevt=1",
     amazon: "https://www.amazon.com/s?k=antminer+ks5"
   },
@@ -174,7 +174,7 @@ var SOLA_GLOSSARY = {
 
   "autoping": {
     title: "AutoPing",
-    definition: "A feature that automatically power-cycles a miner when it stops responding to network pings. The device pings each miner at regular intervals. After several consecutive failures, it cuts and restores power to that outlet, forcing a reboot. No retail 30A/240V switched PDU currently includes AutoPing \u2014 but you can build the same functionality with a simple script on a Raspberry Pi."
+    definition: "A feature that automatically power-cycles a miner when it stops responding to network pings. The device pings each miner at regular intervals. After several consecutive failures, it cuts and restores power to that outlet, forcing a reboot. Many 30A/240V switched PDUs don't include AutoPing \u2014 but you can build the same functionality with a simple script on a Raspberry Pi."
   },
 
   /* ================================================
@@ -381,7 +381,7 @@ var SOLA_GLOSSARY = {
 
   "loki-kit": {
     title: "Loki Kit",
-    definition: "A hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. The kit runs only one hash board at reduced power (~1200W), providing roughly 40% of full hashrate. Requires aftermarket firmware like LuxOS or VNish.",
+    definition: "A hardware modification that allows industrial ASIC miners (designed for 240V) to run on standard 120V household outlets. The kit runs only one hash board at reduced power (~1200W), providing roughly a third to 40% of full hashrate. Works with LuxOS, VNish, or Braiins OS depending on the kit version.",
     official: "/aftermarket_firmware.html#loki-vendors"
   },
 
@@ -514,12 +514,12 @@ var SOLA_GLOSSARY = {
 
   "ecash": {
     title: "eCash (XEC)",
-    definition: "A SHA-256 cryptocurrency that forked from Bitcoin Cash in 2021. Uses the same algorithm as Bitcoin so any SHA-256 ASIC can mine it. The network is much smaller than BTC or BCH (~50 PH/s), which means higher per-TH yields. XEC has 2 extra decimal places compared to BTC \u2014 one BCH-equivalent block reward equals 1,812,500 XEC. NOWNodes is the primary shared RPC provider."
+    definition: "A SHA-256 cryptocurrency that forked from Bitcoin Cash in 2021. Uses the same algorithm as Bitcoin so any SHA-256 ASIC can mine it. The network is much smaller than BTC or BCH (~40 PH/s), which means higher per-TH yields. XEC has 2 extra decimal places compared to BTC \u2014 one BCH-equivalent block reward equals 1,812,500 XEC."
   },
 
   "alephium": {
     title: "Alephium (ALPH)",
-    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1). Network hashrate is around 9 PH/s. Block time is about 0.5 seconds, achieved through a sharded BlockFlow architecture that processes multiple chains in parallel. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
+    definition: "A sharded, proof-of-work blockchain using the Blake3 algorithm. Launched with GPU mining but has since transitioned to ASIC dominance (Goldshell AL series, Bitmain AL1). Network hashrate is around 6 PH/s. Block time is about 0.5 seconds, achieved through a sharded BlockFlow architecture that processes multiple chains in parallel. Uses a Proof of Less Work (PoLW) mechanism designed to reduce energy use at scale."
   },
 
   "blake3": {
@@ -529,12 +529,12 @@ var SOLA_GLOSSARY = {
 
   "fractal-bitcoin": {
     title: "Fractal Bitcoin (FB)",
-    definition: "A Bitcoin-compatible chain using SHA-256, designed for faster block times than Bitcoin (nominal 30 seconds, though observed averages run higher and vary). Any SHA-256 ASIC can mine it directly \u2014 no special hardware required. Network hashrate for permissionless mining sits around 0.7 EH/s, which is much smaller than Bitcoin's overall network. That smaller scale gives meaningful per-TH yield for ASICs that participate. Use a dedicated FB pool rather than pointing your miner at a Bitcoin pool."
+    definition: "A Bitcoin-compatible chain using SHA-256, designed for faster block times than Bitcoin (nominal 30 seconds, though observed averages run higher and vary). Any SHA-256 ASIC can mine it directly \u2014 no special hardware required. Network hashrate for permissionless mining sits around 0.5 EH/s, which is much smaller than Bitcoin's overall network. That smaller scale gives meaningful per-TH yield for ASICs that participate. Use a dedicated FB pool rather than pointing your miner at a Bitcoin pool."
   },
 
   "quai-network": {
     title: "Quai Network (QUAI)",
-    definition: "A multi-shard, EVM-compatible proof-of-work network that achieves high throughput without sacrificing decentralization. Unique in supporting multiple mining algorithms across different zone chains simultaneously: SHA-256 ASICs and Scrypt ASICs mine different zones of the same network. Cyprus-1 is the primary zone. Block time is ~1.1 seconds per zone. Miners must point to the correct zone endpoint."
+    definition: "A multi-shard, EVM-compatible proof-of-work network that achieves high throughput without sacrificing decentralization. Unique in supporting multiple mining algorithms across different zone chains simultaneously: SHA-256 ASICs and Scrypt ASICs can both mine it. Blocks arrive about every 1.4 seconds. Use the pool endpoint that matches your algorithm."
   },
 
   /* ================================================
