@@ -262,9 +262,8 @@ for (const f of [...pages, ...comps]) {
     if (miss.length) block(`${f}: security policy is missing ${miss.join(' + ')} (Analytics hits may be blocked)`);
   }
 
-  // Raw emoji in page text (report until fonts step)
-  const emojiLines = lines.filter((l) => EMOJI.test(l)).length;
-  if (emojiLines) report(`${f}: ${emojiLines} line(s) with raw emoji`);
+  // Raw emoji in page text: write them as HTML codes (&#x26A1;) so they display the same everywhere
+  for (const [i, l] of lines.entries()) if (EMOJI.test(l)) block(`${f}:${i + 1}: raw emoji (write it as an HTML code like &#x26A1;)`);
 
   // Content consistency scan. Pages in LOCKED_PAGES have been rebuilt from the
   // master lists, so any removed miner or coin on them (text OR code) blocks
