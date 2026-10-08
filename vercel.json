@@ -1,5 +1,6 @@
 {
   "buildCommand": "node build/check.mjs",
+  "outputDirectory": ".",
   "redirects": [
     {
       "source": "/index.html",
