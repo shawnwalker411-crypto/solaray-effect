@@ -1246,19 +1246,45 @@
       @media (max-width: 768px) {
         .pool-tiles-grid { grid-template-columns: repeat(2, 1fr); }
       }
+
+      .pool-group-title { color: var(--sola-gold); font-size: 1rem; margin: 1.1rem 0 0.6rem; text-align: left; border-bottom: 1px solid rgba(255,215,0,0.25); padding-bottom: 0.35rem; }
+      .pool-group-title span { display: block; font-size: 0.75rem; font-weight: 400; color: var(--text-secondary); margin-top: 0.15rem; }
+      .pool-group-title.solo { color: var(--sola-teal); border-bottom-color: rgba(0,206,209,0.3); margin-top: 1.5rem; }
+      .pool-card { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.85rem 0.6rem; }
+      .pc-name { font-weight: 700; font-size: 1rem; }
+      .pc-best { font-size: 0.74rem; color: var(--sola-teal); font-weight: 400; line-height: 1.3; }
+      .pc-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem; margin-top: 0.2rem; }
+      .pc-chip { font-size: 0.68rem; font-weight: 400; color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; padding: 0.1rem 0.5rem; white-space: nowrap; }
+      .pool-solo-stack { display: grid; gap: 0.75rem; }
+      .pool-card-wide { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; text-align: left; gap: 0.4rem 1rem; padding: 0.85rem 1.2rem; border-color: rgba(0,206,209,0.45); background: rgba(0,206,209,0.07); }
+      .pool-card-wide .pc-name { min-width: 8.5rem; }
+      .pool-card-wide .pc-best { flex: 1 1 16rem; font-size: 0.8rem; }
+      .pool-card-wide .pc-facts { justify-content: flex-start; margin-top: 0; }
+      .pool-profiles-group { color: var(--sola-gold); font-size: 1.1rem; margin: 1.5rem auto 0.75rem; max-width: 1000px; border-bottom: 1px solid rgba(255,215,0,0.25); padding-bottom: 0.35rem; }
+      .pool-profiles-group.solo { color: var(--sola-teal); border-bottom-color: rgba(0,206,209,0.3); }
+      a { color: var(--sola-teal); }
+      a:hover { color: var(--sola-gold); }
+      @media (max-width: 768px) { .pool-card-wide { flex-direction: column; align-items: flex-start; } .pool-card-wide .pc-best { flex: none; } }
     </style>
     <div class="pool-tiles-box">
       <h3 class="pool-tiles-heading">Pool Profiles &mdash; Jump to Details</h3>
       <p class="pool-tiles-sub">Tap any pool below to read its profile at the bottom of this page.</p>
+      <h4 class="pool-group-title">Shared-Reward Pools <span>steady payouts &mdash; the pool splits every block with its miners</span></h4>
       <div class="pool-tiles-grid">
-        <a class="pool-tile" href="#profile-f2pool">F2Pool<span class="pool-tile-sub">Since 2013</span></a>
-        <a class="pool-tile" href="#profile-antpool">Antpool<span class="pool-tile-sub">Bitmain, since 2014</span></a>
-        <a class="pool-tile" href="#profile-viabtc">ViaBTC<span class="pool-tile-sub">PPS+, PPLNS, SOLO</span></a>
-        <a class="pool-tile" href="#profile-luxor">Luxor<span class="pool-tile-sub">US-based, SOC 2</span></a>
-        <a class="pool-tile" href="#profile-braiins">Braiins Pool<span class="pool-tile-sub">Oldest, since 2010</span></a>
-        <a class="pool-tile" href="#profile-mining-dutch">Mining-Dutch<span class="pool-tile-sub">Multi-algo, many coins</span></a>
-        <a class="pool-tile" href="#profile-solopool">SoloPool.org<span class="pool-tile-sub">Pure solo mining</span></a>
-        <a class="pool-tile" href="#profile-kryptex">Kryptex<span class="pool-tile-sub">PPS+, auto-exchange</span></a>
+        <a class="pool-tile pool-card" href="#profile-f2pool"><span class="pc-name">F2Pool</span><span class="pc-best">Many coins, one account</span><span class="pc-facts"><span class="pc-chip">2&ndash;4% fee</span><span class="pc-chip">FPPS / PPLNS</span><span class="pc-chip">9 coins</span></span></a>
+        <a class="pool-tile pool-card" href="#profile-antpool"><span class="pc-name">Antpool</span><span class="pc-best">Run by Bitmain, the Antminer maker</span><span class="pc-facts"><span class="pc-chip">2&ndash;4% fee</span><span class="pc-chip">FPPS / PPLNS</span><span class="pc-chip">6 coins</span></span></a>
+        <a class="pool-tile pool-card" href="#profile-viabtc"><span class="pc-name">ViaBTC</span><span class="pc-best">Split earnings between accounts</span><span class="pc-facts"><span class="pc-chip">2&ndash;4% fee</span><span class="pc-chip">PPS+ / PPLNS</span><span class="pc-chip">6 coins</span></span></a>
+        <a class="pool-tile pool-card" href="#profile-kryptex"><span class="pc-name">Kryptex</span><span class="pc-best">Hourly payouts, beginner-friendly</span><span class="pc-facts"><span class="pc-chip">1&ndash;3% fee</span><span class="pc-chip">PPS+ / Solo</span><span class="pc-chip">11 coins</span></span></a>
+        <a class="pool-tile pool-card" href="#profile-luxor"><span class="pc-name">Luxor</span><span class="pc-best">0% pool fee with LuxOS</span><span class="pc-facts"><span class="pc-chip">2.5% fee</span><span class="pc-chip">FPPS</span><span class="pc-chip">BTC</span></span></a>
+        <a class="pool-tile pool-card" href="#profile-braiins"><span class="pc-name">Braiins Pool</span><span class="pc-best">0% pool fee with Braiins OS</span><span class="pc-facts"><span class="pc-chip">2.5% fee</span><span class="pc-chip">FPPS</span><span class="pc-chip">BTC</span></span></a>
+        <a class="pool-tile pool-card" href="#profile-ocean"><span class="pc-name">OCEAN</span><span class="pc-best">No account, non-custodial</span><span class="pc-facts"><span class="pc-chip">1&ndash;2% fee</span><span class="pc-chip">TIDES</span><span class="pc-chip">BTC</span></span></a>
+        <a class="pool-tile pool-card" href="#profile-mining-dutch"><span class="pc-name">Mining-Dutch</span><span class="pc-best">Altcoins, you set the payout</span><span class="pc-facts"><span class="pc-chip">0.5&ndash;2% fee</span><span class="pc-chip">D-PPS / PPLNS</span><span class="pc-chip">6 coins</span></span></a>
+      </div>
+      <h4 class="pool-group-title solo">Solo-Only Pools <span>winner takes the whole block &mdash; lottery-style mining</span></h4>
+      <div class="pool-solo-stack">
+        <a class="pool-tile pool-card pool-card-wide" href="#profile-heliospool"><span class="pc-name">HeliosPool</span><span class="pc-best">Block reward goes straight to your wallet &mdash; the pool never holds your coins</span><span class="pc-facts"><span class="pc-chip">1% fee</span><span class="pc-chip">Solo</span><span class="pc-chip">BTC, BCH, DGB, XEC</span></span></a>
+        <a class="pool-tile pool-card pool-card-wide" href="#profile-solopool"><span class="pc-name">SoloPool.org</span><span class="pc-best">No registration, EU &amp; US servers</span><span class="pc-facts"><span class="pc-chip">2% fee</span><span class="pc-chip">Solo</span><span class="pc-chip">BTC, BCH, LTC + DOGE, DGB, FB, XEC</span></span></a>
+        <a class="pool-tile pool-card pool-card-wide" href="#profile-ckpool"><span class="pc-name">CKPool Solo</span><span class="pc-best">Not-for-profit, no registration</span><span class="pc-facts"><span class="pc-chip">2% fee</span><span class="pc-chip">Solo</span><span class="pc-chip">BTC</span></span></a>
       </div>
     </div>
     
@@ -1463,7 +1489,9 @@
     </style>
     <section class="pool-profiles-section">
       <h2 class="pool-profiles-heading">Pool Profiles</h2>
-      <p class="pool-profiles-intro">Quick reference on the 8 pools most relevant to home miners. Always verify current fees on the official site &mdash; rates change.</p>
+      <p class="pool-profiles-intro">Quick reference on the 11 pools most relevant to home miners. Always verify current fees on the official site &mdash; rates change.</p>
+
+      <h3 class="pool-profiles-group">Shared-Reward Pools</h3>
 
       <article class="pool-profile-card" id="profile-f2pool">
         <h3>F2Pool</h3>
@@ -1483,6 +1511,12 @@
         <a class="pool-profile-link" href="https://www.viabtc.com/" target="_blank" rel="noopener">Visit ViaBTC &rarr;</a>
       </article>
 
+      <article class="pool-profile-card" id="profile-kryptex">
+        <h3>Kryptex</h3>
+        <p>Kryptex runs mainly on the PPS+ payout scheme &mdash; you get paid for every share whether or not the pool finds a block &mdash; and many coins also offer a <span class="glossary-term" data-term="solo">SOLO</span> option for <span class="glossary-term" data-term="lottery">lottery</span>-style mining. Bitcoin PPS+ is 3%; most other coins are 1&ndash;3%. Coins include BTC, BCH, BSV, LTC (merged coins auto-converted to LTC), KAS, ETC, ZEC, DGB, XEC, <span class="glossary-term" data-term="fractal-bitcoin">FB</span>, and <span class="glossary-term" data-term="alephium">ALPH</span>. Servers in Europe, the US, Brazil, Singapore, Hong Kong, the UAE, and Russia, with hourly payouts. Auto-exchange lets you get paid in a different coin. Beginner-friendly, with strong support for both <span class="glossary-term" data-term="asic">ASIC</span> and GPU mining.</p>
+        <a class="pool-profile-link" href="https://pool.kryptex.com/" target="_blank" rel="noopener">Visit Kryptex &rarr;</a>
+      </article>
+
       <article class="pool-profile-card" id="profile-luxor">
         <h3>Luxor</h3>
         <p>Luxor is a US-based pool launched in 2018 and is SOC 2 Type 2 certified &mdash; meaning audited security controls, important if compliance matters to you. <span class="glossary-term" data-term="fpps">FPPS</span> is the payout method, at a 2.5% pool fee. That pool fee drops to 0% when your miners run <span class="glossary-term" data-term="luxos">LuxOS firmware</span> (covered on our firmware page) &mdash; LuxOS carries its own 2.8% <span class="glossary-term" data-term="devfee">dev fee</span>, so on Luxor Pool you pay the firmware fee instead of a pool fee. Minimum payout is 0.001 BTC, plus a small withdrawal fee. Real-time API access for power users. Strong fit for North American miners who value compliance and transparent reporting.</p>
@@ -1495,10 +1529,24 @@
         <a class="pool-profile-link" href="https://braiins.com/pool" target="_blank" rel="noopener">Visit Braiins Pool &rarr;</a>
       </article>
 
+      <article class="pool-profile-card" id="profile-ocean">
+        <h3>OCEAN</h3>
+        <p>OCEAN is a non-custodial Bitcoin pool with no account and no KYC &mdash; all you need is a Bitcoin address, entered as your worker name. It pays with TIDES (Transparent Index of Distinct Extended Shares), which splits rewards, transaction fees included, by each miner&rsquo;s share of recent work. The fee is 2%, or 1% if you build your own block templates with DATUM. On-chain payouts start at 0.01048576 BTC; set up Lightning (BOLT12) and you can be paid before you reach that threshold. Strong fit for home miners who care about decentralization and keeping control of their coins.</p>
+        <a class="pool-profile-link" href="https://ocean.xyz/" target="_blank" rel="noopener">Visit OCEAN &rarr;</a>
+      </article>
+
       <article class="pool-profile-card" id="profile-mining-dutch">
         <h3>Mining-Dutch</h3>
         <p>Mining-Dutch is a Netherlands-based multi-<span class="glossary-term" data-term="algorithm">algorithm</span> pool supporting many coins across <span class="glossary-term" data-term="sha256">SHA-256</span>, Scrypt, X11, Equihash, and more. Payout modes include D-PPS (Dynamic <span class="glossary-term" data-term="pps">PPS</span>), PROP, <span class="glossary-term" data-term="pplns">PPLNS</span>, <span class="glossary-term" data-term="solo">SOLO</span>, and PARTY. Fees depend on coin and mode: Bitcoin is 2% D-PPS, 1.5% PPLNS, 1% solo; Bitcoin Cash is 2% D-PPS, 1% PPLNS, 0.5% solo; LTC, ZEC, DASH, DGB, XEC, and BSV are 1.5% D-PPS, 1% PPLNS, 0.5% solo. You set your own minimum payout. PARTY mode lets miners team up to share solo block rewards. Servers in Europe, Canada, Singapore, and Australia. Strong fit for home miners chasing smaller altcoins.</p>
         <a class="pool-profile-link" href="https://www.mining-dutch.nl/?page=about" target="_blank" rel="noopener">Visit Mining-Dutch &rarr;</a>
+      </article>
+
+      <h3 class="pool-profiles-group solo">Solo-Only Pools</h3>
+
+      <article class="pool-profile-card" id="profile-heliospool">
+        <h3>HeliosPool</h3>
+        <p>HeliosPool is a <span class="glossary-term" data-term="solo-mining">solo-only</span> pool for <span class="glossary-term" data-term="sha256">SHA-256</span> coins: Bitcoin, Bitcoin Cash, DigiByte, and <span class="glossary-term" data-term="ecash">eCash (XEC)</span>, all at a 1% fee. It is non-custodial &mdash; when your miner finds a block, the <span class="glossary-term" data-term="block-reward">block reward</span> is paid straight to your wallet inside the block itself, so the pool never holds your coins. Servers in Portland, Montreal, France, and Sydney. A strong fit for <span class="glossary-term" data-term="lottery">lottery</span> miners running Bitaxe, NerdQaxe, or full-size SHA-256 machines.</p>
+        <a class="pool-profile-link" href="https://heliospool.com/" target="_blank" rel="noopener">Visit HeliosPool &rarr;</a>
       </article>
 
       <article class="pool-profile-card" id="profile-solopool">
@@ -1507,10 +1555,10 @@
         <a class="pool-profile-link" href="https://solopool.org/" target="_blank" rel="noopener">Visit SoloPool.org &rarr;</a>
       </article>
 
-      <article class="pool-profile-card" id="profile-kryptex">
-        <h3>Kryptex</h3>
-        <p>Kryptex runs mainly on the PPS+ payout scheme &mdash; you get paid for every share whether or not the pool finds a block &mdash; and many coins also offer a <span class="glossary-term" data-term="solo">SOLO</span> option for <span class="glossary-term" data-term="lottery">lottery</span>-style mining. Bitcoin PPS+ is 3%; most other coins are 1&ndash;3%. Coins include BTC, BCH, BSV, LTC (merged coins auto-converted to LTC), KAS, ETC, ZEC, DGB, XEC, <span class="glossary-term" data-term="fractal-bitcoin">FB</span>, and <span class="glossary-term" data-term="alephium">ALPH</span>. Servers in Europe, the US, Brazil, Singapore, Hong Kong, the UAE, and Russia, with hourly payouts. Auto-exchange lets you get paid in a different coin. Beginner-friendly, with strong support for both <span class="glossary-term" data-term="asic">ASIC</span> and GPU mining.</p>
-        <a class="pool-profile-link" href="https://pool.kryptex.com/" target="_blank" rel="noopener">Visit Kryptex &rarr;</a>
+      <article class="pool-profile-card" id="profile-ckpool">
+        <h3>CKPool Solo</h3>
+        <p>CKPool Solo (solo.ckpool.org) is a not-for-profit <span class="glossary-term" data-term="solo-mining">solo</span> Bitcoin pool with no registration &mdash; enter your Bitcoin address as the username and start mining. If your miner finds a block, you keep the whole <span class="glossary-term" data-term="block-reward">block reward</span> minus a 2% fee. Connections auto-route to servers in the US, Europe, Asia, and Oceania. A popular choice for <span class="glossary-term" data-term="lottery">lottery</span> miners.</p>
+        <a class="pool-profile-link" href="https://solo.ckpool.org/" target="_blank" rel="noopener">Visit CKPool Solo &rarr;</a>
       </article>
 
       <a class="pool-back-to-top" href="#top">&uarr; Back to top</a>
