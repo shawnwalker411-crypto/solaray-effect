@@ -211,6 +211,10 @@ for (const f of [...pages, ...comps]) {
   const html = readFileSync(join(ROOT, f), 'utf8');
   const lines = html.split('\n');
 
+  // Every site script the page loads must exist (a missing one breaks the page).
+  const localScripts = [...html.matchAll(/<script[^>]*\ssrc="\/([^"?#]+)"/g)].map((m) => m[1]);
+  for (const s of localScripts) if (!existsSync(join(ROOT, s))) block(`${f}: loads /${s}, which does not exist`);
+
   // eBay affiliate tag on every eBay link
   for (const [i, l] of lines.entries()) {
     for (const href of l.match(/https?:\/\/(?:www\.)?ebay\.com[^"'\s<>]*/g) || []) {
@@ -267,7 +271,9 @@ for (const f of [...pages, ...comps]) {
   // the deploy. Other pages only warn until their step converts them.
   const locked = LOCKED_PAGES.includes(f);
   const flag = locked ? block : report;
-  let text = locked ? html : html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
+  // Locked pages: also scan the site scripts they load (e.g. /assets/calculator.js).
+  const scriptText = locked ? localScripts.filter((s) => !s.startsWith('data/generated/') && existsSync(join(ROOT, s))).map((s) => readFileSync(join(ROOT, s), 'utf8')).join('\n') : '';
+  let text = locked ? html + '\n' + scriptText : html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
   // Blank out kept miner names first (longest first) so a removed name that is
   // the start of a kept one (Mini-DOGE vs Mini-DOGE III) is not a false alarm.
   for (const n of keptMinerNames) text = text.split(n).join(' ');
