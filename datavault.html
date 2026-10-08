@@ -23,14 +23,11 @@
   <meta name="twitter:image" content="https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg">
   <!-- Self-hosted fonts -->
   <style>
-    @font-face { font-family: "Orbitron"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/orbitron-latin-400-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Orbitron"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/orbitron-latin-600-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Orbitron"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/orbitron-latin-700-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Orbitron"; font-style: normal; font-weight: 900; font-display: swap; src: url("/fonts/orbitron-latin-900-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Share Tech Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Rajdhani"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/rajdhani-latin-400-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Rajdhani"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/rajdhani-latin-600-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Rajdhani"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/rajdhani-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-sans-jp-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/noto-sans-jp-latin-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/noto-sans-jp-latin-700-normal.woff2") format("woff2"); }
   </style>
   <style>
 /* ============================================
@@ -65,7 +62,7 @@
 }
 
 body {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Roboto', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
   background-color: #0B2F26;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/><path d='M80 140 V260 H40'/><path d='M240 300 V520 H180'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/><circle cx='320' cy='540' r='4'/><circle cx='240' cy='520' r='4'/></g></svg>");
   background-repeat: repeat;
@@ -126,7 +123,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-weight: 900;
   font-size: 18px;
   color: var(--terminal-cyan);
@@ -140,7 +137,7 @@ body {
 }
 
 .vault-title h1 {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 4px;
@@ -152,7 +149,7 @@ body {
 }
 
 .vault-title .subtitle {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.75rem;
   color: var(--text-muted);
   letter-spacing: 3px;
@@ -171,7 +168,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.8rem;
   color: var(--text-muted);
 }
@@ -191,7 +188,7 @@ body {
 }
 
 .classified-badge {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 2px;
@@ -286,7 +283,7 @@ body {
 }
 
 .terminal-title h2 {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -301,7 +298,7 @@ body {
 
 /* --- Time Toggle Buttons --- */
 .time-btn {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.7rem;
   padding: 6px 12px;
   background: transparent;
@@ -357,7 +354,7 @@ body {
 }
 
 .stat-label {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.65rem;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -365,7 +362,7 @@ body {
 }
 
 .stat-value {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--terminal-cyan);
@@ -376,7 +373,7 @@ body {
 .stat-value.red { color: var(--terminal-red); }
 
 .stat-change {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.7rem;
   margin-left: 8px;
 }
@@ -388,7 +385,7 @@ body {
    PANEL EXPLANATIONS
    ============================================ */
 .panel-explain {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.85rem;
   line-height: 1.6;
   color: var(--text-muted);
@@ -431,7 +428,7 @@ body {
 }
 
 .loading-text {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.8rem;
   color: var(--terminal-cyan);
   letter-spacing: 2px;
@@ -442,14 +439,14 @@ body {
    ERROR STATE
    ============================================ */
 .error-message {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   color: var(--terminal-red);
   text-align: center;
   padding: 40px;
 }
 
 .error-message .error-code {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 10px;
@@ -511,7 +508,7 @@ body {
 }
 
 .countdown-value {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 2.4rem;
   font-weight: 900;
   color: var(--terminal-amber);
@@ -521,7 +518,7 @@ body {
 }
 
 .countdown-label {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.65rem;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -529,7 +526,7 @@ body {
 }
 
 .halving-info {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.75rem;
   color: var(--text-muted);
   margin-top: 10px;
@@ -542,7 +539,7 @@ body {
 }
 
 .halving-epoch {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -578,7 +575,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin-top: 6px;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.6rem;
   color: var(--text-muted);
   letter-spacing: 1px;
@@ -600,7 +597,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.65rem;
   color: var(--text-muted);
 }
@@ -630,7 +627,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.7rem;
   color: var(--text-muted);
   letter-spacing: 1px;
@@ -660,7 +657,7 @@ body {
   align-items: center;
   gap: 20px;
   margin: 40px 0 30px;
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 3px;
@@ -691,7 +688,7 @@ body {
   border: 1px solid var(--vault-border) !important;
   border-radius: 4px !important;
   padding: 10px 14px !important;
-  font-family: 'Share Tech Mono', monospace !important;
+  font-family: 'Roboto', sans-serif !important;
   font-size: 0.75rem !important;
   color: var(--text-primary) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
@@ -707,7 +704,7 @@ body {
 
 .vault-tooltip .tooltip-value {
   color: var(--terminal-cyan);
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-weight: 600;
 }
 
@@ -727,14 +724,14 @@ body {
 }
 
 .refresh-timestamp {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.7rem;
   color: var(--text-muted);
   letter-spacing: 1px;
 }
 
 .refresh-btn {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.65rem;
   padding: 4px 10px;
   background: transparent;
@@ -790,7 +787,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-weight: 900;
   font-size: 28px;
   color: var(--terminal-cyan);
@@ -800,7 +797,7 @@ body {
 }
 
 .boot-title {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--terminal-cyan);
@@ -812,7 +809,7 @@ body {
 }
 
 .boot-text {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.85rem;
   color: var(--terminal-cyan);
   letter-spacing: 3px;
@@ -1147,7 +1144,7 @@ body {
     }
     
     .glossary-drawer h3 {
-      font-family: 'Orbitron', monospace;
+      font-family: 'Noto Sans JP', sans-serif;
       color: var(--terminal-amber, #ffb800);
       font-size: 1.1rem;
       margin: 0.25rem 0 0.85rem;
@@ -1156,7 +1153,7 @@ body {
     }
     
     .glossary-drawer p {
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Roboto', sans-serif;
       color: var(--text-secondary, #8899a8);
       line-height: 1.75;
       font-size: 1.05rem;
@@ -1858,8 +1855,8 @@ body {
   <div id="site-footer"></div>
 
   <!-- Chart.js + Date Adapter -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <script>
 /* \u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090\u00E2\u2022\u0090
    SOLA'S ARRAY \u2014 DATA VAULT CHART ENGINE
@@ -1873,7 +1870,7 @@ body {
 // \u2500\u2500\u2500 CHART.JS GLOBAL CONFIG \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 Chart.defaults.color = '#6b7d8f';
 Chart.defaults.borderColor = '#1e2a38';
-Chart.defaults.font.family = "'Share Tech Mono', monospace";
+Chart.defaults.font.family = "'Roboto', sans-serif";
 
 // \u2500\u2500\u2500 TERMINAL COLORS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 const COLORS = {
@@ -2157,8 +2154,8 @@ function createChart(canvasId, data, label, color, formatFn, options = {}) {
           backgroundColor: COLORS.panel,
           borderColor: color,
           borderWidth: 1,
-          titleFont: { family: "'Orbitron', monospace", size: 11 },
-          bodyFont: { family: "'Share Tech Mono', monospace", size: 12 },
+          titleFont: { family: "'Noto Sans JP', sans-serif", size: 11 },
+          bodyFont: { family: "'Roboto', sans-serif", size: 12 },
           padding: 12,
           displayColors: false,
           callbacks: {
@@ -2260,7 +2257,7 @@ function createOverlayChart(canvasId, hashrateData, priceData) {
           align: 'end',
           labels: {
             color: COLORS.muted,
-            font: { family: "'Share Tech Mono', monospace", size: 11 },
+            font: { family: "'Roboto', sans-serif", size: 11 },
             boxWidth: 12,
             padding: 15,
             usePointStyle: true
@@ -2270,8 +2267,8 @@ function createOverlayChart(canvasId, hashrateData, priceData) {
           backgroundColor: COLORS.panel,
           borderColor: COLORS.muted,
           borderWidth: 1,
-          titleFont: { family: "'Orbitron', monospace", size: 11 },
-          bodyFont: { family: "'Share Tech Mono', monospace", size: 12 },
+          titleFont: { family: "'Noto Sans JP', sans-serif", size: 11 },
+          bodyFont: { family: "'Roboto', sans-serif", size: 12 },
           padding: 12,
           callbacks: {
             title: function(context) {
@@ -2355,8 +2352,8 @@ function createAdjustmentsChart(canvasId, data) {
           backgroundColor: COLORS.panel,
           borderColor: COLORS.green,
           borderWidth: 1,
-          titleFont: { family: "'Orbitron', monospace", size: 11 },
-          bodyFont: { family: "'Share Tech Mono', monospace", size: 12 },
+          titleFont: { family: "'Noto Sans JP', sans-serif", size: 11 },
+          bodyFont: { family: "'Roboto', sans-serif", size: 12 },
           padding: 12,
           displayColors: false,
           callbacks: {

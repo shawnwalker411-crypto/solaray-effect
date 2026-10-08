@@ -81,7 +81,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Roboto', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
       margin: 0;
       background-color: var(--sola-emerald);
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='none'/><g stroke='%23D4AF37' stroke-width='2' fill='none' opacity='0.18' stroke-linecap='round' stroke-linejoin='round'><path d='M40 80 H210 V140 H360'/><path d='M120 220 H260 V180 H420 V240 H560'/><path d='M60 340 H220 V400 H360 V460 H520'/><path d='M300 40 V170 H460 V120 H560'/><path d='M40 520 H180 V460 H320 V540 H560'/><path d='M520 60 V200 H420 V320 H560'/></g><g fill='%23D4AF37' opacity='0.25'><circle cx='210' cy='140' r='4'/><circle cx='260' cy='180' r='4'/><circle cx='420' cy='240' r='4'/><circle cx='360' cy='460' r='4'/><circle cx='460' cy='120' r='4'/></g></svg>");
@@ -419,7 +419,7 @@
       .moonchart-bar-group:hover .moonchart-bar { filter: brightness(1.25); }
       .moonchart-bar-group:hover .moonchart-bar-label { fill: var(--sola-teal); }
       .moonchart-wrap { position: relative; }
-      .moonchart-hover-readout { text-align: center; color: var(--text-secondary); font-size: 0.78rem; margin-top: 0.5rem; font-family: 'Share Tech Mono', monospace; min-height: 1.1rem; }
+      .moonchart-hover-readout { text-align: center; color: var(--text-secondary); font-size: 0.78rem; margin-top: 0.5rem; font-family: 'Roboto', sans-serif; min-height: 1.1rem; }
       .moonchart-hover-readout strong { color: var(--sola-teal); }
     }
 
@@ -1563,8 +1563,8 @@
       }
 
       /* Center text */
-      html += '<text x="300" y="90" text-anchor="middle" fill="#e8f0f7" font-size="18" font-weight="700" font-family="Share Tech Mono, monospace" style="text-shadow: 0 1px 4px rgba(0,0,0,0.85);">' + avgCloud + '% CLOUD COVER</text>';
-      html += '<text x="300" y="110" text-anchor="middle" fill="#e8f0f7" font-size="11" font-weight="400" font-family="Share Tech Mono, monospace" opacity="0.92" style="text-shadow: 0 1px 3px rgba(0,0,0,0.85);">' + mcAvgCloudBlurb + '</text>';
+      html += '<text x="300" y="90" text-anchor="middle" fill="#e8f0f7" font-size="18" font-weight="700" font-family="Roboto, sans-serif" style="text-shadow: 0 1px 4px rgba(0,0,0,0.85);">' + avgCloud + '% CLOUD COVER</text>';
+      html += '<text x="300" y="110" text-anchor="middle" fill="#e8f0f7" font-size="11" font-weight="400" font-family="Roboto, sans-serif" opacity="0.92" style="text-shadow: 0 1px 3px rgba(0,0,0,0.85);">' + mcAvgCloudBlurb + '</text>';
 
       /* Bars + bar-top labels + hour labels */
       var mcBaselineY = 235;
@@ -1585,16 +1585,16 @@
         /* bar itself */
         html +=   '<rect class="moonchart-bar" x="' + barX + '" y="' + barY + '" width="' + mcBarWidth + '" height="' + barH + '" fill="url(#moonbar-grad)" rx="2"/>';
         /* clearness % label above bar */
-        html +=   '<text class="moonchart-bar-label" x="' + (barX + mcBarWidth/2) + '" y="' + (barY - 4) + '" text-anchor="middle" fill="' + labelColor + '" font-size="9" font-weight="' + labelWeight + '" font-family="Share Tech Mono, monospace">' + clearPct + '</text>';
+        html +=   '<text class="moonchart-bar-label" x="' + (barX + mcBarWidth/2) + '" y="' + (barY - 4) + '" text-anchor="middle" fill="' + labelColor + '" font-size="9" font-weight="' + labelWeight + '" font-family="Roboto, sans-serif">' + clearPct + '</text>';
         /* hour label below baseline */
         var hourLbl = formatHour(bh.time).replace(':00 ', '').toLowerCase();
-        html +=   '<text x="' + (barX + mcBarWidth/2) + '" y="250" text-anchor="middle" fill="' + labelColor + '" font-size="9" font-weight="' + labelWeight + '" font-family="Share Tech Mono, monospace">' + hourLbl + '</text>';
+        html +=   '<text x="' + (barX + mcBarWidth/2) + '" y="250" text-anchor="middle" fill="' + labelColor + '" font-size="9" font-weight="' + labelWeight + '" font-family="Roboto, sans-serif">' + hourLbl + '</text>';
         html += '</g>';
       }
 
       /* Sunset/sunrise anchors (reverse of solar's sunrise/sunset because this is the night window) */
-      html += '<text x="60" y="260" text-anchor="start" fill="#5a6a7a" font-size="9" font-family="Share Tech Mono, monospace">SUNSET ' + formatTime(twilights.sunset).toUpperCase() + '</text>';
-      html += '<text x="540" y="260" text-anchor="end" fill="#5a6a7a" font-size="9" font-family="Share Tech Mono, monospace">SUNRISE ' + formatTime(twilights.sunrise).toUpperCase() + '</text>';
+      html += '<text x="60" y="260" text-anchor="start" fill="#5a6a7a" font-size="9" font-family="Roboto, sans-serif">SUNSET ' + formatTime(twilights.sunset).toUpperCase() + '</text>';
+      html += '<text x="540" y="260" text-anchor="end" fill="#5a6a7a" font-size="9" font-family="Roboto, sans-serif">SUNRISE ' + formatTime(twilights.sunrise).toUpperCase() + '</text>';
 
       html += '</svg>';
       html += '<div class="moonchart-hover-readout" id="moonchart-readout">Hover a bar for hour detail</div>';
