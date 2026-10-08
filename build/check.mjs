@@ -12,6 +12,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const MASTER = join(ROOT, 'data', 'master');
 const EBAY_CAMPID = '5339142622';
 const GA_ID = 'G-M6F5T8Y2P6';
+// Pages already rebuilt from the master lists (add each page as its step finishes).
+const LOCKED_PAGES = ['index.html'];
 const CSP_REQUIRED = ['https://www.googletagmanager.com', 'https://*.google-analytics.com'];
 
 const blocks = [];
@@ -199,10 +201,17 @@ for (const f of [...pages, ...comps]) {
   const emojiLines = lines.filter((l) => EMOJI.test(l)).length;
   if (emojiLines) report(`${f}: ${emojiLines} line(s) with raw emoji`);
 
-  // Content consistency scan (report until pages are generated from master lists)
-  const text = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
-  for (const n of removedMinerNames) if (text.includes(n)) report(`${f}: mentions removed miner "${n}"`);
-  for (const c of removedCoins) if (new RegExp(`\\b${c.name}\\b`).test(text)) report(`${f}: mentions removed coin ${c.name} (${c.symbol})`);
+  // Content consistency scan. Pages in LOCKED_PAGES have been rebuilt from the
+  // master lists, so any removed miner or coin on them (text OR code) blocks
+  // the deploy. Other pages only warn until their step converts them.
+  const locked = LOCKED_PAGES.includes(f);
+  const flag = locked ? block : report;
+  const text = locked ? html : html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
+  for (const n of removedMinerNames) if (new RegExp(`(^|[^\\w-])${n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\w+-])`).test(text)) flag(`${f}: mentions removed miner "${n}"`);
+  for (const c of removedCoins) {
+    if (new RegExp(`\\b${c.name}\\b`).test(text)) flag(`${f}: mentions removed coin ${c.name} (${c.symbol})`);
+    if (locked && new RegExp(`['"\\s>(]${c.symbol}['"\\s<),:]`).test(text)) flag(`${f}: uses removed coin symbol ${c.symbol}`);
+  }
 }
 
 // ---------- Output ----------
