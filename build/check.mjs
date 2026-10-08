@@ -13,7 +13,7 @@ const MASTER = join(ROOT, 'data', 'master');
 const EBAY_CAMPID = '5339142622';
 const GA_ID = 'G-M6F5T8Y2P6';
 // Pages already rebuilt from the master lists (add each page as its step finishes).
-const LOCKED_PAGES = ['index.html'];
+const LOCKED_PAGES = ['index.html', 'miners.html'];
 const CSP_REQUIRED = ['https://www.googletagmanager.com', 'https://*.google-analytics.com'];
 
 const blocks = [];
@@ -189,6 +189,13 @@ for (const f of [...pages, ...comps]) {
   }
 
   if (f.startsWith('Components/')) continue;
+
+  // The catalog must hold exactly one card per live miner (built by generate.mjs).
+  if (f === 'miners.html') {
+    const cards = (html.match(/<div class="miner-card" /g) || []).length;
+    const liveMiners = miners.filter(live).length;
+    if (cards !== liveMiners) block(`miners.html: ${cards} miner cards but the master list has ${liveMiners} live miners (did the generator run?)`);
+  }
 
   // Analytics + security policy
   const csp = (html.match(/http-equiv=["']Content-Security-Policy["'][^>]*content="([^"]+)"/i) || [])[1];
