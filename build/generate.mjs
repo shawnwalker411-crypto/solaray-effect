@@ -231,3 +231,102 @@ ${list.map(card).join('\n')}
     console.log('miners.html has no CATALOG markers yet - catalog left as is');
   }
 }
+
+// =====================================================================
+// POOLS PAGE (pools.html): coin sections + the coin filter dropdown are
+// written between markers from pools.csv, pool_sections.csv, coins.csv.
+// =====================================================================
+const POOLS_PAGE = join(ROOT, 'pools.html');
+const P_START = '<!-- POOLS:START (generated at deploy from data/master/pools.csv - do not edit) -->';
+const P_END = '<!-- POOLS:END -->';
+const F_START = '<!-- COIN-FILTER:START -->';
+const F_END = '<!-- COIN-FILTER:END -->';
+const poolsCsv = load('pools.csv');
+const sectionsCsv = load('pool_sections.csv');
+const isLive = (r) => ['keep', 'add'].includes(r.status);
+const PAYOUT_TERM = { fpps: 'fpps', pps: 'pps', pplns: 'pplns', solo: 'solo' };
+const PAYOUT_DEFAULT = { fpps: 'FPPS', pps: 'PPS+', pplns: 'PPLNS', solo: 'Solo' };
+
+function poolRow(p) {
+  const types = p.payout_types.split(/\s+/).filter(Boolean);
+  const labels = (p.payout_labels || '').split(';').map((s) => s.trim()).filter(Boolean);
+  if (labels.length && labels.length !== types.length) fail(`pools: ${p.pool} [${p.coin_section}] has ${types.length} payout types but ${labels.length} labels`);
+  for (const t of types) if (!PAYOUT_TERM[t]) fail(`pools: ${p.pool} [${p.coin_section}] unknown payout type "${t}"`);
+  const tags = types.map((t, i) => `<span class="payout-tag payout-${t} glossary-term" data-term="${PAYOUT_TERM[t]}">${enc(labels[i] || PAYOUT_DEFAULT[t])}</span>`).join('');
+  const regions = p.regions.split(/\s+/).filter(Boolean).map((r) => `<span class="region-tag">${enc(r)}</span>`).join('');
+  return `            <tr data-payouts="${types.join(' ')}">
+              <td><a class="pool-link" href="${enc(p.url)}" target="_blank" rel="noopener">${enc(p.pool)} &#x2197;</a></td>
+              <td>${enc(p.fee)}</td>
+              <td>${tags}</td>
+              <td>${enc(p.min_payout)}</td>
+              <td>${regions}</td>
+              <td>${enc(p.notes)}</td>
+            </tr>`;
+}
+
+function shopLine(sec) {
+  const links = sec.shop_links.split(';').filter(Boolean).map((l) => {
+    const [label, term, cid] = l.split('|');
+    const href = `https://www.ebay.com/sch/i.html?_nkw=${term}&amp;_sacat=179197&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=${cid}&amp;toolid=10001&amp;mkevt=1`;
+    return `<a href="${href}" target="_blank" rel="noopener sponsored" style="color:var(--sola-teal);">${enc(label)} &#x2197;</a>`;
+  });
+  return links.length ? `\n      <p class="coin-shop" style="margin:0.25rem 0 1rem;font-size:0.9rem;">Shop on eBay: ${links.join(' &middot; ')}</p>` : '';
+}
+
+if (existsSync(POOLS_PAGE)) {
+  let page = readFileSync(POOLS_PAGE, 'utf8');
+  if (page.includes(P_START) && page.includes(P_END)) {
+    const secs = sectionsCsv.filter(isLive).sort((a, b) => Number(a.order) - Number(b.order));
+    let rowsTotal = 0;
+    const html = secs.map((sec) => {
+      const rows = poolsCsv.filter((p) => isLive(p) && p.coin_section === sec.section);
+      if (!rows.length) fail(`pools: section ${sec.section} has no live pools`);
+      rowsTotal += rows.length;
+      return `    <!-- ${enc(sec.section)} -->
+    <section class="coin-section" data-coin="${sec.data_coin}">
+      <div class="coin-header">
+        <span class="coin-icon">${sec.icon}</span>
+        <h2 class="coin-name">${enc(sec.section)}</h2>
+        <span class="coin-tag ${sec.tag_class}">${enc(sec.tag)}</span>
+      </div>
+      <p class="coin-note">${enc(sec.note)}</p>${shopLine(sec)}
+      <div class="table-wrapper">
+        <table class="pool-table">
+          <thead>
+            <tr>
+              <th>Pool</th>
+              <th>Fee</th>
+              <th>Payout</th>
+              <th>Min. Payout</th>
+              <th>Regions</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+${rows.map(poolRow).join('\n')}
+          </tbody>
+        </table>
+      </div>
+    </section>`;
+    }).join('\n\n');
+    const orphan = poolsCsv.filter((p) => isLive(p) && !secs.some((s) => s.section === p.coin_section));
+    if (orphan.length) fail(`pools: ${orphan.length} live pools have no live section (${orphan.map((p) => p.pool + ' / ' + p.coin_section).join(', ')})`);
+    page = page.slice(0, page.indexOf(P_START) + P_START.length) + '\n' + html + '\n    ' + page.slice(page.indexOf(P_END));
+    if (page.includes(F_START) && page.includes(F_END)) {
+      const opts = ['        <option value="all">All Coins</option>'];
+      for (const sec of secs) {
+        const toks = sec.data_coin.split(/\s+/);
+        for (const t of toks) {
+          const c = coins.find((x) => x.symbol.toLowerCase() === t);
+          const label = toks.length === 1 || !c ? sec.section : `${c.name} (${c.symbol})`;
+          opts.push(`        <option value="${t}">${enc(label)}</option>`);
+        }
+      }
+      page = page.slice(0, page.indexOf(F_START) + F_START.length) + '\n' + opts.join('\n') + '\n        ' + page.slice(page.indexOf(F_END));
+    }
+    writeFileSync(POOLS_PAGE, page);
+    console.log(`generated pools.html: ${rowsTotal} pools in ${secs.length} coin sections`);
+  } else {
+    console.log('pools.html has no POOLS markers yet - pools page left as is');
+  }
+}
