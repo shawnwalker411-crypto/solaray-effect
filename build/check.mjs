@@ -173,6 +173,7 @@ const MOJIBAKE = /(Ã.|â€|ðŸ|ï»¿|�)/;
 
 // Names of removed miners and coins, for the content scan.
 const removedMinerNames = miners.filter((m) => m.status === 'remove').map((m) => m.name);
+const keptMinerNames = miners.filter((m) => live(m)).map((m) => m.name).sort((x, y) => y.length - x.length);
 const removedCoins = coins.filter((c) => c.status === 'remove');
 
 for (const f of [...pages, ...comps]) {
@@ -206,7 +207,10 @@ for (const f of [...pages, ...comps]) {
   // the deploy. Other pages only warn until their step converts them.
   const locked = LOCKED_PAGES.includes(f);
   const flag = locked ? block : report;
-  const text = locked ? html : html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
+  let text = locked ? html : html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
+  // Blank out kept miner names first (longest first) so a removed name that is
+  // the start of a kept one (Mini-DOGE vs Mini-DOGE III) is not a false alarm.
+  for (const n of keptMinerNames) text = text.split(n).join(' ');
   for (const n of removedMinerNames) if (new RegExp(`(^|[^\\w-])${n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\w+-])`).test(text)) flag(`${f}: mentions removed miner "${n}"`);
   for (const c of removedCoins) {
     if (new RegExp(`\\b${c.name}\\b`).test(text)) flag(`${f}: mentions removed coin ${c.name} (${c.symbol})`);

@@ -105,3 +105,129 @@ window.SRE_RETIRED_MINERS = ${JSON.stringify(removed)};
 mkdirSync(OUT, { recursive: true });
 writeFileSync(join(OUT, 'miners.js'), js);
 console.log(`generated data/generated/miners.js: ${out.length} miners (${out.filter((m) => m.voltage === '120V').length} on 120V), ${Object.keys(removed).length} retired IDs`);
+
+// =====================================================================
+// CATALOG (miners.html): cards are written between the CATALOG markers.
+// The copy in GitHub holds only the markers; the deployed page gets the
+// full static HTML (good for Google). Runs only if the markers exist.
+// =====================================================================
+import { existsSync } from 'node:fs';
+const CATALOG = join(ROOT, 'miners.html');
+const START = '<!-- CATALOG:START (generated at deploy from data/master/miners.csv - do not edit) -->';
+const END = '<!-- CATALOG:END -->';
+const LD_START = '<!-- CATALOG-LD:START -->';
+const LD_END = '<!-- CATALOG-LD:END -->';
+
+// HTML-escape and turn every non-ASCII character (emoji, dashes) into a numeric code.
+const enc = (s) => String(s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  .replace(/[^\x00-\x7F]/gu, (ch) => '&#x' + ch.codePointAt(0).toString(16).toUpperCase() + ';');
+const plus = (s) => encodeURIComponent(s.trim()).replace(/%20/g, '+');
+
+const SECTIONS = [
+  { algo: 'SHA-256', icon: '&#x20BF;', primary: ['BTC'], label: 'Bitcoin (BTC)', ld: 'SHA-256 Bitcoin' },
+  { algo: 'Scrypt', icon: '&#x1F415;', primary: ['LTC', 'DOGE'], label: 'Litecoin (LTC) + Dogecoin (DOGE)', ld: 'Scrypt Litecoin/Dogecoin' },
+  { algo: 'KHeavyHash', icon: '&#x1F48E;', primary: ['KAS'], label: 'Kaspa (KAS)', ld: 'KHeavyHash Kaspa' },
+  { algo: 'Etchash', icon: '&#x27E0;', primary: ['ETC'], label: 'Ethereum Classic (ETC)', ld: 'Etchash Ethereum Classic' },
+  { algo: 'Equihash', icon: '&#x1F6E1;', primary: ['ZEC'], label: 'Zcash (ZEC)', ld: 'Equihash Zcash' },
+  { algo: 'X11', icon: '&#x26A1;', primary: ['DASH'], label: 'Dash (DASH)', ld: 'X11 Dash' },
+  { algo: 'Blake3', icon: '&#x1F48E;', primary: ['ALPH'], label: 'Alephium (ALPH)', ld: 'Blake3 Alephium' },
+];
+const short = (sym) => sym.replace(/-(SHA|SCRYPT)$/, '');
+const fmtNum = (n) => String(Number(Number(n).toPrecision(6)));
+
+const catalogMiners = miners.filter((m) => ['keep', 'add'].includes(m.status));
+const groupRank = (m) => (m.lottery === 'yes' ? 0 : m.voltage === '120V' && !/loki|bypass/i.test(m.build) ? 1 : m.voltage === '120V' ? 2 : 3);
+const hashBase = (m) => Number(m.hashrate) * (TO_H[m.unit] || 1);
+
+function card(m) {
+  const isLoki = /loki|bypass/i.test(m.build);
+  const lottery = m.lottery === 'yes';
+  const coins = [...new Set(m.coins.split(';').map((s) => s.trim()).filter((s) => shownCoins.has(s)).map(short))];
+  const sec = SECTIONS.find((s) => s.algo === m.algorithm);
+  const prim = coins.filter((c) => sec.primary.includes(c));
+  const also = coins.filter((c) => !sec.primary.includes(c));
+  const badge = lottery ? '<span class="voltage-badge lottery">Lottery</span>'
+    : isLoki ? '<span class="voltage-badge loki"><a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;text-decoration:none;">120V Conv.</a></span>'
+    : m.voltage === '120V' ? '<span class="voltage-badge v120">120V</span>' : '<span class="voltage-badge v240">240V</span>';
+  const search = [m.name, m.manufacturer, ...coins, isLoki ? '120v psu bypass loki' : ''].join(' ').toLowerCase().replace(/\s+/g, ' ').trim();
+  const kwh = (Number(m.power_w) * 24 / 1000).toFixed(1);
+  const noiseWord = m.noise.replace(/\s*\(.*$/, '');
+  const cid = m.ebay_customid || 'miners_' + m.id.replace(/-/g, '_'); // custom label keeps old eBay click history
+  const ebay = `https://www.ebay.com/sch/i.html?_nkw=${plus(m.ebay_search)}&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=${cid}&amp;toolid=10001&amp;mkevt=1`;
+  const pill = 'style="font-size:0.68rem;padding:3px 8px;text-decoration:none;"';
+  const shop = [`<a href="${ebay}" target="_blank" rel="noopener" class="glossary-pill" ${pill}>Shop eBay</a>`];
+  if (m.amazon_search) shop.push(`<a href="https://www.amazon.com/s?k=${plus(m.amazon_search)}" target="_blank" rel="noopener" class="glossary-pill glossary-pill-amazon" ${pill}>Shop Amazon</a>`);
+  const note = m.card_note ? `\n          <div class="miner-card-note" style="font-size:0.72rem;color:#8899a8;line-height:1.35;margin:6px 0 2px;">${enc(m.card_note)}</div>` : '';
+  return `<div class="miner-card" data-id="${m.id}" data-voltage="${m.voltage}" data-algo="${m.algorithm}" data-loki="${isLoki}" data-category="${lottery ? 'lottery' : 'null'}" data-search="${enc(search)}" onclick="goToCalculator('${m.id}')">
+          <div class="miner-card-header">
+            <span class="miner-name">${enc(m.name)}</span>
+            ${badge}
+          </div>
+          <div class="miner-row2">
+            <span class="miner-manufacturer">${enc(m.manufacturer)}</span>
+            <div class="miner-coins"><span class="coin-primary">${prim.join(' / ')}</span>${also.length ? `<span class="coin-also">+ ${also.join(', ')}</span>` : ''}</div>
+          </div>
+          <div class="miner-specs">
+            <div class="spec-item"><span class="spec-label">Hashrate</span><span class="spec-value hashrate">${fmtNum(m.hashrate)} ${m.unit}</span></div>
+            <div class="spec-item"><span class="spec-label">Power</span><span class="spec-value">${Number(m.power_w)}W</span></div>
+            <div class="spec-item"><span class="spec-label">Equivalent</span><span class="spec-value">${enc(m.equivalent)}</span></div>
+          </div>${note}
+          <div class="miner-card-footer">
+            <span class="miner-footer-info">${kwh} kWh/day &middot; ${enc(noiseWord)}</span>
+            <span class="calc-link">Calculate &#x2192;</span>
+          </div>
+          <div class="miner-shop-links" onclick="event.stopPropagation()">
+            ${shop.join('\n            ')}
+          </div>
+        </div>`;
+}
+
+if (existsSync(CATALOG)) {
+  let page = readFileSync(CATALOG, 'utf8');
+  const hasCards = page.includes(START) && page.includes(END);
+  const hasLd = page.includes(LD_START) && page.includes(LD_END);
+  if (hasCards) {
+    const blocks = [];
+    let total = 0;
+    for (const sec of SECTIONS) {
+      const list = catalogMiners.filter((m) => m.algorithm === sec.algo)
+        .sort((a, b) => groupRank(a) - groupRank(b) || hashBase(a) - hashBase(b) || a.name.localeCompare(b.name));
+      if (!list.length) continue;
+      for (const m of list) for (const f of ['name', 'manufacturer', 'hashrate', 'unit', 'power_w', 'equivalent', 'ebay_search', 'noise'])
+        if (!m[f]) fail(`catalog: ${m.id} is missing ${f}`);
+      const allCoins = [...new Set(list.flatMap((m) => m.coins.split(';').map((s) => s.trim()).filter((s) => shownCoins.has(s)).map(short)))];
+      const also = allCoins.filter((c) => !sec.primary.includes(c));
+      total += list.length;
+      blocks.push(`    <section class="algo-section" data-algo="${sec.algo}">
+      <div class="algo-header">
+        <span class="algo-icon">${sec.icon}</span>
+        <h2 class="algo-title">${sec.algo}</h2>
+        <span class="algo-coins">${sec.label}${also.length ? ' &middot; also mines ' + also.join(', ') : ''}</span>
+      </div>
+      <div class="miners-grid">
+${list.map(card).join('\n')}
+      </div>
+    </section>`);
+    }
+    if (total !== out.length) fail(`catalog has ${total} cards but calculator has ${out.length} miners`);
+    page = page.slice(0, page.indexOf(START) + START.length) + '\n' + blocks.join('\n') + '\n    ' + page.slice(page.indexOf(END));
+    if (hasLd) {
+      const items = SECTIONS.flatMap((sec) => catalogMiners.filter((m) => m.algorithm === sec.algo)).map((m, i) => ({
+        '@type': 'ListItem', position: i + 1,
+        name: `${m.name} - ${fmtNum(m.hashrate)} ${m.unit} ${SECTIONS.find((s) => s.algo === m.algorithm).ld} Miner (${m.voltage})`,
+      }));
+      const ld = {
+        '@context': 'https://schema.org', '@type': 'ItemList',
+        name: 'Home Miner Catalog - ASIC Mining Hardware for Residential Setups',
+        description: `Catalog of ${items.length} ASIC cryptocurrency miners for home mining, including SHA-256 Bitcoin miners, Scrypt Litecoin/Dogecoin miners, KHeavyHash Kaspa miners, and more. Filtered by voltage (120V, 240V, 120V conversion via Loki Kit or PSU Bypass) and algorithm.`,
+        url: 'https://www.solarayeffect.com/miners.html', numberOfItems: items.length, itemListElement: items,
+      };
+      page = page.slice(0, page.indexOf(LD_START) + LD_START.length) + '\n  <script type="application/ld+json">' + JSON.stringify(ld).replace(/[^\x00-\x7F<>&]/g, (c) => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0')).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026') + '</script>\n  ' + page.slice(page.indexOf(LD_END));
+    }
+    writeFileSync(CATALOG, page);
+    console.log(`generated miners.html catalog: ${total} cards in ${blocks.length} sections${hasLd ? ' + Google listing' : ''}`);
+  } else {
+    console.log('miners.html has no CATALOG markers yet - catalog left as is');
+  }
+}
