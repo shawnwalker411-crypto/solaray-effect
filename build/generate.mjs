@@ -330,3 +330,108 @@ ${rows.map(poolRow).join('\n')}
     console.log('pools.html has no POOLS markers yet - pools page left as is');
   }
 }
+
+// =====================================================================
+// SHOP RAILS + STRIPS: built from products.csv + settings.csv for every
+// page listed in settings rail_pages. Pages hold markers:
+//   <!-- SHOP-RAILS:START --> ... <!-- SHOP-RAILS:END -->           desktop rails
+//   <!-- SHOP-STRIP:both|ebay|amazon:START --> ... :END -->        phone strips
+// =====================================================================
+const settings = Object.fromEntries(load('settings.csv').map((r) => [r.setting, r.value]));
+const AMAZON_TAG = settings.amazon_tag;
+const CAMPID = settings.ebay_campid;
+if (!AMAZON_TAG || !CAMPID) fail('settings.csv needs amazon_tag and ebay_campid');
+const RAIL_PAGES = (settings.rail_pages || '').split(/\s+/).filter(Boolean);
+const RAIL_MIN = Number(settings.rail_min_items) || 6;
+const products = load('products.csv').filter((p) => ['keep', 'add'].includes(p.status)).sort((a, b) => Number(a.order) - Number(b.order));
+const q = (s) => encodeURIComponent(s.trim()).replace(/%20/g, '+').replace(/~/g, '%7E');
+const DISCLAIMER = 'Verify model, voltage, and compatibility before purchasing. We are not responsible for incorrect orders, improper installation, misuse, or resulting damages.';
+const UNIT_SCALE = { 'kH/s': 1e3, 'MH/s': 1e6, 'GH/s': 1e9, 'TH/s': 1e12, 'kSol/s': 1 };
+
+function upTo(rule) {
+  if (!rule) return '';
+  const pool = miners.filter((m) => m.status === 'keep');
+  const [kind, val] = rule.split(':');
+  const notLoki = (m) => !/loki|bypass/i.test(m.build);
+  const pick = kind === 'lottery' ? pool.filter((m) => m.lottery === 'yes')
+    : kind === 'algo' ? pool.filter((m) => m.algorithm === val && m.lottery !== 'yes' && notLoki(m))
+    : kind === 'name' ? pool.filter((m) => m.name.toLowerCase().includes(val.toLowerCase()) && m.lottery !== 'yes' && notLoki(m))
+    : fail(`products: unknown upto rule "${rule}"`);
+  if (!pick.length) fail(`products: upto rule "${rule}" matches no live miners`);
+  const best = pick.reduce((a, b) => (Number(b.hashrate) * UNIT_SCALE[b.unit] > Number(a.hashrate) * UNIT_SCALE[a.unit] ? b : a));
+  return `Up to ${Number(best.hashrate).toLocaleString('en-US')} ${best.unit}`;
+}
+const href = (p) => p.store === 'ebay'
+  ? `https://www.ebay.com/sch/i.html?_nkw=${q(p.search_term)}&amp;_sacat=179197&amp;customid=${p.customid}&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=${CAMPID}&amp;toolid=10001&amp;mkevt=1`
+  : `https://www.amazon.com/s?k=${q(p.search_term)}&amp;tag=${AMAZON_TAG}`;
+const icon = (ic) => ic.startsWith('img:')
+  ? `<img src="/assets/rail/${ic.slice(4)}.png" alt="${ic.slice(4)}" width="28" height="28">`
+  : `<span class="rail-emoji">${ic}</span>`;
+for (const p of products) p._sub = p.upto ? upTo(p.upto) : p.sub || '&#160;';
+
+function itemsFor(page, store) {
+  const all = products.filter((p) => p.store === store);
+  if (page === 'index') return all;
+  const rel = all.filter((p) => p.pages.split(/\s+/).includes(page));
+  for (const p of all) { if (rel.length >= RAIL_MIN) break; if (!rel.includes(p)) rel.push(p); }
+  return rel.sort((a, b) => Number(a.order) - Number(b.order));
+}
+const row = (p) => `  <a class="mine-row" href="${href(p)}" target="_blank" rel="noopener sponsored">
+    <div class="mine-left">${icon(p.icon_left)}</div>
+    <div class="mine-info">
+      <div class="mine-name">${p.product}</div>
+      <div class="mine-hash">${p._sub}</div>
+    </div>
+    <div class="mine-right">${icon(p.icon_right)}</div>
+  </a>`;
+const disc = (side) => `  <div style="text-align:center;margin-${side}:6px;color:rgba(232,240,247,0.78);font-size:0.52rem;line-height:1.3;padding:0 6px;">${DISCLAIMER}</div>`;
+function rails(page) {
+  const top = page === 'index' ? 'managed' : 'auto';
+  const one = (cls, label, title, store, footer) => `<aside class="${cls}" aria-label="${label}" data-top="${top}">
+  <div class="rail-header">
+    <div class="rail-site-label">SolaRayEffect.com</div>
+    <div class="rail-title">${title}</div>
+  </div>
+  <div class="rail-divider"></div>
+${disc('bottom')}
+${itemsFor(page, store).map(row).join('\n')}
+  <div class="rail-footer">Affiliate links &#x2022; ${footer}</div>
+${disc('top')}
+</aside>`;
+  return `<link rel="stylesheet" href="/assets/rails.css">
+<script src="/assets/rails.js" defer></script>
+${one('affiliate-rail', 'Shop miners on eBay', 'Shop Miners', 'ebay', 'eBay')}
+${one('affiliate-rail-right', 'Shop mining gear on Amazon', 'Shop Gear', 'amazon', 'Amazon')}`;
+}
+function strip(page, store) {
+  const title = store === 'ebay' ? 'Shop Miners &#x2022; eBay' : 'Shop Gear &#x2022; Amazon';
+  return `    <div class="mobile-affiliate-strip">
+      <div class="strip-header">
+        <div class="strip-label">SolaRayEffect.com</div>
+        <div class="strip-title">${title}</div>
+      </div>
+      <div class="strip-scroll">
+${itemsFor(page, store).map((p) => `        <a class="strip-btn" href="${href(p)}" target="_blank" rel="noopener sponsored">${p.short_name}</a>`).join('\n')}
+      </div>
+      <div class="strip-footer">Affiliate links &#x2022; ${store === 'ebay' ? 'eBay' : 'Amazon'} &#x2022; ${DISCLAIMER}</div>
+    </div>`;
+}
+const between = (page, start, end, html) => {
+  const i = page.indexOf(start), j = page.indexOf(end, i);
+  if (i < 0 || j < 0) return null;
+  return page.slice(0, i + start.length) + '\n' + html + '\n' + page.slice(j);
+};
+for (const name of RAIL_PAGES) {
+  const file = join(ROOT, name + '.html');
+  if (!existsSync(file)) fail(`settings rail_pages: ${name}.html does not exist`);
+  let page = readFileSync(file, 'utf8');
+  const done = [];
+  const r = between(page, '<!-- SHOP-RAILS:START -->', '<!-- SHOP-RAILS:END -->', rails(name));
+  if (r) { page = r; done.push('rails'); }
+  for (const kind of ['both', 'ebay', 'amazon']) {
+    const html = kind === 'both' ? strip(name, 'ebay') + '\n' + strip(name, 'amazon') : strip(name, kind);
+    const s = between(page, `<!-- SHOP-STRIP:${kind}:START -->`, `<!-- SHOP-STRIP:${kind}:END -->`, html);
+    if (s) { page = s; done.push('strip-' + kind); }
+  }
+  if (done.length) { writeFileSync(file, page); console.log(`generated shop rails on ${name}.html: ${done.join(', ')} (${itemsFor(name, 'ebay').length} eBay / ${itemsFor(name, 'amazon').length} Amazon)`); }
+}
