@@ -55,12 +55,8 @@
   <title>Lottery Mining Guide: Bitaxe, NerdQaxe &amp; Solo Miners</title>
 
   <!-- Self-hosted fonts -->
+  <link rel="stylesheet" href="/assets/site.css">
   <style>
-    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-sans-jp-latin-400-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/noto-sans-jp-latin-600-normal.woff2") format("woff2"); }
-    @font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/noto-sans-jp-latin-700-normal.woff2") format("woff2"); }
   </style>
 
   <style>
@@ -86,8 +82,6 @@
       --accent-purple: #b388ff;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Roboto', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
       margin: 0;
@@ -100,50 +94,13 @@
       line-height: 1.7;
       min-height: 100vh;
     }
-
-    h1, h2, h3 { font-family: 'Noto Sans JP', sans-serif; }
     .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
-
-    /* HAMBURGER MENU */
-    .hamburger-menu { position: fixed; top: 1rem; left: 1rem; z-index: 1000; }
-    .hamburger-btn { background: var(--bg-card); border: 2px solid var(--sola-teal); color: var(--sola-teal); width: 44px; height: 44px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; transition: all 0.3s ease; box-shadow: 0 0 10px rgba(0, 206, 209, 0.4); }
-    .hamburger-btn:hover { background: var(--sola-teal); box-shadow: 0 0 20px rgba(0, 206, 209, 0.4); }
-    .hamburger-btn .bun-top { width: 24px; height: 6px; background: linear-gradient(180deg, #F4A460 0%, #DEB887 100%); border-radius: 10px 10px 0 0; transition: all 0.3s ease; }
-    .hamburger-btn .lettuce { width: 26px; height: 3px; background: #32CD32; border-radius: 1px; transition: all 0.3s ease; }
-    .hamburger-btn .patty { width: 24px; height: 4px; background: linear-gradient(180deg, #8B4513 0%, #654321 100%); border-radius: 2px; transition: all 0.3s ease; }
-    .hamburger-btn .cheese { width: 26px; height: 3px; background: #FFD700; border-radius: 1px; transform: skewX(-5deg); transition: all 0.3s ease; }
-    .hamburger-btn .bun-bottom { width: 24px; height: 5px; background: linear-gradient(180deg, #DEB887 0%, #F4A460 100%); border-radius: 0 0 6px 6px; transition: all 0.3s ease; }
-    .hamburger-btn.open .bun-top { transform: rotate(45deg) translate(6px, 8px); }
-    .hamburger-btn.open .lettuce { opacity: 0; }
-    .hamburger-btn.open .patty { opacity: 0; }
-    .hamburger-btn.open .cheese { opacity: 0; }
-    .hamburger-btn.open .bun-bottom { transform: rotate(-45deg) translate(6px, -8px); }
-
-    /* NAV DRAWER */
-    .nav-drawer { position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; overflow-y: auto; background: var(--bg-secondary); border-right: 2px solid var(--sola-teal); z-index: 999; transition: left 0.3s ease; padding: 70px 1.5rem 1.5rem; box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5); }
-    .nav-drawer.open { left: 0; }
     .nav-drawer h3 { color: var(--sola-gold); font-size: 1rem; padding-left: 50px; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(212, 175, 55, 0.3); }
     .nav-drawer a { display: block; color: var(--text-primary); text-decoration: none; padding: 0.5rem 1rem; margin-bottom: 0.3rem; border-radius: 6px; font-size: 1rem; transition: all 0.2s ease; border: 1px solid transparent; }
-    .nav-drawer a:hover { background: var(--bg-card); border-color: var(--sola-teal); color: var(--sola-teal); }
-    .nav-drawer a.active { background: rgba(0, 206, 209, 0.15); border-color: var(--sola-teal); color: #ffffff; }
-    .nav-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 998; }
-    .nav-overlay.show { display: block; }
-
-    /* GLOSSARY DRAWER */
-    .glossary-term { color: var(--sola-teal); border-bottom: 1px dotted rgba(0, 206, 209, 0.7); cursor: help; transition: color 0.15s ease, border-color 0.15s ease; text-decoration: none; white-space: nowrap; }
-    .glossary-term:hover { color: var(--sola-gold); border-color: rgba(212, 175, 55, 0.8); }
-    .glossary-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 1000; }
-    .glossary-overlay.show { display: block; }
     .glossary-drawer { position: fixed; top: 0; right: -420px; width: 420px; max-width: 92vw; height: 100vh; background: var(--bg-secondary); border-left: 2px solid var(--sola-teal); z-index: 1001; transition: right 0.25s ease; padding: 1.5rem; overflow-y: auto; box-shadow: -10px 0 40px rgba(0, 0, 0, 0.55); backdrop-filter: blur(8px); }
-    .glossary-drawer.open { right: 0; }
     .glossary-drawer-close { position: absolute; top: 1rem; right: 1rem; background: transparent; border: 1px solid rgba(0, 206, 209, 0.55); color: var(--sola-teal); width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 1.35rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
-    .glossary-drawer-close:hover { background: rgba(0, 206, 209, 0.12); border-color: var(--sola-teal); }
     .glossary-drawer h3 { font-family: 'Noto Sans JP', sans-serif; color: var(--sola-gold); font-size: 1.35rem; margin: 0.25rem 0 0.85rem; padding-right: 2.5rem; }
-    .glossary-drawer p { color: var(--text-secondary); line-height: 1.75; margin: 0 0 1rem; font-size: 0.98rem; }
-    .glossary-term-actions { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(212, 175, 55, 0.14); }
     .glossary-more-link { color: var(--sola-teal); text-decoration: none; font-weight: 600; }
-    .glossary-more-link:hover { color: var(--sola-gold); }
-    .glossary-term-links { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
 
     /* LIABILITY MODAL */
     .liability-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; }
