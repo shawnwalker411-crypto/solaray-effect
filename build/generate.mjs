@@ -351,7 +351,7 @@ const UNIT_SCALE = { 'kH/s': 1e3, 'MH/s': 1e6, 'GH/s': 1e9, 'TH/s': 1e12, 'kSol/
 
 function upTo(rule) {
   if (!rule) return '';
-  const pool = miners.filter((m) => m.status === 'keep');
+  const pool = miners.filter((m) => ['keep', 'add', 'verify'].includes(m.status));
   const [kind, val] = rule.split(':');
   const notLoki = (m) => !/loki|bypass/i.test(m.build);
   const pick = kind === 'lottery' ? pool.filter((m) => m.lottery === 'yes')
