@@ -289,7 +289,7 @@ var SOLA_GLOSSARY = {
 
   "algorithm": {
     title: "Algorithm",
-    definition: "The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin, eCash, Fractal Bitcoin, Peercoin, Quai-SHA), Scrypt (Litecoin, Quai-Scrypt), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), Blake3 (Alephium), SHA512256d (Radiant)."
+    definition: "The cryptographic puzzle that miners must solve to validate transactions and earn rewards. Different cryptocurrencies use different algorithms: SHA-256 (Bitcoin, Bitcoin Cash, Bitcoin SV, DigiByte, eCash, Fractal Bitcoin, Quai-SHA), Scrypt (Litecoin, Dogecoin, Quai-Scrypt), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), Blake3 (Alephium)."
   },
 
   "difficulty": {
@@ -532,24 +532,9 @@ var SOLA_GLOSSARY = {
     definition: "A Bitcoin-compatible chain using SHA-256, designed for faster block times than Bitcoin (nominal 30 seconds, though observed averages run higher and vary). Any SHA-256 ASIC can mine it directly \u2014 no special hardware required. Network hashrate for permissionless mining sits around 0.7 EH/s, which is much smaller than Bitcoin's overall network. That smaller scale gives meaningful per-TH yield for ASICs that participate. Use a dedicated FB pool rather than pointing your miner at a Bitcoin pool."
   },
 
-  "radiant": {
-    title: "Radiant (RXD)",
-    definition: "A UTXO-based proof-of-work blockchain designed for high throughput and programmable digital assets. Uses the SHA512256d algorithm. 5-minute block time. Block reward halved from 25,000 to 12,500 RXD in April 2026. Maximum supply of 21 billion RXD. IceRiver RX0 and RX0 Pro are the primary dedicated ASICs."
-  },
-
-  "sha512256d": {
-    title: "SHA512256d",
-    definition: "The proof-of-work algorithm used by the Radiant (RXD) blockchain. Applies SHA-512 then truncates the output to 256 bits, repeated twice (double-hashing). Requires dedicated hardware \u2014 standard SHA-256 ASICs cannot mine it. IceRiver produces the only widely available ASICs for this algorithm."
-  },
-
   "quai-network": {
     title: "Quai Network (QUAI)",
     definition: "A multi-shard, EVM-compatible proof-of-work network that achieves high throughput without sacrificing decentralization. Unique in supporting multiple mining algorithms across different zone chains simultaneously: SHA-256 ASICs and Scrypt ASICs mine different zones of the same network. Cyprus-1 is the primary zone. Block time is ~1.1 seconds per zone. Miners must point to the correct zone endpoint."
-  },
-
-  "peercoin": {
-    title: "Peercoin (PPC)",
-    definition: "One of the first cryptocurrencies, launched in 2012 by Sunny King. Pioneered proof-of-stake and uses a hybrid PoW/PoS model: SHA-256 miners secure the chain while stakers earn additional rewards. Uses the same SHA-256 hardware as Bitcoin \u2014 any BTC ASIC can mine PPC. Block reward is variable (~37 PPC currently) and decreases as network hashrate grows. Observed block time is ~45 minutes despite a 10-minute target, reflecting the PoW/PoS dynamics. 1% annual PoS inflation cap."
   },
 
   /* ================================================
