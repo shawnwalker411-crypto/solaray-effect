@@ -2,7 +2,7 @@
 // Live mining network stats API \u2014 NOWNodes unified
 // All 15 algo-coin entries (DGB uses JSON-RPC for SHA-256 specific difficulty)
 // QUAI split into QUAI-SHA and QUAI-SCRYPT (separate WhatToMine endpoints per algorithm)
-// 1-hour cache
+// Caches: network stats 5 minutes (ZEC 2), prices 10 minutes
 
 let cache = {};
 let priceCache = { prices: null, timestamp: 0 };
@@ -10,7 +10,10 @@ const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes (default) — was 1 hour, far
 // Per-coin cache overrides. Mining network stats move fast; ZEC gets the shortest window.
 const CACHE_DURATIONS = { ZEC: 2 * 60 * 1000 }; // ZEC: 2 minutes
 function getCacheDuration(coin) { return CACHE_DURATIONS[coin] || CACHE_DURATION; }
-const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
+// Server prices are the backup for visitors whose own CoinGecko call fails.
+// 10 minutes keeps that backup fresh while calling CoinGecko at most ~6 times
+// an hour per server instance.
+const PRICE_CACHE_DURATION = 10 * 60 * 1000; // 10 minutes (was 2 hours)
 
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
@@ -48,11 +51,14 @@ async function fetchPricesFromCoinGecko() {
     const res = await fetch(url);
     if (!res.ok) throw new Error('CoinGecko request failed');
     const data = await res.json();
-    const prices = {};
+    // Start from the last known prices so a coin CoinGecko leaves out of this
+    // answer keeps its previous price instead of disappearing.
+    const prices = { ...(priceCache.prices || {}) };
+    let fresh = 0;
     for (const [symbol, geckoId] of Object.entries(COINGECKO_IDS)) {
-      if (data[geckoId]?.usd) prices[symbol] = data[geckoId].usd;
+      if (data[geckoId]?.usd > 0) { prices[symbol] = data[geckoId].usd; fresh++; }
     }
-    if (Object.keys(prices).length > 0) {
+    if (fresh > 0) {
       priceCache = { prices, timestamp: Date.now() };
     }
     return prices;
