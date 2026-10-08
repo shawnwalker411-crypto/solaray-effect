@@ -19,7 +19,8 @@
     var on = room >= MIN_ROOM;
     root.classList.toggle('rails-on', on);
     if (!on) return;
-    var top = Math.max(0, r.top + window.scrollY);
+    // Start below the fixed menu button in the top-left corner (about 80px tall).
+    var top = Math.max(80, r.top + window.scrollY);
     var rails = document.querySelectorAll('.affiliate-rail[data-top="auto"], .affiliate-rail-right[data-top="auto"]');
     for (var i = 0; i < rails.length; i++) rails[i].style.top = top + 'px';
   }
