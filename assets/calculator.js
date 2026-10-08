@@ -384,15 +384,22 @@
         
         const data = result.data;
         
-        // If CoinGecko direct failed, use server-cached prices as fallback
-        if (priceStatus !== 'live' && result.prices) {
+        // Server-cached prices: if CoinGecko direct failed, use them for every
+        // coin; if CoinGecko answered but left a coin out, fill just that coin.
+        // The server names Quai 'QUAI-SHA' / 'QUAI-SCRYPT'; the calculator uses 'QUAI'.
+        if (result.prices) {
           const apiPrices = result.prices;
           let loaded = false;
-          for (const [symbol, price] of Object.entries(apiPrices)) {
-            if (price && price > 0) {
+          for (const [key, price] of Object.entries(apiPrices)) {
+            const symbol = key.startsWith('QUAI') ? 'QUAI' : key;
+            if (price && price > 0 && (priceStatus !== 'live' || !(PRICES[symbol] > 0))) {
               PRICES[symbol] = price;
               loaded = true;
             }
+          }
+          if (loaded && priceStatus === 'live') {
+            if (typeof updateSunrisePick === 'function') updateSunrisePick();
+            if (typeof updateTicker === 'function') updateTicker();
           }
           if (loaded && priceStatus !== 'live') {
             priceStatus = 'cached';
