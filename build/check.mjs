@@ -192,6 +192,11 @@ for (const p of products) {
 
 // ---------- Pages ----------
 const pages = readdirSync(ROOT).filter((f) => f.endsWith('.html'));
+const vercel = JSON.parse(readFileSync(join(ROOT, 'vercel.json'), 'utf8'));
+const SITE_CSP = ((vercel.headers || []).find((h) => h.source === '/(.*)') || { headers: [] }).headers
+  .filter((h) => h.key === 'Content-Security-Policy').map((h) => h.value)[0] || '';
+if (!SITE_CSP) block('vercel.json: missing the site-wide Content-Security-Policy header');
+for (const d of ["default-src 'self'", "object-src 'none'", "base-uri 'self'", "frame-src 'none'"]) if (SITE_CSP && !SITE_CSP.includes(d)) block(`vercel.json: security policy lost "${d}"`);
 const comps = existsSync(join(ROOT, 'Components'))
   ? readdirSync(join(ROOT, 'Components')).filter((f) => f.endsWith('.html')).map((f) => 'Components/' + f) : [];
 const EMOJI = /\p{Extended_Pictographic}/u;
@@ -243,7 +248,9 @@ for (const f of [...pages, ...comps]) {
   }
 
   // Analytics + security policy
-  const csp = (html.match(/http-equiv=["']Content-Security-Policy["'][^>]*content="([^"]+)"/i) || [])[1];
+  // One security policy for the whole site lives in vercel.json (headers).
+  if (/http-equiv=["']Content-Security-Policy["']/i.test(html)) block(`${f}: has its own security policy meta tag; the site-wide one in vercel.json is the only policy`);
+  const csp = SITE_CSP;
   const hasGA = html.includes('<script src="/assets/analytics.js"></script>');
   if (!hasGA) block(`${f}: missing the shared Analytics file /assets/analytics.js`);
   if (hasGA && csp) {
