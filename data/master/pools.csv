@@ -1,87 +1,89 @@
 coin_section,pool,url,fee,payout_types,payout_labels,min_payout,regions,region_codes,notes,status
-Bitcoin (BTC),Foundry USA,https://foundrydigital.com/foundry-usa-pool/,~2.5%,fpps,FPPS,0.01 BTC,🇺🇸  🇪🇺  🌐,3,Largest NA pool. Institutional grade. KYC required.,keep
-Bitcoin (BTC),AntPool,https://www.antpool.com/,0-4%,fpps pplns,FPPS;PPLNS,0.001 BTC,🌐,1,Bitmain-operated. 0% PPLNS / 4% PPS+.,keep
-Bitcoin (BTC),ViaBTC,https://www.viabtc.com/,1-4%,pps pplns,PPS+;PPLNS,0.001 BTC,🌐,1,Top 3 globally. Multiple payout options.,keep
-Bitcoin (BTC),F2Pool,https://www.f2pool.com/,2.5%,pps,PPS+,0.005 BTC,🌐,1,40+ coins. Merge mining supported.,keep
-Bitcoin (BTC),Braiins Pool,https://braiins.com/pool,0-2%,fpps pplns,FPPS;PPLNS,0.001 BTC,🇪🇺  🇺🇸,2,Formerly Slush Pool. Oldest pool. 0% with Braiins OS+.,keep
-Bitcoin (BTC),Luxor,https://luxor.tech/,0.7%,fpps,FPPS,0.004 BTC,🇺🇸  🇪🇺,2,US-based. SOC 2 certified. LuxOS firmware.,keep
-Bitcoin (BTC),Binance Pool,https://pool.binance.com/,2.5%,fpps,FPPS,0.0001 BTC,🌐,1,Exchange integration. Binance account required.,keep
-Bitcoin (BTC),BTC.com (Clover),https://btc.com/,4%,fpps,FPPS,0.001 BTC,🌐,1,Rebranded as Clover Pool. Higher fee tier.,keep
-Bitcoin (BTC),OCEAN,https://ocean.xyz/,0-2%,pplns,TIDES,0.01 BTC,🇺🇸,1,Non-custodial. No KYC. Decentralization focused.,keep
-Bitcoin (BTC),SpiderPool,https://www.spiderpool.com/,2-4%,fpps pps,FPPS;PPS+,0.001 BTC,🌐,1,Multi-coin pool.,keep
-Bitcoin (BTC),CKPool Solo,https://solo.ckpool.org/,2%,solo,Solo,Full block,🇺🇸  🇪🇺  🇦🇺,3,Lottery mining. Regional servers.,keep
-Bitcoin (BTC),Public Pool,https://web.public-pool.io/,0%,solo,Solo,Full block,🌐,1,Open source. Zero fees.,keep
-Bitcoin (BTC),SoloPool.org,https://btc.solopool.org/,2%,solo,Solo,Full block,🇪🇺,1,European solo pool. No registration.,keep
-Bitcoin (BTC),Kryptex,https://pool.kryptex.com/btc,3%,pps,PPS+,0.001 BTC,🇪🇺,1,Hourly payouts. Auto-exchange available.,keep
-Bitcoin (BTC),EMCD,https://emcd.io/,1.5%,fpps,FPPS,0.001 BTC,🌍,1,"Low fee, low min payout. Good for smaller home miners.",keep
-Bitcoin Cash (BCH),AntPool,https://www.antpool.com/,0-4%,fpps pplns,FPPS;PPLNS,0.001 BCH,🌐,1,Bitmain-operated. Strong BCH support.,keep
-Bitcoin Cash (BCH),ViaBTC,https://www.viabtc.com/,1-4%,pps pplns,PPS+;PPLNS,0.001 BCH,🌐,1,Historically strong BCH support.,keep
-Bitcoin Cash (BCH),F2Pool,https://www.f2pool.com/,2.5%,pps,PPS+,0.01 BCH,🌐,1,Multi-coin veteran.,keep
-Bitcoin Cash (BCH),BTC.com (Clover),https://btc.com/,4%,fpps,FPPS,0.001 BCH,🌐,1,Bitmain ecosystem.,keep
-Bitcoin Cash (BCH),Binance Pool,https://pool.binance.com/,2.5%,fpps,FPPS,0.001 BCH,🌐,1,Exchange integration.,keep
-Bitcoin Cash (BCH),SoloPool.org,https://bch.solopool.org/,2%,solo,Solo,Full block,🇪🇺,1,European solo pool. No registration.,keep
-Bitcoin Cash (BCH),Kryptex,https://pool.kryptex.com/bch,3%,pps,PPS+,0.01 BCH,🇪🇺,1,PPS+ with auto-exchange option.,keep
-Litecoin + Dogecoin,LitecoinPool.org,https://www.litecoinpool.org/,~2%,pps,PPS,0.002 LTC / 10 DOGE,🇺🇸  🇪🇺,2,Oldest Scrypt pool. Merged LTC+DOGE. Reliable.,keep
-Litecoin + Dogecoin,AntPool,https://www.antpool.com/,0-3%,pps pplns,PPS;PPLNS,0.001 LTC,🌐,1,Bitmain-operated. Merged LTC+DOGE. Large hashrate.,keep
-Litecoin + Dogecoin,F2Pool,https://www.f2pool.com/,2.5%,pps,PPS+,0.02 LTC / 40 DOGE,🌐,1,Merged LTC+DOGE+BELLS+PEP and more. Daily payouts.,keep
-Litecoin + Dogecoin,ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,0.001 LTC,🌐,1,Merged LTC+DOGE. Global servers. Daily payouts.,keep
-Litecoin + Dogecoin,ProHashing,https://prohashing.com/,~4.99%,pps,PPS,0.001 LTC,🇺🇸,1,Merged mining. Payout in any coin. Profit switching.,keep
-Litecoin + Dogecoin,EMCD,https://emcd.io/,Varies,fpps pps,FPPS;PPS+,0.01 LTC,🇪🇺,1,Merged LTC+DOGE. EU-based multi-coin pool.,keep
-Litecoin + Dogecoin,Mining-Dutch,https://www.mining-dutch.nl/,~1%,pplns,PPLNS,0.001 LTC,🇪🇺,1,Merged LTC+DOGE. Payouts every 15 min. Netherlands-based.,keep
-Litecoin + Dogecoin,Kryptex,https://pool.kryptex.com/ltc,1.5%,pps,PPS+,0.01 LTC,🇪🇺,1,Merged LTC+DOGE+PEP+BELLS. Hourly payouts.,keep
-Litecoin + Dogecoin,LiteSolo,https://litesolo.org/,1%,solo,Solo,Full block,🌐,1,"Merged LTC+DOGE solo. Full block reward (6.25 LTC / 10,000 DOGE) minus 1% fee.",keep
-Litecoin + Dogecoin,DxPool,https://www.dxpool.com/,3%,solo,Solo,Full block,🌐,1,Merged LTC+DOGE+BEL solo. PPS+ also available.,keep
-Kaspa (KAS),2Miners,https://2miners.com/kas-mining-pool,1%,pplns solo,PPLNS;Solo,50 KAS,🇪🇺  🇺🇸  🌐,3,Popular. Good monitoring tools. NiceHash compatible.,keep
-Kaspa (KAS),K1Pool,https://k1pool.com/pool/kaspa,1%,pplns,PPLNS,30 KAS,🇪🇺  🇺🇸  🇨🇳,3,NiceHash & MiningRigRentals support.,keep
-Kaspa (KAS),HeroMiners,https://kaspa.herominers.com/,0.9%,pplns solo,PPLNS;Solo,5 KAS,🌐,1,Exchange wallet support. Mixed user reviews.,keep
-Kaspa (KAS),WoolyPooly,https://woolypooly.com/en/coin/kas,0.9%,pplns solo,PPLNS;Solo,10 KAS,🌐,1,Multi-coin altcoin pool.,keep
-Kaspa (KAS),TrustPool,https://trustpool.cc/kaspa,1%,pplns,PPLNS,Varies,🌐,1,Multi-crypto support.,keep
-Kaspa (KAS),Hiveon Pool,https://hiveon.com/,0%,pplns,PPLNS,100 KAS,🌐,1,Zero fee. HiveOS integration.,keep
-Kaspa (KAS),DxPool,https://www.dxpool.com/,Varies,pps,PPS,Varies,🌐,1,Registration required. Daily auto-withdrawal.,keep
-Kaspa (KAS),F2Pool,https://www.f2pool.com/,1%,pplns,PPLNS,100 KAS,🌐,1,Daily payouts. KAS+CAU cross-chain mining available.,keep
-Kaspa (KAS),Kryptex,https://pool.kryptex.com/kas,1.5%,pps,PPS+,10 KAS,🇪🇺,1,Hourly payouts. Auto-exchange available.,keep
-Kaspa (KAS),acc-pool,https://acc-pool.pw/,0.8%,pplns,PPLNS,100 KAS,🌍,1,"Low fee. Anonymous, no registration needed.",keep
-Kaspa (KAS),HumPool,https://humpool.com/,0.75%,pplns,PPLNS,30 KAS,🌍,1,Lowest KAS fee available. Low min payout.,keep
-Kaspa (KAS),Nanopool,https://nanopool.org/,0%,pplns,PPLNS,50 KAS,🌍,1,Zero fee KAS pool. Registration required.,keep
-Ethereum Classic (ETC),Hiveon Pool,https://hiveon.com/,0%,pps,PPS+,0.1 ETC,🌐,1,Zero fee. HiveOS integration.,keep
-Ethereum Classic (ETC),2Miners,https://2miners.com/etc-mining-pool,1%,pplns solo,PPLNS;Solo,0.05 ETC,🇪🇺  🇺🇸  🌐,3,Good monitoring. Multiple regions.,keep
-Ethereum Classic (ETC),F2Pool,https://www.f2pool.com/,2.5%,pps,PPS+,0.1 ETC,🌐,1,Multi-coin veteran.,keep
-Ethereum Classic (ETC),Kryptex,https://pool.kryptex.com/etc,1.5%,pps,PPS+,0.01 ETC,🇪🇺,1,Hourly payouts. Auto-exchange available.,keep
-Zcash (ZEC),F2Pool,https://www.f2pool.com/,2.5%,pps,PPS+,0.001 ZEC,🌐,1,Multi-coin support.,keep
-Zcash (ZEC),ViaBTC,https://www.viabtc.com/,1-4%,pps pplns,PPS+;PPLNS,0.001 ZEC,🌐,1,Multiple payout options.,keep
-Zcash (ZEC),Mining-Dutch,https://www.mining-dutch.nl/,~1%,pplns,PPLNS,0.01 ZEC,🇪🇺,1,European pool.,keep
-Zcash (ZEC),Kryptex,https://pool.kryptex.com/zec,3%,pps,PPS+,0.025 ZEC,🇪🇺,1,PPS+ with auto-exchange option.,keep
-Zcash (ZEC),2Miners Solo,https://zec.2miners.com/,1.5%,solo,Solo,0.01 ZEC,🌐,1,Anonymous solo mining mode.,keep
-Dash (DASH),AntPool,https://www.antpool.com/,0-4%,pps pplns,PPS+;PPLNS,0.01 DASH,🌐,1,Bitmain-operated.,keep
-Dash (DASH),F2Pool,https://www.f2pool.com/,2.5%,pps,PPS+,0.01 DASH,🌐,1,Multi-coin support.,keep
-Dash (DASH),ViaBTC,https://www.viabtc.com/,1-4%,pps pplns,PPS+;PPLNS,0.01 DASH,🌐,1,Multiple payout options.,keep
-Dash (DASH),Mining-Dutch,https://www.mining-dutch.nl/,~1%,pplns,PPLNS,0.1 DASH,🇪🇺,1,European pool.,keep
-Dash (DASH),ProHashing,https://prohashing.com/,Varies,pps,PPS,Varies,🇺🇸,1,US-based. Payout in any coin.,keep
-DigiByte (DGB),Kryptex,https://pool.kryptex.com/dgb,1.5%,pps,PPS+,Hourly,🌐,1,SHA-256 only. Hourly payouts. Solo mode available.,keep
-DigiByte (DGB),F2Pool,https://www.f2pool.com/,5%,pps,PPS,500 DGB,🌐,1,Supports SHA-256 and Scrypt DGB. High fee.,keep
-DigiByte (DGB),Mining-Dutch,https://www.mining-dutch.nl/,~1.9%,pplns,PPLNS,Custom,🇪🇺,1,European pool. Scrypt and other DGB algos.,keep
-DigiByte (DGB),ProHashing,https://prohashing.com/,Varies,pplns,PPLNS,Varies,🇺🇸,1,US-based. Payout in any coin.,keep
-eCash (XEC),Kryptex,https://pool.kryptex.com/xec,1.5%,pps,PPS+,Hourly,🌐,1,SHA-256 only. Hourly payouts. No registration required.,keep
-eCash (XEC),ViaBTC,https://www.viabtc.com/,2%,pplns,PPLNS,Custom,🌐,1,Registration required. Global servers.,keep
-eCash (XEC),Mining-Dutch,https://www.mining-dutch.nl/,~1.9%,pplns,PPLNS,Custom,🇪🇺,1,European pool. Supports XEC alongside BCH and BTC.,keep
-eCash (XEC),Zpool,https://zpool.ca/,2%,pplns,PPLNS,Varies,🇺🇸,1,Auto-switching SHA-256 pool. Pays in BTC.,keep
-Alephium (ALPH),ViaBTC,https://www.viabtc.com/,2%,pplns,PPLNS,Custom,🌐,1,Global pool. Registration required.,keep
-Alephium (ALPH),Kryptex,https://pool.kryptex.com/alph,1.5%,pps,PPS+,Hourly,🌐,1,Hourly payouts. No registration required.,keep
-Alephium (ALPH),HeroMiners,https://alephium.herominers.com/,1%,pplns,PPLNS,1 ALPH,🇺🇸  🇪🇺  🌐,3,Low fee. Global servers. No registration.,keep
-Alephium (ALPH),F2Pool,https://www.f2pool.com/coin/alephium,3%,pplns,PPLNS,10 ALPH,🌐,1,Large pool. Higher fee.,keep
-Fractal Bitcoin (FB),ViaBTC,https://www.viabtc.com/,2%,pplns,PPLNS,Custom,🌐,1,Supports standalone FB mining. Registration required.,keep
-Fractal Bitcoin (FB),Kryptex,https://pool.kryptex.com/fb,1.5%,pps,PPS+,Hourly,🌐,1,Standalone FB mining. Hourly payouts. No registration.,keep
-Fractal Bitcoin (FB),F2Pool,https://www.f2pool.com/,3%,pplns,PPLNS,Custom,🌐,1,Large global pool. Supports standalone FB.,keep
+Bitcoin (BTC),Foundry USA,https://foundrydigital.com/mining-service/foundry-usa-pool/,Not published,fpps,FPPS,0.01 BTC,🇺🇸  🇪🇺,2,Calls itself the #1 BTC pool. Fee tier set quarterly by hashrate (not published). KYC required.,keep
+Bitcoin (BTC),AntPool,https://www.antpool.com/,2-4%,fpps pplns,FPPS;PPLNS,0.005 BTC,🌐  🇺🇸  🇪🇺  🌏  🌍,5,Bitmain-operated. FPPS 4% / PPLNS 2%. Min payout settable down to 0.001 BTC.,keep
+Bitcoin (BTC),ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,0.001 BTC,🌐  🇪🇺,2,PPS+ 4% (2% on tx fees) / PPLNS 2%. SOLO ended May 2026.,keep
+Bitcoin (BTC),F2Pool,https://www.f2pool.com/,2-4%,fpps pplns,FPPS;PPLNS,0.005 BTC,🌐  🇺🇸  🇪🇺  🌏  🌍  🌎,6,"FPPS 4% / PPLNS 2%. Merge mining (FB, NMC, ELA, HTR, NAT) with BTC.",keep
+Bitcoin (BTC),Braiins Pool,https://braiins.com/pool,0-2.5%,fpps,FPPS,0.0002 BTC,🌐,1,Formerly Slush Pool. Longest-running pool. FPPS 2.5%; 0% pool fee with Braiins OS (OS fee 2-2.5%). Lightning payouts from 1 sat.,keep
+Bitcoin (BTC),Luxor,https://luxor.tech/,0-2.5%,fpps,FPPS,0.001 BTC,🌐,1,US-based. SOC 2 Type 2 certified. FPPS 2.5%; 0% pool fee with LuxOS (firmware fee 2.8%).,keep
+Bitcoin (BTC),Binance Pool,https://pool.binance.com/,4%,fpps,FPPS,None,🌐,1,Exchange integration. Binance account required. Paid daily to your Binance account.,keep
+Bitcoin (BTC),CloverPool (formerly BTC.com),https://cloverpool.com/,4%,fpps,FPPS,0.005 BTC,🇪🇺  🇺🇸  🇸🇬,3,CloverPool (formerly BTC.com). btc.com no longer hosts the pool.,keep
+Bitcoin (BTC),OCEAN,https://ocean.xyz/,1-2%,pplns,TIDES,0.01048576 BTC,🇺🇸,1,Non-custodial. No account or KYC. 2% fee; 1% with DATUM. Lightning (BOLT12) payouts below threshold.,keep
+Bitcoin (BTC),SpiderPool,https://www.spiderpool.com/,1-4%,fpps pplns,FPPS;PPLNS,0.005 BTC,🇺🇸  🇪🇺  🌏,3,"FPPS 4% / PPLNS 1%. Mines BTC, LTC and ETC.",keep
+Bitcoin (BTC),CKPool Solo,https://solo.ckpool.org/,2%,solo,Solo,Full block,🇺🇸  🇪🇺  🇸🇬  🇦🇺,4,"Lottery mining. Not-for-profit. No registration. Auto-routes to US, EU, Asia, Oceania.",keep
+Bitcoin (BTC),Public Pool,https://web.public-pool.io/,0%,solo pplns,Solo;PPLNS,Full block,🌐,1,Open source. Zero fees. Solo and PPLNS ports.,keep
+Bitcoin (BTC),SoloPool.org,https://btc.solopool.org/,2%,solo,Solo,Full block,🇪🇺  🇺🇸,2,Solo pool with EU and US servers. No registration.,keep
+Bitcoin (BTC),Kryptex,https://pool.kryptex.com/btc,3%,pps,PPS+,0.001 BTC,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,PPS+ 3%. Hourly payouts. Auto-convert available.,keep
+Bitcoin (BTC),EMCD,https://emcd.io/,1.5%,fpps,FPPS,0.00001 BTC,🇷🇺  🇪🇺  🇰🇿  🇨🇳  🇺🇸,5,"Low fee, low min payout. emcd.io redirects US visitors to a blocked-by-country page.",keep
+Bitcoin Cash (BCH),AntPool,https://www.antpool.com/,0-4%,fpps pplns,FPPS;PPLNS,0.01 BCH,🌐,1,Bitmain-operated. FPPS 4% / PPLNS 0%.,keep
+Bitcoin Cash (BCH),ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,Not published,🌐  🇪🇺,2,PPS+ 4% / PPLNS 2%. Min payout shown only in account settings.,keep
+Bitcoin Cash (BCH),F2Pool,https://www.f2pool.com/,3%,pps,PPS,0.01 BCH,🌐,1,PPS 3%. Multi-coin veteran.,keep
+Bitcoin Cash (BCH),CloverPool (formerly BTC.com),https://cloverpool.com/,4%,fpps,FPPS,0.0000546 BCH,🌐,1,CloverPool (formerly BTC.com).,keep
+Bitcoin Cash (BCH),Binance Pool,https://pool.binance.com/,4%,fpps,FPPS,None,🌐,1,Exchange integration. Paid daily to your Binance account.,keep
+Bitcoin Cash (BCH),SoloPool.org,https://bch.solopool.org/,2%,solo,Solo,Full block,🇪🇺  🇺🇸,2,Solo pool with EU and US servers. No registration.,keep
+Bitcoin Cash (BCH),Kryptex,https://pool.kryptex.com/bch,1.5-3%,pps solo,PPS+;Solo,0.01 BCH,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,PPS+ 3% / Solo 1.5% (solo:yourwallet). Auto-convert option.,keep
+Litecoin + Dogecoin,LitecoinPool.org,https://www.litecoinpool.org/,2%,pps,PPS,0.002 LTC / 10 DOGE,🇺🇸  🇪🇺,2,"Running since 2011; first LTC PPS pool. LTC+DOGE paid separately, pure PPS. Fee-free payouts.",keep
+Litecoin + Dogecoin,AntPool,https://www.antpool.com/,Not published,pps pplns,PPS;PPLNS,0.001 LTC,🌐,1,Merged LTC+DOGE. Default min 0.001 LTC (adjustable). Fee not published publicly. Large hashrate.,keep
+Litecoin + Dogecoin,F2Pool,https://www.f2pool.com/,4%,pps,PPS,0.02 LTC / 40 DOGE,🌐,1,Merged DOGE+BELLS+LKY+PEP+DINGO. Daily payouts (00:00-08:00 UTC).,keep
+Litecoin + Dogecoin,ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,Not published,🌐,1,PPS+ 4% / PPLNS 2%. Merged DOGE+BELLS+PEP+DINGO. Global + EU servers. Daily payouts. Min payout shown only in account.,keep
+Litecoin + Dogecoin,ProHashing,https://prohashing.com/,N/A,pps,PPS,N/A,🇺🇸,1,SHUT DOWN: prohashing.com says the service is now shut down.,remove
+Litecoin + Dogecoin,EMCD,https://emcd.io/,1.5%,pps pplns,PPS+;PPLNS,0.0001 LTC / 1 DOGE,🇷🇺 🇪🇺 🇰🇿 🇨🇳 🇺🇸,5,"LTC on PPS+, DOGE/PEP on PPLNS. Servers RU/EU/KZ/CN/US. Daily payouts 12:00-14:00 UTC.",keep
+Litecoin + Dogecoin,Mining-Dutch,https://www.mining-dutch.nl/,0.5-1.5%,fpps pplns solo,D-PPS;PPLNS;Solo,User-set,🇪🇺 🇨🇦 🇸🇬 🇦🇺,4,"D-PPS 1.5%, PPLNS/PROP/Party 1%, Solo 0.5%. Merged DOGE+BEL+PEP+LKY and more. Payouts every 15 min. Netherlands-based.",keep
+Litecoin + Dogecoin,Kryptex,https://pool.kryptex.com/ltc,1%,pps,PPS+,0.01 LTC,🌐 🇪🇺 🇺🇸 🇧🇷 🇸🇬 🇭🇰 🇷🇺 🇦🇪,8,"Merged DOGE+PEP+BELLS etc., all auto-converted to LTC. Hourly payouts.",keep
+Litecoin + Dogecoin,LiteSolo,https://litesolo.org/,1%,solo,Solo,Full block,🇪🇺 🇺🇸,2,"Merged LTC+DOGE solo. Full block reward (6.25 LTC / 10,000 DOGE + tx fees) minus 1% fee.",keep
+Litecoin + Dogecoin,DxPool,https://www.dxpool.com/,3%,pps,PPS+,0.001 LTC,🇺🇸 🌏,2,PPS+ 3% (default). Merged DOGE+BEL+DINGO+JKC+LKY+PEP. Solo mode not publicly documented.,keep
+Kaspa (KAS),2Miners,https://2miners.com/kas-mining-pool,1-1.5%,pplns solo,PPLNS;Solo,50 KAS,🇪🇺 🇺🇸 🌏,3,"PPLNS 1%, Solo 1.5%. Payouts every 2h. NiceHash compatible. Good monitoring tools.",keep
+Kaspa (KAS),K1Pool,https://k1pool.com/pool/kaspa,0.5%,pplns solo,PPLNS;Solo,50 KAS,🇪🇺 🇺🇸 🇨🇳 🇷🇺,4,Payouts every 4h. Bonus ZKAS dual mining. Rental miners supported.,keep
+Kaspa (KAS),HeroMiners,https://kaspa.herominers.com/,0.9%,pplns solo,PROP;Solo,1 KAS,🌐,1,Exchange wallet support. Hourly payouts. 18 server locations.,keep
+Kaspa (KAS),WoolyPooly,https://woolypooly.com/en/coin/kas,0.9%,pplns solo,PPLNS;Solo,50 KAS,🌐,1,"Multi-coin altcoin pool. Global servers (US, EU, Brazil, Asia).",keep
+Kaspa (KAS),TrustPool,https://trustpool.cc/kaspa,1%,pplns,PPLNS,User-set,🌐,1,Multi-crypto support. NiceHash/MRR hashrate not accepted. Payout scheme not shown publicly.,keep
+Kaspa (KAS),Hiveon Pool,https://hiveon.com/,N/A,pplns,PPLNS,N/A,🌐,1,"CLOSED: Hiveon Pool shut down May 15, 2026.",remove
+Kaspa (KAS),DxPool,https://www.dxpool.com/,Not published,pps,PPS,Not published,🌐,1,KAS not in DxPool live pool list (Oct 2026); likely not offered.,remove
+Kaspa (KAS),F2Pool,https://www.f2pool.com/,1%,pplns,PPLNS,100 KAS,🌐,1,"Daily payouts. KAS+CAU cross-chain ended (CAU pool closed June 12, 2026).",keep
+Kaspa (KAS),Kryptex,https://pool.kryptex.com/kas,1%,pps solo,PPS+;Solo,10 KAS,🌐 🇪🇺 🇺🇸 🇧🇷 🇸🇬 🇭🇰 🇷🇺 🇦🇪,8,"PPS+ 1%, Solo 1%. Hourly payouts. Auto-exchange available.",keep
+Kaspa (KAS),acc-pool,https://acc-pool.pw/,0.8%,pplns,PPLNS,25 KAS,🇩🇪 🇨🇦 🇺🇸 🇷🇺 🇭🇰 🇦🇷,6,"Low fee. Wallet-address mining. Pool shows 0 hashrate; last block May 5, 2025 (inactive).",remove
+Kaspa (KAS),HumPool,https://humpool.com/,Not published,pplns,PPLNS,Not published,🌍,1,KYC required since Feb 2025; non-KYC mining suspended. Fees not shown publicly.,remove
+Kaspa (KAS),Nanopool,https://nanopool.org/,N/A,pplns,PPLNS,N/A,🌍,1,No live KAS pool on Nanopool (site lists ETC/ZEC/RVN/CFX/XMR).,remove
+Ethereum Classic (ETC),Hiveon Pool,https://hiveon.com/,N/A,pps,PPS+,N/A,🌐,1,"CLOSED: Hiveon Pool shut down May 15, 2026.",remove
+Ethereum Classic (ETC),2Miners,https://2miners.com/etc-mining-pool,1-1.5%,pplns solo,PPLNS;Solo,0.1 ETC,🇪🇺 🇺🇸 🌏,3,"PPLNS 1%, Solo 1.5%. Good monitoring. Payouts every 2h.",keep
+Ethereum Classic (ETC),F2Pool,https://www.f2pool.com/,1%,pps,PPS,0.1 ETC,🌐 🇪🇺 🇺🇸 🌏,4,Multi-coin veteran. Global + Asia/EU/NA servers.,keep
+Ethereum Classic (ETC),Kryptex,https://pool.kryptex.com/etc,1%,pps,PPS+,0.05 ETC,🌐 🇪🇺 🇺🇸 🇧🇷 🇸🇬 🇭🇰 🇷🇺 🇦🇪,8,Hourly payouts. Auto-exchange available.,keep
+Zcash (ZEC),F2Pool,https://www.f2pool.com/,3%,pps,PPS+,0.1 ZEC,🌐,1,Multi-coin support.,keep
+Zcash (ZEC),ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,Not published,🌐,1,PPS+ 4% (added Jan 2026) / PPLNS 2%. Min payout shown only in account.,keep
+Zcash (ZEC),Mining-Dutch,https://www.mining-dutch.nl/,0.5-1.5%,fpps pplns solo,D-PPS;PPLNS;Solo,User-set,🇪🇺 🇨🇦 🇸🇬 🇦🇺,4,"D-PPS 1.5%, PPLNS/PROP/Party 1%, Solo 0.5%. Netherlands-based.",keep
+Zcash (ZEC),Kryptex,https://pool.kryptex.com/zec,1.5-3%,pps solo,PPS+;Solo,0.025 ZEC,🌐 🇪🇺 🇺🇸 🇧🇷 🇸🇬 🇭🇰 🇷🇺 🇦🇪,8,"PPS+ 3%, Solo 1.5%. Auto-exchange option.",keep
+Zcash (ZEC),2Miners Solo,https://solo-zec.2miners.com/,1.5%,solo,Solo,Full block,🇪🇺 🇺🇸 🌏,3,No-registration solo mining. Full block reward minus 1.5% fee.,keep
+Dash (DASH),AntPool,https://www.antpool.com/,Not published,pps pplns,PPS+;PPLNS,0.001 DASH,🌐,1,Default min 0.001 DASH (adjustable). Fee not published publicly.,keep
+Dash (DASH),F2Pool,https://www.f2pool.com/,2%,pps,PPS,0.1 DASH,🌐,1,Multi-coin support.,keep
+Dash (DASH),ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,Not published,🌐,1,PPS+ 4% / PPLNS 2%. Min payout shown only in account.,keep
+Dash (DASH),Mining-Dutch,https://www.mining-dutch.nl/,0.5-1.5%,fpps pplns solo,D-PPS;PPLNS;Solo,User-set,🇪🇺 🇨🇦 🇸🇬 🇦🇺,4,"D-PPS 1.5%, PPLNS/PROP/Party 1%, Solo 0.5%. Merged HOOT/MAXI/OSMI. Netherlands-based.",keep
+Dash (DASH),ProHashing,https://prohashing.com/,N/A,pps,PPS,N/A,🇺🇸,1,SHUT DOWN: prohashing.com says the service is now shut down.,remove
+DigiByte (DGB),Kryptex,https://pool.kryptex.com/dgb,1-2%,pps solo,PPS+;Solo,200 DGB,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,SHA-256 only. Hourly payouts. PPS+ 2% / Solo 1%.,keep
+DigiByte (DGB),F2Pool,https://www.f2pool.com/,N/A,pps,N/A,N/A,🌐,1,F2Pool no longer lists DGB (not in its coin list or fee table). Remove.,remove
+DigiByte (DGB),Mining-Dutch,https://www.mining-dutch.nl/pools/digibyte_sha256.php,0.5-1.5%,fpps pplns solo,D-PPS;PPLNS;Solo,You set it,🇪🇺  🇨🇦  🇸🇬  🇦🇺,4,"D-PPS (FPPS) 1.5%, PPLNS/PROP 1%, solo 0.5%. Separate pages for Scrypt, Qubit, Skein, Odocrypt DGB.",keep
+DigiByte (DGB),ProHashing,https://prohashing.com/,N/A,pplns,N/A,N/A,🇺🇸,1,ProHashing has shut down (prohashing.com). Remove.,remove
+eCash (XEC),Kryptex,https://pool.kryptex.com/xec,1-2%,pps solo,PPS+;Solo,50000 XEC,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,SHA-256 only. Hourly payouts. PPS+ 2% / Solo 1%. No registration required.,keep
+eCash (XEC),ViaBTC,https://www.viabtc.com/,N/A,pplns,N/A,N/A,🌐,1,"ViaBTC shut its XEC pool on Apr 28, 2026. Remove.",remove
+eCash (XEC),Mining-Dutch,https://www.mining-dutch.nl/pools/ecash.php,0.5-1.5%,fpps pplns solo,D-PPS;PPLNS;Solo,You set it,🇪🇺  🇨🇦  🇸🇬  🇦🇺,4,"D-PPS (FPPS) 1.5%, PPLNS/PROP 1%, solo 0.5%. Supports XEC alongside BCH and BTC.",keep
+eCash (XEC),Zpool,https://zpool.ca/,2%,pplns,PPLNS,30 XEC,🇺🇸  🇪🇺  🌏  🇯🇵,4,"XEC is direct-mine only: use an XEC address with c=XEC,zap=XEC (not paid in BTC). 1% fee + 1% Direct Earn levy.",keep
+Alephium (ALPH),ViaBTC,https://www.viabtc.com/,N/A,pplns,PPLNS,N/A,🌐,1,"DISCONTINUED: ViaBTC ended ALPH mining July 24, 2025.",remove
+Alephium (ALPH),Kryptex,https://pool.kryptex.com/alph,1%,pplns solo,PROP;Solo,0.5 ALPH,🌐 🇪🇺 🇺🇸 🇧🇷 🇸🇬 🇭🇰 🇷🇺 🇦🇪,8,"PROP 1%, Solo 1%. Hourly payouts. No registration required.",keep
+Alephium (ALPH),HeroMiners,https://alephium.herominers.com/,0.9%,pplns solo,PROP;Solo,0.1 ALPH,🇺🇸  🇪🇺  🌐,3,Low fee. Global servers. Hourly payouts. No registration.,keep
+Alephium (ALPH),F2Pool,https://www.f2pool.com/,1%,pplns,PPLNS,1 ALPH,🌏,1,Large pool. Asia server only. Daily payouts.,keep
+Fractal Bitcoin (FB),ViaBTC,https://www.viabtc.com/,Free with BTC,pplns,PPLNS (merged),Not published,🌐  🇪🇺,2,No standalone FB pool. FB is merge-mined with BTC (PPS+ or PPLNS) and paid PPLNS.,keep
+Fractal Bitcoin (FB),Kryptex,https://pool.kryptex.com/fb,1.5-2%,pps solo,PPS+;Solo,0.1 FB,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,Standalone FB mining. Hourly payouts. PPS+ 2% / Solo 1.5%. No registration.,keep
+Fractal Bitcoin (FB),F2Pool,https://www.f2pool.com/,Free with BTC,pplns,PPLNS (merged),0.1 FB,🌐  🇺🇸  🇪🇺  🌏  🌍  🌎,6,Standalone FB pool no longer listed. FB is merge-mined with BTC and paid PPLNS.,keep
+Fractal Bitcoin (FB),AntPool,https://www.antpool.com/,1%,pplns,PPLNS,0.1 FB,🌐  🇺🇸  🇪🇺  🌏  🌍,5,Standalone FB mining. PPLNS 1%.,add
 Radiant (RXD),Vipor,https://vipor.net/mine/rxd_pplns_1,0.9%,pplns solo,PPLNS;Solo,100 RXD,🌐,1,Largest Radiant pool. PPLNS or solo.,remove
-Quai Network (QUAI),K1Pool,https://k1pool.com/pool/quai,1%,pplns,PPLNS,50 QUAI,🇺🇸  🇪🇺  🌐,3,Supports SHA-256 and Scrypt zone mining. Auto-switch available.,keep
-Quai Network (QUAI),HeroMiners,https://quai.herominers.com/,1%,pplns,PPLNS,25 QUAI,🇺🇸  🇪🇺  🌐,3,Global servers. Both SHA-256 and Scrypt supported. No registration.,keep
+Quai Network (QUAI),K1Pool,https://k1pool.com/pool/quaisha256,2%,pplns solo,PPLNS;Solo,500 QUAI,🇪🇺 🇺🇸 🇨🇳 🇷🇺,4,"Separate SHA-256, Scrypt (500 QUAI min) and KAWPOW (200 QUAI min) pools. Autoswitch ports.",keep
+Quai Network (QUAI),HeroMiners,https://quai.herominers.com/,0.9%,pplns solo,PROP;Solo,5 QUAI,🇺🇸  🇪🇺  🌐,3,Global servers. KawPow only (not SHA-256/Scrypt). Blocks paid after 14-day lockup. No registration.,keep
 Peercoin (PPC),Mining-Dutch,https://www.mining-dutch.nl/pools/peercoin.php,~1.9%,pplns,PPLNS,Custom,🇪🇺,1,"European pool. Supports PPC alongside BTC, BCH, and XEC. Merge-mines BTC rewards.",remove
 Peercoin (PPC),F2Pool,https://www.f2pool.com/,3%,pplns,PPS,Custom,🌐,1,Large global pool supporting 40+ PoW coins. Verify PPC is active on their site before connecting.,remove
 Bitcoin (BTC),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
 Bitcoin Cash (BCH),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
-DigiByte (DGB),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺,3,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
+DigiByte (DGB),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
+DigiByte (DGB),AntPool,https://www.antpool.com/,1%,pplns,PPLNS,100 DGB,🌐  🇺🇸  🇪🇺  🌏  🌍,5,DGB SHA-256. PPLNS 1%.,add
 eCash (XEC),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
-Bitcoin SV (BSV),Kryptex,https://pool.kryptex.com/bsv,3%,pps solo,PPS+;Solo,0.3 BSV,🌐  🇺🇸  🇪🇺  🇧🇷  🇸🇬,5,"PPS+ at 3%, or solo at 1% (enter solo:yourwallet as the username).",add
+Bitcoin SV (BSV),Kryptex,https://pool.kryptex.com/bsv,1-3%,pps solo,PPS+;Solo,0.3 BSV,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,"PPS+ at 3%, or solo at 1% (enter solo:yourwallet as the username).",add
 Bitcoin SV (BSV),GorillaPool,https://gorillapool.io/,2%,pplns,PPLNS,0.01 BSV,🌐,1,BSV-focused pool. PPLNS paid on-chain after 100 confirmations.,add
 Bitcoin SV (BSV),Mining-Dutch,https://www.mining-dutch.nl/pools/bitcoinsv.php,0.5-1.5%,fpps pplns solo,D-PPS;PPLNS;Solo,You set it,🇪🇺  🇨🇦  🇸🇬  🇦🇺,4,"D-PPS (FPPS) 1.5%, PPLNS/PROP 1%, solo 0.5%. Pays every 15 minutes.",add
 Nervos (CKB),F2Pool,https://www.f2pool.com/,1%,pps,PPS,100 CKB,🌐,1,Daily PPS payouts.,watch
