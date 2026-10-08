@@ -1,6 +1,6 @@
 // /api/mining-stats.js
 // Live mining network stats API \u2014 NOWNodes unified
-// All 17 algo-coin entries (DGB uses JSON-RPC for SHA-256 specific difficulty)
+// All 15 algo-coin entries (DGB uses JSON-RPC for SHA-256 specific difficulty)
 // QUAI split into QUAI-SHA and QUAI-SCRYPT (separate WhatToMine endpoints per algorithm)
 // 1-hour cache
 
@@ -15,7 +15,7 @@ const PRICE_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 hours
 const COINS = [
   'BTC','LTC','DOGE','KAS','BCH','DASH','ETC',
   'ZEC','DGB',
-  'XEC','ALPH','FB','RXD','PPC','BSV',
+  'XEC','ALPH','FB','BSV',
   'QUAI-SHA','QUAI-SCRYPT'
 ];
 
@@ -33,7 +33,6 @@ const COINGECKO_IDS = {
   ZEC: 'zcash', DASH: 'dash',
   DGB: 'digibyte',
   XEC: 'ecash', ALPH: 'alephium', FB: 'fractal-bitcoin',
-  RXD: 'radiant', PPC: 'peercoin',
   BSV: 'bitcoin-cash-sv',
   'QUAI-SHA': 'quai-network', 'QUAI-SCRYPT': 'quai-network'
 };
@@ -121,8 +120,6 @@ async function fetchCoinData(coin) {
     case 'XEC': return fetchXEC();
     case 'ALPH': return fetchALPH();
     case 'FB': return fetchFB();
-    case 'RXD': return fetchRXD();
-    case 'PPC': return fetchPPC();
     case 'BSV': return fetchBSV();
     case 'QUAI-SHA': return fetchQUAI_SHA();
     case 'QUAI-SCRYPT': return fetchQUAI_Scrypt();
@@ -648,75 +645,6 @@ async function fetchViaNowNodes(coin) {
     height: Number(data.backend?.blocks) || 0,
     hashrate_estimated: hashEstimated
   };
-}
-
-/* ================= RXD (WhatToMine public API) ================= */
-/* SHA512256d algorithm. Block time: ~280s. Reward: 12,500 RXD.         */
-/* The official Radiant explorer sits behind Cloudflare which blocks    */
-/* serverless calls, so we read network stats from WhatToMine instead.  */
-/* API: whattomine.com/coins/356.json (coin ID 356 = Radiant)           */
-
-async function fetchRXD() {
-  try {
-    const res = await fetch('https://whattomine.com/coins/356.json');
-    if (!res.ok) throw new Error(`WhatToMine RXD returned ${res.status}`);
-    const data = await res.json();
-
-    const difficulty = Number(data.difficulty) || 0;
-    const networkHashrate = Number(data.nethash) || 0;
-    const height = Number(data.last_block) || 0;
-    const blockTime = Number(data.block_time) || 280;
-    const blockReward = Number(data.block_reward) || 12500;
-
-    if (networkHashrate <= 0) throw new Error('WhatToMine RXD returned zero hashrate');
-
-    return {
-      coin: 'RXD',
-      difficulty,
-      network_hashrate: networkHashrate,
-      block_reward: blockReward,
-      block_time: blockTime,
-      height,
-      hashrate_estimated: false
-    };
-  } catch (e) {
-    throw new Error(`RXD fetch failed: ${e.message}`);
-  }
-}
-
-/* ================= PPC (WhatToMine public API) ================= */
-/* SHA-256 algorithm. Actual observed block time: ~45 minutes (2700s).  */
-/* Targeted block time is 10 minutes but current dynamics produce ~45.  */
-/* Variable block reward ~37 PPC (decreases as network grows).          */
-/* Peercoin uses the same SHA-256 hardware as BTC.                      */
-/* API: whattomine.com/coins/52.json (coin ID 52 = Peercoin)            */
-
-async function fetchPPC() {
-  try {
-    const res = await fetch('https://whattomine.com/coins/52.json');
-    if (!res.ok) throw new Error(`WhatToMine PPC returned ${res.status}`);
-    const data = await res.json();
-
-    const difficulty = Number(data.difficulty) || 0;
-    const networkHashrate = Number(data.nethash) || 0;
-    const height = Number(data.last_block) || 0;
-    const blockTime = Number(data.block_time) || 2700;
-    const blockReward = Number(data.block_reward) || 37;
-
-    if (networkHashrate <= 0) throw new Error('WhatToMine PPC returned zero hashrate');
-
-    return {
-      coin: 'PPC',
-      difficulty,
-      network_hashrate: networkHashrate,
-      block_reward: blockReward,
-      block_time: blockTime,
-      height,
-      hashrate_estimated: false
-    };
-  } catch (e) {
-    throw new Error(`PPC fetch failed: ${e.message}`);
-  }
 }
 
 /* ================= BSV (WhatsOnChain public API) ================= */
