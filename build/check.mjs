@@ -119,8 +119,11 @@ for (const m of miners) {
     if (jpu < e[2] || jpu > e[3])
       block(`${id}: efficiency ${jpu.toFixed(3)} J/${e[0]} is outside the believable range ${e[2]}-${e[3]} for ${fam} (check hashrate/unit/power)`);
   }
-  if (m.voltage === '120V' && w > 1500 && !/loki|bypass/i.test(m.build))
-    block(`${id}: ${w} W on 120V needs a Loki/PSU-bypass build label`);
+  // Over 1500 W on 120V is only real for Loki/bypass builds, or a stock unit
+  // rated for 110-120V input whose card tells visitors it needs a 20A circuit.
+  const homeRated = /\b11\d|\b12\d/.test(m.voltage_range || '') && /20A/.test(m.card_note || '');
+  if (m.voltage === '120V' && w > 1500 && !/loki|bypass/i.test(m.build) && !homeRated)
+    block(`${id}: ${w} W on 120V needs a Loki/PSU-bypass build label (or 110-120V rated input plus a 20A card note)`);
 
   for (const sym of m.coins.split(';').map((s) => s.trim()).filter(Boolean)) {
     if (!coinSet.has(sym)) block(`${id}: coin "${sym}" is not in coins.csv`);
