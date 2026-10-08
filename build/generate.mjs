@@ -112,6 +112,7 @@ console.log(`generated data/generated/miners.js: ${out.length} miners (${out.fil
 // full static HTML (good for Google). Runs only if the markers exist.
 // =====================================================================
 import { existsSync } from 'node:fs';
+const CATALOG_AMAZON_TAG = Object.fromEntries(load('settings.csv').map((r) => [r.setting, r.value])).amazon_tag || fail('settings.csv needs amazon_tag');
 const CATALOG = join(ROOT, 'miners.html');
 const START = '<!-- CATALOG:START (generated at deploy from data/master/miners.csv - do not edit) -->';
 const END = '<!-- CATALOG:END -->';
@@ -157,7 +158,7 @@ function card(m) {
   const ebay = `https://www.ebay.com/sch/i.html?_nkw=${plus(m.ebay_search)}&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=${cid}&amp;toolid=10001&amp;mkevt=1`;
   const pill = 'style="font-size:0.68rem;padding:3px 8px;text-decoration:none;"';
   const shop = [`<a href="${ebay}" target="_blank" rel="noopener" class="glossary-pill" ${pill}>Shop eBay</a>`];
-  if (m.amazon_search) shop.push(`<a href="https://www.amazon.com/s?k=${plus(m.amazon_search)}" target="_blank" rel="noopener" class="glossary-pill glossary-pill-amazon" ${pill}>Shop Amazon</a>`);
+  if (m.amazon_search) shop.push(`<a href="https://www.amazon.com/s?k=${plus(m.amazon_search)}&amp;tag=${CATALOG_AMAZON_TAG}" target="_blank" rel="noopener" class="glossary-pill glossary-pill-amazon" ${pill}>Shop Amazon</a>`);
   const note = m.card_note ? `\n          <div class="miner-card-note" style="font-size:0.72rem;color:#8899a8;line-height:1.35;margin:6px 0 2px;">${enc(m.card_note)}</div>` : '';
   return `<div class="miner-card" data-id="${m.id}" data-voltage="${m.voltage}" data-algo="${m.algorithm}" data-loki="${isLoki}" data-category="${lottery ? 'lottery' : 'null'}" data-search="${enc(search)}" onclick="goToCalculator('${m.id}')">
           <div class="miner-card-header">

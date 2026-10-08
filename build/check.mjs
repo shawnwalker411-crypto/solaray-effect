@@ -212,9 +212,22 @@ for (const f of [...pages, ...comps]) {
       if (!href.includes('campid=' + EBAY_CAMPID)) block(`${f}:${i + 1}: eBay link without campid=${EBAY_CAMPID}: ${href.slice(0, 90)}`);
     }
     if (MOJIBAKE.test(l)) block(`${f}:${i + 1}: garbled characters (encoding damage)`);
+    for (const href of l.match(/https?:\/\/(?:www\.)?amazon\.com[^"'\s<>]*/g) || []) {
+      if (settings.amazon_tag && !href.includes('tag=' + settings.amazon_tag)) block(`${f}:${i + 1}: Amazon link without tag=${settings.amazon_tag}: ${href.slice(0, 90)}`);
+    }
   }
 
   if (f.startsWith('Components/')) continue;
+
+  // Shop rails: built on every page in settings rail_pages, nowhere else.
+  const pageName = f.replace(/\.html$/, '');
+  const railCount = (html.match(/<aside class="affiliate-rail(-right)?"/g) || []).length;
+  // Count only the mining shop strips (night_sky has its own astronomy gear strip).
+  const stripCount = (html.match(/<div class="strip-title">Shop (Miners|Gear) &#x2022; (eBay|Amazon)<\/div>/g) || []).length;
+  if (railPages.includes(pageName)) {
+    if (railCount !== 2) block(`${f}: should have 2 shop rails, found ${railCount} (did the generator run?)`);
+    if (stripCount !== 2) block(`${f}: should have 2 phone shop strips, found ${stripCount}`);
+  } else if (railCount || stripCount || html.includes('<!-- SHOP-RAILS:START -->')) block(`${f}: has mining shop rails/strips but is not in settings rail_pages`);
 
   // The pools page must hold exactly one table row per live pool (built by generate.mjs).
   if (f === 'pools.html') {
