@@ -456,7 +456,7 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Bitaxe Max (100)</strong></td>
+              <td><strong>Bitaxe Max (100)</strong> <em>(older model)</em></td>
               <td>1&times; BM1397</td>
               <td>~400 GH/s</td>
               <td>~15W</td>
@@ -474,10 +474,10 @@
             <tr>
               <td><strong>Bitaxe Supra (400)</strong></td>
               <td>1&times; BM1368</td>
-              <td>~625 GH/s</td>
+              <td>~600 GH/s</td>
               <td>~15W</td>
               <td>~$150&ndash;200</td>
-              <td class="cost-highlight">~$240&ndash;320</td>
+              <td class="cost-highlight">~$250&ndash;333</td>
             </tr>
             <tr>
               <td><strong><a href="https://www.ebay.com/sch/i.html?_nkw=bitaxe+gamma+bitcoin+miner&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_gamma&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">Bitaxe Gamma (600)</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong></td>
@@ -496,7 +496,7 @@
               <td class="cost-highlight">~$146&ndash;208</td>
             </tr>
             <tr>
-              <td><strong><a href="https://www.ebay.com/sch/i.html?_nkw=nerdqaxe+bitcoin+miner&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_nqplus&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">NerdQaxe+</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></strong></td>
+              <td><strong><a href="https://www.ebay.com/sch/i.html?_nkw=nerdqaxe+bitcoin+miner&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=5339142622&amp;customid=lm_nqplus&amp;toolid=10001&amp;mkevt=1" target="_blank" rel="noopener" style="color:var(--sola-teal);">NerdQaxe+</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> <em>(older model)</em></strong></td>
               <td>4&times; BM1368</td>
               <td>~2.5 TH/s</td>
               <td>~55W</td>
@@ -518,6 +518,14 @@
               <td>~100W</td>
               <td>$382&ndash;580</td>
               <td class="cost-highlight best-pick">~$65&ndash;97</td>
+            </tr>
+            <tr>
+              <td><strong>Canaan Avalon Nano 3S</strong></td>
+              <td>Canaan</td>
+              <td>~6 TH/s</td>
+              <td>~140W</td>
+              <td>~$249 (MSRP)</td>
+              <td class="cost-highlight">~$42</td>
             </tr>
           </tbody>
         </table>
@@ -547,7 +555,7 @@
           <summary>Step 1: Plug it in</summary>
           <div class="accordion-body">
             <p>Connect the included power supply to the miner and plug it into a wall outlet. The screen will light up and display a WiFi network name like <code>Bitaxe_XXXX</code> or <code>Nerdaxe_XXXX</code>.</p>
-            <p><strong>Use only the included power supply or a verified replacement.</strong> Bitaxe models use 5V DC. NerdQaxe++ uses 12V DC. Using the wrong voltage will damage the device.</p>
+            <p><strong>Use only the included power supply or a verified replacement.</strong> Most Bitaxe models (Ultra, Supra, Gamma) use 5V DC; the Bitaxe GT and Hex use 12V DC, as does the NerdQaxe++. Using the wrong voltage will damage the device.</p>
           </div>
         </details>
 
@@ -852,40 +860,45 @@
       <p>Lottery mining and solar power are a natural fit. These devices use so little power that even a small solar setup can run them for free during daylight hours. If your electricity is the main cost holding you back from adding more miners, solar changes the equation.</p>
 
       <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">Power Budgets</h3>
-      <p>Here is what you can run with different solar panel sizes, assuming 5.5&ndash;6.5 peak sun hours per day (typical for Texas and the southern US) and a battery or grid-tie system:</p>
+      <p>Here is what you can run with different solar panel sizes, assuming 5.5&ndash;6.5 peak sun hours per day (typical for Texas and the southern US) and counting only the hours the sun is up, or banking that energy with a battery or grid-tie system to run around the clock:</p>
 
       <div class="table-wrap">
         <table class="hw-table">
-          <thead>
-            <tr>
-              <th>Solar Capacity</th>
-              <th>What It Powers</th>
-              <th>Example Fleet</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>100W panel</strong></td>
-              <td>~80W usable</td>
-              <td>3&ndash;4 Bitaxe Gammas <em>or</em> 1 NerdQaxe++</td>
-            </tr>
-            <tr>
-              <td><strong>200W panel</strong></td>
-              <td>~160W usable</td>
-              <td>6&ndash;8 Bitaxe Gammas <em>or</em> 2 NerdQaxe++</td>
-            </tr>
-            <tr>
-              <td><strong>400W panel</strong></td>
-              <td>~320W usable</td>
-              <td>12&ndash;15 Bitaxe Gammas <em>or</em> 3&ndash;4 NerdQaxe++</td>
-            </tr>
-            <tr>
-              <td><strong>800W+ panels</strong></td>
-              <td>~640W usable</td>
-              <td>Fleet of 20+ Gammas, multiple NerdQaxe++, or start looking at a Loki rig</td>
-            </tr>
-          </tbody>
-        </table>
+<thead>
+<tr>
+<th>Solar Capacity</th>
+<th>Usable While Sunny</th>
+<th>Runs During Sun Hours</th>
+<th>Runs Around the Clock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>100W panel</strong></td>
+<td>~80W</td>
+<td>4 Bitaxe Gammas <em>or</em> 1 NerdQaxe++</td>
+<td>1 Bitaxe Gamma</td>
+</tr>
+<tr>
+<td><strong>200W panel</strong></td>
+<td>~160W</td>
+<td>8 Gammas <em>or</em> 2 NerdQaxe++</td>
+<td>2 Gammas</td>
+</tr>
+<tr>
+<td><strong>400W panel</strong></td>
+<td>~320W</td>
+<td>16 Gammas <em>or</em> 4 NerdQaxe++</td>
+<td>3&ndash;4 Gammas</td>
+</tr>
+<tr>
+<td><strong>800W+ panels</strong></td>
+<td>~640W</td>
+<td>30+ Gammas <em>or</em> 8 NerdQaxe++</td>
+<td>7&ndash;8 Gammas <em>or</em> 2 NerdQaxe++</td>
+</tr>
+</tbody>
+</table>
       </div>
 
       <p>The numbers above are conservative. Actual output depends on your latitude, panel angle, shading, and inverter efficiency. Texas gets some of the best solar in the country &mdash; a 400W panel in DFW will reliably produce 300+ usable watts for 5&ndash;6 hours most days of the year.</p>
@@ -951,23 +964,23 @@
             </tr>
             <tr>
               <td>1 <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> Rig (single hashboard, pre-built)</td>
-              <td>~30&ndash;35 TH/s</td>
+              <td>~35&ndash;40 TH/s</td>
               <td>~$500&ndash;900</td>
-              <td class="cost-highlight best-pick">~$15&ndash;30</td>
+              <td class="cost-highlight best-pick">~$13&ndash;26</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <p>A fleet of 10 Bitaxe Gammas costs roughly $2,500 and gives you about 12 TH/s. A single pre-built <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rig at $500&ndash;900 gives you 30&ndash;35 TH/s. At typical 2026 pricing, the <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rig offers significantly more hashrate per dollar &mdash; but the two serve different purposes.</p>
+      <p>A fleet of 10 Bitaxe Gammas costs roughly $2,500 and gives you about 12 TH/s. A single pre-built <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rig at $500&ndash;900 gives you about 35&ndash;40 TH/s. At typical 2026 pricing, the <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rig offers significantly more hashrate per dollar &mdash; but the two serve different purposes.</p>
 
       <p>This does not mean Bitaxes are a bad purchase. If you are running solar and have free electricity, if you value the open-source project, if you enjoy building a fleet, or if you simply want a quiet miner on your desk that costs pennies to run &mdash; a Bitaxe makes sense. It is a lottery ticket that costs almost nothing to keep playing. The point is to understand what you are buying and why.</p>
 
       <h3 style="color:var(--sola-gold);margin:1rem 0 0.5rem;">The Loki Kit &mdash; A Tool You Should Know About</h3>
 
-      <p>The <strong><a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);text-decoration:none;"><span class="glossary-term" data-term="loki-kit">Loki Kit</span></a></strong> is a product from <a href="https://pivotalpleb.com" target="_blank" rel="noopener" style="color:var(--sola-teal);">Pivotal Pleb Tech</a> (Utah) &mdash; a pleb-mining company, not a corporation. It is a small circuit board that tricks a Bitmain X19/X21 hashboard into running independently on any 12&ndash;15V DC power supply. This enables running a single hashboard on a <strong>standard 120V outlet</strong> with an APW3 or APW7 PSU. No electrician. No 240V wiring.</p>
+      <p>The <strong><a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);text-decoration:none;"><span class="glossary-term" data-term="loki-kit">Loki Kit</span></a></strong> is a product from <a href="https://pivotalpleb.com" target="_blank" rel="noopener" style="color:var(--sola-teal);">Pivotal Pleb Tech</a> (Utah) &mdash; a pleb-mining company, not a corporation. It is a small circuit board that tricks a Bitmain X19 hashboard (some sellers also list X21 support) into running independently on any 12&ndash;15V DC power supply. This enables running a single hashboard on a <strong>standard 120V outlet</strong> with an APW3 or APW7 PSU. No electrician. No 240V wiring.</p>
 
-      <p>One hashboard produces 30&ndash;35 TH/s at roughly 1,200&ndash;1,400 watts. That is more hashrate than an entire fleet of Bitaxes. The kit itself is ~$50&ndash;75, but a complete pre-built rig (hashboard + PSU + kit + enclosure + fans) runs <strong>$500&ndash;900</strong> depending on the build and seller.</p>
+      <p>One S19-series hashboard produces roughly 35&ndash;40 TH/s at about 1,200 watts (newer boards like the S19K Pro do more). That is more hashrate than an entire fleet of Bitaxes. The kit itself is ~$50&ndash;75, but a complete pre-built rig (hashboard + PSU + kit + enclosure + fans) runs <strong>$500&ndash;900</strong> depending on the build and seller.</p>
 
       <p><strong>Newer option:</strong> since February 2026, LuxOS firmware has a <a href="aftermarket_firmware.html#psu-bypass" style="color:var(--sola-teal);">PSU Bypass</a> setting that does the Loki board&rsquo;s job in software on supported control boards. You still need a 120V-compatible PSU. <a href="aftermarket_firmware.html#psu-bypass" style="color:var(--sola-teal);">Compare Loki vs PSU Bypass &#x2192;</a></p>
 
@@ -1004,7 +1017,7 @@
               <li><a href="https://nakamotomining.com/en-us/products/loki-kit" target="_blank" rel="noopener" style="color:var(--sola-teal);">Nakamoto Mining</a></li>
               <li><a href="https://d-central.tech/product/loki-diy-kit/" target="_blank" rel="noopener" style="color:var(--sola-teal);">D-Central Technologies</a> (Canada)</li>
             </ul>
-            <p>For full firmware compatibility info, Loki Bingo card, and recommended firmware settings, see our <a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);">Firmware Guide &mdash; Loki Kit section</a>.</p>
+            <p>For full firmware compatibility info, Loki Kit vendors, and recommended firmware settings, see our <a href="aftermarket_firmware.html#loki-vendors" style="color:var(--sola-teal);">Firmware Guide &mdash; Loki Kit section</a>.</p>
           </div>
         </details>
 

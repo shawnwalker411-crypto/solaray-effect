@@ -767,7 +767,7 @@
           <h3>&#x1F7E2; 120V (Standard Outlets)</h3>
           <ul>
             <li>Every outlet in your house</li>
-            <li>Max ~1,800 watts safely</li>
+            <li>Max ~1,440 watts continuous on a 15A circuit</li>
             <li>15-20 amp circuits</li>
             <li>Regular 3-prong plug</li>
             <li>Most miners WON'T run on this</li>
@@ -778,8 +778,8 @@
           <h3>&#x1F7E0; 240V (High Power)</h3>
           <ul>
             <li>Dryer, oven, AC, water heater</li>
-            <li>Max ~3,600-7,200 watts</li>
-            <li>30-50 amp circuits</li>
+            <li>Max ~3,840&ndash;9,600 watts continuous</li>
+            <li>20-50 amp circuits</li>
             <li>Special large plugs</li>
             <li>What most ASICs need</li>
           </ul>
@@ -860,7 +860,7 @@
       <div class="loki-highlight">
         <h4>&#x1F52E; What is a <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki Kit</a>?</h4>
         <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">A <a href="aftermarket_firmware.html#loki-vendors" style="color: var(--sola-teal);">Loki Kit</a> is a small board that lets a single hash board run on a 120V-compatible power supply. Combined with aftermarket firmware to underclock/undervolt, you can run industrial miners on regular household outlets.</p>
-        <p style="color: var(--text-secondary); margin: 0;"><strong>Trade-off:</strong> Lower hashrate (~40-60% of stock) but uses regular outlets you already have.</p>
+        <p style="color: var(--text-secondary); margin: 0;"><strong>Trade-off:</strong> Lower hashrate (about a third to 40% of stock) but uses regular outlets you already have.</p>
       </div>
 
       <div class="loki-highlight">
@@ -965,22 +965,43 @@
           <td colspan="4">&#x1F52E; 120V Conversion Miners (<a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;">Loki Kit</a> or <a href="aftermarket_firmware.html#psu-bypass" style="color:inherit;">PSU Bypass</a>)</td>
         </tr>
         <tr class="loki-row">
-          <td><span class="loki-label"><a href="https://www.ebay.com/sch/i.html?_nkw=s19+pro+with+loki+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19pro_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: inherit;">S19 Pro + Loki</a></span> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+          <td><span class="loki-label"><a href="aftermarket_firmware.html#loki-vendors" style="color: inherit;">S19 Pro + Loki</a></span></td>
           <td>SHA-256 (BTC)</td>
-          <td>~1,500W</td>
+          <td>~1,200W</td>
           <td>120V / 20A dedicated</td>
         </tr>
         <tr class="loki-row">
-          <td><span class="loki-label"><a href="https://www.ebay.com/sch/i.html?_nkw=s19j+pro+with+loki+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19jpro_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: inherit;">S19J Pro + Loki</a></span> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+          <td><span class="loki-label"><a href="aftermarket_firmware.html#loki-vendors" style="color: inherit;">S19J Pro + Loki</a></span></td>
           <td>SHA-256 (BTC)</td>
-          <td>~1,400W</td>
+          <td>~1,200W</td>
           <td>120V / 20A dedicated</td>
         </tr>
         <tr class="loki-row">
-          <td><span class="loki-label"><a href="https://www.ebay.com/sch/i.html?_nkw=s19+with+loki+kit&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_tbl_s19_loki&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: inherit;">S19 + Loki</a></span> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"></td>
+          <td><span class="loki-label"><a href="aftermarket_firmware.html#loki-vendors" style="color: inherit;">S19 + Loki</a></span></td>
           <td>SHA-256 (BTC)</td>
-          <td>~1,500W</td>
+          <td>~1,200W</td>
           <td>120V / 20A dedicated</td>
+        </tr>
+        <tr class="section-header">
+          <td colspan="4">&#x1F3E0; Home Miners (120V, No Conversion Needed)</td>
+        </tr>
+        <tr>
+          <td><a href="miners.html" style="color: var(--sola-teal);">Canaan Avalon Q</a> (Super mode)</td>
+          <td>SHA-256 (BTC)</td>
+          <td>1,674W</td>
+          <td>120V / 20A dedicated</td>
+        </tr>
+        <tr>
+          <td><a href="miners.html" style="color: var(--sola-teal);">Canaan Avalon Q</a> (Standard / Eco)</td>
+          <td>SHA-256 (BTC)</td>
+          <td>~1,300W / ~800W</td>
+          <td>120V / 15A or 20A</td>
+        </tr>
+        <tr>
+          <td><a href="miners.html" style="color: var(--sola-teal);">Canaan Avalon Nano 3S</a></td>
+          <td>SHA-256 (BTC)</td>
+          <td>140W</td>
+          <td>Any 120V outlet</td>
         </tr>
       </table>
       
@@ -1070,7 +1091,7 @@
       <div class="info-box" style="margin-top: 1rem;">
         <p><strong>Common setup:</strong> PDUs with <a href="https://www.ebay.com/sch/i.html?_nkw=l6-30p+power+cord&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339142622&customid=el_l630p_cord&toolid=10001&mkevt=1" target="_blank" rel="noopener" style="color: var(--sola-teal);">L6-30P plugs</a> <img src="/orange-cart.svg" alt="Shop" width="14" height="14" style="vertical-align:-2px;"> are popular for 30A circuits. They connect to a NEMA L6-30R outlet and distribute power to multiple miners.</p>
       </div>
-      <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">Switched and intelligent PDUs can also power cycle miners remotely and run on automated schedules &mdash; essential for solar and time-of-use rate setups. See our <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Remote Management guide</a> for smart PDU recommendations and setup.</p>
+      <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">Switched and intelligent PDUs can also power cycle miners remotely and run on automated schedules &mdash; essential for solar and time-of-use rate setups. See our <a href="remote_management.html#power-control" style="color: var(--sola-teal);">Remote Management guide</a> for smart PDU recommendations and setup.</p>
     </section>
     
     <!-- Safety Section -->
@@ -1101,7 +1122,7 @@
         <li>Install a smoke detector near your mining setup</li>
         <li>Keep miners away from flammable materials</li>
         <li>Don't daisy-chain PDUs (power distribution units)</li>
-        <li>Consider a kill switch or smart plug with power monitoring &mdash; a <a href="remote_management.html#smart-switches" style="color: var(--sola-teal);">smart switch</a> lets you cut power remotely instead of pulling plugs</li>
+        <li>Consider a kill switch or smart plug with power monitoring &mdash; a <a href="remote_management.html#power-control" style="color: var(--sola-teal);">smart switch</a> lets you cut power remotely instead of pulling plugs</li>
         <li>If breakers trip repeatedly, STOP and investigate</li>
       </ul>
       

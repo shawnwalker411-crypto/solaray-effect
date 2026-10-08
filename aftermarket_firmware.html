@@ -423,7 +423,7 @@
         <div class="firmware-name">LuxOS</div>
         <span class="tag tag-fee">2.8% <span class="glossary-term" data-term="devfee">Dev Fee</span></span>
         <span class="tag tag-feature">Pool Fee Waived on Luxor</span>
-        <p>Developed by Luxor Technology. Popular choice for <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rigs and "Urlacher" builds. The dev fee is waived if you mine on Luxor Pool.</p>
+        <p>Developed by Luxor Technology. Popular choice for <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a> rigs and "Urlacher" builds. Mining on Luxor Pool waives its 2.5% pool fee; the 2.8% dev fee still applies.</p>
         <ul>
           <li>Excellent underclocking support</li>
           <li>Clean web interface</li>
@@ -436,7 +436,7 @@
       
       <div class="firmware-card">
         <div class="firmware-name">VNish</div>
-        <span class="tag tag-fee">2% Dev Fee</span>
+        <span class="tag tag-fee">2.8% Dev Fee</span>
         <span class="tag tag-feature">Auto-tuning</span>
         <p>Russian-developed firmware with powerful auto-tuning features. Popular in the home mining community for its efficiency gains.</p>
         <ul>
@@ -445,18 +445,18 @@
           <li>Works with most S19 variants</li>
           <li>Fixed frequency mode for <a href="aftermarket_firmware.html#loki-vendors" style="color:inherit;text-decoration:none;">Loki</a></li>
         </ul>
-        <p><a href="https://www.vnish.net/" target="_blank" rel="noopener">vnish.net &#x2192;</a></p>
+        <p><a href="https://vnish.com/" target="_blank" rel="noopener">vnish.com &#x2192;</a></p>
       </div>
       
       <div class="firmware-card">
         <div class="firmware-name">Braiins OS+</div>
-        <span class="tag tag-fee">2% Dev Fee (or 0% on Braiins Pool)</span>
+        <span class="tag tag-fee">2&ndash;2.5% Dev Fee</span>
         <span class="tag tag-feature">Auto-tuning</span>
         <p>From the creators of Slush Pool (now Braiins Pool). Open-source base with premium features in OS+ version.</p>
         <ul>
           <li>Excellent auto-tuning</li>
           <li>Power target mode (set watts, auto-adjust <span class="glossary-term" data-term="hashrate">hashrate</span>)</li>
-          <li>0% fee if mining on Braiins Pool</li>
+          <li>0% pool fee if mining on Braiins Pool (the dev fee still applies)</li>
           <li>Strong community support</li>
         </ul>
         <p><a href="https://braiins.com/os/plus" target="_blank" rel="noopener">braiins.com/os/plus &#x2192;</a></p>
@@ -470,7 +470,7 @@
           <th>Firmware</th>
           <th>Dev Fee</th>
           <th>Best For</th>
-          <th>Fee Waived</th>
+          <th>Pool Fee Waived On</th>
         </tr>
         <tr>
           <td>LuxOS</td>
@@ -480,13 +480,13 @@
         </tr>
         <tr>
           <td>VNish</td>
-          <td>2%</td>
+          <td>2.8%</td>
           <td>Auto-tuning, efficiency</td>
           <td>No</td>
         </tr>
         <tr>
           <td>Braiins OS+</td>
-          <td>2% (or 0%)</td>
+          <td>2&ndash;2.5%</td>
           <td>Power target mode</td>
           <td>Braiins Pool</td>
         </tr>
@@ -519,7 +519,7 @@
       <p><code>bosminer stop</code> pauses mining without shutting down the miner &mdash; your SSH session stays alive and the miner stays on the network. <code>bosminer start</code> resumes mining. This is the safest software method for solar schedules. Cron jobs work reliably for automated stop/start. <strong>Known issue:</strong> pool settings may reset after a full restart &mdash; verify your pool config after any reboot.</p>
 
       <h3 style="color: var(--sola-teal); font-size: 1.1rem; margin: 1.5rem 0 0.75rem;">LuxOS &mdash; Use PDU, Not SSH</h3>
-      <p>LuxOS supports remote management through its API and web UI, but <code>poweroff</code> over SSH leaves the miner completely stuck off with no remote recovery path. If you're on LuxOS and need to shut down on a schedule, use a smart PDU to cut and restore power rather than any SSH shutdown command. See our <a href="remote_management.html#power-240v" style="color: var(--sola-teal);">240V Power Control guide</a> for recommended hardware.</p>
+      <p>LuxOS supports remote management through its API and web UI, but <code>poweroff</code> over SSH leaves the miner completely stuck off with no remote recovery path. If you're on LuxOS and need to shut down on a schedule, use a smart PDU to cut and restore power rather than any SSH shutdown command. See our <a href="remote_management.html#power-control" style="color: var(--sola-teal);">240V Power Control guide</a> for recommended hardware.</p>
     </section>
 
     <section class="section" id="psu-bypass">
@@ -529,9 +529,9 @@
       <table class="comparison-table" style="font-size: 0.85rem;">
         <tr><th></th><th>Loki Board</th><th>LuxOS PSU Bypass</th></tr>
         <tr><td>What it is</td><td>Small hardware board</td><td>Setting inside LuxOS firmware</td></tr>
-        <tr><td>Extra cost</td><td>Board purchase</td><td>None beyond LuxOS (2.8% dev fee, waived on Luxor Pool)</td></tr>
+        <tr><td>Extra cost</td><td>Board purchase</td><td>None beyond LuxOS (2.8% dev fee; Luxor Pool waives its pool fee)</td></tr>
         <tr><td>Install</td><td>Wiring / control board changes</td><td>Turn on in LuxOS, then reboot</td></tr>
-        <tr><td>Firmware</td><td>LuxOS or VNish</td><td>LuxOS only</td></tr>
+        <tr><td>Firmware</td><td>LuxOS, VNish, or Braiins OS (depends on kit version)</td><td>LuxOS only</td></tr>
         <tr><td>120V power supply needed</td><td>Yes (e.g. Bitmain APW3++)</td><td>Yes (e.g. Bitmain APW3++)</td></tr>
         <tr><td>Reversible</td><td>Remove the board</td><td>Turn the setting off</td></tr>
       </table>

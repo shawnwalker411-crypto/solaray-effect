@@ -405,12 +405,12 @@
       
       <div class="term" id="algorithm">
         <div class="term-name">Algorithm</div>
-        <div class="term-def">The mathematical puzzle miners solve. Different coins use different algorithms: SHA-256 (Bitcoin, Bitcoin Cash), Scrypt (Litecoin, Dogecoin, DigiByte), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin), Blake3 (Alephium), RandomX (Monero).</div>
+        <div class="term-def">The mathematical puzzle miners solve. Different coins use different algorithms: SHA-256 (Bitcoin, Bitcoin Cash, Bitcoin SV, eCash, Fractal Bitcoin), Scrypt (Litecoin, Dogecoin), both SHA-256 and Scrypt (DigiByte, Quai), KHeavyHash (Kaspa), Etchash (Ethereum Classic), Equihash (Zcash), X11 (Dash), KAWPOW (Ravencoin), Blake3 (Alephium), RandomX (Monero).</div>
       </div>
       
       <div class="term" id="sha256">
         <div class="term-name">SHA-256</div>
-        <div class="term-def">The algorithm used by Bitcoin and Bitcoin Cash. Stands for Secure Hash Algorithm 256-bit. ASIC-dominated since 2013 &#x2014; GPU mining is not viable for SHA-256 coins.</div>
+        <div class="term-def">The algorithm used by Bitcoin, Bitcoin Cash, Bitcoin SV, eCash, and Fractal Bitcoin (DigiByte and Quai also accept it). Stands for Secure Hash Algorithm 256-bit. ASIC-dominated since 2013 &#x2014; GPU mining is not viable for SHA-256 coins.</div>
       </div>
       
       <div class="term" id="scrypt">
@@ -420,7 +420,7 @@
       
       <div class="term" id="kheavyhash">
         <div class="term-name">KHeavyHash</div>
-        <div class="term-def">The algorithm used by Kaspa (KAS). Memory-hard algorithm designed for ASIC mining. Kaspa uses BlockDAG technology instead of traditional blockchain.</div>
+        <div class="term-def">The algorithm used by Kaspa (KAS). Compute-heavy rather than memory-hard: it combines Keccak hashing with a matrix multiplication. ASICs dominate Kaspa mining. Kaspa uses BlockDAG technology instead of traditional blockchain.</div>
       </div>
       
       <div class="term" id="equihash">
@@ -441,8 +441,8 @@
       
       <div class="term" id="blake3">
         <div class="term-name">Blake3</div>
-        <div class="term-def">The algorithm used by Alephium (ALPH). Modern, fast hashing algorithm. GPU-mineable with growing ASIC development. Alephium combines sharding with proof-of-work.</div>
-        <div class="term-tip">&#x1F4A1; GPU or ASIC &#x2014; Check current hardware availability.</div>
+        <div class="term-def">The algorithm used by Alephium (ALPH). Modern, fast hashing algorithm. Originally GPU-mined, but ASICs (Goldshell AL series, Bitmain AL1) now dominate. Alephium combines sharding with proof-of-work.</div>
+        <div class="term-tip">&#x1F4A1; ASIC miners now dominate Alephium &#x2014; GPUs are no longer the main hardware.</div>
       </div>
       
       <div class="term" id="randomx">
@@ -452,9 +452,9 @@
       </div>
       
       <div class="term" id="kadena-shutdown">
-        <div class="term-name">Kadena (KDA) - Mining Ended</div>
-        <div class="term-def">Kadena ASIC mining ended in October 2025 when the network transitioned away from proof-of-work. KDA mining hardware (like the Antminer KA3 and Goldshell KD-Box) is no longer usable for mining. If you see KDA miners for sale, they have no mining utility.</div>
-        <div class="term-tip">&#x26A0;&#xFE0F; Warning: Do not purchase Kadena mining hardware &#x2014; it cannot mine any coins.</div>
+        <div class="term-name">Kadena (KDA) - Company Shut Down</div>
+        <div class="term-def">Kadena LLC, the company behind the Kadena blockchain, ended business operations on October 21, 2025. The chain was left to run on independent miners with no company maintaining it, and the KDA price fell sharply. That makes KDA mining hardware (like the Antminer KA3 and Goldshell KD-Box) a risky buy.</div>
+        <div class="term-tip">&#x26A0;&#xFE0F; Warning: Think hard before buying Kadena mining hardware &#x2014; no company is behind the project anymore.</div>
       </div>
     </section>
     
@@ -549,7 +549,7 @@
       
       <div class="term" id="roi">
         <div class="term-name">ROI (Return on Investment)</div>
-        <div class="term-def">How long until your mining profits pay back your hardware costs. Calculated as: Equipment Cost &#xF7; Monthly Profit = Months to ROI.</div>
+        <div class="term-def">How long until your mining profits pay back your hardware costs. Calculated as: Equipment Cost &#xF7; Monthly Profit = Months to ROI. Some tools show ROI as a yearly percentage instead (annual profit &#xF7; equipment cost &#xD7; 100%).</div>
       </div>
       
       <div class="term" id="break-even">
@@ -559,7 +559,7 @@
       
       <div class="term" id="pool-fee">
         <div class="term-name">Pool Fee</div>
-        <div class="term-def">Percentage taken by mining pools for their service. Typically 1-2%. Lower isn't always better &#x2014; reliable pools with good support are worth paying for.</div>
+        <div class="term-def">Percentage taken by mining pools for their service. Typically 0&ndash;4%: FPPS and PPS+ usually cost 2.5&ndash;4%, while PPLNS and solo are often 0.5&ndash;2%. Lower isn't always better &#x2014; reliable pools with good support are worth paying for.</div>
       </div>
       
       <div class="term" id="dev-fee">
@@ -680,7 +680,7 @@
       
       <div class="term" id="pdu">
         <div class="term-name">PDU (Power Distribution Unit)</div>
-        <div class="term-def">An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions. Switched and intelligent PDUs (also called <a href="#smart-pdu" style="color: var(--sola-teal);">smart PDUs</a>) add remote on/off control and scheduling &mdash; see the <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Remote Management guide</a>.</div>
+        <div class="term-def">An industrial-grade power strip that distributes electricity from a single high-amperage source to multiple devices. Essential for running 2+ miners from one 30A circuit. Available in basic, metered, switched, and intelligent versions. Switched and intelligent PDUs (also called <a href="#smart-pdu" style="color: var(--sola-teal);">smart PDUs</a>) add remote on/off control and scheduling &mdash; see the <a href="remote_management.html#power-control" style="color: var(--sola-teal);">Remote Management guide</a>.</div>
         <div class="term-tip">&#x26A0;&#xFE0F; Never daisy-chain PDUs or use residential power strips for mining.</div>
       </div>
       
@@ -735,7 +735,7 @@
 
       <div class="term" id="ssh">
         <div class="term-name">SSH (Secure Shell)</div>
-        <div class="term-def">A text-based command connection to your miner over the network. Required for advanced control like stopping/starting the mining process, checking logs, and running scheduled commands. Stock Bitmain firmware has SSH locked since 2019 &mdash; you need <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a> to use it. See the <a href="remote_management.html#mobile-ssh" style="color: var(--sola-teal);">Mobile SSH guide</a>.</div>
+        <div class="term-def">A text-based command connection to your miner over the network. Required for advanced control like stopping/starting the mining process, checking logs, and running scheduled commands. Stock Bitmain firmware has SSH locked since 2019 &mdash; you need <a href="aftermarket_firmware.html" style="color: var(--sola-teal);">aftermarket firmware</a> to use it. See the <a href="remote_management.html#tailscale-setup" style="color: var(--sola-teal);">Remote Access guide</a>.</div>
       </div>
 
       <div class="term" id="sleep-mode">
@@ -745,12 +745,12 @@
 
       <div class="term" id="graceful-shutdown">
         <div class="term-name">Graceful Shutdown</div>
-        <div class="term-def">Stopping the mining process and allowing chips to cool before cutting power. Reduces thermal stress on hash boards compared to yanking the plug. See <a href="remote_management.html#safe-shutdown" style="color: var(--sola-teal);">Safe Shutdown Methods</a> for the recommended sequence.</div>
+        <div class="term-def">Stopping the mining process and allowing chips to cool before cutting power. Reduces thermal stress on hash boards compared to yanking the plug. See <a href="remote_management.html#power-control" style="color: var(--sola-teal);">Soft vs Hard Power Control</a> for the recommended sequence.</div>
       </div>
 
       <div class="term" id="power-cycle">
         <div class="term-name">Power Cycle</div>
-        <div class="term-def">Cutting power completely and restoring it. The universal fix for frozen ASIC miners. Requires physical access to the plug or a <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">smart PDU</a> for remote power cycling. Nothing over the network can power on a miner after a full shutdown.</div>
+        <div class="term-def">Cutting power completely and restoring it. The universal fix for frozen ASIC miners. Requires physical access to the plug or a <a href="remote_management.html#power-control" style="color: var(--sola-teal);">smart PDU</a> for remote power cycling. Nothing over the network can power on a miner after a full shutdown.</div>
       </div>
 
       <div class="term" id="mining-daemon">
@@ -760,7 +760,7 @@
 
       <div class="term" id="autoping">
         <div class="term-name">AutoPing</div>
-        <div class="term-def">A smart PDU feature that continuously pings your miner's IP address and automatically power cycles the outlet if the miner stops responding. Acts as a watchdog so frozen miners get restarted even when you're not watching. See <a href="remote_management.html#monitoring" style="color: var(--sola-teal);">Monitoring &amp; Automation</a>.</div>
+        <div class="term-def">A watchdog feature on some smart PDUs and smart plugs: it pings your miner's IP address and automatically power cycles the outlet if the miner stops responding. Many 30A/240V PDUs don't include it, but a simple Raspberry Pi script can do the same job. Acts as a watchdog so frozen miners get restarted even when you're not watching. See the <a href="remote_management.html#foreman" style="color: var(--sola-teal);">Foreman monitoring notes</a>.</div>
       </div>
 
       <div class="term" id="cron-job">
@@ -770,17 +770,17 @@
 
       <div class="term" id="smart-pdu">
         <div class="term-name">Smart PDU</div>
-        <div class="term-def">A network-connected power distribution unit with remote on/off control, power monitoring, outlet scheduling, and AutoPing watchdog. The single most important piece of remote management hardware &mdash; it's the only way to power cycle a miner remotely. See <a href="remote_management.html#smart-pdus" style="color: var(--sola-teal);">Smart PDU recommendations</a>.</div>
+        <div class="term-def">A network-connected power distribution unit with remote on/off control, power monitoring, outlet scheduling, and on some models an AutoPing watchdog. The single most important piece of remote management hardware &mdash; it's the only way to power cycle a miner remotely. See the <a href="remote_management.html#power-control" style="color: var(--sola-teal);">240V power control hardware</a>.</div>
       </div>
 
       <div class="term" id="termius">
         <div class="term-name">Termius</div>
-        <div class="term-def">A mobile and desktop SSH app for managing miners from your phone. The free tier covers everything home miners need: saved connections, command snippets, and multi-tab sessions. See the <a href="remote_management.html#mobile-ssh" style="color: var(--sola-teal);">Mobile SSH guide</a> for setup.</div>
+        <div class="term-def">A mobile and desktop SSH app for managing miners from your phone. The free Starter plan covers basic SSH connections; saved snippets, cloud sync, and session logs need Termius Pro (about $10/month billed yearly). See the <a href="remote_management.html#tailscale-setup" style="color: var(--sola-teal);">Remote Access guide</a> for setup.</div>
       </div>
 
       <div class="term" id="tailscale">
         <div class="term-name">Tailscale</div>
-        <div class="term-def">A free mesh VPN that lets you access your home network from anywhere without port forwarding or complicated router configuration. Paired with a Raspberry Pi subnet router, it gives you full access to every miner on your LAN from your phone. See <a href="remote_management.html#vpn-access" style="color: var(--sola-teal);">VPN Remote Access</a>.</div>
+        <div class="term-def">A free mesh VPN that lets you access your home network from anywhere without port forwarding or complicated router configuration. Paired with a Raspberry Pi subnet router, it gives you full access to every miner on your LAN from your phone. See <a href="remote_management.html#tailscale-setup" style="color: var(--sola-teal);">Remote Access Setup</a>.</div>
       </div>
 
       <div class="term" id="wake-on-lan">
