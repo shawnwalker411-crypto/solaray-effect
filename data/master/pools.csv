@@ -77,13 +77,13 @@ Quai Network (QUAI),K1Pool,https://k1pool.com/pool/quai,1%,pplns,50 QUAI,🇺�
 Quai Network (QUAI),HeroMiners,https://quai.herominers.com/,1%,pplns,25 QUAI,🇺🇸  🇪🇺  🌐,3,Global servers. Both SHA-256 and Scrypt supported. No registration.,keep
 Peercoin (PPC),Mining-Dutch,https://www.mining-dutch.nl/pools/peercoin.php,~1.9%,pplns,Custom,🇪🇺,1,"European pool. Supports PPC alongside BTC, BCH, and XEC. Merge-mines BTC rewards.",remove
 Peercoin (PPC),F2Pool,https://www.f2pool.com/,3%,pplns,Custom,🌐,1,Large global pool supporting 40+ PoW coins. Verify PPC is active on their site before connecting.,remove
-Bitcoin (BTC),HeliosPool,https://heliospool.com/,1%,solo,Paid in the block,"US, Canada, EU, Australia",,Solo pool. Block reward goes straight to your wallet.,add
-Bitcoin Cash (BCH),HeliosPool,https://heliospool.com/,1%,solo,Paid in the block,"US, Canada, EU, Australia",,Solo pool.,add
-DigiByte (DGB),HeliosPool,https://heliospool.com/,1%,solo,Paid in the block,"US, Canada, EU, Australia",,Solo pool. Largest DGB share on MiningBoard.,add
-eCash (XEC),HeliosPool,https://heliospool.com/,1%,solo,Paid in the block,"US, Canada, EU, Australia",,Solo pool.,add
-Bitcoin SV (BSV),Kryptex,https://pool.kryptex.com/,3%,VERIFY,VERIFY,VERIFY,,Largest BSV pool on MiningBoard,verify
-Bitcoin SV (BSV),GorillaPool,https://gorillapool.io/,2%,VERIFY,VERIFY,VERIFY,,,verify
-Bitcoin SV (BSV),Mining-Dutch,https://www.mining-dutch.nl/,1.5%,VERIFY,VERIFY,VERIFY,,Already listed on your site for other coins,verify
-Nervos (CKB),F2Pool,https://www.f2pool.com/,2%,VERIFY,VERIFY,VERIFY,,About 42% of CKB network,verify
-Nervos (CKB),Antpool,https://www.antpool.com/,2%,VERIFY,VERIFY,VERIFY,,,verify
-Nervos (CKB),2Miners,https://2miners.com/ckb-mining-pool,1%,VERIFY,VERIFY,VERIFY,,Also has a solo option (1.5%),verify
+Bitcoin (BTC),HeliosPool,https://heliospool.com/,1%,solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
+Bitcoin Cash (BCH),HeliosPool,https://heliospool.com/,1%,solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
+DigiByte (DGB),HeliosPool,https://heliospool.com/,1%,solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺,3,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
+eCash (XEC),HeliosPool,https://heliospool.com/,1%,solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
+Bitcoin SV (BSV),Kryptex,https://pool.kryptex.com/bsv,3%,pps solo,0.3 BSV,🌐  🇺🇸  🇪🇺  🇧🇷  🇸🇬,5,"PPS+ at 3%, or solo at 1% (enter solo:yourwallet as the username).",add
+Bitcoin SV (BSV),GorillaPool,https://gorillapool.io/,2%,pplns,0.01 BSV,🌐,1,BSV-focused pool. PPLNS paid on-chain after 100 confirmations.,add
+Bitcoin SV (BSV),Mining-Dutch,https://www.mining-dutch.nl/pools/bitcoinsv.php,0.5-1.5%,fpps pplns solo,You set it,🇪🇺  🇨🇦  🇸🇬  🇦🇺,4,"D-PPS (FPPS) 1.5%, PPLNS/PROP 1%, solo 0.5%. Pays every 15 minutes.",add
+Nervos (CKB),F2Pool,https://www.f2pool.com/,1%,pps,100 CKB,🌐,1,Daily PPS payouts.,watch
+Nervos (CKB),Antpool,https://www.antpool.com/,1%,pps,100 CKB,🌐,1,PPS only for CKB.,watch
+Nervos (CKB),2Miners,https://2miners.com/ckb-mining-pool,1%,pplns solo,500 CKB,🇪🇺  🇺🇸  🌐,3,"PPLNS 1%, solo 1.5%. Payouts every 2 hours.",watch

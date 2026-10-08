@@ -14,7 +14,7 @@ ETC,Ethereum Classic,Etchash,ethereum-classic,keep,
 ZEC,Zcash,Equihash,zcash,keep,Zcash machines never removed
 DASH,Dash,X11,dash,keep,
 ALPH,Alephium,Blake3,alephium,keep,
-CKB,Nervos,Eaglesong,nervos-network,add,New coin. Needs Goldshell CK Box miner (specs to verify in step 8) and a live data source in step 3.
+CKB,Nervos,Eaglesong,nervos-network,watch,"Watch list (2026-10-08): ~$0.0013, rank ~409, home CK Box II loses money on paid power. Not shown on site."
 RXD,Radiant,SHA512256d,radiant,remove,"Fringe: about $2.5K/day trading, 1 exchange"
 PPC,Peercoin,SHA-256,peercoin,remove,Fringe: about $1.7K/day trading
 KMD,Komodo,Equihash,komodo,info,Shown on miner cards only; not in calculator
