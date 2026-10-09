@@ -28,6 +28,49 @@ function btcHashrate(difficulty, blockTime) {
   return (difficulty * Math.pow(2, 32)) / blockTime;
 }
 
+/* ================= SHARED PAYOUT FORMULA ================= */
+/* Expected coins per day for ONE calculator unit of hashrate:            */
+/*   coins/day = unitHashes * 86400 * blockReward / (difficulty * K)        */
+/* This is the same formula pools use to pay PPS and that WhatToMine,      */
+/* CoinWarz, 2CryptoCalc, Hashrate.no and AntPool use. It needs only       */
+/* difficulty and reward (both read from the chain), so it does not depend */
+/* on an estimated network hashrate or an assumed block time.              */
+/* K = hashes per unit of difficulty: 2^32 for SHA-256, Scrypt and X11,    */
+/* 2^13 for Equihash (ZEC), 1 for Etchash (ETC).                           */
+/* Units match the calculator: SHA-256 per TH/s, Scrypt per MH/s,          */
+/* X11 per GH/s, Equihash per kSol/s, Etchash per MH/s.                    */
+/* QUAI uses K = 1 (its difficulty is already in hashes), as WhatToMine,    */
+/* ASIC Miner Value and 2CryptoCalc do. KAS and ALPH are not on this       */
+/* formula (DAG / sharded chains); the calculator keeps their own method,  */
+/* which matches other calculators.                                        */
+const YIELD_UNIT = {
+  BTC: 1e12, BCH: 1e12, BSV: 1e12, XEC: 1e12, DGB: 1e12, FB: 1e12,
+  LTC: 1e6, DOGE: 1e6, DASH: 1e9, ZEC: 1e3, ETC: 1e6,
+  'QUAI-SHA': 1e12, 'QUAI-SCRYPT': 1e6
+};
+const YIELD_K = { ZEC: 8192, ETC: 1, 'QUAI-SHA': 1, 'QUAI-SCRYPT': 1 };
+
+export function perUnitDay(coin, difficulty, blockReward) {
+  const unit = YIELD_UNIT[coin];
+  if (!unit) return null;
+  const d = Number(difficulty), r = Number(blockReward);
+  if (!(d > 0) || !(r > 0)) return null;
+  const k = YIELD_K[coin] || 4294967296;
+  return unit * 86400 * r / (d * k);
+}
+
+/* WhatToMine 24-hour average difficulty. Used only for DOGE and DGB, whose */
+/* difficulty jumps 20-40% from block to block; a single reading would make */
+/* the calculator swing. Returns 0 on any failure (caller uses the chain).  */
+async function wtmDifficulty24(id) {
+  try {
+    const res = await fetch(`https://whattomine.com/coins/${id}.json`, { signal: AbortSignal.timeout(6000) });
+    if (!res.ok) return 0;
+    const d = await res.json();
+    return Number(d.difficulty24) || 0;
+  } catch (e) { return 0; }
+}
+
 // CoinGecko IDs for price lookups.
 // QUAI-SHA and QUAI-SCRYPT resolve to the same price (same underlying coin).
 const COINGECKO_IDS = {
@@ -97,6 +140,8 @@ export default async function handler(req, res) {
 
     try {
       const data = await fetchCoinData(c);
+      const y = perUnitDay(c, data.yield_difficulty || data.difficulty, data.block_reward);
+      if (y) data.per_unit_day = y;
       cache[c] = { ...data, timestamp: Date.now() };
       results[c] = { ...data, fromCache: false };
     } catch (e) {
@@ -257,7 +302,7 @@ async function fetchDGB() {
   const perAlgoBlockTime = 75;
 
   // Fetch latest block to get actual current block reward
-  let blockReward = 271; // fallback
+  let blockReward = 250.73; // fallback; on-chain subsidy at block 24,351,424 (2026-10-09) was 250.72839494
   try {
     const tipRes = await fetch('https://dgbbook.nownodes.io/api/v2', {
       headers: { 'api-key': apiKey }
@@ -281,9 +326,14 @@ async function fetchDGB() {
     // keep fallback
   }
 
+  // DGB SHA-256 difficulty jumps a lot within hours; pay math uses the
+  // 24-hour average (WhatToMine coin 113 = DGB SHA-256), chain value as backup.
+  const avgDifficulty = await wtmDifficulty24(113);
+
   return {
     coin: 'DGB',
     difficulty: sha256Difficulty,
+    yield_difficulty: avgDifficulty || sha256Difficulty,
     network_hashrate: networkHashrate,
     block_reward: blockReward,
     block_time: perAlgoBlockTime,
@@ -296,7 +346,8 @@ async function fetchDGB() {
 /* eCash uses SHA-256d. Blockchair publishes live eCash stats including */
 /* pre-computed 24-hour hashrate — no formula derivation needed.        */
 /* No API key required on the free tier.                                */
-/* Fallback: use known network size to produce accurate rate.           */
+/* Miner keeps 1,812,500 of the 3,125,000 XEC block (58%; 32% miner fund, */
+/* 10% staking). Verified on-chain 2026-10-09, block 970,231 coinbase.    */
 
 async function fetchXEC() {
   try {
@@ -321,15 +372,20 @@ async function fetchXEC() {
       hashrate_estimated: false
     };
   } catch (e) {
-    // Full fallback — use known network size to produce accurate rate
-    // ~51 PH/s network, 1,812,500 XEC/block post-halving, 600s blocks = ~5,100 XEC/TH/day
+    // Blockchair failed: read eCash difficulty from WhatToMine (coin 370).
+    // If that fails too, return an error so the calculator keeps its last good rate.
+    const res2 = await fetch('https://whattomine.com/coins/370.json', { signal: AbortSignal.timeout(6000) });
+    if (!res2.ok) throw new Error('XEC: Blockchair and WhatToMine both failed');
+    const w = await res2.json();
+    const difficulty = Number(w.difficulty) || 0;
+    if (difficulty <= 0) throw new Error('XEC: no difficulty');
     return {
       coin: 'XEC',
-      difficulty: 0,
-      network_hashrate: 51e15,
+      difficulty,
+      network_hashrate: btcHashrate(difficulty, 600),
       block_reward: 1812500,
       block_time: 600,
-      height: 0,
+      height: Number(w.last_block) || 0,
       hashrate_estimated: true
     };
   }
@@ -343,14 +399,15 @@ async function fetchXEC() {
 
 async function fetchALPH() {
   try {
-    const res = await fetch('https://backend.mainnet.alephium.org/blocks?page=1&limit=1');
+    const res = await fetch('https://backend.mainnet.alephium.org/blocks?page=1&limit=20');
     if (!res.ok) throw new Error(`Alephium backend returned ${res.status}`);
     const data = await res.json();
 
     const latestBlock = data?.blocks?.[0];
     if (!latestBlock) throw new Error('Alephium backend returned no blocks');
 
-    const networkHashrate = Number(latestBlock.hashRate) || 0;
+    // One block's hashRate is noisy; use the median of the last 20 blocks.
+    const networkHashrate = median(data.blocks.map(b => Number(b.hashRate)));
     const height = Number(latestBlock.height) || 0;
 
     if (networkHashrate <= 0) throw new Error('Alephium returned zero hashrate');
@@ -359,7 +416,7 @@ async function fetchALPH() {
       coin: 'ALPH',
       difficulty: 0,
       network_hashrate: networkHashrate,
-      block_reward: 0.143,
+      block_reward: 0.1433, // verified on-chain 2026-10-09 (0.143317807 ALPH coinbase)
       block_time: 0.5336,
       height,
       hashrate_estimated: false
@@ -370,63 +427,52 @@ async function fetchALPH() {
 }
 
 /* ================= FB (Fractal Bitcoin mempool explorer API) ================= */
-/* SHA-256 standalone mining (permissionless lane).                     */
-/* Block reward: 25 FB.                                                 */
-/* API: mempool.fractalbitcoin.io/api                                   */
-/*                                                                      */
-/* IMPORTANT CALIBRATION NOTE:                                          */
-/* The mempool.fractalbitcoin.io API reports `currentHashrate` in an    */
-/* aggregated SHA-256 capacity unit that is ~1055x larger than the      */
-/* effective FB-producing network hashrate used by reference calculators */
-/* (WhatToMine, pool dashboards, etc.). This appears to be because the  */
-/* raw explorer value counts all SHA-256 hashpower theoretically        */
-/* available to FB (including BTC merge miners' full capacity), not the */
-/* slice actually producing permissionless FB blocks.                   */
-/*                                                                      */
-/* We correct for this by dividing by FB_HASHRATE_CALIBRATION and       */
-/* using the actual observed block time (~45s average) instead of the   */
-/* 30s nominal target. This produces per-TH yield numbers that match    */
-/* reference calculators within 1%.                                     */
-/*                                                                      */
-/* If Fractal ever publishes a native "effective network hashrate"      */
-/* endpoint, switch to that and remove the calibration constant.        */
+/* SHA-256. Fractal alternates two kinds of blocks:                        */
+/*   - pool-mined (permissionless) blocks, difficulty ~1.1e9 — what an ASIC */
+/*     pointed at an FB pool actually mines;                               */
+/*   - blocks merge-mined with Bitcoin, difficulty ~8.8e12 (and some       */
+/*     show difficulty 1 in the explorer).                                 */
+/* Pay math uses the pool-mined difficulty: the median of those blocks     */
+/* among the last 15. Reward is read from the same blocks (median coinbase */
+/* minus fees), so it follows halvings by itself. The reward dropped from  */
+/* 25 to 6.25 FB at block 2,100,000 (2026-09-08), verified on-chain.       */
 
-const FB_HASHRATE_CALIBRATION = 1055;
-const FB_BLOCK_TIME_SECONDS = 45; // actual observed avg, not 30s nominal
+const FB_BLOCK_TIME_SECONDS = 45; // observed average of pool-mined blocks, display only
+
+function median(arr) {
+  const a = arr.filter(x => Number.isFinite(x) && x > 0).sort((x, y) => x - y);
+  if (!a.length) return 0;
+  const m = Math.floor(a.length / 2);
+  return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
+}
 
 async function fetchFB() {
   try {
-    const res = await fetch('https://mempool.fractalbitcoin.io/api/v1/blocks/tip/height');
-    const height = res.ok ? Number(await res.text()) : 0;
+    const res = await fetch('https://mempool.fractalbitcoin.io/api/v1/blocks');
+    if (!res.ok) throw new Error(`Fractal explorer returned ${res.status}`);
+    const blocks = await res.json();
+    if (!Array.isArray(blocks) || !blocks.length) throw new Error('no blocks');
 
-    const diffRes = await fetch('https://mempool.fractalbitcoin.io/api/v1/mining/hashrate/3d');
-    const diffData = diffRes.ok ? await diffRes.json() : null;
+    // Pool-mined blocks: difficulty between 1e6 and 1e11 (merged blocks are ~1e13, or 1).
+    const poolMined = blocks.filter(b => b.difficulty > 1e6 && b.difficulty < 1e11);
+    const difficulty = median(poolMined.map(b => Number(b.difficulty)));
+    if (!(difficulty > 0)) throw new Error('no pool-mined blocks in the last 15');
 
-    const rawHashrate = diffData?.currentHashrate
-      ? Number(diffData.currentHashrate)
-      : 0;
-
-    // Apply calibration to match reference calculators (WhatToMine-equivalent)
-    const networkHashrate = rawHashrate > 0
-      ? rawHashrate / FB_HASHRATE_CALIBRATION
-      : 0;
-
-    // The API's `currentDifficulty` field is a placeholder (returns 1).
-    // Real difficulty lives in the `difficulty[]` array — last entry is newest.
-    let difficulty = 0;
-    if (Array.isArray(diffData?.difficulty) && diffData.difficulty.length > 0) {
-      const latest = diffData.difficulty[diffData.difficulty.length - 1];
-      difficulty = Number(latest?.difficulty) || 0;
-    }
+    // Subsidy = coinbase reward minus fees, in FB (explorer reports sats).
+    const subsidy = median(blocks.map(b => {
+      const r = Number(b.extras?.reward), f = Number(b.extras?.totalFees) || 0;
+      return r > 0 ? (r - f) / 1e8 : 0;
+    }));
+    const blockReward = subsidy > 0 && subsidy <= 25 ? subsidy : 6.25;
 
     return {
       coin: 'FB',
       difficulty,
-      network_hashrate: networkHashrate,
-      block_reward: 25,
+      network_hashrate: btcHashrate(difficulty, FB_BLOCK_TIME_SECONDS),
+      block_reward: blockReward,
       block_time: FB_BLOCK_TIME_SECONDS,
-      height,
-      hashrate_estimated: false
+      height: Number(blocks[0].height) || 0,
+      hashrate_estimated: true
     };
   } catch (e) {
     throw new Error(`FB fetch failed: ${e.message}`);
@@ -521,8 +567,8 @@ async function fetchViaNowNodes(coin) {
     LTC: 6.25,
     DOGE: 10000,
     BCH: 3.125,
-    DASH: 0.44,
-    ETC: 1.99,
+    DASH: 0.411,  // miner's share only; verified block 2,552,159 (2026-10-09): miner 0.41101891 of 1.6441
+    ETC: 1.6384,  // era 6 (from block 25,000,000, 2026-07-22); live value comes from etcEraReward()
     ZEC: 1.25
   };
 
@@ -543,6 +589,10 @@ async function fetchViaNowNodes(coin) {
      eth_getBlockByNumber("latest") is the documented source for current
      block data. If the JSON-RPC call fails for any reason we fall through
      to the original Blockbook code path below. */
+  // ETC block reward by era (ECIP-1017): 5 ETC, x0.8 every 5,000,000 blocks.
+  // Block 24,999,999 paid 2.048; block 25,000,000 paid 1.6384 (verified on-chain).
+  const etcEraReward = (h) => 5 * Math.pow(0.8, Math.floor(h / 5000000));
+
   if (coin === 'ETC') {
     try {
       const rpcRes = await fetch('https://etc.nownodes.io', {
@@ -569,7 +619,7 @@ async function fetchViaNowNodes(coin) {
           coin: 'ETC',
           difficulty,
           network_hashrate: networkHashrate,
-          block_reward: blockRewards.ETC,
+          block_reward: etcEraReward(height),
           block_time: blockTimes.ETC,
           height,
           hashrate_estimated: false
@@ -642,13 +692,19 @@ async function fetchViaNowNodes(coin) {
     }
   }
 
+  // DOGE difficulty jumps 20-40% between blocks; pay math uses the 24-hour
+  // average (WhatToMine coin 6 = Dogecoin), chain value as backup.
+  const yieldDifficulty = coin === 'DOGE' ? (await wtmDifficulty24(6)) || difficulty : difficulty;
+  const height = Number(data.backend?.blocks) || 0;
+
   return {
     coin,
     difficulty,
+    yield_difficulty: yieldDifficulty,
     network_hashrate: networkHashrate,
-    block_reward: blockRewards[coin],
+    block_reward: coin === 'ETC' && height > 0 ? etcEraReward(height) : blockRewards[coin],
     block_time: blockTimes[coin],
-    height: Number(data.backend?.blocks) || 0,
+    height,
     hashrate_estimated: hashEstimated
   };
 }
@@ -715,13 +771,17 @@ async function fetchQUAI_SHA() {
     const networkHashrate = Number(data.nethash) || 0;
     const height = Number(data.last_block) || 0;
     const blockTime = Number(data.block_time) || 1.295;
-    const blockReward = Number(data.block_reward) || 4.79;
+    // QUAI's reward moves with difficulty, so pay math uses WhatToMine's
+    // 24-hour reward and 24-hour difficulty to keep the number steady.
+    const blockReward = Number(data.block_reward24) || Number(data.block_reward) || 4.79;
+    const yieldDifficulty = Number(data.difficulty24) || difficulty;
 
     if (networkHashrate <= 0) throw new Error('WhatToMine QUAI-SHA returned zero hashrate');
 
     return {
       coin: 'QUAI-SHA',
       difficulty,
+      yield_difficulty: yieldDifficulty,
       network_hashrate: networkHashrate,
       block_reward: blockReward,
       block_time: blockTime,
@@ -743,13 +803,17 @@ async function fetchQUAI_Scrypt() {
     const networkHashrate = Number(data.nethash) || 0;
     const height = Number(data.last_block) || 0;
     const blockTime = Number(data.block_time) || 1.275;
-    const blockReward = Number(data.block_reward) || 4.83;
+    // QUAI's reward moves with difficulty, so pay math uses WhatToMine's
+    // 24-hour reward and 24-hour difficulty to keep the number steady.
+    const blockReward = Number(data.block_reward24) || Number(data.block_reward) || 4.83;
+    const yieldDifficulty = Number(data.difficulty24) || difficulty;
 
     if (networkHashrate <= 0) throw new Error('WhatToMine QUAI-SCRYPT returned zero hashrate');
 
     return {
       coin: 'QUAI-SCRYPT',
       difficulty,
+      yield_difficulty: yieldDifficulty,
       network_hashrate: networkHashrate,
       block_reward: blockReward,
       block_time: blockTime,
