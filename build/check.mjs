@@ -286,6 +286,33 @@ for (const f of [...pages, ...comps]) {
   }
 }
 
+// ---------- Payout formula check ----------
+// The calculator's coins/day come from perUnitDay() in api/mining-stats.js.
+// These cases are real inputs (difficulty + block reward) published by other
+// calculators on 2026-10-09, with the coins/day THEY computed from them.
+// If our formula ever stops reproducing their answers within 1%, the deploy
+// stops. (Live drift vs other calculators is checked by the monthly task.)
+{
+  const api = await import(new URL('../api/mining-stats.js', import.meta.url));
+  const cases = [
+    // coin, difficulty, block reward, expected coins/day per calculator unit, source
+    ['BTC', 132716002350731.3, 3.125, 4.7368e-7, '2CryptoCalc / CoinWarz, per TH/s'],
+    ['BCH', 486030000000, 3.125, 1.2934e-4, '2CryptoCalc, per TH/s'],
+    ['XEC', 5.91e9, 1812500, 6166, 'Hashrate.no, per TH/s'],
+    ['FB', 1119603987.809803, 6.25000342, 0.1113, 'WhatToMine current difficulty, per TH/s'],
+    ['LTC', 95937773.26992714, 6.25, 1.3105e-6, 'WhatToMine / CoinWarz / AntPool, per MH/s'],
+    ['ZEC', 303370000, 1.25, 4.3457e-5, '2CryptoCalc, per kSol/s'],
+    ['ETC', 2.268e15, 1.6384, 6.2423e-5, '2CryptoCalc, per MH/s'],
+    ['QUAI-SHA', 1.7226e17, 10.2019, 4.86 / 0.95, 'ASIC Miner Value before its hidden 5% cut, per TH/s'],
+  ];
+  for (const [coin, d, r, want, src] of cases) {
+    const got = api.perUnitDay(coin, d, r);
+    if (!(got > 0) || Math.abs(got / want - 1) > 0.01) {
+      block(`payout formula: ${coin} gives ${got} coins/day, expected ${want} (${src})`);
+    }
+  }
+}
+
 // ---------- Output ----------
 const cnt = (a, s) => a.filter((r) => live(r)).length + ` live / ${a.length} rows` + (s ? ` ${s}` : '');
 console.log('SolaRayEffect build check');
