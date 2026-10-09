@@ -59,9 +59,11 @@ export function perUnitDay(coin, difficulty, blockReward) {
   return unit * 86400 * r / (d * k);
 }
 
-/* WhatToMine 24-hour average difficulty. Used only for DOGE and DGB, whose */
-/* difficulty jumps 20-40% from block to block; a single reading would make */
-/* the calculator swing. Returns 0 on any failure (caller uses the chain).  */
+/* WhatToMine 24-hour average difficulty. Used for the coins whose          */
+/* difficulty swings 10-40% within a day (DOGE, DGB, ZEC, DASH, ETC, FB;     */
+/* QUAI reads it in its own fetcher); a single reading would make the       */
+/* calculator and Hot Pick jump around. Returns 0 on any failure, and the   */
+/* caller then uses the chain's current difficulty.                         */
 async function wtmDifficulty24(id) {
   try {
     const res = await fetch(`https://whattomine.com/coins/${id}.json`, { signal: AbortSignal.timeout(6000) });
@@ -465,9 +467,12 @@ async function fetchFB() {
     }));
     const blockReward = subsidy > 0 && subsidy <= 25 ? subsidy : 6.25;
 
+    // Pay math uses the 24-hour average difficulty (WhatToMine coin 431);
+    // the median of recent pool-mined blocks is the backup.
     return {
       coin: 'FB',
       difficulty,
+      yield_difficulty: (await wtmDifficulty24(431)) || difficulty,
       network_hashrate: btcHashrate(difficulty, FB_BLOCK_TIME_SECONDS),
       block_reward: blockReward,
       block_time: FB_BLOCK_TIME_SECONDS,
@@ -538,6 +543,7 @@ async function fetchZEC() {
   return {
     coin: 'ZEC',
     difficulty,
+    yield_difficulty: (await wtmDifficulty24(166)) || difficulty,
     network_hashrate: networkHashrate,
     block_reward: blockReward,
     block_time: ZEC_BLOCK_TIME_SECONDS,
@@ -618,6 +624,7 @@ async function fetchViaNowNodes(coin) {
         return {
           coin: 'ETC',
           difficulty,
+          yield_difficulty: (await wtmDifficulty24(162)) || difficulty,
           network_hashrate: networkHashrate,
           block_reward: etcEraReward(height),
           block_time: blockTimes.ETC,
@@ -692,9 +699,10 @@ async function fetchViaNowNodes(coin) {
     }
   }
 
-  // DOGE difficulty jumps 20-40% between blocks; pay math uses the 24-hour
-  // average (WhatToMine coin 6 = Dogecoin), chain value as backup.
-  const yieldDifficulty = coin === 'DOGE' ? (await wtmDifficulty24(6)) || difficulty : difficulty;
+  // DOGE, DASH and ETC difficulty swings 10-40% within a day; pay math uses
+  // the 24-hour average from WhatToMine (coins 6, 34, 162), chain value as backup.
+  const AVG_IDS = { DOGE: 6, DASH: 34, ETC: 162 };
+  const yieldDifficulty = AVG_IDS[coin] ? (await wtmDifficulty24(AVG_IDS[coin])) || difficulty : difficulty;
   const height = Number(data.backend?.blocks) || 0;
 
   return {
