@@ -22,34 +22,35 @@
     let lastPriceUpdate = null;
     
     // Revenue rates per unit per day (coins earned)
-    // These are DEFAULT values - will be updated with live data from API
-    // Sources: CoinWarz, MinerStat, WhatToMine (fallback defaults)
+    // DEFAULT values, used only until live data arrives from /api/mining-stats.
+    // Set 2026-10-09 to the consensus of WhatToMine, Hashrate.no, CoinWarz,
+    // 2CryptoCalc, ASIC Miner Value and pool calculators (coins/day per unit).
     let REVENUE_RATES = {
       // ASIC Algorithms
-      'SHA-256': { perUnit: 0.00000043, unit: 'TH/s', coin: 'BTC' },
-      'SHA-256-BCH': { perUnit: 0.0000778, unit: 'TH/s', coin: 'BCH' },
+      'SHA-256': { perUnit: 0.000000474, unit: 'TH/s', coin: 'BTC' },
+      'SHA-256-BCH': { perUnit: 0.000129, unit: 'TH/s', coin: 'BCH' },
       'Scrypt': { 
-        perUnit: 0.00000122, unit: 'MH/s', coin: 'LTC',
-        merged: { perUnit: 0.00532, coin: 'DOGE' }
+        perUnit: 0.00000131, unit: 'MH/s', coin: 'LTC',
+        merged: { perUnit: 0.0050, coin: 'DOGE' }
       },
-      'KHeavyHash': { perUnit: 0.00646, unit: 'GH/s', coin: 'KAS' },
-      'Etchash': { perUnit: 0.0000663, unit: 'MH/s', coin: 'ETC' },
-      'Equihash': { perUnit: 0.000095, unit: 'kSol/s', coin: 'ZEC' },
-      'X11': { perUnit: 0.0000677, unit: 'GH/s', coin: 'DASH' },
+      'KHeavyHash': { perUnit: 0.0055, unit: 'GH/s', coin: 'KAS' },
+      'Etchash': { perUnit: 0.0000630, unit: 'MH/s', coin: 'ETC' },
+      'Equihash': { perUnit: 0.0000465, unit: 'kSol/s', coin: 'ZEC' },
+      'X11': { perUnit: 0.0000850, unit: 'GH/s', coin: 'DASH' },
       // DGB
-      'SHA-256-DGB': { perUnit: 8.52, unit: 'TH/s', coin: 'DGB' },
-      // XEC &mdash; SHA-256, ~51 PH/s network, 1,812,500 XEC/block post-halving, 600s blocks, live ~5,118 XEC/TH/day (refreshed 2026-04-20)
-      'SHA-256-XEC': { perUnit: 5118, unit: 'TH/s', coin: 'XEC' },
-      // ALPH &mdash; Blake3 ASIC, network ~7.67 PH/s, reward 0.143 ALPH/block, 0.5336s block time (refreshed 2026-04-20)
-      'Blake3': { perUnit: 0.003017, unit: 'GH/s', coin: 'ALPH' },
-      // FB &mdash; SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration)
-      'SHA-256-FB': { perUnit: 0.0816, unit: 'TH/s', coin: 'FB' },
-      // QUAI-SHA &mdash; SHA-256 zone, ~5 QUAI/block, ~1.3s block time, live ~1.205 QUAI/TH/day (refreshed 2026-04-20)
-      'SHA-256-QUAI': { perUnit: 1.205, unit: 'TH/s', coin: 'QUAI' },
-      // QUAI-Scrypt &mdash; Scrypt zone, separate chain from SHA zone, live ~0.02033 QUAI/MH/day (refreshed 2026-04-20)
-      'Scrypt-QUAI': { perUnit: 0.02033, unit: 'MH/s', coin: 'QUAI' },
-      // BSV &mdash; SHA-256, 3.125 BSV/block since April 2024 halving, 600s blocks, live ~0.00202 BSV/TH/day (WhatsOnChain 2026-10-07)
-      'SHA-256-BSV': { perUnit: 0.00202, unit: 'TH/s', coin: 'BSV' }
+      'SHA-256-DGB': { perUnit: 8.0, unit: 'TH/s', coin: 'DGB' },
+      // XEC &mdash; SHA-256, miner keeps 1,812,500 XEC/block (58% of 3,125,000)
+      'SHA-256-XEC': { perUnit: 6000, unit: 'TH/s', coin: 'XEC' },
+      // ALPH &mdash; Blake3, 0.1433 ALPH/block, 16 chains
+      'Blake3': { perUnit: 0.0044, unit: 'GH/s', coin: 'ALPH' },
+      // FB &mdash; SHA-256, 6.25 FB/block since block 2,100,000 (2026-09-08)
+      'SHA-256-FB': { perUnit: 0.112, unit: 'TH/s', coin: 'FB' },
+      // QUAI-SHA &mdash; SHA-256 workshares, reward and difficulty from WhatToMine
+      'SHA-256-QUAI': { perUnit: 5.0, unit: 'TH/s', coin: 'QUAI' },
+      // QUAI-Scrypt &mdash; Scrypt workshares, reward and difficulty from WhatToMine
+      'Scrypt-QUAI': { perUnit: 0.060, unit: 'MH/s', coin: 'QUAI' },
+      // BSV &mdash; SHA-256, 3.125 BSV/block since April 2024 halving
+      'SHA-256-BSV': { perUnit: 0.00215, unit: 'TH/s', coin: 'BSV' }
     };
     
     // Mining stats status
@@ -463,16 +464,16 @@
       'Equihash': { min: 1e-6, max: 0.01, coin: 'ZEC', unit: 'kSol' },
       // DGB: ~0.01 to ~50 DGB/TH/day (SHA-256, large block reward)
       'SHA-256-DGB': { min: 0.001, max: 100, coin: 'DGB', unit: 'TH' },
-      // XEC: Live ~5,118 XEC/TH/day post-halving (refreshed 2026-04-20, 5x tolerance)
-      'SHA-256-XEC': { min: 1024, max: 25590, coin: 'XEC', unit: 'TH' },
-      // ALPH: Blake3, live ~0.003 ALPH/GH/day (refreshed 2026-04-20, 5x tolerance)
-      'Blake3': { min: 0.0006, max: 0.016, coin: 'ALPH', unit: 'GH' },
-      // FB: SHA-256 standalone, live ~0.0694 FB/TH/day (refreshed 2026-04-20 post-calibration, 5x tolerance)
-      'SHA-256-FB': { min: 0.014, max: 0.35, coin: 'FB', unit: 'TH' },
-      // QUAI-SHA: Cyprus-1 zone, live ~1.2 QUAI/TH/day (refreshed 2026-04-20, 5x tolerance)
-      'SHA-256-QUAI': { min: 0.24, max: 6.0, coin: 'QUAI', unit: 'TH' },
-      // QUAI-Scrypt: Scrypt zone, live ~0.0203 QUAI/MH/day (refreshed 2026-04-20, 5x tolerance)
-      'Scrypt-QUAI': { min: 0.0041, max: 0.102, coin: 'QUAI', unit: 'MH' },
+      // XEC: ~6,000 XEC/TH/day (2026-10-09, 5x tolerance)
+      'SHA-256-XEC': { min: 1200, max: 30000, coin: 'XEC', unit: 'TH' },
+      // ALPH: ~0.0044 ALPH/GH/day (2026-10-09, 5x tolerance)
+      'Blake3': { min: 0.0009, max: 0.022, coin: 'ALPH', unit: 'GH' },
+      // FB: ~0.112 FB/TH/day at 6.25 FB/block (2026-10-09, 5x tolerance)
+      'SHA-256-FB': { min: 0.022, max: 0.56, coin: 'FB', unit: 'TH' },
+      // QUAI-SHA: ~5 QUAI/TH/day (2026-10-09, 5x tolerance)
+      'SHA-256-QUAI': { min: 1.0, max: 25, coin: 'QUAI', unit: 'TH' },
+      // QUAI-Scrypt: ~0.06 QUAI/MH/day (2026-10-09, 5x tolerance)
+      'Scrypt-QUAI': { min: 0.012, max: 0.30, coin: 'QUAI', unit: 'MH' },
       // BSV: SHA-256, live ~0.00202 BSV/TH/day (WhatsOnChain 2026-10-07, 5x tolerance)
       'SHA-256-BSV': { min: 0.0004, max: 0.0101, coin: 'BSV', unit: 'TH' }
     };
@@ -511,9 +512,28 @@
       
       // Clear previous warnings
       rateSanityWarnings = [];
+
+      // Preferred path: the server's per_unit_day, computed with the shared
+      // pool payout formula (difficulty + block reward, see api/mining-stats.js).
+      // Coins that have it skip the older hashrate-based estimate below.
+      const YIELD_KEYS = {
+        BTC: 'SHA-256', BCH: 'SHA-256-BCH', BSV: 'SHA-256-BSV', XEC: 'SHA-256-XEC',
+        DGB: 'SHA-256-DGB', FB: 'SHA-256-FB', LTC: 'Scrypt', DASH: 'X11',
+        ZEC: 'Equihash', ETC: 'Etchash', DOGE: 'DOGE',
+        'QUAI-SHA': 'SHA-256-QUAI', 'QUAI-SCRYPT': 'Scrypt-QUAI'
+      };
+      const hasYield = (c) => !!(data[c] && data[c].per_unit_day > 0);
+      for (const [c, key] of Object.entries(YIELD_KEYS)) {
+        if (!hasYield(c)) continue;
+        const v = validateAndUpdateRate(key, data[c].per_unit_day, c);
+        if (!v.rate) continue;
+        if (c === 'DOGE') { if (REVENUE_RATES['Scrypt'].merged) REVENUE_RATES['Scrypt'].merged.perUnit = v.rate; }
+        else REVENUE_RATES[key].perUnit = v.rate;
+        console.log(c + ' rate updated:', v.rate, '(pool payout formula)', v.valid ? '\u2714' : '(fallback)');
+      }
       
       // BTC
-      if (data.BTC && data.BTC.network_hashrate > 0) {
+      if (!hasYield('BTC') && data.BTC && data.BTC.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.BTC.block_time || 600);
         const dailyCoins = (data.BTC.block_reward || 3.125) * blocksPerDay;
         // Network hashrate is in H/s, we need per TH/s
@@ -527,7 +547,7 @@
       }
       
       // LTC
-      if (data.LTC && data.LTC.network_hashrate > 0) {
+      if (!hasYield('LTC') && data.LTC && data.LTC.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.LTC.block_time || 150);
         const dailyCoins = (data.LTC.block_reward || 6.25) * blocksPerDay;
         // Network hashrate is in H/s, we need per MH/s
@@ -541,7 +561,7 @@
       }
       
       // DOGE (merged with LTC)
-      if (data.DOGE && data.DOGE.network_hashrate > 0) {
+      if (!hasYield('DOGE') && data.DOGE && data.DOGE.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.DOGE.block_time || 60);
         const dailyCoins = (data.DOGE.block_reward || 10000) * blocksPerDay;
         const perMH = dailyCoins / (data.DOGE.network_hashrate / 1e6);
@@ -573,7 +593,7 @@
       }
       
       // ETC
-      if (data.ETC && data.ETC.network_hashrate > 0) {
+      if (!hasYield('ETC') && data.ETC && data.ETC.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.ETC.block_time || 13.46);
         const dailyCoins = (data.ETC.block_reward || 1.99) * blocksPerDay;
         const perMH = dailyCoins / (data.ETC.network_hashrate / 1e6);
@@ -586,7 +606,7 @@
       }
       
       // BCH
-      if (data.BCH && data.BCH.network_hashrate > 0) {
+      if (!hasYield('BCH') && data.BCH && data.BCH.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.BCH.block_time || 600);
         const dailyCoins = (data.BCH.block_reward || 3.125) * blocksPerDay;
         const perTH = dailyCoins / (data.BCH.network_hashrate / 1e12);
@@ -599,7 +619,7 @@
       }
       
       // BSV (SHA-256 via WhatsOnChain). Same hardware as BTC/BCH. Per TH/s.
-      if (data.BSV && data.BSV.network_hashrate > 0) {
+      if (!hasYield('BSV') && data.BSV && data.BSV.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.BSV.block_time || 600);
         const dailyCoins = (data.BSV.block_reward || 3.125) * blocksPerDay;
         const perTH = dailyCoins / (data.BSV.network_hashrate / 1e12);
@@ -612,7 +632,7 @@
       }
       
       // DASH
-      if (data.DASH && data.DASH.network_hashrate > 0) {
+      if (!hasYield('DASH') && data.DASH && data.DASH.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.DASH.block_time || 150);
         const dailyCoins = (data.DASH.block_reward || 1.55) * blocksPerDay;
         const perGH = dailyCoins / (data.DASH.network_hashrate / 1e9);
@@ -626,7 +646,7 @@
       
       // ZEC (Equihash)
       // network_hashrate is expected to be in Sol/s
-      if (data.ZEC && data.ZEC.network_hashrate > 0) {
+      if (!hasYield('ZEC') && data.ZEC && data.ZEC.network_hashrate > 0) {
         // ZEC: block_time ~75s. block_reward now comes LIVE from the API
         // (getblocksubsidy -> miner share). Fallback 1.25 = the miner's current
         // take-home per block, used only if the live value is missing.
@@ -643,7 +663,7 @@
       }
       
       // DGB (SHA-256) via NOWNodes JSON-RPC getmininginfo (SHA-256 specific difficulty)
-      if (data.DGB && data.DGB.network_hashrate > 0) {
+      if (!hasYield('DGB') && data.DGB && data.DGB.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.DGB.block_time || 75);
         const dailyCoins = (data.DGB.block_reward || 271) * blocksPerDay;
         // Network hashrate is in H/s, we need per TH/s
@@ -658,7 +678,7 @@
 
       // XEC (SHA-256 via NOWNodes Blockbook)
       // Small network ~50 PH/s. XEC has 2 extra decimals vs BTC (3,125,000 XEC = 1 BCH reward equivalent)
-      if (data.XEC && data.XEC.network_hashrate > 0) {
+      if (!hasYield('XEC') && data.XEC && data.XEC.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.XEC.block_time || 600);
         const dailyCoins = (data.XEC.block_reward || 1812500) * blocksPerDay;
         const perTH = dailyCoins / (data.XEC.network_hashrate / 1e12);
@@ -672,7 +692,7 @@
 
       // ALPH (Blake3 via Alephium Explorer Backend API)
       // Network hashrate in H/s, per GH/s. Reward ~3.0 ALPH/block, 64s block time
-      if (data.ALPH && data.ALPH.network_hashrate > 0) {
+      if (!hasYield('ALPH') && data.ALPH && data.ALPH.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.ALPH.block_time || 0.5);
         const dailyCoins = (data.ALPH.block_reward || 0.1433) * blocksPerDay;
         const perGH = dailyCoins / (data.ALPH.network_hashrate / 1e9);
@@ -686,7 +706,7 @@
 
       // FB (SHA-256 via Fractal mempool API)
       // 621 EH/s network, 25 FB/block, 30s block time. Per TH/s very small number.
-      if (data.FB && data.FB.network_hashrate > 0) {
+      if (!hasYield('FB') && data.FB && data.FB.network_hashrate > 0) {
         const blocksPerDay = 86400 / (data.FB.block_time || 45);
         const dailyCoins = (data.FB.block_reward || 25) * blocksPerDay;
         const perTH = dailyCoins / (data.FB.network_hashrate / 1e12);
@@ -701,7 +721,7 @@
       // QUAI-SHA (SHA-256 zone via WhatToMine, returned as data["QUAI-SHA"])
       // ~5 QUAI/block, ~1.3s block time. Per TH/s.
       const quaiSHAData = data["QUAI-SHA"];
-      if (quaiSHAData && quaiSHAData.network_hashrate > 0) {
+      if (!hasYield('QUAI-SHA') && quaiSHAData && quaiSHAData.network_hashrate > 0) {
         const blocksPerDay = 86400 / (quaiSHAData.block_time || 1.3);
         const dailyCoins = (quaiSHAData.block_reward || 5) * blocksPerDay;
         const perTH = dailyCoins / (quaiSHAData.network_hashrate / 1e12);
@@ -715,7 +735,7 @@
       // QUAI-SCRYPT (Scrypt zone via WhatToMine, returned as data["QUAI-SCRYPT"])
       // Same network token, separate algorithm chain. ~5 QUAI/block, ~1.2s block time. Per MH/s.
       const quaiScryptData = data["QUAI-SCRYPT"];
-      if (quaiScryptData && quaiScryptData.network_hashrate > 0) {
+      if (!hasYield('QUAI-SCRYPT') && quaiScryptData && quaiScryptData.network_hashrate > 0) {
         const blocksPerDay = 86400 / (quaiScryptData.block_time || 1.2);
         const dailyCoins = (quaiScryptData.block_reward || 5) * blocksPerDay;
         const perMH = dailyCoins / (quaiScryptData.network_hashrate / 1e6);
