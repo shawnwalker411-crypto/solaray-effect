@@ -658,7 +658,7 @@
     <section class="section" id="overview">
       <h2 class="section-title">&#x1F9ED; The Goal</h2>
       <p>I wanted to manage my home ASIC miners from anywhere &mdash; check status, put a miner to sleep, wake it back up &mdash; without exposing miner web pages to the public internet and without yanking power cords every time I needed to shut something down.</p>
-      <p>I run three Antminer S19-series machines in my garage on a single 30A / 240V circuit with a hard ceiling of about 5,760 watts. Everything is powered by solar during the day and free electricity at night. Every decision comes back to staying under that power budget.</p>
+      <p>I run four Antminer S19-series machines in my garage on two 30A / 240V circuits, each with a hard ceiling of about 5,760 watts. Everything is powered by solar during the day and free electricity at night. Every decision comes back to staying under that power budget.</p>
       <p>Running on a solar schedule? <a href="index.html">Use the calculator</a> with your free-hours rate to see how much your night-only or solar-only window actually earns.</p>
       <div class="info-box">
         <p><strong>What I wanted:</strong> From my phone on cellular, I can check on a miner, sleep it, wake it, and only resort to a hard power cut when something is truly frozen.</p>
@@ -715,7 +715,7 @@
             <p>Then the problems started.</p>
             <p><strong>Thermal cycling:</strong> Within the first hour, all three miners began a cycle of fans blasting to 100%, hashrate ramping up, thermal shutdown, wait for chips to cool to 45&deg;C, restart, repeat. They were spending more time cooling down and restarting than actually hashing.</p>
             <p><strong>Different tuning philosophy:</strong> LuxOS uses frequency as the control variable &mdash; you set a MHz profile and the autotuner optimizes voltage within it. Braiins uses watt target as the control &mdash; you set a power ceiling and it pushes frequency as high as possible within that envelope. For my underclocked setup, that meant Braiins was driving chips harder and hotter than LuxOS at similar wattage.</p>
-            <p><strong>Minimum hashrate floors too high:</strong> When I tried switching to hashrate target mode, Braiins enforced minimums I could not get below. My S19 Pro had a minimum of 96.33 TH/s &mdash; but its sweet spot on LuxOS is around 71 TH/s. My S19J had a minimum of 83.54 TH/s &mdash; but I run it at 62&ndash;64 TH/s on LuxOS. Two out of three machines were unusable in hashrate target mode.</p>
+            <p><strong>Minimum hashrate floors too high:</strong> When I tried switching to hashrate target mode, Braiins enforced minimums I could not get below. My S19 Pro had a minimum of 96.33 TH/s &mdash; but its sweet spot on LuxOS is around 71 TH/s. My S19J had a minimum of 83.54 TH/s &mdash; but I was running it at 62&ndash;64 TH/s on LuxOS. Two out of three machines were unusable in hashrate target mode.</p>
             <p><strong>DPS shutdowns:</strong> The Dynamic Performance Scaling feature had a default setting that shut miners off entirely for one hour when it could not stabilize. More downtime.</p>
             <p><strong>Braiins Manager blocked by antivirus:</strong> Their fleet management tool requires installing an agent on a Windows PC. My Webroot antivirus immediately flagged it as a threat because the agent scans your local network and communicates with external servers.</p>
             <p><strong>Uninstall requires extra steps:</strong> There is no uninstall button in the Braiins web interface for S19 models. You have to download their separate Toolbox application, restore stock firmware (an older version not suitable for mining), and then install whatever firmware you actually want.</p>
@@ -769,8 +769,8 @@
         <div class="compare-card option-a">
           <h3>1) LuxOS &mdash; Miner Control</h3>
           <ul>
-            <li>Stable on my S19 Pro (325 MHz, ~71 TH/s at ~1,850W), S19J Pro (420 MHz, ~80 TH/s at ~2,100W), and S19J (375 MHz, ~64 TH/s at ~1,600W).</li>
-            <li>Combined: approximately 215 TH/s at ~5,550 watts, under the 5,760-watt continuous limit.</li>
+            <li>Runs on my S19J Pro, one of my S19J Pro+ units, and the S19 Pro.</li>
+            <li>The S19K Pro and the other S19J Pro+ aren&rsquo;t on LuxOS yet &mdash; installing it on those is a manual process I&rsquo;m still learning.</li>
             <li>I use the <strong>LuxOS web UI</strong> to sleep and wake miners. It has an intermittent bug where it shows incorrect status, so I keep <strong>LuxOS Commander</strong> on my bridge PC as a fallback. Commander sees the real miner state when the web UI lies.</li>
           </ul>
         </div>
@@ -852,6 +852,13 @@
         <li>Works with Amazon Alexa and Google Home &mdash; I can turn power on or off from my phone or by voice.</li>
         <li>This is <strong>not just a backup</strong>. Depending on the weather and solar production, the timer may be the primary tool that day. Bad solar day? The timer keeps the miners off. Good solar day with free nights? The timer handles the schedule.</li>
         <li>Also serves as recovery when a miner is completely frozen and does not respond to LuxOS commands.</li>
+      </ul>
+
+      <h3 style="color:var(--sola-gold);margin:0.75rem 0 0.25rem;">120V miners (Kasa smart plugs)</h3>
+      <ul>
+        <li>My 120V machines &mdash; the Z9 Minis, the Z11, and the lottery miner &mdash; are each on a Kasa smart plug.</li>
+        <li>I can switch them on or off from the Kasa app on my phone, the same way the pool pump timer handles the 240V side.</li>
+        <li>Before you plug a miner into any smart plug, check that the plug&rsquo;s amp rating covers the miner&rsquo;s full power draw.</li>
       </ul>
 
       <div class="warning-box">

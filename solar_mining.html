@@ -417,7 +417,7 @@
     <!-- My Mining Rigs -->
     <section class="section">
       <h2 class="section-title">My Mining Rigs</h2>
-      <p>Everything runs in my garage on <a href="electrical_setup.html">240V circuits I wired myself</a>. The L3++ is the only one on 120V.</p>
+      <p>Everything runs in my garage. The S19-series machines and the KS5 Pros run on <a href="electrical_setup.html">240V circuits I wired myself</a>; the Z9 Minis, the Z11, and the lottery miner run on 120V.</p>
       
       <div class="table-wrap">
       <table class="miner-table">
@@ -426,15 +426,33 @@
             <th>Miner</th>
             <th>Algorithm</th>
             <th>Coins</th>
+            <th>Hashrate</th>
             <th>Voltage</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Antminer S19 Pro</strong> (Loki Kit)</td>
+            <td><strong>Antminer S19K Pro</strong></td>
             <td>SHA-256</td>
             <td>BTC</td>
+            <td>120 TH/s</td>
+            <td>240V</td>
+            <td>Running</td>
+          </tr>
+          <tr>
+            <td><strong>Antminer S19J Pro+</strong></td>
+            <td>SHA-256</td>
+            <td>BTC</td>
+            <td>120 TH/s</td>
+            <td>240V</td>
+            <td>Running</td>
+          </tr>
+          <tr>
+            <td><strong>Antminer S19J Pro+</strong></td>
+            <td>SHA-256</td>
+            <td>BTC</td>
+            <td>117 TH/s</td>
             <td>240V</td>
             <td>Running</td>
           </tr>
@@ -442,34 +460,55 @@
             <td><strong>Antminer S19J Pro</strong></td>
             <td>SHA-256</td>
             <td>BTC</td>
-            <td>240V</td>
-            <td>Out for repairs</td>
-          </tr>
-          <tr>
-            <td><strong>Antminer S19</strong></td>
-            <td>SHA-256</td>
-            <td>BTC</td>
+            <td>104 TH/s</td>
             <td>240V</td>
             <td>Running</td>
           </tr>
           <tr>
-            <td><strong>Antminer L3++</strong></td>
-            <td>Scrypt</td>
-            <td>LTC / DOGE</td>
+            <td><strong>Antminer S19 Pro</strong></td>
+            <td>SHA-256</td>
+            <td>BTC</td>
+            <td>110 TH/s</td>
+            <td>240V</td>
+            <td>Under repair (one bad hashboard)</td>
+          </tr>
+          <tr>
+            <td><strong>Antminer KS5 Pro</strong></td>
+            <td>KHeavyHash</td>
+            <td>KAS</td>
+            <td>21 TH/s</td>
+            <td>240V</td>
+            <td>Running</td>
+          </tr>
+          <tr>
+            <td><strong>Antminer KS5 Pro</strong></td>
+            <td>KHeavyHash</td>
+            <td>KAS</td>
+            <td>21 TH/s</td>
+            <td>240V</td>
+            <td>Under repair</td>
+          </tr>
+          <tr>
+            <td><strong>Antminer Z9 Mini &times;4</strong></td>
+            <td>Equihash</td>
+            <td>ZEC</td>
+            <td>12&ndash;13 kSol/s each</td>
             <td>120V</td>
             <td>Running</td>
           </tr>
           <tr>
-            <td><strong>Antminer KS5</strong></td>
-            <td>KHeavyHash</td>
-            <td>KAS</td>
-            <td>240V</td>
+            <td><strong>Antminer Z11</strong></td>
+            <td>Equihash</td>
+            <td>ZEC</td>
+            <td>135 kSol/s</td>
+            <td>120V</td>
             <td>Running</td>
           </tr>
           <tr>
-            <td><strong>Lottery Miner</strong></td>
+            <td><strong>NerdQaxe++ (lottery miner)</strong></td>
             <td>SHA-256</td>
-            <td>BTC</td>
+            <td>BTC (solo)</td>
+            <td>~5 TH/s</td>
             <td>120V</td>
             <td>Running</td>
           </tr>
@@ -477,7 +516,16 @@
       </table>
       </div>
 
-      <p>I&rsquo;m mining BTC, LTC, DOGE, and KAS across these machines. The S19J Pro is currently out for a C55 control board repair. With free power, I don&rsquo;t need the newest, most efficient hardware &mdash; I just need machines that run reliably.</p>
+      <p>I&rsquo;m mining BTC, KAS, and ZEC across these machines. With free power, I don&rsquo;t need the newest, most efficient hardware &mdash; I just need machines that run reliably.</p>
+
+      <p><strong>A miss I&rsquo;ll own:</strong> the two KS5 Pros were a bet on Kaspa that hasn&rsquo;t paid off so far. A good reminder to <a href="index.html">run the numbers in the calculator</a> before you buy.</p>
+
+      <h3 style="color:var(--sola-gold);margin:1.25rem 0 0.5rem;">When a Hashboard Dies</h3>
+      <p>My S19 Pro has one bad hashboard, so it&rsquo;s down for repair &mdash; but a miner with a dead board isn&rsquo;t scrap. Its good boards still have value two ways:</p>
+      <ul>
+        <li><strong>Spare rig:</strong> run it underclocked on the remaining boards when I need extra hashrate or a backup machine.</li>
+        <li><strong>Two 120V units:</strong> split the good boards into two single-board miners that run on regular household outlets, each in my own 3D-printed case (coming soon). A single-board build needs a <a href="aftermarket_firmware.html#loki-vendors">Loki Kit</a> or the <a href="aftermarket_firmware.html#psu-bypass">LuxOS PSU Bypass</a> plus a 120V-compatible power supply.</li>
+      </ul>
     </section>
 
     <!-- Timeline -->
@@ -501,7 +549,7 @@
       </div>
       <div class="timeline-item">
         <span class="timeline-year">2025&ndash;Present</span>
-        <p class="timeline-text">Scaled to 5 ASIC miners plus a lottery miner. Mining BTC, LTC, DOGE, and KAS with near-zero electricity cost. Built <a href="index.html">solarayeffect.com</a> to share what I&rsquo;ve learned.</p>
+        <p class="timeline-text">Scaled to 12 ASIC miners plus a lottery miner. Mining BTC, KAS, and ZEC with near-zero electricity cost. Built <a href="index.html">SolaRayEffect.com</a> to share what I&rsquo;ve learned.</p>
       </div>
     </section>
 
