@@ -31,6 +31,7 @@ Litecoin + Dogecoin,Mining-Dutch,https://www.mining-dutch.nl/,0.5-1.5%,fpps ppln
 Litecoin + Dogecoin,Kryptex,https://pool.kryptex.com/ltc,1%,pps,PPS+,0.01 LTC,🌐 🇪🇺 🇺🇸 🇧🇷 🇸🇬 🇭🇰 🇷🇺 🇦🇪,8,"Merged DOGE+PEP+BELLS etc., all auto-converted to LTC. Hourly payouts.",keep
 Litecoin + Dogecoin,LiteSolo,https://litesolo.org/,1%,solo,Solo,Full block,🇪🇺 🇺🇸,2,"Merged LTC+DOGE solo. Full block reward (6.25 LTC / 10,000 DOGE + tx fees) minus 1% fee.",keep
 Litecoin + Dogecoin,DxPool,https://www.dxpool.com/,3%,pps,PPS+,0.001 LTC,🇺🇸 🌏,2,PPS+ 3% (default). Merged DOGE+BEL+DINGO+JKC+LKY+PEP. Solo mode not publicly documented.,keep
+Litecoin + Dogecoin,SoloPool.org,https://ltc.solopool.org/,"10% LTC, 0% DOGE",solo,Solo,Full block,🇪🇺  🇺🇸,2,Solo pool. LTC fee is 10%; merged DOGE is free. No registration.,add
 Kaspa (KAS),2Miners,https://2miners.com/kas-mining-pool,1-1.5%,pplns solo,PPLNS;Solo,50 KAS,🇪🇺 🇺🇸 🌏,3,"PPLNS 1%, Solo 1.5%. Payouts every 2h. NiceHash compatible. Good monitoring tools.",keep
 Kaspa (KAS),K1Pool,https://k1pool.com/pool/kaspa,0.5%,pplns solo,PPLNS;Solo,50 KAS,🇪🇺 🇺🇸 🇨🇳 🇷🇺,4,Payouts every 4h. Bonus ZKAS dual mining. Rental miners supported.,keep
 Kaspa (KAS),HeroMiners,https://kaspa.herominers.com/,0.9%,pplns solo,PROP;Solo,1 KAS,🌐,1,Exchange wallet support. Hourly payouts. 18 server locations.,keep
@@ -73,6 +74,7 @@ Fractal Bitcoin (FB),ViaBTC,https://www.viabtc.com/,Free with BTC,pplns,PPLNS (m
 Fractal Bitcoin (FB),Kryptex,https://pool.kryptex.com/fb,1.5-2%,pps solo,PPS+;Solo,0.1 FB,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,Standalone FB mining. Hourly payouts. PPS+ 2% / Solo 1.5%. No registration.,keep
 Fractal Bitcoin (FB),F2Pool,https://www.f2pool.com/,Free with BTC,pplns,PPLNS (merged),0.1 FB,🌐  🇺🇸  🇪🇺  🌏  🌍  🌎,6,Standalone FB pool no longer listed. FB is merge-mined with BTC and paid PPLNS.,keep
 Fractal Bitcoin (FB),AntPool,https://www.antpool.com/,1%,pplns,PPLNS,0.1 FB,🌐  🇺🇸  🇪🇺  🌏  🌍,5,Standalone FB mining. PPLNS 1%.,add
+Fractal Bitcoin (FB),SoloPool.org,https://fb.solopool.org/,2%,solo,Solo,Full block,🇪🇺,1,FB solo pool. EU server only. No registration.,add
 Radiant (RXD),Vipor,https://vipor.net/mine/rxd_pplns_1,0.9%,pplns solo,PPLNS;Solo,100 RXD,🌐,1,Largest Radiant pool. PPLNS or solo.,remove
 Quai Network (QUAI),K1Pool,https://k1pool.com/pool/quaisha256,2%,pplns solo,PPLNS;Solo,500 QUAI,🇪🇺 🇺🇸 🇨🇳 🇷🇺,4,"Separate SHA-256, Scrypt (500 QUAI min) and KAWPOW (200 QUAI min) pools. Autoswitch ports.",keep
 Quai Network (QUAI),HeroMiners,https://quai.herominers.com/,0.9%,pplns solo,PROP;Solo,5 QUAI,🇺🇸  🇪🇺  🌐,3,Global servers. KawPow only (not SHA-256/Scrypt). Blocks paid after 14-day lockup. No registration.,keep
@@ -82,7 +84,9 @@ Bitcoin (BTC),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the 
 Bitcoin Cash (BCH),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
 DigiByte (DGB),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
 DigiByte (DGB),AntPool,https://www.antpool.com/,1%,pplns,PPLNS,100 DGB,🌐  🇺🇸  🇪🇺  🌏  🌍,5,DGB SHA-256. PPLNS 1%.,add
+DigiByte (DGB),SoloPool.org,https://dgb-sha.solopool.org/,2%,solo,Solo,Full block,🇪🇺  🇺🇸,2,DGB SHA-256 solo pool. No registration.,add
 eCash (XEC),HeliosPool,https://heliospool.com/,1%,solo,Solo,None (paid in the block),🇺🇸  🇨🇦  🇪🇺  🇦🇺,4,Solo only. The block reward goes straight to your wallet; the pool never holds your coins.,add
+eCash (XEC),SoloPool.org,https://xec.solopool.org/,2%,solo,Solo,Full block,🇪🇺,1,XEC solo pool. EU server only. No registration.,add
 Bitcoin SV (BSV),Kryptex,https://pool.kryptex.com/bsv,1-3%,pps solo,PPS+;Solo,0.3 BSV,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,"PPS+ at 3%, or solo at 1% (enter solo:yourwallet as the username).",add
 Bitcoin SV (BSV),GorillaPool,https://gorillapool.io/,2%,pplns,PPLNS,0.01 BSV,🌐,1,BSV-focused pool. PPLNS paid on-chain after 100 confirmations.,add
 Bitcoin SV (BSV),Mining-Dutch,https://www.mining-dutch.nl/pools/bitcoinsv.php,0.5-1.5%,fpps pplns solo,D-PPS;PPLNS;Solo,You set it,🇪🇺  🇨🇦  🇸🇬  🇦🇺,4,"D-PPS (FPPS) 1.5%, PPLNS/PROP 1%, solo 0.5%. Pays every 15 minutes.",add
