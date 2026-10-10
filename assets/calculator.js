@@ -1172,9 +1172,9 @@
       document.getElementById('miner-info').classList.remove('active');
       document.getElementById('miner-info').classList.remove('loki-miner');
       document.getElementById('miner-cost').value = '0';
-      document.getElementById('solar-hours').value = '6';
-      document.getElementById('free-hours').value = '6';
-      document.getElementById('battery-hours').value = '0';
+      document.getElementById('solar-hours').value = '10';
+      document.getElementById('free-hours').value = '10';
+      document.getElementById('battery-hours').value = '4';
       document.getElementById('idle-hours').value = '0';
       document.getElementById('grid-rate').value = '0.15';
       document.getElementById('pool-fee').value = '1';
@@ -1440,6 +1440,9 @@
       document.getElementById('yearly-elec').textContent = `$${yearly(dailyElecCost).toFixed(2)}`;
       document.getElementById('yearly-profit').textContent = fmtUSD(yearly(dailyProfit));
       
+      // Rank every coin this miner can mine, after power and fees (same math as above)
+      renderCoinRanking({ hashrate, activeFraction, totalFees, dailyElecCost, currentAlgo: algorithm });
+
       // Display network stats for the calculated coin
       lastCalculatedAlgorithm = algorithm;
       displayNetworkStats(algorithm);
@@ -1487,6 +1490,59 @@
       }
     }
     
+    // ============================================
+    // COIN RANKING FOR THE SELECTED MINER
+    // Every coin the miner's algorithm can mine, profit after power and fees.
+    // ============================================
+    const COINS_BY_ALGO = {
+      'SHA-256': ['SHA-256', 'SHA-256-BCH', 'SHA-256-BSV', 'SHA-256-XEC', 'SHA-256-DGB', 'SHA-256-FB', 'SHA-256-QUAI'],
+      'Scrypt': ['Scrypt', 'Scrypt-QUAI']
+    };
+    function renderCoinRanking(o) {
+      const box = document.getElementById('coin-ranking');
+      if (!box || !selectedMiner) return;
+      const algos = COINS_BY_ALGO[selectedMiner.algorithm] || [selectedMiner.algorithm];
+      const keep = 1 - o.totalFees / 100;
+      const rows = algos.filter(a => REVENUE_RATES[a]).map(a => {
+        const r = REVENUE_RATES[a];
+        let rev = o.hashrate * r.perUnit * o.activeFraction * getEffectivePrice(r.coin) * keep;
+        let label = r.coin;
+        if (r.merged) {
+          rev += o.hashrate * r.merged.perUnit * o.activeFraction * getEffectivePrice(r.merged.coin) * keep;
+          label = r.coin + ' + ' + r.merged.coin;
+        }
+        if (selectedMiner.dualMining) {
+          const d = selectedMiner.dualMining, dr = REVENUE_RATES[d.algorithm];
+          if (dr) rev += d.hashrate * dr.perUnit * o.activeFraction * getEffectivePrice(d.coin) * keep;
+        }
+        return { algo: a, label, rev, profit: rev - o.dailyElecCost };
+      }).sort((x, y) => y.profit - x.profit);
+      if (rows.length < 2) { box.style.display = 'none'; box.innerHTML = ''; return; }
+      box.innerHTML = '<p style="color: var(--sola-gold); font-size: 0.95rem; font-weight: 600; margin: 0 0 0.25rem;">\u{1F3C6} Every coin your ' + selectedMiner.name + ' can mine</p>'
+        + '<p style="color: #c9d4dc; font-size: 0.8rem; margin: 0 0 0.75rem;">Profit per day with your settings above: revenue after pool fee, minus electricity (' + fmtUSD(o.dailyElecCost) + '/day).</p>'
+        + '<div class="table-wrap"><table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">'
+        + '<thead><tr style="color: #c9d4dc; text-align: left;"><th style="padding: 0.35rem 0.5rem;">#</th><th style="padding: 0.35rem 0.5rem;">Coin</th><th style="padding: 0.35rem 0.5rem; text-align: right;">Revenue/day</th><th style="padding: 0.35rem 0.5rem; text-align: right;">Profit/day</th></tr></thead><tbody>'
+        + rows.map((r, i) => '<tr data-algo="' + r.algo + '" title="Show full results for ' + r.label + '" style="cursor: pointer; border-top: 1px solid rgba(255,255,255,0.08);' + (i === 0 ? ' background: rgba(212,175,55,0.10);' : '') + '">'
+          + '<td style="padding: 0.4rem 0.5rem;">' + (i + 1) + '</td>'
+          + '<td style="padding: 0.4rem 0.5rem; font-weight: 600;">' + r.label + (i === 0 ? ' <span style="color: var(--sola-gold); font-size: 0.75rem;">best</span>' : '') + (r.algo === o.currentAlgo ? ' <span style="color: var(--sola-teal); font-size: 0.75rem;">(shown above)</span>' : '') + '</td>'
+          + '<td style="padding: 0.4rem 0.5rem; text-align: right;">' + fmtUSD(r.rev) + '</td>'
+          + '<td style="padding: 0.4rem 0.5rem; text-align: right; color: ' + (r.profit >= 0 ? '#4caf50' : '#ff5252') + ';">' + fmtUSD(r.profit) + '</td></tr>').join('')
+        + '</tbody></table></div>'
+        + '<p style="color: #8899a8; font-size: 0.75rem; margin: 0.6rem 0 0;">Tap a coin to see its full results above.</p>';
+      box.style.display = 'block';
+      if (!box.dataset.wired) {
+        box.dataset.wired = '1';
+        box.addEventListener('click', (e) => {
+          const tr = e.target.closest('tr[data-algo]');
+          if (!tr) return;
+          // The Algorithm menu now keeps the chosen miner, so set it and recalculate.
+          const sel = document.getElementById('algorithm-filter');
+          if ([...sel.options].some(op => op.value === tr.dataset.algo)) sel.value = tr.dataset.algo;
+          calculate();
+        });
+      }
+    }
+
     // ============================================
     // BROWSE TABLE
     // ============================================
