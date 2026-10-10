@@ -38,16 +38,16 @@
 
 /* ============================================
    HOT PICK NAV CARDS (desktop only)
-   Flanking cards beside Sola's Hot Pick
+   Flanking cards beside the page title
    ============================================ */
 .hotpick-nav-card {
   display: none;
 }
-@media (min-width: 1200px) {
+@media (min-width: 1280px) {
   .hotpick-nav-card {
     display: block;
     position: absolute;
-    top: 50%;
+    top: -170px;
     width: 180px;
     padding: 1rem 0.75rem;
     background: rgba(0,206,209,0.04);
@@ -55,8 +55,8 @@
     border-radius: 8px;
     z-index: 50;
   }
-  .hotpick-nav-card.left-card { left: 0; transform: translate(-110%, -50%); }
-  .hotpick-nav-card.right-card { right: 0; transform: translate(110%, -50%); }
+  .hotpick-nav-card.left-card { left: 0; transform: translateX(-110%); }
+  .hotpick-nav-card.right-card { right: 0; transform: translateX(110%); }
   .hotpick-nav-card .nav-card-title {
     color: rgba(212,175,55,0.85);
     font-size: 0.72rem;
@@ -1916,135 +1916,27 @@
 </header>
     <p class="affiliate-disclosure" style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 1rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
 
-    <!-- Sola's Hot Pick with Nav Cards -->
-    <div style="position:relative;">
-
+    <!-- Nav cards beside the title (desktop only); anchored here so they sit in the empty side columns above the calculator -->
+    <div class="nav-card-anchor" style="position:relative;height:0;">
       <!-- Left Nav Card: New to Mining? -->
       <div class="hotpick-nav-card left-card">
         <div class="nav-card-title">New to Mining?</div>
         <a class="nav-card-link" href="#about-sola">&#x2600;&#xFE0F; About Sola Ray&#x2019;s Effect<span class="nav-card-desc">What this calculator does</span></a>
         <a class="nav-card-link" href="electrical_setup.html">&#x26A1; Electrical Setup<span class="nav-card-desc">Wiring, voltage, breakers</span></a>
         <a class="nav-card-link" href="glossary.html">&#x1F4D6; Glossary<span class="nav-card-desc">Mining terms explained</span></a>
-        <a class="nav-card-link" href="miners.html">&#x1F4B0; Miner Catalog<span class="nav-card-desc">Compare 60+ ASICs</span></a>
+        <a class="nav-card-link" href="miners.html">&#x1F4B0; Miner Catalog<span class="nav-card-desc">Compare 90+ ASICs</span></a>
       </div>
 
       <!-- Right Nav Card: Already Mining? -->
       <div class="hotpick-nav-card right-card">
         <div class="nav-card-title">Already Mining?</div>
-        <a class="nav-card-link" href="#about-sola">&#x2600;&#xFE0F; About Sola Ray&#x2019;s Effect<span class="nav-card-desc">What this calculator does</span></a>
+        <a class="nav-card-link" href="pools.html">&#x1F3CA; Mining Pools<span class="nav-card-desc">Fees, payouts, best fit</span></a>
         <a class="nav-card-link" href="aftermarket_firmware.html">&#x2699;&#xFE0F; Aftermarket Firmware<span class="nav-card-desc">LuxOS, VNish, Braiins</span></a>
         <a class="nav-card-link" href="remote_management.html">&#x1F4E1; Remote Management<span class="nav-card-desc">Monitor from anywhere</span></a>
         <a class="nav-card-link" href="datavault.html">&#x1F4CA; Data Vault<span class="nav-card-desc">Live stats &#x26; hashrates</span></a>
       </div>
-
-    <!-- Sola's Hot Pick -->
-    <section class="sola-banner" id="sunrise-pick" style="visibility:hidden;">
-      <img src="assets/sola_hotpick_sun_optimized.jpg" fetchpriority="high" decoding="async" width="1200" height="799" style="position:absolute;opacity:0;pointer-events:none;left:-9999px;" alt="">
-      <div class="sola-banner-inner">
-        <div class="sola-banner-header">
-          <div class="header-line"></div>
-          <h2 class="sola-banner-title">Sola's Hot Pick</h2>
-          <div class="header-line"></div>
-        </div>
-
-        <div class="panels-container">
-          <!-- LEFT: Hot Pick (CENTERED) -->
-          <div class="sola-banner-panel hot-pick-winner">
-            <div class="sola-banner-kicker">&#x1F525; Hot Pick</div>
-            <p class="winner-coin" id="sunrise-coin">BTC</p>
-            <p class="winner-miner" id="sunrise-miner">with Antminer S21 200T</p>
-            <p class="winner-revenue" id="sunrise-revenue">$0.00/day</p>
-          </div>
-
-          <!-- RIGHT: Ember Picks (CENTERED) -->
-          <div class="sola-banner-panel ember-picks-panel">
-            <div class="sola-banner-kicker">&#x1F525; Ember Picks</div>
-
-            <div class="ember-columns" id="ember-columns">
-              <!-- populated by JS -->
-            </div>
-          </div>
-        </div>
-
-        <div class="bottom-tagline">
-          <span>w/ Solar &amp; Free Hours</span>
-        </div>
-      </div>
-    </section>
-    </div><!-- end hotpick nav card wrapper -->
-
-    <!-- Mobile Solo Mining Odds (visible under 1200px only)
-         Mirrors the desktop solo-calc-box but lives inline in the page flow
-         so phones and tablets actually see it. Uses mobile-prefixed IDs;
-         the JS that wires it up lives in the same script block as the desktop version. -->
-    <div class="mobile-solo-strip">
-      <div class="solo-strip-header">
-        <div class="solo-strip-label">SolaRayEffect.com</div>
-        <div class="solo-strip-title">&#x1F3B2; Solo Mining Odds</div>
-        <div class="solo-strip-subtitle">Real chance of finding a block on your own</div>
-      </div>
-      <div class="solo-strip-form">
-        <label for="solo-coin-mobile">Coin</label>
-        <select id="solo-coin-mobile">
-          <option value="">-- Select Coin --</option>
-          <option value="BTC" data-unit="TH">Bitcoin (BTC) &ndash; SHA-256</option>
-          <option value="BCH" data-unit="TH">Bitcoin Cash (BCH) &ndash; SHA-256</option>
-      <option value="BSV" data-unit="TH">Bitcoin SV (BSV) &ndash; SHA-256</option>
-          <option value="XEC" data-unit="TH">eCash (XEC) &ndash; SHA-256</option>
-          <option value="DGB" data-unit="TH">DigiByte (DGB) &ndash; SHA-256</option>
-              <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
-          <option value="DOGE" data-unit="MH">Dogecoin (DOGE) &ndash; Scrypt</option>
-          <option value="ETC" data-unit="MH">Ethereum Classic (ETC) &ndash; ETChash</option>
-          <option value="ZEC" data-unit="KH">Zcash (ZEC) &ndash; Equihash</option>
-        </select>
-
-        <label>Hashrate</label>
-        <div class="solo-hash-row">
-          <input type="number" id="solo-hashrate-mobile" placeholder="e.g. 110" min="0" step="any" disabled>
-          <select id="solo-unit-mobile" disabled>
-            <option value="TH">TH/s</option>
-          </select>
-        </div>
-
-        <button class="solo-calc-btn" id="solo-calc-go-mobile" disabled>Calculate</button>
-
-        <div class="solo-error" id="solo-error-mobile"></div>
-
-        <div class="solo-results" id="solo-results-mobile">
-          <table>
-            <tr>
-              <th colspan="2">Results</th>
-            </tr>
-            <tr>
-              <td>Block Reward</td>
-              <td class="solo-usd" id="solo-usd-mobile">--</td>
-            </tr>
-            <tr>
-              <td>Per Hour</td>
-              <td id="solo-hour-mobile">--</td>
-            </tr>
-            <tr>
-              <td>Per Day</td>
-              <td id="solo-day-mobile">--</td>
-            </tr>
-            <tr>
-              <td>Per Week</td>
-              <td id="solo-week-mobile">--</td>
-            </tr>
-            <tr>
-              <td>Per Year</td>
-              <td id="solo-year-mobile">--</td>
-            </tr>
-          </table>
-        </div>
-
-        <div class="solo-credit">
-          Live network data &amp; prices by <a href="datavault.html">SolaRayEffect Data Vault</a>
-        </div>
-      </div>
     </div>
 
-    
     <!-- Miner Selection -->
     <section class="section" >
       <h2 class="section-title">&#x1F4B0; Select Your Miner</h2>
@@ -2237,6 +2129,8 @@
         </div>
       </div>
       
+      <p class="loss-note" id="loss-note" style="display: none; margin: 0 0 1rem; padding: 0.75rem 1rem; background: rgba(255, 82, 82, 0.08); border: 1px solid rgba(255, 82, 82, 0.3); border-radius: 8px; color: #e8eef2; font-size: 0.95rem;"></p>
+
       <div class="results-grid">
         <div class="result-card">
           <h4>Daily</h4>
@@ -2279,6 +2173,117 @@
       </div>
     </section>
     
+    <!-- Sola's Hot Pick (below the calculator) -->
+    <div style="position:relative;margin-top:1.75rem;">
+
+    <!-- Sola's Hot Pick -->
+    <section class="sola-banner" id="sunrise-pick" style="visibility:hidden;">
+      <img src="assets/sola_hotpick_sun_optimized.jpg" fetchpriority="high" decoding="async" width="1200" height="799" style="position:absolute;opacity:0;pointer-events:none;left:-9999px;" alt="">
+      <div class="sola-banner-inner">
+        <div class="sola-banner-header">
+          <div class="header-line"></div>
+          <h2 class="sola-banner-title">Sola's Hot Pick</h2>
+          <div class="header-line"></div>
+        </div>
+
+        <div class="panels-container">
+          <!-- LEFT: Hot Pick (CENTERED) -->
+          <div class="sola-banner-panel hot-pick-winner">
+            <div class="sola-banner-kicker">&#x1F525; Hot Pick</div>
+            <p class="winner-coin" id="sunrise-coin">BTC</p>
+            <p class="winner-miner" id="sunrise-miner">with Antminer S21 200T</p>
+            <p class="winner-revenue" id="sunrise-revenue">$0.00/day</p>
+            <p class="winner-note" style="margin: 0.25rem 0 0; font-size: 0.8rem; color: #c9d4dc;">revenue, before power &amp; pool fees</p>
+          </div>
+
+          <!-- RIGHT: Ember Picks (CENTERED) -->
+          <div class="sola-banner-panel ember-picks-panel">
+            <div class="sola-banner-kicker">&#x1F525; Ember Picks</div>
+
+            <div class="ember-columns" id="ember-columns">
+              <!-- populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-tagline">
+          <span>Daily revenue before power &amp; pool fees &middot; run your own numbers in the calculator above</span>
+        </div>
+      </div>
+    </section>
+    </div><!-- end hotpick wrapper -->
+
+    <!-- Mobile Solo Mining Odds (visible under 1200px only)
+         Mirrors the desktop solo-calc-box but lives inline in the page flow
+         so phones and tablets actually see it. Uses mobile-prefixed IDs;
+         the JS that wires it up lives in the same script block as the desktop version. -->
+    <div class="mobile-solo-strip">
+      <div class="solo-strip-header">
+        <div class="solo-strip-label">SolaRayEffect.com</div>
+        <div class="solo-strip-title">&#x1F3B2; Solo Mining Odds</div>
+        <div class="solo-strip-subtitle">Real chance of finding a block on your own</div>
+      </div>
+      <div class="solo-strip-form">
+        <label for="solo-coin-mobile">Coin</label>
+        <select id="solo-coin-mobile">
+          <option value="">-- Select Coin --</option>
+          <option value="BTC" data-unit="TH">Bitcoin (BTC) &ndash; SHA-256</option>
+          <option value="BCH" data-unit="TH">Bitcoin Cash (BCH) &ndash; SHA-256</option>
+      <option value="BSV" data-unit="TH">Bitcoin SV (BSV) &ndash; SHA-256</option>
+          <option value="XEC" data-unit="TH">eCash (XEC) &ndash; SHA-256</option>
+          <option value="DGB" data-unit="TH">DigiByte (DGB) &ndash; SHA-256</option>
+              <option value="LTC" data-unit="MH">Litecoin (LTC) &ndash; Scrypt</option>
+          <option value="DOGE" data-unit="MH">Dogecoin (DOGE) &ndash; Scrypt</option>
+          <option value="ETC" data-unit="MH">Ethereum Classic (ETC) &ndash; ETChash</option>
+          <option value="ZEC" data-unit="KH">Zcash (ZEC) &ndash; Equihash</option>
+        </select>
+
+        <label>Hashrate</label>
+        <div class="solo-hash-row">
+          <input type="number" id="solo-hashrate-mobile" placeholder="e.g. 110" min="0" step="any" disabled>
+          <select id="solo-unit-mobile" disabled>
+            <option value="TH">TH/s</option>
+          </select>
+        </div>
+
+        <button class="solo-calc-btn" id="solo-calc-go-mobile" disabled>Calculate</button>
+
+        <div class="solo-error" id="solo-error-mobile"></div>
+
+        <div class="solo-results" id="solo-results-mobile">
+          <table>
+            <tr>
+              <th colspan="2">Results</th>
+            </tr>
+            <tr>
+              <td>Block Reward</td>
+              <td class="solo-usd" id="solo-usd-mobile">--</td>
+            </tr>
+            <tr>
+              <td>Per Hour</td>
+              <td id="solo-hour-mobile">--</td>
+            </tr>
+            <tr>
+              <td>Per Day</td>
+              <td id="solo-day-mobile">--</td>
+            </tr>
+            <tr>
+              <td>Per Week</td>
+              <td id="solo-week-mobile">--</td>
+            </tr>
+            <tr>
+              <td>Per Year</td>
+              <td id="solo-year-mobile">--</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="solo-credit">
+          Live network data &amp; prices by <a href="datavault.html">SolaRayEffect Data Vault</a>
+        </div>
+      </div>
+    </div>
+
     <!-- Next Steps for New Miners -->
     <section class="section" style="margin-top: 1.5rem;">
       <div style="background: rgba(8, 26, 21, 0.78); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 10px; padding: 1.25rem 1.5rem;">
@@ -2448,6 +2453,12 @@
       }
       if (minerSection) {
         var minerTop = minerSection.getBoundingClientRect().top + window.scrollY;
+        // If the left nav card (beside the title) reaches lower, start below it.
+        var navCard = document.querySelector('.hotpick-nav-card.left-card');
+        if (navCard && navCard.offsetParent !== null) {
+          var navBottom = navCard.getBoundingClientRect().bottom + window.scrollY + 16;
+          if (navBottom > minerTop) minerTop = navBottom;
+        }
         calcBox.style.top = (minerTop - containerTop) + 'px';
       }
     }
