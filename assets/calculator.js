@@ -1047,6 +1047,8 @@
         miners = miners.filter(m => m.algorithm === filterAlgo);
       }
       
+      // Remember the chosen miner so switching coins in the Algorithm menu keeps it.
+      const keepId = selectedMiner ? selectedMiner.id : null;
       minerSelect.innerHTML = '<option value="">-- Select Miner --</option>';
       miners.forEach(m => {
         const opt = document.createElement('option');
@@ -1062,7 +1064,11 @@
       // Update live price display
       updateLivePriceDisplay();
       
-      // Clear selection
+      // Keep the chosen miner if it can still mine the selected coin; otherwise clear it.
+      if (keepId && miners.some(m => m.id === keepId)) {
+        minerSelect.value = keepId;
+        return;
+      }
       document.getElementById('miner-info').classList.remove('active');
       document.getElementById('miner-info').classList.remove('loki-miner');
       selectedMiner = null;
@@ -1268,6 +1274,16 @@
     // ============================================
     // CALCULATE (with idle time affecting revenue)
     // ============================================
+    // Money: -$1.50 (not $-1.50)
+    function fmtUSD(v) { return (v < 0 ? '-$' : '$') + Math.abs(v).toFixed(2); }
+    // Coin amounts: big amounts (XEC, DOGE, DGB, QUAI) get commas and no long tail
+    // of decimals; small amounts (BTC, LTC, ZEC) keep the given precision.
+    function fmtCoin(v, smallDecimals) {
+      if (v >= 1000) return Math.round(v).toLocaleString('en-US');
+      if (v >= 1) return v.toLocaleString('en-US', { maximumFractionDigits: 2 });
+      return v.toFixed(smallDecimals);
+    }
+
     function calculate() {
       // Track calculator usage
       if (typeof gtag === 'function') {
@@ -1380,40 +1396,49 @@
       // Update DOM
       document.getElementById('results-panel').classList.add('active');
       
-      document.getElementById('breakeven-days').textContent = breakevenDays === Infinity ? '\u221E' : (breakevenDays === 0 ? 'N/A' : breakevenDays);
+      document.getElementById('breakeven-days').textContent = breakevenDays === Infinity ? 'No payback' : (breakevenDays === 0 ? 'N/A' : breakevenDays);
+      const lossNote = document.getElementById('loss-note');
+      if (lossNote) {
+        if (dailyProfit <= 0) {
+          lossNote.textContent = 'At these settings this miner loses ' + fmtUSD(dailyProfit).replace('-', '') + ' a day, so it never pays for itself. More solar or free hours, a lower power rate, or a different coin can change that.';
+          lossNote.style.display = 'block';
+        } else {
+          lossNote.style.display = 'none';
+        }
+      }
       document.getElementById('annual-elec-cost').textContent = `$${annualElecCost.toFixed(0)}`;
       document.getElementById('annual-elec-savings').textContent = `$${annualElecSavings.toFixed(0)}`;
       
       document.getElementById('daily-revenue').textContent = `$${dailyRevenue.toFixed(2)}`;
       document.getElementById('daily-elec').textContent = `$${dailyElecCost.toFixed(2)}`;
-      document.getElementById('daily-profit').textContent = `$${dailyProfit.toFixed(2)}`;
+      document.getElementById('daily-profit').textContent = fmtUSD(dailyProfit);
       
       // Format crypto output - show dual mining, merged mining, or single coin
       if (selectedMiner && selectedMiner.dualMining && dailyDualCrypto > 0) {
         // Dual mining (two coins from separate chips)
-        document.getElementById('daily-crypto').textContent = `${dailyCrypto.toFixed(8)} ${rateInfo.coin} + ${dailyDualCrypto.toFixed(4)} ${dualCoin}`;
-        document.getElementById('monthly-crypto').textContent = `${monthly(dailyCrypto).toFixed(6)} ${rateInfo.coin} + ${monthly(dailyDualCrypto).toFixed(1)} ${dualCoin}`;
-        document.getElementById('yearly-crypto').textContent = `${yearly(dailyCrypto).toFixed(4)} ${rateInfo.coin} + ${Math.round(yearly(dailyDualCrypto)).toLocaleString()} ${dualCoin}`;
+        document.getElementById('daily-crypto').textContent = `${fmtCoin(dailyCrypto, 8)} ${rateInfo.coin} + ${fmtCoin(dailyDualCrypto, 4)} ${dualCoin}`;
+        document.getElementById('monthly-crypto').textContent = `${fmtCoin(monthly(dailyCrypto), 6)} ${rateInfo.coin} + ${fmtCoin(monthly(dailyDualCrypto), 1)} ${dualCoin}`;
+        document.getElementById('yearly-crypto').textContent = `${fmtCoin(yearly(dailyCrypto), 4)} ${rateInfo.coin} + ${fmtCoin(yearly(dailyDualCrypto), 0)} ${dualCoin}`;
         document.getElementById('price-note').textContent = `Prices: ${rateInfo.coin} $${coinPrice.toLocaleString()} | ${dualCoin} $${dualCoinPrice.toFixed(6)} | Dual mining ${activeHours}h/day`;
       } else if (rateInfo.merged) {
-        document.getElementById('daily-crypto').textContent = `${dailyCrypto.toFixed(8)} ${rateInfo.coin} + ${dailyMergedCrypto.toFixed(4)} ${mergedCoin}`;
-        document.getElementById('monthly-crypto').textContent = `${monthly(dailyCrypto).toFixed(6)} ${rateInfo.coin} + ${monthly(dailyMergedCrypto).toFixed(1)} ${mergedCoin}`;
-        document.getElementById('yearly-crypto').textContent = `${yearly(dailyCrypto).toFixed(4)} ${rateInfo.coin} + ${Math.round(yearly(dailyMergedCrypto)).toLocaleString()} ${mergedCoin}`;
+        document.getElementById('daily-crypto').textContent = `${fmtCoin(dailyCrypto, 8)} ${rateInfo.coin} + ${fmtCoin(dailyMergedCrypto, 4)} ${mergedCoin}`;
+        document.getElementById('monthly-crypto').textContent = `${fmtCoin(monthly(dailyCrypto), 6)} ${rateInfo.coin} + ${fmtCoin(monthly(dailyMergedCrypto), 1)} ${mergedCoin}`;
+        document.getElementById('yearly-crypto').textContent = `${fmtCoin(yearly(dailyCrypto), 4)} ${rateInfo.coin} + ${fmtCoin(yearly(dailyMergedCrypto), 0)} ${mergedCoin}`;
         document.getElementById('price-note').textContent = `Prices: ${rateInfo.coin} $${coinPrice.toLocaleString()} | ${mergedCoin} $${mergedCoinPrice.toFixed(4)} | Mining ${activeHours}h/day`;
       } else {
-        document.getElementById('daily-crypto').textContent = `${dailyCrypto.toFixed(8)} ${rateInfo.coin}`;
-        document.getElementById('monthly-crypto').textContent = `${monthly(dailyCrypto).toFixed(6)} ${rateInfo.coin}`;
-        document.getElementById('yearly-crypto').textContent = `${yearly(dailyCrypto).toFixed(4)} ${rateInfo.coin}`;
+        document.getElementById('daily-crypto').textContent = `${fmtCoin(dailyCrypto, 8)} ${rateInfo.coin}`;
+        document.getElementById('monthly-crypto').textContent = `${fmtCoin(monthly(dailyCrypto), 6)} ${rateInfo.coin}`;
+        document.getElementById('yearly-crypto').textContent = `${fmtCoin(yearly(dailyCrypto), 4)} ${rateInfo.coin}`;
         document.getElementById('price-note').textContent = `Prices: ${rateInfo.coin} $${coinPrice.toLocaleString()} | Mining ${activeHours}h/day`;
       }
       
       document.getElementById('monthly-revenue').textContent = `$${monthly(dailyRevenue).toFixed(2)}`;
       document.getElementById('monthly-elec').textContent = `$${monthly(dailyElecCost).toFixed(2)}`;
-      document.getElementById('monthly-profit-detail').textContent = `$${monthlyProfit.toFixed(2)}`;
+      document.getElementById('monthly-profit-detail').textContent = fmtUSD(monthlyProfit);
       
       document.getElementById('yearly-revenue').textContent = `$${yearly(dailyRevenue).toFixed(2)}`;
       document.getElementById('yearly-elec').textContent = `$${yearly(dailyElecCost).toFixed(2)}`;
-      document.getElementById('yearly-profit').textContent = `$${yearly(dailyProfit).toFixed(2)}`;
+      document.getElementById('yearly-profit').textContent = fmtUSD(yearly(dailyProfit));
       
       // Display network stats for the calculated coin
       lastCalculatedAlgorithm = algorithm;
