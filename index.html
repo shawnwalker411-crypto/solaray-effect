@@ -40,6 +40,10 @@
    HOT PICK NAV CARDS (desktop only)
    Flanking cards beside the page title
    ============================================ */
+/* Phone: smaller page title so the miner picker shows on the first screen */
+@media (max-width: 600px) {
+  .site-title { font-size: 1.3rem !important; line-height: 1.3; }
+}
 .hotpick-nav-card {
   display: none;
 }
@@ -2060,15 +2064,15 @@
       <div class="electricity-grid">
         <div class="config-group">
           <label for="solar-hours">&#x2600;&#xFE0F; Solar Hours/Day</label>
-          <input type="number" id="solar-hours" value="6" min="0" max="24" oninput="capHours(this)">
+          <input type="number" id="solar-hours" value="10" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
           <label for="free-hours">&#x1F319; Free Hours</label>
-          <input type="number" id="free-hours" value="6" min="0" max="24" oninput="capHours(this)">
+          <input type="number" id="free-hours" value="10" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
           <label for="battery-hours">&#x1F50B; Battery Hours</label>
-          <input type="number" id="battery-hours" value="0" min="0" max="24" oninput="capHours(this)">
+          <input type="number" id="battery-hours" value="4" min="0" max="24" oninput="capHours(this)">
         </div>
         <div class="config-group">
           <label for="idle-hours">&#x23FB; Miners Off</label>
@@ -2166,6 +2170,9 @@
         <p class="network-stats-text" id="network-stats-text"></p>
       </div>
       
+      <!-- Every coin this miner can mine, ranked by profit (populated by calculate()) -->
+      <div class="coin-ranking" id="coin-ranking" style="display: none; margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(212, 175, 55, 0.06); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 8px;"></div>
+
       <!-- Dynamic contextual links (populated by calculate()) -->
       <div class="context-links" id="context-links" style="display: none; margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(0, 206, 209, 0.06); border: 1px solid rgba(0, 206, 209, 0.2); border-radius: 8px;">
         <p style="color: var(--sola-gold); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">&#x1F517; Dig Deeper</p>
