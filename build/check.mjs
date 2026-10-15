@@ -15,6 +15,7 @@ const GA_ID = 'G-M6F5T8Y2P6';
 // Pages already rebuilt from the master lists (add each page as its step finishes).
 const LOCKED_PAGES = ['index.html', 'miners.html', 'pools.html'];
 const CSP_REQUIRED = ['https://www.googletagmanager.com', 'https://*.google-analytics.com'];
+const PIXEL_CSP_REQUIRED = ['https://connect.facebook.net', 'https://www.facebook.com'];
 
 const blocks = [];
 const reports = [];
@@ -263,6 +264,12 @@ for (const f of [...pages, ...comps]) {
   if (hasGA && csp) {
     const miss = CSP_REQUIRED.filter((d) => !csp.includes(d));
     if (miss.length) block(`${f}: security policy is missing ${miss.join(' + ')} (Analytics hits may be blocked)`);
+  }
+  const hasPixel = html.includes('<script src="/assets/meta-pixel.js"></script>');
+  if (!hasPixel) block(`${f}: missing the shared Meta Pixel file /assets/meta-pixel.js`);
+  if (hasPixel && csp) {
+    const missPx = PIXEL_CSP_REQUIRED.filter((d) => !csp.includes(d));
+    if (missPx.length) block(`${f}: security policy is missing ${missPx.join(' + ')} (Meta Pixel may be blocked)`);
   }
 
   // Raw emoji in page text: write them as HTML codes (&#x26A1;) so they display the same everywhere
