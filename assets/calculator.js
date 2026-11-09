@@ -35,7 +35,7 @@
       },
       'KHeavyHash': { perUnit: 0.0055, unit: 'GH/s', coin: 'KAS' },
       'Etchash': { perUnit: 0.0000630, unit: 'MH/s', coin: 'ETC' },
-      'Equihash': { perUnit: 0.0000465, unit: 'kSol/s', coin: 'ZEC' },
+      'Equihash': { perUnit: 0.0000426, unit: 'kSol/s', coin: 'ZEC' },
       'X11': { perUnit: 0.0000850, unit: 'GH/s', coin: 'DASH' },
       // DGB
       'SHA-256-DGB': { perUnit: 8.0, unit: 'TH/s', coin: 'DGB' },
@@ -647,11 +647,11 @@
       // ZEC (Equihash)
       // network_hashrate is expected to be in Sol/s
       if (!hasYield('ZEC') && data.ZEC && data.ZEC.network_hashrate > 0) {
-        // ZEC: block_time ~75s. block_reward now comes LIVE from the API
-        // (getblocksubsidy -> miner share). Fallback 1.25 = the miner's current
-        // take-home per block, used only if the live value is missing.
-        const blocksPerDay = 86400 / (data.ZEC.block_time || 75);
-        const dailyCoins = (data.ZEC.block_reward || 1.25) * blocksPerDay;
+        // ZEC: block_time 25s since NU7 (Nov 2026; was 75s). block_reward comes
+        // LIVE from the API (getblocksubsidy -> miner share). Fallback 0.41666668
+        // = the miner's post-NU7 take-home per block, used only if missing.
+        const blocksPerDay = 86400 / (data.ZEC.block_time || 25);
+        const dailyCoins = (data.ZEC.block_reward || 0.41666668) * blocksPerDay;
         // Hashrate in Sol/s, we need per kSol/s
         const perKSol = dailyCoins / (data.ZEC.network_hashrate / 1e3);
         

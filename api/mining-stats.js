@@ -493,12 +493,14 @@ async function fetchFB() {
 /*                      earnings and self-updates at every halving — no more    */
 /*                      hardcoded reward to maintain.                          */
 /*                                                                            */
-/* block_time is the protocol target (75s, post-Blossom) — a fixed constant.  */
+/* block_time is the protocol target: 25s since NU7 activated (Nov 2026).     */
+/* Before NU7 it was 75s (post-Blossom). NU7 made blocks 3x faster and cut    */
+/* the per-block reward to 1/3, so daily issuance did not change.            */
 
-const ZEC_BLOCK_TIME_SECONDS = 75;
-// Miner's take-home per block right now (post-Nov-2024 halving). Used ONLY if
-// the live getblocksubsidy call fails — the live value is preferred.
-const ZEC_MINER_REWARD_FALLBACK = 1.25;
+const ZEC_BLOCK_TIME_SECONDS = 25; // NU7 (Nov 2026). Was 75.
+// Miner's take-home per block right now (post-NU7, Nov 2026): 1.25 / 3.
+// Used ONLY if the live getblocksubsidy call fails — the live value is preferred.
+const ZEC_MINER_REWARD_FALLBACK = 0.41666668;
 
 async function fetchZEC() {
   const apiKey = process.env.NOWNODES_API_KEY;
@@ -534,8 +536,11 @@ async function fetchZEC() {
   if (subsidyRes.status === 'fulfilled' && subsidyRes.value && !subsidyRes.value.error) {
     const s = subsidyRes.value.result || {};
     const minerShare = Number(s.miner);
-    // Sanity clamp — the real miner reward sits comfortably inside this band.
-    if (Number.isFinite(minerShare) && minerShare >= 0.1 && minerShare <= 10) {
+    // Sanity clamp — post-NU7 the miner reward is ~0.4167 (and halves to
+    // ~0.2083 at the next halving). Anything above 0.5 is a pre-NU7 value
+    // (e.g. an un-upgraded node still reporting 1.25) and would triple ZEC
+    // earnings, so it is rejected and the fallback is used instead.
+    if (Number.isFinite(minerShare) && minerShare >= 0.05 && minerShare <= 0.5) {
       blockReward = minerShare;
     }
   }
@@ -575,7 +580,7 @@ async function fetchViaNowNodes(coin) {
     BCH: 3.125,
     DASH: 0.411,  // miner's share only; verified block 2,552,159 (2026-10-09): miner 0.41101891 of 1.6441
     ETC: 1.6384,  // era 6 (from block 25,000,000, 2026-07-22); live value comes from etcEraReward()
-    ZEC: 1.25
+    ZEC: 0.41666668  // post-NU7 (Nov 2026) miner share per 25s block
   };
 
   const blockTimes = {
@@ -585,7 +590,7 @@ async function fetchViaNowNodes(coin) {
     BCH: 600,
     DASH: 156,
     ETC: 13.46,
-    ZEC: 75
+    ZEC: 25   // NU7 (Nov 2026); was 75
   };
 
   /* ETC: read live difficulty/height from the JSON-RPC node (etc.nownodes.io)
