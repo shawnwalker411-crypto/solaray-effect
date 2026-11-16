@@ -1587,6 +1587,15 @@ html:not(.rails-on) #solo-calc-box { display: none; }
   .coin-left { align-items: center; text-align: center; }
   .coin-row { justify-content: center; }
 }
+    /* Keep page titles clear of the fixed menu button on phones and tablets (audit ISS-04) */
+    @media (max-width: 1023px) {
+      .site-title { padding-left: 3.75rem; padding-right: 3.75rem; }
+    }
+    /* Bigger tap targets (audit ISS-18) */
+    #use-aftermarket { width: 24px !important; height: 24px !important; }
+    #solo-calc-box select,
+    #solo-calc-box input[type="number"],
+    #solo-calc-box .solo-calc-btn { min-height: 24px; }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"SolaRayEffect.com Home Mining Calculator","url":"https://www.solarayeffect.com/","description":"Free cryptocurrency mining profitability calculator for home miners with dual electricity rates, solar power support, and 90+ ASIC miners.","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"SolaRayEffect.com","url":"https://www.solarayeffect.com/","logo":{"@type":"ImageObject","url":"https://www.solarayeffect.com/assets/sola_hotpick_sun_optimized.jpg"}}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bitcoin mining still profitable at home in 2026?","acceptedAnswer":{"@type":"Answer","text":"It comes down to what you pay for electricity. If you have solar, free overnight power, or a rate under $0.08/kWh, the numbers can absolutely work with efficient hardware like the S19K Pro or S21. Run your actual rates through the calculator and see."}},{"@type":"Question","name":"Can I run an Antminer S19 on a regular outlet?","acceptedAnswer":{"@type":"Answer","text":"Not at full power \u2014 they need 240V. But with a Loki Kit or LuxOS PSU Bypass, a 120V power supply, and aftermarket firmware like LuxOS, VNish, or Braiins OS+, you can run one hash board on a standard 120V outlet at about a third to 40% of full hashrate and 1,200W. The Electrical Setup guide walks through the wiring."}},{"@type":"Question","name":"What is a solar buyback program?","acceptedAnswer":{"@type":"Answer","text":"Your utility credits your account for excess solar energy you export to the grid. During those hours your electricity is effectively free. This calculator lets you separate those free solar hours from your paid grid rate so you can see exactly what mining earns you versus selling power back."}}]}</script>
