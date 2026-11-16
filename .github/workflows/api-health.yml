@@ -1,0 +1,120 @@
+# API health check for SolaRayEffect.com
+#
+# Every hour this checks the homepage and both APIs (mining stats and sky).
+# If a check still fails after one retry a minute later, it opens ONE GitHub
+# issue labeled "api-health" that mentions the repo owner, so GitHub emails you.
+# While the problem lasts it adds a comment instead of opening duplicates.
+# When everything passes again it comments "Recovered" and closes the issue.
+#
+# Notes:
+# - Free for public repositories.
+# - GitHub turns off scheduled workflows in public repos after 60 days with no
+#   commits. Normal site updates keep it running. If it ever stops, open the
+#   Actions tab, pick "API health check", and click "Enable workflow".
+# - You can also run it by hand: Actions tab > API health check > Run workflow.
+
+name: API health check
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # every hour at :17 (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: api-health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check site and APIs (one retry)
+        id: health
+        run: |
+          cat > check.mjs <<'EOF'
+          const BASE = 'https://www.solarayeffect.com';
+          async function get(path) {
+            const r = await fetch(BASE + path, { signal: AbortSignal.timeout(45000), headers: { 'User-Agent': 'solarayeffect-health-check' } });
+            const text = await r.text();
+            let json = null;
+            try { json = JSON.parse(text); } catch (e) {}
+            return { status: r.status, json, text };
+          }
+          async function runChecks() {
+            const problems = [];
+            try {
+              const home = await get('/');
+              if (home.status !== 200) problems.push(`Homepage returned HTTP ${home.status}`);
+            } catch (e) { problems.push(`Homepage did not respond: ${e.message}`); }
+            try {
+              const ms = await get('/api/mining-stats');
+              if (ms.status !== 200 || !ms.json || ms.json.success !== true) {
+                problems.push(`/api/mining-stats returned HTTP ${ms.status}`);
+              } else {
+                const data = ms.json.data || {};
+                const coins = Object.keys(data);
+                const failed = coins.filter((c) => data[c] && data[c].error);
+                if (coins.length < 15) problems.push(`/api/mining-stats returned only ${coins.length} of 15 coins`);
+                if (failed.length > 2) problems.push(`/api/mining-stats: ${failed.length} coins failing (${failed.join(', ')})`);
+                if (!(data.BTC && data.BTC.difficulty > 0)) problems.push('/api/mining-stats: BTC difficulty missing');
+                if (Object.keys(ms.json.prices || {}).length < 10) problems.push('/api/mining-stats: coin prices missing');
+              }
+            } catch (e) { problems.push(`/api/mining-stats did not respond: ${e.message}`); }
+            try {
+              const sky = await get('/api/sky?lat=32.8&lon=-97.1');
+              if (sky.status !== 200 || !sky.json || sky.json.success !== true) problems.push(`/api/sky returned HTTP ${sky.status}`);
+            } catch (e) { problems.push(`/api/sky did not respond: ${e.message}`); }
+            return problems;
+          }
+          let problems = await runChecks();
+          if (problems.length) {
+            console.log('First try failed, retrying in 60 seconds:\n' + problems.join('\n'));
+            await new Promise((r) => setTimeout(r, 60000));
+            problems = await runChecks();
+          }
+          const fs = await import('node:fs');
+          fs.writeFileSync('problems.txt', problems.join('\n'));
+          console.log(problems.length ? 'FAILED:\n' + problems.join('\n') : 'All checks passed.');
+          EOF
+          node check.mjs
+          if [ -s problems.txt ]; then echo "failed=true" >> "$GITHUB_OUTPUT"; else echo "failed=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Open or update the alert issue
+        if: steps.health.outputs.failed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create api-health --repo "$REPO" --color d73a4a --description "Automatic API health alerts" --force
+          {
+            echo "@$OWNER the hourly check of solarayeffect.com found a problem (checked twice, one minute apart):"
+            echo
+            sed 's/^/- /' problems.txt
+            echo
+            echo "Run details: $RUN_URL"
+          } > body.md
+          existing=$(gh issue list --repo "$REPO" --label api-health --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$REPO" --body-file body.md
+          else
+            gh issue create --repo "$REPO" --title "Site/API health check failed" --label api-health --assignee "$OWNER" --body-file body.md
+          fi
+          exit 1
+
+      - name: Close the alert issue after recovery
+        if: steps.health.outputs.failed == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          existing=$(gh issue list --repo "$REPO" --label api-health --state open --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$existing" ]; then
+            gh issue close "$existing" --repo "$REPO" --comment "Recovered: all checks passed on the latest run."
+          fi
