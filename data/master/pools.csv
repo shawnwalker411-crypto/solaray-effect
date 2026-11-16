@@ -3,7 +3,7 @@ Bitcoin (BTC),Foundry USA,https://foundrydigital.com/mining-service/foundry-usa-
 Bitcoin (BTC),AntPool,https://www.antpool.com/,2-4%,fpps pplns,FPPS;PPLNS,0.005 BTC,🌐  🇺🇸  🇪🇺  🌏  🌍,5,Bitmain-operated. FPPS 4% / PPLNS 2%. Min payout settable down to 0.001 BTC.,keep
 Bitcoin (BTC),ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,0.0001 BTC,🌐  🇪🇺,2,PPS+ 4% (2% on tx fees) / PPLNS 2%. SOLO ended May 2026.,keep
 Bitcoin (BTC),F2Pool,https://www.f2pool.com/,2-4%,fpps pplns,FPPS;PPLNS,0.005 BTC,🌐  🇺🇸  🇪🇺  🌏  🌍  🌎,6,"FPPS 4% / PPLNS 2%. Merge mining (FB, NMC, ELA, HTR, NAT) with BTC.",keep
-Bitcoin (BTC),Braiins Pool,https://braiins.com/pool,0-2.5%,fpps,FPPS,0.0002 BTC,🌐,1,Formerly Slush Pool. Longest-running pool. FPPS 2.5%; 0% pool fee with Braiins OS (OS fee 2-2.5%). Lightning payouts from 1 sat.,keep
+Bitcoin (BTC),Braiins Pool,https://braiins.com/pool,0-2.5%,fpps,FPPS,0.0002 BTC,🌐,1,Formerly Slush Pool. Longest-running pool. FPPS 2.5%; pool fee refunded daily with Braiins OS (in full only if all your miners run it; OS fee 2-2.5%). Lightning payouts from 1 sat.,keep
 Bitcoin (BTC),Luxor,https://luxor.tech/,0-2.5%,fpps,FPPS,0.001 BTC,🌐,1,US-based. SOC 2 Type 2 certified. FPPS 2.5%; 0% pool fee with LuxOS (firmware fee 2.8%).,keep
 Bitcoin (BTC),Binance Pool,https://pool.binance.com/,4%,fpps,FPPS,None,🌐,1,Exchange integration. Binance account required. Paid daily to your Binance account.,keep
 Bitcoin (BTC),CloverPool (formerly BTC.com),https://cloverpool.com/,4%,fpps,FPPS,0.005 BTC,🇪🇺  🇺🇸  🇸🇬,3,CloverPool (formerly BTC.com). btc.com no longer hosts the pool.,keep
