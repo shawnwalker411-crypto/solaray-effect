@@ -1203,6 +1203,10 @@
     // CAP HOURS TO 24 TOTAL
     // ============================================
     function capHours(changedInput) {
+      // Keep each box between 0 and 24 hours (audit ISS-05)
+      const own = parseInt(changedInput.value);
+      if (!isNaN(own) && own < 0) changedInput.value = 0;
+      if (!isNaN(own) && own > 24) changedInput.value = 24;
       const solar = parseInt(document.getElementById('solar-hours').value) || 0;
       const free = parseInt(document.getElementById('free-hours').value) || 0;
       const battery = parseInt(document.getElementById('battery-hours').value) || 0;
@@ -1284,6 +1288,54 @@
       return v.toFixed(smallDecimals);
     }
 
+    // ============================================
+    // ON-PAGE MESSAGE ABOVE THE CALCULATE BUTTON (replaces pop-ups, audit ISS-05/ISS-21)
+    // ============================================
+    function showCalcMessage(text) {
+      let box = document.getElementById('calc-message');
+      const btn = document.querySelector('.calculate-btn');
+      if (!box && btn) {
+        box = document.createElement('div');
+        box.id = 'calc-message';
+        box.setAttribute('role', 'alert');
+        box.style.cssText = 'margin:0 0 0.75rem;padding:0.6rem 0.9rem;border:1px solid #ff7a7a;border-radius:8px;color:#ff7a7a;background:rgba(255,82,82,0.08);font-size:0.95rem;text-align:center;';
+        btn.parentNode.insertBefore(box, btn);
+      }
+      if (!box) return;
+      box.textContent = text || '';
+      box.style.display = text ? 'block' : 'none';
+    }
+
+    // Returns a message for the first problem found in the inputs, or '' when all are valid.
+    function checkCalcInputs() {
+      const hourIds = [['solar-hours', 'Solar hours'], ['free-hours', 'Free hours'], ['battery-hours', 'Battery hours'], ['idle-hours', 'Miners-off hours']];
+      let total = 0;
+      for (const [id, label] of hourIds) {
+        const raw = document.getElementById(id).value.trim();
+        const v = raw === '' ? 0 : parseFloat(raw);
+        if (!Number.isFinite(v) || v < 0 || v > 24) return label + ' must be between 0 and 24.';
+        total += v;
+      }
+      if (total > 24) return 'Solar, free, battery and off hours add up to ' + total + '. They can total 24 at most.';
+      const rateRaw = document.getElementById('grid-rate').value.trim();
+      if (rateRaw === '') return 'Enter your grid electricity rate in $/kWh (use 0 if your power is free).';
+      const rate = parseFloat(rateRaw);
+      if (!Number.isFinite(rate) || rate < 0) return 'Grid rate can\'t be negative.';
+      const feeRaw = document.getElementById('pool-fee').value.trim();
+      const fee = feeRaw === '' ? 0 : parseFloat(feeRaw);
+      if (!Number.isFinite(fee) || fee < 0 || fee > 100) return 'Pool fee must be between 0 and 100%.';
+      if (document.getElementById('use-aftermarket').checked) {
+        const devRaw = document.getElementById('dev-fee').value.trim();
+        const dev = devRaw === '' ? 0 : parseFloat(devRaw);
+        if (!Number.isFinite(dev) || dev < 0 || dev > 100) return 'Firmware dev fee must be between 0 and 100%.';
+      }
+      for (const [id, label] of [['config-hashrate', 'Hashrate'], ['config-power', 'Power'], ['miner-cost', 'Miner cost']]) {
+        const v = parseFloat(document.getElementById(id).value);
+        if (Number.isFinite(v) && v < 0) return label + ' can\'t be negative.';
+      }
+      return '';
+    }
+
     function calculate() {
       // Track calculator usage
       if (typeof gtag === 'function') {
@@ -1296,9 +1348,15 @@
       
       // ASIC is the only mining type. Require a selected miner.
       if (!selectedMiner) {
-        alert('Please select a miner first.');
+        showCalcMessage('Pick a miner first, then press Calculate.');
         return;
       }
+      const inputProblem = checkCalcInputs();
+      if (inputProblem) {
+        showCalcMessage(inputProblem);
+        return;
+      }
+      showCalcMessage('');
       hashrate = parseFloat(document.getElementById('config-hashrate').value) || selectedMiner.hashrate;
       power = parseFloat(document.getElementById('config-power').value) || selectedMiner.power;
       cost = parseFloat(document.getElementById('miner-cost').value) || 0;
@@ -1335,7 +1393,7 @@
       // Revenue
       const rateInfo = REVENUE_RATES[algorithm];
       if (!rateInfo) {
-        alert('Algorithm not supported. Please select a valid algorithm.');
+        showCalcMessage('This miner\'s algorithm isn\'t supported yet. Pick another miner or algorithm.');
         return;
       }
       
