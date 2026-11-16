@@ -681,6 +681,20 @@
         var visibleCards = section.querySelectorAll('.miner-card:not([style*="display: none"])');
         section.style.display = visibleCards.length > 0 ? '' : 'none';
       });
+
+      // Say so when nothing matches, instead of a blank area (audit ISS-24)
+      var anyShown = Array.prototype.some.call(cards, function(c) { return c.style.display !== 'none'; });
+      var emptyMsg = document.getElementById('miners-empty');
+      var minersBox = document.getElementById('miners-container');
+      if (!emptyMsg && minersBox) {
+        emptyMsg = document.createElement('p');
+        emptyMsg.id = 'miners-empty';
+        emptyMsg.setAttribute('role', 'status');
+        emptyMsg.style.cssText = 'text-align:center;color:var(--text-secondary);padding:2rem 1rem;font-size:1rem;';
+        emptyMsg.textContent = 'No miners match. Try a shorter search like S19 or KS5, or set the filters back to All.';
+        minersBox.parentNode.insertBefore(emptyMsg, minersBox);
+      }
+      if (emptyMsg) emptyMsg.style.display = anyShown ? 'none' : 'block';
       
       // Hide SEO content when filtering
       var seoContent = document.querySelector('.seo-content');
