@@ -105,18 +105,14 @@
     .glossary-more-link { color: var(--sola-teal); text-decoration: none; font-weight: 600; }
 
     /* LIABILITY MODAL */
-    .liability-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; }
-    .liability-overlay.show { display: flex; }
     .liability-modal { width: 100%; max-width: 760px; background: rgba(8, 26, 21, 0.92); border: 1px solid rgba(212, 175, 55, 0.28); border-radius: 16px; box-shadow: 0 20px 80px rgba(0,0,0,0.6); backdrop-filter: blur(10px); overflow: hidden; }
     .liability-top { padding: 1.1rem 1.25rem; border-bottom: 1px solid rgba(212, 175, 55, 0.18); display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: linear-gradient(180deg, rgba(212,175,55,0.08), rgba(0,0,0,0)); }
     .liability-title { margin: 0; font-family: 'Noto Sans JP', sans-serif; font-size: 1.05rem; color: var(--sola-gold); letter-spacing: 0.5px; }
     .liability-body { padding: 1.1rem 1.25rem 1.25rem; color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem; }
     .liability-body strong { color: var(--text-primary); }
     .liability-bullets { margin: 0.85rem 0 0.9rem 1.1rem; }
-    .liability-actions { display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: flex-end; padding: 0 1.25rem 1.25rem; }
-    .liability-btn { padding: 0.65rem 1rem; border-radius: 12px; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(0, 206, 209, 0.4); background: rgba(0, 206, 209, 0.10); color: var(--sola-teal); transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease; }
-    .liability-btn:hover { transform: translateY(-1px); background: rgba(0, 206, 209, 0.16); border-color: rgba(0, 206, 209, 0.6); }
     .liability-note { padding: 0.85rem 1.25rem 1.15rem; border-top: 1px solid rgba(212, 175, 55, 0.12); color: var(--text-muted); font-size: 0.78rem; line-height: 1.6; }
+    .liability-inline { margin: 1.25rem auto 0; box-shadow: none; } /* expectations box shown in the page, not as a pop-up */
 
     /* PAGE TITLE */
     .page-title { text-align: center; font-size: 2rem; background: linear-gradient(135deg, var(--sola-teal), var(--sola-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 1rem 0; }
@@ -342,29 +338,7 @@
 
 
 <!-- PHASE 1 COMPLETE -->
-<!-- LIABILITY / EXPECTATION MODAL -->
-  <div class="liability-overlay" id="liability-overlay" aria-hidden="true">
-    <div class="liability-modal" role="dialog" aria-modal="true" aria-labelledby="liability-title">
-      <div class="liability-top">
-        <h2 class="liability-title" id="liability-title">Before You Start: Set Your Expectations</h2>
-      </div>
-      <div class="liability-body">
-        <p><strong>Lottery mining is not a guaranteed income stream.</strong> You are buying chances, not hashrate. The odds of any single device finding a Bitcoin block are extremely small. People have won &mdash; multiple times &mdash; but many more have mined for years without hitting a block.</p>
-        <ul class="liability-bullets">
-          <li>If you cannot afford to lose what you spend on hardware and electricity, this is not for you.</li>
-          <li>This page is educational. It is not financial advice.</li>
-          <li>Verify everything from multiple sources before spending money.</li>
-        </ul>
-        <p>That said &mdash; someone has to find the next block. Every hash is a new ticket.</p>
-      </div>
-      <div class="liability-actions">
-        <button class="liability-btn" id="liability-ack">I Understand the Odds</button>
-      </div>
-      <div class="liability-note">
-        Educational content only. Not financial, electrical, or professional advice of any kind. You are responsible for your own decisions.
-      </div>
-    </div>
-  </div>
+
 
   <!-- Shared Navigation (loaded from /Components/nav.html) -->
   <div id="site-nav"></div>
@@ -386,6 +360,25 @@
     <h1 class="page-title">&#x1F3B0; Solo &amp; Lottery Mining &mdash; Beginner&rsquo;s Guide</h1>
     <p style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 0.5rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
     <p class="page-subtitle">Open-source Bitcoin miners, honest numbers, and what nobody tells beginners</p>
+
+    <!-- Expectations box (was a pop-up; audit ISS-31) -->
+    <section class="liability-modal liability-inline" aria-labelledby="liability-title">
+      <div class="liability-top">
+        <h2 class="liability-title" id="liability-title">Before You Start: Set Your Expectations</h2>
+      </div>
+      <div class="liability-body">
+        <p><strong>Lottery mining is not a guaranteed income stream.</strong> You are buying chances, not hashrate. The odds of any single device finding a Bitcoin block are extremely small. People have won &mdash; multiple times &mdash; but many more have mined for years without hitting a block.</p>
+        <ul class="liability-bullets">
+          <li>If you cannot afford to lose what you spend on hardware and electricity, this is not for you.</li>
+          <li>This page is educational. It is not financial advice.</li>
+          <li>Verify everything from multiple sources before spending money.</li>
+        </ul>
+        <p>That said &mdash; someone has to find the next block. Every hash is a new ticket.</p>
+      </div>
+      <div class="liability-note">
+        Educational content only. Not financial, electrical, or professional advice of any kind. You are responsible for your own decisions.
+      </div>
+    </section>
 
     <div class="gold-box" style="margin-top:1.25rem;">
       <p><strong>Quick links:</strong>
@@ -1091,23 +1084,7 @@
        ======================================== -->
   <script src="/scripts/glossary-data.js"></script>
   <script src="/scripts/glossary-drawer.js"></script>
-  <script>
-    /* --- Liability Modal --- */
-    (function(){
-      var overlay = document.getElementById('liability-overlay');
-      var btn = document.getElementById('liability-ack');
-      var key = 'lotteryLiabilityAck';
-      if(!localStorage.getItem(key)){
-        overlay.setAttribute('aria-hidden','false');
-        overlay.style.display='flex';
-      }
-      btn.addEventListener('click',function(){
-        localStorage.setItem(key,'true');
-        overlay.setAttribute('aria-hidden','true');
-        overlay.style.display='none';
-      });
-    })();
-  </script>
+
 
 
 
