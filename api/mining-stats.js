@@ -113,11 +113,22 @@ async function fetchPricesFromCoinGecko() {
   }
 }
 
+/* Cache bypass (?refresh=...) works only with the secret REFRESH_KEY set in
+   Vercel. Without it, refresh is off, so visitors can't force paid upstream calls. */
+function allowRefresh(value) {
+  const key = process.env.REFRESH_KEY;
+  return Boolean(key) && typeof value === 'string' && value === key;
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
   const { coin, refresh } = req.query;
+  if (coin !== undefined && typeof coin !== 'string') {
+    return res.status(400).json({ success: false, error: 'coin must be a single value' });
+  }
+  const forceRefresh = allowRefresh(refresh);
   const coinsToFetch = coin ? [coin.toUpperCase()] : COINS;
 
   const results = {};
@@ -135,7 +146,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    if (!refresh && cache[c] && Date.now() - cache[c].timestamp < getCacheDuration(c)) {
+    if (!forceRefresh && cache[c] && Date.now() - cache[c].timestamp < getCacheDuration(c)) {
       results[c] = { ...cache[c], fromCache: true };
       return;
     }
@@ -160,7 +171,7 @@ export default async function handler(req, res) {
 
   res.status(200).json({
     success: true,
-    cache_hours: 1,
+    cache_minutes: 5,
     prices: prices,
     data: coin ? results[coin.toUpperCase()] : results
   });
