@@ -5,7 +5,7 @@ Bitcoin (BTC),ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,0.0001 BT
 Bitcoin (BTC),F2Pool,https://www.f2pool.com/,2-4%,fpps pplns,FPPS;PPLNS,0.005 BTC,🌐  🇺🇸  🇪🇺  🌏  🌍  🌎,6,"FPPS 4% / PPLNS 2%. Merge mining (FB, NMC, ELA, HTR, NAT) with BTC.",keep
 Bitcoin (BTC),Braiins Pool,https://braiins.com/pool,0-2.5%,fpps,FPPS,0.0002 BTC,🌐,1,Formerly Slush Pool. Longest-running pool. FPPS 2.5%; pool fee refunded daily with Braiins OS (in full only if all your miners run it; OS fee 2-2.5%). Lightning payouts from 1 sat.,keep
 Bitcoin (BTC),Luxor,https://luxor.tech/,0-2.5%,fpps,FPPS,0.001 BTC,🌐,1,US-based. SOC 2 Type 2 certified. FPPS 2.5%; 0% pool fee with LuxOS (firmware fee 2.8%).,keep
-Bitcoin (BTC),Binance Pool,https://pool.binance.com/,4%,fpps,FPPS,None,🌐,1,Exchange integration. Binance account required. Paid daily to your Binance account.,keep
+Bitcoin (BTC),Binance Pool,https://pool.binance.com/,4%,fpps,FPPS,None,🌐,1,Exchange integration. Binance account required. Paid daily to your Binance account.,remove
 Bitcoin (BTC),CloverPool (formerly BTC.com),https://cloverpool.com/,4%,fpps,FPPS,0.005 BTC,🇪🇺  🇺🇸  🇸🇬,3,CloverPool (formerly BTC.com). btc.com no longer hosts the pool.,keep
 Bitcoin (BTC),OCEAN,https://ocean.xyz/,1-2%,pplns,TIDES,0.01048576 BTC,🇺🇸,1,Non-custodial. No account or KYC. 2% fee; 1% with DATUM. Lightning (BOLT12) payouts below threshold.,keep
 Bitcoin (BTC),SpiderPool,https://www.spiderpool.com/,1-4%,fpps pplns,FPPS;PPLNS,0.005 BTC,🇺🇸  🇪🇺  🌏  🌍  🌎,5,"FPPS 4% / PPLNS 1%. Mines BTC, LTC and ETC, plus FB merged.",keep
@@ -18,7 +18,7 @@ Bitcoin Cash (BCH),AntPool,https://www.antpool.com/,0-4%,fpps pplns,FPPS;PPLNS,0
 Bitcoin Cash (BCH),ViaBTC,https://www.viabtc.com/,2-4%,pps pplns,PPS+;PPLNS,0.001 BCH,🌐  🇪🇺,2,PPS+ 4% / PPLNS 2%.,keep
 Bitcoin Cash (BCH),F2Pool,https://www.f2pool.com/,3%,pps,PPS,0.01 BCH,🌐,1,PPS 3%. Multi-coin veteran.,keep
 Bitcoin Cash (BCH),CloverPool (formerly BTC.com),https://cloverpool.com/,4%,fpps,FPPS,0.0000546 BCH,🌐,1,CloverPool (formerly BTC.com).,keep
-Bitcoin Cash (BCH),Binance Pool,https://pool.binance.com/,4%,fpps,FPPS,None,🌐,1,Exchange integration. Paid daily to your Binance account.,keep
+Bitcoin Cash (BCH),Binance Pool,https://pool.binance.com/,4%,fpps,FPPS,None,🌐,1,Exchange integration. Paid daily to your Binance account.,remove
 Bitcoin Cash (BCH),SoloPool.org,https://bch.solopool.org/,2%,solo,Solo,Full block,🇪🇺  🇺🇸,2,Solo pool with EU and US servers. No registration.,keep
 Bitcoin Cash (BCH),Kryptex,https://pool.kryptex.com/bch,1.5-3%,pps solo,PPS+;Solo,0.01 BCH,🌐  🇪🇺  🇺🇸  🇧🇷  🇸🇬  🇭🇰  🇷🇺  🇦🇪,8,PPS+ 3% / Solo 1.5% (solo:yourwallet). Auto-convert option.,keep
 Litecoin + Dogecoin,LitecoinPool.org,https://www.litecoinpool.org/,2%,pps,PPS,0.002 LTC / 10 DOGE,🇺🇸  🇪🇺,2,"Running since 2011; first LTC PPS pool. LTC+DOGE paid separately, pure PPS. Fee-free payouts.",keep
