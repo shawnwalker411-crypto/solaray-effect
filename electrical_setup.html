@@ -564,7 +564,8 @@
       color: var(--sola-teal);
     }
     
-    .content-hidden { display: none !important; }
+    /* Guide stays in the page for search engines; the disclaimer covers it and blocks scrolling until accepted */
+    body.legal-open { overflow: hidden; }
     /* Keep page titles clear of the fixed menu button on phones and tablets (audit ISS-04) */
     @media (max-width: 1023px) {
       .page-title { padding-left: 3.75rem; padding-right: 3.75rem; }
@@ -1202,13 +1203,24 @@
     // Legal Modal Logic
     (function() {
       const modal = document.getElementById('legal-modal');
-      const mainContent = document.getElementById('main-content');
       const checkbox = document.getElementById('legal-checkbox');
       const agreeBtn = document.getElementById('legal-agree');
       const declineBtn = document.getElementById('legal-decline');
       
-      // Always show modal - no localStorage check
-      mainContent.classList.add('content-hidden');
+      // Always show modal - no localStorage check.
+      // The guide is not hidden (search engines can read it); while the
+      // disclaimer is open, everything behind it is inert and the page can't scroll.
+      function lockPage(locked) {
+        document.body.classList.toggle('legal-open', locked);
+        Array.prototype.forEach.call(document.body.children, function(el) {
+          if (el === modal || el.tagName === 'SCRIPT') return;
+          el.inert = locked;
+        });
+      }
+      lockPage(true);
+      document.addEventListener('DOMContentLoaded', function() {
+        if (!modal.classList.contains('hidden')) lockPage(true);
+      });
       
       // Enable button when checkbox checked
       checkbox.addEventListener('change', function() {
@@ -1218,7 +1230,7 @@
       // Agree button
       agreeBtn.addEventListener('click', function() {
         modal.classList.add('hidden');
-        mainContent.classList.remove('content-hidden');
+        lockPage(false);
       });
       
       // Decline button
