@@ -15,6 +15,13 @@ const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
 /* ============================================================
    MAIN HANDLER
    ============================================================ */
+/* Cache bypass (?refresh=...) works only with the secret REFRESH_KEY set in
+   Vercel. Without it, refresh is off, so visitors can't force paid upstream calls. */
+function allowRefresh(value) {
+  const key = process.env.REFRESH_KEY;
+  return Boolean(key) && typeof value === 'string' && value === key;
+}
+
 module.exports = async function handler(req, res) {
   // Route by ?action= parameter; default = original aggregator behavior
   if (req.query.action === 'satellites') {
@@ -43,7 +50,7 @@ module.exports = async function handler(req, res) {
   const cacheKey = `sky_${lat.toFixed(1)}_${lon.toFixed(1)}`;
   const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
 
-  if (req.query.refresh !== '1') {
+  if (!allowRefresh(req.query.refresh)) {
     try {
       if (fs.existsSync(cacheFile)) {
         const cached = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
@@ -231,13 +238,24 @@ async function fetchAPOD() {
 
   const data = await res.json();
 
+  // NASA's feed sometimes returns a placeholder (e.g. title "NASA Science" with a
+  // NASA logo). Only use an image hosted where the page is allowed to show it.
+  const okHosts = ['apod.nasa.gov', 'www.nasa.gov'];
+  let host = '';
+  try { host = new URL(data.url).hostname; } catch (e) { host = ''; }
+  if (data.media_type === 'image' && !okHosts.includes(host)) {
+    throw new Error('NASA APOD returned an unusable image entry');
+  }
+  const copyright = typeof data.copyright === 'string' && data.copyright.trim() && data.copyright.trim() !== 'None'
+    ? data.copyright.trim() : null;
+
   return {
     title: data.title || null,
     explanation: data.explanation || null,
     url: data.url || null,
     hdurl: data.hdurl || null,
     mediaType: data.media_type || null,
-    copyright: data.copyright || null,
+    copyright: copyright,
     date: data.date || null
   };
 }
@@ -412,7 +430,7 @@ async function handleSatellites(req, res) {
   const cacheKey = `sat_${lat.toFixed(1)}_${lon.toFixed(1)}`;
   const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
 
-  if (req.query.refresh !== '1') {
+  if (!allowRefresh(req.query.refresh)) {
     try {
       if (fs.existsSync(cacheFile)) {
         const cached = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
@@ -544,7 +562,7 @@ async function handleAurora(req, res) {
   const cacheFile = path.join(CACHE_DIR, 'aurora_kp.json');
   let kpEntries = null;
 
-  if (req.query.refresh !== '1') {
+  if (!allowRefresh(req.query.refresh)) {
     try {
       if (fs.existsSync(cacheFile)) {
         const cached = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
