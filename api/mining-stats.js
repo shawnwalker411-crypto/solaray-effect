@@ -728,11 +728,27 @@ async function fetchViaNowNodes(coin) {
   const yieldDifficulty = AVG_IDS[coin] ? (await wtmDifficulty24(AVG_IDS[coin])) || difficulty : difficulty;
   const height = Number(data.backend?.blocks) || 0;
 
+  // BTC: also report the measured daily network hashrate (same source as Data Vault)
+  // for DISPLAY only. Profit math keeps using difficulty, so it is unchanged.
+  let displayHashrate = 0;
+  if (coin === 'BTC') {
+    try {
+      const r = await fetch('https://api.blockchain.info/charts/hash-rate?timespan=7days&format=json', { signal: AbortSignal.timeout(6000) });
+      if (r.ok) {
+        const j = await r.json();
+        const last = Array.isArray(j.values) ? j.values[j.values.length - 1] : null;
+        const ths = Number(last && last.y); // TH/s
+        if (ths > 0) displayHashrate = ths * 1e12;
+      }
+    } catch (e) { /* keep the difficulty-based figure */ }
+  }
+
   return {
     coin,
     difficulty,
     yield_difficulty: yieldDifficulty,
     network_hashrate: networkHashrate,
+    ...(displayHashrate > 0 ? { display_hashrate: displayHashrate, display_hashrate_source: 'blockchain.info daily' } : {}),
     block_reward: coin === 'ETC' && height > 0 ? etcEraReward(height) : blockRewards[coin],
     block_time: blockTimes[coin],
     height,
