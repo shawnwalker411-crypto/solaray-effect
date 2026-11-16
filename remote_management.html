@@ -480,6 +480,10 @@
     }
     footer a { color: var(--sola-teal); text-decoration: none; }
     footer a:hover { color: var(--sola-gold); }
+    /* Keep the page title clear of the fixed menu button (audit ISS-04) */
+    @media (max-width: 1279px) {
+      .page-title { padding-left: 3.75rem; padding-right: 3.75rem; }
+    }
   </style>
 </head>
 <body>
