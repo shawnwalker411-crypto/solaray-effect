@@ -267,6 +267,8 @@ for (const f of [...pages, ...comps]) {
   }
   const hasPixel = html.includes('<script src="/assets/meta-pixel.js"></script>');
   if (!hasPixel) block(`${f}: missing the shared Meta Pixel file /assets/meta-pixel.js`);
+  // eBay click tracking: any page with an eBay link must load the tracker.
+  if (/ebay\.com\//i.test(html) && !html.includes('<script src="/assets/ebay-tracking.js" defer></script>')) block(`${f}: has eBay links but is missing /assets/ebay-tracking.js (eBay clicks on this page would not show in Analytics)`);
   if (hasPixel && csp) {
     const missPx = PIXEL_CSP_REQUIRED.filter((d) => !csp.includes(d));
     if (missPx.length) block(`${f}: security policy is missing ${missPx.join(' + ')} (Meta Pixel may be blocked)`);
