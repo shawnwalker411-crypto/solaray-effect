@@ -44,6 +44,33 @@
     return;
   }
 
+  // Keyboard and screen-reader support (audit ISS-08, ISS-16):
+  // the closed drawer is inert (skipped by Tab and screen readers),
+  // and every glossary term can be reached with Tab and opened with Enter or Space.
+  var lastTerm = null;
+  drawer.inert = true;
+
+  function enhanceTerms(root) {
+    var terms = (root || document).querySelectorAll(".glossary-term:not([data-gl-ready])");
+    for (var i = 0; i < terms.length; i++) {
+      var el = terms[i];
+      el.setAttribute("data-gl-ready", "1");
+      // Terms inside a link or button are already reachable through that control
+      if (el.tagName === "A" || el.tagName === "BUTTON" || el.closest("a, button")) continue;
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("role", "button");
+      if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", "Define " + el.textContent.trim());
+    }
+  }
+  enhanceTerms(document);
+  if (window.MutationObserver) {
+    var pending = null; // batch checks so frequent page updates stay cheap
+    new MutationObserver(function () {
+      if (pending) return;
+      pending = setTimeout(function () { pending = null; enhanceTerms(document); }, 300);
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
   /* ------------------------------------------------
      OPEN DRAWER
      ------------------------------------------------ */
@@ -80,6 +107,8 @@
     overlay.classList.add("show");
     drawer.setAttribute("aria-hidden", "false");
     overlay.setAttribute("aria-hidden", "false");
+    drawer.inert = false;
+    if (closeBtn) closeBtn.focus();
   }
 
   /* ------------------------------------------------
@@ -90,6 +119,9 @@
     overlay.classList.remove("show");
     drawer.setAttribute("aria-hidden", "true");
     overlay.setAttribute("aria-hidden", "true");
+    drawer.inert = true;
+    if (lastTerm && document.contains(lastTerm)) lastTerm.focus();
+    lastTerm = null;
   }
 
   /* ------------------------------------------------
@@ -120,6 +152,17 @@
     if (!el) return;
     e.preventDefault();
     e.stopPropagation();
+    lastTerm = el;
+    openDrawer(el.getAttribute("data-term"), el.textContent.trim());
+  });
+
+  // Enter or Space on a focused term opens it
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    var el = e.target.closest && e.target.closest(".glossary-term[role='button']");
+    if (!el) return;
+    e.preventDefault();
+    lastTerm = el;
     openDrawer(el.getAttribute("data-term"), el.textContent.trim());
   });
 
