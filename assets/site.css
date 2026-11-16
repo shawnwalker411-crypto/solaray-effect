@@ -297,3 +297,6 @@ footer a:hover {
 /* Links with no color of their own use the site teal (gold on hover). */
 a { color: #00CED1; }
 a:hover { color: #D4AF37; }
+
+/* Let long glossary terms wrap inside headings so they never push the page wider than a phone (audit ISS-03) */
+h1 .glossary-term, h2 .glossary-term, h3 .glossary-term { white-space: normal; }
