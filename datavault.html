@@ -1265,6 +1265,12 @@ body {
     footer a:hover {
       color: #D4AF37;
     }
+    /* Keep page titles clear of the fixed menu button on phones and tablets (audit ISS-04) */
+    @media (max-width: 1023px) {
+      .vault-title h1 { padding-left: 3.75rem; padding-right: 3.75rem; }
+    }
+    /* Bigger tap target (audit ISS-18) */
+    .refresh-btn { min-height: 28px; }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"Live Bitcoin Mining Stats | SolaRayEffect.com","description":"Real-time cryptocurrency mining network statistics including difficulty, hashrate, and block data.","url":"https://www.solarayeffect.com/datavault.html","license":"https://www.solarayeffect.com/","creator":{"@type":"Organization","name":"SolaRayEffect.com"}}</script>
 </head>
@@ -1301,7 +1307,7 @@ body {
     <div class="header-content">
       <div class="vault-title">
         <div>
-          <h1>Live Mining Stats &mdash; Network Difficulty, Hashrate & Market Data</h1>
+          <h1>Live Mining Stats &mdash; Network Difficulty, Hashrate &amp; Market Data</h1>
           <div class="subtitle">Data Vault &#x2022; Sector 7</div>
         </div>
       </div>
