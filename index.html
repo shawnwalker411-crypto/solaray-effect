@@ -2441,7 +2441,8 @@
     if (!elecSection) return;
     var sectionTop = elecSection.getBoundingClientRect().top + window.scrollY;
     var containerTop = rail.offsetParent ? rail.offsetParent.getBoundingClientRect().top + window.scrollY : 0;
-    rail.style.top = (sectionTop - containerTop) + 'px';
+    // Rail position is worked out first and set once at the end (see below).
+    var railTop = sectionTop - containerTop;
 
     // Align right rail (Amazon) to same position
     var railRight = document.querySelector('.affiliate-rail-right');
@@ -2470,7 +2471,22 @@
         }
         calcBox.style.top = (minerTop - containerTop) + 'px';
       }
+
+      // Keep the eBay rail below the solo box. When the odds results open,
+      // the box gets taller; without this the "Shop Miners" rail sits on top of it.
+      if (calcBox.offsetParent !== null) {
+        var calcBottom = calcBox.getBoundingClientRect().bottom + window.scrollY + 24;
+        if (calcBottom > sectionTop) {
+          railTop = calcBottom - containerTop;
+        }
+      }
     }
+
+    // Set the rail once, and only when it actually moves. A style change here
+    // re-triggers this function (MutationObserver below), so setting it twice
+    // or to the same spot every time would loop forever and freeze the page.
+    var railTopPx = Math.round(railTop) + 'px';
+    if (rail.style.top !== railTopPx) rail.style.top = railTopPx;
   }
 
   function init() {
