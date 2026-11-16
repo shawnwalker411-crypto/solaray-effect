@@ -1160,6 +1160,10 @@
     footer a:hover {
       color: #D4AF37;
     }
+    /* Keep page titles clear of the fixed menu button on phones and tablets (audit ISS-04) */
+    @media (max-width: 1023px) {
+      .page-title { padding-left: 3.75rem; padding-right: 3.75rem; }
+    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Mining Pools Guide for Home Miners","description":"Comprehensive mining pool directory organized by cryptocurrency with fee comparisons and payout method explanations.","url":"https://www.solarayeffect.com/pools.html","publisher":{"@type":"Organization","name":"SolaRayEffect.com"}}</script>
 </head>
@@ -1184,7 +1188,7 @@
 
   <div class="container">
     <header>
-      <h1 class="page-title">Mining Pools Guide &mdash; Fees, Payouts & Minimums for Every Algorithm</h1>
+      <h1 class="page-title">Mining Pools Guide &mdash; Fees, Payouts &amp; Minimums for Every Algorithm</h1>
       <p class="page-subtitle">Home miner focused &#x2022; North America priority &#x2022; Always verify current fees</p>
     </header>
     <p class="affiliate-disclosure" style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 1rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
