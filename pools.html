@@ -1278,7 +1278,7 @@
         <a class="pool-tile pool-card" href="#profile-viabtc"><span class="pc-name">ViaBTC</span><span class="pc-best">Split earnings between accounts</span><span class="pc-facts"><span class="pc-chip">2&ndash;4% fee</span><span class="pc-chip">PPS+ / PPLNS</span><span class="pc-chip">6 coins</span></span></a>
         <a class="pool-tile pool-card" href="#profile-kryptex"><span class="pc-name">Kryptex</span><span class="pc-best">Hourly payouts, beginner-friendly</span><span class="pc-facts"><span class="pc-chip">1&ndash;3% fee</span><span class="pc-chip">PPS+ / Solo</span><span class="pc-chip">11 coins</span></span></a>
         <a class="pool-tile pool-card" href="#profile-luxor"><span class="pc-name">Luxor</span><span class="pc-best">0% pool fee with LuxOS</span><span class="pc-facts"><span class="pc-chip">2.5% fee</span><span class="pc-chip">FPPS</span><span class="pc-chip">BTC</span></span></a>
-        <a class="pool-tile pool-card" href="#profile-braiins"><span class="pc-name">Braiins Pool</span><span class="pc-best">0% pool fee with Braiins OS</span><span class="pc-facts"><span class="pc-chip">2.5% fee</span><span class="pc-chip">FPPS</span><span class="pc-chip">BTC</span></span></a>
+        <a class="pool-tile pool-card" href="#profile-braiins"><span class="pc-name">Braiins Pool</span><span class="pc-best">Pool fee refunded with Braiins OS</span><span class="pc-facts"><span class="pc-chip">2.5% fee</span><span class="pc-chip">FPPS</span><span class="pc-chip">BTC</span></span></a>
         <a class="pool-tile pool-card" href="#profile-ocean"><span class="pc-name">OCEAN</span><span class="pc-best">No account, non-custodial</span><span class="pc-facts"><span class="pc-chip">1&ndash;2% fee</span><span class="pc-chip">TIDES</span><span class="pc-chip">BTC</span></span></a>
         <a class="pool-tile pool-card" href="#profile-mining-dutch"><span class="pc-name">Mining-Dutch</span><span class="pc-best">Altcoins, you set the payout</span><span class="pc-facts"><span class="pc-chip">0.5&ndash;2% fee</span><span class="pc-chip">D-PPS / PPLNS</span><span class="pc-chip">6 coins</span></span></a>
       </div>
@@ -1527,7 +1527,7 @@
 
       <article class="pool-profile-card" id="profile-braiins">
         <h3>Braiins Pool</h3>
-        <p>Braiins Pool &mdash; formerly Slush Pool &mdash; has been running since 2010, the longest-running Bitcoin mining pool. Standard fee is 2.5% <span class="glossary-term" data-term="fpps">FPPS</span>, but the pool fee drops to <strong>0% if you mine with <span class="glossary-term" data-term="braiins-os">Braiins OS firmware</span></strong>, which carries its own 2&ndash;2.5% dev fee. BTC-only pool. Pioneered <span class="glossary-term" data-term="stratum">Stratum</span> V2, which encrypts the miner-to-pool connection and lets miners build their own block templates. Lightning Network payouts from as little as 1 sat; the on-chain minimum is 0.0002 BTC. Based in Prague, Czech Republic. Strongest fit for home miners running Braiins OS.</p>
+        <p>Braiins Pool &mdash; formerly Slush Pool &mdash; has been running since 2010, the longest-running Bitcoin mining pool. Standard fee is 2.5% <span class="glossary-term" data-term="fpps">FPPS</span>, but the pool fee is <strong>refunded daily if you mine with <span class="glossary-term" data-term="braiins-os">Braiins OS firmware</span></strong> &mdash; the full fee only when every miner on your account runs Braiins OS. Braiins OS carries its own 2&ndash;2.5% dev fee. BTC-only pool. Pioneered <span class="glossary-term" data-term="stratum">Stratum</span> V2, which encrypts the miner-to-pool connection and lets miners build their own block templates. Lightning Network payouts from as little as 1 sat; the on-chain minimum is 0.0002 BTC. Based in Prague, Czech Republic. Strongest fit for home miners running Braiins OS.</p>
         <a class="pool-profile-link" href="https://braiins.com/pool" target="_blank" rel="noopener">Visit Braiins Pool &rarr;</a>
       </article>
 
@@ -1692,13 +1692,13 @@
 
       if (firmware === 'braiins') {
         tier1 = ['braiins', 'luxor', 'f2pool'];
-        whyNotes['braiins'] = '0% pool fee with Braiins OS. Your firmware\u2019s 2\u20132.5% dev fee is your only cost.';
+        whyNotes['braiins'] = 'Pool fee refunded daily with Braiins OS (in full if all your miners run it). Your firmware\u2019s 2\u20132.5% dev fee is then your only cost.';
         whyNotes['luxor'] = '2.5% FPPS on top of your Braiins dev fee. US-based, SOC 2 certified.';
         whyNotes['f2pool'] = 'FPPS 4% or PPLNS 2%. Merge-mined coins included.';
       } else if (firmware === 'luxos') {
         tier1 = ['luxor', 'braiins', 'f2pool'];
         whyNotes['luxor'] = '0% pool fee when running LuxOS. The 2.8% LuxOS firmware fee is your only cost \u2014 best match for your firmware.';
-        whyNotes['braiins'] = 'Strong pool, but its 0% pool fee needs Braiins OS. On LuxOS you\u2019d pay 2.5% FPPS.';
+        whyNotes['braiins'] = 'Strong pool, but its pool-fee refund needs Braiins OS. On LuxOS you\u2019d pay 2.5% FPPS.';
         whyNotes['f2pool'] = 'Established fallback. Works with any firmware.';
       } else if (firmware === 'vnish') {
         tier1 = ['braiins', 'luxor', 'f2pool', 'btccom'];
