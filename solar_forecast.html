@@ -386,12 +386,12 @@
       fetch('https://nominatim.openstreetmap.org/search?postalcode=' + raw + '&country=US&format=json&limit=1', {
         headers: { 'Accept-Language': 'en-US' }
       })
-        .then(function(r){ return r.json(); })
+        .then(function(r){ if (!r.ok) throw new Error('lookup failed'); return r.json(); })
         .then(function(data){
           zipGoBtn.disabled = false;
           zipGoBtn.textContent = 'GO';
           if (!data || data.length === 0) {
-            showError('Zip code not found. Please try another.');
+            showError('We couldn\u2019t find that ZIP code. Check it and try again.');
             return;
           }
           coords = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
@@ -409,7 +409,7 @@
         .catch(function(){
           zipGoBtn.disabled = false;
           zipGoBtn.textContent = 'GO';
-          showError('Network error. Check your connection and try again.');
+          showError('The free ZIP code lookup service we use isn\u2019t responding right now. Please try again in a few minutes.');
         });
     }
 
@@ -451,7 +451,7 @@
         })
         .catch(function(){
           showLoading(false);
-          forecastBody.innerHTML = '<p style="color:#ef4444;text-align:center;padding:2rem 0;">Failed to load forecast. Please try again later.</p>';
+          forecastBody.innerHTML = '<p style="color:#ef4444;text-align:center;padding:2rem 0;">The free weather service we use isn\u2019t responding right now. Please try again in a few minutes.</p>';
         });
     }
 

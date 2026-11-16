@@ -1065,16 +1065,19 @@
     /* ============================================
        GEOCODE ZIP &mdash; Nominatim (free, no key)
        ============================================ */
+    /* Visitor-facing error: says which outside service failed, never blames the visitor */
+    function friendlyError(msg) { var e = new Error(msg); e.friendly = msg; return e; }
+
     function geocodeZip(zip) {
       var url = 'https://nominatim.openstreetmap.org/search?postalcode=' +
                 encodeURIComponent(zip) + '&country=US&format=json&limit=1';
       return fetch(url, { headers: { 'Accept': 'application/json' } })
         .then(function(r) {
-          if (!r.ok) throw new Error('Geocode failed');
+          if (!r.ok) throw friendlyError('The free ZIP code lookup service we use isn\u2019t responding right now. Please try again in a few minutes.');
           return r.json();
         })
         .then(function(arr) {
-          if (!arr || !arr.length) throw new Error('Zip code not found');
+          if (!arr || !arr.length) throw friendlyError('We couldn\u2019t find that ZIP code. Check it and try again.');
           var hit = arr[0];
           var displayParts = (hit.display_name || '').split(',');
           var cityGuess = displayParts[0] || zip;
@@ -1100,7 +1103,7 @@
                 '&forecast_days=8';
       return fetch(url)
         .then(function(r) {
-          if (!r.ok) throw new Error('Weather fetch failed');
+          if (!r.ok) throw friendlyError('The free weather service we use isn\u2019t responding right now. Please try again in a few minutes.');
           return r.json();
         });
     }
@@ -2498,7 +2501,7 @@
         })
         .catch(function(err) {
           panel.innerHTML = '';
-          $('zip-error').textContent = err.message || 'Could not load forecast for that zip.';
+          $('zip-error').textContent = (err && err.friendly) || 'One of the free weather or location services we use isn\u2019t responding right now. Please try again in a few minutes.';
           show($('zip-screen'));
         });
     }
