@@ -99,13 +99,14 @@
 
 /* ============================================
    MOBILE SOLO MINING ODDS STRIP
-   Inline solo calculator for screens under 1200px.
+   Inline solo calculator, shown whenever the side shop rails are off
+   (same room check as /assets/rails.js, which sets html.rails-on).
    Mirrors the mobile-affiliate-strip pattern but contains
    a working compact form, not just affiliate buttons.
    Hidden on desktop (which uses the left-rail solo-calc-box).
    ============================================ */
-.mobile-solo-strip { display: none; }
-@media (max-width: 1199px) {
+html.rails-on .mobile-solo-strip { display: none; }
+@media all {
   .mobile-solo-strip {
     display: block;
     margin: 1.5rem 0;
@@ -369,9 +370,8 @@
   color: var(--sola-teal);
   text-decoration: underline;
 }
-@media (max-width: 1199px) {
-  #solo-calc-box { display: none; }
-}
+/* Side box only shows when the rails have room; otherwise the in-page strip shows. */
+html:not(.rails-on) #solo-calc-box { display: none; }
 
   </style>
   <style>
@@ -2222,7 +2222,7 @@
     </section>
     </div><!-- end hotpick wrapper -->
 
-    <!-- Mobile Solo Mining Odds (visible under 1200px only)
+    <!-- Mobile Solo Mining Odds (visible whenever the side rails are off)
          Mirrors the desktop solo-calc-box but lives inline in the page flow
          so phones and tablets actually see it. Uses mobile-prefixed IDs;
          the JS that wires it up lives in the same script block as the desktop version. -->
