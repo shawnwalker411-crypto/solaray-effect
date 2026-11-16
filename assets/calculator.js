@@ -875,7 +875,11 @@
         const stats = rawMiningStats[coin];
         if (stats && (stats.difficulty > 0 || stats.network_hashrate > 0)) {
           const diff = formatDifficulty(stats.difficulty);
-          const hashrate = formatHashrate(stats.network_hashrate);
+          // Show the measured hashrate when the API has it (BTC); otherwise mark
+          // figures that are calculated from difficulty as approximate.
+          const measured = stats.display_hashrate > 0;
+          const approx = !measured && stats.hashrate_estimated;
+          const hashrate = (approx ? '&asymp;' : '') + formatHashrate(measured ? stats.display_hashrate : stats.network_hashrate) + (approx ? ' (implied by difficulty)' : '');
           const block = formatBlockHeight(stats.height);
           
           statsLines.push(`<strong>Live ${coin} Network:</strong> Difficulty ${diff} | Nethash ${hashrate} | Block ${block}`);
