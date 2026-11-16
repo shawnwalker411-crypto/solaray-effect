@@ -514,7 +514,7 @@ var SOLA_GLOSSARY = {
 
   "ecash": {
     title: "eCash (XEC)",
-    definition: "A SHA-256 cryptocurrency that forked from Bitcoin Cash in 2021. Uses the same algorithm as Bitcoin so any SHA-256 ASIC can mine it. The network is much smaller than BTC or BCH (~40 PH/s), which means higher per-TH yields. XEC has 2 extra decimal places compared to BTC \u2014 one BCH-equivalent block reward equals 1,812,500 XEC."
+    definition: "A SHA-256 cryptocurrency that forked from Bitcoin Cash in 2021. Uses the same algorithm as Bitcoin so any SHA-256 ASIC can mine it. The network is much smaller than BTC or BCH (~49 PH/s), which means higher per-TH yields. XEC has 2 extra decimal places compared to BTC \u2014 one BCH-equivalent block reward equals 1,812,500 XEC."
   },
 
   "alephium": {
@@ -529,7 +529,7 @@ var SOLA_GLOSSARY = {
 
   "fractal-bitcoin": {
     title: "Fractal Bitcoin (FB)",
-    definition: "A Bitcoin-compatible chain using SHA-256, designed for faster block times than Bitcoin (nominal 30 seconds, though observed averages run higher and vary). Any SHA-256 ASIC can mine it directly \u2014 no special hardware required. Network hashrate for permissionless mining sits around 0.5 EH/s, which is much smaller than Bitcoin's overall network. That smaller scale gives meaningful per-TH yield for ASICs that participate. Use a dedicated FB pool rather than pointing your miner at a Bitcoin pool."
+    definition: "A Bitcoin-compatible chain using SHA-256, designed for faster block times than Bitcoin (nominal 30 seconds, though observed averages run higher and vary). Any SHA-256 ASIC can mine it directly \u2014 no special hardware required. Network hashrate for permissionless mining sits around 0.4 EH/s, which is much smaller than Bitcoin's overall network. That smaller scale gives meaningful per-TH yield for ASICs that participate. Use a dedicated FB pool rather than pointing your miner at a Bitcoin pool."
   },
 
   "quai-network": {
