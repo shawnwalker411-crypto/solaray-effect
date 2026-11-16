@@ -121,8 +121,15 @@ function allowRefresh(value) {
 }
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  // Only your own site's pages may read this from a browser on another site's behalf.
+  // (Your pages call it from the same site and devices don't use CORS, so neither is affected.)
+  const ALLOWED_ORIGINS = ['https://www.solarayeffect.com', 'https://solarayeffect.com'];
+  const origin = req.headers && req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
+  }
+  res.setHeader('Vary', 'Origin');
 
   const { coin, refresh } = req.query;
   if (coin !== undefined && typeof coin !== 'string') {
