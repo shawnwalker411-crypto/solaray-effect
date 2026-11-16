@@ -1195,6 +1195,19 @@
     /* ============================================
        AZIMUTH TO COMPASS DIRECTION
        ============================================ */
+    /* Escape text and links that come from outside services before they go into the page (audit ISS-15) */
+    function esc(v) {
+      return String(v === null || v === undefined ? '' : v)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function safeUrl(u) {
+      return /^https:\/\//i.test(String(u || '')) ? esc(u) : '#';
+    }
+
+    /* Compass letters as words for sentences: "in the south", not "in the s" (audit ISS-25) */
+    var COMPASS_WORDS = { N: 'north', NE: 'northeast', E: 'east', SE: 'southeast', S: 'south', SW: 'southwest', W: 'west', NW: 'northwest' };
+
     function azimuthToCompass(deg) {
       if (deg === null || deg === undefined) return '';
       var dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
@@ -1647,10 +1660,10 @@
                           'very low, near the horizon';
             var tip = PLANET_TIPS[p.name] || '';
             html += '<div style="padding:0.6rem 0.85rem;background:var(--bg-card-solid);border-left:3px solid var(--sola-teal);border-radius:0 6px 6px 0;">';
-            html += '<div style="font-weight:700;color:var(--sola-teal);font-size:0.95rem;">' + p.name + '</div>';
+            html += '<div style="font-weight:700;color:var(--sola-teal);font-size:0.95rem;">' + esc(p.name) + '</div>';
             html += '<div style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.15rem;">';
             html += Math.round(p.altitude) + '&deg; up';
-            if (compass) html += ' in the ' + compass.toLowerCase();
+            if (compass) html += ' in the ' + (COMPASS_WORDS[compass] || compass.toLowerCase());
             html += ' &mdash; ' + altDesc + '.';
             if (tip) html += ' <span style="color:var(--text-muted);font-size:0.82rem;">' + tip + '</span>';
             html += '</div>';
@@ -1667,7 +1680,7 @@
         html += '<div style="display:flex;flex-direction:column;gap:0.5rem;">';
         planetsRender.list.forEach(function(p) {
           html += '<div style="padding:0.6rem 0.85rem;background:var(--bg-card-solid);border-left:3px solid var(--sola-teal);border-radius:0 6px 6px 0;">';
-          html += '<div style="font-weight:700;color:var(--sola-teal);font-size:0.95rem;">' + p.name + '</div>';
+          html += '<div style="font-weight:700;color:var(--sola-teal);font-size:0.95rem;">' + esc(p.name) + '</div>';
           html += '<div style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.15rem;">' + p.visibility + '</div>';
           html += '</div>';
         });
@@ -1829,8 +1842,13 @@
         nights[key].clouds.push(clouds[i]);
       }
 
-      /* Build sorted array */
-      var keys = Object.keys(nights).sort();
+      /* Build sorted array, starting with tonight (audit ISS-07).
+         The forecast starts at midnight, so its 12-5am hours belong to last
+         night. Drop that past night unless it is still before 6am now. */
+      var nowRef = new Date();
+      if (nowRef.getHours() <= 5) nowRef.setDate(nowRef.getDate() - 1);
+      var tonightKey = localDateKey(nowRef);
+      var keys = Object.keys(nights).sort().filter(function(k) { return k >= tonightKey; });
       var summaries = [];
       for (var k = 0; k < keys.length && summaries.length < 7; k++) {
         var n = nights[keys[k]];
@@ -2005,7 +2023,7 @@
 
         html += '<div class="pass-item">';
         html += '<div>';
-        html += '<div class="pass-name">&#128752; ' + p.name + '</div>';
+        html += '<div class="pass-name">&#128752; ' + esc(p.name) + '</div>';
         html += '<div class="pass-detail">' + dayLabel + ' &middot; ' + (p.direction || 'see N2YO');
         if (durationMin) html += ' &middot; ' + durationMin + ' min';
         html += elevStr + magStr;
@@ -2031,7 +2049,7 @@
       if (!Array.isArray(showers)) {
         return '<div style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">' +
           'Meteor shower calendar isn&rsquo;t loaded right now. ' +
-          'See the full year at <a href="https://www.imo.net/resources/calendar/" target="_blank" rel="noopener">International Meteor Organization</a>.' +
+          'See the full year at the <a href="https://www.amsmeteors.org/meteor-showers/meteor-shower-calendar/" target="_blank" rel="noopener">American Meteor Society calendar</a>.' +
           '</div>';
       }
 
@@ -2156,7 +2174,7 @@
         }, null);
         if (topStorm) {
           html += '<div style="padding:0.7rem 0.95rem;background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.4);border-radius:8px;margin-bottom:0.85rem;">';
-          html += '<div style="font-weight:700;color:var(--rating-perfect);font-size:0.9rem;">&#9889; Geomagnetic Storm in Progress &mdash; ' + (topStorm.scale || ('Kp ' + topStorm.kp.toFixed(1))) + '</div>';
+          html += '<div style="font-weight:700;color:var(--rating-perfect);font-size:0.9rem;">&#9889; Geomagnetic Storm in Progress &mdash; ' + esc(topStorm.scale || ('Kp ' + topStorm.kp.toFixed(1))) + '</div>';
           html += '<div style="color:var(--text-primary);font-size:0.85rem;margin-top:0.25rem;">Auroras may be pushed unusually far south. Worth checking even from mid-latitudes.</div>';
           html += '</div>';
         }
@@ -2330,14 +2348,14 @@
           : '';
         html += '<div class="event-item">';
         html += '<div class="event-date">' + dateStr + '</div>';
-        html += '<div class="event-title">' + a.name + hazardBadge + '</div>';
+        html += '<div class="event-title">' + esc(a.name) + hazardBadge + '</div>';
         html += '<div class="event-desc">';
         if (sizeStr) html += sizeStr + ' &middot; ';
         if (lunarStr) html += 'misses by ' + lunarStr;
         if (a.velocityKmh) html += ' &middot; ' + Math.round(a.velocityKmh).toLocaleString() + ' km/h';
         html += '</div>';
         if (a.url) {
-          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + a.url + '" target="_blank" rel="noopener">Details on NASA JPL &rarr;</a></div>';
+          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + safeUrl(a.url) + '" target="_blank" rel="noopener">Details on NASA JPL &rarr;</a></div>';
         }
         html += '</div>';
       });
@@ -2358,22 +2376,22 @@
       var html = '<div class="apod-panel">';
       var media = apod.mediaType || apod.media_type;
       if (media === 'image' && apod.url) {
-        html += '<img class="apod-image" src="' + apod.url + '" alt="' + (apod.title || 'NASA Astronomy Picture of the Day') + '" loading="lazy">';
+        html += '<img class="apod-image" src="' + safeUrl(apod.url) + '" alt="' + esc(apod.title || 'NASA Astronomy Picture of the Day') + '" loading="lazy">';
       } else if (media === 'video' && apod.url) {
         html += '<div style="padding:1rem;background:var(--bg-card-solid);border-radius:8px;margin-bottom:0.75rem;color:var(--text-secondary);font-size:0.9rem;">';
-        html += 'Today&rsquo;s NASA pick is a video. <a href="' + apod.url + '" target="_blank" rel="noopener">Watch it on NASA &rarr;</a>';
+        html += 'Today&rsquo;s NASA pick is a video. <a href="' + safeUrl(apod.url) + '" target="_blank" rel="noopener">Watch it on NASA &rarr;</a>';
         html += '</div>';
       }
-      html += '<div class="apod-title">' + (apod.title || 'NASA Astronomy Picture of the Day') + '</div>';
+      html += '<div class="apod-title">' + esc(apod.title || 'NASA Astronomy Picture of the Day') + '</div>';
       if (apod.explanation) {
         var shortExp = apod.explanation.length > 400
-          ? truncateToSentence(apod.explanation, 400) + '&hellip;'
-          : apod.explanation;
+          ? esc(truncateToSentence(apod.explanation, 400)) + '&hellip;'
+          : esc(apod.explanation);
         html += '<div class="apod-explanation">' + shortExp + '</div>';
       }
       html += '<div style="margin-top:0.6rem;font-size:0.75rem;color:var(--text-muted);">';
       html += 'Source: <a href="https://apod.nasa.gov/apod/" target="_blank" rel="noopener">NASA APOD</a>';
-      if (apod.copyright) html += ' &middot; &copy; ' + apod.copyright;
+      if (apod.copyright) html += ' &middot; &copy; ' + esc(apod.copyright);
       html += '</div>';
       html += '</div>';
       return html;
@@ -2397,9 +2415,9 @@
         var topStorm = storms[0];
         html += '<div style="padding:0.85rem 1rem;background:linear-gradient(135deg,rgba(74,222,128,0.10),rgba(0,206,209,0.06));border:1px solid rgba(74,222,128,0.35);border-radius:8px;margin-bottom:0.85rem;">';
         html += '<div style="font-weight:700;color:var(--rating-perfect);margin-bottom:0.3rem;">&#127775; Geomagnetic Storm in Progress</div>';
-        html += '<div style="color:var(--text-primary);font-size:0.9rem;">' + topStorm.summary + '</div>';
+        html += '<div style="color:var(--text-primary);font-size:0.9rem;">' + esc(topStorm.summary) + '</div>';
         if (topStorm.link) {
-          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + topStorm.link + '" target="_blank" rel="noopener">Track this storm &rarr;</a></div>';
+          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + safeUrl(topStorm.link) + '" target="_blank" rel="noopener">Track this storm &rarr;</a></div>';
         }
         html += '</div>';
       }
@@ -2418,11 +2436,11 @@
                        e.type === 'Coronal Mass Ejection' ? '&#128165;' :
                        '&#10024;';
         html += '<div class="event-item">';
-        html += '<div class="event-date">' + dateStr + (e.class ? ' &middot; ' + e.class : '') + '</div>';
-        html += '<div class="event-title">' + typeIcon + ' ' + e.type + '</div>';
-        html += '<div class="event-desc">' + e.summary + '</div>';
+        html += '<div class="event-date">' + dateStr + (e.class ? ' &middot; ' + esc(e.class) : '') + '</div>';
+        html += '<div class="event-title">' + typeIcon + ' ' + esc(e.type) + '</div>';
+        html += '<div class="event-desc">' + esc(e.summary) + '</div>';
         if (e.link) {
-          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + e.link + '" target="_blank" rel="noopener">More on NASA DONKI &rarr;</a></div>';
+          html += '<div style="margin-top:0.4rem;font-size:0.78rem;"><a href="' + safeUrl(e.link) + '" target="_blank" rel="noopener">More on NASA DONKI &rarr;</a></div>';
         }
         html += '</div>';
       });
