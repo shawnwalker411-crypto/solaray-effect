@@ -1951,7 +1951,8 @@
           html += '<div class="night-date">' + dateNum + '</div>';
           html += '<div style="margin:0.4rem 0;font-size:1.4rem;line-height:1;">' + s.moon.glyph + '</div>';
           html += '<div style="font-size:0.7rem;color:var(--text-muted);">' + s.avgCloud + '% cloud</div>';
-          html += '<div style="margin-top:0.4rem;"><span class="rating-badge rating-' + s.rating.key + '" style="font-size:0.65rem;padding:0.15rem 0.45rem;">' + s.rating.label + '</span></div>';
+          /* Future nights say "Skip", not "Skip Tonight" */
+          html += '<div style="margin-top:0.4rem;"><span class="rating-badge rating-' + s.rating.key + '" style="font-size:0.65rem;padding:0.15rem 0.45rem;">' + (idx === 0 ? s.rating.label : s.rating.label.replace(' Tonight', '')) + '</span></div>';
           html += '</div>';
         });
         html += '</div>';
