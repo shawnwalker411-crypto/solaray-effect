@@ -1407,7 +1407,6 @@
               <button class="pf-opt-btn" data-value="fees" onclick="pfSelectPriority(this)">Lowest fees &mdash; keep every sat</button>
               <button class="pf-opt-btn" data-value="min_payout" onclick="pfSelectPriority(this)">Lowest minimum payout &mdash; get paid more often</button>
               <button class="pf-opt-btn" data-value="privacy" onclick="pfSelectPriority(this)">Decentralization / privacy &mdash; no KYC</button>
-              <button class="pf-opt-btn" data-value="exchange" onclick="pfSelectPriority(this)">Exchange integration &mdash; earnings to my account</button>
               <button class="pf-opt-btn" data-value="none" onclick="pfSelectPriority(this)">No preference</button>
             </div>
           </div>
@@ -1667,7 +1666,6 @@
       antpool: { name: 'AntPool', payout: 'FPPS/PPLNS', minPayout: '0.005 BTC', smartSwitch: true, feePageUrl: 'https://www.antpool.com/', icon: '\uD83D\uDC1C' },
       viabtc: { name: 'ViaBTC', payout: 'PPS+/PPLNS', minPayout: '0.001 BTC', smartSwitch: true, feePageUrl: 'https://www.viabtc.com/', icon: '\u26A1' },
       btccom: { name: 'CloverPool (formerly BTC.com)', payout: 'FPPS', minPayout: '0.005 BTC', smartSwitch: false, feePageUrl: 'https://cloverpool.com/', icon: '\uD83C\uDF40' },
-      binance: { name: 'Binance Pool', payout: 'FPPS', minPayout: 'No minimum', smartSwitch: false, feePageUrl: 'https://pool.binance.com/', icon: '\uD83D\uDD36' },
       foundry: { name: 'Foundry USA', payout: 'FPPS', minPayout: '0.01 BTC', smartSwitch: false, feePageUrl: 'https://foundrydigital.com/mining-service/foundry-usa-pool/', icon: '\uD83C\uDFDB\uFE0F' },
       ocean: { name: 'OCEAN', payout: 'TIDES', minPayout: '~0.0105 BTC', smartSwitch: false, feePageUrl: 'https://ocean.xyz/', icon: '\uD83C\uDF0A' },
       ckpool: { name: 'CKPool Solo', payout: 'Solo', minPayout: 'Full block', smartSwitch: false, feePageUrl: 'https://solo.ckpool.org/', icon: '\uD83C\uDFB0' },
@@ -1707,13 +1705,12 @@
         whyNotes['f2pool'] = 'PPLNS 2% is cheaper but pays with pool luck; FPPS is 4%.';
         whyNotes['btccom'] = '4% FPPS.';
       } else {
-        tier1 = ['braiins', 'luxor', 'f2pool', 'antpool', 'btccom', 'binance', 'foundry'];
+        tier1 = ['braiins', 'luxor', 'f2pool', 'antpool', 'btccom', 'foundry'];
         whyNotes['braiins'] = '2.5% FPPS \u2014 tied for the lowest FPPS fee on stock firmware.';
         whyNotes['luxor'] = '2.5% FPPS. US-based, SOC 2 certified.';
         whyNotes['f2pool'] = 'FPPS 4% or PPLNS 2%. Merge-mined coins included.';
         whyNotes['antpool'] = 'FPPS 4% or PPLNS 2%. Run by Bitmain, the maker of Antminers.';
         whyNotes['btccom'] = '4% FPPS.';
-        whyNotes['binance'] = '4% FPPS. No minimum payout \u2014 paid daily to your Binance account.';
         whyNotes['foundry'] = 'Institutional grade. KYC required. Fee not published. 0.01 BTC min payout \u2014 slow for home miners.';
       }
 
@@ -1723,18 +1720,14 @@
       whyNotes['publicpool'] = '0% fee solo mining. Same lottery odds as CKPool.';
 
       if (priority === 'min_payout') {
-        // Remove binance from current position if present, then insert at #2
-        tier1 = tier1.filter(function(p) { return p !== 'binance'; });
-        tier1.splice(1, 0, 'binance');
-        whyNotes['binance'] = '\u2605 No minimum payout at all. 4% FPPS, paid daily to your Binance account.';
+        // Braiins: 0.0002 BTC on-chain minimum, Lightning from 1 sat - move it to #1
+        tier1 = tier1.filter(function(p) { return p !== 'braiins'; });
+        tier1.unshift('braiins');
+        whyNotes['braiins'] = '\u2605 Small minimum payout: 0.0002 BTC on-chain, or Lightning payouts from 1 sat. ' + (whyNotes['braiins'] || '');
       } else if (priority === 'privacy') {
         tier2 = tier2.filter(function(p) { return p !== 'ocean'; });
         tier1.splice(1, 0, 'ocean');
         whyNotes['ocean'] = '\u2605 Non-custodial, no KYC, decentralization focused. Exactly what you\u2019re looking for.';
-      } else if (priority === 'exchange') {
-        tier1 = tier1.filter(function(p) { return p !== 'binance'; });
-        tier1.splice(1, 0, 'binance');
-        whyNotes['binance'] = '\u2605 Earnings go straight to your Binance account daily. No minimum payout. 4% FPPS.';
       }
 
       var seen = {};
