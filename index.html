@@ -2444,13 +2444,6 @@
     // Rail position is worked out first and set once at the end (see below).
     var railTop = sectionTop - containerTop;
 
-    // Align right rail (Amazon) to same position
-    var railRight = document.querySelector('.affiliate-rail-right');
-    if (railRight) {
-      var containerTopRight = railRight.offsetParent ? railRight.offsetParent.getBoundingClientRect().top + window.scrollY : 0;
-      railRight.style.top = (sectionTop - containerTopRight) + 'px';
-    }
-
     // Align solo calc box with Select Your Miner section
     var calcBox = document.getElementById('solo-calc-box');
     if (calcBox) {
@@ -2487,6 +2480,15 @@
     // or to the same spot every time would loop forever and freeze the page.
     var railTopPx = Math.round(railTop) + 'px';
     if (rail.style.top !== railTopPx) rail.style.top = railTopPx;
+
+    // Move the right rail (Amazon) down by the same amount so both rails stay level.
+    var railRight = document.querySelector('.affiliate-rail-right');
+    if (railRight) {
+      var containerTopRight = railRight.offsetParent ? railRight.offsetParent.getBoundingClientRect().top + window.scrollY : 0;
+      var shift = railTop - (sectionTop - containerTop);
+      var railRightPx = Math.round(sectionTop - containerTopRight + shift) + 'px';
+      if (railRight.style.top !== railRightPx) railRight.style.top = railRightPx;
+    }
   }
 
   function init() {
