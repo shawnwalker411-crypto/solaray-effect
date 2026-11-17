@@ -187,10 +187,15 @@ for (const p of products) {
   if (!['keep', 'add', 'remove'].includes(p.status)) block(`${id}: unknown status "${p.status}"`);
   if (!live(p)) continue;
   for (const f of ['product', 'short_name', 'store', 'search_term', 'icon_left', 'icon_right', 'pages', 'order']) if (!p[f]) block(`${id}: missing ${f}`);
-  if (!['ebay', 'amazon'].includes(p.store)) block(`${id}: store must be ebay or amazon`);
+  if (!['ebay', 'amazon', 'banner'].includes(p.store)) block(`${id}: store must be ebay, amazon or banner`);
+  if (p.store === 'banner' && !/^item:\d+$/.test(p.search_term)) block(`${id}: banner needs search_term item:<eBay item number>`);
+  if (p.store === 'banner' && !p.customid) block(`${id}: banner needs a customid (click label)`);
   if (p.store === 'ebay' && !p.customid) block(`${id}: eBay item needs a customid (click label)`);
   if (/immersion|hydro/i.test(p.product + p.search_term)) block(`${id}: immersion/hydro products are not allowed`);
-  for (const pg of p.pages.split(/\s+/).filter(Boolean)) if (!railPages.includes(pg)) block(`${id}: page "${pg}" is not in settings rail_pages`);
+  for (const pg of p.pages.split(/\s+/).filter(Boolean)) {
+    if (p.store === 'banner' ? !existsSync(join(ROOT, pg + '.html')) : !railPages.includes(pg)) block(`${id}: page "${pg}" is not ${p.store === 'banner' ? 'a page on the site' : 'in settings rail_pages'}`);
+  }
+  if (p.store === 'banner' && !(p.icon_left.startsWith('photo:') && existsSync(join(ROOT, p.icon_left.slice(6))))) block(`${id}: banner photo ${p.icon_left} is missing`);
   for (const ic of [p.icon_left, p.icon_right]) if (ic.startsWith('img:') && !existsSync(join(ROOT, 'assets', 'rail', ic.slice(4) + '.png'))) block(`${id}: icon file assets/rail/${ic.slice(4)}.png is missing`);
 }
 

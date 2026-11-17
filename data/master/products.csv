@@ -1,4 +1,6 @@
 order,store,product,short_name,sub,upto,search_term,customid,icon_left,icon_right,pages,status,notes
+1,banner,Sola&rsquo;s S19 Pro,Sola&rsquo;s S19 Pro,37 TH/s &#x2022; 110V &#x2022; 1 hashboard||LuxOS &#x2022; WiFi &#x2022; 3D printed case,,item:206698260097,sola-s19pro-206698260097,photo:assets/forsale/sola-s19pro-main.jpg,&#x1F3F7;,index miners pools aftermarket_firmware electrical_setup glossary lottery_mining remote_management solar_mining datavault solar_forecast night_sky,keep,
+2,banner,18-Pin PSU Signal Cable,18-Pin PSU Signal Cable,For S19 / S19 Pro / S19j Pro / T19||New &#x2022; 2&#xD7;9 ribbon cable,,item:206194177881,sola-psu-cable-206194177881,photo:assets/forsale/psu-signal-cable.jpg,&#x1F3F7;,index miners pools aftermarket_firmware electrical_setup glossary lottery_mining remote_management solar_mining datavault solar_forecast night_sky,keep,
 10,ebay,Lottery Miners,Lottery Miners,,lottery,lottery miner,rail-lottery,img:btc,&#x1F3B0;,index miners lottery_mining glossary,keep,
 20,ebay,Antminer S19,Antminer S19,,name:S19,Antminer S19,rail-s19,img:btc,img:btc,index miners pools aftermarket_firmware electrical_setup solar_mining remote_management,keep,
 30,ebay,Antminer S21,Antminer S21,,name:S21,Antminer S21,rail-s21,img:btc,img:btc,index miners pools electrical_setup solar_mining,keep,

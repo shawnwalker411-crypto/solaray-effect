@@ -3,7 +3,7 @@
 // Output is written fresh on every deploy - never edit data/generated/ by hand.
 // If anything here fails, the deploy fails and the live site stays as it was.
 
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -435,4 +435,36 @@ for (const name of RAIL_PAGES) {
     if (s) { page = s; done.push('strip-' + kind); }
   }
   if (done.length) { writeFileSync(file, page); console.log(`generated shop rails on ${name}.html: ${done.join(', ')} (${itemsFor(name, 'ebay').length} eBay / ${itemsFor(name, 'amazon').length} Amazon)`); }
+}
+
+// =====================================================================
+// FOR-SALE BANNER: products.csv rows with store "banner" and status keep
+// fill <!-- SOLA-FORSALE:START --> ... <!-- SOLA-FORSALE:END --> on the
+// pages they list. Status "remove" empties the banner on every page.
+// search_term is item:<eBay item number>; links straight to that listing.
+// =====================================================================
+const banners = products.filter((p) => p.store === 'banner');
+const itemHref = (p) => `https://www.ebay.com/itm/${p.search_term.replace(/^item:/, '')}?customid=${p.customid}&amp;mkcid=1&amp;mkrid=711-53200-19255-0&amp;siteid=0&amp;campid=${CAMPID}&amp;toolid=10001&amp;mkevt=1`;
+// One "special" box holds every live banner row for the page, each with its own photo, 3 lines and button.
+// sub holds lines 2 and 3, split by ||
+const bannerItem = (p) => {
+  const [l2 = '', l3 = ''] = p.sub.split('||');
+  return `    <a href="${itemHref(p)}" target="_blank" rel="noopener sponsored" style="flex:1 1 300px;min-width:0;display:flex;align-items:center;gap:0.8rem;padding:0.6rem;border-radius:10px;background:rgba(255,255,255,0.18);color:#1a0e00;text-decoration:none;text-align:left;">
+      <img src="/${p.icon_left.replace(/^photo:/, '')}" alt="${p.product} for sale" width="112" height="84" loading="lazy" style="width:112px;height:84px;object-fit:cover;border-radius:8px;border:2px solid #fff;flex:0 0 auto;">
+      <span style="flex:1 1 auto;min-width:0;"><strong style="display:block;font-size:1.05rem;font-weight:800;line-height:1.25;">${p.product}</strong><span style="display:block;margin-top:0.15rem;font-size:0.88rem;font-weight:600;line-height:1.35;">${l2}</span><span style="display:block;font-size:0.88rem;font-weight:600;line-height:1.35;">${l3}</span><span style="display:inline-block;margin-top:0.45rem;padding:0.4rem 0.8rem;border-radius:7px;background:#1a0e00;color:#fff;font-weight:800;font-size:0.88rem;white-space:nowrap;">See it on eBay &rarr;</span></span>
+    </a>`;
+};
+const bannerHtml = (items) => `<div class="sola-forsale" style="max-width:900px;margin:1.1rem auto 0.9rem;padding:0 1rem;box-sizing:border-box;">
+  <div style="position:relative;display:flex;flex-wrap:wrap;gap:0.7rem;padding:1.1rem 0.8rem 0.8rem;border-radius:14px;background:linear-gradient(135deg,#ff3d00 0%,#ff8a00 55%,#ffc400 100%);border:2px solid #fff3c4;box-shadow:0 6px 24px rgba(255,90,0,0.35);">
+    <span style="position:absolute;top:-11px;left:16px;padding:3px 11px;border-radius:999px;background:#1a0e00;color:#ffc400;font-size:0.72rem;font-weight:800;letter-spacing:0.12em;">&#x2605; SPECIAL &mdash; FOR SALE BY SOLA &#x2605;</span>
+${items.map(bannerItem).join('\n')}
+  </div>
+</div>`;
+for (const f of readdirSync(ROOT).filter((n) => n.endsWith('.html'))) {
+  const file = join(ROOT, f);
+  const page = readFileSync(file, 'utf8');
+  const name = f.replace(/\.html$/, '');
+  const live = banners.filter((p) => p.pages.split(/\s+/).includes(name));
+  const out = between(page, '<!-- SOLA-FORSALE:START -->', '<!-- SOLA-FORSALE:END -->', live.length ? bannerHtml(live) : '');
+  if (out !== null && out !== page) { writeFileSync(file, out); console.log(`for-sale banner on ${f}: ${live.length ? 'shown' : 'removed'}`); }
 }
