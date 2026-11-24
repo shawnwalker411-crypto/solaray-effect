@@ -162,6 +162,16 @@ export default async function handler(req, res) {
       const data = await fetchCoinData(c);
       const y = perUnitDay(c, data.yield_difficulty || data.difficulty, data.block_reward);
       if (y) data.per_unit_day = y;
+      // The Solo Mining Odds widget reads network_hashrate. Scale it to the same
+      // 24-hour average difficulty the calculator's pay math uses, so both tools
+      // agree. (FB difficulty moved about 3x within one day in Nov 2026, which made
+      // the odds widget show ~2.5x the calculator's earnings.) The chain's
+      // right-now figure stays available as network_hashrate_current.
+      const yd = Number(data.yield_difficulty), cd = Number(data.difficulty);
+      if (yd > 0 && cd > 0 && yd !== cd && Number(data.network_hashrate) > 0) {
+        data.network_hashrate_current = data.network_hashrate;
+        data.network_hashrate = data.network_hashrate * (yd / cd);
+      }
       cache[c] = { ...data, timestamp: Date.now() };
       results[c] = { ...data, fromCache: false };
     } catch (e) {

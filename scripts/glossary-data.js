@@ -529,7 +529,7 @@ var SOLA_GLOSSARY = {
 
   "fractal-bitcoin": {
     title: "Fractal Bitcoin (FB)",
-    definition: "A Bitcoin-compatible chain using SHA-256, designed for faster block times than Bitcoin (nominal 30 seconds, though observed averages run higher and vary). Any SHA-256 ASIC can mine it directly \u2014 no special hardware required. Network hashrate for permissionless mining sits around 0.4 EH/s, which is much smaller than Bitcoin's overall network. That smaller scale gives meaningful per-TH yield for ASICs that participate. Use a dedicated FB pool rather than pointing your miner at a Bitcoin pool."
+    definition: "A Bitcoin-compatible chain using SHA-256, designed for faster block times than Bitcoin (nominal 30 seconds, though observed averages run higher and vary). Any SHA-256 ASIC can mine it directly \u2014 no special hardware required. Network hashrate for permissionless mining is a tiny fraction of Bitcoin's, and its difficulty can swing several times over within a single day. That smaller scale gives meaningful per-TH yield for ASICs that participate. Use a dedicated FB pool rather than pointing your miner at a Bitcoin pool."
   },
 
   "quai-network": {
