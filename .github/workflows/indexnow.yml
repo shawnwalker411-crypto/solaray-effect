@@ -1,0 +1,77 @@
+name: IndexNow ping
+
+# After a push to main changes any page, wait for Vercel to deploy it,
+# then tell Bing (and other IndexNow search engines) which pages changed.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'Components/**'
+      - 'data/master/**'
+      - 'sitemap.xml'
+  workflow_dispatch:
+    inputs:
+      all_pages:
+        description: 'Send every page in the sitemap'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Wait for the Vercel deploy
+        run: sleep 150
+
+      - name: Send changed pages to IndexNow
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          ALL_PAGES: ${{ github.event_name == 'workflow_dispatch' && inputs.all_pages }}
+        run: |
+          node - <<'EOF'
+          const { execSync } = require('child_process');
+          const fs = require('fs');
+          const HOST = 'www.solarayeffect.com';
+          const KEY = '805ac64bc2688cfdb7b7fcc33824b3d4';
+
+          // Every page the sitemap lists
+          const sitemap = fs.readFileSync('sitemap.xml', 'utf8');
+          const all = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+
+          let urls;
+          let changed = [];
+          const before = process.env.BEFORE || '';
+          if (process.env.ALL_PAGES === 'true' || !before || /^0+$/.test(before)) {
+            urls = all;
+          } else {
+            changed = execSync(`git diff --name-only ${before} ${process.env.AFTER}`).toString().split('\n').filter(Boolean);
+            // Shared nav/footer or master data change every page; otherwise only the changed pages
+            if (changed.some(f => f.startsWith('Components/') || f.startsWith('data/master/'))) {
+              urls = all;
+            } else {
+              urls = changed.filter(f => /^[^/]+\.html$/.test(f))
+                .map(f => f === 'index.html' ? `https://${HOST}/` : `https://${HOST}/${f}`)
+                .filter(u => all.includes(u));
+            }
+          }
+          if (!urls.length) { console.log('No sitemap pages changed; nothing to send.'); process.exit(0); }
+          console.log('Sending ' + urls.length + ' page(s):\n' + urls.join('\n'));
+
+          fetch('https://api.indexnow.org/indexnow', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify({ host: HOST, key: KEY, keyLocation: `https://${HOST}/${KEY}.txt`, urlList: urls })
+          }).then(r => {
+            console.log('IndexNow answered ' + r.status);
+            if (r.status !== 200 && r.status !== 202) process.exit(1);
+          }).catch(e => { console.error(e); process.exit(1); });
+          EOF
