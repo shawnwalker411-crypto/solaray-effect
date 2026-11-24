@@ -438,6 +438,43 @@ for (const name of RAIL_PAGES) {
 }
 
 // =====================================================================
+// FOLLOW SOLA STRIP: fills <!-- SOLA-FOLLOW:START --> ... <!-- SOLA-FOLLOW:END -->
+// (strip between the page title and the for-sale special) and, on the
+// homepage, <!-- SOLA-FOLLOW-RESULTS:START --> ... END (after the results).
+// Edit the account list here; every page updates on the next build.
+// =====================================================================
+const FOLLOW = [
+  ['Facebook', 'https://www.facebook.com/profile.php?id=61588067291586'],
+  ['Instagram', 'https://www.instagram.com/solarayeffect/'],
+  ['X', 'https://x.com/Solarayeffect'],
+  ['YouTube', 'https://www.youtube.com/channel/UCmITF6t2P5RHtPbGJ2MpwHQ'],
+  ['TikTok', 'https://www.tiktok.com/@solarayeffect'],
+];
+const followLinks = () => FOLLOW.map(([n, u]) => `<a href="${u}" target="_blank" rel="me noopener">${n}</a>`).join('');
+const followStyle = `<style>
+.follow-sola{text-align:center;margin:0.5rem auto 0.25rem;padding:0 1rem;max-width:900px;box-sizing:border-box}
+.follow-sola .follow-title{color:var(--sola-gold, #D4AF37);font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin:0 0 0.5rem}
+.follow-sola .follow-links{display:flex;flex-wrap:wrap;justify-content:center;gap:0.4rem}
+.follow-sola .follow-links a{display:inline-block;min-height:24px;padding:0.35rem 0.8rem;border:1px solid rgba(0,206,209,0.35);border-radius:999px;background:rgba(0,206,209,0.06);color:var(--sola-teal, #00CED1);font-size:0.8rem;font-weight:600;line-height:1.2;text-decoration:none;transition:background 0.2s,color 0.2s}
+.follow-sola .follow-links a:hover{background:rgba(0,206,209,0.15);color:var(--sola-teal-bright, #00E5E8)}
+.follow-sola.follow-results{margin:1.5rem auto 0;padding-top:1.25rem;border-top:1px solid rgba(0,206,209,0.15)}
+.follow-sola.follow-results .follow-title{font-size:0.95rem;letter-spacing:0;text-transform:none}
+</style>`;
+const followTop = () => `${followStyle}
+<div class="follow-sola"><p class="follow-title">Follow Sola</p><div class="follow-links">${followLinks()}</div></div>`;
+const followResults = () => `<div class="follow-sola follow-results"><p class="follow-title">Like these numbers? Follow Sola for home-mining tips.</p><div class="follow-links">${followLinks()}</div></div>`;
+for (const f of readdirSync(ROOT).filter((n) => n.endsWith('.html'))) {
+  const file = join(ROOT, f);
+  let page = readFileSync(file, 'utf8');
+  const before = page;
+  const a = between(page, '<!-- SOLA-FOLLOW:START -->', '<!-- SOLA-FOLLOW:END -->', followTop());
+  if (a !== null) page = a;
+  const b = between(page, '<!-- SOLA-FOLLOW-RESULTS:START -->', '<!-- SOLA-FOLLOW-RESULTS:END -->', followResults());
+  if (b !== null) page = b;
+  if (page !== before) { writeFileSync(file, page); console.log(`follow strip on ${f}`); }
+}
+
+// =====================================================================
 // FOR-SALE BANNER: products.csv rows with store "banner" and status keep
 // fill <!-- SOLA-FORSALE:START --> ... <!-- SOLA-FORSALE:END --> on the
 // pages they list. Status "remove" empties the banner on every page.

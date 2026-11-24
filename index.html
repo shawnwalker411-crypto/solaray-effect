@@ -48,57 +48,6 @@
 @media (max-width: 600px) {
   .site-title { font-size: 1.3rem !important; line-height: 1.3; }
 }
-.hotpick-nav-card {
-  display: none;
-}
-@media (min-width: 1280px) {
-  .hotpick-nav-card {
-    display: block;
-    position: absolute;
-    top: -170px;
-    width: 180px;
-    padding: 1rem 0.75rem;
-    background: rgba(0,206,209,0.04);
-    border: 1px solid rgba(0,206,209,0.15);
-    border-radius: 8px;
-    z-index: 50;
-  }
-  .hotpick-nav-card.left-card { left: 0; transform: translateX(-110%); }
-  .hotpick-nav-card.right-card { right: 0; transform: translateX(110%); }
-  .hotpick-nav-card .nav-card-title {
-    color: rgba(212,175,55,0.85);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 0.6rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid rgba(212,175,55,0.2);
-  }
-  .hotpick-nav-card .nav-card-link {
-    display: block;
-    padding: 0.35rem 0.5rem;
-    margin-bottom: 4px;
-    color: rgba(232,240,247,0.8);
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
-  }
-  .hotpick-nav-card .nav-card-link:hover {
-    background: rgba(0,206,209,0.1);
-    color: #00CED1;
-  }
-  .hotpick-nav-card .nav-card-desc {
-    color: rgba(136,153,168,0.7);
-    font-size: 0.55rem;
-    display: block;
-    margin-top: 1px;
-  }
-}
-
 /* ============================================
    MOBILE SOLO MINING ODDS STRIP
    Inline solo calculator, shown whenever the side shop rails are off
@@ -254,26 +203,27 @@ html.rails-on .mobile-solo-strip { display: none; }
 #solo-calc-box {
   position: absolute;
   left: 12px;
-  width: 200px;
+  /* 200px on a 1366 laptop, wider on screens with more side room (max 280px) */
+  width: clamp(200px, calc((100vw - 900px) / 2 - 24px), 280px);
   z-index: 890;
-  padding: 0.5rem 0.6rem;
+  padding: 0.7rem 0.75rem;
   background: rgba(0,206,209,0.05);
   border: 1px solid rgba(0,206,209,0.2);
   border-radius: 6px;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   color: #8899a8;
 }
 #solo-calc-box .solo-calc-title {
   color: var(--sola-teal);
   font-weight: 700;
-  font-size: 0.68rem;
+  font-size: 0.9rem;
   text-align: center;
   margin-bottom: 0.35rem;
 }
 #solo-calc-box label {
   display: block;
   color: rgba(232,240,247,0.5);
-  font-size: 0.58rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   margin-bottom: 2px;
@@ -282,8 +232,8 @@ html.rails-on .mobile-solo-strip { display: none; }
 #solo-calc-box select,
 #solo-calc-box input[type="number"] {
   width: 100%;
-  padding: 3px 4px;
-  font-size: 0.62rem;
+  padding: 5px 6px;
+  font-size: 0.8rem;
   color: var(--text-primary);
   background: rgba(8,26,21,0.8);
   border: 1px solid rgba(0,206,209,0.25);
@@ -300,13 +250,13 @@ html.rails-on .mobile-solo-strip { display: none; }
   gap: 3px;
 }
 #solo-calc-box .solo-hash-row input { flex: 1; min-width: 0; }
-#solo-calc-box .solo-hash-row select { width: 58px; flex-shrink: 0; }
+#solo-calc-box .solo-hash-row select { width: 72px; flex-shrink: 0; }
 #solo-calc-box .solo-calc-btn {
   display: block;
   width: 100%;
   margin-top: 0.4rem;
-  padding: 4px 0;
-  font-size: 0.62rem;
+  padding: 7px 0;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--sola-emerald);
   background: linear-gradient(135deg, var(--sola-teal), var(--sola-teal-dark));
@@ -331,14 +281,14 @@ html.rails-on .mobile-solo-strip { display: none; }
 }
 #solo-calc-box .solo-results th {
   color: rgba(232,240,247,0.5);
-  font-size: 0.56rem;
+  font-size: 0.7rem;
   font-weight: 600;
   text-align: left;
   padding: 2px 0;
   border-bottom: 1px solid rgba(0,206,209,0.1);
 }
 #solo-calc-box .solo-results td {
-  font-size: 0.6rem;
+  font-size: 0.76rem;
   padding: 2px 0;
   color: rgba(232,240,247,0.85);
 }
@@ -351,7 +301,7 @@ html.rails-on .mobile-solo-strip { display: none; }
 }
 #solo-calc-box .solo-error {
   color: var(--loss);
-  font-size: 0.58rem;
+  font-size: 0.72rem;
   text-align: center;
   margin-top: 0.3rem;
   display: none;
@@ -359,7 +309,7 @@ html.rails-on .mobile-solo-strip { display: none; }
 #solo-calc-box .solo-credit {
   margin-top: 0.4rem;
   text-align: center;
-  font-size: 0.5rem;
+  font-size: 0.66rem;
   color: rgba(136,153,168,0.6);
   border-top: 1px solid rgba(0,206,209,0.1);
   padding-top: 0.3rem;
@@ -1931,30 +1881,11 @@ html:not(.rails-on) #solo-calc-box { display: none; }
     <header>
       <h1 class="site-title" style="font-size: 1.8rem; text-align: center; background: linear-gradient(135deg, #00CED1, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0.5rem 0;">Bitcoin Mining Calculator for Home Miners<br>Solar, Free Nights &amp; Weekends</h1>
 </header>
+    <!-- SOLA-FOLLOW:START -->
+    <!-- SOLA-FOLLOW:END -->
     <!-- SOLA-FORSALE:START -->
     <!-- SOLA-FORSALE:END -->
     <p class="affiliate-disclosure" style="text-align:center;font-size:0.85rem;color:#aaa;margin:0.5rem 0 1rem;">This website contains affiliate links. We may earn a commission if you purchase through them, at no extra cost to you.</p>
-
-    <!-- Nav cards beside the title (desktop only); anchored here so they sit in the empty side columns above the calculator -->
-    <div class="nav-card-anchor" style="position:relative;height:0;">
-      <!-- Left Nav Card: New to Mining? -->
-      <div class="hotpick-nav-card left-card">
-        <div class="nav-card-title">New to Mining?</div>
-        <a class="nav-card-link" href="#about-sola">&#x2600;&#xFE0F; About Sola Ray&#x2019;s Effect<span class="nav-card-desc">What this calculator does</span></a>
-        <a class="nav-card-link" href="electrical_setup.html">&#x26A1; Electrical Setup<span class="nav-card-desc">Wiring, voltage, breakers</span></a>
-        <a class="nav-card-link" href="glossary.html">&#x1F4D6; Glossary<span class="nav-card-desc">Mining terms explained</span></a>
-        <a class="nav-card-link" href="miners.html">&#x1F4B0; Miner Catalog<span class="nav-card-desc">Compare 90+ ASICs</span></a>
-      </div>
-
-      <!-- Right Nav Card: Already Mining? -->
-      <div class="hotpick-nav-card right-card">
-        <div class="nav-card-title">Already Mining?</div>
-        <a class="nav-card-link" href="pools.html">&#x1F3CA; Mining Pools<span class="nav-card-desc">Fees, payouts, best fit</span></a>
-        <a class="nav-card-link" href="aftermarket_firmware.html">&#x2699;&#xFE0F; Aftermarket Firmware<span class="nav-card-desc">LuxOS, VNish, Braiins</span></a>
-        <a class="nav-card-link" href="remote_management.html">&#x1F4E1; Remote Management<span class="nav-card-desc">Monitor from anywhere</span></a>
-        <a class="nav-card-link" href="datavault.html">&#x1F4CA; Data Vault<span class="nav-card-desc">Live stats &#x26; hashrates</span></a>
-      </div>
-    </div>
 
     <!-- Miner Selection -->
     <section class="section" >
@@ -2193,6 +2124,8 @@ html:not(.rails-on) #solo-calc-box { display: none; }
         <p style="color: var(--sola-gold); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">&#x1F517; Dig Deeper</p>
         <div id="context-links-inner" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
       </div>
+      <!-- SOLA-FOLLOW-RESULTS:START -->
+      <!-- SOLA-FOLLOW-RESULTS:END -->
     </section>
     
     <!-- Sola's Hot Pick (below the calculator) -->
@@ -2457,34 +2390,26 @@ html:not(.rails-on) #solo-calc-box { display: none; }
     // Rail position is worked out first and set once at the end (see below).
     var railTop = sectionTop - containerTop;
 
-    // Align solo calc box with Select Your Miner section
+    // Solo calc box starts beside the page title, just below the fixed menu button
     var calcBox = document.getElementById('solo-calc-box');
     if (calcBox) {
-      var minerSection = null;
-      for (var j = 0; j < headings.length; j++) {
-        if (headings[j].textContent.indexOf('Select Your Miner') !== -1) {
-          minerSection = headings[j].closest('section') || headings[j];
-          break;
+      var titleEl = document.querySelector('.site-title');
+      if (titleEl) {
+        var startTop = titleEl.getBoundingClientRect().top + window.scrollY;
+        var menuBtn = document.getElementById('hamburger-btn');
+        if (menuBtn) {
+          // The menu button is fixed, so at the top of the page its bottom edge is rect.bottom
+          var menuClear = menuBtn.getBoundingClientRect().bottom + 16;
+          if (menuClear > startTop) startTop = menuClear;
         }
-      }
-      if (minerSection) {
-        var minerTop = minerSection.getBoundingClientRect().top + window.scrollY;
-        // If the left nav card (beside the title) reaches lower, start below it.
-        var navCard = document.querySelector('.hotpick-nav-card.left-card');
-        if (navCard && navCard.offsetParent !== null) {
-          var navBottom = navCard.getBoundingClientRect().bottom + window.scrollY + 16;
-          if (navBottom > minerTop) minerTop = navBottom;
-        }
-        calcBox.style.top = (minerTop - containerTop) + 'px';
+        calcBox.style.top = Math.round(startTop - containerTop) + 'px';
       }
 
-      // Keep the eBay rail below the solo box. When the odds results open,
-      // the box gets taller; without this the "Shop Miners" rail sits on top of it.
+      // The eBay rail sits right below the solo box. When the odds results open,
+      // the box gets taller and the rail moves down with it.
       if (calcBox.offsetParent !== null) {
         var calcBottom = calcBox.getBoundingClientRect().bottom + window.scrollY + 24;
-        if (calcBottom > sectionTop) {
-          railTop = calcBottom - containerTop;
-        }
+        railTop = calcBottom - containerTop;
       }
     }
 
